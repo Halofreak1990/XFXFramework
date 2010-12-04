@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX", "src\libXFX\libXFX.vcproj", "{379FFCFD-88FA-46D6-A686-CAE8F58652FC}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E} = {B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX.Game", "src\libXFX.Game\libXFX.Game.vcproj", "{467C54AE-676B-4D1A-AB8E-60B930F09FB1}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E} = {B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}
+		{379FFCFD-88FA-46D6-A686-CAE8F58652FC} = {379FFCFD-88FA-46D6-A686-CAE8F58652FC}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmscorlib", "src\libmscorlib\libmscorlib.vcproj", "{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{379FFCFD-88FA-46D6-A686-CAE8F58652FC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{379FFCFD-88FA-46D6-A686-CAE8F58652FC}.Debug|Win32.Build.0 = Debug|Win32
+		{379FFCFD-88FA-46D6-A686-CAE8F58652FC}.Release|Win32.ActiveCfg = Release|Win32
+		{379FFCFD-88FA-46D6-A686-CAE8F58652FC}.Release|Win32.Build.0 = Release|Win32
+		{467C54AE-676B-4D1A-AB8E-60B930F09FB1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{467C54AE-676B-4D1A-AB8E-60B930F09FB1}.Debug|Win32.Build.0 = Debug|Win32
+		{467C54AE-676B-4D1A-AB8E-60B930F09FB1}.Release|Win32.ActiveCfg = Release|Win32
+		{467C54AE-676B-4D1A-AB8E-60B930F09FB1}.Release|Win32.Build.0 = Release|Win32
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Debug|Win32.Build.0 = Debug|Win32
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Release|Win32.ActiveCfg = Release|Win32
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
