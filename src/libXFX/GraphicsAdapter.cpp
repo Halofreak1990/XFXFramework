@@ -25,12 +25,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include "PBKit/pbKit.h"
+#include "pbKit.h"
 #include <Graphics/GraphicsAdapter.h>
-
-#if ENABLE_XBOX
 #include <hal/video.h>
-#endif
 
 namespace XFX
 {
@@ -38,81 +35,49 @@ namespace XFX
 	{
 		char* GraphicsAdapter::Description()
 		{
-#if ENABLE_XBOX
 			//TODO: Come up with a device description
-#else
-			//TODO: Get Device Description
-#endif
+			return "";
 		}
 		
 		int GraphicsAdapter::DeviceId()
 		{
-#if ENABLE_XBOX
 			return 0x2a0;
-#else
-			//TODO: Get Device ID
-#endif
 		}
 		
 		char* GraphicsAdapter::DeviceName()
 		{
-#if ENABLE_XBOX
 			return "NV2A";
-#else
-			//TODO: Get Device Name
-#endif
 		}
 		
 		char* GraphicsAdapter::DriverDLL()
 		{
-#if ENABLE_XBOX
 			return "pbKit";
-#else
-			//TODO: Get Driver DLL
-#endif
 		}
 		
 		float GraphicsAdapter::DriverVersion()
 		{
-#if ENABLE_XBOX
 			return 1.0;
-#else
-			//TODO: Get Driver Version
-#endif
 		}
 		
 		bool GraphicsAdapter::IsDefaultAdapter()
 		{
-#if ENABLE_XBOX
 			return true;
-#else
-			//TODO: Find out whther this device is the Default Adapter
-#endif
 		}
 		
 		int GraphicsAdapter::VendorId()
 		{
-#if ENABLE_XBOX
 			return 0x10DE;
-#else
-			//TODO: Get VendorId
-#endif
 		}
 		
 		bool GraphicsAdapter::IsWideScreen()
 		{
-#if ENABLE_XBOX	
 			return false;
-#else
-			//TODO: Get IsWideScreen
-#endif
 		}
 		
 		DisplayMode GraphicsAdapter::CurrentDisplayMode()
 		{
 			DisplayMode disp;
 			
-#if ENABLE_XBOX
 			VIDEO_MODE mode = XVideoGetMode();
 			disp.Height = mode.height;
 			disp.RefreshRate = mode.refresh;
@@ -126,15 +91,11 @@ namespace XFX
 			case 8: disp.Format = SurfaceFormat::Palette8;
 			default: disp.Format = SurfaceFormat::Unknown;
 			}
-#else
-			//TODO: Get the screen surface format, dimensions, and refreshRate, and store them in the 'disp' variable
-#endif
 			return disp;
 		}
 		
 		bool GraphicsAdapter::IsDeviceTypeAvailable(DeviceType_t deviceType)
 		{
-#if ENABLE_XBOX
 			switch(deviceType)
 			{
 				case DeviceType::Hardware: return true;
@@ -142,9 +103,13 @@ namespace XFX
 				case DeviceType::Reference: return false;
 				default: return false;
 			}
-#else
-			//TODO: Add code to check this on Linux
-#endif
+		}
+
+		DisplayModeCollection GraphicsAdapter::SupportedDisplayModes()
+		{
+			DisplayModeCollection collection;
+			
+			return collection;
 		}
 	}
 }

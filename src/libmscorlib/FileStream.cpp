@@ -206,7 +206,7 @@ namespace System
 		{
 			if (isAsync)
 			{
-				IAsyncResult asyncResult = BeginWrite(_buffer, 0, _writePos, null, null);
+				IAsyncResult* asyncResult = BeginWrite(_buffer, 0, _writePos, null, null);
 				if (!calledFromFinalizer)
 				{
 					EndWrite(asyncResult);
@@ -243,7 +243,7 @@ namespace System
 
 			if(isAsync)
 			{
-				IAsyncResult ares = BeginRead(array, offset, count, null, null);
+				IAsyncResult* ares = BeginRead(array, offset, count, null, null);
 				return EndRead(ares);
 			}
 
@@ -338,7 +338,7 @@ namespace System
 		{
 			if(isAsync)
 			{
-				IAsyncResult asyncResult = BeginWrite(array, offset, count, null, null);
+				IAsyncResult* asyncResult = BeginWrite(array, offset, count, null, null);
 				EndWrite(asyncResult);
 			}
 			else

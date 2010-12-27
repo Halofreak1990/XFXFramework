@@ -43,7 +43,7 @@ namespace System
 			return false;
 		}
 
-		IAsyncResult Stream::BeginRead(byte buffer[], int offset, int count, ASyncCallback callback, void *state)
+		IAsyncResult* Stream::BeginRead(byte buffer[], int offset, int count, ASyncCallback callback, Object* state)
 		{
 			if(!CanRead())
 				throw NotSupportedException("This stream does not support reading");
@@ -62,7 +62,7 @@ namespace System
 			return result;
 		}
 
-		IAsyncResult Stream::BeginWrite(byte buffer[], int offset, int count, ASyncCallback callback, void *state)
+		IAsyncResult* Stream::BeginWrite(byte buffer[], int offset, int count, ASyncCallback callback, Object* state)
 		{
 			if(!CanWrite())
 				throw NotSupportedException("This stream does not support writing");
@@ -93,7 +93,7 @@ namespace System
 			Close();
 		}
 
-		int Stream::EndRead(IAsyncResult asyncResult)
+		int Stream::EndRead(IAsyncResult* asyncResult)
 		{
 			StreamAsyncResult result = (StreamAsyncResult)asyncResult;
 			if (result.NBytes() == -1)
@@ -109,7 +109,7 @@ namespace System
 			return result.NBytes();
 		}
 
-		void Stream::EndWrite(IAsyncResult asyncResult)
+		void Stream::EndWrite(IAsyncResult* asyncResult)
 		{
 			StreamAsyncResult result = (StreamAsyncResult)asyncResult;
 			if (result.NBytes() != -1)

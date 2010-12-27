@@ -2,12 +2,13 @@
  *	Storage.h											*
  *														*
  *	XFX::Storage namespace include file					*
- *	Copyright © XFX Team. All Rights Reserved		*
+ *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef STORAGE_H
-#define STORAGE_H
+#ifndef _XFX_STORAGE_
+#define _XFX_STORAGE_
 
 #include "StorageContainer.h"
 #include "StorageDevice.h"
+#include "StorageDeviceNotConnectedException.h"
 
-#endif //STORAGE_H
+#endif //_XFX_STORAGE_

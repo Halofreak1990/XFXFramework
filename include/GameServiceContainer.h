@@ -7,21 +7,21 @@
 #ifndef _XFX_GAMESERVICECONTAINER_
 #define _XFX_GAMESERVICECONTAINER_
 
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
 namespace XFX
 {
 	/// <Summary>
 	/// A collection of game services.
 	/// </summary>
-	class GameServiceContainer
+	class GameServiceContainer : public IServiceProvider
 	{
 	public:
-		template <class T>
-		void AddService(T type, void* provider);
+		void AddService(Object* provider);
 		GameServiceContainer();
-		template <class T>
-		void* GetService(T type);
-		template <class T>
-		void RemoveService(T type);
+		Object* GetService(Object* serviceType);
+		void RemoveService(Object* type);
 	};
 }
 

@@ -3,13 +3,11 @@
 
 //#define DBG
 //#define LOG
-extern "C"{
 #include <hal/video.h>
 #include <hal/xbox.h>
 #include <hal/io.h>
 #include <xboxkrnl/xboxkrnl.h>
 #include <openxdk/debug.h>
-}
 
 #include "pbKit.h"
 #include "outer.h"
@@ -705,7 +703,10 @@ static DWORD pb_gr_handler(void)
 
 							//calling XReboot() from here doesn't work well.
 
-							while(1) {};
+							// Halt the system with these instructions, so the CPU can idle.
+							__asm__ (
+								"cli\n"
+								"hlt");
 						}
 					}
 				}
@@ -1941,7 +1942,7 @@ void pb_target_back_buffer(void)
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_FIRE_INTERRUPT,PB_SETOUTER); p+=2;
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_SET_OBJECT4,10); p+=2;
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_DEPTH_TEST_ENABLE,flag); p+=2;	//ZEnable=TRUE or FALSE (But don't use W, see below)
-		pb_push1(p,NV20_TCL_PRIMITIVE_3D_STENCIL_ENABLE,1); p+=2;	//StencilEnable=TRUE
+		pb_push1(p,NV20_TCL_PRIMITIVE_3D_STENCIL_TEST_ENABLE,1); p+=2;	//StencilEnable=TRUE
 		pb_end(p);
 
 		pb_DepthStencilLast=depth_stencil;
@@ -2061,7 +2062,7 @@ void pb_target_extra_buffer(int index_buffer)
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_FIRE_INTERRUPT,PB_SETOUTER); p+=2;
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_SET_OBJECT4,10); p+=2;
 		pb_push1(p,NV20_TCL_PRIMITIVE_3D_DEPTH_TEST_ENABLE,flag); p+=2;	//ZEnable=TRUE or FALSE (But don't use W, see below)
-		pb_push1(p,NV20_TCL_PRIMITIVE_3D_STENCIL_ENABLE,1); p+=2;	//StencilEnable=TRUE
+		pb_push1(p,NV20_TCL_PRIMITIVE_3D_STENCIL_TEST_ENABLE,1); p+=2;	//StencilEnable=TRUE
 		pb_end(p);
 
 		pb_DepthStencilLast=depth_stencil;

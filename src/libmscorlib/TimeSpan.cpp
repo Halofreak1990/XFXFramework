@@ -39,6 +39,11 @@ namespace System
 	const Int64 TimeSpan::TicksPerHour = 36000000000LL;
 	const Int64 TimeSpan::TicksPerDay = 864000000000LL;
 
+	TimeSpan::TimeSpan()
+	{
+		_ticks = 0;
+	}
+
 	TimeSpan::TimeSpan(int hours, int minutes, int seconds)
 	{
 		CalculateTicks(0, hours, minutes, seconds, 0, true, _ticks);

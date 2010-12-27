@@ -2,12 +2,8 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-#
-# The ENABLE_XBOX definition is there because of intentions to eventually
-# support Linux as a platform as well
-#
 PREFIX = /usr/local/openxdk
-XFX_PREFIX = /cygdrive/j/XFX
+XFX_PREFIX = "/cygdrive/c/Users/T.R.J. Lint/Documents/My Dropbox/XFX"
 
 CC = gcc
 CCAS = gcc

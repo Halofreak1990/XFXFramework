@@ -27,6 +27,7 @@
 
 #include <System/Array.h>
 #include <System/Exception.h>
+#include <System/Math.h>
 #include <BoundingBox.h>
 #include <BoundingSphere.h>
 #include <BoundingFrustrum.h>
@@ -39,21 +40,57 @@ namespace XFX
 {
 	BoundingFrustrum::BoundingFrustrum()
 	{
-		planes = { Plane(), Plane(), Plane(), Plane(), Plane(), Plane() };
-		cornerArray = { Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3() };
+		planes[0] = Plane();
+		planes[1] = Plane();
+		planes[2] = Plane();
+		planes[3] = Plane();
+		planes[4] = Plane();
+		planes[5] = Plane();
+		cornerArray[0] = Vector3();
+		cornerArray[1] = Vector3();
+		cornerArray[2] = Vector3();
+		cornerArray[3] = Vector3();
+		cornerArray[4] = Vector3();
+		cornerArray[5] = Vector3();
+		cornerArray[6] = Vector3();
+		cornerArray[7] = Vector3();
 	}
 
 	BoundingFrustrum::BoundingFrustrum(Matrix value)
 	{
-		planes = { Plane(), Plane(), Plane(), Plane(), Plane(), Plane() };
-		cornerArray = { Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3(), Vector3() };
+		planes[0] = Plane();
+		planes[1] = Plane();
+		planes[2] = Plane();
+		planes[3] = Plane();
+		planes[4] = Plane();
+		planes[5] = Plane();
+		cornerArray[0] = Vector3();
+		cornerArray[1] = Vector3();
+		cornerArray[2] = Vector3();
+		cornerArray[3] = Vector3();
+		cornerArray[4] = Vector3();
+		cornerArray[5] = Vector3();
+		cornerArray[6] = Vector3();
+		cornerArray[7] = Vector3();
 		SetMatrix(value);
 	}
 
 	BoundingFrustrum::BoundingFrustrum(const BoundingFrustrum &obj)
 	{
-		Array::Copy(obj.planes, 0, planes, 0, 6);
-		Array::Copy(obj.cornerArray, 0, cornerArray, 0, 8);
+		planes[0] = obj.planes[0];
+		planes[1] = obj.planes[1];
+		planes[2] = obj.planes[2];
+		planes[3] = obj.planes[3];
+		planes[4] = obj.planes[4];
+		planes[5] = obj.planes[5];
+		cornerArray[0] = obj.cornerArray[0];
+		cornerArray[1] = obj.cornerArray[1];
+		cornerArray[2] = obj.cornerArray[2];
+		cornerArray[3] = obj.cornerArray[3];
+		cornerArray[4] = obj.cornerArray[4];
+		cornerArray[5] = obj.cornerArray[5];
+		cornerArray[6] = obj.cornerArray[6];
+		cornerArray[7] = obj.cornerArray[7];
 		SetMatrix(obj.matrix);
 	}
 
@@ -270,7 +307,7 @@ namespace XFX
 
 	bool BoundingFrustrum::Intersects(BoundingBox box)
 	{
-		bool flag;
+		bool flag = false;
         Intersects(box, flag);
         return flag;
 	}
@@ -282,7 +319,7 @@ namespace XFX
 
 	bool BoundingFrustrum::Intersects(BoundingSphere sphere)
 	{
-		bool flag;
+		bool flag = false;
 		Intersects(sphere, flag);
 		return flag;
 	}
@@ -292,9 +329,9 @@ namespace XFX
 		int num = 0;
 		for (int i = 0; i < 8; i++)
 		{
-			float num3;
+			float num3 = 0;
 			Vector3::Dot(cornerArray[i], plane.Normal, num3);
-			if ((num3 + plane.D) > 0f)
+			if ((num3 + plane.D) > 0)
 			{
 				num |= 1;
 			}
@@ -316,7 +353,7 @@ namespace XFX
 
 	float BoundingFrustrum::Intersects(Ray ray)
 	{
-		float result;
+		float result = 0;
 		Intersects(ray, result);
 		return result;
 	}
@@ -336,9 +373,9 @@ namespace XFX
 		int num = 0;
 		for (int i = 0; i < 8; i++)
 		{
-			float num3;
+			float num3 = 0;
 			Vector3::Dot(cornerArray[i], plane.Normal, num3);
-			if ((num3 + plane.D) > 0f)
+			if ((num3 + plane.D) > 0)
 			{
 				num |= 1;
 			}
@@ -361,24 +398,24 @@ namespace XFX
 		Contains(ray.Position, type);
 		if (type == ContainmentType::Contains)
 		{
-			result = 0f;
+			result = 0.0f;
 		}
 		else
 		{
-			float minValue = float.MinValue;
-			float maxValue = float.MaxValue;
+			float minValue = -3.402823E+38f;
+			float maxValue = 3.402823E+38f;
 			result = 0;
 			for (int i = 0; i < Array::Length(planes); i++)
 			{
-				float num3;
-				float num6;
+				float num3 = 0;
+				float num6 = 0;
 				Vector3 normal = planes[i].Normal;
 				Vector3::Dot(ray.Direction, normal, num6);
 				Vector3::Dot(ray.Position, normal, num3);
 				num3 += planes[i].D;
 				if (Math::Abs(num6) < 1E-05f)
 				{
-					if (num3 > 0f)
+					if (num3 > 0.0f)
 					{
 						return;
 					}
@@ -386,7 +423,7 @@ namespace XFX
 				else
 				{
 					float num = -num3 / num6;
-					if (num6 < 0f)
+					if (num6 < 0.0f)
 					{
 						if (num > maxValue)
 						{
@@ -410,10 +447,10 @@ namespace XFX
 					}
 				}
 			}
-			float num7 = (minValue >= 0f) ? minValue : maxValue;
-			if (num7 >= 0f)
+			float num7 = (minValue >= 0) ? minValue : maxValue;
+			if (num7 >= 0)
 			{
-				result = new float?(num7);
+				result = float(num7);
 			}
 		}
 	}

@@ -4,19 +4,17 @@
  *	XFX GamePadState definition file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _GAMEPADSTATE_
-#define _GAMEPADSTATE_
+#ifndef _XFX_INPUT_GAMEPADSTATE_
+#define _XFX_INPUT_GAMEPADSTATE_
 
 #include "GamePadButtons.h"
-#include "GamePadThumbSticks.h"
-#include "GamePadTriggers.h"
 
 namespace XFX
 {
 	namespace Input
 	{
 		/// <summary>
-		/// Represents specific information about the state of an Xbox 360 Controller, including the current state of buttons
+		/// Represents specific information about the state of an Xbox Controller, including the current state of buttons
 		/// and sticks.
 		/// </summary>
 		struct GamePadState
@@ -27,13 +25,21 @@ namespace XFX
 			GamePadThumbSticks ThumbSticks;
 			GamePadTriggers Triggers;
 
+			GamePadState(GamePadThumbSticks thumbSticks, GamePadTriggers triggers, GamePadButtons buttons, GamePadDPad dPad);
+			GamePadState(Vector2 leftThumbStick, Vector2 rightThumbStick, float leftTrigger, float rightTrigger, Buttons_t buttons[]);
+			GamePadState();
+			GamePadState(const GamePadState &obj);
+
+			bool Equals(const GamePadState obj);
+			int GetHashCode();
+
 			bool IsButtonDown(Buttons_t button);
 			bool IsButtonUp(Buttons_t button);
 
-			operator==(GamePadState other);
-			operator!=(GamePadState other);
+			bool operator==(const GamePadState other);
+			bool operator!=(const GamePadState other);
 		};
 	}
 }
 
-#endif //_GAMEPADSTATE_
+#endif //_XFX_INPUT_GAMEPADSTATE_

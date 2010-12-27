@@ -8,8 +8,12 @@
 #define _XFX_STORAGE_STORAGECONTAINER_
 
 #include <System/Delegates.h>
+#include <System/Interfaces.h>
 #include <System/IO/DirectoryInfo.h>
-#include <../Enums.h>
+#include "../Enums.h"
+
+using namespace System;
+using namespace System::IO;
 
 namespace XFX
 {
@@ -20,15 +24,17 @@ namespace XFX
 		/// <summary>
 		/// Represents a logical collection of storage files.
 		/// </summary>
-		class StorageContainer : public IDisposable
+		class StorageContainer : public IDisposable, virtual Object
 		{
 		private:
 			bool isDisposed;
 			DirectoryInfo containerFolder;
-		    StorageDevice device;
+		    StorageDevice* device;
 			EventHandler Disposing;
 		    PlayerIndex_t playerIndex;
 			char* titleName;
+
+			void Dispose(bool disposing);
 			~StorageContainer();
 
 		public:

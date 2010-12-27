@@ -27,15 +27,12 @@
 
 #include <Graphics/Color.h>
 #include <Graphics/DepthStencilBuffer.h>
+#include <Graphics/Exceptions.h>
 #include <Graphics/GraphicsDevice.h>
 #include <Matrix.h>
 #include <Quaternion.h>
 
-#ifdef ENABLE_XBOX
 #include "pbKit.h"
-#else
-#include "gl.h"
-#endif
 
 using namespace System;
 using namespace XFX;
@@ -49,28 +46,19 @@ namespace XFX
 			return textures;
 		}
 
-#if ENABLE_XBOX
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, CreateOptions_t creationOptions, PresentationParameters presentationParameters)
+		GraphicsDevice::GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, PresentationParameters presentationParameters)
 		{
 			_adapter = adapter;
-			if(_deviceType != DeviceType::Hardware)
+			if(deviceType != DeviceType::Hardware)
 				throw DeviceNotSupportedException("Only DeviceType::Hardware is supported.");
 
-			_deviceType = devicetype;
+			_deviceType = deviceType;
 			clearColor = Color::Black;
 		}
-#else
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, IntPtr renderWindowHandle, PresentationParameters presentationParameters)
-		{
-			_adapter = adapter;
-			_deviceType = devicetype;
-			clearColor = Color::Black;
-		}
-#endif
 		
 		GraphicsDevice::GraphicsDevice()
 		{
-			
+			clearColor = Color::Black;
 		}
 		
 		GraphicsDevice::~GraphicsDevice()
@@ -80,7 +68,6 @@ namespace XFX
 		
 		void GraphicsDevice::Clear(Color color)
 		{
-#ifdef ENABLE_XBOX
 			DWORD		*p;
 			DWORD		format;
 			DWORD		depth;
@@ -112,43 +99,33 @@ namespace XFX
 			*(p++)=format;				//triggers the HW rectangle fill (only on D&S)
 			pb_end(p);
 
-			if(color != clearColor)
-				clearColor = color;
-#else
-			if(color != clearColor)
+			/*if(color != clearColor)
 			{
 				glClearColor((float)color.R/255f, (float)color.G/255f, (float)color.B/255f, (float)color.A/255f);
 				clearColor = color;
 			}
 			glClear(GL_COLOR_BUFFER_BIT);
-			glLoadIdentity();
-#endif
+			glLoadIdentity();*/
 		}
 
 		void GraphicsDevice::Clear(ClearOptions_t options, Color color, float depth, int stencil)
 		{
 			if(isDisposed)
-				throw ObjectDisposedException();
+				throw ObjectDisposedException("GraphicsDevice");
 
 			switch(options)
 			{
 			case ClearOptions::Depth:
 				{
-#if ENABLE_XBOX
-#else
-#endif
+
 				}
 			case ClearOptions::Stencil:
 				{
-#if ENABLE_XBOX
-#else
-#endif
+
 				}
 			case ClearOptions::Target:
 				{
-#if ENABLE_XBOX
-#else
-#endif
+
 				}
 
 			}

@@ -26,18 +26,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GraphicsDeviceManager.h>
-#include "PBKit/pbKit.h"
+#include "../libXFX/pbKit.h"
 
 namespace XFX
 {
-#if ENABLE_XBOX
 	const int GraphicsDeviceManager::DefaultBackBufferWidth = 640;
 	const int GraphicsDeviceManager::DefaultBackBufferHeight = 480;
 	const DeviceType_t GraphicsDeviceManager::ValidDeviceTypes[] = { DeviceType::Hardware };
-#else
-	const int GraphicsDeviceManager::DefaultBackBufferWidth = 800;
-	const int GraphicsDeviceManager::DefaultBackBufferHeight = 600;	
-#endif
+	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr32, SurfaceFormat::Bgr555, SurfaceFormat::Bgr565, SurfaceFormat::Bgra1010102 };
+	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgr555, SurfaceFormat::Bgra5551, SurfaceFormat::Bgr32, SurfaceFormat::Color, SurfaceFormat::Bgra1010102 };
 	
 	GraphicsDevice GraphicsDeviceManager::GraphicsDevice_()
 	{
@@ -46,11 +43,7 @@ namespace XFX
 	
 	bool IsFullScreen()
 	{
-#if ENABLE_XBOX //On the XBOX we always run Fullscreen
 		return true;
-#else
-		return isFullScreen;
-#endif
 	}
 	
 	void GraphicsDeviceManager::ApplyChanges()
@@ -58,36 +51,88 @@ namespace XFX
 		
 	}
 
-	void IGraphicsDeviceManager::CreateDevice()
+	bool GraphicsDeviceManager::CanResetDevice(GraphicsDeviceInformation newDeviceInfo)
 	{
-		
+		if (graphicsDevice.CreationParameters().DeviceType_() != newDeviceInfo.DeviceType_)
+        {
+            return false;
+        }
+        return true;
 	}
 
 	GraphicsDeviceManager::GraphicsDeviceManager(Game game)
 	{
 		_game = game;
-        if (game.Services().GetService(typeof(IGraphicsDeviceManager)) != null)
+        /*	
+		if (game.Services().GetService((Object*)IGraphicsDeviceManager) != null)
+            throw ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");*/
+
+        game.Services().AddService((Object*)this);
+        game.Services().AddService((Object*)this);
+	}
+
+	GraphicsDeviceInformation GraphicsDeviceManager::FindBestDevice(bool anySuitableDevice)
+	{
+		GraphicsDeviceInformation result;
+		
+		return result;
+	}
+
+	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs args)
+	{
+		if (DeviceCreated != null)
+			DeviceCreated(sender, args);
+	}
+
+	void GraphicsDeviceManager::OnDeviceDisposing(Object* sender, EventArgs args)
+	{
+		if (DeviceDisposing != null)
+			DeviceDisposing(sender, args);
+	}
+
+	void GraphicsDeviceManager::OnDeviceReset(Object* sender, EventArgs args)
+	{
+		if (DeviceReset != null)
+			DeviceReset(sender, args);
+	}
+
+	void GraphicsDeviceManager::OnDeviceResetting(Object* sender, EventArgs args)
+	{
+		if (DeviceResetting != null)
+			DeviceResetting(sender, args);
+	}
+
+	void GraphicsDeviceManager::RankDevices(List<GraphicsDeviceInformation> foundDevices)
+	{
+		int index = 0;
+        while (index < foundDevices.Count())
         {
-            throw ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
-        }
-        game.Services().AddService(typeof(IGraphicsDeviceManager), this);
-        game.Services().AddService(typeof(IGraphicsDeviceService), this);
-#if !ENABLE_XBOX
-        game.Window.ClientSizeChanged += new EventHandler(this.GameWindowClientSizeChanged);
-        game.Window.ScreenDeviceNameChanged += new EventHandler(this.GameWindowScreenDeviceNameChanged);
-#endif
+            DeviceType_t deviceType = foundDevices[index].DeviceType_;
+            GraphicsAdapter adapter = foundDevices[index].Adapter;
+            PresentationParameters presentationParameters = foundDevices[index].PresentationParameters_;
+			if (!adapter.CheckDeviceFormat(deviceType, adapter.CurrentDisplayMode().Format, TextureUsage::None, QueryUsages::PostPixelShaderRendering, ResourceType::Texture2D, presentationParameters.BackBufferFormat))
+            {
+                foundDevices.RemoveAt(index);
+            }
+            else
+            {
+                index++;
+            }
+		}
 	}
 
 	void GraphicsDeviceManager::ToggleFullscreen()
 	{
-#if !ENABLE_XBOX
-		isFullScreen != isFullScreen;
-		//graphicsDevice.PresentationParameters.
-#endif
+
 	}
 
 	bool IGraphicsDeviceManager::BeginDraw()
 	{
 		return true;
+	}
+
+	void IGraphicsDeviceManager::EndDraw()
+	{
+		
 	}
 }

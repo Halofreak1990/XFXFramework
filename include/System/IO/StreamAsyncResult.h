@@ -16,16 +16,19 @@ namespace System
 {
 	namespace IO
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		class StreamAsyncResult : public IAsyncResult
 		{
-			void* _state;
+			Object* _state;
 			bool completed;
 			bool done;
 			Exception* exc;
 			int _nbytes;
 
 		public:
-			void* AsyncState();
+			Object* ASyncState();
 			Threading::WaitHandle AsyncWaitHandle();
 			virtual bool CompletedSynchronously();
 			bool IsCompleted();
@@ -33,8 +36,9 @@ namespace System
 			int NBytes();
 			bool Done;
 
-			StreamAsyncResult(void* state);
-			StreamAsyncResult(const IAsyncResult &obj);
+			StreamAsyncResult(Object* state);
+			StreamAsyncResult(const IAsyncResult* &obj);
+			StreamAsyncResult(const StreamAsyncResult &obj);
 
 			void SetComplete(Exception* e);
 			void SetComplete(Exception* e, int nbytes);

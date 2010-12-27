@@ -8,7 +8,6 @@
 #define _XFX_INPUT_KEYBOARD_
 
 #include "Enums.h"
-#include "Keys.h"
 
 namespace XFX
 {
@@ -20,11 +19,15 @@ namespace XFX
 		struct KeyboardState
 		{
 			KeyboardState();
-			KeyboardState(unsigned char keys[]);
+			KeyboardState(Keys_t keys[]);
+			KeyboardState(const KeyboardState &obj);
 				
-			unsigned char* GetPressedKeys();
-			bool IsKeyDown(unsigned char key);
-			bool IsKeyUp(unsigned char key);
+			Keys_t* GetPressedKeys();
+			bool IsKeyDown(Keys_t key);
+			bool IsKeyUp(Keys_t key);
+
+		private:
+			Keys_t* pressedKeys;
 		};
 
 		/// <summary>
@@ -32,6 +35,9 @@ namespace XFX
 		/// </summary>
 		class Keyboard
 		{
+		private:
+			Keyboard(); //Private constructor to prevent instantiation.
+
 		public:
 			static KeyboardState GetState();
 		};

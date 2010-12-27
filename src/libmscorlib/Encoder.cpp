@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Text/Encoder.h>
+#include <System/Exception.h>
 
 namespace System
 {
@@ -47,7 +48,18 @@ namespace System
 
 		int Encoder::GetByteCount(char* chars, int count, bool flush)
 		{
+			if (chars == null)
+				throw ArgumentNullException("chars");
 
+			if (count < 0)
+				throw ArgumentException("Non-negative number required.");
+
+			char chArray[count];
+			for (int i = 0; i < count; i++)
+			{
+				chArray[i] = chars[i];
+			}
+			return GetByteCount(chArray, 0, count, flush);
 		}
 
 		int GetBytes(char* chars, int charCount, byte* bytes, int byteCount, bool flush)

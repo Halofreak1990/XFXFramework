@@ -13,6 +13,7 @@
 #include "Enums.h"
 #include "GraphicsAdapter.h"
 #include "GraphicsDeviceCapabilities.h"
+#include "GraphicsDeviceCreationParameters.h"
 #include "PresentationParameters.h"
 #include "TextureCollection.h"
 #include "Viewport.h"
@@ -49,17 +50,14 @@ namespace XFX
 			virtual void Dispose(bool disposing);
 		
 		public:
+			GraphicsDeviceCreationParameters CreationParameters();
 			DepthStencilBuffer GetDepthStencilBuffer();
 			void SetDepthStencilBuffer(DepthStencilBuffer buffer);
 			TextureCollection Textures();
 			Viewport Viewport_();
 			void Viewport_(Viewport newValue);
 		
-#if ENABLE_XBOX
 			GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, PresentationParameters presentationParameters);
-#else
-			GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, IntPtr renderWindowHandle, PresentationParameters presentationParameters);
-#endif
 			GraphicsDevice();
 			virtual ~GraphicsDevice();
 			

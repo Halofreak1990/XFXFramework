@@ -4,8 +4,8 @@
  *	XFX Texture2D definition file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _TEXTURE2D_
-#define _TEXTURE2D_
+#ifndef _XFX_GRAPHICS_TEXTURE2D_
+#define _XFX_GRAPHICS_TEXTURE2D_
 
 #include "Texture.h"
 #include <System/IO/Stream.h>
@@ -15,11 +15,11 @@ using namespace System::IO;
 
 namespace XFX
 {
-	class Rectangle;
+	struct Rectangle;
 	
 	namespace Graphics
 	{
-		class Texture2D : Texture
+		class Texture2D : public Texture
 		{
 		private:
 			GraphicsDevice device;
@@ -71,4 +71,4 @@ namespace XFX
 	}
 }
 
-#endif //_TEXTURE2D_
+#endif //_XFX_GRAPHICS_TEXTURE2D_

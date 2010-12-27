@@ -1,6 +1,7 @@
 #ifndef _SYSTEM_INTERFACES_
 #define _SYSTEM_INTERFACES_
 
+#include "Object.h"
 #include "Types.h"
 #include "Threading/WaitHandle.h"
 
@@ -12,10 +13,10 @@ namespace System
 	interface IAsyncResult
 	{
 	public:
-		virtual void *ASyncState();
-		virtual Threading::WaitHandle AsyncWaitHandle();
-		virtual bool CompletedSynchronously();
-		virtual bool IsCompleted();
+		virtual Object* ASyncState()=0;
+		virtual Threading::WaitHandle AsyncWaitHandle()=0;
+		virtual bool CompletedSynchronously()=0;
+		virtual bool IsCompleted()=0;
 	};
 
 	/// <summary>
@@ -55,7 +56,7 @@ namespace System
 	interface IFormatProvider
 	{
 	public:
-		virtual void *GetProvider()=0;
+		virtual Object* GetProvider()=0;
 	};
 
 	/// <summary>
@@ -64,7 +65,7 @@ namespace System
 	interface IServiceProvider
 	{
 	public:
-		virtual void* GetService(void* serviceType)=0;
+		virtual Object* GetService(Object* serviceType)=0;
 	};
 }
 

@@ -35,7 +35,7 @@ namespace System
 			private:
 				int buckets[];
 				static const char* ComparerName;
-				IEqualityComparer<TKey> comparer;
+				IEqualityComparer<TKey>* comparer;
 				int count;
 				Entry<TKey, TValue> entries[];
 				int freeCount;
@@ -62,12 +62,13 @@ namespace System
 				class KeyCollection : public ICollection<UKey>, public IEnumerable<UKey>
 				{
 				private:
-					Dictionary<UKey, UValue> *_dictionary;
+					Dictionary<TKey, TValue> *_dictionary;
 
 				public:
 					int Count();
 
-					KeyCollection(Dictionary<UKey, UValue> dictionary);
+					KeyCollection(Dictionary<TKey, TValue> dictionary);
+					KeyCollection(const KeyCollection<UKey, UValue> &obj);
 
 					void Add(UKey item);
 					void Clear();
@@ -83,12 +84,13 @@ namespace System
 				class ValueCollection : public ICollection<UValue>, public IEnumerable<UValue>
 				{
 				private:
-					Dictionary<UKey, UValue> *_dictionary;
+					Dictionary<TKey, TValue> *_dictionary;
 
 				public:
 					int Count();
 
 					ValueCollection(Dictionary<TKey, TValue> dictionary);
+					ValueCollection(const ValueCollection<UKey, UValue> &obj);
 
 					void Add(UValue item);
 					void Clear();
@@ -98,7 +100,7 @@ namespace System
 				};
 
 			public:
-				IEqualityComparer<TKey> Comparer();
+				IEqualityComparer<TKey>* Comparer();
 				int Count();
 				KeyCollection<TKey, TValue> Keys();
 				ValueCollection<TKey, TValue> Values();

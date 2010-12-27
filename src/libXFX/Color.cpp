@@ -175,6 +175,8 @@ namespace XFX
 		const Color Color::Teal = Color(((uint)255 << 24) + ((uint)0 << 16) + ((uint)128 << 8) + 128);
 		const Color Color::Thistle = Color(((uint)255 << 24) + ((uint)216 << 16) + ((uint)191 << 8) + 216);
 		const Color Color::Tomato = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)99 << 8) + 71);
+		const Color Color::TransparentBlack = Color(((uint)0 << 24) + ((uint)0 << 16) + ((uint)0 << 8) + 0);
+		const Color Color::TransparentWhite = Color(((uint)0 << 24) + ((uint)255 << 16) + ((uint)255 << 8) + 255);
 		const Color Color::Turquoise = Color(((uint)255 << 24) + ((uint)64 << 16) + ((uint)224 << 8) + 208);
 		const Color Color::Violet = Color(((uint)255 << 24) + ((uint)238 << 16) + ((uint)130 << 8) + 238);
 		const Color Color::Wheat = Color(((uint)255 << 24) + ((uint)245 << 16) + ((uint)222 << 8) + 179);
@@ -204,6 +206,11 @@ namespace XFX
 			return (uint)((_packedValue >> 16 & 0xff));
 		}
 		
+		Color::Color()
+		{
+			_packedValue = Color::Black._packedValue;
+		}
+
 		Color::Color(uint packedValue)
 		{
 			_packedValue = packedValue;
@@ -227,6 +234,11 @@ namespace XFX
 		Color::Color(byte r, byte g, byte b, byte a)
 		{
 			_packedValue = (uint)(a << 24) + (uint)(r << 16) + (uint)(g << 8) + b;
+		}
+
+		Color::Color(const Color &obj)
+		{
+			_packedValue = obj._packedValue;
 		}
 		
 		bool Color::Equals(Color other)

@@ -4,8 +4,8 @@
  *	XFX DisplayMode structure definition file			*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _DISPLAYMODE_
-#define _DISPLAYMODE_
+#ifndef _XFX_GRAPHICS_DISPLAYMODE_
+#define _XFX_GRAPHICS_DISPLAYMODE_
 
 #include "Enums.h"
 
@@ -38,4 +38,4 @@ namespace XFX
 	}
 }
 
-#endif //_DISPLAYMODE_
+#endif //_XFX_GRAPHICS_DISPLAYMODE_

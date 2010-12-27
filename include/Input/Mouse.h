@@ -17,7 +17,7 @@ namespace XFX
 	namespace Input
 	{
 		/// <summary>
-		/// 
+		/// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
 		/// </summary>
 		struct MouseState
 		{
@@ -38,6 +38,8 @@ namespace XFX
 		/// </summary>
 		class Mouse
 		{
+		private:
+			Mouse(); //Private constructor to prevent instantiation.
 		public:
 			static MouseState GetState();
 			static void SetPosition(int x, int y);

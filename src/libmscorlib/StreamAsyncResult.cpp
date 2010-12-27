@@ -31,18 +31,24 @@ namespace System
 {
 	namespace IO
 	{
-		StreamAsyncResult::StreamAsyncResult(void* state)
+		StreamAsyncResult::StreamAsyncResult(Object* state)
 		{
 			_nbytes = -1;
 			_state = state;
 		}
 
-		StreamAsyncResult::StreamAsyncResult(const IAsyncResult &obj)
+		StreamAsyncResult::StreamAsyncResult(const IAsyncResult* &obj)
 		{
 			_nbytes = -1;
 		}
 
-		void* StreamAsyncResult::AsyncState()
+		StreamAsyncResult::StreamAsyncResult(const StreamAsyncResult &obj)
+		{
+			_nbytes = -1;
+			_state = obj._state;
+		}
+
+		Object* StreamAsyncResult::ASyncState()
 		{
 			return _state;
 		}

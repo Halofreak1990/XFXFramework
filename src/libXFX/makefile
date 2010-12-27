@@ -7,7 +7,7 @@
 # support Linux as well
 #
 PREFIX = /usr/local/openxdk
-XFX_PREFIX = /cygdrive/j/XFX
+XFX_PREFIX = "/cygdrive/c/Users/T.R.J. Lint/Documents/My Dropbox/XFX"
 
 CC = gcc
 CCAS = gcc
@@ -34,14 +34,14 @@ LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -l
 OBJS = BoundingBox.o BoundingFrustrum.o BoundingSphere.o MathHelper.o Matrix.o Plane.o Point.o Quaternion.o Ray.o Rectangle.o Vector2.o Vector3.o Vector4.o
 AUDIO_OBJS = 
 CONTENT_OBJS = ContentManager.o ContentReader.o
-GAMERSERVICES_OBJS = 
-GRAPHICS_OBJS = Color.o DisplayMode.o GraphicsAdapter.o GraphicsDevice.o GraphicsDeviceManager.o PBKit/pbKit.o Texture.o Texture2D.o TextureCollection.o TextureCreationParameters.o VertexElement.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
-INPUT_OBJS = GamePad.o usb/hub.o Keyboard.o Mouse.o usb/ohci.o usb/pad.o usb/xinput.o
+GAMERSERVICES_OBJS = Guide.o
+GRAPHICS_OBJS = Color.o DisplayMode.o GraphicsAdapter.o GraphicsDevice.o pbKit.o Texture.o Texture2D.o TextureCollection.o TextureCreationParameters.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
+INPUT_OBJS = GamePad.o Keyboard.o Mouse.o
 MEDIA_OBJS = VideoPlayer.o
 NET_OBJS = 
 STORAGE_OBJS = StorageContainer.o StorageDevice.o StorageDeviceNotConnectedException.o
 
-OBJS1 = $(OBJS) $(CONTENT_OBJS) $(GRAPHICS_OBJS) $(INPUT_OBJS) $(MEDIA_OBJS) $(STORAGE_OBJS)
+OBJS1 = $(OBJS) $(GAMERSERVICES_OBJS) $(GRAPHICS_OBJS) $(INPUT_OBJS) $(MEDIA_OBJS) $(STORAGE_OBJS)
 
 all: libXFX.a
 

@@ -85,8 +85,8 @@ namespace System
 			interface IEqualityComparer
 			{
 			public:
-				virtual bool Equals(T x, T y);
-				virtual int GetHashCode(T obj);
+				virtual bool Equals(T x, T y)=0;
+				virtual int GetHashCode(T obj)=0;
 			};
 
 			/// <summary>

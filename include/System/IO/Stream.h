@@ -43,12 +43,12 @@ namespace System
 			int WriteTimeOut;
 			static const Stream Null;
 
-			virtual IAsyncResult BeginRead(byte buffer[], int offset, int count, ASyncCallback callback, void* state);
-			virtual IAsyncResult BeginWrite(byte buffer[], int offset, int count, ASyncCallback callback, void* state);
+			virtual IAsyncResult* BeginRead(byte buffer[], int offset, int count, ASyncCallback callback, Object* state);
+			virtual IAsyncResult* BeginWrite(byte buffer[], int offset, int count, ASyncCallback callback, Object* state);
 			virtual void Close();
 			void Dispose();
-			virtual int EndRead(IAsyncResult asyncResult);
-			virtual void EndWrite(IAsyncResult asyncResult);
+			virtual int EndRead(IAsyncResult* asyncResult);
+			virtual void EndWrite(IAsyncResult* asyncResult);
 			virtual void Flush();
 			virtual int Read(byte buffer[], int offset, int count);
 			virtual int ReadByte();

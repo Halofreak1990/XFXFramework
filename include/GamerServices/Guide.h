@@ -1,14 +1,17 @@
-#ifndef _GUIDE_H_
-#define _GUIDE_H_
-
-#include <System.h>
 /********************************************************
- *	Guide.h										*
+ *	Guide.h												*
  *														*
- *	XFX Guide definition file						*
+ *	XFX Guide definition file							*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
+#ifndef _XFX_GAMERSERVICES_GUIDE_
+#define _XFX_GAMERSERVICES_GUIDE_
+
+#include <System/Delegates.h>
+#include <System/Interfaces.h>
+#include <System/Types.h>
 #include <Storage/StorageDevice.h>
+#include "Enums.h"
 
 using namespace System;
 using namespace XFX::Storage;
@@ -23,22 +26,25 @@ namespace XFX
 		class Guide
 		{
 		private:
-			static int _isVisible = false;
+			static bool _isVisible;
+
+			// Private constructor to prevent instantiation
+			Guide();
 
 		public:
-			static int IsScreenSaverEnabled();
-			static int IsVisible();
-			static NotificationPosition notificationPosition;
+			static bool IsScreenSaverEnabled();
+			static bool IsVisible();
+			static NotificationPosition_t notificationPosition;
 
-			static IAsyncResult BeginShowKeyboardInput(PlayerIndex_t player, String &title, String &description, String &defaultText, AsyncCallback &callback, object state);
-			static IAsyncResult BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, AsyncCallback callback, object state);
-			static IAsyncResult BeginShowStorageDeviceSelector(AsyncCallback &callback, object state);
-			static IAsyncResult BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, object state);
-			static IAsyncResult BeginShowStorageDeviceSelector(PlayerIndex_t player, AsyncCallback callback, object state);
-			static String EndShowKeyboardInput(IAsyncResult result);
-			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult result)
+			static IAsyncResult* BeginShowKeyboardInput(PlayerIndex_t player, char* title, char* description, char* defaultText, ASyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, ASyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(ASyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, ASyncCallback callback, object state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, ASyncCallback callback, Object* state);
+			static char* EndShowKeyboardInput(IAsyncResult* result);
+			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult* result);
 		};
 	}
 }
 
-#endif //_GUIDE_H_
+#endif //_XFX_GAMERSERVICES_GUIDE_

@@ -39,6 +39,7 @@ namespace XFX
 			Depth = depth;
 			MipLevels = mipLevels;
 			Format = format;
+			TextureUsage_ = textureUsage;
 			ColorKey = colorKey;
 			Filter = filter;
 			MipFilter = mipFilter;
@@ -46,14 +47,15 @@ namespace XFX
 
 		TextureCreationParameters::TextureCreationParameters(const TextureCreationParameters &obj)
 		{
-			Width = obj.width;
-			Height = obj.height;
-			Depth = obj.depth;
-			MipLevels = obj.mipLevels;
-			Format = obj.format;
-			ColorKey = obj.colorKey;
-			Filter = obj.filter;
-			MipFilter = obj.mipFilter;
+			Width = obj.Width;
+			Height = obj.Height;
+			Depth = obj.Depth;
+			MipLevels = obj.MipLevels;
+			Format = obj.Format;
+			TextureUsage_ = obj.TextureUsage_;
+			ColorKey = obj.ColorKey;
+			Filter = obj.Filter;
+			MipFilter = obj.MipFilter;
 		}
 
 		TextureCreationParameters::TextureCreationParameters()
@@ -63,7 +65,7 @@ namespace XFX
 				SurfaceFormat::Unknown,
 				TextureUsage::None,
 				Color::TransparentBlack,
-				FilterOptions::Dither | FilterOptions::Triangle,
+				(FilterOptions_t)(FilterOptions::Dither | FilterOptions::Triangle),
 				FilterOptions::Box);
 		}
 

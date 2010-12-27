@@ -7,14 +7,14 @@
 #ifndef _XFX_GAME_
 #define _XFX_GAME_
 
-#include <System/Types.h>
 #include <System/Delegates.h>
+#include <System/Object.h>
+#include <System/Types.h>
 
 #include "Content/ContentManager.h"
 #include "GameComponentCollection.h"
 #include "GameServiceContainer.h"
 #include "GameTime.h"
-#include "Graphics/GraphicsDevice.h"
 #include "Graphics/IGraphicsDeviceService.h"
 #include "Interfaces.h"
 
@@ -27,7 +27,7 @@ namespace XFX
 	/// <summary>
 	/// Provides basic graphics device initialization, game logic, and rendering code.
 	/// </summary>
-	class Game : public IDisposable
+	class Game : public IDisposable, virtual Object
 	{
 	private:
 		bool exiting;
@@ -35,18 +35,19 @@ namespace XFX
 		bool isActive;
 
 		GameComponentCollection components;
-		List<IDrawable*> visibleDrawable;
+		List<IDrawable*> currentlyDrawingComponents;
+		List<IUpdateable*> currentlyUpdatingComponents;
+		List<IDrawable*> drawableComponents;
 		List<IUpdateable*> enabledUpdateable;
+		List<IGameComponent*> notYetInitialized;
 		GameServiceContainer services;
 		bool disposed;
 		GameTime gameTime;
 		TimeSpan inactiveSleepTime;
+		static const TimeSpan maximumElapsedTime;
 		IGraphicsDeviceManager* graphicsManager;
-		IGraphicsDeviceService graphicsService; 
+		IGraphicsDeviceService* graphicsService; 
 
-#if !ENABLE_XBOX
-		private bool isMouseVisible;
-#endif
 		static const Int64 DefaultTargetElapsedTicks;
 
 	protected:
@@ -59,17 +60,15 @@ namespace XFX
 		void Finalize();
 		virtual void LoadContent();
 		virtual void Initialize();
-#if !ENABLE_XBOX
-		virtual void OnActivated(void* sender, EventArgs args);
-		virtual void OnDeactivated(void* sender, EventArgs args);
-#endif
-		virtual void OnExiting(void* sender, EventArgs args);
+		virtual void OnActivated(Object* sender, EventArgs args);
+		virtual void OnDeactivated(Object* sender, EventArgs args);
+		virtual void OnExiting(Object* sender, EventArgs args);
 		virtual void UnloadContent();
 		virtual void Update(GameTime gameTime);
 
 	public:
 		GameComponentCollection Components();
-		ContentManager Content;
+		//ContentManager Content;
 		GraphicsDevice GraphicsDevice_();
 		GameServiceContainer Services();
 		bool IsActive();
@@ -78,16 +77,16 @@ namespace XFX
 		bool IsMouseVisible;
 		TimeSpan TargetElapsedTime;
 
-#if !ENABLE_XBOX
 		EventHandler Activated;
 		EventHandler Deactivated;
-#endif
 		EventHandler Disposed;
 		EventHandler Exiting; 
 
+		Game();
+		virtual ~Game();
+
 		void Dispose();
 		void Exit();
-		Game();
 		void ResetElapsedTime();
 		void Run();
 		void SuppressDraw();
@@ -97,7 +96,7 @@ namespace XFX
 	/// <summary>
 	/// Base class for all XNA Framework game components.
 	/// </summary>
-	class GameComponent : IGameComponent, IUpdateable, IDisposable
+	class GameComponent : public IGameComponent, public IUpdateable, public IDisposable, virtual Object
 	{
 	private:
 		Game _game;
@@ -109,8 +108,8 @@ namespace XFX
 		virtual void Dispose(bool disposing);
 		virtual ~GameComponent();
 
-		virtual void OnEnabledChanged(void* sender, EventArgs args);
-		virtual void OnUpdateOrderChanged(void* sender, EventArgs args);
+		virtual void OnEnabledChanged(Object* sender, EventArgs args);
+		virtual void OnUpdateOrderChanged(Object* sender, EventArgs args);
 		
 	public:
 		bool Enabled();
@@ -134,18 +133,18 @@ namespace XFX
 	/// <summary>
 	/// A game component that is notified when it needs to draw itself.
 	/// </summary>
-	class DrawableGameComponent : GameComponent, IDrawable
+	class DrawableGameComponent : public GameComponent, public IDrawable, virtual Object
 	{
 	private:
 		int _drawOrder;
 		bool _visible;
-		IGraphicsDeviceService _graphicsService;
+		IGraphicsDeviceService* _graphicsService;
     
     protected:
     	void Dispose(bool disposing);
     	virtual void LoadContent();
-		virtual void OnDrawOrderChanged(void* sender, EventArgs args);
-		virtual void OnVisibleChanged(void* sender, EventArgs args);
+		virtual void OnDrawOrderChanged(Object* sender, EventArgs args);
+		virtual void OnVisibleChanged(Object* sender, EventArgs args);
     	virtual void UnloadContent();
     
     public:

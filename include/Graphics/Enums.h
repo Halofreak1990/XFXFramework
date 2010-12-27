@@ -7,11 +7,6 @@
 #ifndef _GRAPHICS_ENUMS_
 #define _GRAPHICS_ENUMS_
 
-//We place the enums inside structs so we can access them like this: Name::Value
-//making it virtually the same as in C#.
-//It also helps preventing pollution of the namespaces with constants and possible naming conflicts.
-//I don't get why enums violate the scope principle of C++
-
 namespace XFX
 {
 	namespace Graphics
@@ -723,7 +718,7 @@ namespace XFX
 		};
 		
 		
-		//Lots of typedefs, but there was no other way to make these typesafe enum hacks look good.
+		// Lots of typedefs, but there was no other way to make these typesafe enum hacks look good.
 		typedef Blend::type Blend_t;
 		typedef BlendFunction::type BlendFunction_t;
 		typedef BufferUsage::type BufferUsage_t;

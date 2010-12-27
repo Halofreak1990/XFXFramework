@@ -25,24 +25,20 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-extern "C" {
-#ifdef ENABLE_XBOX
+extern "C"
+{
 #include <hal/input.h>
-#else
-#endif
 }
 
-#include <input/Keyboard.h>
+#include <Input/Keyboard.h>
+#include <System/Types.h>
+
+using namespace System;
 
 namespace XFX
 {
 	namespace Input
 	{
-		int GetArrLength(unsigned char arr[])
-		{
-			return sizeof(arr) / sizeof(unsigned char);
-		}
-		
 		XKEYBOARD_STROKE Stroke;
 
 		//It's a waste of memory to create a new KeyboardState each time the input states are updated.
@@ -52,42 +48,55 @@ namespace XFX
 		//Initializes the KeyboardState class
 		KeyboardState::KeyboardState()
 		{
+			KeyboardState(null);
 		}
 		
 		//Initializes the KeyboardState class with the specified keys pressed
-		KeyboardState::KeyboardState(unsigned char keys[])
+		KeyboardState::KeyboardState(Keys_t keys[])
 		{
-			
+			if (keys == null)
+				pressedKeys = 0;
+			else
+				pressedKeys = keys;
+		}
+
+		KeyboardState::KeyboardState(const KeyboardState &obj)
+		{
+			pressedKeys = obj.pressedKeys;
 		}
 		
-		unsigned char *KeyboardState::GetPressedKeys()
+		Keys_t* KeyboardState::GetPressedKeys()
 		{
-			
+			return (Keys_t*)pressedKeys;
 		}
 		
 		//Returns whether the specified key is currently pressed
-		bool KeyboardState::IsKeyDown(unsigned char key)
+		bool KeyboardState::IsKeyDown(Keys_t key)
 		{
-			if(XInputGetKeystroke(&Stroke) == 0){
-				if((Stroke.ucFlags & key) == 0){
+			if(XInputGetKeystroke(&Stroke) == 0)
+			{
+				if((Stroke.ucFlags & (byte)key) == 0)
+				{
 					return true;
 				}	
 				return false;	
 			}
-			//We should never get here unless the input system doesn't work
+			//The keyboard was not connected...bail out.
 			return -1;
 		}
 		
 		//Returns whether the specified key is NOT pressed
-		bool KeyboardState::IsKeyUp(unsigned char key)
+		bool KeyboardState::IsKeyUp(Keys_t key)
 		{
-			if(XInputGetKeystroke(&Stroke) == 0){
-				if((Stroke.ucFlags & key) != 0){
+			if(XInputGetKeystroke(&Stroke) == 0)
+			{
+				if((Stroke.ucFlags & (byte)key) != 0)
+				{
 					return true;
 				}	
 				return false;	
 			}
-			//We should never get here unless the input system doesn't work
+			//The keyboard was not connected...bail out.
 			return -1;
 		}
 		

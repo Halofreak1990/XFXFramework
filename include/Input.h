@@ -4,31 +4,20 @@
  *	XFX::Input namespace include file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _INPUT_
-#define _INPUT_
-
-extern "C"{
-#include <hal/input.h>
-}
+#ifndef _XFX_INPUT_
+#define _XFX_INPUT_
 
 //
 //Data Types
 //
-#include "GamePad.h"
-#include "GamePadButtons.h"
-//#include "GamePadCapabilities.h"
-#include "GamePadState.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include "Input/GamePad.h"
+#include "Input/GamePadButtons.h"
+#include "Input/GamePadState.h"
+#include "Input/Keyboard.h"
+#include "Input/Mouse.h"
 //
 //Enums
 //
-//#include "Buttons.h"
-#include "ButtonState.h"
-#include "GamePadDeadZone.h"
-#include "GamePadType.h"
-//
-//Interfaces
-//
+#include "Input/Enums.h"
 
-#endif //_INPUT_
+#endif //_XFX_INPUT_

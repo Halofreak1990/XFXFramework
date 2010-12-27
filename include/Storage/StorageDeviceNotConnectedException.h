@@ -7,7 +7,9 @@
 #ifndef _XFX_STORAGE_STORAGEDEVICENOTCONNECTEDEXCEPTION_
 #define _XFX_STORAGE_STORAGEDEVICENOTCONNECTEDEXCEPTION_
 
-#include <System/Exception.h>
+#include <System/Runtime/InteropServices/ExternalException.h>
+
+using namespace System::Runtime::InteropServices;
 
 namespace XFX
 {
@@ -16,7 +18,7 @@ namespace XFX
 		/// <summary>
 		/// The exception that is thrown when the requested StorageDevice is not connected
 		/// </summary>
-		class StorageDeviceNotConnectedException : ExternalException
+		class StorageDeviceNotConnectedException : public ExternalException
 		{
 		public:
 			StorageDeviceNotConnectedException();

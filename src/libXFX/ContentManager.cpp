@@ -49,16 +49,24 @@ namespace XFX
 {
 	namespace Content
 	{	
-		ContentManager::ContentManager()
+		ContentManager::ContentManager(IServiceProvider* provider)
 		{
+			if (provider == null)
+				throw ArgumentNullException("serviceProvider");
+
+			_provider = provider;
 			RootDirectory = "";
 		}
 
-		ContentManager::ContentManager(char* rootDirectory)
+		ContentManager::ContentManager(IServiceProvider* provider, char* rootDirectory)
 		{
-			if(rootDirectory == null)
-				throw ArgumentNullException("'rootDirectory' cannot be NULL.");
+			if (provider == null)
+				throw ArgumentNullException("serviceProvider");
 
+			if(rootDirectory == null)
+				throw ArgumentNullException("rootDirectory");
+
+			_provider = provider;
 			RootDirectory = rootDirectory;
 		}
 
@@ -112,6 +120,8 @@ namespace XFX
 			this.loadedAssets.Add(assetName, local);
 			return local;
 			*/
+			if (assetName == null || assetName == "")
+				throw ArgumentNullException("assetName");
 		}
 
 		Stream ContentManager::OpenStream(char* assetName)
@@ -171,7 +181,7 @@ namespace XFX
 
 			for(int i = 0; i < disposableAssets.Count(); i++)
 			{
-				disposableAssets[i].Dispose();
+				disposableAssets[i]->Dispose();
 			}
 			//loadedAssets.Clear();
 			disposableAssets.Clear();

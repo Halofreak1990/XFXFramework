@@ -4,6 +4,8 @@
  *	XFX Viewport definition file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
+#ifndef _XFX_GRAPHICS_VIEWPORT_
+#define _XFX_GRAPHICS_VIEWPORT_
  
 namespace XFX
 {
@@ -34,3 +36,5 @@ namespace XFX
 		};
 	}
 }
+
+#endif //_XFX_GRAPHICS_VIEWPORT_

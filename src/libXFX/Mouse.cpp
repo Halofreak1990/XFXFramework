@@ -44,14 +44,14 @@ namespace XFX
 		static MouseState result;
 		
 		/* MouseState Operators */
-		bool MouseState::operator!=(const MouseState &other)
+		bool MouseState::operator!=(const MouseState other)
 		{
 			return !((LeftButton == other.LeftButton) && (MiddleButton == other.MiddleButton) &&
 				(RightButton == other.RightButton) && (X == other.X) && (XButton1 == other.XButton1) &&
 				(XButton2 == other.XButton2) && (Y == other.Y));
 		}
 		
-		bool MouseState::operator==(const MouseState &other)
+		bool MouseState::operator==(const MouseState other)
 		{
 			return ((LeftButton == other.LeftButton) && (MiddleButton == other.MiddleButton) &&
 				(RightButton == other.RightButton) && (X == other.X) && (XButton1 == other.XButton1) &&

@@ -39,14 +39,14 @@ namespace XFX
 		
 		Rectangle DisplayMode::TitleSafeArea()
 		{			
-#if !ENABLE_XBOX //if we're running on a computer, this is the full screen.
-			return Rectangle(0, 0, Width, Height);
-#else
-			//based on my own findings on an SD TV set, this roughly equates to a resolution of 600 * 450
-			//however, that's on a normal 4:3 TV, and not a Widescreen 0_o'
-			//Either I get a widescreen or let someone else verify correctness.
+			/*
+				Based on my own findings on a PAL SD TV set, this roughly equates to a resolution of 600 * 450
+				however, that's on a normal 4:3 TV, and not a Widescreen 0_o'
+				Either I get a widescreen or let someone else verify correctness.
+				The reason I don't want to use the 10% rule Microsoft uses, is because I think a 10% margin is
+				a little too much, but maybe I'm stupid, and should just use proven methods.
+			*/
 			return Rectangle(20, 0, Width - 20, Height - 30);
-#endif
 		}
 		
 		DisplayMode::DisplayMode()

@@ -25,11 +25,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-extern "C" {
-#if ENABLE_XBOX
+extern "C"
+{
 #include <xboxkrnl/xboxkrnl.h>
-#else
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 }
 
 #include <Storage/StorageContainer.h>
@@ -39,6 +40,54 @@ namespace XFX
 {
 	namespace Storage
 	{
+		typedef struct
+		{
+		  char cDriveLetter;
+		  char* szDevice;
+		  int iPartition;
+		}
+		stDriveMapping;
+
+		stDriveMapping driveMapping[] =
+		{
+			{ 'C', "Harddisk0\\Partition2", 2},
+			{ 'D', "Cdrom0", -1},
+			{ 'E', "Harddisk0\\Partition1", 1},
+			{ 'X', "Harddisk0\\Partition3", 3},
+			{ 'Y', "Harddisk0\\Partition4", 4},
+			{ 'Z', "Harddisk0\\Partition5", 5},
+		};
+		char extendPartitionMapping[] = { 'F','G','R','S','V','W','A','B' };
+
+#define NUM_OF_DRIVES ( sizeof( driveMapping) / sizeof( driveMapping[0] ) )
+#define EXTEND_PARTITION_BEGIN  6
+
+		void GetDrive(const char* szPartition, char* cDriveLetter)
+		{
+		  int part_str_len = strlen(szPartition);
+		  int part_num;
+
+		  if (part_str_len < 19)
+		  {
+			*cDriveLetter = 0;
+			return;
+		  }
+
+		  part_num = atoi(szPartition + 19);
+		  if (part_num >= EXTEND_PARTITION_BEGIN)
+		  {
+			*cDriveLetter = extendPartitionMapping[part_num-EXTEND_PARTITION_BEGIN];
+			return;
+		  }
+		  for (unsigned int i=0; i < NUM_OF_DRIVES; i++)
+			if (strnicmp(driveMapping[i].szDevice, szPartition, strlen(driveMapping[i].szDevice)) == 0)
+			{
+			  *cDriveLetter = driveMapping[i].cDriveLetter;
+			  return;
+			}
+		  *cDriveLetter = 0;
+		}
+
 		bool StorageContainer::IsDisposed()
 		{
 			return isDisposed;
@@ -61,7 +110,7 @@ namespace XFX
 
 		void StorageContainer::Dispose(bool disposing)
 		{
-			if (!this._isDisposed)
+			if (!isDisposed)
 			{
 				isDisposed = true;
 				if (disposing && (Disposing != null))
@@ -73,15 +122,15 @@ namespace XFX
 
 		char* StorageContainer::TitleLocation()
 		{
-#if ENABLE_XBOX
 			//XBOX returns the XeImageFileName like \device\harddisk0\partition2\apps\default.xbe
 			// we need to map the partitions, and strip the \default.xbe from this string
 
 			// copy the XeImageFileName to tmp, and strip the \default.xbe
 			//char *tmp = strncpy(tmp, XeImageFileName->Buffer, XeImageFileName->Length - 12);
 	
-			char szTemp[MAX_PATH];
+			char szTemp[256];
 			char cDriveLetter = 0;
+			char* szDest;
 
 			strncpy(szTemp, XeImageFileName->Buffer + 12, XeImageFileName->Length - 12);
 			szTemp[20] = 0;
@@ -92,19 +141,11 @@ namespace XFX
 
 			sprintf(szDest, "%c:\\%s", cDriveLetter, szTemp);
 			return szDest;
-#else
-			GetCurrentDirectory(XBMC_MAX_PATH, szDest);
-			strcat(szDest, "\\XBMC_PC.exe");
-			return szDest;
-#endif
 		}
 
 		char* StorageContainer::TitleName()
 		{
-#if ENABLE_XBOX
 			//! TODO: Read the Title field from the XBE header
-#else
-#endif
 		}
 	}
 }

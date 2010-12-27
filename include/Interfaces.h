@@ -45,7 +45,7 @@ namespace XFX
 	interface IGraphicsDeviceManager
 	{
 	public:
-		virtual int BeginDraw()=0;
+		virtual bool BeginDraw()=0;
 		virtual void CreateDevice()=0;
 		virtual void EndDraw()=0;
 

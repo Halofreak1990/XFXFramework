@@ -63,7 +63,7 @@ namespace System
 			}
 
 			template <class TKey, class TValue>
-			IEqualityComparer<TKey> Dictionary<TKey, TValue>::Comparer()
+			IEqualityComparer<TKey>* Dictionary<TKey, TValue>::Comparer()
 			{
 				return comparer;
 			}
@@ -256,9 +256,16 @@ namespace System
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(Dictionary<UKey,UValue> dictionary)
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(Dictionary<TKey,TValue> dictionary)
 			{
 				_dictionary = dictionary;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(const KeyCollection<UKey, UValue> &obj)
+			{
+				_dictionary = obj._dictionary;
 			}
 
 			template <class TKey, class TValue>

@@ -46,7 +46,6 @@ namespace System
 {
 	namespace IO
 	{
-
 		const char Path::PathSeparator = '\\';
 		const char Path::DirectorySeparatorChar = '\\';
 

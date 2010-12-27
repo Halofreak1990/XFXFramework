@@ -58,12 +58,12 @@ namespace XFX
                  int size = Il::ilGetInteger(Il::IL_IMAGE_SIZE_OF_DATA); 
                  Texture2D tex = Texture2D(graphicsDevice, creationParameters.Width, creationParameters.Height, creationParameters.Depth, TextureUsage::None, SurfaceFormat::Rgb32); 
                  int[] texture = int[1]; 
-                 Gl::glGenTextures(1,texture); 
+                 glGenTextures(1,texture); 
                  tex.textureId = texture[0]; 
-                 Gl::glBindTexture(Gl::GL_TEXTURE_2D, tex.textureId); 
-                 Gl::glTexImage2D(Gl::GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), creationParameters.Width, creationParameters.Height, 0, Gl::GL_RGBA, Gl::GL_UNSIGNED_BYTE, Il::ilGetData()); 
-                 Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MIN_FILTER, Gl::GL_LINEAR); 
-                 Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MAG_FILTER, Gl::GL_LINEAR); 
+                 glBindTexture(GL_TEXTURE_2D, tex.textureId); 
+                 glTexImage2D(GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), creationParameters.Width, creationParameters.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Il::ilGetData()); 
+                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
                  Il::ilBindImage(0); 
                  //Il::ilDeleteImage(0);
                  return tex;

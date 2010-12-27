@@ -142,17 +142,6 @@ namespace System
 	};
 
 	/// <summary>
-	/// The base exception type for all COM interop exceptions and structured exception handling (SEH) exceptions.
-	/// </summary>
-	class ExternalException : public SystemException
-	{
-	public:
-		ExternalException();
-		ExternalException(char* message);
-		ExternalException(char* message, Exception inner);
-	};
-
-	/// <summary>
 	/// The exception that is thrown when an attempt is made to access an element of an array with an index that is
 	/// outside the bounds of the array. This class cannot be inherited.
 	/// </summary>

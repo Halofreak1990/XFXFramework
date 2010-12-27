@@ -39,7 +39,7 @@ namespace XFX
 		if(_enabled != value)
 		{
 			_enabled = value;
-			OnEnabledChanged(*this, EventArgs::Empty);
+			OnEnabledChanged(this, EventArgs::Empty);
 		}
 	}
 
@@ -58,7 +58,7 @@ namespace XFX
 		if(_updateOrder != value)
 		{
 			_updateOrder = value;
-			OnUpdateOrderChanged(*this, EventArgs::Empty);
+			OnUpdateOrderChanged(this, EventArgs::Empty);
 		}
 	}
 
@@ -73,13 +73,8 @@ namespace XFX
             {
                 _disposed = true;
                 if (Disposed != null)
-                    Disposed(this, EventArgs.Empty);
+					Disposed(this, EventArgs::Empty);
             }
-	}
-	
-	void GameComponent::Dispose()
-	{
-		Dispose(true);
 	}
 
 	GameComponent::GameComponent(Game game)
@@ -93,25 +88,20 @@ namespace XFX
 		Dispose(false);
 	}
 	
-	Game GameComponent::Game_()
-	{
-		return _game;
-	}
-
 	void GameComponent::Initialize()
 	{
 	}
 
-	void GameComponent::OnEnabledChanged(void* sender, EventArgs args)
+	void GameComponent::OnEnabledChanged(Object* sender, EventArgs args)
 	{
 		if (EnabledChanged != null)
-			EnabledChanged(*this, args);
+			EnabledChanged(sender, args);
 	}
 
-	void GameComponent::OnUpdateOrderChanged(void* sender, EventArgs args)
+	void GameComponent::OnUpdateOrderChanged(Object* sender, EventArgs args)
 	{
 		if (UpdateOrderChanged != null)
-			UpdateOrderChanged(this, args);
+			UpdateOrderChanged(sender, args);
 	}
 
 	void GameComponent::Update(GameTime gameTime)

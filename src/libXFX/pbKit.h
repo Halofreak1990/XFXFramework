@@ -4,9 +4,7 @@
 #ifndef _PBKIT_H_
 #define _PBKIT_H_
 
-extern "C"{
 #include <xboxkrnl/types.h>
-}
 #include "nv_objects.h"
 
 //4x4 matrices indexes

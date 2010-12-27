@@ -264,7 +264,7 @@ namespace XFX
 
 	void Matrix::CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3* cameraForwardVector, Vector3* objectForwardVector, out Matrix result)
 	{
-		float num 0.0f;
+		float num = 0.0f;
         Vector3 vector;
         Vector3 vector2;
         Vector3 vector3;
@@ -541,16 +541,16 @@ namespace XFX
 		{
 			throw ArgumentOutOfRangeException("Near plane distance is larger than Far plane distance. Near plane distance must be smaller than Far plane distance.");
 		}
-		result.M11 = (2f * nearPlaneDistance) / (right - left);
-		result.M12 = result.M13 = result.M14 = 0f;
-		result.M22 = (2f * nearPlaneDistance) / (top - bottom);
-		result.M21 = result.M23 = result.M24 = 0f;
+		result.M11 = (2.0f * nearPlaneDistance) / (right - left);
+		result.M12 = result.M13 = result.M14 = 0.0f;
+		result.M22 = (2.0f * nearPlaneDistance) / (top - bottom);
+		result.M21 = result.M23 = result.M24 = 0.0f;
 		result.M31 = (left + right) / (right - left);
 		result.M32 = (top + bottom) / (top - bottom);
 		result.M33 = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-		result.M34 = -1f;
+		result.M34 = -1.0f;
 		result.M43 = (nearPlaneDistance * farPlaneDistance) / (nearPlaneDistance - farPlaneDistance);
-		result.M41 = result.M42 = result.M44 = 0f;
+		result.M41 = result.M42 = result.M44 = 0.0f;
 	}
 	
 	void Matrix::CreateReflection(Plane value, out Matrix result) 
@@ -613,22 +613,22 @@ namespace XFX
     { 
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
-		result.M11 = 1f;
-		result.M12 = 0f;
-		result.M13 = 0f;
-		result.M14 = 0f;
-		result.M21 = 0f;
+		result.M11 = 1.0f;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
 		result.M22 = num2;
 		result.M23 = num;
-		result.M24 = 0f;
-		result.M31 = 0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
 		result.M32 = -num;
 		result.M33 = num2;
-		result.M34 = 0f;
-		result.M41 = 0f;
-		result.M42 = 0f;
-		result.M43 = 0f;
-		result.M44 = 1f;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
 	}
 	
 	Matrix Matrix::CreateRotationX(float radians) 
@@ -643,21 +643,21 @@ namespace XFX
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
 		result.M11 = num2;
-		result.M12 = 0f;
+		result.M12 = 0.0f;
 		result.M13 = -num;
-		result.M14 = 0f;
-		result.M21 = 0f;
-		result.M22 = 1f;
-		result.M23 = 0f;
-		result.M24 = 0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = 1.0f;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
 		result.M31 = num;
-		result.M32 = 0f;
+		result.M32 = 0.0f;
 		result.M33 = num2;
-		result.M34 = 0f;
-		result.M41 = 0f;
-		result.M42 = 0f;
-		result.M43 = 0f;
-		result.M44 = 1f;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
     }
     
     Matrix Matrix::CreateRotationY(float radians) 
@@ -673,23 +673,23 @@ namespace XFX
 		float num = (float) Math::Sin((double) radians);
 		result.M11 = num2;
 		result.M12 = num;
-		result.M13 = 0f;
-		result.M14 = 0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
 		result.M21 = -num;
 		result.M22 = num2;
-		result.M23 = 0f;
-		result.M24 = 0f;
-		result.M31 = 0f;
-		result.M32 = 0f;
-		result.M33 = 1f;
-		result.M34 = 0f;
-		result.M41 = 0f;
-		result.M42 = 0f;
-		result.M43 = 0f;
-		result.M44 = 1f;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = 1.0f;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
     }
     
-    Matrix CreateRotationZ(float radians) 
+	Matrix Matrix::CreateRotationZ(float radians) 
     { 
     	Matrix result; 
 		CreateRotationZ(radians, result);
@@ -881,7 +881,7 @@ namespace XFX
 	void Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up, out Matrix result) 
 	{ 
 		Vector3 vector = Vector3::Normalize(position - forward);
-		Vector3 vector2 = Vector3::Normalize(Vector3.Cross(up, vector));
+		Vector3 vector2 = Vector3::Normalize(Vector3::Cross(up, vector));
 		Vector3 vector3 = Vector3::Cross(vector, vector2);
 		result.M11 = vector2.X;
 		result.M12 = vector2.Y;
@@ -892,10 +892,10 @@ namespace XFX
 		result.M31 = vector.X;
 		result.M32 = vector.Y;
 		result.M33 = vector.Z;
-		result.M41 = 0f;
-		result.M42 = 0f;
-		result.M43 = 0f;
-		result.M44 = 1f;
+		result.M41 = 0;
+		result.M42 = 0;
+		result.M43 = 0;
+		result.M44 = 1;
 		result.M14 = -Vector3::Dot(vector2, position);
 		result.M24 = -Vector3::Dot(vector3, position);
 		result.M34 = -Vector3::Dot(vector, position);
@@ -963,7 +963,7 @@ namespace XFX
     
     void Matrix::Divide(Matrix matrix1, float divider, out Matrix result)
     {
-	    float num = 1f / divider;
+	    float num = 1 / divider;
 		result.M11 = matrix1.M11 * num;
 		result.M12 = matrix1.M12 * num;
 		result.M13 = matrix1.M13 * num;
@@ -1031,7 +1031,7 @@ namespace XFX
 		float num38 = -(((num9 * num23) - (num7 * num20)) + (num6 * num19));
 		float num37 = ((num9 * num22) - (num8 * num20)) + (num6 * num18);
 		float num36 = -(((num9 * num21) - (num8 * num19)) + (num7 * num18));
-		float num = 1f / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
+		float num = 1.0f / ((((num5 * num39) + (num4 * num38)) + (num3 * num37)) + (num2 * num36));
 		result.M11 = num39 * num;
 		result.M21 = num38 * num;
 		result.M31 = num37 * num;
@@ -1068,7 +1068,7 @@ namespace XFX
 		return matrix;
 	}
 	
-	void Matrix::Lerp(Matrix value1, Matrix value2, float amount, out Matrix result)
+	void Matrix::Lerp(Matrix matrix1, Matrix matrix2, float amount, out Matrix result)
 	{
 		result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
 		result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);

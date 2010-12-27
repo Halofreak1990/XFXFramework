@@ -36,7 +36,9 @@ namespace System
 
 		void Directory::Delete(char* path, bool recursive)
 		{
-
+#if ENABLE_XBOX
+#else
+#endif
 		}
 
 		bool Directory::Exists(char* path)

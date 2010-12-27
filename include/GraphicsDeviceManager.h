@@ -20,7 +20,7 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager
+	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager, virtual Object
 	{
 	private:
 		bool isFullScreen;
@@ -28,8 +28,14 @@ namespace XFX
 		GraphicsDevice graphicsDevice;
 	
 	protected:
+		virtual bool CanResetDevice(GraphicsDeviceInformation newDeviceInfo);
 		virtual void Dispose(int disposing);
-		virtual int CanResetDevice(GraphicsDeviceInformation newDeviceInfo);
+		virtual GraphicsDeviceInformation FindBestDevice(bool anySuitableDevice);
+		virtual void OnDeviceCreated(Object* sender, EventArgs args);
+		virtual void OnDeviceDisposing(Object* sender, EventArgs args);
+		virtual void OnDeviceReset(Object* sender, EventArgs args);
+		virtual void OnDeviceResetting(Object* sender, EventArgs args);
+		virtual void RankDevices(List<GraphicsDeviceInformation> foundDevices);
 
 	public:
 		GraphicsDevice GraphicsDevice_();
@@ -50,6 +56,12 @@ namespace XFX
 		static const DeviceType_t ValidDeviceTypes[];
 
 		GraphicsDeviceManager(Game game);
+
+		EventHandler DeviceCreated;
+		EventHandler DeviceDisposing;
+		EventHandler DeviceReset;
+		EventHandler DeviceResetting;
+		EventHandler Disposed;
 		
 		void ApplyChanges();
 		void Dispose();

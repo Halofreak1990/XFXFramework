@@ -32,6 +32,9 @@
 #include <System/IO/Path.h>
 #include <System/IO/StreamReader.h>
 #include <System/IO/StreamWriter.h>
+#include <hal/fileio.h>
+
+extern void *malloc(unsigned int size);
 
 namespace System
 {
@@ -65,6 +68,22 @@ namespace System
 			}
 
 			//! Copy the file
+			int ret;
+			int sourceHandle;
+			int destHandle;
+			UInt32 length;
+			byte *buffer;
+			ret = XCreateFile(&sourceHandle, sourceFileName, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL);
+			if(ret == 0)
+			{
+				XGetFileSize(sourceHandle, &length);
+				buffer = (byte*)malloc((int)length);
+				XReadFile(sourceHandle, (void*)buffer, length, NULL);
+				XCloseHandle(sourceHandle);
+				XCreateFile(&destHandle, destFileName, GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL);
+				XWriteFile(destHandle, (void*)buffer, length, NULL);
+				XCloseHandle(destHandle);
+			}
 		}
 
 		FileStream File::Create(char* path)
@@ -90,11 +109,7 @@ namespace System
 			if(path == null)
 				throw ArgumentNullException("path");
 
-
-#if ENABLE_XBOX
 			XDeleteFile(path);
-#else
-#endif
 		}
 
 		bool File::Exists(char* path)
@@ -109,11 +124,8 @@ namespace System
 					return false;
 
 				path = Path::GetFullPath(path);
-#if ENABLE_XBOX
 				PXBOX_FIND_DATA data;
 				flag = ((FileAttributeInfo(path, data, false, false) == 0) && (data->dwFileAttributes != -1) && ((data->dwFileAttributes & 0x10) == 0));
-#else
-#endif
 			}
 			catch(ArgumentException)
 			{
@@ -121,14 +133,6 @@ namespace System
 			catch(NotSupportedException)
 			{
 			}
-#if !ENABLE_XBOX
-			catch(SecurityException)
-			{
-			}
-			catch(UnauthorizedAccessException)
-			{
-			}
-#endif
 			catch(IOException)
 			{
 			}
@@ -137,35 +141,26 @@ namespace System
 
 		DateTime File::GetCreationTime(char* path)
 		{
-#if ENABLE_XBOX
 			PXBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
 			FileAttributeInfo(path, data, false, false);
 			return DateTime::FromFileTimeUtc(data->ftCreationTime);
-#else
-#endif
 		}
 
 		DateTime File::GetLastAccessTime(char* path)
 		{
-#if ENABLE_XBOX
 			PXBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
 			FileAttributeInfo(path, data, false, false);
 			return DateTime::FromFileTimeUtc(data->ftLastAccessTime);
-#else
-#endif
 		}
 
 		DateTime File::GetLastWriteTime(char* path)
 		{
-#if ENABLE_XBOX
 			PXBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
 			FileAttributeInfo(path, data, false, false);
 			return DateTime::FromFileTimeUtc(data->ftLastWriteTime);
-#else
-#endif
 		}
 
 		void File::Move(char* sourceFileName, char* destFileName)

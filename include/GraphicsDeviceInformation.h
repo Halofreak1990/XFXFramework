@@ -21,8 +21,8 @@ namespace XFX
 	{
 	public:
 		GraphicsAdapter Adapter;
-		DeviceType deviceType;
-		PresentationParameters presentationParameters;
+		DeviceType_t DeviceType_;
+		PresentationParameters PresentationParameters_;
 	
 		GraphicsDeviceInformation Clone();
 	};

@@ -10,36 +10,9 @@
 #include <xboxkrnl/xboxkrnl.h>
 
 /******************************************************************************/
-/*                                                                            */
-/* Debug Function                                                             */
-/*                                                                            */
-/* Its a simple, but useful function to provide essential feedback during     */
-/* the early development stages....especially when your developing an app     */
-/* like the ohci-usb :-/                                                      */
-/*                                                                            */
-/******************************************************************************/
 
-//#include <stdlib.h>
-//#include <stdio.h>
-
-//extern void op_txt(char* str); // top of main.cpp
-
-char buf[500];
-void dbg(char* str)
-{
-	//FILE *fp = fopen("d:\\output.txt", "a+");
-	//fprintf(fp, "%s", str);
-	//fclose(fp);
-
-	//char buffer[500];
-	//sprintf(buffer, "%s", str);
-	//op_txt(str);
-}// End dbg(..)
-
-/******************************************************************************/
-
-// Might want to look into using this kernel api at a later date for xSleep(..)
-// extern "C" void __stdcall KeDelayExecutionThread(__u32 a, __u32 b, __u32 c);
+// Might want to look into using this kernel api at a later date for Sleep(..)
+// extern "C" void __stdcall KeDelayExecutionThread(unsigned int a, unsigned int b, unsigned int c);
 void Sleep(long timemilliseconds)
 {
 	//Sleep(timemilliseconds);
@@ -157,7 +130,7 @@ void *memcpy(void *dest, const void *src, size_t count)
 			 *	is needed to become aligned again. */
 			__asm__ __volatile__ ("sfence":::"memory");
 			/* enables to use FPU */
-			__asm__ __volatile__ ("ems":::"memory");
+			__asm__ __volatile__ ("emms":::"memory");
 	}
 	/* Now, do the tail of the block */
 	if (count) __memcpy(dest, src, count);

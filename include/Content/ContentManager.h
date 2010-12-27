@@ -12,6 +12,7 @@
 #include <System/IO/Stream.h>
 #include <System/Interfaces.h>
 #include <System/String.h>
+#include <System/Object.h>
 #include <System/Types.h>
 
 using namespace System;
@@ -28,11 +29,13 @@ namespace XFX
 		/// It also manages the lifespan of the loaded objects, disposing the content
 		/// manager will also dispose any assets which are themselves System.IDisposable.
 		/// </summary>
-		class ContentManager : public IDisposable
+		class ContentManager : public IDisposable, public Object
 		{
 		private:
 			List<IDisposable*> disposableAssets;
+			//Dictionary<String, Object*> loadedAssets;
 			bool disposed;
+			IServiceProvider* _provider;
 
 		protected:
 			virtual void Dispose(bool disposing);
@@ -43,8 +46,8 @@ namespace XFX
 		public:
 			char* RootDirectory;
 
-			ContentManager();
-			ContentManager(char* rootDirectory);
+			ContentManager(IServiceProvider* provider);
+			ContentManager(IServiceProvider* provider, char* rootDirectory);
 			virtual ~ContentManager();
 		
 			void Dispose();

@@ -41,11 +41,12 @@ namespace System
 		double TotalMinutes();
 		double TotalSeconds();
 			
+		TimeSpan();
 		TimeSpan(int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds, int milliseconds);
 		TimeSpan(long long ticks);
-		TimeSpan(const TimeSpan &obj);
+		TimeSpan(const TimeSpan &obj); // Copy constructor
 
 		TimeSpan Add(TimeSpan ts);
 		int Compare(TimeSpan t1, TimeSpan t2);

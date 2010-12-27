@@ -20,7 +20,6 @@ namespace XFX
 	/// </summary>
 	struct Matrix
 	{
-	public:
 		float M11;
 		float M12;
 		float M13;
@@ -114,7 +113,7 @@ namespace XFX
 		static Matrix Invert(Matrix matrix);
 		static void Invert(Matrix matrix, out Matrix result);
 		static Matrix Lerp(Matrix value1, Matrix value2, float amount);
-		static void Lerp(Matrix value1, Matrix value2, float amount, out Matrix result);
+		static void Lerp(Matrix matrix1, Matrix matrix2, float amount, out Matrix result);
 		static Matrix Multiply(Matrix matrix1, Matrix matrix2);
 		static void Multiply(Matrix matrix1, Matrix matrix2, out Matrix result);
 		static Matrix Multiply(Matrix matrix1, float scaleFactor);

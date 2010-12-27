@@ -31,7 +31,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		VertexElement::VertexElement(short stream, short offset, VertexElementFormat_t elementFormat, VertexElementMethod_t elementMethod, VertexElementUsage_t elementUsage, BYTE usageIndex)
+		VertexElement::VertexElement(short stream, short offset, VertexElementFormat_t elementFormat, VertexElementMethod_t elementMethod, VertexElementUsage_t elementUsage, byte usageIndex)
 		{
 			Stream = stream;
 			Offset = offset;
@@ -41,7 +41,7 @@ namespace XFX
 			UsageIndex = usageIndex;
 		}
 		
-		int VertexElement::Equals(const VertexElement &other)
+		int VertexElement::Equals(const VertexElement other)
 		{
 			return ((Offset == other.Offset) && (Stream == other.Stream) && (VertexElementFormat_ == other.VertexElementFormat_) &&
 				(VertexElementMethod_ == other.VertexElementMethod_) && (VertexElementUsage_ == other.VertexElementUsage_) && (UsageIndex == other.UsageIndex));
@@ -52,12 +52,12 @@ namespace XFX
 			return (Stream ^ Offset ^ UsageIndex);
 		}
 		
-		int VertexElement::operator!=(const VertexElement &other)
+		int VertexElement::operator!=(const VertexElement other)
 		{
 			return !Equals(other);
 		}
 		
-		int VertexElement::operator==(const VertexElement &other)
+		int VertexElement::operator==(const VertexElement other)
 		{
 			return Equals(other);
 		}

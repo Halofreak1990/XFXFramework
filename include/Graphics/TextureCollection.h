@@ -8,7 +8,7 @@
 #define _XFX_GRAPHICS_TEXTURECOLLECTION_
 
 #include <System/Collections/Generic/List.h>
-#include "Texture.h"
+//#include "Texture.h"
 
 using namespace System::Collections::Generic;
 
@@ -16,14 +16,16 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		class Texture;
+
 		/// <summary>
-		/// 
+		/// Represents a collection of Texture objects.
 		/// </summary>
 		class TextureCollection
 		{
 		private:
 			bool disposed;
-			List<Texture> textures;
+			List<Texture*> textures;
 			void Dispose();
 			void Dispose(bool disposing);
 
@@ -31,7 +33,7 @@ namespace XFX
 			TextureCollection();
 			~TextureCollection();
 
-			Texture operator[](int index);
+			Texture* operator[](int index);
 		};
 	}
 }

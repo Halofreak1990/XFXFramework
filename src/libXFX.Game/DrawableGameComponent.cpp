@@ -31,7 +31,7 @@ namespace XFX
 {
 	GraphicsDevice DrawableGameComponent::GraphicsDevice_()
 	{
-		return _graphicsService.GraphicsDevice_;
+		return _graphicsService->GraphicsDevice_();
 	}
 	
 	DrawableGameComponent::DrawableGameComponent(Game game)
@@ -68,13 +68,13 @@ namespace XFX
         LoadContent();
 	}
 
-	void DrawableGameComponent::OnDrawOrderChanged(void* sender, EventArgs args)
+	void DrawableGameComponent::OnDrawOrderChanged(Object* sender, EventArgs args)
 	{
 		if (DrawOrderChanged != null)
 			DrawOrderChanged(sender, args);
 	}
 
-	void DrawableGameComponent::OnVisibleChanged(void* sender, EventArgs args)
+	void DrawableGameComponent::OnVisibleChanged(Object* sender, EventArgs args)
 	{
 		if (VisibleChanged != null)
 			VisibleChanged(sender, args);

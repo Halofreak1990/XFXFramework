@@ -21,6 +21,9 @@ namespace XFX
 		/// </summary>
 		class GamePad
 		{
+		private:
+			GamePad(); // Private constructor to prevent instantiation.
+
 		public:
 			static GamePadState GetState(PlayerIndex_t playerIndex);
 			static GamePadState GetState(PlayerIndex_t playerIndex, GamePadDeadZone_t deadZoneMode);

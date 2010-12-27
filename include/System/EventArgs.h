@@ -7,14 +7,12 @@
 #ifndef _SYSTEM_EVENTARGS_
 #define _SYSTEM_EVENTARGS_
 
-#include "Object.h"
-
 namespace System
 {
 	/// <summary>
 	/// EventArgs is the base class for classes containing event data.
 	/// </summary>
-	class EventArgs : public Object
+	class EventArgs
 	{
 	public:
 		static const EventArgs Empty;

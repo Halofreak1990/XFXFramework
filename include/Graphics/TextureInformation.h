@@ -34,9 +34,9 @@ namespace XFX
 			int GetHashCode();
 			char* ToString();
 
-			bool operator!=(TextureInformation other);
-			bool operator==(TextureInformation other);
-			TextureInformation operator=(TextureInformation other);
+			bool operator!=(const TextureInformation other);
+			bool operator==(const TextureInformation other);
+			TextureInformation operator=(const TextureInformation other);
 		};
 	}
 }

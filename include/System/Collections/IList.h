@@ -1,7 +1,7 @@
 #ifndef _ILIST_
 #define _ILIST_
 
-#include "../System.h"
+#include "../System/Types.h"
 
 using namespace System;
 
@@ -11,12 +11,12 @@ namespace System
 	{
 		interface IList : virtual ICollection, virtual IEnumerable
 		{
-			public:
-				virtual int IsFixedSize();
-				virtual int IsReadOnly();
-			
-				virtual void Clear();
-				virtual void RemoveAt();
+		public:
+			virtual int IsFixedSize();
+			virtual int IsReadOnly();
+		
+			virtual void Clear();
+			virtual void RemoveAt();
 		};
 	}
 }

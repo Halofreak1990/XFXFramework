@@ -26,11 +26,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 extern "C" {
-#ifdef ENABLE_XBOX
-#include "../libXFX/xinput.h"
+#include <hal/input.h>
 #include <hal/xbox.h>
-#else
-#endif
 }
 
 #include <Game.h>
@@ -38,6 +35,7 @@ extern "C" {
 namespace XFX
 {
 	const Int64 Game::DefaultTargetElapsedTicks = 10000000L / 60L;
+	const TimeSpan Game::maximumElapsedTime = TimeSpan::FromMilliseconds(500.0);
 	
 	bool Game::IsActive()
 	{
@@ -50,21 +48,19 @@ namespace XFX
 		
 		IsFixedTimeStep = true;
 
-		visibleDrawable = List<IDrawable*>();
-		enabledUpdateable = List<IUpdateable*>();
-
-		components = new GameComponentCollection();
-		
-		services = new GameServiceContainer();
-
-		content = new ContentManager();
+		//content = ContentManager(services);
 		
 		gameTime = GameTime(TimeSpan::Zero, TimeSpan::Zero, TimeSpan::Zero, TimeSpan::Zero);
 
-		inactiveSleepTime = TimeSpan::FromTicks(0);
-		TargetElapsedTime = TimeSpan::FromTicks(DefaultTargetElapsedTicks);
+		TargetElapsedTime = TimeSpan::FromTicks(0x28b0bL);
+		inactiveSleepTime = TimeSpan::FromMilliseconds(20.0);
 
 		isActive = true;
+	}
+
+	Game::~Game()
+	{
+
 	}
 
 	GameComponentCollection Game::Components()
@@ -74,7 +70,7 @@ namespace XFX
 
 	GraphicsDevice Game::GraphicsDevice_()
 	{
-		return graphicsService.GraphicsDevice_;
+		return graphicsService->GraphicsDevice_();
 	}
 
 	GameServiceContainer Game::Services()
@@ -84,7 +80,7 @@ namespace XFX
 
 	bool Game::BeginDraw()
 	{
-		return graphicsManager.BeginDraw();
+		return graphicsManager->BeginDraw();
 	}
 
 	void Game::Dispose()
@@ -111,22 +107,30 @@ namespace XFX
 
 		disposed = true;
 		if(Disposed != null)
-			Disposed(*this, EventArgs::Empty);
+			Disposed(this, EventArgs::Empty);
 	}
 
 	void Game::Draw(GameTime gameTime)
 	{
-		/*
-		foreach (IDrawable drawable in visibleDrawable)
+		for (int i = 0; i < drawableComponents.Count(); i++)
 		{
-			drawable.Draw(gameTime);
-		}  
-		*/
+			currentlyDrawingComponents.Add(drawableComponents[i]);
+		}
+		for (int j = 0; j < currentlyDrawingComponents.Count(); j++)
+		{
+			IDrawable* drawable = currentlyDrawingComponents[j];
+			if (drawable->Visible())
+			{
+				drawable->Draw(gameTime);
+			}
+		}
+		currentlyDrawingComponents.Clear();
 	}
 
 	void Game::EndDraw()
 	{
-		graphicsManager.EndDraw();
+		if(graphicsManager != null)
+			graphicsManager->EndDraw();
 	}
 	
 	void Game::Exit()
@@ -145,24 +149,24 @@ namespace XFX
 			component.Initialize();
 		}*/
 
+		XInput_Init();
+
 		LoadContent();
 	}
 
-#if !ENABLE_XBOX
-	void Game::OnActivated(void* sender, EventArgs args)
+	void Game::OnActivated(Object* sender, EventArgs args)
 	{
 		if (Activated != null)
 			Activated(sender, args);
 	}
 
-	void Game::OnDeactivated(void* sender, EventArgs args)
+	void Game::OnDeactivated(Object* sender, EventArgs args)
 	{
 		if (Deactivated != null)
 			Deactivated(sender, args);
 	}
-#endif
 	
-	void Game::OnExiting(void* sender, EventArgs args)
+	void Game::OnExiting(Object* sender, EventArgs args)
 	{
 		if (Exiting != null)
 			Exiting(sender, args);
@@ -178,13 +182,16 @@ namespace XFX
 			
 		Initialize(); 
         
-        Tick();
+		while(1)
+			Tick();
         
         EndRun();
+		inRun = false;
 	}
 	
 	void Game::Tick()
 	{
+		XInput_GetEvents();
 
 		Update(gameTime);
 		
@@ -197,11 +204,18 @@ namespace XFX
 
 	void Game::Update(GameTime gameTime)
 	{
-		/*
-		foreach (IUpdateable updateable in enabledUpdateable)
+		/*for (int i = 0; i < this.updateableComponents.Count; i++)
 		{
-			updateable.Update(gameTime);
+			currentlyUpdatingComponents.Add(updateableComponents[i]);
+		}*/
+		for (int j = 0; j < currentlyUpdatingComponents.Count(); j++)
+		{
+			IUpdateable* updateable = currentlyUpdatingComponents[j];
+			if (updateable->Enabled())
+			{
+				updateable->Update(gameTime);
+			}
 		}
-		*/
+		currentlyUpdatingComponents.Clear();
 	}
 }

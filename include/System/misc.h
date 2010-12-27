@@ -18,3 +18,5 @@ void *memcpy(void *dest, const void *src, size_t count);
 void *malloc(size_t size);
 
 void *memset(void *s, char c, size_t count);
+
+#endif

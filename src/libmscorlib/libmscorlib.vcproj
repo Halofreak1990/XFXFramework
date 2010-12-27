@@ -143,6 +143,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\String.cpp"
 				>
 				<FileConfiguration
@@ -184,6 +188,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Directory.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\File.cpp"
 					>
 				</File>
@@ -197,6 +205,10 @@
 				</File>
 				<File
 					RelativePath=".\MemoryStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Path.cpp"
 					>
 				</File>
 				<File
@@ -337,6 +349,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\System\misc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Object.h"
 				>
 			</File>
 			<File
@@ -530,6 +546,18 @@
 					RelativePath="..\..\include\System\Text\Encoding.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Runtime"
+				>
+				<Filter
+					Name="InteropServices"
+					>
+					<File
+						RelativePath="..\..\include\System\Runtime\InteropServices\ExternalException.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

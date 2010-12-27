@@ -1,5 +1,11 @@
-#ifndef _IO_DIRECTORYINFO_
-#define _IO_DIRECTORYINFO_
+/********************************************************
+ *	DirectoryInfo.h										*
+ *														*
+ *	XFX DirectoryInfo definition file					*
+ *	Copyright © XFX Team. All Rights Reserved			*
+ ********************************************************/
+#ifndef _SYSTEM_IO_DIRECTORYINFO_
+#define _SYSTEM_IO_DIRECTORYINFO_
 
 #include "../Types.h"
 #include "FileSystemInfo.h"
@@ -32,14 +38,14 @@ namespace System
 			DirectoryInfo CreateSubDirectory(const char* path);
 			void Delete();
 			void Delete(bool recursive);
-			DirectoryInfo *GetDirectories();
-			DirectoryInfo *GetDirectories(const char* searchPattern);
-			FileSystemInfo *GetFileSystemInfos();
-			FileSystemInfo *GetFileSystemInfos(const char* searchPatter);
+			DirectoryInfo* GetDirectories();
+			DirectoryInfo* GetDirectories(const char* searchPattern);
+			FileSystemInfo* GetFileSystemInfos();
+			FileSystemInfo* GetFileSystemInfos(const char* searchPattern);
 			void MoveTo(const char* destDirName);
 			char* ToString();
 		};
 	}
 }
 
-#endif //_IO_DIRECTORYINFO_
+#endif //_SYSTEM_IO_DIRECTORYINFO_

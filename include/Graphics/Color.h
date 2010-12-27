@@ -170,6 +170,8 @@ namespace XFX
 			static const Color Teal;
 			static const Color Thistle;
 			static const Color Tomato;
+			static const Color TransparentBlack;
+			static const Color TransparentWhite;
 			static const Color Turquoise;
 			static const Color Violet;
 			static const Color Wheat;
@@ -178,10 +180,12 @@ namespace XFX
 			static const Color Yellow;
 			static const Color YellowGreen;
 			
+			Color();
 			Color(Vector3 vector);
 			Color(Vector4 vector);
 			Color(byte r, byte g, byte b);
 			Color(byte r, byte g, byte b, byte a);
+			Color(const Color &obj);
 			
 			bool Equals(Color other);
 			int GetHashCode();

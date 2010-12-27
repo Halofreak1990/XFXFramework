@@ -85,14 +85,14 @@ namespace XFX
 			{
 				try
 				{
-					//Gl::glDeleteTextures(1, int[] { textureId });
+					//glDeleteTextures(1, int[] { textureId });
 				}
 				catch(Exception)
 				{
 					
 				}
-				if(device.Textures.textures.Contains(this))
-					device.Textures.textures.Remove(this);
+				/*if(device.Textures().textures.Contains(this))
+					device.Textures().textures.Remove(this);*/
 			}
 			_isDisposed = true;
 		}
@@ -104,52 +104,56 @@ namespace XFX
             Il::ilLoadL(Il::IL_JPG, buffer, buffer.Length); 
                           
             int[] texture = int[1]; 
-            Gl::glGenTextures(1, texture); 
+            glGenTextures(1, texture); 
             textureId = texture[0]; 
-            Gl::glBindTexture(Gl::GL_TEXTURE_2D, textureId);                       
-            Gl::glTexImage2D(Gl::GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), _width, _height, 0, Gl::GL_RGBA, Gl::GL_UNSIGNED_BYTE, Il::ilGetData());                   
-            Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MIN_FILTER, Gl::GL_LINEAR);
-            Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MAG_FILTER, Gl::GL_LINEAR);*/
+            glBindTexture(GL_TEXTURE_2D, textureId);                       
+            glTexImage2D(GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Il::ilGetData());                   
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 		}
 		
+		template <class T>
 		void Texture2D::SetData(T data[]) 
  		{ 
  			Rectangle rect; 
  			SetData<T>(0, rect, data, 0, data.Length, SetDataOptions::None); 
  		}
  		
+		template <class T>
  		void Texture2D::SetData(T data[], int startIndex, int elementCount, SetDataOptions_t options) 
  		{ 
  			Rectangle rect; 
  			SetData<T>(0, rect, data, startIndex, elementCount, options); 
  		} 
 		
+		template <class T>
 		void Texture2D::SetData(int level, Rectangle rect, T data[], int startIndex, int elementCount, SetDataOptions_t options) 
  		{ 
  			if (textureId == -1 || options == SetDataOptions::NoOverwrite) 
  			{ 
- 				int[] texture = new int[1]; 
- 				Gl::glGenTextures(1, texture); 
- 				textureId = texture[0]; 
+				/*int[] texture = new int[1];
+ 				glGenTextures(1, texture); 
+ 				textureId = texture[0];*/
  			} 
- 			Gl::glBindTexture(Gl::GL_TEXTURE_2D, textureId);  
- 			switch (surfaceFormat) 
+ 			//glBindTexture(GL_TEXTURE_2D, textureId);
+
+ 			switch (_surfaceFormat) 
  			{ 
- 				case SurfaceFormat::Color: 
- 					Gl::glTexImage2D(Gl::GL_TEXTURE_2D, 0, 4, _width, _height, 0, Gl::GL_BGRA, Gl::GL_UNSIGNED_BYTE, data); 
+ 				case SurfaceFormat::Color:
+ 					//glTexImage2D(GL_TEXTURE_2D, 0, 4, _width, _height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data); 
  					break; 
  				case SurfaceFormat::Dxt1: 
- 					Gl::glCompressedTexImage2D(Gl::GL_TEXTURE_2D, 0, Gl::GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, _width, _height, 0, elementCount, data); 
+ 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, _width, _height, 0, elementCount, data);
+					break; 
+ 				case SurfaceFormat::Dxt3:
+ 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, _width, _height, 0, elementCount, data);
  					break; 
- 				case SurfaceFormat::Dxt3: 
- 					Gl::glCompressedTexImage2D(Gl::GL_TEXTURE_2D, 0, Gl::GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, _width, _height, 0, elementCount, data); 
+ 				case SurfaceFormat::Dxt5:
+ 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, _width, _height, 0, elementCount, data);
  					break; 
- 				case SurfaceFormat::Dxt5: 
- 					Gl::glCompressedTexImage2D(Gl::GL_TEXTURE_2D, 0, Gl::GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, _width, _height, 0, elementCount, data); 
- 					break; 
- 			} 
- 			Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MIN_FILTER, Gl::GL_LINEAR);  
- 			Gl::glTexParameteri(Gl::GL_TEXTURE_2D, Gl::GL_TEXTURE_MAG_FILTER, Gl::GL_LINEAR); 
+ 			}
+ 			/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
  		} 
 	}
 }

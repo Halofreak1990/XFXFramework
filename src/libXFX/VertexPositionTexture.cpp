@@ -34,7 +34,10 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		VertexPositionTexture::VertexPositionTexture(Vector3 &position, Vector2 &textureCoordinate)
+		const VertexElement VertexPositionTexture::VertexElements[] = { VertexElement(0, 0, VertexElementFormat::Vector3, VertexElementMethod::Default, VertexElementUsage::Position, 0),
+				VertexElement(0, 0, VertexElementFormat::Vector2, VertexElementMethod::Default, VertexElementUsage::TextureCoordinate, 0) }; 
+
+		VertexPositionTexture::VertexPositionTexture(Vector3 position, Vector2 textureCoordinate)
 		{
 			Position = position;
 			TextureCoordinate = textureCoordinate;
@@ -42,10 +45,10 @@ namespace XFX
 		
 		int VertexPositionTexture::SizeInBytes()
 		{
-			return (sizeof(float) * 5);
+			return sizeof(VertexPositionTexture);
 		}
 		
-		int VertexPositionTexture::Equals(const VertexPositionTexture &other)
+		bool VertexPositionTexture::Equals(const VertexPositionTexture other)
 		{
 			return ((Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
 		}
@@ -55,12 +58,12 @@ namespace XFX
 			return Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
 		
-		int VertexPositionTexture::operator!=(const VertexPositionTexture &other)
+		bool VertexPositionTexture::operator!=(const VertexPositionTexture other)
 		{
 			return !Equals(other);
 		}
 		
-		int VertexPositionTexture::operator==(const VertexPositionTexture &other)
+		bool VertexPositionTexture::operator==(const VertexPositionTexture other)
 		{
 			return Equals(other);
 		}

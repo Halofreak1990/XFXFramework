@@ -33,7 +33,7 @@ namespace XFX
 			long long TotalSpace();
 			
 			StorageContainer OpenContainer(char* titleName);
-		}
+		};
 	}
 }
 

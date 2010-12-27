@@ -24,7 +24,7 @@ namespace XFX
 		class BasicEffect : public Effect
 		{
 		protected:
-			BasicEffect(GraphicsDevice &device, BasicEffect &clone);
+			BasicEffect(GraphicsDevice device, BasicEffect clone);
 			
 		public:
 			float Alpha;
@@ -43,15 +43,15 @@ namespace XFX
 			Matrix Projection;
 			Vector3 SpecularColor;
 			float SpecularPower;
-			Texture2D Texture;
+			Texture2D Texture_;
 			int TextureEnabled;
 			int VertexColorEnabled;
 			Matrix View;
 			Matrix World;
 		
-			BasicEffect(GraphicsDevice &device, EffectPool &effectPool);
+			BasicEffect(GraphicsDevice device, EffectPool effectPool);
 			
-			Effect Clone(GraphicsDevice &device);
+			Effect Clone(GraphicsDevice device);
 			void EnableDefaultLighting();
 		};
 	}

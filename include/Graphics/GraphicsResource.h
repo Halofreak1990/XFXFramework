@@ -29,12 +29,12 @@ namespace XFX
             ResourceType_t resourceType; 
 		
 		protected:
-			GraphicsDevice graphicsDevice;
+			GraphicsDevice* graphicsDevice;
 			
 			virtual void Dispose(bool disposing)=0;
 			
 		public:
-			virtual GraphicsDevice GraphicsDevice_();
+			virtual GraphicsDevice* GraphicsDevice_();
 			bool IsDisposed();
 			char* Name();
 			void Name(char* value);
@@ -51,4 +51,4 @@ namespace XFX
 	}
 }
 
-#endif //_GRAPHICSRESOURCE_
+#endif //_XFX_GRAPHICS_GRAPHICSRESOURCE_

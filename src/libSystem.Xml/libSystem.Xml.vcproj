@@ -127,6 +127,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\include\System\Xml\Enums.h"
+				>
+			</File>
 			<Filter
 				Name="Schema"
 				>
@@ -138,10 +142,18 @@
 			<Filter
 				Name="XPath"
 				>
+				<File
+					RelativePath="..\..\include\System\Xml\XPath\XPathException.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Xsl"
 				>
+				<File
+					RelativePath="..\..\include\System\Xml\Xsl\XsltException.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

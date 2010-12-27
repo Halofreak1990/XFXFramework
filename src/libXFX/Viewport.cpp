@@ -35,9 +35,9 @@ namespace XFX
 	{
 		float Viewport::AspectRatio()
 		{
-			if ((this._height != 0) && (this._width != 0))
+			if ((Height != 0) && (Width != 0))
             {
-                return (((float) this._width) / ((float) this._height));
+                return (((float)Width) / ((float)Height));
             }
             return 0.0f;
 		}
@@ -53,12 +53,12 @@ namespace XFX
 			Matrix matrix = Matrix::Multiply(Matrix::Multiply(world, view), projection);
 			Vector3 vector = Vector3::Transform(source, matrix);
 			float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
-			if (!WithinEpsilon(a, 1f))
+			if (!WithinEpsilon(a, 1))
 			{
 				vector = (Vector3) (vector / a);
 			}
-			vector.X = (((vector.X + 1f) * 0.5f) * Width) + X;
-			vector.Y = (((-vector.Y + 1f) * 0.5f) * Height) + Y;
+			vector.X = (((vector.X + 1) * 0.5f) * Width) + X;
+			vector.Y = (((-vector.Y + 1) * 0.5f) * Height) + Y;
 			vector.Z = (vector.Z * (MaxDepth - MinDepth)) + MinDepth;
 			return vector;
 		}
@@ -67,12 +67,12 @@ namespace XFX
 		{
 			Vector3 position = Vector3();
 			Matrix matrix = Matrix::Invert(Matrix::Multiply(Matrix::Multiply(world, view), projection));
-			position.X = (((source.X - X) / ((float) Width)) * 2f) - 1f;
-			position.Y = -((((source.Y - Y) / ((float) Height)) * 2f) - 1f);
+			position.X = (((source.X - X) / ((float)Width)) * 2) - 1;
+			position.Y = -((((source.Y - Y) / ((float)Height)) * 2) - 1);
 			position.Z = (source.Z - MinDepth) / (MaxDepth - MinDepth);
-			position = Vector3.Transform(position, matrix);
+			position = Vector3::Transform(position, matrix);
 			float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
-			if (!WithinEpsilon(a, 1f))
+			if (!WithinEpsilon(a, 1))
 			{
 				position = (Vector3) (position / a);
 			}

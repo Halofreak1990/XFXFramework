@@ -16,14 +16,29 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX.Game", "src\libXFX.G
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
-		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E} = {B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}
 		{379FFCFD-88FA-46D6-A686-CAE8F58652FC} = {379FFCFD-88FA-46D6-A686-CAE8F58652FC}
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E} = {B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmscorlib", "src\libmscorlib\libmscorlib.vcproj", "{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_XBoxWiz", "XFX XBOX Game\XFX XBOX Game.vcproj", "{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Xml", "src\libSystem.Xml\libSystem.Xml.vcproj", "{4797B7BB-E670-4486-8053-CD969AD3CED5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E} = {B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}
 	EndProjectSection
 EndProject
 Global
@@ -44,6 +59,14 @@ Global
 		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Debug|Win32.Build.0 = Debug|Win32
 		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Release|Win32.ActiveCfg = Release|Win32
 		{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}.Release|Win32.Build.0 = Release|Win32
+		{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}.Debug|Win32.Build.0 = Debug|Win32
+		{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}.Release|Win32.ActiveCfg = Release|Win32
+		{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}.Release|Win32.Build.0 = Release|Win32
+		{4797B7BB-E670-4486-8053-CD969AD3CED5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4797B7BB-E670-4486-8053-CD969AD3CED5}.Debug|Win32.Build.0 = Debug|Win32
+		{4797B7BB-E670-4486-8053-CD969AD3CED5}.Release|Win32.ActiveCfg = Release|Win32
+		{4797B7BB-E670-4486-8053-CD969AD3CED5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

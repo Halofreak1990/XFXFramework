@@ -240,7 +240,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\libmscorlib\TextureCollection.cpp"
+					RelativePath=".\TextureCollection.cpp"
 					>
 				</File>
 				<File
@@ -253,6 +253,10 @@
 				</File>
 				<File
 					RelativePath=".\VertexElement.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\VertexPositionColor.cpp"
 					>
 				</File>
 				<File
@@ -283,26 +287,6 @@
 					RelativePath=".\Mouse.cpp"
 					>
 				</File>
-				<Filter
-					Name="usb"
-					>
-					<File
-						RelativePath=".\usb\hub.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\ohci.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\pad.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\xinput.cpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Media"
@@ -331,6 +315,10 @@
 			<Filter
 				Name="GamerServices"
 				>
+				<File
+					RelativePath=".\Guide.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Net"
@@ -401,6 +389,10 @@
 			<Filter
 				Name="Audio"
 				>
+				<File
+					RelativePath="..\..\include\Audio\Enums.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Content"
@@ -447,6 +439,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\Graphics\Enums.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics\Exceptions.h"
 					>
 				</File>
 				<File
@@ -502,6 +498,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Graphics\VertexPositionColor.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Graphics\VertexPositionNormalTexture.h"
 					>
 				</File>
@@ -549,26 +549,6 @@
 					RelativePath="..\..\include\Input\Mouse.h"
 					>
 				</File>
-				<Filter
-					Name="usb"
-					>
-					<File
-						RelativePath=".\usb\hub.h"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\ohci.h"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\pad.h"
-						>
-					</File>
-					<File
-						RelativePath=".\usb\xinput.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Media"
@@ -605,6 +585,14 @@
 			<Filter
 				Name="GamerServices"
 				>
+				<File
+					RelativePath="..\..\include\GamerServices\Enums.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\GamerServices\Guide.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Net"

@@ -25,15 +25,26 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-extern "C"{
-#ifdef ENABLE_XBOX
-#include "xinput.h"
-#else
-#endif
+extern "C"
+{
+#include <hal/input.h>
 }
 
 #include <MathHelper.h>
 #include <Input/GamePad.h>
+#include <System/Array.h>
+#include <System/Exception.h>
+
+using namespace System;
+
+/******************* KNOWN BUGS ******
+ *
+ *	The OpenXDK Input Library doesn't properly pick up reconnecting a controller after it being disconnected.
+ *	Therefore, the IsConnected property in GamePadState doesn't get changed back to true once the controller
+ *	has been reconnected. The input library will need to be revised, and code to set the vibration motors needs
+ *	to be added. Once that's done, the XFX Input namespace is completely finished.
+ *
+ ************************/
 
 namespace XFX
 {
@@ -63,14 +74,14 @@ namespace XFX
 				g_State.Buttons.Black = ButtonState::Pressed;
 			else
 				g_State.Buttons.Black = ButtonState::Released;
-			if(g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_LEFT_THUMB]) 
-				g_State.ThumbSticks.Left = ButtonState::Pressed;
+			if (g_Pads[playerIndex].CurrentButtons.usDigitalButtons & XPAD_LEFT_THUMB)
+				g_State.Buttons.LeftStick = ButtonState::Pressed;
 			else
-				g_State.ThumbSticks.Left = ButtonState::Released;
-			if(g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_RIGHT_THUMB]) 
-				g_State.ThumbSticks.Right = ButtonState::Pressed;
+				g_State.Buttons.LeftStick = ButtonState::Released;
+			if (g_Pads[playerIndex].CurrentButtons.usDigitalButtons & XPAD_RIGHT_THUMB)
+				g_State.Buttons.RightStick = ButtonState::Pressed;
 			else
-				g_State.ThumbSticks.Right = ButtonState::Released;
+				g_State.Buttons.RightStick = ButtonState::Released;
 			if(g_Pads[playerIndex].CurrentButtons.usDigitalButtons & XPAD_START)
 				g_State.Buttons.Start = ButtonState::Pressed;
 			else
@@ -108,9 +119,9 @@ namespace XFX
 				
 			//Update ThumbStick values
 			g_State.ThumbSticks.Left.X = g_Pads[playerIndex].sLThumbX;
-			g_State.ThumbSticks.Left.Y = -g_Pads[playerIndex].sLThumbY;
+			g_State.ThumbSticks.Left.Y = g_Pads[playerIndex].sLThumbY;
 			g_State.ThumbSticks.Right.X = g_Pads[playerIndex].sRThumbX;
-			g_State.ThumbSticks.Right.Y = -g_Pads[playerIndex].sRThumbY;
+			g_State.ThumbSticks.Right.Y = g_Pads[playerIndex].sRThumbY;
 			
 			return g_State;
 		}
@@ -124,48 +135,262 @@ namespace XFX
 			}
 			else
 			{
-				int iWhichPad = 0;
-
 				byte leftSpeed = (byte)(MathHelper::Clamp(leftMotor, 0.0f, 1.0f) * 255);
 				byte rightSpeed = (byte)(MathHelper::Clamp(rightMotor, 0.0f, 1.0f) * 255);
-				
-				switch(playerIndex)
-				{
-				case PlayerIndex::One:
-					iWhichPad = 3;
-					break;
-				case PlayerIndex::Two:
-					iWhichPad = 4;
-					break;
-				case PlayerIndex::Three:
-					iWhichPad = 1;
-					break;
-				case PlayerIndex::Four:
-					iWhichPad = 2;
-					break;
-				default:
-					throw InvalidOperationException();
-					return false;
-				}
 
-				usbd_device dev;
-				dev.p_ohci  = &(xin->my_ohci);
-				dev.address = iWhichPad;  // This will choose the first gamepad it finds, only for debug
-
-				byte data1[6] = { 0, 6, 0, leftSpeed, 0, rightSpeed };    // rumble data
-				usb_bulk_msg(&dev, 6, (void*)data1);  // simple bulk send function (in pad.c/.h)
+				//Can't do anything yet, since we can't send anything through the OpenXDK Input lib
+				return 1;
 			}
 		}
 
-		bool GamePadState::operator ==(GamePadState other)
+		GamePadState::GamePadState(GamePadThumbSticks thumbSticks, GamePadTriggers triggers, GamePadButtons buttons, GamePadDPad dpad)
+		{
+			ThumbSticks = thumbSticks;
+			Triggers = triggers;
+			Buttons = buttons;
+			DPad = dpad;
+		}
+
+		GamePadState::GamePadState(Vector2 leftThumbStick, Vector2 rightThumbStick, float leftTrigger, float rightTrigger, Buttons_t buttons[])
+		{
+			ThumbSticks.Left = leftThumbStick;
+			ThumbSticks.Right = rightThumbStick;
+			Triggers.Left = leftTrigger;
+			Triggers.Right = rightTrigger;
+			if(buttons != null)
+			{
+				for (int i = 0; i < Array::Length(buttons); i++)
+				{
+					switch(buttons[i])
+					{
+					case Buttons::A:
+						Buttons.A = ButtonState::Pressed;
+						break;
+					case Buttons::B:
+						Buttons.B = ButtonState::Pressed;
+						break;
+					case Buttons::Back:
+						Buttons.Back = ButtonState::Pressed;
+						break;
+					case Buttons::Black:
+						Buttons.Black = ButtonState::Pressed;
+						break;
+					case Buttons::LeftStick:
+						Buttons.LeftStick = ButtonState::Pressed;
+						break;
+					case Buttons::RightStick:
+						Buttons.RightStick = ButtonState::Pressed;
+						break;
+					case Buttons::Start:
+						Buttons.Start = ButtonState::Pressed;
+						break;
+					case Buttons::White:
+						Buttons.White = ButtonState::Pressed;
+						break;
+					case Buttons::X:
+						Buttons.X = ButtonState::Pressed;
+						break;
+					case Buttons::Y:
+						Buttons.Y = ButtonState::Pressed;
+						break;
+					}
+				}
+			}
+		}
+
+		bool GamePadState::IsButtonDown(Buttons_t button)
+		{
+			switch(button)
+			{
+			case Buttons::A:
+				return Buttons.A == ButtonState::Pressed;
+			case Buttons::B:
+				return Buttons.B == ButtonState::Pressed;
+			case Buttons::Back:
+				return Buttons.Back == ButtonState::Pressed;
+			case Buttons::Black:
+				return Buttons.Black == ButtonState::Pressed;
+			case Buttons::DPadDown:
+				return DPad.Down == ButtonState::Pressed;
+			case Buttons::DPadLeft:
+				return DPad.Left == ButtonState::Pressed;
+			case Buttons::DPadRight:
+				return DPad.Right == ButtonState::Pressed;
+			case Buttons::DPadUp:
+				return DPad.Up == ButtonState::Pressed;
+			case Buttons::LeftStick:
+				return Buttons.LeftStick == ButtonState::Pressed;
+			case Buttons::LeftThumbstickDown:
+				return (ThumbSticks.Left.Y < -64);
+			case Buttons::LeftThumbstickLeft:
+				return (ThumbSticks.Left.X < -64);
+			case Buttons::LeftThumbstickRight:
+				return (ThumbSticks.Left.X > 64);
+			case Buttons::LeftThumbstickUp:
+				return (ThumbSticks.Left.Y > 64);
+			case Buttons::LeftTrigger:
+				return (Triggers.Left > 0);
+			case Buttons::RightStick:
+				return Buttons.RightStick == ButtonState::Pressed;
+			case Buttons::RightThumbstickDown:
+				return (ThumbSticks.Right.Y < -64);
+			case Buttons::RightThumbstickLeft:
+				return (ThumbSticks.Right.X < -64);
+			case Buttons::RightThumbstickRight:
+				return (ThumbSticks.Right.X > 64);
+			case Buttons::RightThumbstickUp:
+				return (ThumbSticks.Right.Y > 64);
+			case Buttons::RightTrigger:
+				return (Triggers.Right > 0);
+			case Buttons::Start:
+				return Buttons.Start == ButtonState::Pressed;
+			case Buttons::White:
+				return Buttons.White == ButtonState::Pressed;
+			case Buttons::X:
+				return Buttons.X == ButtonState::Pressed;
+			case Buttons::Y:
+				return Buttons.Y == ButtonState::Pressed;
+			}
+		}
+
+		bool GamePadState::IsButtonUp(Buttons_t button)
+		{
+			switch(button)
+			{
+			case Buttons::A:
+				return Buttons.A == ButtonState::Released;
+			case Buttons::B:
+				return Buttons.B == ButtonState::Released;
+			case Buttons::Back:
+				return Buttons.Back == ButtonState::Released;
+			case Buttons::Black:
+				return Buttons.Black == ButtonState::Released;
+			case Buttons::DPadDown:
+				return DPad.Down == ButtonState::Released;
+			case Buttons::DPadLeft:
+				return DPad.Left == ButtonState::Released;
+			case Buttons::DPadRight:
+				return DPad.Right == ButtonState::Released;
+			case Buttons::DPadUp:
+				return DPad.Up == ButtonState::Released;
+			case Buttons::LeftStick:
+				return Buttons.LeftStick == ButtonState::Released;
+			case Buttons::LeftThumbstickDown:
+				return !(ThumbSticks.Left.Y < -64);
+			case Buttons::LeftThumbstickLeft:
+				return !(ThumbSticks.Left.X < -64);
+			case Buttons::LeftThumbstickRight:
+				return !(ThumbSticks.Left.X > 64);
+			case Buttons::LeftThumbstickUp:
+				return !(ThumbSticks.Left.Y > 64);
+			case Buttons::LeftTrigger:
+				return !(Triggers.Left > 0);
+			case Buttons::RightStick:
+				return Buttons.RightStick == ButtonState::Released;
+			case Buttons::RightThumbstickDown:
+				return !(ThumbSticks.Right.Y < -64);
+			case Buttons::RightThumbstickLeft:
+				return !(ThumbSticks.Right.X < -64);
+			case Buttons::RightThumbstickRight:
+				return !(ThumbSticks.Right.X > 64);
+			case Buttons::RightThumbstickUp:
+				return !(ThumbSticks.Right.Y > 64);
+			case Buttons::RightTrigger:
+				return !(Triggers.Right > 0);
+			case Buttons::Start:
+				return Buttons.Start == ButtonState::Released;
+			case Buttons::White:
+				return Buttons.White == ButtonState::Released;
+			case Buttons::X:
+				return Buttons.X == ButtonState::Released;
+			case Buttons::Y:
+				return Buttons.Y == ButtonState::Released;
+			}
+		}
+
+		bool GamePadState::operator ==(const GamePadState other)
 		{
 			return ((IsConnected == other.IsConnected) && (ThumbSticks == other.ThumbSticks) &&
 				(Triggers == other.Triggers) && (DPad == other.DPad) && (Buttons == other.Buttons));
 		}
 
-		bool GamePadState::operator !=(GamePadState other)
+		bool GamePadState::operator !=(const GamePadState other)
 		{
 			return !(*this == other);
+		}
+
+		GamePadThumbSticks::GamePadThumbSticks(Vector2 leftThumbstick, Vector2 rightThumbstick)
+		{
+			Left = leftThumbstick;
+			Right = rightThumbstick;
+		}
+
+		GamePadThumbSticks::GamePadThumbSticks()
+		{
+			Left = Vector2::Zero;
+			Right = Vector2::Zero;
+		}
+
+		GamePadThumbSticks::GamePadThumbSticks(const GamePadThumbSticks &obj)
+		{
+			Left = obj.Left;
+			Right = obj.Right;
+		}
+
+		bool GamePadThumbSticks::Equals(const GamePadThumbSticks obj)
+		{
+			return (Left == obj.Left) && (Right == obj.Right);
+		}
+
+		int GamePadThumbSticks::GetHashCode()
+		{
+			return Left.GetHashCode() ^ Right.GetHashCode();
+		}
+
+		bool GamePadThumbSticks::operator!=(const GamePadThumbSticks other)
+		{
+			return !Equals(other);
+		}
+
+		bool GamePadThumbSticks::operator==(const GamePadThumbSticks other)
+		{
+			return Equals(other);
+		}
+
+		GamePadTriggers::GamePadTriggers(float left, float right)
+		{
+			Left = left;
+			Right = right;
+		}
+
+		GamePadTriggers::GamePadTriggers()
+		{
+		}
+
+		GamePadTriggers::GamePadTriggers(const GamePadTriggers &obj)
+		{
+			Left = obj.Left;
+			Right = obj.Right;
+		}
+
+		bool GamePadTriggers::Equals(const GamePadTriggers obj)
+		{
+			return (Left == obj.Left) && (Right == obj.Right);
+		}
+
+		int GamePadTriggers::GetHashCode()
+		{
+			return (int)Left ^ (int)Right;
+		}
+
+		bool GamePadTriggers::operator!=(const GamePadTriggers other)
+		{
+			return !Equals(other);
+		}
+
+		bool GamePadTriggers::operator==(const GamePadTriggers other)
+		{
+			return Equals(other);
 		}
 	}
 }

@@ -4,15 +4,18 @@
  *	XFX VideoPlayer file								*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _VIDEOPLAYER_H_
-#define _VIDEOPLAYER_H_
+#ifndef _XFX_MEDIA_VIDEOPLAYER_
+#define _XFX_MEDIA_VIDEOPLAYER_
 
+#include "Enums.h"
+#include <System/TimeSpan.h>
 #include "../Graphics/Texture2D.h"
+
+using namespace System;
+using namespace XFX::Graphics;
 
 namespace XFX
 {
-	class TimeSpan;
-
 	namespace Media
 	{
 		class Video;
@@ -23,16 +26,16 @@ namespace XFX
 		class VideoPlayer
 		{
 		private:
-			int isDisposed;
+			bool isDisposed;
 			void Dispose(bool disposing);
 
 		protected:
 			~VideoPlayer();
 			
 		public:
-			int IsDisposed();
-			int IsLooped;
-			int IsMuted;
+			bool IsDisposed();
+			bool IsLooped;
+			bool IsMuted;
 			TimeSpan PlayPosition();
 			MediaState_t State();
 			Video Video_();
@@ -43,11 +46,11 @@ namespace XFX
 			void Dispose();
 			Texture2D GetTexture();
 			void Pause();
-			void Play(Video &video);
+			void Play(Video video);
 			void Resume();
 			void Stop();
 		};
 	}
 }
 
-#endif //_VIDEOPLAYER_H_
+#endif //_XFX_MEDIA_VIDEOPLAYER_

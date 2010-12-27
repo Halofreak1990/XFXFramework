@@ -11,13 +11,13 @@ namespace XFX
 	{
 		const short ContentReader::XnbVersion = 2;
 
-		ContentReader::ContentReader(ContentManager manager, Stream stream, GraphicsDevice graphicsDevice) 
+		ContentReader::ContentReader(ContentManager* manager, Stream stream, GraphicsDevice graphicsDevice) 
 			: BinaryReader(stream)
 		{
 			_graphicsDevice = graphicsDevice;
 		}
 
-		ContentReader::ContentReader(ContentManager manager, Stream input, char* assetName)
+		ContentReader::ContentReader(ContentManager* manager, Stream input, char* assetName)
 			: BinaryReader(PrepareStream(input, assetName))
 		{
 			contentManager = manager;
