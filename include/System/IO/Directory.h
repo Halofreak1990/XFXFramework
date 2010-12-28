@@ -4,8 +4,8 @@
  *	XFX Directory class definition file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _IO_DIRECTORY_
-#define _IO_DIRECTORY_
+#ifndef _SYSTEM_IO_DIRECTORY_
+#define _SYSTEM_IO_DIRECTORY_
 
 #include "../Types.h"
 
@@ -48,4 +48,4 @@ namespace System
 	}
 }
 
-#endif //_IO_DIRECTORY_
+#endif //_SYSTEM_IO_DIRECTORY_

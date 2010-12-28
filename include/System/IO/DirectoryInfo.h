@@ -32,13 +32,13 @@ namespace System
 			DirectoryInfo Parent();
 			DirectoryInfo Root();
 
-			DirectoryInfo(const char* path, bool junk);
+			DirectoryInfo(const char* path); // Initializes a new instance of the System::IO::DirectoryInfo class on the specified path.
 
-			void Create();
-			DirectoryInfo CreateSubDirectory(const char* path);
-			void Delete();
-			void Delete(bool recursive);
-			DirectoryInfo* GetDirectories();
+			void Create(); // Creates a directory.
+			DirectoryInfo CreateSubDirectory(const char* path); // Creates a subdirectory or subdirectories on the specified path. The specified path can be relative to this instance of the System::IO::DirectoryInfo class.
+			void Delete(); // Deletes this System::IO::DirectoryInfo if it is empty.
+			void Delete(bool recursive); // Deletes this instance of a System::IO::DirectoryInfo, specifying whether to delete subdirectories and files.
+			DirectoryInfo* GetDirectories(); // 
 			DirectoryInfo* GetDirectories(const char* searchPattern);
 			FileSystemInfo* GetFileSystemInfos();
 			FileSystemInfo* GetFileSystemInfos(const char* searchPattern);

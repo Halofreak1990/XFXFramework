@@ -43,46 +43,6 @@ namespace System
 			return false;
 		}
 
-		IAsyncResult* Stream::BeginRead(byte buffer[], int offset, int count, ASyncCallback callback, Object* state)
-		{
-			if(!CanRead())
-				throw NotSupportedException("This stream does not support reading");
-
-			StreamAsyncResult result = StreamAsyncResult(state);
-			try
-			{
-				int nbytes = Read(buffer, offset, count);
-				result.SetComplete(null, nbytes);
-			}
-			catch (Exception e)
-			{
-				result.SetComplete(&e, 0);
-			}
-
-			return result;
-		}
-
-		IAsyncResult* Stream::BeginWrite(byte buffer[], int offset, int count, ASyncCallback callback, Object* state)
-		{
-			if(!CanWrite())
-				throw NotSupportedException("This stream does not support writing");
-
-			StreamAsyncResult result = StreamAsyncResult(state);
-			try
-			{
-				Write (buffer, offset, count);
-				result.SetComplete(null);
-			}
-			catch (Exception e)
-			{
-				result.SetComplete(&e);
-			}
-
-			callback(result);
-
-			return result;
-		}
-
 		void Stream::Close()
 		{
 			Dispose(true);
@@ -91,36 +51,6 @@ namespace System
 		void Stream::Dispose()
 		{
 			Close();
-		}
-
-		int Stream::EndRead(IAsyncResult* asyncResult)
-		{
-			StreamAsyncResult result = (StreamAsyncResult)asyncResult;
-			if (result.NBytes() == -1)
-				throw ArgumentException("Invalid IAsyncResult", "asyncResult");
-
-			if (result.Done)
-				throw InvalidOperationException("EndRead already called.");
-
-			result.Done = true;
-			if (result.Exception_() != null)
-				throw result.Exception_();
-
-			return result.NBytes();
-		}
-
-		void Stream::EndWrite(IAsyncResult* asyncResult)
-		{
-			StreamAsyncResult result = (StreamAsyncResult)asyncResult;
-			if (result.NBytes() != -1)
-				throw ArgumentException("Invalid IAsyncResult", "asyncResult");
-
-			if (result.Done)
-				throw InvalidOperationException("EndWrite already called.");
-
-			result.Done = true;
-			if (result.Exception_() != null)
-				throw result.Exception_();
 		}
 
 		int Stream::ReadByte()

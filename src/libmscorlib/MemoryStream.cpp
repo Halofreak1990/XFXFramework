@@ -35,11 +35,8 @@ namespace System
 {
 	namespace IO
 	{
-#if ENABLE_XBOX // The XBOX Limits us to 64MB; we do not take XDKs into account
+		// The XBOX Limits us to 64MB; we do not take XDK/Debug units into account
 		const int MemoryStream::MemStreamMaxLength = 0x40000000;
-#else
-		const int MemoryStream::MemStreamMaxLength = 0x7fffffff;
-#endif
 
 		bool MemoryStream::CanRead()
 		{
@@ -132,6 +129,7 @@ namespace System
 			}
 			_buffer = buffer;
 			_length = _capacity = Array::Length(buffer);
+			_expandable = false;
 			_writable = true;
 			_exposable = false;
 			_origin = 0;

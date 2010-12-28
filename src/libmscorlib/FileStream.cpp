@@ -28,12 +28,10 @@
 #include <System/IO/FileStream.h>
 #include <System/IO/IOException.h>
 
-#if ENABLE_XBOX
-extern "C" {
+extern "C"
+{
 #include <hal/fileio.h>
 }
-#else
-#endif
 
 namespace System
 {
@@ -63,11 +61,9 @@ namespace System
 				throw NotSupportedException("The stream does not support seeking.");
 
 			Int64 length;
-#if ENABLE_XBOX
 			if(XGetFileSize(handle, (unsigned int *)length) != STATUS_SUCCESS)
 				throw IOException("Could not determine file size. The file may be corrupt.");
-#else
-#endif
+
 			if ((_writePos > 0) && ((_pos + _writePos) > length))
 	        {
 				length = _writePos + _pos;
@@ -108,10 +104,8 @@ namespace System
 				throw ArgumentNullException("path", "path was either NULL or an empty string.");
 
 			_access = (mode == FileMode::Append ? FileAccess::Write : FileAccess::ReadWrite);
-#if ENABLE_XBOX
+
 			XCreateFile(&handle, path, _access, FileShare::Read, mode, FILE_ATTRIBUTE_NORMAL);
-#else
-#endif
 		}
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access)
@@ -120,10 +114,8 @@ namespace System
 				throw ArgumentNullException("path", "path was either NULL, or an empty string.");
 
 			_access = access;
-#if ENABLE_XBOX
+
 			XCreateFile(&handle, path, access, FILE_SHARE_READ | FILE_SHARE_WRITE, mode, FILE_ATTRIBUTE_NORMAL);
-#else
-#endif
 		}
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share)
@@ -131,10 +123,7 @@ namespace System
 			if(path == null || path == "")
 				throw ArgumentNullException("path", "path was either NULL, or an empty string.");
 
-#if ENABLE_XBOX
 			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
-#else
-#endif
 		}
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize)
@@ -147,18 +136,7 @@ namespace System
 			if (bufferSize <= 0)
 				throw ArgumentOutOfRangeException("bufferSize", "Positive number required.");
 
-#if ENABLE_XBOX
-			isAsync = useAsync;
-
-			if(isAsync)
-			{
-			}
-			else
-			{
-				XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
-			}
-#else
-#endif
+			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
 		FileStream::~FileStream()
@@ -204,18 +182,7 @@ namespace System
 
 		void FileStream::FlushWrite(bool calledFromFinalizer)
 		{
-			if (isAsync)
-			{
-				IAsyncResult* asyncResult = BeginWrite(_buffer, 0, _writePos, null, null);
-				if (!calledFromFinalizer)
-				{
-					EndWrite(asyncResult);
-				}
-			}
-			else
-			{
-				Write(_buffer, 0, _writePos);
-			}
+			Write(_buffer, 0, _writePos);
 			_writePos = 0;
 		}
 
@@ -241,18 +208,9 @@ namespace System
 			if (offset > len - count)
 				throw ArgumentException("Reading would overrun buffer");
 
-			if(isAsync)
-			{
-				IAsyncResult* ares = BeginRead(array, offset, count, null, null);
-				return EndRead(ares);
-			}
-
-#if ENABLE_XBOX
 			UInt32 bytesRead;
 			XReadFile(handle, &array[offset], count, &bytesRead);
 			return bytesRead;
-#else
-#endif
 		}
 
 		int FileStream::ReadByte()
@@ -272,7 +230,6 @@ namespace System
 			if(handle == -1)
 				throw ObjectDisposedException("FileStream", "The stream has been closed.");
 
-#if ENABLE_XBOX
 			FILE_POSITION_INFORMATION positionInfo;
 			LARGE_INTEGER             targetPointer;
 			IO_STATUS_BLOCK           ioStatusBlock;
@@ -311,8 +268,6 @@ namespace System
 			{
 				return targetPointer.QuadPart;
 			}
-#else
-#endif
 		}
 
 		void FileStream::SetLength(long long value)
@@ -328,34 +283,18 @@ namespace System
 
 			Flush();
 
-			//
-
 			if (Position() > value)
 				Position(value);
 		}
 
 		void FileStream::Write(byte array[], int offset, int count)
 		{
-			if(isAsync)
-			{
-				IAsyncResult* asyncResult = BeginWrite(array, offset, count, null, null);
-				EndWrite(asyncResult);
-			}
-			else
-			{
-#if ENABLE_XBOX
 				XWriteFile(handle, &array[offset], count, null);
-#else
-#endif
-			}
 		}
 
 		void FileStream::WriteByte(byte value)
 		{
-#if ENABLE_XBOX
 			XWriteFile(handle, (void*)value, 1, null);
-#else
-#endif
 		}
 	}
 }

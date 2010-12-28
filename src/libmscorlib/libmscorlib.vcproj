@@ -192,6 +192,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\DirectoryInfo.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\File.cpp"
 					>
 				</File>

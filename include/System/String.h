@@ -8,7 +8,7 @@
 #define _SYSTEM_STRING_
 
 #include "Enums.h"
-#include <System/Types.h>
+#include "Types.h"
 
 namespace System
 {
@@ -50,6 +50,7 @@ namespace System
 		int IndexOf(char value, int startIndex);
 		int IndexOf(char value, int startIndex, int count);
 		static bool IsNullOrEmpty(String value);
+		static bool IsNullOrEmpty(char* value);
 		static String Join(String &separator, String value[]);
 		static String Join(String &separator, String value[], int startIndex, int count);
 		String PadLeft(int totalWidth);
@@ -65,7 +66,7 @@ namespace System
 		char** Split(char separator[], int count);
 		char** Split(char separator[]);
 		bool StartsWith(char* value);
-		String SubString(int startIndex);
+		static char* SubString(int startIndex);
 		String SubString(int startIndex, int length);
 		char *ToCharArray(int startIndex, int length);
 		char *ToCharArray();
@@ -74,6 +75,7 @@ namespace System
 		String ToUpper();
 
 		bool operator!=(const String right);
+		bool operator!=(const char* right);
 		bool operator==(const String right);
 		bool operator==(const char* right);
 		String operator=(const char* right);

@@ -7,6 +7,10 @@ namespace System
 	{
 		class FileSystemInfo
 		{
+		protected:
+			char* FullPath;
+			char* OriginalPath;
+
 		public:
 			virtual char* FullName();
 		};

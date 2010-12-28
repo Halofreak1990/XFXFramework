@@ -33,8 +33,7 @@
 #include <System/IO/StreamReader.h>
 #include <System/IO/StreamWriter.h>
 #include <hal/fileio.h>
-
-extern void *malloc(unsigned int size);
+#include <xboxkrnl/xboxkrnl.h>
 
 namespace System
 {
@@ -72,16 +71,16 @@ namespace System
 			int sourceHandle;
 			int destHandle;
 			UInt32 length;
-			byte *buffer;
+			void *buffer;
 			ret = XCreateFile(&sourceHandle, sourceFileName, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL);
 			if(ret == 0)
 			{
 				XGetFileSize(sourceHandle, &length);
-				buffer = (byte*)malloc((int)length);
-				XReadFile(sourceHandle, (void*)buffer, length, NULL);
+				buffer = MmAllocateContiguousMemory((int)length);
+				XReadFile(sourceHandle, buffer, length, NULL);
 				XCloseHandle(sourceHandle);
 				XCreateFile(&destHandle, destFileName, GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL);
-				XWriteFile(destHandle, (void*)buffer, length, NULL);
+				XWriteFile(destHandle, buffer, length, NULL);
 				XCloseHandle(destHandle);
 			}
 		}
@@ -114,7 +113,7 @@ namespace System
 
 		bool File::Exists(char* path)
 		{
-			bool flag;
+			bool flag = false;
 			try
 			{
 				if(path == null)
@@ -124,7 +123,7 @@ namespace System
 					return false;
 
 				path = Path::GetFullPath(path);
-				PXBOX_FIND_DATA data;
+				PXBOX_FIND_DATA data = null;
 				flag = ((FileAttributeInfo(path, data, false, false) == 0) && (data->dwFileAttributes != -1) && ((data->dwFileAttributes & 0x10) == 0));
 			}
 			catch(ArgumentException)
@@ -175,6 +174,7 @@ namespace System
 			char* dst = Path::GetFullPath(destFileName);
 
 			//! TODO: Move the file
+			// I suspect MoveFile is simply copying the file, and then removing the source file.
 		}
 
 		FileStream File::Open(char* path, FileMode_t mode)

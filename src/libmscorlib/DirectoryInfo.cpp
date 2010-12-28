@@ -25,61 +25,60 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/DateTime.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
 #include <System/IO/IOException.h>
-#include <System/IO/File.h>
-
-#include <string.h>
-
-#include <hal/fileio.h>
+#include <System/String.h>
 
 namespace System
 {
 	namespace IO
 	{
-		DirectoryInfo Directory::CreateDirectory(char* path)
+		DirectoryInfo::DirectoryInfo(const char* path)
 		{
 			if (path == null)
 				throw ArgumentNullException("path");
 
-			if (File::Exists(path))
-				throw IOException(strcat((char*)"Cannot create ", strcat(path,(char*)" because a file with the same name already exists.")));
-
-			XCreateDirectory(path);
-
-			return DirectoryInfo(path);
+			if ((String::Length() == 2) && (path[1] == ':'))
+			{
+				OriginalPath = ".";
+			}
+			else
+			{
+				OriginalPath = path;
+			}
 		}
 
-		void Directory::Delete(char* path)
+		void DirectoryInfo::Create()
 		{
-			Delete(path, false);
 		}
 
-		void Directory::Delete(char* path, bool recursive)
+		DirectoryInfo DirectoryInfo::CreateSubDirectory(const char* path)
 		{
 			
 		}
 
-		bool Directory::Exists(char* path)
+		void DirectoryInfo::Delete()
 		{
-			return File::Exists(path);
+			Directory::Delete(FullPath, false);
 		}
 
-		DateTime Directory::GetLastAccessTime(char* path)
+		void DirectoryInfo::Delete(bool recursive)
 		{
-			return File::GetLastAccessTime(path);
+			Directory::Delete(FullPath, recursive);
 		}
 
-		DateTime Directory::GetLastWriteTime(char* path)
+		DirectoryInfo* DirectoryInfo::GetDirectories()
 		{
-			return File::GetLastWriteTime(path);
+			return GetDirectories("*");
 		}
 
-		void Directory::Move(char* sourceDirName, char* destDirName)
+		DirectoryInfo* DirectoryInfo::GetDirectories(const char* searchPattern)
 		{
-			File::Move(sourceDirName, destDirName);
+			if (searchPattern = null)
+				throw ArgumentNullException("searchPattern");
+
+
 		}
 	}
 }
