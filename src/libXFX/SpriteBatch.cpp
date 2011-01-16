@@ -25,14 +25,19 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+extern "C" {
+#include "pbkit.h"
+}
 #include <Graphics/Color.h>
 #include <Graphics/Sprite.h>
 #include <Graphics/SpriteBatch.h>
 #include <Graphics/SpriteFont.h>
 #include <Graphics/Texture2D.h>
+#include <MathHelper.h>
 #include <Matrix.h>
 #include <Rectangle.h>
 #include <Vector2.h>
+#include <Vector4.h>
 
 using namespace XFX;
 
@@ -40,64 +45,72 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteBatch::GraphicsDevice_()
+		SpriteBatch::SpriteBatch()
 		{
-			return device;
-			spriteBlendMode = SpriteBlendMode::None
-		}
-		
-		SpriteBatch::IsDisposed()
-		{
-			return disposed;
-		}
-		
-		SpriteBatch::~SpriteBatch()
-		{
-			Dispose(false);
 		}
 		
 		SpriteBatch::SpriteBatch(GraphicsDevice graphicsDevice)
 		{
 			device = graphicsDevice;
 		}
+
+		SpriteBatch::~SpriteBatch()
+		{
+			Dispose(false);
+		}
+
+		GraphicsDevice SpriteBatch::GraphicsDevice_()
+		{
+			return device;
+		}
+		
+		bool SpriteBatch::IsDisposed()
+		{
+			return isDisposed;
+		}
 	
 		void SpriteBatch::Begin() 
         { 
             Begin(SpriteBlendMode::AlphaBlend, SpriteSortMode::Deferred, SaveStateMode::None, Matrix::Identity); 
         }
+
+		void SpriteBatch::Begin(SpriteBlendMode_t blendMode)
+		{
+			Begin(blendMode, SpriteSortMode::Deferred, SaveStateMode::None, Matrix::Identity);
+		}
         
-        void SpriteBatch::Begin(SpriteBlendMode blendMode, SpriteSortMode sortMode, SaveStateMode stateMode)
+        void SpriteBatch::Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode)
         {
 	        Begin(blendMode, sortMode, stateMode, Matrix::Identity);
         }
         
-        void Begin(SpriteBlendMode blendMode, SpriteSortMode sortMode, SaveStateMode stateMode, Matrix transformMatrix) 
+        void SpriteBatch::Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode, Matrix transformMatrix) 
         { 
-            //to respect order Begin/Draw/end 
-            if (isRunning) 
-                return;
+            if (inBeginEndPair)
+			{
+				throw InvalidOperationException("Begin cannot be called again until End has been successfully called.");
+			}
   
-            if (stateMode == SaveStateMode::SaveState) 
-                saveState = StateBlock(device); 
-  
-            spriteBlendMode = blendMode; 
-            this.sortMode = sortMode; 
-            if (sortMode == SpriteSortMode::Immediate) 
-                applyGraphicsDeviceSettings(); 
-        	isRunning = true; 
+			if (stateMode == SaveStateMode::SaveState)
+				saveState = StateBlock(device);
+			spriteBlendMode = blendMode;
+			spriteSortMode = sortMode;
+			if (sortMode == SpriteSortMode::Immediate)
+				applyGraphicsDeviceSettings();
+
+			inBeginEndPair = true;
         }
          
-        void SpriteBatch::Dispose(int disposing)
+        void SpriteBatch::Dispose(bool disposing)
         {
-	        if (!disposed) 
-            { 
-                if (disposing) 
-                { 
-  		            // Release any managed components 
-                } 
-                disposed = true; 
-                // Release any unmanaged components 
-            } 
+	        if (disposing && !isDisposed)
+			{
+				if (Disposing != null)
+				{
+					Disposing(this, EventArgs::Empty);
+				}
+			}
+			isDisposed = true;
         }
          
         void SpriteBatch::Dispose()
@@ -105,95 +118,93 @@ namespace XFX
 	        Dispose(true);
         }
          
-        void SpriteBatch::Draw(Texture2D &texture, Rectangle &destinationRectangle, Color &color)
+        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
         {
-	        Draw(texture, destinationRectangle, Rectangle::Zero, color, 0f, Vector2::Zero, SpriteEffects::None, 0f);
+			Draw(texture, destinationRectangle, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
+        }
+
+		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Color color)
+        {
+			Draw(texture, position, Rectangle::Empty, color);
         }
          
-        void SriteBatch::Draw(Texture2D &texture, Rectangle &destinationRectangle, Rectangle &sourceRectangle, Color &color)
+        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
         {
-	        Draw(texture, destinationRectangle, sourceRectangle, color, 0f, Vector2::Zero, SpriteEffects::None, 0f);
-        }
-         
-        void SpriteBatch::Draw(Texture2D &texture, Vector2 &position, Color &color)
-        {
-	        Draw(texture, position, Rectangle::Zero, color);
+			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
         
-        void SpriteBatch::Draw(Texture2D &texture, Vector2 &position, Rectangle &sourceRectangle, Color &color)
+        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color)
         {
-	        Rectangle destination = Rectangle((int)vector.X, (int)vector.Y, texture.Width, texture.Height); 
-         	Draw(texture, destination, sourceRectangle, color, 0f, Vector2::Zero, SpriteEffects::None, 0f); 
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture.Width(), texture.Height());
+			Draw(texture, destination, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f); 	
         }
-        
-        void SpriteBatch::Draw(Texture2D &texture, Vector2 &position, Rectangle &sourceRectangle, Color &color, float rotation, Vector2 &origin, float scale, SpriteEffects_t effects, float layerDepth)
-        {
-	        int width; 
-            int height; 
-            if (sourceRectangle != Rectangle::Zero) 
-            { 
-            	width = (int)(sourceRectangle.Width * scale); 
-         		height = (int)(sourceRectangle.Height * scale); 
-            } 
-            else 
-            { 
-                width = (int)(texture.Width * scale); 
-                height = (int)(texture.Height * scale); 
-            } 
-            Rectangle destination = Rectangle((int)vector.X, (int)vector.Y, width, height); 
-            Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
-        }
-        
-        void SpriteBatch::Draw(Texture2D &texture, Vector2 &position, Rectangle &sourceRectangle, Color &color, float rotation, Vector2 &origin, Vector2 &scale, SpriteEffects_t effects, float layerDepth) 
+
+		void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth) 
         { 
-            int width; 
-            int height; 
-            if (sourceRectangle != Rectangle::Zero) 
-            { 
-                width = (int)(sourceRectangle.Width * scale.X); 
-                height = (int)(sourceRectangle.Height * scale.Y); 
-            } 
-            else 
-            { 
-                width = (int)(texture.Width * scale.X); 
-                height = (int)(texture.Height * scale.Y); 
-            } 
-            Rectangle destination = Rectangle((int)vector.X, (int)vector.Y, width, height); 
-            Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
+			Sprite sprite = Sprite(texture, 
+								sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture.Width(), texture.Height()), 
+								destinationRectangle, 
+								color, 
+								rotation, 
+								origin, 
+								effects, 
+								layerDepth);
+
+						SpriteList.Add(sprite);
+
+			if (spriteSortMode == SpriteSortMode::Immediate)
+				Flush(); 
         }
-        
-        void SpriteBatch::Draw(Texture2D &texture, Rectangle &destinationRectangle, Rectangle &sourceRectangle, Color &color, float rotation, Vector2 &origin, SpriteEffects_t &effects, float layerDepth) 
+
+		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth) 
         { 
-            if (!isRunning) 
-                return;
-  
-            Sprite temp = Sprite(texture, (sourceRectangle != Rectangle::Zero) ? sourceRectangle : Rectangle(0, 0, texture.Width, texture.Height), 
-                destinationRectangle, color, rotation, origin, effects, layerDepth); 
-                          
-            spriteList.Add(temp); 
-  
-            if (sortMode == SpriteSortMode::Immediate) 
-                flush(); 
+            int width;
+			int height;
+			if (sourceRectangle != Rectangle::Empty)
+			{
+				width = (int)(sourceRectangle.Width * scale.X);
+				height = (int)(sourceRectangle.Height * scale.Y);
+			}
+			else
+			{
+				width = (int)(texture.Width() * scale.X);
+				height = (int)(texture.Height() * scale.Y);
+			}
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
+			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
         }
         
-        void SpriteBatch::DrawString(SpriteFont &spriteFont, char* text, Vector2 &position, Color &color)
+        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
         {
-	        if (!spriteFont) 
-            	return;
-            if (!text) 
-            	return; 
-            
-           	spriteFont.Draw(text, *this, position, color, 0f, Vector2::Zero, Vector2::One, SpriteEffects::None, 0f); 
+	        int width;
+			int height;
+			if (sourceRectangle != Rectangle::Empty)
+			{
+				width = (int)(sourceRectangle.Width * scale);
+				height = (int)(sourceRectangle.Height * scale);
+			}
+			else
+			{
+				width = (int)(texture.Width() * scale);
+				height = (int)(texture.Height() * scale);
+			}
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
+			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth);
         }
         
-        void SpriteBatch::DrawString(SpriteFont &spriteFont, char* text, Vector2 &position, Color &color, float rotation, Vector2 &origin, float scale, SpriteEffects_t effects, float layerDepth)
+        void SpriteBatch::DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color)
+        {            
+           	spriteFont.Draw(text, *this, position, color, 0.0f, Vector2::Zero, Vector2::One, SpriteEffects::None, 0.0f); 
+        }
+
+		void SpriteBatch::DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth)
+		{
+			spriteFont.Draw(text, *this, position, color, rotation, origin, scale, effects, layerDepth);
+		}
+        
+        void SpriteBatch::DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
         {
-	        Vector2 vector; 
-            if (!spriteFont) 
-            	return;
-            if (!text) 
-				return;
-				
+			Vector2 vector = Vector2::Zero;
             vector.X = scale; 
             vector.Y = scale; 
             spriteFont.Draw(text, *this, position, color, rotation, origin, vector, effects, layerDepth); 
@@ -201,125 +212,134 @@ namespace XFX
         
         void SpriteBatch::End() 
         { 
-            if (!isRunning) 
-                return; 
-             
-            if (sortMode != SpriteSortMode::Immediate) 
-            { 
-                applyGraphicsDeviceSettings(); 
-                flush(); 
-            } 
-                          
-            glDisable(GL_TEXTURE_2D); 
-  
-            Gl::glMatrixMode(Gl::GL_PROJECTION); 
-            Gl::glPopMatrix(); 
-            Gl::glMatrixMode(Gl::GL_MODELVIEW); 
-            Gl::glPopMatrix(); 
-  
-            restoreRenderState(); 
-            isRunning = false; 
+            if (!inBeginEndPair)
+				throw InvalidOperationException("Begin must be called successfully before End can be called.");
+			
+			if (spriteSortMode != SpriteSortMode::Immediate)
+			{
+				applyGraphicsDeviceSettings();
+				Flush();
+			}
+			
+			/*glDisable(GL_TEXTURE_2D);
+			glMatrixMode(GL_PROJECTION);
+			glPopMatrix();
+			glMatrixMode(GL_MODELVIEW);
+			glPopMatrix();*/
+			
+			restoreRenderState(); 
+
+			inBeginEndPair = false;
         }
         
         void SpriteBatch::restoreRenderState()
         {
-	        if (stateMode == SaveStateMode::SaveState) 
+	        if (saveStateMode == SaveStateMode::SaveState) 
                 saveState.Apply(); 
         }
         
-        void SpriteBatch::flush()
-        {
-	        switch (sortMode) 
-            { 
-                case SpriteSortMode::BackToFront: 
-                    spriteList.Sort(BackToFrontSpriteComparer<Sprite>()); 
-                    break; 
-                case SpriteSortMode::FrontToBack: 
-                    spriteList.Sort(FrontToBackSpriteComparer<Sprite>()); 
-                    break; 
-                case SpriteSortMode::Texture: // nothing here? 
-                    break; 
-            }
-            
-            spriteList.First();
-            Sprite temp;
-            while(spriteList.Next(temp))
-            {
-	            // Set the color, bind the texture for drawing and prepare the texture source 
-                if (temp.Color.A <= 0) continue; 
-                Gl::glColor4f((float)temp.Color.R / 255f, (float)temp.Color.G / 255f, (float)temp.Color.B / 255f, (float)temp.Color.A / 255f); 
-                Gl::glBindTexture(Gl::GL_TEXTURE_2D, temp.Texture.textureId); 
-  
-                // Setup the matrix 
-                Gl::glPushMatrix(); 
-                if ((temp.DestinationRectangle.X != 0) || (temp.DestinationRectangle.Y != 0)) 
-                    Gl::glTranslatef(temp.DestinationRectangle.X, temp.DestinationRectangle.Y, 0f); // Position 
-                if (temp.Rotation != 0) 
-                    Gl::glRotatef(MathHelper.ToDegrees(temp.Rotation), 0f, 0f, 1f); // Rotation 
-                if ((temp.DestinationRectangle.Width != 0 && temp.Origin.X != 0) || (temp.DestinationRectangle.Height != 0 && temp.Origin.Y != 0)) 
-                    Gl::glTranslatef( // Orientation 
-                        -temp.Origin.X * (float)temp.DestinationRectangle.Width / (float)temp.SourceRectangle.Width, 
-                        -temp.Origin.Y * (float)temp.DestinationRectangle.Height / (float)temp.SourceRectangle.Height, 0f); 
-  
-                // Calculate the points on the texture 
-                float x = (float)temp.SourceRectangle.X / (float)temp.Texture.Width; 
-                float y = (float)temp.SourceRectangle.Y / (float)temp.Texture.Height; 
-                float twidth = (float)temp.SourceRectangle.Width / (float)temp.Texture.Width; 
-                float theight = (float)temp.SourceRectangle.Height / (float)temp.Texture.Height; 
-                                  
-                                // Draw 
-                Gl::glBegin(Gl::GL_QUADS); 
-                { 
-                    Gl::glTexCoord2f(x,y + theight); 
-                    Gl::glVertex2f(0f, temp.DestinationRectangle.Height); 
-  
-                    Gl::glTexCoord2f(x + twidth, y + theight); 
-                    Gl::glVertex2f(temp.DestinationRectangle.Width, temp.DestinationRectangle.Height); 
-  
-                    Gl::glTexCoord2f(x + twidth,y); 
-                    Gl::glVertex2f(temp.DestinationRectangle.Width, 0f); 
-  
-                    Gl::glTexCoord2f(x,y); 
-                    Gl::glVertex2f(0f, 0f); 
-                } 
-                Gl::glEnd(); 
-                Gl::glPopMatrix(); // Finish with the matrix 
-            }
-            spriteList.Clear();
-        }
-        
         void SpriteBatch::applyGraphicsDeviceSettings() 
-        { 
+        {
+			unsigned int* p;
+
             // Set the blend mode 
             switch (spriteBlendMode) 
             { 
                 case SpriteBlendMode::AlphaBlend: 
-                    glEnable(GL_BLEND); 
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
+                    p = pb_begin();
+					//Enable blending
+					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
+					//set blendmode
+					pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (0x303<<16) | 0x303); p+=3;
+					//send data to GPU
+					pb_end(p);
                     break; 
-                case SpriteBlendMode::Additive: 
-                    glEnable(GL_BLEND); 
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE); 
+                case SpriteBlendMode::Additive:
+					p = pb_begin();
+					//Enable blending
+					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
+					//set blendmode
+					pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (1<<16) | 1); p+=3;
+					//send data to GPU
+					pb_end(p);
                     break; 
                 case SpriteBlendMode::None: 
-                    glDisable(GL_BLEND);
+                    p = pb_begin();
+					//Disable Blending
+					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 0); p+=2;
+					//send data to GPU
+					pb_end(p);
                     break; 
                 default: 
                     return; 
             } 
                           
-            glEnable(GL_TEXTURE_2D); 
+            //glEnable(GL_TEXTURE_2D); 
   
             // Reset the projection matrix and use the orthographic matrix 
-            int[] viewPort = new int[4]; 
-            Gl::glGetIntegerv(Gl::GL_VIEWPORT, viewPort); 
-            Gl::glMatrixMode(Gl::GL_PROJECTION); 
-            Gl::glPushMatrix(); 
-            Gl::glLoadIdentity(); 
-            Gl::glOrtho(0, viewPort[2], viewPort[3], 0, -1, 1); // viewPort[2] = width, viewPort[3] = height 
-            Gl::glMatrixMode(Gl::GL_MODELVIEW); 
-            Gl::glPushMatrix(); 
-            Gl::glLoadIdentity(); 
+            /*int viewPort[4]; 
+            glGetIntegerv(GL_VIEWPORT, viewPort); 
+            glMatrixMode(GL_PROJECTION); 
+            glPushMatrix();
+            glLoadIdentity();
+			glOrtho(0, device.Viewport_().Width, device.Viewport_().Height, 0, -1, 1); // viewPort[2] = width, viewPort[3] = height 
+            glMatrixMode(GL_MODELVIEW); 
+            glPushMatrix(); 
+            glLoadIdentity();*/
+        }
+
+		void SpriteBatch::Flush()
+        {
+			switch (spriteSortMode)
+			{
+			case SpriteSortMode::BackToFront:
+				//SpriteList.Sort(BackToFrontSpriteComparer<Sprite>());
+				break;
+			case SpriteSortMode::FrontToBack:
+				//SpriteList.Sort(FrontToBackSpriteComparer<Sprite>());
+				break;
+			case SpriteSortMode::Texture: // nothing here?
+				break;
+			}
+			for (int i = 0; i < SpriteList.Count(); i++)
+			{
+				// Set the color, bind the texture for drawing and prepare the texture source
+				if (SpriteList[i].Color_().A() <= 0) continue;
+				//glColor4f((float)sprite.Color_().R() / 255f, (float)sprite.Color_().G() / 255f, (float)sprite.Color_().B() / 255f, (float)sprite.Color_().A() / 255f);
+				//glBindTexture(GL_TEXTURE_2D, sprite.Texture->textureId);
+				// Setup the matrix
+				//if ((SpriteList[i].DestinationRectangle().X != 0) || (SpriteList[i].DestinationRectangle().Y != 0))
+				//	glTranslatef(SpriteList[i].DestinationRectangle().X, SpriteList[i].DestinationRectangle().Y, 0.0f); // Position
+
+				//if (SpriteList[i].Rotation() != 0)
+				//	glRotatef(MathHelper::ToDegrees(SpriteList[i].Rotation()), 0.0f, 0.0f, 1.0f); // Rotation
+
+				/*if ((SpriteList[i].DestinationRectangle().Width != 0 && SpriteList[i].Origin().X != 0) || (SpriteList[i].DestinationRectangle().Height != 0 && SpriteList[i].Origin().Y != 0))
+					glTranslatef(
+					// Orientation
+					-SpriteList[i].Origin.X * (float)SpriteList[i].DestinationRectangle().Width / (float)SpriteList[i].SourceRectangle().Width,
+					-SpriteList[i].Origin.Y * (float)SpriteList[i].DestinationRectangle().Height / (float)SpriteList[i].SourceRectangle().Height, 0.0f);*/
+				// Calculate the points on the texture
+				float x = (float)SpriteList[i].SourceRectangle().X / (float)SpriteList[i].Texture().Width();
+				float y = (float)SpriteList[i].SourceRectangle().Y / (float)SpriteList[i].Texture().Height();
+				float twidth = (float)SpriteList[i].SourceRectangle().Width / (float)SpriteList[i].Texture().Width();
+				float theight = (float)SpriteList[i].SourceRectangle().Height / (float)SpriteList[i].Texture().Height();
+				// Draw
+				/*glBegin(GL_QUADS);
+				{
+					glTexCoord2f(x,y + theight);
+					glVertex2f(0f, SpriteList[i].DestinationRectangle().Height);
+					glTexCoord2f(x + twidth, y + theight);
+					glVertex2f(SpriteList[i].DestinationRectangle().Width, SpriteList[i].DestinationRectangle().Height);
+					glTexCoord2f(x + twidth,y);
+					glVertex2f(SpriteList[i].DestinationRectangle().Width, 0f);
+					glTexCoord2f(x,y);
+					glVertex2f(0f, 0f);
+				}
+				glEnd();
+				glPopMatrix(); // Finish with the matrix*/
+			}
+			SpriteList.Clear();  
         }
 	}
 }

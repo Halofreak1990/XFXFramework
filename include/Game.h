@@ -88,7 +88,7 @@ namespace XFX
 		void Dispose();
 		void Exit();
 		void ResetElapsedTime();
-		void Run();
+		virtual void Run();
 		void SuppressDraw();
 		void Tick();
 	};

@@ -8,11 +8,17 @@
 #ifndef _SYSTEM_ARRAY_
 #define _SYSTEM_ARRAY_
 
+#include <System/Collections/Generic/Interfaces.h>
+
+using namespace System::Collections::Generic;
+
 namespace System
 {
 	class Array
 	{
 	public:
+		template <class T>
+		static int BinarySearch(T array[], int index, int length, T value, IComparer<T>* comparer);
 		template <class T>
 		static void Clear(T array[], int index, int length);
 		template <class T>

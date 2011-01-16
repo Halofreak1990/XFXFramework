@@ -17,7 +17,8 @@ namespace System
 		namespace Generic
 		{
 			/// <summary>
-			/// Represents a strongly typed list of objects that can be accessed by index. Provides methods to search, sort, and manipulate lists.
+			/// Represents a strongly typed list of objects that can be accessed by index. Provides methods to search, sort, and
+			/// manipulate lists.
 			/// </summary>
 			template <class T>
 			class List : public IList<T>
@@ -42,24 +43,23 @@ namespace System
 
  				void Add(T item);						//Adds an element to the end of the list
 				int BinarySearch(T item);
-				int BinarySearch(T item, IComparer<T> comparer);
-				int BinarySearch(int index, int count, T item, IComparer<T> comparer);
+				int BinarySearch(T item, IComparer<T>* comparer);
+				int BinarySearch(int index, int count, T item, IComparer<T>* comparer);
  				void Clear();							//Removes all elements from the list
 				bool Contains(T item);
 				void CopyTo(T array[], int arrayIndex);
 				int First();                 			//Goes to the first element in the list
  				int First(out T item);   				//Goes to the first element returns the value
- 				void ForEach(char* action);				//Executes the specified action on each element in the list
 				int IndexOf(T item);
 				void Insert(int index, T item);
  				int Next();          					//Goes to next element in the list
 				int Next(out T item);   				//Goes to next element and writes the element in parameter
  				int Change(const T newElem);   			//changes the current element
  				bool Remove(T item);  					//Removes current element
-				void RemoveAt(int index);
- 				void RemoveRange(int index, int count);
-				void Reverse();
-				void Reverse(int index, int count);
+				void RemoveAt(int index);				//Removes the element at the specified index
+ 				void RemoveRange(int index, int count);	//Removes all elements in the specified range
+				void Reverse();							//Reverses the items in the list
+				void Reverse(int index, int count);		//Reverses the items in the specified range
 				T *ToArray();
 				void TrimExcess();
 

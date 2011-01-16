@@ -7,8 +7,8 @@
 #ifndef _XFX_STORAGE_
 #define _XFX_STORAGE_
 
-#include "StorageContainer.h"
-#include "StorageDevice.h"
-#include "StorageDeviceNotConnectedException.h"
+#include "Storage/StorageContainer.h"
+#include "Storage/StorageDevice.h"
+#include "Storage/StorageDeviceNotConnectedException.h"
 
 #endif //_XFX_STORAGE_

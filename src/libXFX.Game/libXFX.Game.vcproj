@@ -129,11 +129,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\GameComponentCollection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GameServiceContainer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameTime.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\GraphicsDeviceManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\makefile"
 				>
 			</File>
 			<Filter
@@ -178,6 +190,10 @@
 				RelativePath="..\..\include\Interfaces.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\include\XFX.Game.h"
+				>
+			</File>
 			<Filter
 				Name="GamerServices"
 				>
@@ -187,10 +203,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\makefile"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

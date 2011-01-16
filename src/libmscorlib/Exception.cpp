@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/Types.h>
 #include <System/Exception.h>
 
 namespace System
@@ -37,46 +38,92 @@ namespace System
 	Exception::Exception()
 	{
 		_message = "";
+		_innerException = null;
 	}
 
 	Exception::Exception(char* message)
 	{
 		_message = message;
+		_innerException = null;
+	}
+
+	Exception::Exception(char* message, Exception* innerException)
+	{
+		_message = message;
+		_innerException = innerException;
+	}
+
+	Exception::~Exception()
+	{
+		_innerException = null;
+		delete[] _message;
+	}
+
+	Exception* Exception::GetBaseException()
+	{
+		Exception *innerException = _innerException;
+		Exception *exception2 = this;
+		while(innerException != null)
+		{
+			exception2 = innerException;
+			innerException = innerException->_innerException;
+		}
+		return innerException;
+	}
+
+	Exception* Exception::InnerException()
+	{
+		return _innerException;
 	}
 	//
 	// ApplicationException
 	//
 	ApplicationException::ApplicationException()
+		: Exception()
 	{
-		_message = "";
 	}
 	
 	ApplicationException::ApplicationException(char* message)
+		: Exception(message)
 	{
-		_message = message;
+	}
+
+	ApplicationException::ApplicationException(char* message, Exception* innerException)
+		: Exception(message, innerException)
+	{
 	}
 	//
 	// ArithmeticException
 	//
 	ArithmeticException::ArithmeticException()
+		: Exception()
 	{
-		_message = "";
 	}
 
 	ArithmeticException::ArithmeticException(char* message)
+		: Exception(message)
 	{
-		_message = message;
+	}
+
+	ArithmeticException::ArithmeticException(char* message, Exception* innerException)
+		: Exception(message, innerException)
+	{
 	}
 	//
 	// DivideByZeroException
 	//
 	DivideByZeroException::DivideByZeroException()
+		: ArithmeticException()
 	{
-		_message = "";
 	}
 
 	DivideByZeroException::DivideByZeroException(char* message)
+		: ArithmeticException(message)
 	{
-		_message = message;
+	}
+
+	DivideByZeroException::DivideByZeroException(char* message, Exception* innerException)
+		: ArithmeticException(message, innerException)
+	{
 	}
 }

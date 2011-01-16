@@ -4,14 +4,14 @@
  *	XFX namespace include file for libXFX.Game.a		*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _XFX_GAME_
-#define _XFX_GAME_
+#ifndef _XFX__GAME_
+#define _XFX__GAME_
 
 //
 //Data Types
 //
 #include "Game.h"
-#include "GamerServicesComponent.h"
+#include "GamerServices/GamerServicesComponent.h"
 #include "GameComponentCollection.h"
 #include "GameServiceContainer.h"
 #include "GameTime.h"

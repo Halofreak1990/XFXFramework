@@ -457,10 +457,10 @@ namespace XFX
 		{
 			enum type
 			{
-				Boolean = 0,
-				Float = 2,
-				Int4 = 1,
-				Sampler = 3
+				Boolean = 0,	//Boolean value.
+				Float = 2,		//4D floating-point number.
+				Int4 = 1,		//4D integer number.
+				Sampler = 3		//The register contains 4D sampler data.
 			};
 		};
 		/// <summary>
@@ -470,9 +470,9 @@ namespace XFX
 		{
 			enum type
 			{
-				Additive = 2,
-				AlphaBlend = 1,
-				None = 0
+				Additive = 2,	//Enable Additive blending.
+				AlphaBlend = 1,	//Enable Alpha blending.
+				None = 0		//No blending specified.
 			};
 		};
 		/// <summary>
@@ -482,9 +482,9 @@ namespace XFX
 		{
 			enum type
 			{
-				FlipHorizontally = 1,
-				FlipVertically = 256,
-				None = 0
+				FlipHorizontally = 1,	//Rotate 180 degrees about the Y axis before rendering.
+				FlipVertically = 0x100,	//Rotate 180 degrees about the X axis before rendering.
+				None = 0				//No rotations specified.
 			};
 		};
 		/// <summary>

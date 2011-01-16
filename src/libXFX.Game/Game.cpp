@@ -25,12 +25,15 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-extern "C" {
+extern "C"
+{
 #include <hal/input.h>
 #include <hal/xbox.h>
 }
+#include "../libXFX/pbKit.h"
 
 #include <Game.h>
+#include <System/Collections/Generic/List.h>
 
 namespace XFX
 {
@@ -78,6 +81,10 @@ namespace XFX
 		return services;
 	}
 
+	void Game::BeginRun()
+	{
+	}
+
 	bool Game::BeginDraw()
 	{
 		return graphicsManager->BeginDraw();
@@ -100,7 +107,7 @@ namespace XFX
 			{
 				IDisposable disposable = component as IDisposable;
 				if (disposable != null)
-					disposable.Dispose();
+					disposable->Dispose();
 			}  
 			*/
 		}
@@ -132,6 +139,10 @@ namespace XFX
 		if(graphicsManager != null)
 			graphicsManager->EndDraw();
 	}
+
+	void Game::EndRun()
+	{
+	}
 	
 	void Game::Exit()
 	{
@@ -152,6 +163,10 @@ namespace XFX
 		XInput_Init();
 
 		LoadContent();
+	}
+
+	void Game::LoadContent()
+	{
 	}
 
 	void Game::OnActivated(Object* sender, EventArgs args)
@@ -197,9 +212,17 @@ namespace XFX
 		
 		if(BeginDraw())
 		{
+			pb_reset();
+			pb_erase_depth_stencil_buffer(0, 0, 640, 480);
+
 			Draw(gameTime);
+
 			EndDraw();
 		}
+	}
+
+	void Game::UnloadContent()
+	{
 	}
 
 	void Game::Update(GameTime gameTime)

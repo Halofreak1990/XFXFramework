@@ -127,7 +127,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libSystem\Exception.cpp"
+				RelativePath=".\Exception.cpp"
 				>
 			</File>
 			<File

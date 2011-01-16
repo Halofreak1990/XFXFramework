@@ -22,22 +22,9 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
-
+//
+//Enums
+//
 #include "Enums.h"
-
-//
-//Interfaces
-//
-#include "IDrawable.h"
-#include "IGameComponent.h"
-#include "IGraphicsDeviceManager.h"
-#include "IUpdateable.h"
-
-//
-//Namespaces
-//
-#include "Audio.h"
-#include "Graphics.h"
-#include "Media.h"
 
 #endif //_XFX_

@@ -16,13 +16,15 @@ namespace XFX
 	struct Rectangle
 	{
 	public:
-		int Bottom();
-		int Left();
-		int Right();
-		int Top();
-		int X, Y;
-		static const Rectangle Empty;
-		int Width, Height;
+		int Bottom();	//Returns the y-coordinate of the bottom of the rectangle.
+		static const Rectangle Empty; //Returns a Rectangle with all of its values set to zero.
+		int Left();		//Returns the x-coordinate of the left side of the rectangle.
+		int Right();	//Returns the x-coordinate of the right side of the rectangle.
+		int Top();		//Returns the y-coordinate of the top of the rectangle.
+		int Height;		//Specifies the height of the rectangle.
+		int Width;		//Specifies the width of the rectangle.
+		int X;			//Specifies the x-coordinate of the rectangle.
+		int Y;			//Specifies the y-coordinate of the rectangle.
 
 		Rectangle(int x,int y,int width,int height);
 		Rectangle(const Rectangle &obj);
@@ -43,7 +45,7 @@ namespace XFX
 		
 		int operator==(const Rectangle other);
 		int operator!=(const Rectangle other);
-		Rectangle &operator=(const Rectangle other);
+		Rectangle operator=(const Rectangle other);
 	};
 }
 

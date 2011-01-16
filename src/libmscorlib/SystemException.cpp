@@ -29,168 +29,249 @@
 
 namespace System
 {
+	//
+	// SystemException
+	//
 	SystemException::SystemException()
+		Exception()
 	{
-		_message = "";
 	}
 	
 	SystemException::SystemException(char* message)
+		: Exception(message)
 	{
-		_message = message;
 	}
 
-	SystemException::SystemException(char* message, Exception innerException)
+	SystemException::SystemException(char* message, Exception* innerException)
+		: Exception(message, innerException)
 	{
-		_message = message;
 	}
-
+	//
+	// AccessViolationException
+	//
 	AccessViolationException::AccessViolationException()
+		: SystemException()
 	{
-		_message = "";
 	}
 
 	AccessViolationException::AccessViolationException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
 	}
 
-	AppDomainUnloadedException::AppDomainUnloadedException()
+	AccessViolationException::AccessViolationException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
-		_message = "";
+	}
+	//
+	// AppDomainUnloadedException
+	//
+	AppDomainUnloadedException::AppDomainUnloadedException()
+		: SystemException()
+	{
 	}
 
 	AppDomainUnloadedException::AppDomainUnloadedException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
 	}
 
-	ArgumentException::ArgumentException()
+	AppDomainUnloadedException::AppDomainUnloadedException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
-		_message = "";
+	}
+	//
+	// ArgumentException
+	//
+	ArgumentException::ArgumentException()
+		: SystemException()
+	{
 		_paramName = "";
 	}
 
 	ArgumentException::ArgumentException(char* message)
+		: SystemException(message);
 	{
-		_message = message;
 		_paramName = "";
 	}
 
 	ArgumentException::ArgumentException(char* message, char* paramName)
+		: SystemException(message)
 	{
-		_message = message;
 		_paramName = paramName;
 	}
 
+	ArgumentException::ArgumentException(char* message, char* paramName, Exception* innerException)
+		: SystemException(message, innerException)
+	{
+		_paramName = paramName;
+	}
+	//
+	// ArgumentNullException
+	//
 	ArgumentNullException::ArgumentNullException()
+		: ArgumentException()
 	{
-		_message = "";
-		_paramName = "";
 	}
 
-	ArgumentNullException::ArgumentNullException(char* message)
+	ArgumentNullException::ArgumentNullException(char* paramName)
+		: ArgumentException(paramName)
 	{
-		_message = message;
-		_paramName = "";
 	}
 
-	ArgumentNullException::ArgumentNullException(char* message, char* paramName)
+	ArgumentNullException::ArgumentNullException(char* paramName, char* message)
+		: ArgumentException(message, paramName)
 	{
-		_message = message;
-		_paramName = paramName;
 	}
 
+	ArgumentNullException::ArgumentNullException(char* message, Exception* innerException)
+		: ArgumentException(message, innerException)
+	{
+	}
+	//
+	// ArgumentOutOfRangeException
+	//
 	ArgumentOutOfRangeException::ArgumentOutOfRangeException()
+		: ArgumentException(RangeMessage())
+	{
+	}
+
+	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* paramName)
+		: ArgumentException(RangeMessage(), paramName)
+	{
+	}
+
+	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* message, Exception* innerException)
+		: ArgumentException(message, innerException)
 	{
 	}
 
 	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* paramName, char* message)
+		: ArgumentException(message, paramName)
 	{
-		_message = message;
-		_paramName = paramName;
 	}
 
-	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* paramName, void* object, char* message)
+	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* paramName, Object* actualValue, char* message)
+		: ArgumentException(message, paramName)
 	{
-		_message = message;
-		_paramName = paramName;
+		_actualValue = actualValue;
+	}
+
+	Object* ArgumentOutOfRangeException::ActualValue()
+	{
+		return _actualValue;
+	}
+
+	char* ArgumentOutOfRangeException::RangeMessage()
+	{
+		if (_rangeMessage == null)
+		{
+			return "";
+		}
+		return _rangeMessage;
 	}
 
 	IndexOutOfRangeException::IndexOutOfRangeException()
+		: SystemException()
 	{
 	}
 
 	IndexOutOfRangeException::IndexOutOfRangeException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
+	}
+
+	IndexOutOfRangeException::IndexOutOfRangeException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
+	{
 	}
 
 	InvalidOperationException::InvalidOperationException()
+		: SystemException()
 	{
 	}
 
 	InvalidOperationException::InvalidOperationException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
+	}
+
+	InvalidOperationException::InvalidOperationException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
+	{
 	}
 
 	NotImplementedException::NotImplementedException()
+		: SystemException()
 	{
 	}
 
 	NotImplementedException::NotImplementedException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
 	}
 
-	NotImplementedException::NotImplementedException(char* message, Exception innerException)
+	NotImplementedException::NotImplementedException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
-		_message = message;
 	}
 
 	NotSupportedException::NotSupportedException()
+		: SystemException()
 	{
-		_message = "";
 	}
 
 	NotSupportedException::NotSupportedException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
 	}
 
-	NotSupportedException::NotSupportedException(char* message, Exception innerException)
+	NotSupportedException::NotSupportedException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
-		_message = message;
+	}
+
+	ObjectDisposedException::ObjectDisposedException()
+		: InvalidOperationException()
+	{
 	}
 
 	ObjectDisposedException::ObjectDisposedException(char* objectName)
 	{
 		_objectName = objectName;
+		_message = "";
+	}
+
+	ObjectDisposedException::ObjectDisposedException(char* message, Exception* innerException)
+		: InvalidOperationException(message, innerException)
+	{
 	}
 
 	ObjectDisposedException::ObjectDisposedException(char* objectName, char* message)
+		: InvalidOperationException(message)
 	{
 		_objectName = objectName;
-		_message = message;
 	}
 
 	char* ObjectDisposedException::ObjectName()
 	{
+		if (_objectName == null)
+			return "";
 		return _objectName;
 	}
 
 	UnauthorizedAccessException::UnauthorizedAccessException()
+		: SystemException()
 	{
-		_message = "";
 	}
 
 	UnauthorizedAccessException::UnauthorizedAccessException(char* message)
+		: SystemException(message)
 	{
-		_message = message;
 	}
 
-	UnauthorizedAccessException::UnauthorizedAccessException(char* message, Exception inner)
+	UnauthorizedAccessException::UnauthorizedAccessException(char* message, Exception* inner)
+		: SystemException(message, inner)
 	{
-		_message = message;
 	}
 }

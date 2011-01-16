@@ -4,8 +4,8 @@
  *	XFX ExternalException definition					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _SYSTEM_RUNTIME_INTEROPSERVICES_
-#define _SYSTEM_RUNTIME_INTEROPSERVICES_
+#ifndef _SYSTEM_RUNTIME_INTEROPSERVICES_ExternalException_
+#define _SYSTEM_RUNTIME_INTEROPSERVICES_ExternalException_
 
 #include <System/Exception.h>
 
@@ -23,10 +23,10 @@ namespace System
 			public:
 				ExternalException();
 				ExternalException(char* message);
-				ExternalException(char* message, Exception inner);
+				ExternalException(char* message, Exception* inner);
 			};
 		}
 	}
 }
 
-#endif //_SYSTEM_RUNTIME_INTEROPSERVICES_
+#endif //_SYSTEM_RUNTIME_INTEROPSERVICES_ExternalException_

@@ -26,11 +26,48 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
+#include <System/Collections/Generic/Comparer.h>
 #include <System/Exception.h>
 #include <System/Types.h>
 
 namespace System
 {
+	template <class T>
+	int Array::BinarySearch(T array[], int index, int length, T value, IComparer<T>* comparer)
+	{
+		try
+		{
+			if (comparer == null)
+			{
+				comparer = Comparer<T>::Default();
+			}
+			int num = index;
+			int num2 = (index + length) - 1;
+			while (num <= num2)
+			{
+				int num3 = num + ((num2 - num) >> 1);
+				int num4 = comparer->Compare(array[num3], value);
+				if (num4 == 0)
+				{
+					return num3;
+				}
+				if (num4 < 0)
+				{
+					num = num3 + 1;
+				}
+				else
+				{
+					num2 = num3 - 1;
+				}
+			}
+			return ~num;
+		}
+		catch(Exception* exception)
+		{
+			throw InvalidOperationException("", exception);
+		}
+	}
+
 	template <class T>
 	void Array::Clear(T array[], int index, int length)
 	{

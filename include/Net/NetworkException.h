@@ -1,8 +1,16 @@
+/********************************************************
+ *	NetworkException.h									*
+ *														*
+ *	XFX NetworkException definition file				*
+ *	Copyright © XFX Team. All Rights Reserved			*
+ ********************************************************/
 #ifndef _XFX_NET_NETWORKEXCEPTION_
 #define _XFX_NET_NETWORKEXCEPTION_
 
 #include <System/Exception.h>
 #include "Enums.h"
+
+using namespace System;
 
 namespace XFX
 {
@@ -11,27 +19,27 @@ namespace XFX
 		/// <summary>
 		/// Thrown if there is a network communication failure.
 		/// </summary>
-		class NetworkException : Exception
+		class NetworkException : public Exception
 		{
 		public:
-			public NetworkException();
-			public NetworkException(char* message);
-			public NetworkException(char* message, Exception innerException);
+			NetworkException();
+			NetworkException(char* message);
+			NetworkException(char* message, Exception innerException);
 		};
 
 		/// <summary>
 		/// Thrown if an error was encountered while joining a session.
 		/// </summary>
-		class NetworkSessionJoinException : NetworkException
+		class NetworkSessionJoinException : public NetworkException
 		{
 		public:
-			public NetworkSessionJoinException();
-			public NetworkSessionJoinException(char* message);
-			public NetworkSessionJoinException(char* message, NetworkSessionJoinError joinError);
-			public NetworkSessionJoinException(char* message, Exception innerException);
+			NetworkSessionJoinException();
+			NetworkSessionJoinException(char* message);
+			NetworkSessionJoinException(char* message, NetworkSessionJoinError joinError);
+			NetworkSessionJoinException(char* message, Exception innerException);
 
-			public NetworkSessionJoinError JoinError(); //! get
-			public void JoinError(NetworkSessionJoinError joinError); //! set
+			NetworkSessionJoinError JoinError(); //! get
+			void JoinError(NetworkSessionJoinError joinError); //! set
 		};
 	}
 }

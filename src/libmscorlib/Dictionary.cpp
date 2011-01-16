@@ -101,7 +101,7 @@ namespace System
 			bool Dictionary<TKey, TValue>::Contains(KeyValuePair<TKey, TValue> keyValuePair)
 			{
 				int index = FindEntry(keyValuePair.Key());
-				return ((index >= 0) && EqualityComparer<TValue>::Default.Equals(entries[index].value, keyValuePair.Value()));
+				return ((index >= 0) && EqualityComparer<TValue>::Default().Equals(entries[index].value, keyValuePair.Value()));
 			}
 
 			template <class TKey, class TValue>
@@ -115,10 +115,10 @@ namespace System
 			{
 				if (buckets != null)
 				{
-					int num = comparer.GetHashCode(key) & 0x7fffffff;
+					int num = comparer->GetHashCode(key) & 0x7fffffff;
 					for (int i = buckets[num % Array::Length(buckets)]; i >= 0; i = entries[i].next)
 					{
-						if ((entries[i].hashCode == num) && comparer.Equals(entries[i].key, key))
+						if ((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
 						{
 							return i;
 						}
@@ -147,11 +147,11 @@ namespace System
 				if(buckets == null)
 					Initialize(0);
 
-				int num = comparer.GetHashCode(key) & 0x7fffffff;
+				int num = comparer->GetHashCode(key) & 0x7fffffff;
 				int index = num % Array::Length(buckets);
 				for(int i = buckets[index]; i >= 0; i = entries[i].next)
 				{
-					if((entries[i].hashCode == num) && comparer.Equals(entries[i].key, key))
+					if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
 					{
 						if(add)
 							throw ArgumentException("Adding duplicate of existing key.");
@@ -190,12 +190,12 @@ namespace System
 			{
 				if(buckets != null)
 				{
-					int num = comparer.GetHashCode(key) & 0x7fffffff;
+					int num = comparer->GetHashCode(key) & 0x7fffffff;
 					int index = num % Array::Length(buckets);
 					int num3 = -1;
 					for(int i = buckets[index]; i >= 0; i = entries[i].next)
 					{
-						if((entries[i].hashCode == num) && comparer.Equals(entries[i].key, key))
+						if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
 						{
 							if(num3 < 0)
 							{
@@ -207,8 +207,8 @@ namespace System
 							}
 							entries[i].hashCode = -1;
 							entries[i].next = freeList;
-							//entries[i].key = default(TKey);
-							//entries[i].value = default(TValue);
+							entries[i].key = TKey();
+							entries[i].value = TValue();
 							freeList = i;
 							freeCount++;
 							version++;
@@ -250,7 +250,7 @@ namespace System
 					value = entries[index].value;
 					return true;
 				}
-				//value = default(TValue);
+				value = TValue();
 				return false;
 			}
 

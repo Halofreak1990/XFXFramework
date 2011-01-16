@@ -11,12 +11,10 @@
 //Data Types
 //
 #include "Graphics/BasicDirectionalLight.h"
-#include "Graphics/BasicEffect.h"
 #include "Graphics/Color.h"
 #include "Graphics/DepthStencilBuffer.h"
 #include "Graphics/DisplayMode.h"
 #include "Graphics/DisplayModeCollection.h"
-#include "Graphics/Effect.h"
 #include "Graphics/Exceptions.h"
 #include "Graphics/GraphicsAdapter.h"
 #include "Graphics/GraphicsDevice.h"

@@ -4,8 +4,8 @@
  *	BasicDirectionalLight definition file				*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _BASICDIRECTIONALLIGHT_H_
-#define _BASICDIRECTIONALLICHT_H_
+#ifndef _XFX_GRAPHICS_BASICDIRECTIONALLIGHT_
+#define _XFX_GRAPHICS_BASICDIRECTIONALLICHT_
 
 #include <Vector3.h>
 
@@ -21,10 +21,10 @@ namespace XFX
 		public:
 			Vector3 DiffuseColor;
 			Vector3 Direction;
-			int Enabled;
+			bool Enabled;
 			Vector3 SpecularColor;
 		};
 	}
 }
 
-#endif //_BASICDIRECTIONALLIGHT_H_
+#endif //_XFX_GRAPHICS_BASICDIRECTIONALLIGHT_

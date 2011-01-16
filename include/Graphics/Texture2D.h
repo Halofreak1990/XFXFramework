@@ -19,7 +19,7 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		class Texture2D : public Texture
+		class Texture2D : public Texture, virtual Object
 		{
 		private:
 			GraphicsDevice device;
@@ -44,8 +44,10 @@ namespace XFX
  			TextureUsage_t TextureUsage_();
  			int Width();
  			
+			Texture2D();
  			Texture2D(GraphicsDevice graphicsDevice, int width, int height);
  			Texture2D(GraphicsDevice graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
+			Texture2D(const Texture2D &obj);
  				
  			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream);
  			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream, TextureCreationParameters creationParameters);

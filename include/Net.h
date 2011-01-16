@@ -1,15 +1,19 @@
 /********************************************************
- *	Audio.h												*
+ *	Net.h												*
  *														*
- *	XFX::Audio namespace include file					*
+ *	XFX::Net namespace include file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _XFX_AUDIO_
-#define _XFX_AUDIO_
+#ifndef _XFX_NET_
+#define _XFX_NET_
 
+//
+//Classes
+//
+#include "Net/NetworkException.h"
 //
 //Enums
 //
-#include "Audio/Enums.h"
+#include "Net/Enums.h"
 
-#endif //_XFX_AUDIO_
+#endif //_XFX_NET_

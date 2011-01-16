@@ -25,25 +25,37 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Storage/StorageDeviceNotConnectedException.h>
+#include <Graphics/StateBlock.h>
 
 namespace XFX
 {
-	namespace Storage
+	namespace Graphics
 	{
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException()
-			: ExternalException()
+		StateBlock::StateBlock()
 		{
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message)
-			: ExternalException(message)
+		StateBlock::StateBlock(GraphicsDevice graphicsDevice)
 		{
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message, Exception* innerException)
-			: ExternalException(message, innerException)
+		StateBlock::StateBlock(const StateBlock &obj)
 		{
+		}
+
+		bool StateBlock::Equals(StateBlock other)
+		{
+
+		}
+
+		bool StateBlock::operator!=(const StateBlock other)
+		{
+			return !Equals(other);
+		}
+
+		bool StateBlock::operator==(const StateBlock other)
+		{
+			return Equals(other);
 		}
 	}
 }

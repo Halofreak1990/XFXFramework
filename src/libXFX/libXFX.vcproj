@@ -188,10 +188,6 @@
 				Name="Graphics"
 				>
 				<File
-					RelativePath=".\BasicEffect.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\Color.cpp"
 					>
 				</File>
@@ -216,10 +212,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphicsDeviceManager.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\GraphicsResource.cpp"
 					>
 				</File>
@@ -228,7 +220,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\Sprite.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\SpriteBatch.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SpriteFont.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\StateBlock.cpp"
 					>
 				</File>
 				<File
@@ -386,9 +390,17 @@
 				RelativePath="..\..\include\Vector4.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\include\XFX.h"
+				>
+			</File>
 			<Filter
 				Name="Audio"
 				>
+				<File
+					RelativePath="..\..\include\Audio.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\include\Audio\Enums.h"
 					>
@@ -397,6 +409,10 @@
 			<Filter
 				Name="Content"
 				>
+				<File
+					RelativePath="..\..\include\Content.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\include\Content\ContentManager.h"
 					>
@@ -411,10 +427,6 @@
 				>
 				<File
 					RelativePath="..\..\include\Graphics\BasicDirectionalLight.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\Graphics\BasicEffect.h"
 					>
 				</File>
 				<File
@@ -434,15 +446,15 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\Graphics\Effect.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\Graphics\Enums.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\include\Graphics\Exceptions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics.h"
 					>
 				</File>
 				<File
@@ -470,7 +482,19 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Graphics\Sprite.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Graphics\SpriteBatch.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics\SpriteFont.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics\StateBlock.h"
 					>
 				</File>
 				<File
@@ -542,6 +566,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Input.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Input\Keyboard.h"
 					>
 				</File>
@@ -558,6 +586,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Media.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Media\Video.h"
 					>
 				</File>
@@ -569,6 +601,10 @@
 			<Filter
 				Name="Storage"
 				>
+				<File
+					RelativePath="..\..\include\Storage.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\include\Storage\StorageContainer.h"
 					>
@@ -587,6 +623,10 @@
 				>
 				<File
 					RelativePath="..\..\include\GamerServices\Enums.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\GamerServices.h"
 					>
 				</File>
 				<File

@@ -86,6 +86,8 @@ namespace XFX
 			float* GetPixelShaderSingleConstant(int startRegister, int constantCount);
 			Vector2* GetPixelShaderVector2ArrayConstant(int startRegister, int constantCount);
 			Vector2 GetPixelShaderVector2Constant(int startRegister);
+			void SetVertexShaderConstant(int startRegister, Matrix constantData);
+			void SetVertexShaderConstant(int startRegister, Vector4 constantData);
 		};
 	}
 }

@@ -53,6 +53,11 @@ namespace XFX
 		{
 			return _width;
 		}
+
+		Texture2D::Texture2D()
+		{
+			textureId = -1;
+		}
 		
 		Texture2D::Texture2D(GraphicsDevice graphicsDevice)
 		{
@@ -77,6 +82,17 @@ namespace XFX
 			_numberOfLevels = numberLevels;
 			_textureUsage = usage;
 			_surfaceFormat = format;
+		}
+
+		Texture2D::Texture2D(const Texture2D &obj)
+		{
+			textureId = obj.textureId;
+			device = obj.device;
+			_width = obj._width;
+			_height = obj._height;
+			_numberOfLevels = obj._numberOfLevels;
+			_textureUsage = obj._textureUsage;
+			_surfaceFormat = obj._surfaceFormat;
 		}
 		
 		void Texture2D::Dispose(bool disposing)

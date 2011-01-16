@@ -25,25 +25,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Storage/StorageDeviceNotConnectedException.h>
+#include <Graphics/Effect.h>
 
 namespace XFX
 {
-	namespace Storage
+	namespace Graphics
 	{
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException()
-			: ExternalException()
-		{
-		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message)
-			: ExternalException(message)
-		{
-		}
-
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message, Exception* innerException)
-			: ExternalException(message, innerException)
-		{
-		}
 	}
 }

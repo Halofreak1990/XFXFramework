@@ -25,14 +25,22 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include "pbKit.h"
 #include <Graphics/GraphicsAdapter.h>
+
+extern "C" {
+#include "pbKit.h"
 #include <hal/video.h>
+}
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		GraphicsAdapter::~GraphicsAdapter()
+		{
+			Dispose(false);
+		}
+
 		char* GraphicsAdapter::Description()
 		{
 			//TODO: Come up with a device description
@@ -71,7 +79,36 @@ namespace XFX
 		
 		bool GraphicsAdapter::IsWideScreen()
 		{
+			//TODO: Get WideScreen setting from EEPROM
 			return false;
+		}
+
+		bool GraphicsAdapter::CheckDepthStencilMatch(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, SurfaceFormat_t renderTargetFormat, DepthFormat_t depthStencilFormat)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, SurfaceFormat_t checkFormat)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, DepthFormat_t checkFormat)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceFormatConversion(DeviceType_t deviceType, SurfaceFormat_t sourceFormat, SurfaceFormat_t targetFormat)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType, out int qualityLevels)
+		{
+		}
+
+		bool GraphicsAdapter::CheckDeviceType(DeviceType_t deviceType, SurfaceFormat_t displayFormat, SurfaceFormat_t backBufferFormat, bool isFullScreen)
+		{
 		}
 		
 		DisplayMode GraphicsAdapter::CurrentDisplayMode()
@@ -93,15 +130,33 @@ namespace XFX
 			}
 			return disp;
 		}
+
+		void GraphicsAdapter::Dispose()
+		{
+			Dispose(true);
+		}
+
+		void GraphicsAdapter::Dispose(bool __p1)
+		{
+			if (__p1)
+			{
+			}
+		}
+
+		bool GraphicsAdapter::Equals(const GraphicsAdapter obj)
+		{
+			// There's for now only one GraphicsAdapter instance, so just return true;
+			return true;
+		}
 		
 		bool GraphicsAdapter::IsDeviceTypeAvailable(DeviceType_t deviceType)
 		{
 			switch(deviceType)
 			{
-				case DeviceType::Hardware: return true;
-				case DeviceType::NullReference: return false;
-				case DeviceType::Reference: return false;
-				default: return false;
+			case DeviceType::Hardware: return true;
+			case DeviceType::NullReference: return false;
+			case DeviceType::Reference: return false;
+			default: return false;
 			}
 		}
 
@@ -110,6 +165,16 @@ namespace XFX
 			DisplayModeCollection collection;
 			
 			return collection;
+		}
+
+		bool GraphicsAdapter::operator!=(const GraphicsAdapter other)
+		{
+			return !Equals(other);
+		}
+
+		bool GraphicsAdapter::operator==(const GraphicsAdapter other)
+		{
+			return Equals(other);
 		}
 	}
 }

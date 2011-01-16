@@ -16,7 +16,7 @@ namespace XFX
 		/// <summary>
 		/// Creates a new GamerServicesComponent.
 		/// </summary>
-		class GamerServicesComponent : GameComponent
+		class GamerServicesComponent : public GameComponent
 		{	
 		public:
 			GamerServicesComponent(Game game);

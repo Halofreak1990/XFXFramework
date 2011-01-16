@@ -8,6 +8,9 @@
 #define _XFX_INTERFACES_
 
 #include <System/Types.h>
+#include <System/Delegates.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -23,7 +26,7 @@ namespace XFX
 		virtual bool Visible()=0;
 
 		virtual void Draw(GameTime gameTime)=0;
-		virtual ~IDrawable();
+		virtual ~IDrawable() {}
 
 		EventHandler DrawOrderChanged;
 		EventHandler VisibleChanged;
@@ -36,7 +39,7 @@ namespace XFX
 	{
 	public:
 		virtual void Initialize()=0;
-		virtual ~IGameComponent();
+		virtual ~IGameComponent() {}
 	};
 
 	/// <summary>
@@ -49,7 +52,7 @@ namespace XFX
 		virtual void CreateDevice()=0;
 		virtual void EndDraw()=0;
 
-		virtual ~IGraphicsDeviceManager();
+		virtual ~IGraphicsDeviceManager() {}
 	};
 
 	/// <summary>
@@ -63,7 +66,7 @@ namespace XFX
 		virtual int UpdateOrder()=0;
 		virtual void UpdateOrder(int value)=0;
 
-		virtual ~IUpdateable();
+		virtual ~IUpdateable() {}
 		virtual void Update(GameTime gameTime)=0;
 
 		EventHandler EnabledChanged;

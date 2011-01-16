@@ -29,7 +29,7 @@ namespace System
 				virtual bool Remove(T item)=0;
 
 				virtual int Count()=0;
-				virtual bool IsReadOnly();
+				virtual bool IsReadOnly() { return true; }
 			};
 
 			/// <summary>
@@ -102,7 +102,7 @@ namespace System
 
 				virtual T operator[](int index)=0;
 
-				virtual ~IList();
+				virtual ~IList() {}
 			};
 		}
 	}

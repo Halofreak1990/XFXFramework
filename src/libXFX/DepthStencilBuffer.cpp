@@ -6,6 +6,7 @@ namespace XFX
 	{
 		DepthStencilBuffer()
 		{
+			_graphicsDevice = null;
 			_width = 0;
 			_height = 0;
 			_format = DepthFormat::Unknown;
@@ -13,8 +14,9 @@ namespace XFX
 			isDisposed = false;
 		}
 		
-		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice &graphicsDevice, int width, int height, DepthFormat_t format)
+		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format)
 		{
+			_graphicsDevice = graphiceDevice;
 			_width = width;
 			_height = height;
 			_format = format;
@@ -22,13 +24,29 @@ namespace XFX
 			isDisposed = false;
 		}
 		
-		DepthStencilBuffer(GraphicsDevice &graphicsDevice, int width, int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality)
+		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality)
 		{
+			_graphicsDevice = graphiceDevice;
 			_width = width;
 			_height = height;
 			_format = format;
 			_multiSampleType = multiSampleType;
 			isDisposed = false;
+		}
+
+		DepthStencilBuffer::DepthStencilBuffer(const DepthStencilBuffer &obj)
+		{
+			_graphicsDevice = obj._graphicsDevice;
+			_width = obj._width;
+			_height = obj._height;
+			_format = obj._format;
+			_multiSampleType = obj._multiSampleType;
+			isDisposed = obj.isDisposed;
+		}
+
+		DepthStencilBuffer::~DepthStencilBuffer()
+		{
+			Dispose(false);
 		}
 		
 		DepthFormat_t DepthStencilBuffer::Format()
@@ -36,12 +54,12 @@ namespace XFX
 			return _format;
 		}
 		
-		GraphicsDevice DepthStencilBuffer::GraphicsDevice_()
+		GraphicsDevice* DepthStencilBuffer::GraphicsDevice_()
 		{
 			return _graphicsDevice;
 		}
 		
-		int DepthStencilBuffer::IsDisposed()
+		bool DepthStencilBuffer::IsDisposed()
 		{
 			return isDisposed();
 		}
@@ -61,7 +79,7 @@ namespace XFX
 			Dispose(true);
 		}
 		
-		void DepthStencilBuffer::Dispose(int __p1)
+		void DepthStencilBuffer::Dispose(bool __p1)
 		{
 			if(__p1)
 			{

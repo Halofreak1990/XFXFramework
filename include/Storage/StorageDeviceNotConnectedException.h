@@ -23,7 +23,7 @@ namespace XFX
 		public:
 			StorageDeviceNotConnectedException();
 			StorageDeviceNotConnectedException(char* message);
-			StorageDeviceNotConnectedException(char* message, Exception innerException);
+			StorageDeviceNotConnectedException(char* message, Exception* innerException);
 		};
 	}
 }

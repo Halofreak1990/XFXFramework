@@ -38,6 +38,16 @@ namespace System
 
 	bool Object::Equals(Object* objA, Object* objB)
 	{
-		return ((&objA == &objB) || ((objA != null) && (objB != null) && objA->Equals(objB)));
+		return ((&objA == &objB) || ((objA != null) && (objB != null) && objA->Equals(objB)) || (objA == null) && (objB == null));
+	}
+
+	int Object::GetHashCode()
+	{
+		return 1;
+	}
+
+	char* Object::ToString()
+	{
+		return "Object";
 	}
 }

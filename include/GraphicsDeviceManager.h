@@ -9,10 +9,10 @@
 
 #include "Game.h"
 #include "Graphics/GraphicsDevice.h"
+#include "Graphics/Enums.h"
+#include "Graphics/IGraphicsDeviceService.h"
 #include "GraphicsDeviceInformation.h"
 #include "Interfaces.h"
-#include "Graphics/IGraphicsDeviceService.h"
-#include "Graphics/Enums.h"
 #include "System/Interfaces.h"
 
 using namespace System;
@@ -20,16 +20,25 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
+	/// <summary>
+	/// Handles the configuration and management of the graphics device.
+	/// </summary>
 	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager, virtual Object
 	{
 	private:
 		bool isFullScreen;
 		Game _game;
+		SurfaceFormat_t backBufferFormat;
+		int backBufferHeight;
+		int backBufferWidth;
 		GraphicsDevice graphicsDevice;
+		ShaderProfile_t minimumVertexShaderProfile;
+
+		void CreateDevice();
 	
 	protected:
 		virtual bool CanResetDevice(GraphicsDeviceInformation newDeviceInfo);
-		virtual void Dispose(int disposing);
+		virtual void Dispose(bool disposing);
 		virtual GraphicsDeviceInformation FindBestDevice(bool anySuitableDevice);
 		virtual void OnDeviceCreated(Object* sender, EventArgs args);
 		virtual void OnDeviceDisposing(Object* sender, EventArgs args);
@@ -42,12 +51,12 @@ namespace XFX
 		bool IsFullScreen();
 		float MinimumPixelShaderProfile;
 		float MinimumVertexShaderProfile;
-		int PreferMultiSampling;
+		bool PreferMultiSampling;
 		SurfaceFormat_t PreferredBackBufferFormat;
 		int PreferredBackBufferWidth;
 		int PreferredBackBufferHeight;
 		DepthFormat_t PreferredDepthStencilFormat;
-		int SynchronizeWithVerticalRetrace;
+		bool SynchronizeWithVerticalRetrace;
 
 		static const int DefaultBackBufferWidth;
 		static const int DefaultBackBufferHeight;
@@ -55,6 +64,7 @@ namespace XFX
 		static SurfaceFormat_t ValidBackBufferFormats[];
 		static const DeviceType_t ValidDeviceTypes[];
 
+		GraphicsDeviceManager();
 		GraphicsDeviceManager(Game game);
 
 		EventHandler DeviceCreated;
@@ -64,7 +74,9 @@ namespace XFX
 		EventHandler Disposed;
 		
 		void ApplyChanges();
+		bool BeginDraw();
 		void Dispose();
+		void EndDraw();
 		void ToggleFullscreen();
 	};
 }

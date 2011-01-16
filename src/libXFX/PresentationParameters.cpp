@@ -32,16 +32,16 @@ namespace XFX
 	namespace Graphics
 	{
 		const int PresentationParameters::DefaultPresentRate = 60;
-
-		PresentationParameters::~PresentationParameters()
-		{
-			Dispose(false);
-		}
 		
 		PresentationParameters::PresentationParameters()
 		{
 			disposed = false;
 			Clear();
+		}
+
+		PresentationParameters::~PresentationParameters()
+		{
+			Dispose(false);
 		}
 		
 		void PresentationParameters::Clear() 
@@ -92,7 +92,7 @@ namespace XFX
 	        Dispose(true);
         }
          
-        void PresentationParameters::Dispose(int disposing)
+        void PresentationParameters::Dispose(bool disposing)
         {
          	 if (!disposed) 
          	 { 
@@ -105,7 +105,7 @@ namespace XFX
             }
         }
         
-        int PresentationParameters::Equals(PresentationParameters &other)
+        bool PresentationParameters::Equals(const PresentationParameters other)
         {
 	        return ((other.AutoDepthStencilFormat == AutoDepthStencilFormat) &&
             (other.BackBufferCount == BackBufferCount) &&
@@ -126,12 +126,12 @@ namespace XFX
             (other.SwapEffect_ == SwapEffect_));
         }
         
-        int PresentationParameters::operator!=(PresentationParameters &other)
+        bool PresentationParameters::operator!=(const PresentationParameters other)
         {
 	        return !Equals(other);
         }
         
-		int PresentationParameters::operator==(PresentationParameters &other)
+		bool PresentationParameters::operator==(const PresentationParameters other)
 		{
 			return Equals(other);
 		}

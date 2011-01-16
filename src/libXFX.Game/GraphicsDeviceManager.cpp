@@ -26,7 +26,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GraphicsDeviceManager.h>
+
+extern "C" {
 #include "../libXFX/pbKit.h"
+}
 
 namespace XFX
 {
@@ -35,13 +38,32 @@ namespace XFX
 	const DeviceType_t GraphicsDeviceManager::ValidDeviceTypes[] = { DeviceType::Hardware };
 	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr32, SurfaceFormat::Bgr555, SurfaceFormat::Bgr565, SurfaceFormat::Bgra1010102 };
 	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgr555, SurfaceFormat::Bgra5551, SurfaceFormat::Bgr32, SurfaceFormat::Color, SurfaceFormat::Bgra1010102 };
-	
+
+	GraphicsDeviceManager::GraphicsDeviceManager()
+	{
+	}
+
+	GraphicsDeviceManager::GraphicsDeviceManager(Game game)
+	{
+		SynchronizeWithVerticalRetrace = true;
+		backBufferFormat = SurfaceFormat::Color;
+		backBufferHeight = DefaultBackBufferHeight;
+		backBufferWidth = DefaultBackBufferWidth;
+		minimumVertexShaderProfile = ShaderProfile::XVS_1_1;
+		_game = game;
+        /*	
+		if (game.Services().GetService((Object*)IGraphicsDeviceManager) != null)
+            throw ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");*/
+
+        game.Services().AddService(this);
+	}
+
 	GraphicsDevice GraphicsDeviceManager::GraphicsDevice_()
 	{
 		return graphicsDevice;
 	}
 	
-	bool IsFullScreen()
+	bool GraphicsDeviceManager::IsFullScreen()
 	{
 		return true;
 	}
@@ -49,6 +71,13 @@ namespace XFX
 	void GraphicsDeviceManager::ApplyChanges()
 	{
 		
+	}
+
+	bool GraphicsDeviceManager::BeginDraw()
+	{
+		pb_reset();
+
+		return true;
 	}
 
 	bool GraphicsDeviceManager::CanResetDevice(GraphicsDeviceInformation newDeviceInfo)
@@ -60,15 +89,32 @@ namespace XFX
         return true;
 	}
 
-	GraphicsDeviceManager::GraphicsDeviceManager(Game game)
+	void GraphicsDeviceManager::CreateDevice()
 	{
-		_game = game;
-        /*	
-		if (game.Services().GetService((Object*)IGraphicsDeviceManager) != null)
-            throw ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");*/
+		switch(pb_init())
+		{
+		default:
+			OnDeviceCreated(this, EventArgs::Empty);
+			break;
+		}
+	}
 
-        game.Services().AddService((Object*)this);
-        game.Services().AddService((Object*)this);
+	void GraphicsDeviceManager::Dispose()
+	{
+		Dispose(true);
+	}
+
+	void GraphicsDeviceManager::Dispose(bool disposing)
+	{
+		if (disposing)
+		{
+		}
+	}
+
+	void GraphicsDeviceManager::EndDraw()
+	{
+		pb_wait_for_vbl();
+		pb_finished();
 	}
 
 	GraphicsDeviceInformation GraphicsDeviceManager::FindBestDevice(bool anySuitableDevice)
@@ -124,15 +170,5 @@ namespace XFX
 	void GraphicsDeviceManager::ToggleFullscreen()
 	{
 
-	}
-
-	bool IGraphicsDeviceManager::BeginDraw()
-	{
-		return true;
-	}
-
-	void IGraphicsDeviceManager::EndDraw()
-	{
-		
 	}
 }

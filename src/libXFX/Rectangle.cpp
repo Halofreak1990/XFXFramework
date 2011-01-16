@@ -149,7 +149,7 @@ namespace XFX
 		return !Equals(other);
 	}
 	
-	Rectangle &Rectangle::operator=(const Rectangle other)
+	Rectangle Rectangle::operator=(const Rectangle other)
 	{
 		X = other.X;
 		Y = other.Y;

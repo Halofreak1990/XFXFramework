@@ -13,6 +13,7 @@ namespace System
 			/// <summary>
 			/// Provides a base class for implementations of the System.Collections.Generic.IComparer<T1> generic interface.
 			/// </summary>
+			template <class T>
 			class Comparer : public IComparer<T>
 			{
 			private:

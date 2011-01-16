@@ -7,6 +7,8 @@
 #ifndef _SYSTEM_EXCEPTION_
 #define _SYSTEM_EXCEPTION_
 
+#include <System/Object.h>
+
 namespace System
 {
 	/// <summary>
@@ -21,14 +23,15 @@ namespace System
 		char* _message;
 
 	public:
-		Exception InnerException();
+		Exception* InnerException();
 		virtual char* Message();
 		
 		Exception();
 		Exception(char* message);
+		Exception(char* message, Exception* innerException);
 		virtual ~Exception();
 
-		virtual Exception GetBaseException();
+		virtual Exception* GetBaseException();
 	};
 
 	/// <summary>
@@ -39,7 +42,7 @@ namespace System
 	public:
 		ApplicationException();
 		ApplicationException(char* message);
-		~ApplicationException();
+		ApplicationException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -50,7 +53,7 @@ namespace System
 	public:
 		ArithmeticException();
 		ArithmeticException(char* message);
-		~ArithmeticException();
+		ArithmeticException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -61,7 +64,7 @@ namespace System
 	public:
 		DivideByZeroException();
 		DivideByZeroException(char* message);
-		~DivideByZeroException();
+		DivideByZeroException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -72,7 +75,7 @@ namespace System
 	public:
 		SystemException();
 		SystemException(char* message);
-		SystemException(char* message, Exception innerException);
+		SystemException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -83,7 +86,7 @@ namespace System
 	public:
 		AccessViolationException();
 		AccessViolationException(char* message);
-		AccessViolationException(char* message, Exception innerException);
+		AccessViolationException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -94,6 +97,7 @@ namespace System
 	public:
 		AppDomainUnloadedException();
 		AppDomainUnloadedException(char* message);
+		AppDomainUnloadedException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -110,7 +114,9 @@ namespace System
 
 		ArgumentException();
 		ArgumentException(char* message);
+		ArgumentException(char* message, Exception* innerException);
 		ArgumentException(char* message, char* paramName);
+		ArgumentException(char* message, char* paramName, Exception* innerException);
 	};
 
 	/// <summary>
@@ -123,6 +129,7 @@ namespace System
 		ArgumentNullException();
 		ArgumentNullException(char* paramName);
 		ArgumentNullException(char* paramName, char* message);
+		ArgumentNullException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -131,14 +138,19 @@ namespace System
 	/// </summary>
 	class ArgumentOutOfRangeException : public ArgumentException
 	{
+	private:
+		static char* _rangeMessage;
+		Object* _actualValue;
+		static char* RangeMessage();
+
 	public:
 		ArgumentOutOfRangeException();
 		ArgumentOutOfRangeException(char* paramName);
-		ArgumentOutOfRangeException(char* paramName, void* object, char* message);
+		ArgumentOutOfRangeException(char* message, Exception* innerException);
 		ArgumentOutOfRangeException(char* paramName, char* message);
+		ArgumentOutOfRangeException(char* paramName, Object* actualValue, char* message);
 
-		virtual void *ActualValue();
-		char* Message();
+		virtual Object* ActualValue();
 	};
 
 	/// <summary>
@@ -160,7 +172,7 @@ namespace System
 	public:
 		InvalidOperationException();
 		InvalidOperationException(char* message);
-		InvalidOperationException(char* message, Exception inner);
+		InvalidOperationException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -171,7 +183,7 @@ namespace System
 	public:
 		NotImplementedException();
 		NotImplementedException(char* message);
-		NotImplementedException(char* message, Exception innerException);
+		NotImplementedException(char* message, Exception* innerException);
 	};
 
 	/// <summary>
@@ -205,11 +217,13 @@ namespace System
 	{
 	private:
 		char* _objectName;
+		ObjectDisposedException();
 
 	public:
 		char* ObjectName();
 
 		ObjectDisposedException(char* objectName);
+		ObjectDisposedException(char* message, Exception* innerException);
 		ObjectDisposedException(char* objectName, char* message);
 	};
 

@@ -24,7 +24,7 @@ namespace System
 			public:
 				KeyNotFoundException();
 				KeyNotFoundException(char* message);
-				KeyNotFoundException(char* message, Exception innerException);
+				KeyNotFoundException(char* message, Exception* innerException);
 			};
 		}
 	}

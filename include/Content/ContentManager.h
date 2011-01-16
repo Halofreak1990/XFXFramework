@@ -29,11 +29,11 @@ namespace XFX
 		/// It also manages the lifespan of the loaded objects, disposing the content
 		/// manager will also dispose any assets which are themselves System.IDisposable.
 		/// </summary>
-		class ContentManager : public IDisposable, public Object
+		class ContentManager : public IDisposable, virtual Object
 		{
 		private:
 			List<IDisposable*> disposableAssets;
-			//Dictionary<String, Object*> loadedAssets;
+			//Dictionary<char*, Object*> loadedAssets;
 			bool disposed;
 			IServiceProvider* _provider;
 

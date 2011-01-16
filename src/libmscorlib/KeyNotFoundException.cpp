@@ -43,7 +43,7 @@ namespace System
 			{
 			}
 
-			KeyNotFoundException::KeyNotFoundException(char* message, Exception innerException)
+			KeyNotFoundException::KeyNotFoundException(char* message, Exception* innerException)
 				: SystemException(message, innerException)
 			{
 			}

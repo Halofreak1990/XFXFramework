@@ -4,10 +4,10 @@
  *	XFX PresentationParameters definition file			*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _PRESENTATIONPARAMETERS_
-#define _PRESENTATIONPARAMETERS_
+#ifndef _XFX_GRAPHICS_PRESENTATIONPARAMETERS_
+#define _XFX_GRAPHICS_PRESENTATIONPARAMETERS_
 
-#include "../System.h"
+#include <System/Types.h>
 #include "Enums.h"
 
 using namespace System;
@@ -19,13 +19,13 @@ namespace XFX
 		/// <summary>
 		/// Contains presentation parameters.
 		/// </summary>
-		class PresentationParameters : IDisposable
+		class PresentationParameters : public IDisposable
 		{
 			private:
-         		int disposed; 
+         		bool disposed; 
 			
 			protected:
-				virtual void Dispose(int disposing);
+				virtual void Dispose(bool disposing);
 				
 			public:
 				DepthFormat_t AutoDepthStencilFormat;
@@ -39,9 +39,9 @@ namespace XFX
 				IntPtr DeviceWindowHandle;
 #endif
 
-				int EnableAutoDepthStencil;
+				bool EnableAutoDepthStencil;
 				int FullScreenRefreshRateInHz;
-				int IsFullScreen;
+				bool IsFullScreen;
 				int MultiSampleQuality; 
          		MultiSampleType_t MultiSampleType_; 
 				PresentInterval_t PresentationInterval;
@@ -54,12 +54,12 @@ namespace XFX
 				void Clear();
 				PresentationParameters Clone();
 				void Dispose();
-				int Equals(PresentationParameters &other);
+				bool Equals(const PresentationParameters other);
 				
-				int operator!=(PresentationParameters &other);
-				int operator==(PresentationParameters &other);
+				bool operator!=(const PresentationParameters other);
+				bool operator==(const PresentationParameters other);
 		};
 	}
 }
 
-#endif //_PRESENTATIONPARAMETERS_
+#endif //_XFX_GRAPHICS_PRESENTATIONPARAMETERS_

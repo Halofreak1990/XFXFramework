@@ -25,25 +25,62 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Storage/StorageDeviceNotConnectedException.h>
+#include <Graphics/Sprite.h>
 
 namespace XFX
 {
-	namespace Storage
+	namespace Graphics
 	{
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException()
-			: ExternalException()
+		Sprite::Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
 		{
+			this->texture = texture;
+			this->sourceRectangle = sourceRectangle;
+			this->destinationRectangle = destinationRectangle;
+			this->color = color;
+			this->rotation = rotation;
+			this->origin = origin;
+			this->effects = effects;
+			this->layerDepth = layerDepth;
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message)
-			: ExternalException(message)
+		Texture2D Sprite::Texture()
 		{
+			return texture;
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message, Exception* innerException)
-			: ExternalException(message, innerException)
+		Rectangle Sprite::SourceRectangle()
 		{
+			return sourceRectangle;
+		}
+
+		Rectangle Sprite::DestinationRectangle()
+		{
+			return destinationRectangle;
+		}
+
+		Color Sprite::Color_()
+		{
+			return color;
+		}
+
+		float Sprite::Rotation()
+		{
+			return rotation;
+		}
+
+		Vector2 Sprite::Origin()
+		{
+			return origin;
+		}
+
+		SpriteEffects_t Sprite::Effects()
+		{
+			return effects;
+		}
+
+		float Sprite::LayerDepth()
+		{
+			return layerDepth;
 		}
 	}
 }

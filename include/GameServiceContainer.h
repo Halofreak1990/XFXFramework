@@ -10,6 +10,8 @@
 #include <System/Interfaces.h>
 #include <System/Object.h>
 
+using namespace System;
+
 namespace XFX
 {
 	/// <Summary>
@@ -25,4 +27,4 @@ namespace XFX
 	};
 }
 
-#endif //_XFX_GAMESERVICECONTAINER_H
+#endif //_XFX_GAMESERVICECONTAINER_

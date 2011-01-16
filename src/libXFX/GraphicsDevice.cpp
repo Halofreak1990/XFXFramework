@@ -31,6 +31,9 @@
 #include <Graphics/GraphicsDevice.h>
 #include <Matrix.h>
 #include <Quaternion.h>
+#include <Rectangle.h>
+#include <Vector2.h>
+#include <Vector4.h>
 
 #include "pbKit.h"
 
@@ -142,6 +145,11 @@ namespace XFX
 			{
 				
 			}
+		}
+
+		void GraphicsDevice::SetVertexShaderConstant(int startRegister, Vector4 constantData)
+		{
+
 		}
 	}
 }
