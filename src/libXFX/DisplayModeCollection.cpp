@@ -25,31 +25,42 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <GameComponentCollection.h>
+#include <Graphics/DisplayModeCollection.h>
 
 namespace XFX
 {
-	GameComponentCollection::GameComponentCollection()
+	namespace Graphics
 	{
-	}
+		DisplayModeCollection::DisplayModeCollection()
+		{
+		}
 
-	void GameComponentCollection::ClearItems()
-	{
-		_components.Clear();
-	}
+		bool DisplayModeCollection::operator!=(const DisplayModeCollection other)
+		{
+			int num;
+			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))
+			{
+				num = 1;
+			}
+			else
+			{
+				num = 0;
+			}
+			return (bool)((byte)(((byte) num) == 0));
+		}
 
-	void GameComponentCollection::InsertItem(int index, IGameComponent* item)
-	{
-		_components.Insert(index, item);
-	}
-
-	void GameComponentCollection::RemoveItem(int index)
-	{
-		_components.RemoveAt(index);
-	}
-
-	void GameComponentCollection::SetItem(int index, IGameComponent* item)
-	{
-		_components[index] = item;
+		bool DisplayModeCollection::operator==(const DisplayModeCollection other)
+		{
+			int num;
+			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))
+			{
+				num = 1;
+			}
+			else
+			{
+				num = 0;
+			}
+			return (bool)((byte) num);
+		}
 	}
 }

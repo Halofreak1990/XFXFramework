@@ -8,6 +8,9 @@
 #define _XFX_GAMECOMPONENTCOLLECTION_
 
 #include "Interfaces.h"
+#include <System/Collections/Generic/List.h>
+
+using namespace System::Collections::Generic;
 
 namespace XFX
 {
@@ -17,6 +20,9 @@ namespace XFX
 	/// </summary>
 	class GameComponentCollection
 	{
+	private:
+		List<IGameComponent*> _components;
+
 	protected:
 		void ClearItems();
 		void InsertItem(int index, IGameComponent* item);

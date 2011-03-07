@@ -1,3 +1,14 @@
+/********************************************************
+ *	XPathException.h									*
+ *														*
+ *	XFX XPathException definition file					*
+ *	Copyright © XFX Team. All Rights Reserved			*
+ ********************************************************/
+#ifndef _SYSTEM_XML_XPATH_XPATHEXCEPTION_
+#define _SYSTEM_XML_XPATH_XPATHEXCEPTION_
+
+#include <System/Exception.h>
+
 namespace System
 {
 	namespace Xml
@@ -7,13 +18,15 @@ namespace System
 			/// <summary>
 			/// Provides the exception thrown when an error occurs while processing an XPath expression. 
 			/// </summary>
-			class XPathException : SystemException
+			class XPathException : public SystemException
 			{
 			public:
 				XPathException();
-				XPathException(const char *message);
-				XPathException(const char *message, Exception &innerException);
+				XPathException(char *message);
+				XPathException(char *message, Exception* innerException);
 			};
 		}
 	}
 }
+
+#endif //_SYSTEM_XML_XPATH_XPATHEXCEPTION_

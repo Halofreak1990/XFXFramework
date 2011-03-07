@@ -8,7 +8,7 @@
 #define _XFX_GRAPHICS_TEXTURECOLLECTION_
 
 #include <System/Collections/Generic/List.h>
-//#include "Texture.h"
+#include "Texture.h"
 
 using namespace System::Collections::Generic;
 
@@ -16,8 +16,6 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		class Texture;
-
 		/// <summary>
 		/// Represents a collection of Texture objects.
 		/// </summary>

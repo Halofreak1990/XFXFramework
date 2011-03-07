@@ -111,4 +111,27 @@ namespace System
 	{
 		return (sizeof(array)/sizeof(T));
 	}
+
+	template <class T>
+	void Array::Reverse(T array[], int index, int length)
+	{
+		if (array == null)
+		{
+			throw ArgumentNullException("array");
+		}
+		if ((Length(array) - index) < length)
+		{
+			throw ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+		}
+		int num = index;
+        int num2 = (index + length) - 1;
+		while (num < num2)
+        {
+            T obj2 = array[num];
+            array[num] = array[num2];
+            array[num2] = obj2;
+            num++;
+            num2--;
+        }
+	}
 }

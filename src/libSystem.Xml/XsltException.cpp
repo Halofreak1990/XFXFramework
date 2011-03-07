@@ -25,31 +25,40 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <GameComponentCollection.h>
+#include <System/Xml/Xsl/XsltException.h>
 
-namespace XFX
+namespace System
 {
-	GameComponentCollection::GameComponentCollection()
+	namespace Xml
 	{
-	}
+		namespace Xsl
+		{
+			XsltException::XsltException()
+				: SystemException()
+			{
+			}
 
-	void GameComponentCollection::ClearItems()
-	{
-		_components.Clear();
-	}
+			XsltException::XsltException(char* message)
+				: SystemException(message)
+			{
+			}
 
-	void GameComponentCollection::InsertItem(int index, IGameComponent* item)
-	{
-		_components.Insert(index, item);
-	}
+			XsltException::XsltException(char* message, Exception* innerException)
+				: SystemException(message, innerException)
+			{
+			}
 
-	void GameComponentCollection::RemoveItem(int index)
-	{
-		_components.RemoveAt(index);
-	}
+			int XsltException::LineNumber()
+			{
+			}
 
-	void GameComponentCollection::SetItem(int index, IGameComponent* item)
-	{
-		_components[index] = item;
+			int XsltException::LinePosition()
+			{
+			}
+
+			const char* XsltException::SourceUri()
+			{
+			}
+		}
 	}
 }

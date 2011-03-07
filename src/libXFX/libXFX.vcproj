@@ -200,6 +200,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\DisplayModeCollection.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\GraphicsAdapter.cpp"
 					>
 				</File>

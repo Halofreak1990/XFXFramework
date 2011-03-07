@@ -131,10 +131,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libSystem\List.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Math.cpp"
 				>
 			</File>
@@ -255,6 +251,10 @@
 					RelativePath=".\HashHelpers.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\Stack.cpp"
+					>
+				</File>
 				<Filter
 					Name="Generic"
 					>
@@ -273,19 +273,6 @@
 					<File
 						RelativePath=".\KeyValuePair.cpp"
 						>
-					</File>
-					<File
-						RelativePath=".\List.cpp"
-						>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								ObjectFile="$(IntDir)\$(InputName)1.obj"
-								XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-							/>
-						</FileConfiguration>
 					</File>
 				</Filter>
 			</Filter>
@@ -476,6 +463,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\System\Collections\Interfaces.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\System\Collections\Stack.h"
 					>
 				</File>
 				<Filter

@@ -27,7 +27,7 @@ LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib
 LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lstdc++ -lgcc
 
-OBJS = 
+OBJS = XPathException.o XsltException.o
 
 all: libSystem.Xml.a
 

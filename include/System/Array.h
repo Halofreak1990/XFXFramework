@@ -27,6 +27,8 @@ namespace System
 		static int IndexOf(T array[], T value, int startIndex, int count);
 		template <class T>
 		static int Length(T array[]);
+		template <class T>
+		static void Reverse(T array[], int index, int length);
 	};
 }
 

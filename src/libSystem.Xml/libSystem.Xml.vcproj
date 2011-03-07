@@ -21,6 +21,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="0"
 			CharacterSet="1"
+			BuildLogFile="BuildLog.htm"
 			>
 			<Tool
 				Name="VCNMakeTool"
@@ -116,10 +117,18 @@
 			<Filter
 				Name="XPath"
 				>
+				<File
+					RelativePath=".\XPathException.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Xsl"
 				>
+				<File
+					RelativePath=".\XsltException.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -129,6 +138,10 @@
 			>
 			<File
 				RelativePath="..\..\include\System\Xml\Enums.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Xml\Interfaces.h"
 				>
 			</File>
 			<Filter

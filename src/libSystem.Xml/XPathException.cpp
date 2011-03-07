@@ -25,31 +25,28 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <GameComponentCollection.h>
+#include <System/Xml/XPath/XPathException.h>
 
-namespace XFX
+namespace System
 {
-	GameComponentCollection::GameComponentCollection()
+	namespace Xml
 	{
-	}
+		namespace XPath
+		{
+			XPathException::XPathException()
+				: SystemException()
+			{
+			}
 
-	void GameComponentCollection::ClearItems()
-	{
-		_components.Clear();
-	}
+			XPathException::XPathException(char* message)
+				: SystemException(message)
+			{
+			}
 
-	void GameComponentCollection::InsertItem(int index, IGameComponent* item)
-	{
-		_components.Insert(index, item);
-	}
-
-	void GameComponentCollection::RemoveItem(int index)
-	{
-		_components.RemoveAt(index);
-	}
-
-	void GameComponentCollection::SetItem(int index, IGameComponent* item)
-	{
-		_components[index] = item;
+			XPathException::XPathException(char* message, Exception* innerException)
+				: SystemException(message, innerException)
+			{
+			}
+		}
 	}
 }
