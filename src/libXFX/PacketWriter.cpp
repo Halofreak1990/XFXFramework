@@ -25,38 +25,91 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/TextureCollection.h>
-#include <Graphics/Texture.h>
+#include <Net/PacketWriter.h>
+#include <System/IO/MemoryStream.h>
+
+#include <Matrix.h>
+#include <Quaternion.h>
+#include <Vector2.h>
+#include <Vector3.h>
+#include <Vector4.h>
 
 namespace XFX
 {
-	namespace Graphics
+	namespace Net
 	{
-		void TextureCollection::Dispose()
+		int PacketWriter::Length()
 		{
-			Dispose(true);
+			return (int)BaseStream.Length;
 		}
 
-		void TextureCollection::Dispose(bool disposing)
+		int PacketWriter::Position()
 		{
-			textures.Clear();
+			return (int)BaseStream.Position;
 		}
 
-		TextureCollection::TextureCollection()
+		void PacketWriter::Position(int newValue)
 		{
-			// Nothing
+			BaseStream.Position = newValue);
 		}
 
-		TextureCollection::~TextureCollection()
+		PacketWriter::PacketWriter()
+			: BinaryWriter(MemoryStream(0))
 		{
-			Dispose(false);
 		}
-		//
-		// Operators
-		//
-		Texture* TextureCollection::operator [](int index)
+
+		PacketWriter::PacketWriter(int capacity)
+			: BinaryWriter(MemoryStream(capacity))
 		{
-			return textures[index];
+		}
+
+		void PacketWriter::Write(Matrix value)
+		{
+			Write(value.M11);
+			Write(value.M12);
+			Write(value.M13);
+			Write(value.M14);
+			Write(value.M21);
+			Write(value.M22);
+			Write(value.M23);
+			Write(value.M24);
+			Write(value.M31);
+			Write(value.M32);
+			Write(value.M33);
+			Write(value.M34);
+			Write(value.M41);
+			Write(value.M42);
+			Write(value.M43);
+			Write(value.M44);
+		}
+
+		void PacketWriter::Write(Quaternion value)
+		{
+			Write(value.X);
+			Write(value.Y);
+			Write(value.Z);
+			Write(value.W);
+		}
+
+		void PacketWriter::Write(Vector2 value)
+		{
+			Write(value.X);
+			Write(value.Y);
+		}
+
+		void PacketWriter::Write(Vector3 value)
+		{
+			Write(value.X);
+			Write(value.Y);
+			Write(value.Z);
+		}
+
+		void PacketWriter::Write(Vector4 value)
+		{
+			Write(value.X);
+			Write(value.Y);
+			Write(value.Z);
+			Write(value.W);
 		}
 	}
 }

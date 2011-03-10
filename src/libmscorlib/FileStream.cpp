@@ -289,7 +289,7 @@ namespace System
 
 		void FileStream::Write(byte array[], int offset, int count)
 		{
-				XWriteFile(handle, &array[offset], count, null);
+			XWriteFile(handle, &array[offset], count, null);
 		}
 
 		void FileStream::WriteByte(byte value)

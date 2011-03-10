@@ -35,10 +35,10 @@ OBJS = BoundingBox.o BoundingFrustrum.o BoundingSphere.o MathHelper.o Matrix.o P
 AUDIO_OBJS = 
 CONTENT_OBJS = ContentManager.o ContentReader.o
 GAMERSERVICES_OBJS = Guide.o
-GRAPHICS_OBJS = Color.o DisplayMode.o DisplayModeCollection.o GraphicsAdapter.o GraphicsDevice.o pbKit.o Sprite.o SpriteBatch.o SpriteFont.o Texture.o Texture2D.o TextureCollection.o TextureCreationParameters.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
+GRAPHICS_OBJS = Color.o DepthStencilBuffer.o DisplayMode.o DisplayModeCollection.o GraphicsAdapter.o GraphicsDevice.o pbKit.o Sprite.o SpriteBatch.o SpriteFont.o Texture.o Texture2D.o TextureCollection.o TextureCreationParameters.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
 INPUT_OBJS = GamePad.o Keyboard.o Mouse.o
 MEDIA_OBJS = VideoPlayer.o
-NET_OBJS = 
+NET_OBJS = PacketReader.o PacketWriter.o
 STORAGE_OBJS = StorageContainer.o StorageDevice.o StorageDeviceNotConnectedException.o
 
 OBJS1 = $(OBJS) $(GAMERSERVICES_OBJS) $(GRAPHICS_OBJS) $(INPUT_OBJS) $(MEDIA_OBJS) $(STORAGE_OBJS)

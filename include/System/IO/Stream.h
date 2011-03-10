@@ -7,10 +7,10 @@
 #ifndef _SYSTEM_IO_STREAM_
 #define _SYSTEM_IO_STREAM_
 
-#include "../Types.h"
+#include <System/Types.h>
 #include "Enums.h"
-#include "../Delegates.h"
-#include "../Interfaces.h"
+#include <System/Delegates.h>
+#include <System/Interfaces.h>
 
 namespace System
 {
@@ -27,12 +27,9 @@ namespace System
 			int _asyncActiveCount;
 
 		protected:
-			virtual WaitHandle CreateWaitHandle();
 			virtual void Dispose(bool disposing);
 
 		public:
-			Stream();
-
 			virtual bool CanRead();
 			virtual bool CanSeek();
 			virtual bool CanTimeOut();
@@ -41,10 +38,17 @@ namespace System
 			Int64 Position;
 			int ReadTimeOut;
 			int WriteTimeOut;
-			static const Stream Null;
+			static const Stream* Null;
+			
+			Stream();
+			virtual ~Stream();
 
+			virtual IAsyncResult* BeginRead(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
+			virtual IAsyncResult* BeginWrite(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
 			virtual void Close();
 			void Dispose();
+			virtual int EndRead(IAsyncResult* asyncResult);
+			virtual void EndWrite(IAsyncResult* asyncResult);
 			virtual void Flush();
 			virtual int Read(byte buffer[], int offset, int count);
 			virtual int ReadByte();

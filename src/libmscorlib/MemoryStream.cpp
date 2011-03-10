@@ -35,8 +35,7 @@ namespace System
 {
 	namespace IO
 	{
-		// The XBOX Limits us to 64MB; we do not take XDK/Debug units into account
-		const int MemoryStream::MemStreamMaxLength = 0x40000000;
+		const int MemoryStream::MemStreamMaxLength = 0x7fffffff;
 
 		bool MemoryStream::CanRead()
 		{
@@ -123,7 +122,7 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[])
 		{
-			if (buffer == null)
+			if (!buffer)
 			{
 				throw ArgumentNullException("buffer", "Buffer was NULL.");
 			}
@@ -138,7 +137,7 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], bool writable)
 		{
-			if (buffer == null)
+			if (!buffer)
 			{
 				throw ArgumentNullException("buffer", "Buffer was NULL.");
 			}
@@ -152,7 +151,7 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], int index, int count)
 		{
-			if (buffer == null)
+			if (!buffer)
 			{
 				throw ArgumentNullException("buffer", "Buffer was NULL.");
 			}
@@ -168,12 +167,13 @@ namespace System
 			{
 				throw ArgumentException("Invalid offset or length.");
 			}
-			_buffer = buffer;
-			_origin = _position = index;
-			_length = _capacity = index + count;
+			_buffer = new byte[count];
+			Array::Copy(buffer, index, _buffer, 0, count);
+			_origin = 0;
+			_length = _capacity = count;
 			_writable = true;
 			_exposable = false;
-			_expandable = true;
+			_expandable = false;
 			_isOpen = true;
 		}
 
@@ -195,9 +195,10 @@ namespace System
 			{
 				throw ArgumentException("Invalid offset or length.");
 			}
-			_buffer = buffer;
-			_origin = _position = index;
-			_length = _capacity = index + count;
+			_buffer = new byte[count];
+			Array::Copy(buffer, index, _buffer, 0, count);
+			_origin = 0;
+			_length = _capacity = count;
 			_writable = writable;
 			_exposable = false;
 			_expandable = true;
@@ -222,12 +223,13 @@ namespace System
 			{
 				throw ArgumentException("Invalid offset or length.");
 			}
-			_buffer = buffer;
-			_origin = _position = index;
-			_length = _capacity = index + count;
+			_buffer = new byte[count];
+			Array::Copy(buffer, index, _buffer, 0, count);
+			_origin = 0;
+			_length = _capacity = count;
 			_writable = writable;
 			_exposable = publiclyVisible;
-			_expandable = true;
+			_expandable = false;
 			_isOpen = true;
 		}
 
@@ -423,7 +425,7 @@ namespace System
 			{
 				throw NotSupportedException("This Stream does not support writing.");
 			}
-			if (_buffer == null)
+			if (!buffer)
 			{
 				throw ArgumentNullException("buffer", "Buffer was null.");
 			}
@@ -499,13 +501,13 @@ namespace System
 			_buffer[_position++] = value;
 		}
 
-		void MemoryStream::WriteTo(Stream stream)
+		void MemoryStream::WriteTo(Stream* stream)
 		{
 			if (!_isOpen)
 			{
 				throw ObjectDisposedException(null, "Stream is closed.");
 			}
-			stream.Write(_buffer, _origin, _length - _origin);
+			stream->Write(_buffer, _origin, _length - _origin);
 		}
 	}
 }

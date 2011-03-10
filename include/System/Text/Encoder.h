@@ -1,7 +1,7 @@
 #ifndef _TEXT_ENCODER_
 #define _TEXT_ENCODER_
 
-#include "../Types.h"
+#include <System/Types.h>
 
 namespace System
 {
@@ -12,10 +12,9 @@ namespace System
 		/// </summary>
 		class Encoder
 		{
-		protected:
+		public:
 			Encoder();
 
-		public:
 			virtual void Convert(char* chars, int charCount, byte* bytes, int byteCount, bool flush, int charsUsed, int bytesUsed, bool completed);
 			virtual void Convert(char chars[], int charIndex, int charCount, byte bytes[], int byteIndex, int byteCount, bool flush, int charsUsed, int bytesUsed, bool completed);
 			virtual int GetByteCount(char* chars, int count, bool flush);

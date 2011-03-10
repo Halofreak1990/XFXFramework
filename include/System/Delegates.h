@@ -16,7 +16,7 @@ namespace System
 	/// <summary>
 	/// References a method to be called when a corresponding asynchronous operation completes.
 	/// </summary>
-	typedef void (*ASyncCallback)(IAsyncResult* ar);
+	typedef void (*AsyncCallback)(IAsyncResult* ar);
 
 	/// <summary>
 	/// Represents the method that will handle an event that has no event data.

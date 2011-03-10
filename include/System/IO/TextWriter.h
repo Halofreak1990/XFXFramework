@@ -7,9 +7,8 @@
 #ifndef _SYSTEM_IO_TEXTWRITER_
 #define _SYSTEM_IO_TEXTWRITER_
 
-#include "../Interfaces.h"
-#include "../String.h"
-#include "../Text/Encoding.h"
+#include <System/Interfaces.h>
+#include <System/Text/Encoding.h>
 
 namespace System
 {
@@ -20,10 +19,16 @@ namespace System
 		/// </summary>
 		class TextWriter : public IDisposable
 		{
+		private:
+			IFormatProvider* InternalFormatProvider;
+			static const char* InitialNewLine;
+
 		protected:
 			char CoreNewLine[];
 
 			TextWriter();
+			TextWriter(IFormatProvider* provider);
+			TextWriter(const TextWriter &obj);
 
 			virtual void Dispose(bool disposing);
 

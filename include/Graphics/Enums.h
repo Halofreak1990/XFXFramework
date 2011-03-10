@@ -498,7 +498,7 @@ namespace XFX
 				Deferred = 1,
 				FrontToBack = 4,
 				Immediate = 0,
-				Texture = 2
+				Texture_ = 2
 			};
 		};
 		/// <summary>

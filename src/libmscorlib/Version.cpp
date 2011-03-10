@@ -85,10 +85,26 @@ namespace System
 
 	char* Version::ToString(int fieldCount)
 	{
-		if(fieldCount <= 0 || fieldCount > 4)
+		switch(fieldCount)
+		{
+		case 0:
+			return "";
+			break;
+		case 1:
+			return String::Format("%d", _major);
+			break;
+		case 2:
+			return String::Format("%d.%d", _major, _minor);
+			break;
+		case 3:
+			return String::Format("%d.%d.%d", _major, _minor, _build);
+			break;
+		case 4:
+			return String::Format("%d.%d.%d.%d", _major, _minor, _build, _revision);
+			break;
+		default:
 			throw ArgumentOutOfRangeException("fieldCount");
-
-
+		}
 	}
 
 	bool Version::operator !=(Version other)

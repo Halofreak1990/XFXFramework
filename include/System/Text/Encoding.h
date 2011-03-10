@@ -59,8 +59,8 @@ namespace System
 			int GetHashCode();
 			virtual int GetMaxByteCount(int charCount);
 			virtual int GetMaxCharCount(int byteCount);
-			virtual byte *GetPreamble();
-			virtual String GetString(byte bytes[], int index, int count);
+			virtual byte* GetPreamble();
+			virtual char* GetString(byte bytes[], int index, int count);
 		};
 	}
 }

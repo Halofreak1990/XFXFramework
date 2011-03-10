@@ -46,10 +46,10 @@ namespace XFX
              if (creationParameters.Width == 0) creationParameters.Width = texinfo.Width; 
              if (creationParameters.Height == 0) creationParameters.Height = texinfo.Height; 
              if (creationParameters.Depth == 0) creationParameters.Depth = texinfo.Depth; 
-             /*if (texinfo.ResourceType == ResourceType::Texture2D) 
+             if (texinfo.ResourceType == ResourceType::Texture2D) 
              { 
                  int ImgID; 
-                 Il::ilGenImages(1, out ImgID); 
+                 /*Il::ilGenImages(1, out ImgID); 
                  Il::ilBindImage(ImgID); 
                  Il::ilLoadImage(filename); 
                  int width = Il::ilGetInteger(Il::IL_IMAGE_WIDTH); 
@@ -64,10 +64,10 @@ namespace XFX
                  glTexImage2D(GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), creationParameters.Width, creationParameters.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Il::ilGetData()); 
                  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
                  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
-                 Il::ilBindImage(0); 
+                 Il::ilBindImage(0); */
                  //Il::ilDeleteImage(0);
                  return tex;
-             } */
+             }
              else if (texinfo.ResourceType_ == ResourceType::Texture3D) { } 
              else if (texinfo.ResourceType_ == ResourceType::Texture3DVolume) { } //FIXME: Should we handle this here too? 
              else if (texinfo.ResourceType_ == ResourceType::TextureCube) { } 

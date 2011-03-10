@@ -32,8 +32,8 @@ namespace XFX
  			int textureId; // The reference ID of the texture in OpenGL memory 
  			int imageId;
  				
- 			Texture2D(GraphicsDevice graphicsDevice);
  			void Load(byte buffer[]);
+			Texture2D(GraphicsDevice graphicsDevice);
  			
  		protected:
  			void Dispose(bool disposing);
@@ -49,10 +49,10 @@ namespace XFX
  			Texture2D(GraphicsDevice graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
 			Texture2D(const Texture2D &obj);
  				
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream, int numberBytes);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream textureStream, int numberBytes, TextureCreationParameters creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream);
+ 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes);
+ 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
  			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename);
  			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename, TextureCreationParameters creationParameters);
  			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename, int width, int height);

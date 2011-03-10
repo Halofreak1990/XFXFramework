@@ -4,7 +4,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		DepthStencilBuffer()
+		DepthStencilBuffer::DepthStencilBuffer()
 		{
 			_graphicsDevice = null;
 			_width = 0;
@@ -16,7 +16,7 @@ namespace XFX
 		
 		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format)
 		{
-			_graphicsDevice = graphiceDevice;
+			_graphicsDevice = graphicsDevice;
 			_width = width;
 			_height = height;
 			_format = format;
@@ -26,7 +26,7 @@ namespace XFX
 		
 		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality)
 		{
-			_graphicsDevice = graphiceDevice;
+			_graphicsDevice = graphicsDevice;
 			_width = width;
 			_height = height;
 			_format = format;
@@ -61,7 +61,7 @@ namespace XFX
 		
 		bool DepthStencilBuffer::IsDisposed()
 		{
-			return isDisposed();
+			return isDisposed;
 		}
 		
 		int DepthStencilBuffer::Height()

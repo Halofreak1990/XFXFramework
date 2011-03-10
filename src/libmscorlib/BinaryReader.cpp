@@ -35,19 +35,26 @@ namespace System
 {
 	namespace IO
 	{
-		Stream BinaryReader::BaseStream()
+		Stream* BinaryReader::BaseStream()
 		{
 			return m_stream;
 		}
 
-		BinaryReader::BinaryReader(Stream input)
+		BinaryReader::BinaryReader(Stream* input)
 		{
-			BinaryReader(input, Encoding::UTF8());
+			if (!input->CanRead())
+				throw ArgumentException("The stream doesn't support reading.");
+
+			m_disposed = false;
+			m_stream = input;
+			m_encoding = Encoding::UTF8();
+			m_decoder = m_encoding.GetDecoder();
+			m_buffer = new byte[32];
 		}
 
-		BinaryReader::BinaryReader(Stream input, Encoding encoding)
+		BinaryReader::BinaryReader(Stream* input, Encoding encoding)
 		{
-			if (!input.CanRead())
+			if (!input->CanRead())
 				throw ArgumentException("The stream doesn't support reading.");
 
 			m_disposed = false;
@@ -74,14 +81,16 @@ namespace System
 
 		void BinaryReader::Dispose(bool disposing)
 		{
-			m_stream.Close();
+			m_stream->Close();
 
 			m_disposed = true;
 			delete m_buffer;
-			m_encoding = NULL;
-			m_stream.Close();
-			m_stream = Stream::Null;
+			m_buffer = null;
+			m_encoding = null;
+			m_stream->Close();
+			m_stream = null;
 			delete[] m_charBuffer;
+			m_charBuffer = null;
 		}
 
 		void BinaryReader::FillBuffer(int numBytes)
@@ -93,7 +102,7 @@ namespace System
 			int num2 = 0;
 			if (numBytes == 1)
 			{
-				num2 = m_stream.ReadByte();
+				num2 = m_stream->ReadByte();
 				if (num2 == -1)
 				{
 					throw EndOfStreamException("Attempted to read beyond End OF File.");
@@ -104,7 +113,7 @@ namespace System
 			{
 				do
 				{
-					num2 = m_stream.Read(m_buffer, offset, numBytes - offset);
+					num2 = m_stream->Read(m_buffer, offset, numBytes - offset);
 					if (num2 == 0)
 					{
 						throw EndOfStreamException("Attempted to read beyond End OF File.");
@@ -117,7 +126,48 @@ namespace System
 
 		int BinaryReader::InternalReadChars(char buffer[], int index, int count)
 		{
-			
+			int num = 0;
+			int num2 = 0;
+			int num3 = count;
+			if (!m_charBytes)
+			{
+				m_charBytes = new byte[0x80];
+			}
+			while (num3 > 0)
+			{
+				num2 = num3;
+				if (m_2BytesPerChar)
+				{
+					num2 = num2 << 1;
+				}
+				if (num2 > 0x80)
+				{
+					num2 = 0x80;
+				}
+				if (m_isMemoryStream)
+				{
+					/*MemoryStream stream = (MemoryStream)*m_stream;
+					int position = stream.InternalGetPosition();
+					num2 = stream.InternalEmulateRead(num2);
+					if (num2 == 0)
+					{
+						return (count - num3);
+					}
+					num = m_decoder.GetChars(stream.InternalGetBuffer(), position, num2, buffer, index);*/
+				}
+				else
+				{
+					num2 = m_stream->Read(m_charBytes, 0, num2);
+					if (num2 == 0)
+					{
+						return (count - num3);
+					}
+					num = m_decoder.GetChars(m_charBytes, 0, num2, buffer, index);
+				}
+				num3 -= num;
+				index += num;
+			}
+			return count;
 		}
 
 		int BinaryReader::InternalReadOneChar()
@@ -125,10 +175,10 @@ namespace System
 			Int64 position;
 			int num = 0;
 			int byteCount = 0;
-			position = position = 0LL;
-			if (m_stream.CanSeek())
+			position = 0LL;
+			if (m_stream->CanSeek())
 			{
-				position = m_stream.Position;
+				position = m_stream->Position;
 			}
 			if (m_charBytes == null)
 			{
@@ -141,7 +191,7 @@ namespace System
 			while (num == 0)
 			{
 				byteCount = m_2BytesPerChar ? 2 : 1;
-				int num4 = m_stream.ReadByte();
+				int num4 = m_stream->ReadByte();
 				m_charBytes[0] = (byte) num4;
 				if (num4 == -1)
 				{
@@ -149,7 +199,7 @@ namespace System
 				}
 				if (byteCount == 2)
 				{
-					num4 = m_stream.ReadByte();
+					num4 = m_stream->ReadByte();
 					m_charBytes[1] = (byte) num4;
 					if (num4 == -1)
 					{
@@ -167,9 +217,9 @@ namespace System
 				}
 				catch (Exception)
 				{
-					if (m_stream.CanSeek())
+					if (m_stream->CanSeek())
 					{
-						m_stream.Seek(position - m_stream.Position, SeekOrigin::Current);
+						m_stream->Seek(position - m_stream->Position, SeekOrigin::Current);
 					}
 					throw;
 				}
@@ -183,13 +233,13 @@ namespace System
 
 		int BinaryReader::PeekChar()
 		{
-			if (!m_stream.CanSeek())
+			if (!m_stream->CanSeek())
 			{
 				return -1;
 			}
-			long position = m_stream.Position;
+			Int64 position = m_stream->Position;
 			int num2 = this->Read();
-			m_stream.Position = position;
+			m_stream->Position = position;
 			return num2;
 		}
 
@@ -200,7 +250,7 @@ namespace System
 
 		int BinaryReader::Read(byte buffer[], int index, int count)
 		{
-			if(&m_stream == null)
+			if(!m_stream)
 			{
 				if (m_disposed)
 					throw ObjectDisposedException("BinaryReader", "Cannot read from a closed BinaryReader.");
@@ -220,7 +270,7 @@ namespace System
 			if (Array::Length(buffer) < index + count)
 				throw ArgumentException("buffer is too small");
 
-			int bytes_read = m_stream.Read(buffer, index, count);
+			int bytes_read = m_stream->Read(buffer, index, count);
 
 			return(bytes_read);
 		}

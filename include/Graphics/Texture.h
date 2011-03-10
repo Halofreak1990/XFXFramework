@@ -23,7 +23,7 @@ namespace XFX
 		/// <summary>
 		/// Represents a texture resource.
 		/// </summary>
-		class Texture : public GraphicsResource
+		class Texture : public GraphicsResource, virtual Object
 		{
 		private:
 			static ImageFileFormat_t ILimageformat2XNAimageformat(int ILFormat);
@@ -34,22 +34,25 @@ namespace XFX
 		public:
 			int LevelCount();
 			int LevelOfDetail;
+
+			Texture();
+			~Texture();
 			
-			static Texture FromFile(GraphicsDevice graphicsDevice, Stream textureStream);
+			static Texture FromFile(GraphicsDevice graphicsDevice, Stream* textureStream);
 			static Texture FromFile(GraphicsDevice graphicsDevice, char* filename);
-			static Texture FromFile(GraphicsDevice graphicsDevice, Stream textureStream, int numberBytes);
-			static Texture FromFile(GraphicsDevice graphicsDevice, Stream textureStream, TextureCreationParameters creationParameters);
+			static Texture FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes);
+			static Texture FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
 			static Texture FromFile(GraphicsDevice graphicsDevice, char* filename, TextureCreationParameters creationParameters);
-			static Texture FromFile(GraphicsDevice graphicsDevice, Stream textureStream, int numberBytes, TextureCreationParameters creationParameters);
+			static Texture FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
 			static Texture FromFile(GraphicsDevice graphicsDevice, char* filename, int width, int height, int depth);
 			
 			void GenerateMipMaps(TextureFilter_t filterType);
-			static TextureCreationParameters GetCreationParameters(GraphicsDevice graphicsDevice, Stream textureStream);
+			static TextureCreationParameters GetCreationParameters(GraphicsDevice graphicsDevice, Stream* textureStream);
 			static TextureCreationParameters GetCreationParameters(GraphicsDevice graphicsDevice, char* filename);
-			static TextureCreationParameters GetCreationParameters(GraphicsDevice graphicsDevice, Stream textureStream, int numberBytes);
-			static TextureInformation GetTextureInformation(Stream textureStream);
+			static TextureCreationParameters GetCreationParameters(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes);
+			static TextureInformation GetTextureInformation(Stream* textureStream);
 			static TextureInformation GetTextureInformation(char* filename);
-			static TextureInformation GetTextureInformation(Stream textureStream, int numberBytes);
+			static TextureInformation GetTextureInformation(Stream* textureStream, int numberBytes);
 			void Save(char* filename, ImageFileFormat_t format);
 		};
 	}

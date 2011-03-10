@@ -25,38 +25,43 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/TextureCollection.h>
-#include <Graphics/Texture.h>
+#include <System/IO/TextWriter.h>
 
-namespace XFX
+namespace System
 {
-	namespace Graphics
+	namespace IO
 	{
-		void TextureCollection::Dispose()
+		const char* TextWriter::InitialNewLine = "\r\n";
+		TextWriter::TextWriter()
 		{
-			Dispose(true);
+			CoreNewLine = new char[] { '\r', '\n' };
+			InternalFormatProvider = null;
 		}
 
-		void TextureCollection::Dispose(bool disposing)
+		TextWriter::TextWriter(IFormatProvider* provider)
 		{
-			textures.Clear();
+			CoreNewLine = new char[] { '\r', '\n' };
+			InternalFormatProvider = provider;
 		}
 
-		TextureCollection::TextureCollection()
+		TextWriter::TextWriter(const TextWriter &obj)
 		{
-			// Nothing
+			CoreNewLine = obj.CoreNewLine;
+			InternalFormatProvider = obj.InternalFormatProvider;
 		}
 
-		TextureCollection::~TextureCollection()
+		void TextWriter::Write(bool value)
 		{
-			Dispose(false);
+			Write((value ? "True" : "False"));
 		}
-		//
-		// Operators
-		//
-		Texture* TextureCollection::operator [](int index)
+
+		void TextWriter::Write(char buffer[])
 		{
-			return textures[index];
+			if (buffer)
+			{
+				Write(buffer, 0, Array::Length(buffer));
+			}
+
 		}
 	}
 }

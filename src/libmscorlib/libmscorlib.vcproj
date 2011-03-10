@@ -184,6 +184,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\BinaryWriter.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Directory.cpp"
 					>
 				</File>
@@ -225,6 +229,10 @@
 				</File>
 				<File
 					RelativePath=".\StreamWriter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TextWriter.cpp"
 					>
 				</File>
 			</Filter>
@@ -379,6 +387,10 @@
 				>
 				<File
 					RelativePath="..\..\include\System\IO\BinaryReader.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\System\IO\BinaryWriter.h"
 					>
 				</File>
 				<File
@@ -539,6 +551,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\System\Text\Encoding.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\System\Text\UTF8Encoding.h"
 					>
 				</File>
 			</Filter>

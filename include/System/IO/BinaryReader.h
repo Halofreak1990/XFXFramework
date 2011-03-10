@@ -15,7 +15,7 @@ namespace System
 		/// <summary>
 		/// Reads primitive data types as binary values in a specific encoding.
 		/// </summary>
-		class BinaryReader : public IDisposable, public Object
+		class BinaryReader : public IDisposable, virtual Object
 		{
 		private:
 			bool m_2BytesPerChar;
@@ -23,7 +23,7 @@ namespace System
 			char* m_charBuffer;
 			byte* m_charBytes;
 			char* m_singleChar;
-			Stream m_stream;
+			Stream* m_stream;
 			Encoding m_encoding;
 			bool m_isMemoryStream;
 			Decoder m_decoder;
@@ -41,10 +41,10 @@ namespace System
 			virtual void FillBuffer(int numBytes);
 
 		public:
-			virtual Stream BaseStream();
+			virtual Stream* BaseStream();
 
-			BinaryReader(Stream input);
-			BinaryReader(Stream input, Encoding encoding);
+			BinaryReader(Stream* input);
+			BinaryReader(Stream* input, Encoding encoding);
 			virtual ~BinaryReader();
 
 			virtual void Close();

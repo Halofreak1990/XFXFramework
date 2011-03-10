@@ -37,40 +37,40 @@ namespace XFX
 			return _isVisible;
 		}
 
-		IAsyncResult* Guide::BeginShowKeyboardInput(PlayerIndex_t player, char *title, char *description, char *defaultText, ASyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowKeyboardInput(PlayerIndex_t player, char *title, char *description, char *defaultText, AsyncCallback callback, Object* state)
 		{
-			if (title == null)
+			if (!title)
 				title = "";
 
-			if (description == null)
+			if (!description)
 				description = "";
 
-			if (defaultText == null)
+			if (!defaultText)
 				defaultText = "";
 
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, ASyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(ASyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, ASyncCallback callback, object state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, object state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, ASyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;

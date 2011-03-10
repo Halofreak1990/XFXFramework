@@ -211,7 +211,7 @@ namespace System
 					{
 						Array::Copy(_items, index +1, _items, index, _size - index);
 					}
-					_items[_size] = new T();
+					_items[_size] = T();
 					_version++;
 				}
 

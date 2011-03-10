@@ -59,6 +59,23 @@ namespace System
 		};
 
 		/// <summary>
+		/// Represents additional options for creating a FileStream object.
+		/// </summary>
+		struct FileOptions
+		{
+			enum type
+			{
+				Asynchronous = 0x40000000,
+				DeleteOnClose = 0x4000000,
+				Encrypted = 0x4000,
+				None = 0,
+				RandomAccess = 0x10000000,
+				SequentialScan = 0x8000000,
+				WriteThrough = -2147483648
+			};
+		};
+
+		/// <summary>
 		/// Contains constants for controlling the kind of access other System.IO.FileStream objects can have to the same
 		/// file.
 		/// </summary>
@@ -89,6 +106,7 @@ namespace System
 		typedef FileAccess::type		FileAccess_t;
 		typedef FileAttributes::type	FileAttributes_t;
 		typedef FileMode::type			FileMode_t;
+		typedef FileOptions::type		FileOptions_t;
 		typedef FileShare::type			FileShare_t;
 		typedef SeekOrigin::type		SeekOrigin_t;
 	}

@@ -7,18 +7,16 @@
 #ifndef _SYSTEM_IO_STREAMWRITER_
 #define _SYSTEM_IO_STREAMWRITER_
 
-#include "../Text/Encoding.h"
-#include "../Text/Encoder.h"
+#include <System/Text/Encoding.h>
+#include <System/Text/Encoder.h>
 #include "Stream.h" 
 #include "TextWriter.h"
-#include "../Types.h"
+#include <System/Types.h>
 
 using namespace System::Text;
 
 namespace System
 {
-	class String;
-
 	namespace IO
 	{
 		/// <summary>
@@ -27,16 +25,21 @@ namespace System
 		class StreamWriter : public TextWriter
 		{
 		private:
-			byte byteBuffer;
-			char charBuffer[];
+			static Encoding _UTF8NoBOM;
+			bool autoFlush;
+			byte* byteBuffer;
+			char* charBuffer;
 			int charLen;
 			int charPos;
 			bool closable;
+			static const int DefaultBufferSize;
 			Encoder encoder;
 			Encoding encoding;
 			bool haveWrittenPreamble;
-			Stream stream;
+			Stream* stream;
 
+			static Stream* CreateFile(char* path, bool append);
+			void Init(Stream* stream, Encoding encoding, int bufferSize);
 			void Flush(bool flushStream, bool flushEncoder);
 
 		protected:
@@ -48,13 +51,14 @@ namespace System
 			Encoding Encoding_();
 			static const StreamWriter Null;
 
-			StreamWriter(const char* path);
-			StreamWriter(const char* path, bool append);
-			StreamWriter(const char* path, bool append, Encoding encoding);
-			StreamWriter(const char* path, bool append, Encoding encoding, int bufferSize);
-			StreamWriter(Stream stream);
-			StreamWriter(Stream stream, Encoding encoding);
-			StreamWriter(Stream stream, Encoding encoding, int bufferSize);
+			StreamWriter(Stream* stream);
+			StreamWriter(char* path);
+			StreamWriter(Stream* stream, Encoding encoding);
+			StreamWriter(char* path, bool append);
+			StreamWriter(Stream* stream, Encoding encoding, int bufferSize);
+			StreamWriter(char* path, bool append, Encoding encoding);
+			StreamWriter(char* path, bool append, Encoding encoding, int bufferSize);
+			virtual ~StreamWriter();
 
 			void Close();
 			void Flush();

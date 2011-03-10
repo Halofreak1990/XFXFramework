@@ -33,9 +33,15 @@ namespace System
 {
 	namespace IO
 	{
+		const Stream* Stream::Null = new Stream();
+
 		Stream::Stream()
 		{
 			_asyncActiveCount = 1;
+		}
+
+		Stream::~Stream()
+		{
 		}
 
 		bool Stream::CanTimeOut()
@@ -51,6 +57,14 @@ namespace System
 		void Stream::Dispose()
 		{
 			Close();
+		}
+
+		void Stream::EndWrite(IAsyncResult* asyncResult)
+		{
+			if (!asyncResult)
+			{
+				throw ArgumentNullException("asyncResult");
+			}
 		}
 
 		int Stream::ReadByte()

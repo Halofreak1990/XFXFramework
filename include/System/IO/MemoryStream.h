@@ -55,7 +55,7 @@ namespace System
 			virtual byte* ToArray();
 			void Write(byte buffer[], int offset, int count);
 			void WriteByte(byte value);
-			virtual void WriteTo(Stream stream);
+			virtual void WriteTo(Stream* stream);
 		};
 	}
 }
