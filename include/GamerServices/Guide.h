@@ -39,7 +39,7 @@ namespace XFX
 			static IAsyncResult* BeginShowKeyboardInput(PlayerIndex_t player, char* title, char* description, char* defaultText, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(AsyncCallback callback, Object* state);
-			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, object state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, AsyncCallback callback, Object* state);
 			static char* EndShowKeyboardInput(IAsyncResult* result);
 			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult* result);

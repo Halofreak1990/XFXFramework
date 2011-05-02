@@ -14,6 +14,8 @@ using namespace System::Collections::Generic;
 
 namespace XFX
 {
+	class Texture;
+
 	namespace Graphics
 	{
 		/// <summary>

@@ -21,7 +21,7 @@ namespace XFX
 		/// <summary>
 		/// Queries and prepares resources.
 		/// </summary>
-		class GraphicsResource : public IDisposable
+		class GraphicsResource : public IDisposable, virtual Object
 		{
 		private:
 			bool isDisposed; 

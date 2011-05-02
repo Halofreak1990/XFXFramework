@@ -23,7 +23,7 @@ namespace XFX
 			EventHandler Disposing;
 
 			StateBlock();
-			StateBlock(GraphicsDevice graphiceDevice);
+			StateBlock(GraphicsDevice* graphiceDevice);
 			StateBlock(const StateBlock &obj);
 
 			void Apply();

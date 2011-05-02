@@ -31,7 +31,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		Sprite::Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
+		Sprite::Sprite(Texture2D* texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
 		{
 			this->texture = texture;
 			this->sourceRectangle = sourceRectangle;
@@ -43,7 +43,7 @@ namespace XFX
 			this->layerDepth = layerDepth;
 		}
 
-		Texture2D Sprite::Texture()
+		Texture2D* Sprite::Texture()
 		{
 			return texture;
 		}
@@ -81,6 +81,22 @@ namespace XFX
 		float Sprite::LayerDepth()
 		{
 			return layerDepth;
+		}
+
+		bool Sprite::operator !=(Sprite right)
+		{
+			return !((texture == right.texture) && (sourceRectangle == right.sourceRectangle) &&
+				(destinationRectangle == right.destinationRectangle) && (color == right.color) &&
+				(rotation == right.rotation) && (origin == right.origin) && (effects == right.effects) &&
+				(layerDepth == right.layerDepth));
+		}
+
+		bool Sprite::operator ==(Sprite right)
+		{
+			return ((texture == right.texture) && (sourceRectangle == right.sourceRectangle) &&
+				(destinationRectangle == right.destinationRectangle) && (color == right.color) &&
+				(rotation == right.rotation) && (origin == right.origin) && (effects == right.effects) &&
+				(layerDepth == right.layerDepth));
 		}
 	}
 }

@@ -4,8 +4,8 @@
  *	XFX namespace include file for libXFX.Game.a		*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _XFX__GAME_
-#define _XFX__GAME_
+#ifndef _XFX_GAME_
+#define _XFX_GAME_
 
 //
 //Data Types

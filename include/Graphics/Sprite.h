@@ -23,7 +23,7 @@ namespace XFX
 		class Sprite
 		{
 		private:
-			Texture2D texture;
+			Texture2D* texture;
 			Rectangle destinationRectangle;
 			Rectangle sourceRectangle;
 			Color color;
@@ -33,7 +33,7 @@ namespace XFX
 			float layerDepth;
 
 		public:
-			Texture2D Texture();
+			Texture2D* Texture();
 			Rectangle DestinationRectangle();
 			Rectangle SourceRectangle();
 			Color Color_();
@@ -42,7 +42,11 @@ namespace XFX
 			SpriteEffects_t Effects();
 			float LayerDepth();
 
-			Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
+			Sprite();
+			Sprite(Texture2D* texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
+
+			bool operator !=(Sprite right);
+			bool operator ==(Sprite right);
 		};
 	}
 }

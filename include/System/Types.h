@@ -22,13 +22,10 @@ namespace System
 	typedef signed long long	Int64;
 	typedef signed int			*IntPtr;
 	/* UNSIGNED */
-	typedef unsigned char 		byte, Byte;
+	typedef unsigned char 		byte;
 	typedef unsigned short		ushort, UInt16;
 	typedef unsigned int 		uint, UInt32;
 	typedef unsigned long long	ulong, UInt64;
-	/* FLOATING-POINT */
-	typedef float				Single;
-	typedef double				Double;
 	/* OTHER */
 	typedef bool				Boolean;
 

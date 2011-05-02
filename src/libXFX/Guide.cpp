@@ -64,7 +64,7 @@ namespace XFX
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, object state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
@@ -78,6 +78,7 @@ namespace XFX
 
 		char* Guide::EndShowKeyboardInput(IAsyncResult* result)
 		{
+			// just return an empty string to stop warning until this thing's coded
 			return "";
 		}
 

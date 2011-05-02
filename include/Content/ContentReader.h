@@ -38,11 +38,11 @@ namespace XFX
 			char* _assetName;
 			static const short XnbVersion;
 
-			static Stream PrepareStream(Stream stream, char* assetName);
+			static Stream* PrepareStream(Stream* stream, char* assetName);
 
 		public:
-			ContentReader(ContentManager manager, Stream stream, GraphicsDevice graphicsDevice);
-			ContentReader(ContentManager manager, Stream input, char* assetName); 
+			ContentReader(ContentManager manager, Stream* stream, GraphicsDevice graphicsDevice);
+			ContentReader(ContentManager manager, Stream* input, char* assetName); 
 
 			template <class T>
 			T ReadExternalReference();

@@ -47,7 +47,7 @@ namespace System
 			const char* Dictionary<TKey, TValue>::VersionName = "Version";
 
 			template <class TKey, class TValue>
-			Dictionary<TKey, TValue>::Dictionary(IDictionary<TKey,TValue> dictionary)
+			Dictionary<TKey, TValue>::Dictionary(IDictionary<TKey,TValue>* dictionary)
 			{
 				/*foreach (KeyValuePair<TKey, TValue> pair in dictionary)
 				{

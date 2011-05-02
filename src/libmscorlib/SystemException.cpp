@@ -231,6 +231,21 @@ namespace System
 	{
 	}
 
+	OutOfMemoryException::OutOfMemoryException()
+		: SystemException("Out of Memory");
+	{
+	}
+
+	OutOfMemoryException::OutOfMemoryException(char* message)
+		: SystemException(message);
+	{
+	}
+
+	OutOfMemoryException::OutOfMemoryException(char* message, Exception innerException)
+		: SystemException(message, innerException);
+	{
+	}
+
 	ObjectDisposedException::ObjectDisposedException()
 		: InvalidOperationException()
 	{

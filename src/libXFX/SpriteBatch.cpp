@@ -49,7 +49,7 @@ namespace XFX
 		{
 		}
 		
-		SpriteBatch::SpriteBatch(GraphicsDevice graphicsDevice)
+		SpriteBatch::SpriteBatch(GraphicsDevice* graphicsDevice)
 		{
 			device = graphicsDevice;
 		}
@@ -59,7 +59,7 @@ namespace XFX
 			Dispose(false);
 		}
 
-		GraphicsDevice SpriteBatch::GraphicsDevice_()
+		GraphicsDevice* SpriteBatch::GraphicsDevice_()
 		{
 			return device;
 		}
@@ -118,31 +118,31 @@ namespace XFX
 	        Dispose(true);
         }
          
-        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Color color)
         {
 			Draw(texture, destinationRectangle, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
 
-		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Color color)
+		void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Color color)
         {
 			Draw(texture, position, Rectangle::Empty, color);
         }
          
-        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
         {
 			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
         
-        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color)
         {
-			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture.Width(), texture.Height());
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width(), texture->Height());
 			Draw(texture, destination, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f); 	
         }
 
-		void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth) 
+		void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth) 
         { 
 			Sprite sprite = Sprite(texture, 
-								sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture.Width(), texture.Height()), 
+								sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture->Width(), texture->Height()), 
 								destinationRectangle, 
 								color, 
 								rotation, 
@@ -150,13 +150,13 @@ namespace XFX
 								effects, 
 								layerDepth);
 
-						SpriteList.Add(sprite);
+			SpriteList.Add(sprite);
 
 			if (spriteSortMode == SpriteSortMode::Immediate)
 				Flush(); 
         }
 
-		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth) 
+		void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth) 
         { 
             int width;
 			int height;
@@ -167,14 +167,14 @@ namespace XFX
 			}
 			else
 			{
-				width = (int)(texture.Width() * scale.X);
-				height = (int)(texture.Height() * scale.Y);
+				width = (int)(texture->Width() * scale.X);
+				height = (int)(texture->Height() * scale.Y);
 			}
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
         }
         
-        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
+        void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
         {
 	        int width;
 			int height;
@@ -185,8 +185,8 @@ namespace XFX
 			}
 			else
 			{
-				width = (int)(texture.Width() * scale);
-				height = (int)(texture.Height() * scale);
+				width = (int)(texture->Width() * scale);
+				height = (int)(texture->Height() * scale);
 			}
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth);
@@ -320,10 +320,10 @@ namespace XFX
 					-SpriteList[i].Origin.X * (float)SpriteList[i].DestinationRectangle().Width / (float)SpriteList[i].SourceRectangle().Width,
 					-SpriteList[i].Origin.Y * (float)SpriteList[i].DestinationRectangle().Height / (float)SpriteList[i].SourceRectangle().Height, 0.0f);*/
 				// Calculate the points on the texture
-				float x = (float)SpriteList[i].SourceRectangle().X / (float)SpriteList[i].Texture().Width();
-				float y = (float)SpriteList[i].SourceRectangle().Y / (float)SpriteList[i].Texture().Height();
-				float twidth = (float)SpriteList[i].SourceRectangle().Width / (float)SpriteList[i].Texture().Width();
-				float theight = (float)SpriteList[i].SourceRectangle().Height / (float)SpriteList[i].Texture().Height();
+				float x = (float)SpriteList[i].SourceRectangle().X / (float)SpriteList[i].Texture()->Width();
+				float y = (float)SpriteList[i].SourceRectangle().Y / (float)SpriteList[i].Texture()->Height();
+				float twidth = (float)SpriteList[i].SourceRectangle().Width / (float)SpriteList[i].Texture()->Width();
+				float theight = (float)SpriteList[i].SourceRectangle().Height / (float)SpriteList[i].Texture()->Height();
 				// Draw
 				/*glBegin(GL_QUADS);
 				{

@@ -199,6 +199,17 @@ namespace System
 	};
 
 	/// <summary>
+	/// The Exception that is thrown when there is not enough memory to continue the execution of a program.
+	/// </summary>
+	class OutOfMemoryException : public SystemException
+	{
+	public:
+		OutOfMemoryException();
+		OutOfMemoryException(char* message);
+		OutOfMemoryException(char* message, Exception innerException);
+	};
+
+	/// <summary>
 	/// The exception that is thrown when the operating system denies access because of an I/O error or a specific
 	/// type of security error.
 	/// </summary>

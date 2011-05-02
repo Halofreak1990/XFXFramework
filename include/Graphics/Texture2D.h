@@ -22,7 +22,7 @@ namespace XFX
 		class Texture2D : public Texture, virtual Object
 		{
 		private:
-			GraphicsDevice device;
+			GraphicsDevice* device;
  			int _height; // The height of the texture before resizing it 
  			bool _isDisposed; // True when the texture has been disposed 
  			int _numberOfLevels; // The number of mip levels for the texture 
@@ -33,7 +33,7 @@ namespace XFX
  			int imageId;
  				
  			void Load(byte buffer[]);
-			Texture2D(GraphicsDevice graphicsDevice);
+			Texture2D(GraphicsDevice* graphicsDevice);
  			
  		protected:
  			void Dispose(bool disposing);
@@ -45,17 +45,17 @@ namespace XFX
  			int Width();
  			
 			Texture2D();
- 			Texture2D(GraphicsDevice graphicsDevice, int width, int height);
- 			Texture2D(GraphicsDevice graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
+ 			Texture2D(GraphicsDevice* graphicsDevice, int width, int height);
+ 			Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
 			Texture2D(const Texture2D &obj);
  				
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice graphicsDevice, char* filename, int width, int height);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename, TextureCreationParameters creationParameters);
+ 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename, int width, int height);
 
  			template <class T>
  			void GetData(T data[]);

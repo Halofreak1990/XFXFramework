@@ -46,7 +46,7 @@ namespace System
 									   			   FALSE,	//DebugStack
 						   (PKSTART_ROUTINE)&callback);		//StartRoutine
 						   
-			ObReferenceObjectByHandle(system_thread_handle, PsThreadObjectType, &system_thread_handle);
+			ObReferenceObjectByHandle(system_thread_handle, (POBJECT_TYPE)PsThreadObjectType, &system_thread_handle);
 
 			//#define LOW_PRIORITY                      0
 			//#define LOW_REALTIME_PRIORITY             16
@@ -94,7 +94,7 @@ namespace System
 			if((priority != 0) && (priority != 16) && (priority != 31) && (priority != 32))
 				return; //no valid values
 				
-			ObReferenceObjectByHandle(system_thread_handle, PsThreadObjectType, &system_thread_handle);
+			ObReferenceObjectByHandle(system_thread_handle, (POBJECT_TYPE)PsThreadObjectType, &system_thread_handle);
 			KeSetBasePriorityThread((PKTHREAD)system_thread_handle, (PVOID)priority);
 		}
 		

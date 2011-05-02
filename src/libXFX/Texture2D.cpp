@@ -59,13 +59,13 @@ namespace XFX
 			textureId = -1;
 		}
 		
-		Texture2D::Texture2D(GraphicsDevice graphicsDevice)
+		Texture2D::Texture2D(GraphicsDevice* graphicsDevice)
 		{
 			textureId = -1;
 			device = graphicsDevice;
 		}
 		
-		Texture2D::Texture2D(GraphicsDevice graphicsDevice, int width, int height)
+		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height)
 		{
 			textureId = -1;
 			device = graphicsDevice;
@@ -73,7 +73,7 @@ namespace XFX
 			_height = height;
 		}
 		
-		Texture2D::Texture2D(GraphicsDevice graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format)
+		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format)
 		{
 			textureId = -1;
 			device = graphicsDevice;

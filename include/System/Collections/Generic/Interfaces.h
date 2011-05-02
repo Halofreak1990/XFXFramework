@@ -22,11 +22,11 @@ namespace System
 			interface ICollection
 			{
 			public:
-				virtual void Add(T item)=0;
+				virtual void Add(T &item)=0;
 				virtual void Clear()=0;
-				virtual bool Contains(T item)=0;
+				virtual bool Contains(T &item)=0;
 				virtual void CopyTo(T array[], int arrayIndex)=0;
-				virtual bool Remove(T item)=0;
+				virtual bool Remove(T &item)=0;
 
 				virtual int Count()=0;
 				virtual bool IsReadOnly() { return true; }
@@ -96,11 +96,11 @@ namespace System
 			interface IList : public ICollection<T>
 			{
 			public:
-				virtual int IndexOf(T item)=0;
-				virtual void Insert(int index, T item)=0;
+				virtual int IndexOf(T &item)=0;
+				virtual void Insert(int index, T &item)=0;
 				virtual void RemoveAt(int index)=0;
 
-				virtual T operator[](int index)=0;
+				virtual T& operator[](int index)=0;
 
 				virtual ~IList() {}
 			};

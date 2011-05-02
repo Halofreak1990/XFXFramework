@@ -36,7 +36,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteFont::SpriteFont(Texture2D texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning)
+		SpriteFont::SpriteFont(Texture2D* texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning)
 		{
 			textureValue = texture;
 			glyphData = glyphs;

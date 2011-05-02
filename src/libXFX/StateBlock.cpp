@@ -35,7 +35,7 @@ namespace XFX
 		{
 		}
 
-		StateBlock::StateBlock(GraphicsDevice graphicsDevice)
+		StateBlock::StateBlock(GraphicsDevice* graphicsDevice)
 		{
 		}
 

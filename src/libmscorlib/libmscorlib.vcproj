@@ -115,7 +115,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Boolean.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Buffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Byte.cpp"
 				>
 			</File>
 			<File
@@ -315,7 +323,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\System\Boolean.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\System\Buffer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Byte.h"
 				>
 			</File>
 			<File
@@ -510,6 +526,10 @@
 					</File>
 					<File
 						RelativePath="..\..\include\System\Collections\Generic\List.h"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\System\Collections\Generic\Stack.h"
 						>
 					</File>
 				</Filter>
