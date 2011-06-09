@@ -224,6 +224,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\RenderTarget.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\RenderTarget2D.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Sprite.cpp"
 					>
 				</File>
@@ -325,6 +333,10 @@
 				>
 				<File
 					RelativePath=".\Guide.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\StorageDeviceAsyncResult.cpp"
 					>
 				</File>
 			</Filter>
@@ -494,6 +506,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Graphics\RenderTarget.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics\RenderTarget2D.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Graphics\Sprite.h"
 					>
 				</File>
@@ -643,6 +663,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\GamerServices\Guide.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\GamerServices\StorageDeviceAsyncResult.h"
 					>
 				</File>
 			</Filter>

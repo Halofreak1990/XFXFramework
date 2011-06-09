@@ -54,8 +54,8 @@ namespace System
 				virtual bool Remove(TKey key)=0;
 				virtual bool TryGetValue(TKey key, out TValue value)=0;
 
-				virtual ICollection<TKey> Keys()=0;
-				virtual ICollection<TValue> Values()=0;
+				virtual ICollection<TKey>& Keys()=0;
+				virtual ICollection<TValue>& Values()=0;
 			};
 
 			/// <summary>
@@ -75,7 +75,7 @@ namespace System
 			interface IEnumerable
 			{
 			public:
-				virtual IEnumerator<T> GetEnumerator()=0;
+				virtual IEnumerator<T>& GetEnumerator()=0;
 			};
 
 			/// <summary>

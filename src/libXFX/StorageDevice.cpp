@@ -47,12 +47,18 @@ namespace XFX
 		{
 		}
 
+		StorageDevice::StorageDevice(uint deviceIndex, PlayerIndex_t playerIndex)
+		{
+			_playerIndex = playerIndex;
+			_deviceIndex = deviceIndex;
+		}
+
 		StorageContainer StorageDevice::OpenContainer(char* titleName)
 		{
-			if(titleName == null || titleName == "")
+			if(!titleName || titleName == "")
 				throw ArgumentNullException("Non-null title name required.");
 
-			//return StorageContainer(*this, titleName, _playerSpecified, _playerIndex);
+			return StorageContainer(*this, titleName, _deviceIndex, _playerIndex);
 		}
 	}
 }

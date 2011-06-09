@@ -9,6 +9,7 @@
 
 #include "Texture.h"
 #include <System/IO/Stream.h>
+#include <System/Types.h>
 
 using namespace System; 
 using namespace System::IO;
@@ -47,7 +48,7 @@ namespace XFX
 			Texture2D();
  			Texture2D(GraphicsDevice* graphicsDevice, int width, int height);
  			Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
-			Texture2D(const Texture2D &obj);
+			Texture2D(const Texture2D &obj); // Copy constructor
  				
  			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
  			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);

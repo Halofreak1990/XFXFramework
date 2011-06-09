@@ -903,34 +903,35 @@ namespace XFX
 
 	int Matrix::Decompose(Vector3 scale, Quaternion rotation, Vector3 translation)
 	{
-		//Get the translation.
 		translation.X = M41;
 		translation.Y = M42;
 		translation.Z = M43;
-		//Scaling is the length of the rows.
-		scale.X = (float)Math::Sqrt((M11 * M11) + (M12 * M12) + (M13 * M13));
-		scale.Y = (float)Math::Sqrt((M21 * M21) + (M22 * M22) + (M23 * M23));
-		scale.Z = (float)Math::Sqrt((M31 * M31) + (M32 * M32) + (M33 * M33));
-		//If any of the scaling factors are zero, than the rotation matrix can not exist.
-		if (Math::Abs(scale.X) < 1e-6f ||
-			Math::Abs(scale.Y) < 1e-6f ||
-			Math::Abs(scale.Z) < 1e-6f)
+		float xs, ys, zs;
+		if (Math::Sign(M11 * M12 * M13 * M14) < 0)
+			xs = -1.0f;
+		else
+			xs = 1.0f;
+		if (Math::Sign(M21 * M22 * M23 * M24) < 0)
+			ys = -1.0f;
+		else
+			ys = 1.0f;
+		if (Math::Sign(M31 * M32 * M33 * M34) < 0)
+			zs = -1.0f;
+		else
+			zs = 1.0f;
+		scale.X = xs * (float)Math::Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
+		scale.Y = ys * (float)Math::Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
+		scale.Z = zs * (float)Math::Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
+		if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
 		{
 			rotation = Quaternion::Identity;
 			return false;
-		}	//The rotation is the left over matrix after dividing out the scaling.
-		Matrix rotationmatrix = Matrix();
-		rotationmatrix.M11 = M11 / scale.X;
-		rotationmatrix.M12 = M12 / scale.X;
-		rotationmatrix.M13 = M13 / scale.X;
-		rotationmatrix.M21 = M21 / scale.Y;
-		rotationmatrix.M22 = M22 / scale.Y;
-		rotationmatrix.M23 = M23 / scale.Y;
-		rotationmatrix.M31 = M31 / scale.Z;
-		rotationmatrix.M32 = M32 / scale.Z;
-		rotationmatrix.M33 = M33 / scale.Z;
-		rotationmatrix.M44 = 1.0f;
-		Quaternion::CreateFromRotationMatrix(rotationmatrix, rotation);
+		}
+		Matrix m1 = Matrix(M11/scale.X, M12/scale.X, M13/scale.X, 0, 
+			M21/scale.Y, M22/scale.Y, M23/scale.Y, 0,
+			M31/scale.Z, M32/scale.Z, M33/scale.Z, 0,
+			0, 0, 0, 1);
+		rotation = Quaternion::CreateFromRotationMatrix(m1);
 		return true;
 	}
 

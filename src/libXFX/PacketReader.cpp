@@ -38,17 +38,17 @@ namespace XFX
 	{
 		int PacketReader::Length()
 		{
-			return (int)BaseStream().Length();
+			return (int)BaseStream()->Length();
 		}
 
 		int PacketReader::Position()
 		{
-			return (int)BaseStream().Position;
+			return (int)BaseStream()->Position;
 		}
 
 		int PacketReader::Position(int newValue)
 		{
-			BaseStream().Position = newValue;
+			BaseStream()->Position = newValue;
 		}
 
 		PacketReader::PacketReader()

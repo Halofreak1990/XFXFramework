@@ -334,7 +334,7 @@ namespace System
 				if (other._size == 0) // is other array is empty -- clear this array  
 					Clear();
 			 
-				Capacity(other._size); // set size  
+				setCapacity(other._size); // set size  
 			 
 				memcpy(_items, other._items, sizeof(T) * other._size);
 			 

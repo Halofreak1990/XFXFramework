@@ -9,6 +9,7 @@
 
 #include "../Exception.h"
 #include "../Interfaces.h"
+#include "../Object.h"
 #include "../Types.h"
 #include "../Threading/WaitHandle.h"
 
@@ -19,7 +20,7 @@ namespace System
 		/// <summary>
 		/// 
 		/// </summary>
-		class StreamAsyncResult : public IAsyncResult
+		class StreamAsyncResult : public IAsyncResult, virtual Object
 		{
 			Object* _state;
 			bool completed;
@@ -29,7 +30,7 @@ namespace System
 
 		public:
 			Object* ASyncState();
-			Threading::WaitHandle AsyncWaitHandle();
+			Threading::WaitHandle* AsyncWaitHandle();
 			virtual bool CompletedSynchronously();
 			bool IsCompleted();
 			Exception* Exception_();

@@ -26,11 +26,12 @@ namespace XFX
 		/// </summary>
 		class StorageContainer : public IDisposable, virtual Object
 		{
+			friend class StorageDevice;
+
 		private:
 			bool isDisposed;
 			DirectoryInfo containerFolder;
 		    StorageDevice* device;
-			EventHandler Disposing;
 		    PlayerIndex_t playerIndex;
 			char* titleName;
 
@@ -38,9 +39,11 @@ namespace XFX
 			~StorageContainer();
 
 		public:
+			EventHandler Disposing;
+
 			bool IsDisposed();
 			char* Path();
-			StorageDevice StorageDevice_();
+			StorageDevice* StorageDevice_();
 			static char* TitleLocation();
 			char* TitleName();
 				

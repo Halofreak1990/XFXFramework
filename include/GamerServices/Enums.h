@@ -5,9 +5,6 @@ namespace XFX
 {
 	namespace GamerServices
 	{
-		/// <summary>
-		/// Indicates how sensitive this gamer prefers controller input to be.
-		/// </summary>
 		struct ControllerSensitivity
 		{
 			enum type
@@ -18,9 +15,6 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Indicates how difficult this gamer likes things to be.
-		/// </summary>
 		struct GameDifficulty
 		{
 			enum type
@@ -31,9 +25,6 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// This style of social gaming preferred by this Xbox Live member.
-		/// </summary>
 		struct GamerZone
 		{
 			enum type
@@ -46,9 +37,6 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Defines the different icons for a message box.
-		/// </summary>
 		struct MessageBoxIcon
 		{
 			enum type
@@ -60,9 +48,6 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Determines where notifications appear on the screen.
-		/// </summary>
 		struct NotificationPosition
 		{
 			enum type
@@ -79,9 +64,6 @@ namespace XFX
 			};
 		};
 		
-		/// <summary>
-		/// Indicates which camera angle this gamer prefers to use in racing games.
-		/// </summary>
 		struct RacingCameraAngle
 		{
 			enum type
@@ -92,12 +74,12 @@ namespace XFX
 			};
 		};
 
-		typedef ControllerSensitivity::type		ControllerSensitivity_t;
-		typedef GameDifficulty::type			GameDifficulty_t;
-		typedef GamerZone::type					GamerZone_t;
-		typedef MessageBoxIcon::type			MessageBoxIcon_t;
-		typedef NotificationPosition::type		NotificationPosition_t;
-		typedef RacingCameraAngle::type			RacingCameraAngle_t;
+		typedef ControllerSensitivity::type		ControllerSensitivity_t;	// Indicates how sensitive this gamer prefers controller input to be.
+		typedef GameDifficulty::type			GameDifficulty_t;			// Indicates how difficult this gamer likes things to be.
+		typedef GamerZone::type					GamerZone_t;				// This style of social gaming preferred by this Xbox Live member.
+		typedef MessageBoxIcon::type			MessageBoxIcon_t;			// Defines the different icons for a message box.
+		typedef NotificationPosition::type		NotificationPosition_t;		// Determines where notifications appear on the screen.
+		typedef RacingCameraAngle::type			RacingCameraAngle_t;		// Indicates which camera angle this gamer prefers to use in racing games.
 	}
 }
 

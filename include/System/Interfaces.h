@@ -19,8 +19,8 @@ namespace System
 	interface IAsyncResult
 	{
 	public:
-		virtual Object* ASyncState()=0;
-		virtual Threading::WaitHandle AsyncWaitHandle()=0;
+		virtual Object* AsyncState()=0;
+		virtual Threading::WaitHandle* AsyncWaitHandle()=0;
 		virtual bool CompletedSynchronously()=0;
 		virtual bool IsCompleted()=0;
 	};

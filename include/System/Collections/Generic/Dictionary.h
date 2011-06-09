@@ -9,9 +9,7 @@
 
 #include <System/Array.h>
 #include <System/Exception.h>
-#include <System/Collections/Generic/Dictionary.h>
-#include <System/Collections/Generic/EqualityComparer.h>
-#include "HashHelpers.h"
+#include "EqualityComparer.h"
 #include "Interfaces.h"
 #include "KeyValuePair.h"
 
@@ -70,66 +68,16 @@ namespace System
 					Dictionary<TKey, TValue>* _dictionary;
 
 				public:
-					int Count()
-					{
-						return _dictionary.Count();
-					}
+					int Count();
 
-					KeyCollection(Dictionary<TKey, TValue> dictionary)
-					{
-						_dictionary = &dictionary;
-					}
+					KeyCollection(Dictionary<TKey, TValue> dictionary);
+					KeyCollection(const KeyCollection<UKey, UValue> &obj);
 
-					KeyCollection(const KeyCollection<UKey, UValue> &obj)
-					{
-						_dictionary = &obj._dictionary;
-					}
-
-					void Add(UKey item)
-					{
-						throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
-					}
-
-					void Clear()
-					{
-						throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
-					}
-
-					bool Contains(UKey item)
-					{
-						return _dictionary.ContainsKey(item);
-					}
-
-					void CopyTo(UKey array[], int index)
-					{
-						if(array == null)
-						{
-							throw ArgumentNullException("array");
-						}
-						if((index < 0) ||(index > Array::Length(array)))
-						{
-							throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
-						}
-						if((Array::Length(array) - index) < _dictionary.Count())
-						{
-							throw ArgumentException("Array plus offset too small.");
-						}
-						int count = _dictionary.Count();
-						Entry<UKey, UValue> entries[] = _dictionary.entries;
-						for(int i = 0; i < count; i++)
-						{
-							if(entries[i].hashCode >= 0)
-							{
-								array[index++] = entries[i].key;
-							}
-						}
-					}
-
-					bool Remove(UKey item)
-					{
-						throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
-						return false;
-					}
+					void Add(UKey item);
+					void Clear();
+					bool Contains(UKey item);
+					void CopyTo(UKey array[], int index);
+					bool Remove(UKey item);
 				};
 
 				/// <summary>
@@ -174,82 +122,171 @@ namespace System
 					}*/
 				}
 				Dictionary(int capacity);
-				~Dictionary()
-				{
-					delete[] buckets;
-					delete[] entries;
-				}
+				~Dictionary();
 
 				void Add(TKey key, TValue value)
 				{
 					Insert(key, value, true);
 				}
 
-				void Clear()
-				{
-					if(count > 0)
-					{
-						for(int i = 0; i < Array::Length(buckets); i++)
-						{
-							buckets[i] = -1;
-						}
-						Array::Clear(entries, 0, count);
-						freeList = -1;
-						count = 0;
-						freeCount = 0;
-						version++;
-					}
-				}
-
+				void Clear();
 				bool ContainsKey(TKey key);
 				bool ContainsValue(TValue value);
 
-				bool Remove(TKey key)
-				{
-					if(buckets)
-					{
-						int num = comparer->GetHashCode(key) & 0x7fffffff;
-						int index = num % Array::Length(buckets);
-						int num3 = -1;
-						for(int i = buckets[index]; i >= 0; i = entries[i].next)
-						{
-							if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
-							{
-								if(num3 < 0)
-								{
-									buckets[index] = entries[i].next;
-								}
-								else
-								{
-									entries[num3].next = entries[i].next;
-								}
-								entries[i].hashCode = -1;
-								entries[i].next = freeList;
-								entries[i].key = TKey();
-								entries[i].value = TValue();
-								freeList = i;
-								freeCount++;
-								version++;
-								return true;
-							}
-							num3 = i;
-						}
-					}
-					return false;
-				}
+				bool Remove(TKey key);
+				bool TryGetValue(TKey key, out TValue value);
+			};
 
-				bool TryGetValue(TKey key, out TValue value)
+			//////////////////////////////////////////////////////////////////////
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			int Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Count()
+			{
+				return _dictionary->Count();
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(Dictionary<TKey, TValue> dictionary)
+			{
+				_dictionary = &dictionary;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(const KeyCollection<UKey, UValue> &obj)
+			{
+				_dictionary = obj._dictionary;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Add(UKey item)
+			{
+				throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Clear()
+			{
+				throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Contains(UKey item)
+			{
+				return _dictionary.ContainsKey(item);
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::CopyTo(UKey array[], int index)
+			{
+				if(array == null)
 				{
-					int index = FindEntry(key);
-					if(index >= 0)
-					{
-						value = entries[index].value;
-						return true;
-					}
-					value = TValue();
-					return false;
+					throw ArgumentNullException("array");
 				}
-			};	
+				if((index < 0) ||(index > Array::Length(array)))
+				{
+					throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
+				}
+				if((Array::Length(array) - index) < _dictionary.Count())
+				{
+					throw ArgumentException("Array plus offset too small.");
+				}
+				int count = _dictionary.Count();
+				Entry<UKey, UValue> entries[] = _dictionary.entries;
+				for(int i = 0; i < count; i++)
+				{
+					if(entries[i].hashCode >= 0)
+					{
+						array[index++] = entries[i].key;
+					}
+				}
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Remove(UKey item)
+			{
+				throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
+				return false;
+			}
+
+			template <class TKey, class TValue>
+			Dictionary<TKey, TValue>::~Dictionary()
+			{
+				delete[] buckets;
+				delete[] entries;
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::Clear()
+			{
+				if(count > 0)
+				{
+					for(int i = 0; i < Array::Length(buckets); i++)
+					{
+						buckets[i] = -1;
+					}
+					Array::Clear(entries, 0, count);
+					freeList = -1;
+					count = 0;
+					freeCount = 0;
+					version++;
+				}
+			}
+
+			template <class TKey, class TValue>
+			bool Dictionary<TKey, TValue>::Remove(TKey key)
+			{
+				if(buckets)
+				{
+					int num = comparer->GetHashCode(key) & 0x7fffffff;
+					int index = num % Array::Length(buckets);
+					int num3 = -1;
+					for(int i = buckets[index]; i >= 0; i = entries[i].next)
+					{
+						if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
+						{
+							if(num3 < 0)
+							{
+								buckets[index] = entries[i].next;
+							}
+							else
+							{
+								entries[num3].next = entries[i].next;
+							}
+							entries[i].hashCode = -1;
+							entries[i].next = freeList;
+							entries[i].key = TKey();
+							entries[i].value = TValue();
+							freeList = i;
+							freeCount++;
+							version++;
+							return true;
+						}
+						num3 = i;
+					}
+				}
+				return false;
+			}
+
+			template <class TKey, class TValue>
+			bool Dictionary<TKey, TValue>::TryGetValue(TKey key, out TValue value)
+			{
+				int index = FindEntry(key);
+				if(index >= 0)
+				{
+					value = entries[index].value;
+					return true;
+				}
+				value = TValue();
+				return false;
+			}
 		}
 	}
 }

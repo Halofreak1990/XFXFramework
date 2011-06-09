@@ -11,9 +11,6 @@ namespace XFX
 {
 	namespace Net
 	{
-		/// <summary>
-		/// Defines the reason a session ended.
-		/// </summary>
 		struct NetworkSessionEndReason
 		{
 			enum type
@@ -24,9 +21,7 @@ namespace XFX
 				Disconnected
 			};
 		};
-		/// <summary>
-		/// Contains additional data about a NetworkSessionJoinException.
-		/// </summary>
+		
 		struct NetworkSessionJoinError
 		{
 			enum type
@@ -36,9 +31,7 @@ namespace XFX
 				SessionFull
 			};
 		};
-		/// <summary>
-		/// Defines the different states of a multiplayer session.
-		/// </summary>
+		
 		struct NetworkSessionState
 		{
 			enum type
@@ -48,9 +41,7 @@ namespace XFX
 				Ended
 			};
 		};
-		/// <summary>
-		/// Defines the different types of a multiplayer session.
-		/// </summary>
+
 		struct NetworkSessionType
 		{
 			enum type
@@ -62,9 +53,6 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Defines options for network packet transmission.
-		/// </summary>
 		struct SendDataOptions
 		{
 			enum type
@@ -76,11 +64,11 @@ namespace XFX
 			};
 		};
 
-		typedef NetworkSessionEndReason::type	NetworkSessionEndReason_t;
-		typedef NetworkSessionJoinError::type	NetworkSessionJoinError_t;
-		typedef NetworkSessionState::type		NetworkSessionState_t;
-		typedef NetworkSessionType::type		NetworkSessionType_t;
-		typedef SendDataOptions::type			SendDataOptions_t;
+		typedef NetworkSessionEndReason::type	NetworkSessionEndReason_t;	// Defines the reason a session ended.
+		typedef NetworkSessionJoinError::type	NetworkSessionJoinError_t;	// Contains additional data about a NetworkSessionJoinException.
+		typedef NetworkSessionState::type		NetworkSessionState_t;		// Defines the different states of a multiplayer session.
+		typedef NetworkSessionType::type		NetworkSessionType_t;		// Defines the different types of a multiplayer session.
+		typedef SendDataOptions::type			SendDataOptions_t;			// Defines options for network packet transmission.
 	}
 }
 

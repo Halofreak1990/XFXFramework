@@ -48,6 +48,18 @@ namespace XFX
 			return ((-1.401298E-45f <= num) && (num <= 1.401298E-45f));
 		}
 
+		bool Viewport::Equals(Viewport obj)
+		{
+			return ((AspectRatio() == obj.AspectRatio()) && (Height == obj.Height) &&
+				(MaxDepth == obj.MaxDepth) && (MinDepth == obj.MinDepth) &&
+				(Width == obj.Width) && (X == obj.X) && (Y == obj.Y));
+		}
+
+		int Viewport::GetHashCode()
+		{
+			return ((int)AspectRatio() + Height + MaxDepth + MinDepth + Width + X + Y);
+		}
+
 		Vector3 Viewport::Project(Vector3 source, Matrix projection, Matrix view, Matrix world)
 		{
 			Matrix matrix = Matrix::Multiply(Matrix::Multiply(world, view), projection);
@@ -77,6 +89,16 @@ namespace XFX
 				position = (Vector3) (position / a);
 			}
 			return position;
+		}
+
+		bool Viewport::operator !=(Viewport right)
+		{
+			return !Equals(right);
+		}
+
+		bool Viewport::operator ==(Viewport right)
+		{
+			return Equals(right);
 		}
 	}
 }

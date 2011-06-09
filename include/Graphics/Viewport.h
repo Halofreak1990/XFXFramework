@@ -31,8 +31,13 @@ namespace XFX
 			int X;
 			int Y;
 			
+			bool Equals(Viewport obj);
+			int GetHashCode();
 			Vector3 Project(Vector3 source, Matrix projection, Matrix view, Matrix world);
 			Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world);
+
+			bool operator !=(Viewport right);
+			bool operator ==(Viewport right);
 		};
 	}
 }

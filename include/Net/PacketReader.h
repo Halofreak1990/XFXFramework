@@ -15,10 +15,8 @@ namespace XFX
 
 	namespace Net
 	{
-		/// <summary>
-		/// Provides common functionality for efficiently reading incoming network packets.
-		/// </summary>
-		class PacketReader : public BinaryReader
+		// Provides common functionality for efficiently reading incoming network packets.
+		class PacketReader : public BinaryReader, virtual Object
 		{
 		public:
 			int Length();

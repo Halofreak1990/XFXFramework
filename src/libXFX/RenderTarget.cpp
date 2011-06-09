@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, Halofreak_1990
+// Copyright (C) 2010-2012, XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -25,76 +25,32 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/IO/StreamAsyncResult.h>
+#include <Graphics/RenderTarget.h>
 
-namespace System
+namespace XFX
 {
-	namespace IO
+	namespace Graphics
 	{
-		StreamAsyncResult::StreamAsyncResult(Object* state)
+		RenderTarget::~RenderTarget()
 		{
-			_nbytes = -1;
-			_state = state;
+			Dispose(false);
 		}
 
-		StreamAsyncResult::StreamAsyncResult(const IAsyncResult* &obj)
+		void RenderTarget::Dispose()
 		{
-			_nbytes = -1;
+			Dispose(true);
 		}
 
-		StreamAsyncResult::StreamAsyncResult(const StreamAsyncResult &obj)
+		void RenderTarget::Dispose(bool disposing)
 		{
-			_nbytes = -1;
-			_state = obj._state;
-		}
-
-		Object* StreamAsyncResult::ASyncState()
-		{
-			return _state;
-		}
-
-		bool StreamAsyncResult::CompletedSynchronously()
-		{
-			return true;
-		}
-
-		Exception* StreamAsyncResult::Exception_()
-		{
-			return exc;
-		}
-
-		bool StreamAsyncResult::IsCompleted()
-		{
-			return completed;
-		}
-
-		int StreamAsyncResult::NBytes()
-		{
-			return _nbytes;
-		}
-
-		Threading::WaitHandle* StreamAsyncResult::AsyncWaitHandle()
-		{
-
-		}
-
-		void StreamAsyncResult::SetComplete(Exception* e)
-		{
-			exc = e;
-			completed = true;
-			/*
-			lock(this)
+			if (!isDisposed)
 			{
-				if(wh != null)
-				wh.Set();
-			}
-			*/
-		}
+				if (disposing)
+				{
+				}
 
-		void StreamAsyncResult::SetComplete(Exception* e, int nbytes)
-		{
-			_nbytes = nbytes;
-			SetComplete(e);
+				isDisposed = true;
+			}
 		}
 	}
 }

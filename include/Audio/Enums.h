@@ -11,9 +11,6 @@ namespace XFX
 {
 	namespace Audio
 	{
-		/// <summary>
-		/// Controls how Cue objects should stop when Cue.Stop is called.
-		/// </summary>
 		struct AudioStopOptions
 		{
 			enum type
@@ -23,8 +20,8 @@ namespace XFX
 			};
 		};
 
-		typedef AudioStopOptions::type AudioStopOptions_t;
+		typedef AudioStopOptions::type AudioStopOptions_t;	// Controls how Cue objects should stop when Cue::Stop is called.
 	}
 }
 
-#endif //XFRAMEWORK_AUDIOSTOPOPTIONS_H
+#endif //_XFX_AUDIO_ENUMS_

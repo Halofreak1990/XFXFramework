@@ -15,6 +15,7 @@
 #include "GraphicsDeviceCapabilities.h"
 #include "GraphicsDeviceCreationParameters.h"
 #include "PresentationParameters.h"
+#include "RenderTarget2D.h"
 #include "TextureCollection.h"
 #include "Viewport.h"
 
@@ -34,10 +35,10 @@ namespace XFX
 		/// Performs primitive-based rendering, creates resources, handles system-level
 		/// variables, adjusts gamma ramp levels, and creates shaders.
 		/// </summary>
-		class GraphicsDevice : public IDisposable
+		class GraphicsDevice : public IDisposable, virtual Object
 		{
 		private:
-			GraphicsAdapter _adapter;
+			GraphicsAdapter* _adapter;
 			DepthStencilBuffer _depthStencilBuffer;
 			DeviceType_t _deviceType;
 			GraphicsDeviceCapabilities graphicsDeviceCapabilities;
@@ -45,19 +46,31 @@ namespace XFX
 			TextureCollection textures;
 			Color clearColor;
 			Viewport viewport;
+
+			void setPresentationParameters(PresentationParameters* presentationParameters);
 			
 		protected:
 			virtual void Dispose(bool disposing);
+			virtual void raise_DeviceLost(Object* sender, EventArgs e);
+			virtual void raise_DeviceReset(Object* sender, EventArgs e);
+			virtual void raise_DeviceResetting(Object* sender, EventArgs e);
+			virtual void raise_Disposing(Object* sender, EventArgs e);
 		
 		public:
+			EventHandler DeviceLost;
+			EventHandler DeviceReset;
+			EventHandler DeviceResetting;
+			EventHandler Disposing;
+
 			GraphicsDeviceCreationParameters CreationParameters();
-			DepthStencilBuffer GetDepthStencilBuffer();
-			void SetDepthStencilBuffer(DepthStencilBuffer buffer);
+			DepthStencilBuffer getDepthStencilBuffer();
+			void setDepthStencilBuffer(DepthStencilBuffer buffer);
+			PresentationParameters* getPresentationParameters();
 			TextureCollection Textures();
-			Viewport Viewport_();
-			void Viewport_(Viewport newValue);
+			Viewport getViewport();
+			void setViewport(Viewport value);
 		
-			GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, PresentationParameters presentationParameters);
+			GraphicsDevice(GraphicsAdapter* adapter, DeviceType_t deviceType, PresentationParameters* presentationParameters);
 			GraphicsDevice();
 			virtual ~GraphicsDevice();
 			
@@ -76,7 +89,7 @@ namespace XFX
 			template <class T>
 			void DrawUserPrimitives(PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount);
 			void EvictManagedResources();
-			GammaRamp GetGammaRamp();
+			GammaRamp* GetGammaRamp();
 			int* GetPixelShaderBooleanConstant(int startRegister, int constantCount);
 			int* GetPixelShaderInt32Constant(int startRegister, int constantCount);
 			Matrix* GetPixelShaderMatrixArrayConstant(int startRegister, int constantCount);
@@ -86,6 +99,11 @@ namespace XFX
 			float* GetPixelShaderSingleConstant(int startRegister, int constantCount);
 			Vector2* GetPixelShaderVector2ArrayConstant(int startRegister, int constantCount);
 			Vector2 GetPixelShaderVector2Constant(int startRegister);
+			void Present();
+			void Reset();
+			void Reset(PresentationParameters* presentationParameters);
+			void SetGammaRamp(bool calibrate, GammaRamp* ramp);
+			void SetRenderTarget(int renderTargetIndex, RenderTarget2D* renderTarget);
 			void SetVertexShaderConstant(int startRegister, Matrix constantData);
 			void SetVertexShaderConstant(int startRegister, Vector4 constantData);
 		};

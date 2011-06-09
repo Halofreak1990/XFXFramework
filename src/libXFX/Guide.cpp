@@ -26,6 +26,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GamerServices/Guide.h>
+#include <GamerServices/StorageDeviceAsyncResult.h>
+#include <System/Exception.h>
 #include <System/TimeSpan.h>
 
 namespace XFX
@@ -48,6 +50,12 @@ namespace XFX
 			if (!defaultText)
 				defaultText = "";
 
+			// just return null to stop warning until this thing's coded
+			return null;
+		}
+
+		IAsyncResult* Guide::BeginShowMessageBox(PlayerIndex_t player, char* title, char* text, IEnumerable<char*>* buttons, int focusButton, MessageBoxIcon_t icon, AsyncCallback callback, Object* state)
+		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
@@ -82,8 +90,20 @@ namespace XFX
 			return "";
 		}
 
-		StorageDevice Guide::EndShowStorageDeviceSelector(IAsyncResult* result)
+		int Guide::EndShowMessageBox(IAsyncResult* result)
 		{
+			// Since C++ doesn't have a nullable type, we return -1, since it represents an invalid value anyways.
+			return -1;
+		}
+
+		StorageDevice Guide::EndShowStorageDeviceSelector(IAsyncResult* asyncResult)
+		{
+			StorageDeviceAsyncResult* result = (StorageDeviceAsyncResult*)asyncResult;
+			if (!result)
+			{
+				throw ArgumentNullException("result");
+			}
+			return StorageDevice(0, (PlayerIndex_t)result->playerIndex);
 		}
 	}
 }

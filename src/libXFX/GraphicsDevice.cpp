@@ -44,13 +44,54 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		GraphicsDeviceCreationParameters GraphicsDevice::CreationParameters()
+		{
+
+		}
+
+		DepthStencilBuffer GraphicsDevice::getDepthStencilBuffer()
+		{
+			return _depthStencilBuffer;
+		}
+
+		void GraphicsDevice::setDepthStencilBuffer(DepthStencilBuffer buffer)
+		{
+			_depthStencilBuffer = buffer;
+		}
+
+		void GraphicsDevice::setPresentationParameters(PresentationParameters* presentationParameters)
+		{
+			viewport.X = 0;
+			viewport.Y = 0;
+			viewport.Width = presentationParameters->BackBufferWidth;
+			viewport.Height = presentationParameters->BackBufferHeight;
+
+
+		}
+
+		Viewport GraphicsDevice::getViewport()
+		{
+			return viewport;
+		}
+
+		void GraphicsDevice::setViewport(Viewport value)
+		{
+			if (viewport != value)
+			{
+
+			}
+		}
+
 		TextureCollection GraphicsDevice::Textures()
 		{
 			return textures;
 		}
 
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter adapter, DeviceType_t deviceType, PresentationParameters presentationParameters)
+		GraphicsDevice::GraphicsDevice(GraphicsAdapter* adapter, DeviceType_t deviceType, PresentationParameters* presentationParameters)
 		{
+			if (adapter == null || presentationParameters == null)
+				throw new ArgumentNullException("adapter or presentationParameters is null.");
+
 			_adapter = adapter;
 			if(deviceType != DeviceType::Hardware)
 				throw DeviceNotSupportedException("Only DeviceType::Hardware is supported.");
@@ -110,29 +151,6 @@ namespace XFX
 			glClear(GL_COLOR_BUFFER_BIT);
 			glLoadIdentity();*/
 		}
-
-		void GraphicsDevice::Clear(ClearOptions_t options, Color color, float depth, int stencil)
-		{
-			if(isDisposed)
-				throw ObjectDisposedException("GraphicsDevice");
-
-			switch(options)
-			{
-			case ClearOptions::Depth:
-				{
-
-				}
-			case ClearOptions::Stencil:
-				{
-
-				}
-			case ClearOptions::Target:
-				{
-
-				}
-
-			}
-		}
 		
 		void GraphicsDevice::Dispose()
 		{
@@ -141,15 +159,51 @@ namespace XFX
 		
 		void GraphicsDevice::Dispose(bool disposing)
 		{
-			if(disposing)
+			if (!isDisposed)
 			{
-				
+				if(disposing)
+				{
+					textures.Dispose();
+
+					isDisposed = true;
+				}
 			}
 		}
 
-		void GraphicsDevice::SetVertexShaderConstant(int startRegister, Vector4 constantData)
+		void GraphicsDevice::raise_DeviceLost(Object* sender, EventArgs e)
 		{
+			if (DeviceLost != null)
+				DeviceLost(sender, e);
+		}
 
+		void GraphicsDevice::raise_DeviceReset(Object* sender, EventArgs e)
+		{
+			if (DeviceReset != null)
+				DeviceReset(sender, e);
+		}
+
+		void GraphicsDevice::raise_DeviceResetting(Object* sender, EventArgs e)
+		{
+			if (DeviceResetting != null)
+				DeviceResetting(sender, e);
+		}
+
+		void GraphicsDevice::raise_Disposing(Object* sender, EventArgs e)
+		{
+			if (Disposing != null)
+				Disposing(sender, e);
+		}
+
+		void GraphicsDevice::Reset()
+		{
+			Reset(getPresentationParameters());
+		}
+
+		void GraphicsDevice::Reset(PresentationParameters* presentationParameters)
+		{
+			raise_DeviceResetting(this, EventArgs::Empty);
+			setPresentationParameters(presentationParameters);
+			raise_DeviceReset(this, EventArgs::Empty);
 		}
 	}
 }
