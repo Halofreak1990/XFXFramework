@@ -1,6 +1,9 @@
 #include <System/IO/BinaryWriter.h>
-#include <System/Exception.h>
 #include <System/Text/UTF8Encoding.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -23,7 +26,10 @@ namespace System
 
 			if (!output)
 			{
-				throw ArgumentNullException("output");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "output");
+#endif
+				return;
 			}
 
 			OutStream = output;
@@ -38,7 +44,10 @@ namespace System
 
 			if (!output)
 			{
-				throw ArgumentNullException("output");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "output");
+#endif
+				return;
 			}
 
 			OutStream = output;

@@ -13,10 +13,8 @@ namespace XFX
 {
 	namespace GamerServices
 	{
-		/// <summary>
-		/// Creates a new GamerServicesComponent.
-		/// </summary>
-		class GamerServicesComponent : public GameComponent
+		// Creates a new GamerServicesComponent.
+		class GamerServicesComponent : public GameComponent, virtual Object
 		{	
 		public:
 			GamerServicesComponent(Game game);

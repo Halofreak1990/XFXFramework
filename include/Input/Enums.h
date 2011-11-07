@@ -11,9 +11,7 @@ namespace XFX
 {
 	namespace Input
 	{
-		/// <summary>
-		/// Enumerates input device buttons.
-		/// </summary>
+		// Enumerates input device buttons.
 		struct Buttons
 		{
 			enum type
@@ -45,9 +43,7 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Identifies the state of a mouse button or Xbox Controller button.
-		/// </summary>
+		// Identifies the state of a mouse button or Xbox Controller button.
 		struct ButtonState
 		{
 			enum type
@@ -57,9 +53,7 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Specifies a type of dead zone processing to apply to Xbox controller analog sticks when calling GamePad::GetState.
-		/// </summary>
+		// Specifies a type of dead zone processing to apply to Xbox controller analog sticks when calling GamePad::GetState.
 		struct GamePadDeadZone
 		{
 			enum type
@@ -70,9 +64,7 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Describes the type of a given Xbox controller.
-		/// </summary>
+		// Describes the type of a given Xbox controller.
 		struct GamePadType
 		{
 			enum type
@@ -88,9 +80,7 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Identifies a particular key on a keyboard.
-		/// </summary>
+		// Identifies a particular key on a keyboard.
 		struct Keys
 		{
 			enum type
@@ -131,9 +121,7 @@ namespace XFX
 			};
 		};
 
-		/// <summary>
-		/// Identifies the state of a keyboard key.
-		/// </summary>
+		// Identifies the state of a keyboard key.
 		struct KeyState
 		{
 			enum type

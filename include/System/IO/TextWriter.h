@@ -17,7 +17,7 @@ namespace System
 		/// <summary>
 		/// Represents a writer that can write a sequential series of characters. This class is abstract.
 		/// </summary>
-		class TextWriter : public IDisposable
+		class TextWriter : public IDisposable, virtual Object
 		{
 		private:
 			IFormatProvider* InternalFormatProvider;
@@ -33,14 +33,14 @@ namespace System
 			virtual void Dispose(bool disposing);
 
 		public:
-			System::Text::Encoding Encoding_();
+			virtual System::Text::Encoding getEncoding()=0;
+			virtual IFormatProvider* getFormatProvider();
 			char* NewLine;
 			static const TextWriter Null;
 
 			virtual void Close();
 			void Dispose();
 			virtual void Flush();
-			TextWriter Synchronized(TextWriter writer);
 			virtual void Write(bool value);
 			virtual void Write(char value);
 			virtual void Write(char buffer[]);

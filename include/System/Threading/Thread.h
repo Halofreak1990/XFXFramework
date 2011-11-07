@@ -12,7 +12,7 @@ extern "C"
 #include <xboxkrnl/xboxkrnl.h>
 }
 
-#include "ThreadState.h"
+#include "Enums.h"
 #include "../TimeSpan.h"
 
 namespace System

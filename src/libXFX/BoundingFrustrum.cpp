@@ -26,13 +26,17 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Math.h>
+#include <System/Single.h>
 #include <BoundingBox.h>
 #include <BoundingSphere.h>
 #include <BoundingFrustrum.h>
 #include <Ray.h>
 #include <Vector3.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 using namespace System;
 
@@ -293,9 +297,12 @@ namespace XFX
 
 	void BoundingFrustrum::GetCorners(Vector3 corners[])
 	{
-		if (corners == null)
+		if (!corners)
         {
-            throw ArgumentNullException("corners");
+#if DEBUG
+            printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "corners");
+#endif
+			return;
         }
 		Array::Copy(cornerArray, 0, corners, 0, Array::Length(cornerArray));
 	}
@@ -314,7 +321,7 @@ namespace XFX
 
 	bool BoundingFrustrum::Intersects(BoundingFrustrum frustrum)
 	{
-		throw NotImplementedException();
+		//throw NotImplementedException();
 	}
 
 	bool BoundingFrustrum::Intersects(BoundingSphere sphere)
@@ -360,12 +367,12 @@ namespace XFX
 
 	void BoundingFrustrum::Intersects(BoundingBox box, out bool result)
 	{
-		throw NotImplementedException();
+		//throw NotImplementedException();
 	}
 
 	void BoundingFrustrum::Intersects(BoundingSphere sphere, out bool result)
 	{
-		throw NotImplementedException();
+		//throw NotImplementedException();
 	}
 
 	void BoundingFrustrum::Intersects(Plane plane, out PlaneIntersectionType_t result)
@@ -402,8 +409,8 @@ namespace XFX
 		}
 		else
 		{
-			float minValue = -3.402823E+38f;
-			float maxValue = 3.402823E+38f;
+			float minValue = Single::MinValue;
+			float maxValue = Single::MaxValue;
 			result = 0;
 			for (int i = 0; i < Array::Length(planes); i++)
 			{

@@ -37,15 +37,15 @@ namespace XFX
 			return isDisposed;
 		}
 
-		TimeSpan VideoPlayer::PlayPosition()
+		TimeSpan VideoPlayer::getPlayPosition()
 		{
 		}
 
-		MediaState_t State()
+		MediaState_t VideoPlayer::getState()
 		{
 		}
 
-		Video VideoPlayer::Video_()
+		Video VideoPlayer::getVideo()
 		{
 		}
 

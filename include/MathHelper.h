@@ -9,9 +9,7 @@
 
 namespace XFX
 {
-	/// <summary>
-	/// Contains commonly used precalculated values.
-	/// </summary>
+	// Contains commonly used precalculated values.
 	class MathHelper
 	{
 	private:

@@ -25,7 +25,7 @@ namespace XFX
 			EventHandler DeviceReset;
 			EventHandler DeviceResetting;
 
-			virtual GraphicsDevice GraphicsDevice_()=0;
+			virtual GraphicsDevice getGraphicsDevice()=0;
 		};
 	}
 }

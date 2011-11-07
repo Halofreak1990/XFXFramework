@@ -13,9 +13,7 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// The exception that is thrown when an I/O error occurs.
-		/// <summary>
+		// The exception that is thrown when an I/O error occurs.
 		class IOException : public SystemException
 		{
 		public:
@@ -23,9 +21,7 @@ namespace System
 			IOException(char* message);
 		};
 
-		/// <summary>
-		/// The exception that is thrown when part of a file or directory cannot be found.
-		/// </summary>
+		// The exception that is thrown when part of a file or directory cannot be found.
 		class DirectoryNotFoundException : public IOException
 		{
 		public:
@@ -33,9 +29,7 @@ namespace System
 			DirectoryNotFoundException(char* message);
 		};
 
-		/// <summary>
-		/// The exception that is thrown when reading is attempted past the end of a stream.
-		/// </summary>
+		// The exception that is thrown when reading is attempted past the end of a stream.
 		class EndOfStreamException : public IOException
 		{
 		public:
@@ -43,9 +37,7 @@ namespace System
 			EndOfStreamException(char* message);
 		};
 
-		/// <summary>
-		/// The exception that is thrown when an attempt to access a file that does not exist on disk fails.
-		/// </summary>
+		// The exception that is thrown when an attempt to access a file that does not exist on disk fails.
 		class FileNotFoundException : public IOException
 		{
 		public:
@@ -53,9 +45,7 @@ namespace System
 			FileNotFoundException(char* message);
 		};
 
-		/// <summary>
-		/// The exception that is thrown when a pathname or filename is longer than the system-defined maximum length.
-		/// </summary>
+		// The exception that is thrown when a pathname or filename is longer than the system-defined maximum length.
 		class PathTooLongException : public IOException
 		{
 		public:

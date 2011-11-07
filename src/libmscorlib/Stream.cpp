@@ -27,7 +27,10 @@
 
 #include <System/IO/Stream.h>
 #include <System/IO/StreamAsyncResult.h>
-#include <system/Exception.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -63,7 +66,10 @@ namespace System
 		{
 			if (!asyncResult)
 			{
-				throw ArgumentNullException("asyncResult");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "asyncResult");
+#endif
+				return;
 			}
 		}
 

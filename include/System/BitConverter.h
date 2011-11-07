@@ -11,13 +11,11 @@
 
 namespace System
 {
-	/// <summary>
-	/// Converts base data types to an array of bytes, and an array of bytes to base data types.
-	/// </summary>
+	// Converts base data types to an array of bytes, and an array of bytes to base data types.
 	class BitConverter
 	{
 	private:
-		static byte *GetBytes(byte *ptr, int count);
+		static byte* GetBytes(byte *ptr, int count) __attribute__((nonnull(1)));
 		static bool AmIBigOrLittleEndian();
 		static bool SwappedWordsInDouble();
 
@@ -36,11 +34,11 @@ namespace System
 		static byte *GetBytes(UInt16 value);
 		static byte *GetBytes(UInt32 value);
 		static byte *GetBytes(UInt64 value);
-		static bool ToBoolean(byte value[], int startIndex);
-		static char ToChar(byte value[], int startIndex);
-		static double ToDouble(byte value[], int startIndex);
-		static Int16 ToInt16(byte value[], int startIndex);
-		static Int32 ToInt32(byte value[], int startIndex);
+		static bool ToBoolean(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static char ToChar(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static double ToDouble(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static Int16 ToInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static Int32 ToInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
 	};
 }
 

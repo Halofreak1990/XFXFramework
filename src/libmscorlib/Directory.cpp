@@ -26,14 +26,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/DateTime.h>
+#include <System/String.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
-#include <System/IO/IOException.h>
 #include <System/IO/File.h>
 
-#include <string.h>
-
 #include <hal/fileio.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -42,10 +44,20 @@ namespace System
 		DirectoryInfo Directory::CreateDirectory(char* path)
 		{
 			if (path == null)
-				throw ArgumentNullException("path");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return DirectoryInfo();
+			}
 
 			if (File::Exists(path))
-				throw IOException(strcat((char*)"Cannot create ", strcat(path,(char*)" because a file with the same name already exists.")));
+			{
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, String::Format("Cannot create %s because a file with the same name already exists.\n", path));
+#endif
+				return DirectoryInfo();
+			}
 
 			XCreateDirectory(path);
 

@@ -20,9 +20,7 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	/// <summary>
-	/// Handles the configuration and management of the graphics device.
-	/// </summary>
+	// Handles the configuration and management of the graphics device.
 	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager, virtual Object
 	{
 	private:
@@ -47,7 +45,7 @@ namespace XFX
 		virtual void RankDevices(List<GraphicsDeviceInformation> foundDevices);
 
 	public:
-		GraphicsDevice GraphicsDevice_();
+		GraphicsDevice getGraphicsDevice();
 		bool IsFullScreen();
 		float MinimumPixelShaderProfile;
 		float MinimumVertexShaderProfile;

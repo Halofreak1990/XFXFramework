@@ -163,7 +163,7 @@ namespace XFX
 		DisplayModeCollection GraphicsAdapter::SupportedDisplayModes()
 		{
 			DisplayModeCollection collection;
-			
+
 			return collection;
 		}
 

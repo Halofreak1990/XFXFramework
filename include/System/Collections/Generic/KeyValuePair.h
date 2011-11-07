@@ -13,9 +13,7 @@ namespace System
 	{
 		namespace Generic
 		{
-			/// <summary>
-			/// Defines a key/value pair that can be set or retrieved.
-			/// </summary>
+			// Defines a key/value pair that can be set or retrieved.
 			template <class TKey, class TValue>
 			struct KeyValuePair
 			{

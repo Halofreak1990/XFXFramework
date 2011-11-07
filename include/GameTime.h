@@ -13,10 +13,7 @@ using namespace System;
 
 namespace XFX
 {
-	/// <summary>
-	/// Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed-
-	/// step (game time) games.
-	/// </summary>
+	// Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed- step (game time) games.
 	class GameTime
 	{
 	private:

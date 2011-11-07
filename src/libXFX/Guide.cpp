@@ -27,8 +27,11 @@
 
 #include <GamerServices/Guide.h>
 #include <GamerServices/StorageDeviceAsyncResult.h>
-#include <System/Exception.h>
 #include <System/TimeSpan.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace XFX
 {
@@ -101,7 +104,9 @@ namespace XFX
 			StorageDeviceAsyncResult* result = (StorageDeviceAsyncResult*)asyncResult;
 			if (!result)
 			{
-				throw ArgumentNullException("result");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "result");
+#endif
 			}
 			return StorageDevice(0, (PlayerIndex_t)result->playerIndex);
 		}

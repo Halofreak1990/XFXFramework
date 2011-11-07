@@ -28,8 +28,7 @@
 #include <Storage/StorageContainer.h>
 #include <Storage/StorageDevice.h>
 #include <System/Exception.h>
-
-using namespace System;
+#include <System/Types.h>
 
 namespace XFX
 {
@@ -55,10 +54,10 @@ namespace XFX
 
 		StorageContainer StorageDevice::OpenContainer(char* titleName)
 		{
-			if(!titleName || titleName == "")
-				throw ArgumentNullException("Non-null title name required.");
+			/*if(!titleName || titleName == "")
+				throw ArgumentNullException("Non-null title name required.");*/
 
-			return StorageContainer(*this, titleName, _deviceIndex, _playerIndex);
+			//return StorageContainer(this, titleName, _deviceIndex, _playerIndex);
 		}
 	}
 }

@@ -1,16 +1,16 @@
-#ifndef _TEXTREADER_
-#define _TEXTREADER_
+#ifndef _SYSTEM_IO_TEXTREADER_
+#define _SYSTEM_IO_TEXTREADER_
+
+#include "../Interfaces.h"
 
 namespace System
 {
-	class String;
-
 	namespace IO
 	{
 		/// <summary>
 		/// Represents a reader that can read a sequential series of characters.
 		/// </summary>
-		class TextReader
+		class TextReader : public IDisposable, virtual Object
 		{
 		protected:
 			void Dispose(bool disposing);
@@ -20,17 +20,16 @@ namespace System
 		public:
 			static const TextReader Null;
 
-			void Close();
+			virtual void Close();
 			void Dispose();
-			int Peek();
-			int Read();
-			int Read(char buffer[], int index, int count);
-			int ReadBlock(char buffer[], int index, int count);
-			String ReadLine();
-			String ReadToEnd();
-			TextReader Synchronized(TextReader &reader);
+			virtual int Peek();
+			virtual int Read();
+			virtual int Read(char buffer[], int index, int count);
+			virtual int ReadBlock(char buffer[], int index, int count);
+			virtual char* ReadLine();
+			virtual char* ReadToEnd();
 		};
 	}
 }
 
-#endif //_TEXTREADER_
+#endif //_SYSTEM_IO_TEXTREADER_

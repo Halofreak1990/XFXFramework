@@ -31,7 +31,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		Sprite::Sprite(Texture2D* texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
+		Sprite::Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
 		{
 			this->texture = texture;
 			this->sourceRectangle = sourceRectangle;
@@ -43,7 +43,7 @@ namespace XFX
 			this->layerDepth = layerDepth;
 		}
 
-		Texture2D* Sprite::Texture()
+		Texture2D Sprite::getTexture()
 		{
 			return texture;
 		}
@@ -58,7 +58,7 @@ namespace XFX
 			return destinationRectangle;
 		}
 
-		Color Sprite::Color_()
+		Color Sprite::getColor()
 		{
 			return color;
 		}
@@ -85,7 +85,8 @@ namespace XFX
 
 		bool Sprite::operator !=(Sprite right)
 		{
-			return !((texture == right.texture) && (sourceRectangle == right.sourceRectangle) &&
+			// TODO: either remove the Sprite class entirely, or compare the Texture2D instances
+			return !((sourceRectangle == right.sourceRectangle) &&
 				(destinationRectangle == right.destinationRectangle) && (color == right.color) &&
 				(rotation == right.rotation) && (origin == right.origin) && (effects == right.effects) &&
 				(layerDepth == right.layerDepth));
@@ -93,7 +94,8 @@ namespace XFX
 
 		bool Sprite::operator ==(Sprite right)
 		{
-			return ((texture == right.texture) && (sourceRectangle == right.sourceRectangle) &&
+			// TODO: either remove the Sprite class entirely, or compare the Texture2D instances
+			return ((sourceRectangle == right.sourceRectangle) &&
 				(destinationRectangle == right.destinationRectangle) && (color == right.color) &&
 				(rotation == right.rotation) && (origin == right.origin) && (effects == right.effects) &&
 				(layerDepth == right.layerDepth));

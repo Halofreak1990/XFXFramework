@@ -43,7 +43,7 @@ namespace XFX
 		}
 	}
 
-	Game GameComponent::Game_()
+	Game GameComponent::getGame()
 	{
 		return _game;
 	}

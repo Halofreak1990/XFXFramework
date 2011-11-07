@@ -8,10 +8,7 @@
 #define _XFX_ENUMS_
 
 namespace XFX
-{
-	/// <summary>
-	/// Describes how one bounding volume contains another. 
-	/// </summary>
+{ 
 	struct ContainmentType
 	{
 		enum type
@@ -21,9 +18,7 @@ namespace XFX
 			Intersects
 		};
 	};
-	/// <summary>
-	/// Defines the continuity of CurveKeys on a Curve.
-	/// </summary>
+
 	struct CurveContinuity
 	{
 		enum type
@@ -32,10 +27,7 @@ namespace XFX
 			Step
 		};
 	};
-	/// <summary>
-	/// Defines how the value of a Curve will be determined for positions before
-	/// the first point on the Curve or after the last point on the Curve.
-	/// </summary>
+	
 	struct CurveLoopType
 	{
 		enum type
@@ -47,9 +39,7 @@ namespace XFX
 			Oscillate
 		};
 	};
-	/// <summary>
-	/// Specifies different tangent types to be calculated for CurveKey points in a Curve.
-	/// </summary>
+	
 	struct CurveTangent
 	{
 		enum type
@@ -59,9 +49,7 @@ namespace XFX
 			Smooth
 		};
 	};
-	/// <summary>
-	/// Describes the intersection between a plane and a bounding volume.
-	/// </summary>
+	
 	struct PlaneIntersectionType
 	{
 		enum type
@@ -71,9 +59,7 @@ namespace XFX
 			Intersecting
 		};
 	};
-	/// <summary>
-	/// Specifies the index of a player.
-	/// </summary>
+	
 	struct PlayerIndex
 	{
 		enum type
@@ -84,9 +70,7 @@ namespace XFX
 			Four
 		};
 	};
-	/// <summary>
-	/// Defines the target platform to be used when compiling content.
-	/// </summary>
+
 	struct TargetPlatform
 	{
 		enum type
@@ -97,14 +81,13 @@ namespace XFX
 		};
 	};
 	
-	//Lots of typedefs, but there was no other way to make these enum hacks look good.
-	typedef ContainmentType::type		ContainmentType_t;
-	typedef CurveContinuity::type		CurveContinuity_t;
-	typedef CurveLoopType::type			CurveLoopType_t;
-	typedef CurveTangent::type			CurveTangent_t;
-	typedef PlaneIntersectionType::type	PlaneIntersectionType_t;
-	typedef PlayerIndex::type			PlayerIndex_t;
-	typedef TargetPlatform::type		TargetPlatform_t;
+	typedef ContainmentType::type		ContainmentType_t;			// Describes how one bounding volume contains another.
+	typedef CurveContinuity::type		CurveContinuity_t;			// Defines the continuity of CurveKeys on a Curve.
+	typedef CurveLoopType::type			CurveLoopType_t;			// Defines how the value of a Curve will be determined for positions before the first point on the Curve or after the last point on the Curve.
+	typedef CurveTangent::type			CurveTangent_t;				// Specifies different tangent types to be calculated for CurveKey points in a Curve.
+	typedef PlaneIntersectionType::type	PlaneIntersectionType_t;	// Describes the intersection between a plane and a bounding volume.
+	typedef PlayerIndex::type			PlayerIndex_t;				// Specifies the index of a player.
+	typedef TargetPlatform::type		TargetPlatform_t;			// Defines the target platform to be used when compiling content.
 }
 
 #endif //_ENUMS_

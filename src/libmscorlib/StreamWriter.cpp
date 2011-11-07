@@ -27,10 +27,13 @@
 
 #include <System/Array.h>
 #include <System/Buffer.h>
-#include <System/Exception.h>
 #include <System/IO/FileStream.h>
 #include <System/IO/StreamWriter.h>
 #include <System/Text/UTF8Encoding.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -44,11 +47,17 @@ namespace System
 		{
 			if (!stream)
 			{
-				throw ArgumentNullException("stream");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
+#endif
+				return;
 			}
 			if (!stream->CanWrite())
 			{
-				throw ArgumentException("");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
+#endif
+				return;
 			}
 			Init(stream, _UTF8NoBOM, DefaultBufferSize);
 		}
@@ -58,7 +67,10 @@ namespace System
 		{
 			if (!path)
 			{
-				throw ArgumentNullException("path");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return;
 			}
 			Stream* stream = CreateFile(path, true);
 			Init(stream, _UTF8NoBOM, 0x400);
@@ -69,11 +81,17 @@ namespace System
 		{
 			if (!stream)
 			{
-				throw ArgumentNullException("stream");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
+#endif
+				return;
 			}
 			if (!stream->CanWrite())
 			{
-				throw ArgumentException("");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
+#endif
+				return;
 			}
 			Init(stream, encoding, DefaultBufferSize);
 		}
@@ -83,7 +101,10 @@ namespace System
 		{
 			if (!path)
 			{
-				throw ArgumentNullException("path");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return;
 			}
 			Stream* stream = CreateFile(path, append);
 			Init(stream, _UTF8NoBOM, 0x400);
@@ -94,15 +115,24 @@ namespace System
 		{
 			if (!stream)
 			{
-				throw ArgumentNullException("stream");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
+#endif
+				return;
 			}
 			if (!stream->CanWrite())
 			{
-				throw ArgumentException("");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
+#endif
+				return;
 			}
 			if (bufferSize < 0)
 			{
-				throw ArgumentOutOfRangeException("bufferSize", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Non-negative number required.");
+#endif
+				return;
 			}
 			Init(stream, encoding, bufferSize);
 		}
@@ -112,18 +142,24 @@ namespace System
 		{
 			if (!path)
 			{
-				throw ArgumentNullException("path");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return;
 			}
 			Stream* stream = CreateFile(path, append);
 			Init(stream, encoding, 0x400);
 		}
 
 		StreamWriter::StreamWriter(char* path, bool append, Encoding encoding, int bufferSize)
-		: TextWriter(null)
+			: TextWriter(null)
 		{
 			if (!path)
 			{
-				throw ArgumentNullException("path");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return;
 			}
 			Stream* stream = CreateFile(path, append);
 			Init(stream, encoding, bufferSize);

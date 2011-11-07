@@ -13,9 +13,7 @@
 
 namespace System
 {
-	/// <summary>
-	/// Represents the status of an asynchronous operation. 
-	/// </summary>
+	// Represents the status of an asynchronous operation. 
 	interface IAsyncResult
 	{
 	public:
@@ -25,30 +23,22 @@ namespace System
 		virtual bool IsCompleted()=0;
 	};
 
-	/// <summary>
-	/// Defines a generalized comparison method that a value type or class implements to create a type-specific
-	/// comparison method for ordering instances.
-	/// </summary>
+	// Defines a generalized comparison method that a value type or class implements to create a type-specific comparison method for ordering instances.
 	template <class T>
 	interface IComparable
 	{
 	public:
-		int CompareTo(T other)=0;
+		virtual int CompareTo(T other)=0;
 	};
 
-	/// <summary>
-	/// Defines a method to release allocated resources.
-	/// </summary>
+	// Defines a method to release allocated resources.
 	interface IDisposable
 	{
 	public:
 		virtual void Dispose()=0;
 	};
 
-	/// <summary>
-	/// Defines a generalized method that a value type or class implements to create
-	/// a type-specific method for determining equality of instances.
-	/// </summary>
+	// Defines a generalized method that a value type or class implements to create a type-specific method for determining equality of instances.
 	template<class T>
 	interface IEquatable
 	{
@@ -56,18 +46,13 @@ namespace System
 		virtual bool Equals(const T other)=0;
 	};
 
-	/// <summary>
-	/// Provides a mechanism for retrieving an object to control formatting.
-	/// </summary>
+	// Provides a mechanism for retrieving an object to control formatting.
 	interface IFormatProvider
 	{
 	public:
 		virtual Object* GetProvider()=0;
 	};
 
-	/// <summary>
-	/// Provides a mechanism for retrieving an object to control formatting
-	/// </summary>
 	interface IServiceProvider
 	{
 	public:

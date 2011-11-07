@@ -16,9 +16,7 @@ namespace XFX
 {
 	class GameTime;
 
-	/// <summary>
-	/// Defines the interface for a drawable game component.
-	/// </summary>
+	// Defines the interface for a drawable game component.
 	interface IDrawable
 	{
 	public:
@@ -32,9 +30,7 @@ namespace XFX
 		EventHandler VisibleChanged;
 	};
 
-	/// <summary>
-	/// Defines an interface for game components.
-	/// </summary>
+	// Defines an interface for game components.
 	interface IGameComponent
 	{
 	public:
@@ -42,9 +38,7 @@ namespace XFX
 		virtual ~IGameComponent() {}
 	};
 
-	/// <summary>
-	/// Defines the interface for an object that manages a Graphics.GraphicsDevice.
-	/// </summary>
+	// Defines the interface for an object that manages a Graphics.GraphicsDevice.
 	interface IGraphicsDeviceManager
 	{
 	public:
@@ -55,9 +49,7 @@ namespace XFX
 		virtual ~IGraphicsDeviceManager() {}
 	};
 
-	/// <summary>
-	/// Defines an interface for a game component that should be updated in Game.Update.
-	/// </summary>
+	// Defines an interface for a game component that should be updated in Game.Update.
 	interface IUpdateable
 	{
 	public:

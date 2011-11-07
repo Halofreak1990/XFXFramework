@@ -10,7 +10,10 @@
 #include "Enums.h"
 #include "Matrix.h"
 #include "Plane.h"
+#include <System/Object.h>
 #include <System/Types.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -19,10 +22,8 @@ namespace XFX
 	struct Ray;
 	struct Vector3;
 
-	/// <summary>
-	/// Defines a frustum and helps determine whether forms intersect with it.
-	/// </summary>
-	class BoundingFrustrum
+	// Defines a frustum and helps determine whether forms intersect with it.
+	class BoundingFrustrum : virtual Object
 	{
 	private:
 		static const int BottomPlaneIndex;

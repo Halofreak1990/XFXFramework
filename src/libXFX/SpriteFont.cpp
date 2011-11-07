@@ -29,14 +29,17 @@
 #include <Graphics/SpriteFont.h>
 #include <Matrix.h>
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Math.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteFont::SpriteFont(Texture2D* texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning)
+		SpriteFont::SpriteFont(Texture2D texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning)
 		{
 			textureValue = texture;
 			glyphData = glyphs;
@@ -54,7 +57,12 @@ namespace XFX
 			Matrix matrix2;
 
 			if (text == null)
-				throw ArgumentNullException("text");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "text");
+#endif
+				return;
+			}
 
 			Matrix::CreateRotationZ(rotation, matrix2);
 			Matrix::CreateTranslation(-origin.X * scale.X, -origin.Y * scale.Y, 0.0f, matrix);
@@ -156,7 +164,9 @@ namespace XFX
 					num3 = num - 1;
 				}
 			}
-			throw ArgumentException("character");
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "character");
+#endif
 		}
 	}
 }

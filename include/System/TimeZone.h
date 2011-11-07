@@ -7,7 +7,10 @@
 #ifndef _SYSTEM_TIMEZONE_
 #define _SYSTEM_TIMEZONE_
 
+#include <System/Object.h>
 #include <System/Globalization/DaylightTime.h>
+
+using namespace System::Globalization;
 
 namespace System
 {
@@ -15,10 +18,8 @@ namespace System
 	class String;
 	class TimeSpan;
 
-	/// <summary>
-	/// Represents a time zone.
-	/// </summary>
-	class TimeZone
+	// Represents a time zone.
+	class TimeZone : virtual Object
 	{
 	protected:
 		TimeZone();
@@ -28,10 +29,10 @@ namespace System
 		String DaylightName();
 		String StandardName();
 
-		System::Globalization::DaylightTime GetDaylightChanges(int year);
+		DaylightTime GetDaylightChanges(int year);
 		TimeSpan GetUtcOffset(DateTime time);
 		bool IsDaylightSavingTime(DateTime time);
-		static bool IsDaylightSavingTime(DateTime time, System::Globalization::DaylightTime daylightTimes);
+		static bool IsDaylightSavingTime(DateTime time, DaylightTime daylightTimes);
 		DateTime ToLocalTime(DateTime time);
 		DateTime ToUniversalTime(DateTime time);
 	};

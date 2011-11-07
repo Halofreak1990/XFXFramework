@@ -8,7 +8,6 @@
 #define _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_
 
 #include <System/Array.h>
-#include <System/Exception.h>
 #include "EqualityComparer.h"
 #include "Interfaces.h"
 #include "KeyValuePair.h"
@@ -19,9 +18,7 @@ namespace System
 	{
 		namespace Generic
 		{
-			/// <summary>
-			/// Represents a collection of keys and values.
-			/// </summary>
+			// Represents a collection of keys and values.
 			template <class TKey, class TValue>
 			class Dictionary : public IDictionary<TKey, TValue>, public ICollection<KeyValuePair<TKey, TValue> >, virtual Object
 			{
@@ -58,9 +55,7 @@ namespace System
 				void Resize();
 
 			public:
-				/// <summary>
-				/// Represents the collection of keys in a Dictionary<,>. 
-				/// </summary>
+				// Represents the collection of keys in a Dictionary<,>. 
 				template <class UKey, class UValue>
 				class KeyCollection : public ICollection<UKey>, public IEnumerable<UKey>
 				{
@@ -80,9 +75,7 @@ namespace System
 					bool Remove(UKey item);
 				};
 
-				/// <summary>
-				/// Represents the collection of values in a Dictionary<,>.
-				/// </summary>
+				// Represents the collection of values in a Dictionary<,>.
 				template <class UKey, class UValue>
 				class ValueCollection : public ICollection<UValue>, public IEnumerable<UValue>
 				{
@@ -164,14 +157,16 @@ namespace System
 			template <class UKey, class UValue>
 			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Add(UKey item)
 			{
-				throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
+				//throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
+				return;
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
 			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Clear()
 			{
-				throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
+				//throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
+				return;
 			}
 
 			template <class TKey, class TValue>
@@ -187,15 +182,18 @@ namespace System
 			{
 				if(array == null)
 				{
-					throw ArgumentNullException("array");
+					//throw ArgumentNullException("array");
+					return;
 				}
 				if((index < 0) ||(index > Array::Length(array)))
 				{
-					throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
+					//throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
+					return;
 				}
 				if((Array::Length(array) - index) < _dictionary.Count())
 				{
-					throw ArgumentException("Array plus offset too small.");
+					//throw ArgumentException("Array plus offset too small.");
+					return;
 				}
 				int count = _dictionary.Count();
 				Entry<UKey, UValue> entries[] = _dictionary.entries;
@@ -212,7 +210,7 @@ namespace System
 			template <class UKey, class UValue>
 			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Remove(UKey item)
 			{
-				throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
+				//throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
 				return false;
 			}
 

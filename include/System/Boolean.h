@@ -1,9 +1,11 @@
-#ifndef _BOOLEAN_
-#define _BOOLEAN_
+#ifndef _SYSTEM_BOOLEAN_
+#define _SYSTEM_BOOLEAN_
+
+#include "Interfaces.h"
 
 namespace System
 {
-	struct Boolean
+	struct Boolean : public IComparable<Boolean>, public IEquatable<Boolean>, virtual Object
 	{
 	private:
 		bool value;
@@ -14,6 +16,9 @@ namespace System
 		static const char* True;
 		static const char* False;
 
+		int CompareTo(Boolean other);
+		bool Equals(Boolean other);
+		bool Parse(char* str);
 		char* ToString();
 		static char* ToString(bool value);
 
@@ -21,8 +26,6 @@ namespace System
 		bool operator!=(Boolean right);
 		bool operator==(bool right);
 		bool operator==(Boolean right);
-		Boolean operator =(bool right);
-		Boolean operator =(Boolean right);
 	};
 }
 

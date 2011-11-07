@@ -8,20 +8,18 @@
 #define _XFX_GAMECOMPONENTCOLLECTIONEVENTARGS_
 
 #include "Interfaces.h"
-#include <SYstem/EventArgs.h>
+#include <System/EventArgs.h>
 
 namespace XFX
 {
-	/// <summary>
-	/// Arguments used with events from the GameComponentCollection.
-	/// </summary>
-	class GameComponentCollectionEventArgs : EventArgs
+	// Arguments used with events from the GameComponentCollection.
+	class GameComponentCollectionEventArgs : public EventArgs, virtual Object
 	{
 	private:
 		IGameComponent _gameComponent;
 
 	public:
-		IGameComponent GameComponent_();
+		IGameComponent getGameComponent();
 
 		GameComponentCollectionEventArgs(IGameComponent gameComponent);
 	};

@@ -89,12 +89,20 @@ namespace XFX
 
 		GraphicsDevice::GraphicsDevice(GraphicsAdapter* adapter, DeviceType_t deviceType, PresentationParameters* presentationParameters)
 		{
-			if (adapter == null || presentationParameters == null)
-				throw new ArgumentNullException("adapter or presentationParameters is null.");
+			if (!adapter || !presentationParameters)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "adapter or presentationParameters is null.");
+#endif
+			}
 
 			_adapter = adapter;
 			if(deviceType != DeviceType::Hardware)
-				throw DeviceNotSupportedException("Only DeviceType::Hardware is supported.");
+			{
+#if DEBUG
+				printf("DEVICE_NOT_SUPPORTED in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Only DeviceType::Hardware is supported.");
+#endif
+			}
 
 			_deviceType = deviceType;
 			clearColor = Color::Black;

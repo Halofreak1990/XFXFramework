@@ -7,7 +7,6 @@
 #ifndef _XFX_STORAGE_STORAGEDEVICE_
 #define _XFX_STORAGE_STORAGEDEVICE_
 
-#include <System/Types.h>
 #include <System/Object.h>
 #include "../Enums.h"
 
@@ -24,25 +23,24 @@ namespace XFX
 	{
 		class StorageContainer;
 		
-		/// <summary>
-		/// Represents a storage device for user data, such as a memory unit or hard drive.
-		/// </summary>
+		// Represents a storage device for user data, such as a memory unit or hard drive.
 		class StorageDevice : virtual Object
 		{
+		private:
 			friend class XFX::GamerServices::Guide;
 
-		private:
 			PlayerIndex_t _playerIndex;
-			uint _deviceIndex;
+			unsigned int _deviceIndex;
 
-			StorageDevice(uint deviceIndex, PlayerIndex_t playerIndex);
+			StorageDevice(unsigned int deviceIndex, PlayerIndex_t playerIndex);
+			virtual ~StorageDevice();
 
 		public:
-			long long FreeSpace();
+			Int64 FreeSpace();
 			bool IsConnected();
-			long long TotalSpace();
+			Int64 TotalSpace();
 			
-			StorageContainer OpenContainer(char* titleName);
+			StorageContainer OpenContainer(char* titleName) __attribute__((nonnull (1)));
 		};
 	}
 }

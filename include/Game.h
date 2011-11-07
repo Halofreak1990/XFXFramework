@@ -24,9 +24,7 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	/// <summary>
-	/// Provides basic graphics device initialization, game logic, and rendering code.
-	/// </summary>
+	// Provides basic graphics device initialization, game logic, and rendering code.
 	class Game : public IDisposable, virtual Object
 	{
 	private:
@@ -69,8 +67,8 @@ namespace XFX
 	public:
 		GameComponentCollection Components();
 		//ContentManager Content;
-		GraphicsDevice GraphicsDevice_();
-		GameServiceContainer Services();
+		GraphicsDevice getGraphicsDevice();
+		GameServiceContainer getServices();
 		bool IsActive();
 
 		bool IsFixedTimeStep;
@@ -93,9 +91,7 @@ namespace XFX
 		void Tick();
 	};
 	
-	/// <summary>
-	/// Base class for all XNA Framework game components.
-	/// </summary>
+	// Base class for all XNA Framework game components.
 	class GameComponent : public IGameComponent, public IUpdateable, public IDisposable, virtual Object
 	{
 	private:
@@ -116,7 +112,7 @@ namespace XFX
 		void Enabled(bool value);
 		int UpdateOrder();
 		void UpdateOrder(int value);
-		Game Game_();
+		Game getGame();
 
 		EventHandler EnabledChanged;
 		EventHandler UpdateOrderChanged;
@@ -130,9 +126,7 @@ namespace XFX
 		virtual void Update(GameTime gameTime);
 	};
 	
-	/// <summary>
-	/// A game component that is notified when it needs to draw itself.
-	/// </summary>
+	// A game component that is notified when it needs to draw itself.
 	class DrawableGameComponent : public GameComponent, public IDrawable, virtual Object
 	{
 	private:
@@ -150,7 +144,7 @@ namespace XFX
     public:
     	int DrawOrder(); 
 		void DrawOrder(int value);
-    	GraphicsDevice GraphicsDevice_();
+    	GraphicsDevice getGraphicsDevice();
     	bool Visible();
 		void Visible(bool value);
 

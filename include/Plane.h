@@ -19,9 +19,7 @@ namespace XFX
 	struct Quaternion;
 	struct Vector4;
 	
-	/// <summary>
-	/// Defines a plane.
-	/// <summary>
+	// Defines a plane.
 	struct Plane
 	{
 	public:

@@ -27,8 +27,11 @@
 
 #include <System/Array.h>
 #include "HashHelpers.h"
-#include <System/Exception.h>
 #include <System/Math.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -44,7 +47,11 @@ namespace System
 		int HashHelpers::GetPrime(int min)
 		{
 			if(min < 0)
-				throw ArgumentException("min","CapacityOverflow");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "min", "CapacityOverflow");
+#endif
+			}
 
 			for(int i = 0; i < Array::Length(primes); i++)
 			{

@@ -32,8 +32,11 @@
 #include <Vector3.h>
 #include <Vector4.h>
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Math.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 using namespace System;
 
@@ -236,9 +239,9 @@ namespace XFX
 		result = (value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z);
 	}
 
-	bool Vector3::Equals(Vector3 obj)
+	bool Vector3::Equals(Vector3 other)
 	{
-		return ((X == obj.X) && (Y == obj.Y) && (Z == obj.Z));
+		return ((X == other.X) && (Y == other.Y) && (Z == other.Z));
 	}
 	
 	int Vector3::GetHashCode()
@@ -345,7 +348,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Multiply(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Multiply(Vector3 value1, Vector3 value2, out Vector3 result)
 	{
 		result.X = value1.X * value2.X;
 		result.Y = value1.Y * value2.Y;
@@ -502,32 +505,77 @@ namespace XFX
 	
 	void Vector3::Transform(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
+
+		for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
+		{
+			Transform(sourceArray[i], matrix, destinationArray[j]);
+		}
 	}
 	
 	void Vector3::Transform(Vector3 sourceArray[], int sourceIndex, Quaternion rotation, Vector3 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
+
+		for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
+		{
+			Transform(sourceArray[i], rotation, destinationArray[j]);
+		}
 	}
 	
 	void Vector3::Transform(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 			
 		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
+#endif
+			return;
+		}
 			
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{
@@ -537,14 +585,29 @@ namespace XFX
 	
 	void Vector3::Transform(Vector3 sourceArray[], Quaternion rotation, Vector3 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 
 		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
+#endif
+			return;
+		}
 		
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{
@@ -568,11 +631,21 @@ namespace XFX
 	
 	void Vector3::TransformNormal(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
@@ -582,14 +655,29 @@ namespace XFX
 	
 	void Vector3::TransformNormal(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 
 		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
+#endif
+			return;
+		}
 			
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{

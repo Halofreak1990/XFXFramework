@@ -9,18 +9,9 @@
 
 #include "Types.h"
 
-extern "C" {
-#include <math.h>
-}
-
-//Define this here, because, strangely, g++ doesn't contain a FLT_MIN definition
-#define FLT_MIN -3.402823e38
-
 namespace System
 {
-	/// <summary>
-	/// Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.
-	/// </summary>
+	// Provides constants and static methods for trigonometric, logarithmic, and other common mathematical functions.
 	class Math
 	{
 	private:

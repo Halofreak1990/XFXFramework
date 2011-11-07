@@ -27,7 +27,10 @@
 
 #include <System/Array.h>
 #include <System/BitConverter.h>
-#include <System/Exception.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -55,15 +58,30 @@ namespace System
 
 	void PutBytes(byte *dst, byte src[], int start_index, int count)
 	{
-		if (src == null)
-			throw ArgumentNullException("value");
+		if (!src)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
+#endif
+			return;
+		}
 
 		if (start_index < 0 || (start_index > Array::Length(src) - 1))
-			throw ArgumentOutOfRangeException("startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
+		{
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
+#endif
+			return;
+		}
 
 		// avoid integer overflow (with large pos/neg start_index values)
 		if (Array::Length(src) - count < start_index)
-			throw ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Destination array is not long enough to copy all the items in the collection. Check array index and length.");
+#endif
+			return;
+		}
 
 		for (int i = 0; i < count; i++)
 			dst[i] = src[i + start_index];
@@ -145,11 +163,21 @@ namespace System
 
 	bool BitConverter::ToBoolean(byte value[], int startIndex)
 	{
-		if (value == null) 
-				throw ArgumentNullException("value");
+		if (!value)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
+#endif
+			return false;
+		}
 
 		if (startIndex < 0 || (startIndex > Array::Length(value) - 1))
-			throw ArgumentOutOfRangeException("startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
+		{
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
+#endif
+			return false;
+		}
 
 		if (value[startIndex] != 0)
 			return true;
@@ -160,7 +188,28 @@ namespace System
 	char BitConverter::ToChar(byte value[], int startIndex)
 	{
 		char ret;
-		PutBytes ((byte *) &ret, value, startIndex, 2);
+		PutBytes ((byte *) &ret, value, startIndex, 1);
+		return ret;
+	}
+
+	double BitConverter::ToDouble(byte value[], int startIndex)
+	{
+		double ret;
+		PutBytes((byte*)&ret, value, startIndex, 8);
+		return ret;
+	}
+
+	short BitConverter::ToInt16(byte value[], int startIndex)
+	{
+		short ret;
+		PutBytes((byte*)&ret, value, startIndex, 2);
+		return ret;
+	}
+
+	int BitConverter::ToInt32(byte value[], int startIndex)
+	{
+		int ret;
+		PutBytes((byte*)&ret, value, startIndex, 4);
 		return ret;
 	}
 }

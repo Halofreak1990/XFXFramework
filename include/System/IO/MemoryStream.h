@@ -8,10 +8,8 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Creates a stream whose backing store is memory.
-		/// </summary>
-		class MemoryStream : public Stream
+		// Creates a stream whose backing store is memory.
+		class MemoryStream : public Stream, virtual Object
 		{
 		private:
 			byte* _buffer;

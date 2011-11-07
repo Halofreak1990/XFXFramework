@@ -8,7 +8,6 @@
 #define _XFX_GRAPHICS_SPRITEBATCH_
 
 #include "Enums.h"
-#include "GraphicsDevice.h"
 #include <Matrix.h>
 #include "Sprite.h"
 #include "StateBlock.h"
@@ -27,16 +26,14 @@ namespace XFX
 	namespace Graphics
 	{
 		struct Color;
+		class GraphicsDevice;
 		class SpriteFont;
-		class Texture2D;
 		
-		/// <summary>
-		/// Enables a group of sprites to be drawn using the same settings.
-		/// </summary>
+		// Enables a group of sprites to be drawn using the same settings.
 		class SpriteBatch : public IDisposable, virtual Object
 		{
 		private:
-			Texture2D* currentTexture;
+			Texture2D currentTexture;
 			GraphicsDevice* device;
 			bool isDisposed;
 			bool inBeginEndPair;
@@ -55,7 +52,7 @@ namespace XFX
 			virtual void Dispose(bool disposing);
 			
 		public:
-			GraphicsDevice* GraphicsDevice_();
+			GraphicsDevice* getGraphicsDevice();
 			bool IsDisposed();
 
 			EventHandler Disposing;
@@ -69,13 +66,13 @@ namespace XFX
 			void Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode);
 			void Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode, Matrix transformMatrix);
 			void Dispose();
-			void Draw(Texture2D* texture, Rectangle destinationRectangle, Color color);
-			void Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color);
-			void Draw(Texture2D* texture, Vector2 position, Color color);
-			void Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color);
-			void Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth);
-			void Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth);
-			void Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
+			void Draw(Texture2D texture, Rectangle destinationRectangle, Color color);
+			void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color);
+			void Draw(Texture2D texture, Vector2 position, Color color);
+			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color);
+			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth);
+			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth);
+			void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
 			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color);
 			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth);
 			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth);

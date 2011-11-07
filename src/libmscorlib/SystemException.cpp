@@ -33,7 +33,7 @@ namespace System
 	// SystemException
 	//
 	SystemException::SystemException()
-		Exception()
+		: Exception()
 	{
 	}
 	
@@ -86,13 +86,16 @@ namespace System
 	ArgumentException::ArgumentException()
 		: SystemException()
 	{
-		_paramName = "";
 	}
 
 	ArgumentException::ArgumentException(char* message)
-		: SystemException(message);
+		: SystemException(message)
 	{
-		_paramName = "";
+	}
+
+	ArgumentException::ArgumentException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
+	{
 	}
 
 	ArgumentException::ArgumentException(char* message, char* paramName)
@@ -105,6 +108,16 @@ namespace System
 		: SystemException(message, innerException)
 	{
 		_paramName = paramName;
+	}
+
+	char* ArgumentException::getMessage()
+	{
+		return _message;
+	}
+
+	char* ArgumentException::getParamName()
+	{
+		return _paramName;
 	}
 	//
 	// ArgumentNullException
@@ -132,12 +145,12 @@ namespace System
 	// ArgumentOutOfRangeException
 	//
 	ArgumentOutOfRangeException::ArgumentOutOfRangeException()
-		: ArgumentException(RangeMessage())
+		: ArgumentException(getRangeMessage())
 	{
 	}
 
 	ArgumentOutOfRangeException::ArgumentOutOfRangeException(char* paramName)
-		: ArgumentException(RangeMessage(), paramName)
+		: ArgumentException(getRangeMessage(), paramName)
 	{
 	}
 
@@ -157,14 +170,14 @@ namespace System
 		_actualValue = actualValue;
 	}
 
-	Object* ArgumentOutOfRangeException::ActualValue()
+	Object* ArgumentOutOfRangeException::getActualValue()
 	{
 		return _actualValue;
 	}
 
-	char* ArgumentOutOfRangeException::RangeMessage()
+	char* ArgumentOutOfRangeException::getRangeMessage()
 	{
-		if (_rangeMessage == null)
+		if (!_rangeMessage)
 		{
 			return "";
 		}
@@ -232,29 +245,24 @@ namespace System
 	}
 
 	OutOfMemoryException::OutOfMemoryException()
-		: SystemException("Out of Memory");
+		: SystemException("Out of Memory")
 	{
 	}
 
 	OutOfMemoryException::OutOfMemoryException(char* message)
-		: SystemException(message);
+		: SystemException(message)
 	{
 	}
 
-	OutOfMemoryException::OutOfMemoryException(char* message, Exception innerException)
-		: SystemException(message, innerException);
-	{
-	}
-
-	ObjectDisposedException::ObjectDisposedException()
-		: InvalidOperationException()
+	OutOfMemoryException::OutOfMemoryException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
 	}
 
 	ObjectDisposedException::ObjectDisposedException(char* objectName)
+		: InvalidOperationException()
 	{
 		_objectName = objectName;
-		_message = "";
 	}
 
 	ObjectDisposedException::ObjectDisposedException(char* message, Exception* innerException)
@@ -268,9 +276,9 @@ namespace System
 		_objectName = objectName;
 	}
 
-	char* ObjectDisposedException::ObjectName()
+	char* ObjectDisposedException::getObjectName()
 	{
-		if (_objectName == null)
+		if (!_objectName)
 			return "";
 		return _objectName;
 	}
@@ -285,8 +293,8 @@ namespace System
 	{
 	}
 
-	UnauthorizedAccessException::UnauthorizedAccessException(char* message, Exception* inner)
-		: SystemException(message, inner)
+	UnauthorizedAccessException::UnauthorizedAccessException(char* message, Exception* innerException)
+		: SystemException(message, innerException)
 	{
 	}
 }

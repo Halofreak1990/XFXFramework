@@ -11,6 +11,7 @@
 
 namespace System
 {
+	// Represents a time interval.
 	class TimeSpan
 	{
 	private:
@@ -46,7 +47,7 @@ namespace System
 		TimeSpan(int days, int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds, int milliseconds);
 		TimeSpan(long long ticks);
-		TimeSpan(const TimeSpan &obj); // Copy constructor
+		TimeSpan(const TimeSpan &obj);
 
 		TimeSpan Add(TimeSpan ts);
 		int Compare(TimeSpan t1, TimeSpan t2);

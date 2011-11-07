@@ -7,7 +7,10 @@
 #ifndef _XFX_MATRIX_
 #define _XFX_MATRIX_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -15,10 +18,8 @@ namespace XFX
 	struct Quaternion;
 	struct Vector3;
 	
-	/// <summary>
-	/// Defines a Matrix.
-	/// </summary>
-	struct Matrix
+	// Defines a Matrix.
+	struct Matrix : public IEquatable<Matrix>, virtual Object
 	{
 		float M11;
 		float M12;
@@ -137,7 +138,7 @@ namespace XFX
 		Matrix operator-(const Matrix other);
 		Matrix operator-();
 		Matrix operator=(const Matrix other);
-	} ALIGNED;
+	} ALIGNED16;
 }
 
 #endif //_XFX_MATRIX_

@@ -25,7 +25,6 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Exception.h>
 #include <System/Math.h>
 #include <MathHelper.h>
 #include <Matrix.h>
@@ -531,15 +530,24 @@ namespace XFX
 	{
 		if (nearPlaneDistance <= 0.0f)
 		{
-			throw ArgumentOutOfRangeException("nearPlaneDistance", "You should specify a positive value for nearPlaneDistance.");
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "nearPlaneDistance", "You should specify a positive value for nearPlaneDistance.");
+#endif
+			return;
 		}
 		if (farPlaneDistance <= 0.0f)
 		{
-			throw ArgumentOutOfRangeException("farPlaneDistance", "You should specify a positive value for farPlaneDistance.");
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "farPlaneDistance", "You should specify a positive value for farPlaneDistance.");
+#endif
+			return;
 		}
 		if (nearPlaneDistance >= farPlaneDistance)
 		{
-			throw ArgumentOutOfRangeException("Near plane distance is larger than Far plane distance. Near plane distance must be smaller than Far plane distance.");
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Near plane distance is larger than Far plane distance. Near plane distance must be smaller than Far plane distance.");
+#endif
+			return;
 		}
 		result.M11 = (2.0f * nearPlaneDistance) / (right - left);
 		result.M12 = result.M13 = result.M14 = 0.0f;

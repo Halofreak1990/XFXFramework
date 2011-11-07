@@ -26,7 +26,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Text/Encoder.h>
-#include <System/Exception.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -49,10 +52,20 @@ namespace System
 		int Encoder::GetByteCount(char* chars, int count, bool flush)
 		{
 			if (chars == null)
-				throw ArgumentNullException("chars");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "chars");
+#endif
+				return -1;
+			}
 
 			if (count < 0)
-				throw ArgumentException("Non-negative number required.");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return -1;
+			}
 
 			char chArray[count];
 			for (int i = 0; i < count; i++)

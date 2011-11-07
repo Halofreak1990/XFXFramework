@@ -58,11 +58,11 @@ namespace System
 			virtual ~FileStream();
 
 			void Flush();
-			int Read(byte array[], int offset, int count);
+			int Read(byte array[], int offset, int count) __attribute__((nonnull (1)));
 			int ReadByte();
 			long long Seek(long long offset, SeekOrigin_t origin);
 			void SetLength(long long value);
-			void Write(byte array[], int offset, int count);
+			void Write(byte array[], int offset, int count) __attribute__((nonnull (1)));
 			void WriteByte(byte value);
 		};
 	}

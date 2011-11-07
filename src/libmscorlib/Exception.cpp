@@ -126,4 +126,19 @@ namespace System
 		: ArithmeticException(message, innerException)
 	{
 	}
+
+	OverflowException::OverflowException()
+		: ArithmeticException()
+	{
+	}
+
+	OverflowException::OverflowException(char* message)
+		: ArithmeticException(message)
+	{
+	}
+
+	OverflowException::OverflowException(char* message, Exception* innerException)
+		: ArithmeticException(message, innerException)
+	{
+	}
 }

@@ -36,9 +36,9 @@ namespace XFX
 			bool IsDisposed();
 			bool IsLooped;
 			bool IsMuted;
-			TimeSpan PlayPosition();
-			MediaState_t State();
-			Video Video_();
+			TimeSpan getPlayPosition();
+			MediaState_t getState();
+			Video getVideo();
 			float Volume;
 		
 			VideoPlayer();

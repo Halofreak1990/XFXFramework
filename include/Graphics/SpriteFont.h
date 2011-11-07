@@ -11,6 +11,7 @@
 #include "Texture2D.h"
 #include <Vector3.h>
 #include <System/Collections/Generic/List.h>
+#include <System/Object.h>
 #include <System/Types.h>
 
 using namespace System;
@@ -24,29 +25,30 @@ namespace XFX
 	{
 		class SpriteBatch;
 
-		/// <summary>
-		/// Represents a font texture.
-		/// </summary>
-		class SpriteFont
+		// Represents a font texture.
+		class SpriteFont : virtual Object
 		{
 		private:
+			friend class SpriteBatch;
+
 			List<char> characterMap;
 			List<Rectangle> croppingData;
 			List<Rectangle> glyphData;
 			List<Vector3> kerning;
 			int lineSpacing;
 			float spacing;
-			Texture2D* textureValue;
+			Texture2D textureValue;
 
 			int GetIndexForCharacter(char character);
+
+			SpriteFont(Texture2D texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning);
+
+			void Draw(char* text, SpriteBatch spriteBatch, Vector2 textblockPosition, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t spriteEffects, float depth);
 
 		public:
 			int LineSpacing();
 			float Spacing;
 
-			SpriteFont(Texture2D* texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning);
-
-			void Draw(char* text, SpriteBatch spriteBatch, Vector2 textblockPosition, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t spriteEffects, float depth);
 			Vector2 MeasureString(char* text);
 		};
 	}

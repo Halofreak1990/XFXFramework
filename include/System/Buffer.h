@@ -9,22 +9,103 @@
 
 #include "Types.h"
 
+#if DEBUG
+#include <stdio.h>
+#endif
+
 namespace System
 {
-	/// <summary>
-	/// Manipulates arrays of primitive types.
-	/// </summary>
+	// Manipulates arrays of primitive types.
 	class Buffer
 	{
 	public:
 		template <class T>
-		static void BlockCopy(T src[], int srcOffset, T dst[], int dstOffset, int count);
+		static void BlockCopy(T src[], int srcOffset, T dst[], int dstOffset, int count)
+		{
+			if (!src)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "src");
+#endif
+				return;
+			}
+
+			if (!dst)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "dst");
+#endif
+				return;
+			}
+
+			if (srcOffset < 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "srcOffset", "Non-negative number required.");
+#endif
+				return;
+			}
+
+			if (dstOffset < 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "dstOffset", "Non-negative number required.");
+#endif
+				return;
+			}
+
+			if (count < 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return;
+			}
+			
+			if ((srcOffset > ByteLength(src) - count) || (dstOffset > ByteLength(dst) - count))
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+#endif
+				return;
+			}
+
+			for(int i = srcOffset, j = dstOffset; i < (srcOffset + count); i++, j++)
+			{
+				dst[j] = src[i];
+			}
+		}
+
 		template <class T>
-		static int ByteLength(T array[]);
+		static int ByteLength(T array[])
+		{
+			return sizeof(array);
+		}
+
 		template <class T>
-		static byte GetByte(T array[], int index);
+		static byte GetByte(T array[], int index)
+		{
+			if (index < 0 || index >= ByteLength(array))
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Value must be non-negative and less than the size of the collection.");
+#endif
+			}
+
+			return ((byte *) &array[index]);
+		}
+
 		template <class T>
-		static void SetByte(T array[], int index, byte value);
+		static void SetByte(T array[], int index, byte value)
+		{
+			if (index < 0 || index >= ByteLength(array))
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Value must be non-negative and less than the size of the collection.");
+#endif
+				return;
+			}
+		}
 	};
 }
 

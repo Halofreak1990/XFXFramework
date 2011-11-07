@@ -34,6 +34,11 @@ namespace System
 		namespace Generic
 		{
 			template <class T>
+			Comparer<T> Comparer<T>::CreateComparer()
+			{
+			}
+
+			template <class T>
 			Comparer<T>::Comparer()
 			{
 			}
@@ -49,10 +54,9 @@ namespace System
 			{
 				if (x < y)
 					return -1;
-				if (x == y)
-					return 0;
 				if (x > y)
 					return 1;
+				return 0;
 			}
 		}
 	}

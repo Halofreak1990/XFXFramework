@@ -10,10 +10,8 @@
 
 namespace System
 {
-	/// <summary>
-	/// Specifies whether a System::DateTime object represents a local time, a Coordinated Universal Time (UTC), or is
-	/// not specified as either local time or UTC.
-	/// </summary>
+	// Specifies whether a System::DateTime object represents a local time, a Coordinated Universal Time (UTC), or is
+	// not specified as either local time or UTC.
 	struct DateTimeKind
 	{
 		enum type
@@ -24,9 +22,7 @@ namespace System
 		};
 	};
 
-	/// <summary>
-	/// Specifies the day of the week.
-	/// </summary>
+	// Specifies the day of the week.
 	struct DayOfWeek
 	{
 		enum type
@@ -40,9 +36,8 @@ namespace System
 			Wednesday = 3
 		};
 	};
-	/// <summary>
-	/// Identifies the operating system, or platform, supported by an assembly.
-	/// </summary>
+
+	// Identifies the operating system, or platform, supported by an assembly.
 	struct PlatformID
 	{
 		enum type
@@ -56,10 +51,8 @@ namespace System
 		};
 	};
 
-	/// <summary>
-	/// Specifies the culture, case, and sort rules to be used by certain overloads
-	/// of the String::Compare(String,String) and String::Equals(System.Object) methods.
-	/// </summary>
+	// Specifies the culture, case, and sort rules to be used by certain overloads
+	// of the String::Compare(String,String) and String::Equals(System.Object) methods.
 	struct StringComparison
 	{
 		enum type
@@ -73,9 +66,7 @@ namespace System
 		};
 	};
 
-	/// <summary>
-	/// Specifies whether applicable Overload:String::Split method overloads include or omit empty substrings from the return value.
-	/// </summary>
+	// Specifies whether applicable Overload:String::Split method overloads include or omit empty substrings from the return value.
 	struct StringSplitOptions
 	{
 		enum type

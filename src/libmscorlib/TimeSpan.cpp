@@ -26,7 +26,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/TimeSpan.h>
-#include <System/Exception.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -131,7 +134,12 @@ namespace System
 
 		//! Check for overflow
 		if(temp - ts._ticks != _ticks)
-			throw OverflowException("Resulting TimeSpan is too big.");
+		{
+#if DEBUG
+			printf("OBJECT_DISPOSED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Resulting TimeSpan is too big.");
+#endif
+			return TimeSpan::MaxValue;
+		}
 
 		//! Everything checks out
 		return TimeSpan(_ticks + ts._ticks);
@@ -199,7 +207,12 @@ namespace System
 	TimeSpan TimeSpan::Negate()
 	{
 		if (_ticks == MinValue._ticks)
-			throw OverflowException();
+		{
+#if DEBUG
+			printf("OBJECT_DISPOSED in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
+#endif
+			return TimeSpan::MinValue;
+		}
 
 		return TimeSpan(-_ticks);
 	}
@@ -208,7 +221,9 @@ namespace System
 	{
 		Int64 ticks = _ticks - ts._ticks;
 		if (((_ticks >> 0x3f) != (ts._ticks >> 0x3f)) && ((_ticks >> 0x3f) != (ticks >> 0x3f)))
-			throw new OverflowException("TimeSpan too long.");
+#if DEBUG
+			printf("OBJECT_DISPOSED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "TimeSpan too long.");
+#endif
 
 		return TimeSpan(ticks);
 	}
@@ -302,9 +317,12 @@ namespace System
 			}
 		}
 
-		if (overflow) {
+		if (overflow)
+		{
 			if (throwExc)
-				throw ArgumentOutOfRangeException("The timespan is too big or too small.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The timespan is too big or too small.");
+#endif
 			return false;
 		}
 
@@ -318,7 +336,9 @@ namespace System
 		double num2 = num + ((value >= 0.0) ? 0.5 : -0.5);
 		if ((num2 > 922337203685477LL) || (num2 < -922337203685477LL))
 		{
-			throw OverflowException("TimeSpan too long.");
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "TimeSpan too long.");
+#endif
 		}
 		return TimeSpan(((Int64) num2) * 0x2710L);
 	}

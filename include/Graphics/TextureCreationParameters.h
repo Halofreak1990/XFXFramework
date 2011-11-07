@@ -40,7 +40,7 @@ namespace XFX
 			
 			bool operator!=(const TextureCreationParameters other);
 			bool operator==(const TextureCreationParameters other);
-			bool operator =(const TextureCreationParameters other);
+			TextureCreationParameters operator =(const TextureCreationParameters other);
 		};
 	}
 }

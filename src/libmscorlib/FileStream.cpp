@@ -25,13 +25,17 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/String.h>
 #include <System/IO/FileStream.h>
-#include <System/IO/IOException.h>
 
 extern "C"
 {
 #include <hal/fileio.h>
 }
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -55,14 +59,29 @@ namespace System
 		Int64 FileStream::Length()
 		{
 			if(handle == -1)
-				throw ObjectDisposedException("FileStream", "The stream has been closed.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
+#endif
+				return -1;
+			}
 
 			if(!canSeek)
-				throw NotSupportedException("The stream does not support seeking.");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
+#endif
+				return -1;
+			}
 
-			Int64 length;
-			if(XGetFileSize(handle, (unsigned int *)length) != STATUS_SUCCESS)
-				throw IOException("Could not determine file size. The file may be corrupt.");
+			UInt32 length;
+			if(XGetFileSize(handle, &length) != STATUS_SUCCESS)
+			{
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Could not determine file size. The file may be corrupt.");
+#endif
+				return -1;
+			}
 
 			if ((_writePos > 0) && ((_pos + _writePos) > length))
 	        {
@@ -74,10 +93,20 @@ namespace System
 		Int64 FileStream::Position()
 		{
 			if (handle == -1)
-				throw ObjectDisposedException("FileStream", "The stream has been closed.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
+#endif
+				return -1;
+			}
 
 			if (!canSeek)
-				throw NotSupportedException("The stream does not support seeking.");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
+#endif
+				return -1;
+			}
 
 			return (_pos + ((_readPos - _readLen) + _writePos));
 		}
@@ -85,10 +114,20 @@ namespace System
 		void FileStream::Position(Int64 newPosition)
 		{
 			if(canSeek == false)
-				throw NotSupportedException("The stream does not support seeking");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
+#endif
+				return;
+			}
 
 			if(newPosition < 0)
-				throw ArgumentOutOfRangeException("newPosition", "Attempt to set the position to a negative value.");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "newPosition", "Attempt to set the position to a negative value.");
+#endif
+				return;
+			}
 
 			Seek(newPosition, SeekOrigin::Begin);
 		}
@@ -100,8 +139,14 @@ namespace System
 
 		FileStream::FileStream(char* path, FileMode_t mode)
 		{
-			if(path == null || path == "")
-				throw ArgumentNullException("path", "path was either NULL or an empty string.");
+			if (String::IsNullOrEmpty(path))
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
+#endif
+				handle = -1;
+				return;
+			}
 
 			_access = (mode == FileMode::Append ? FileAccess::Write : FileAccess::ReadWrite);
 
@@ -110,8 +155,14 @@ namespace System
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access)
 		{
-			if(path == null || path == "")
-				throw ArgumentNullException("path", "path was either NULL, or an empty string.");
+			if (String::IsNullOrEmpty(path))
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
+#endif
+				handle = -1;
+				return;
+			}
 
 			_access = access;
 
@@ -120,21 +171,44 @@ namespace System
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share)
 		{
-			if(path == null || path == "")
-				throw ArgumentNullException("path", "path was either NULL, or an empty string.");
+			if (String::IsNullOrEmpty(path))
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
+#endif
+				handle = -1;
+				return;
+			}
+
+			_access = access;
 
 			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize)
 		{
-			FileStream(path, mode, access, share, bufferSize, false);
+			if (bufferSize <= 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Positive number required.");
+#endif
+				handle = -1;
+				return;
+			}
+
+			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
 		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize, bool useAsync)
 		{
 			if (bufferSize <= 0)
-				throw ArgumentOutOfRangeException("bufferSize", "Positive number required.");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Positive number required.");
+#endif
+				handle = -1;
+				return;
+			}
 
 			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
@@ -146,15 +220,9 @@ namespace System
 
 		void FileStream::Dispose(bool disposing)
 		{
-			try
+			if((handle != -1) && (_writePos > 0))
 			{
-				if((handle != -1) && (_writePos > 0))
-				{
-					FlushWrite(!disposing);
-				}
-			}
-			catch(Exception)
-			{	
+				FlushWrite(!disposing);
 			}
 			if((handle != -1))
 			{
@@ -166,7 +234,12 @@ namespace System
 		void FileStream::Flush()
 		{
 			if(handle == -1)
-				throw ObjectDisposedException("FileStream", "The stream has been closed.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
+#endif
+				return;
+			}
 
 			if (_writePos > 0)
 			{
@@ -189,24 +262,59 @@ namespace System
 		int FileStream::Read(byte array[], int offset, int count)
 		{
 			if(handle == -1)
-				throw ObjectDisposedException("FileStream", "The stream has been closed.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
+#endif
+				return -1;
+			}
 
 			if(array == null)
-				throw ArgumentNullException("array");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "array");
+#endif
+				return -1;
+			}
 
 			if (!CanRead())
-				throw NotSupportedException("Stream does not support reading");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support reading");
+#endif
+				return -1;
+			}
 
 			int len = (sizeof(array)/sizeof(byte));
 			if (offset < 0)
-				throw ArgumentOutOfRangeException("offset", "< 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
+#endif
+				return -1;
+			}
+
 			if (count < 0)
-				throw ArgumentOutOfRangeException("count", "< 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return -1;
+			}
 			if (offset > len)
-				throw ArgumentException("destination offset is beyond array size");
-			// reordered to avoid possible integer overflow
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destination offset is beyond array size");
+#endif
+				return -1;
+			}
+
 			if (offset > len - count)
-				throw ArgumentException("Reading would overrun buffer");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Reading would overrun buffer");
+#endif
+			}
 
 			UInt32 bytesRead;
 			XReadFile(handle, &array[offset], count, &bytesRead);
@@ -215,9 +323,9 @@ namespace System
 
 		int FileStream::ReadByte()
 		{
-			void* data;
+			byte data;
 			UInt32 bytesRead;
-			XReadFile(handle, data, 1, &bytesRead);
+			XReadFile(handle, &data, 1, &bytesRead);
 
 			if(bytesRead != 1)
 				return -1;
@@ -228,7 +336,12 @@ namespace System
 		long long FileStream::Seek(long long offset, SeekOrigin_t origin)
 		{
 			if(handle == -1)
-				throw ObjectDisposedException("FileStream", "The stream has been closed.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
+#endif
+				return -1;
+			}
 
 			FILE_POSITION_INFORMATION positionInfo;
 			LARGE_INTEGER             targetPointer;
@@ -258,7 +371,7 @@ namespace System
 	
 			// Fill in the new position information
 			positionInfo.CurrentByteOffset.u.HighPart = targetPointer.u.HighPart;
-			positionInfo.CurrentByteOffset.u.LowPart= targetPointer.u.LowPart;
+			positionInfo.CurrentByteOffset.u.LowPart = targetPointer.u.LowPart;
 	
 			// Set the new position
 			status = NtSetInformationFile((void*)handle, &ioStatusBlock, &positionInfo, sizeof(positionInfo), FilePositionInformation);
@@ -273,13 +386,28 @@ namespace System
 		void FileStream::SetLength(long long value)
 		{
 			if(!CanSeek())
-				throw NotSupportedException("The stream does not support seeking.");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
+#endif
+				return;
+			}
 
 			if(!CanWrite())
-				throw NotSupportedException("The stream does not support writing.");
+			{
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support writing.");
+#endif
+				return;
+			}
 
 			if(value < 0)
-				throw ArgumentOutOfRangeException("value is less than 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "value is less than 0");
+#endif
+				return;
+			}
 
 			Flush();
 
@@ -294,7 +422,7 @@ namespace System
 
 		void FileStream::WriteByte(byte value)
 		{
-			XWriteFile(handle, (void*)value, 1, null);
+			XWriteFile(handle, &value, 1, null);
 		}
 	}
 }

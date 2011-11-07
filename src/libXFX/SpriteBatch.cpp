@@ -25,10 +25,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-extern "C" {
+extern "C"
+{
 #include "pbkit.h"
 }
 #include <Graphics/Color.h>
+#include <Graphics/GraphicsDevice.h>
 #include <Graphics/Sprite.h>
 #include <Graphics/SpriteBatch.h>
 #include <Graphics/SpriteFont.h>
@@ -39,6 +41,10 @@ extern "C" {
 #include <Vector2.h>
 #include <Vector4.h>
 
+#if DEBUG
+#include <stdio.h>
+#endif
+
 using namespace XFX;
 
 namespace XFX
@@ -47,6 +53,7 @@ namespace XFX
 	{
 		SpriteBatch::SpriteBatch()
 		{
+			device = null;
 		}
 		
 		SpriteBatch::SpriteBatch(GraphicsDevice* graphicsDevice)
@@ -59,7 +66,7 @@ namespace XFX
 			Dispose(false);
 		}
 
-		GraphicsDevice* SpriteBatch::GraphicsDevice_()
+		GraphicsDevice* SpriteBatch::getGraphicsDevice()
 		{
 			return device;
 		}
@@ -88,7 +95,10 @@ namespace XFX
         { 
             if (inBeginEndPair)
 			{
-				throw InvalidOperationException("Begin cannot be called again until End has been successfully called.");
+#if DEBUG
+				printf("INVALID_OPERATION in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Begin cannot be called again until End has been successfully called.");
+#endif
+				return;
 			}
   
 			if (stateMode == SaveStateMode::SaveState)
@@ -118,31 +128,31 @@ namespace XFX
 	        Dispose(true);
         }
          
-        void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
         {
 			Draw(texture, destinationRectangle, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Color color)
+		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Color color)
         {
 			Draw(texture, position, Rectangle::Empty, color);
         }
          
-        void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color)
         {
 			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
         
-        void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color)
+        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color)
         {
-			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width(), texture->Height());
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture.getWidth(), texture.getHeight());
 			Draw(texture, destination, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f); 	
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth) 
+		void SpriteBatch::Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth) 
         { 
 			Sprite sprite = Sprite(texture, 
-								sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture->Width(), texture->Height()), 
+								sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture.getWidth(), texture.getHeight()), 
 								destinationRectangle, 
 								color, 
 								rotation, 
@@ -156,7 +166,7 @@ namespace XFX
 				Flush(); 
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth) 
+		void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth) 
         { 
             int width;
 			int height;
@@ -167,14 +177,14 @@ namespace XFX
 			}
 			else
 			{
-				width = (int)(texture->Width() * scale.X);
-				height = (int)(texture->Height() * scale.Y);
+				width = (int)(texture.getWidth() * scale.X);
+				height = (int)(texture.getHeight() * scale.Y);
 			}
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
         }
         
-        void SpriteBatch::Draw(Texture2D* texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
+        void SpriteBatch::Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth)
         {
 	        int width;
 			int height;
@@ -185,8 +195,8 @@ namespace XFX
 			}
 			else
 			{
-				width = (int)(texture->Width() * scale);
-				height = (int)(texture->Height() * scale);
+				width = (int)(texture.getWidth() * scale);
+				height = (int)(texture.getHeight() * scale);
 			}
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth);
@@ -213,7 +223,12 @@ namespace XFX
         void SpriteBatch::End() 
         { 
             if (!inBeginEndPair)
-				throw InvalidOperationException("Begin must be called successfully before End can be called.");
+			{
+#if DEBUG
+				printf("INVALID_OPERATION in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Begin must be called successfully before End can be called.");
+#endif
+				return;
+			}
 			
 			if (spriteSortMode != SpriteSortMode::Immediate)
 			{
@@ -304,9 +319,9 @@ namespace XFX
 			for (int i = 0; i < SpriteList.Count(); i++)
 			{
 				// Set the color, bind the texture for drawing and prepare the texture source
-				if (SpriteList[i].Color_().A() <= 0) continue;
-				//glColor4f((float)sprite.Color_().R() / 255f, (float)sprite.Color_().G() / 255f, (float)sprite.Color_().B() / 255f, (float)sprite.Color_().A() / 255f);
-				//glBindTexture(GL_TEXTURE_2D, sprite.Texture->textureId);
+				if (SpriteList[i].getColor().A() <= 0) continue;
+				//glColor4f((float)sprite.Color_().R() / 255f, (float)sprite.getColor().G() / 255f, (float)sprite.getColor().B() / 255f, (float)sprite.getColor().A() / 255f);
+				//glBindTexture(GL_TEXTURE_2D, sprite.getTexture().textureId);
 				// Setup the matrix
 				//if ((SpriteList[i].DestinationRectangle().X != 0) || (SpriteList[i].DestinationRectangle().Y != 0))
 				//	glTranslatef(SpriteList[i].DestinationRectangle().X, SpriteList[i].DestinationRectangle().Y, 0.0f); // Position
@@ -320,10 +335,10 @@ namespace XFX
 					-SpriteList[i].Origin.X * (float)SpriteList[i].DestinationRectangle().Width / (float)SpriteList[i].SourceRectangle().Width,
 					-SpriteList[i].Origin.Y * (float)SpriteList[i].DestinationRectangle().Height / (float)SpriteList[i].SourceRectangle().Height, 0.0f);*/
 				// Calculate the points on the texture
-				float x = (float)SpriteList[i].SourceRectangle().X / (float)SpriteList[i].Texture()->Width();
-				float y = (float)SpriteList[i].SourceRectangle().Y / (float)SpriteList[i].Texture()->Height();
-				float twidth = (float)SpriteList[i].SourceRectangle().Width / (float)SpriteList[i].Texture()->Width();
-				float theight = (float)SpriteList[i].SourceRectangle().Height / (float)SpriteList[i].Texture()->Height();
+				float x = (float)SpriteList[i].SourceRectangle().X / (float)SpriteList[i].getTexture().getWidth();
+				float y = (float)SpriteList[i].SourceRectangle().Y / (float)SpriteList[i].getTexture().getHeight();
+				float twidth = (float)SpriteList[i].SourceRectangle().Width / (float)SpriteList[i].getTexture().getWidth();
+				float theight = (float)SpriteList[i].SourceRectangle().Height / (float)SpriteList[i].getTexture().getHeight();
 				// Draw
 				/*glBegin(GL_QUADS);
 				{

@@ -11,19 +11,6 @@
 
 /******************************************************************************/
 
-// Might want to look into using this kernel api at a later date for Sleep(..)
-// extern "C" void __stdcall KeDelayExecutionThread(unsigned int a, unsigned int b, unsigned int c);
-void Sleep(long timemilliseconds)
-{
-	//Sleep(timemilliseconds);
-
-	unsigned long long nowTime = KeTickCount;
-	unsigned long long oldTime = KeTickCount;
-
-	while( nowTime < (oldTime + timemilliseconds) )
-		nowTime = (int)KeTickCount;
-}
-
 #define small_memcpy(dest, src, count)\
 {\
 	register unsigned long dummy;\

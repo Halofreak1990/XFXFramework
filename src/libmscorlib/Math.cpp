@@ -27,6 +27,11 @@
 
 #include <System/Math.h>
 
+extern "C"
+{
+#include <math.h>
+}
+
 namespace System
 {
 	const double Math::E = 2.7182818284590451;

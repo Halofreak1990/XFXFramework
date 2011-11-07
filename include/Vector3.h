@@ -7,7 +7,10 @@
 #ifndef _XFX_VECTOR3_
 #define _XFX_VECTOR3_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -15,10 +18,8 @@ namespace XFX
 	struct Quaternion;
 	struct Vector2;
 	
-	/// <summary>
-	/// Defines a vector with three components.
-	/// </summary>
-	struct Vector3
+	// Defines a vector with three components.
+	struct Vector3 : public IEquatable<Vector3>, virtual Object
 	{
 	public:
 		float X, Y, Z;
@@ -60,7 +61,7 @@ namespace XFX
 		static void Divide(Vector3 value1, Vector3 value2, out Vector3 result);
 		static float Dot(Vector3 value1, Vector3 value2);
 		static void Dot(Vector3 value1, Vector3 value2, out float result);
-		bool Equals(Vector3 obj);
+		bool Equals(Vector3 other);
 		int GetHashCode();
 		static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount);
 		static void Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount, out Vector3 result);
@@ -110,7 +111,7 @@ namespace XFX
 		Vector3 operator-(Vector3 other);
 		Vector3 operator-();
 		Vector3 operator=(const Vector3 other);
-	} ALIGNED;
+	} ALIGNED16;
 }
 
 #endif //_XFX_VECTOR3_

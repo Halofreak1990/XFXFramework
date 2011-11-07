@@ -70,7 +70,7 @@ namespace XFX
 		const Quaternion operator-(const Quaternion other);
 		const Quaternion operator-();
 		Quaternion operator=(const Quaternion other);
-	} ALIGNED;
+	} ALIGNED16;
 }
 
 #endif //_XFX_QUATERNION_

@@ -60,7 +60,7 @@ namespace XFX
 		return x;
 	}
 
-	float Distance(float value1, float value2)
+	float MathHelper::Distance(float value1, float value2)
 	{
 		return value1 - value2;
 	}

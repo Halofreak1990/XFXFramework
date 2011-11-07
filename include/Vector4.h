@@ -7,7 +7,10 @@
 #ifndef _XFX_VECTOR4_
 #define _XFX_VECTOR4_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -16,10 +19,8 @@ namespace XFX
 	struct Vector2;
 	struct Vector3;
 	
-	/// </summary>
-	/// Defines a vector with four components.
-	/// </summary>
-	struct Vector4
+	// Defines a vector with four components.
+	struct Vector4 : public IEquatable<Vector4>, virtual Object
 	{
 		float W, X, Y, Z;
 		static const Vector4 One;
@@ -104,7 +105,7 @@ namespace XFX
 		const Vector4 operator+(const Vector4 other);
 		bool operator==(const Vector4 other);
 		Vector4 operator =(const Vector4 other);
-	} ALIGNED;
+	} ALIGNED16;
 }
 
 #endif //_XFX_VECTOR4_

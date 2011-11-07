@@ -7,24 +7,18 @@
 #ifndef _SYSTEM_VERSION_
 #define _SYSTEM_VERSION_
 
+#include "Object.h"
+
 namespace System
 {
-	/// <summary>
-	/// Represents the version number for a common language runtime assembly.
-	/// </summary>
-	class Version
+	// Represents the version number for a common language runtime assembly.
+	class Version : virtual Object
 	{
-	private:
-		int _build;
-		int _major;
-		int _minor;
-		int _revision;
-
 	public:
-		int Build();
-		int Major();
-		int Minor();
-		int Revision();
+		const int Build;
+		const int Major;
+		const int Minor;
+		const int Revision;
 
 		Version(int major, int minor);
 		Version(int major, int minor, int build);

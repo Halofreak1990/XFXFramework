@@ -10,7 +10,6 @@
 #include <System/Types.h>
 #include <System/Delegates.h>
 #include "Enums.h"
-#include "GraphicsDevice.h"
 
 using namespace System;
 
@@ -18,9 +17,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Queries and prepares resources.
-		/// </summary>
+		class GraphicsDevice;
+
+		// Queries and prepares resources.
 		class GraphicsResource : public IDisposable, virtual Object
 		{
 		private:
@@ -31,15 +30,13 @@ namespace XFX
 		protected:
 			GraphicsDevice* graphicsDevice;
 			
-			virtual void Dispose(bool disposing)=0;
+			virtual void Dispose(bool disposing);
 			
 		public:
-			virtual GraphicsDevice* GraphicsDevice_();
+			virtual GraphicsDevice* getGraphicsDevice();
 			bool IsDisposed();
-			char* Name();
-			void Name(char* value);
-			int Priority;
-			virtual ResourceType_t ResourceType_();
+			char* Name;
+			Object Tag;
 
 			EventHandler Disposing;
 			

@@ -7,17 +7,18 @@
 #ifndef _XFX_VECTOR2_
 #define _XFX_VECTOR2_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
 	struct Matrix;
 	struct Quaternion;
 	
-	/// <summary>
-	/// Defines a vector with two components.
-	/// </summary>
-	struct Vector2
+	// Defines a vector with two components.
+	struct Vector2 : public IEquatable<Vector2>, virtual Object
 	{
 		float X, Y;
 		static const Vector2 One;
@@ -46,7 +47,7 @@ namespace XFX
 		static void Divide(Vector2 value1, Vector2 value2, out Vector2 result);
 		static float Dot(Vector2 value1, Vector2 value2);
 		static void Dot(Vector2 value1, Vector2 value2, out float result);
-		bool Equals(Vector2 obj);
+		bool Equals(Vector2 other);
 		int GetHashCode();
 		static Vector2 Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount);
 		static void Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount, out Vector2 result);
@@ -96,7 +97,7 @@ namespace XFX
 		Vector2 operator*(const float scaleFactor);
 		Vector2 operator*(const Vector2 other);
 		Vector2 operator=(const Vector2 other);
-	} ALIGNED;
+	} ALIGNED16;
 }
 
 #endif //_XFX_VECTOR2_

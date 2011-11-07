@@ -1,6 +1,5 @@
 #include <System/Array.h>
 #include <System/Collections/Stack.h>
-#include <System/Exception.h>
 
 namespace System
 {
@@ -30,10 +29,16 @@ namespace System
 			Stack((!col) ? 0x20 : col->Count());
 
 			if (!col)
-				throw ArgumentNullException("col");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "col");
+#endif
+				return;
+			}
 
 			for (int i = 0; i < col->Count(); i++)
 			{
+				
 				// TODO: Push all values in the ICollection into this Stack.
 			}
 		}
@@ -41,7 +46,12 @@ namespace System
 		Stack::Stack(int initialCapacity)
 		{
 			if (initialCapacity < 0)
-				throw ArgumentOutOfRangeException("initialCapacity", "Non-negative number required");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "initialCapacity", "Non-negative number required");
+#endif
+				return;
+			}
 
 			if (initialCapacity < _defaultCapacity)
 				initialCapacity = _defaultCapacity;

@@ -18,10 +18,8 @@ namespace System
 
 	namespace IO
 	{
-		/// <summary>
-		/// Provides a generic view of a sequence of bytes.
-		/// </summary>
-		class Stream : public IDisposable
+		// Provides a generic view of a sequence of bytes.
+		class Stream : public IDisposable, virtual Object
 		{
 		private:
 			int _asyncActiveCount;

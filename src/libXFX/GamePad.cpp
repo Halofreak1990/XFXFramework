@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, Halofreak_1990
+// Copyright (C) 2010-2012, XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -54,6 +54,8 @@ namespace XFX
 		
 		GamePadState GamePad::GetState(PlayerIndex_t playerIndex)
 		{
+			XInput_GetEvents();
+
 			//Update IsConnected
 			g_State.IsConnected = g_Pads[playerIndex].hPresent;
 			
@@ -175,6 +177,18 @@ namespace XFX
 					case Buttons::Black:
 						Buttons.Black = ButtonState::Pressed;
 						break;
+					case Buttons::DPadDown:
+						DPad.Down = ButtonState::Pressed;
+						break;
+					case Buttons::DPadLeft:
+						DPad.Left = ButtonState::Pressed;
+						break;
+					case Buttons::DPadRight:
+						DPad.Right = ButtonState::Pressed;
+						break;
+					case Buttons::DPadUp:
+						DPad.Up = ButtonState::Pressed;
+						break;
 					case Buttons::LeftStick:
 						Buttons.LeftStick = ButtonState::Pressed;
 						break;
@@ -192,6 +206,8 @@ namespace XFX
 						break;
 					case Buttons::Y:
 						Buttons.Y = ButtonState::Pressed;
+						break;
+					default:
 						break;
 					}
 				}
@@ -251,6 +267,7 @@ namespace XFX
 			case Buttons::Y:
 				return Buttons.Y == ButtonState::Pressed;
 			}
+			return false;
 		}
 
 		bool GamePadState::IsButtonUp(Buttons_t button)
@@ -306,6 +323,7 @@ namespace XFX
 			case Buttons::Y:
 				return Buttons.Y == ButtonState::Released;
 			}
+			return false;
 		}
 
 		bool GamePadState::operator ==(const GamePadState other)

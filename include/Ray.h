@@ -7,7 +7,10 @@
 #ifndef _XFX_RAY_
 #define _XFX_RAY_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -16,10 +19,8 @@ namespace XFX
 	struct Plane;
 	struct Vector3;
 	
-	/// <summary>
-	/// Defines a ray.
-	/// </summary>
-	class Ray
+	// Defines a ray.
+	struct Ray : public IEquatable<Ray>, virtual Object
 	{
 	public:
 		Vector3 Direction;
@@ -29,7 +30,7 @@ namespace XFX
 		Ray(const Ray &obj);
 		Ray();
 		
-		bool Equals(Ray obj);
+		bool Equals(Ray other);
 		int GetHashCode();
 		float Intersects(BoundingBox boundingbox);
 		void Intersects(BoundingBox boundingbox, out float result);
@@ -38,10 +39,10 @@ namespace XFX
 		float Intersects(Plane plane);
 		void Intersects(Plane plane, out float result);
 		
-		bool operator==(const Ray other);
-		bool operator!=(const Ray other);
-		Ray operator=(const Ray other);
+		bool operator==(const Ray right);
+		bool operator!=(const Ray right);
+		Ray operator=(const Ray right);
 	};
 }
 
-#endif //_RAY_
+#endif //_XFX_RAY_

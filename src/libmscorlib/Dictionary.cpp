@@ -26,10 +26,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Collections/Generic/Dictionary.h>
 #include <System/Collections/Generic/EqualityComparer.h>
 #include "HashHelpers.h"
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -154,7 +157,11 @@ namespace System
 					if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
 					{
 						if(add)
-							throw ArgumentException("Adding duplicate of existing key.");
+						{
+#if DEBUG
+							printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Adding duplicate of existing key.");
+#endif
+						}
 
 						entries[i].value = value;
 						version++;
@@ -279,14 +286,18 @@ namespace System
 			template <class UKey, class UValue>
 			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Add(UKey item)
 			{
-				throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Adding keys directly to the Dictionary::Keycollection is not supported.");
+#endif
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
 			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Clear()
 			{
-				throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Directly clearing the Dictionary::KeyCollection is not supported.");
+#endif
 			}
 
 			template <class TKey, class TValue>
@@ -302,15 +313,24 @@ namespace System
 			{
 				if(array == null)
 				{
-					throw ArgumentNullException("array");
+#if DEBUG
+					printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "array");
+#endif
+					return;
 				}
 				if((index < 0) ||(index > Array::Length(array)))
 				{
-					throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
+#if DEBUG
+					printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative array index required.");
+#endif
+					return;
 				}
 				if((Array::Length(array) - index) < _dictionary.Count())
 				{
-					throw ArgumentException("Array plus offset too small.");
+#if DEBUG
+					printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Array plus offset too small.");
+#endif
+					return;
 				}
 				int count = _dictionary.Count();
 				Entry<UKey, UValue> entries[] = _dictionary.entries;
@@ -327,7 +347,9 @@ namespace System
 			template <class UKey, class UValue>
 			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Remove(UKey item)
 			{
-				throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Removing keys directly from the Dictionary::KeyCollection is not supported.");
+#endif
 				return false;
 			}
 		}

@@ -26,9 +26,9 @@ namespace System
 	typedef unsigned short		ushort, UInt16;
 	typedef unsigned int 		uint, UInt32;
 	typedef unsigned long long	ulong, UInt64;
-	/* OTHER */
-	typedef bool				Boolean;
+	typedef unsigned int		*UIntPtr;
 
+	/* OTHER */
 #define null NULL
 }
 
@@ -42,6 +42,8 @@ namespace System
 
 // Aligning Data types
 //
-#define ALIGNED __attribute__ ((aligned (16)))
+#define ALIGNED4 __attribute__ ((aligned (4)))
+#define ALIGNED8 __attribute__ ((aligned (8)))
+#define ALIGNED16 __attribute__ ((aligned (16)))
 
 #endif //_SYSTEM_TYPES_

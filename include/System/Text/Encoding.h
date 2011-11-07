@@ -17,9 +17,7 @@ namespace System
 
 	namespace Text
 	{
-		/// <summary>
-		/// Represents a character encoding.
-		/// </summary>
+		// Represents a character encoding.
 		class Encoding
 		{
 		public:

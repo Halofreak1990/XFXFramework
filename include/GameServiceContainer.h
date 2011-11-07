@@ -14,10 +14,8 @@ using namespace System;
 
 namespace XFX
 {
-	/// <Summary>
-	/// A collection of game services.
-	/// </summary>
-	class GameServiceContainer : public IServiceProvider
+	// A collection of game services.
+	class GameServiceContainer : public IServiceProvider, virtual Object
 	{
 	public:
 		void AddService(Object* provider);

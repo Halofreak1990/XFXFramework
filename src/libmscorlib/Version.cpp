@@ -25,62 +25,54 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Exception.h>
 #include <System/String.h>
 #include <System/Version.h>
 
+#if DEBUG
+#include <stdio.h>
+#endif
+
 namespace System
 {
-	int Version::Build()
-	{
-		return _build;
-	}
-
-	int Version::Major()
-	{
-		return _major;
-	}
-
-	int Version::Minor()
-	{
-		return _minor;
-	}
-
-	int Version::Revision()
-	{
-		return _revision;
-	}
-
 	Version::Version(int major, int minor)
+		: Build(0), Major(major), Minor(minor), Revision(0)
 	{
-		_major = major;
-		_minor = minor;
 	}
 
-	Version::Version(char* version)
+	Version::Version(int major, int minor, int build)
+		: Build(build), Major(major), Minor(minor), Revision(0)
 	{
-		
+	}
+	
+	Version::Version(int major, int minor, int build, int revision)
+		: Build(build), Major(major), Minor(minor), Revision(revision)
+	{
+	}
+
+	Version::Version(const Version &obj)
+		: Build(obj.Build), Major(obj.Major), Minor(obj.Minor), Revision(obj.Revision)
+	{
 	}
 
 	Version Version::Clone()
 	{
-		return Version(_major, _minor, _build, _revision);
+		return Version(Major, Minor, Build, Revision);
 	}
 
 	bool Version::Equals(Version obj)
 	{
-		return ((_build == obj._build) && (_major == obj._major) &&
-				(_minor == obj._minor) && (_revision == obj._revision));
+		return ((Build == obj.Build) && (Major == obj.Major) &&
+				(Minor == obj.Minor) && (Revision == obj.Revision));
 	}
 
 	int Version::GetHashCode()
 	{
-		return (_build ^ _major ^ _minor ^ _revision);
+		return (Build ^ Major ^ Minor ^ Revision);
 	}
 
 	char* Version::ToString()
 	{
-		return String::Format("%d.%d.%d.%d", _major, _minor, _build, _revision);
+		return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 	}
 
 	char* Version::ToString(int fieldCount)
@@ -91,19 +83,22 @@ namespace System
 			return "";
 			break;
 		case 1:
-			return String::Format("%d", _major);
+			return String::Format("%i", Major);
 			break;
 		case 2:
-			return String::Format("%d.%d", _major, _minor);
+			return String::Format("%i.%i", Major, Minor);
 			break;
 		case 3:
-			return String::Format("%d.%d.%d", _major, _minor, _build);
+			return String::Format("%i.%i.%i", Major, Minor, Build);
 			break;
 		case 4:
-			return String::Format("%d.%d.%d.%d", _major, _minor, _build, _revision);
+			return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 			break;
 		default:
-			throw ArgumentOutOfRangeException("fieldCount");
+#if DEBUG
+			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "fieldCount");
+#endif
+			return "";
 		}
 	}
 
@@ -114,14 +109,14 @@ namespace System
 
 	bool Version::operator <(Version other)
 	{
-		return ((_build < other._build) && (_major < other._major) &&
-				(_minor < other._minor) && (_revision < other._revision));
+		return ((Build < other.Build) && (Major < other.Major) &&
+				(Minor < other.Minor) && (Revision < other.Revision));
 	}
 
 	bool Version::operator <=(Version other)
 	{
-		return ((_build <= other._build) && (_major <= other._major) &&
-				(_minor <= other._minor) && (_revision <= other._revision));
+		return ((Build <= other.Build) && (Major <= other.Major) &&
+				(Minor <= other.Minor) && (Revision <= other.Revision));
 	}
 
 	bool Version::operator ==(Version other)
@@ -131,13 +126,13 @@ namespace System
 
 	bool Version::operator >(Version other)
 	{
-		return ((_build > other._build) && (_major > other._major) &&
-				(_minor > other._minor) && (_revision > other._revision));
+		return ((Build > other.Build) && (Major > other.Major) &&
+				(Minor > other.Minor) && (Revision > other.Revision));
 	}
 
 	bool Version::operator >=(Version other)
 	{
-		return ((_build >= other._build) && (_major >= other._major) &&
-				(_minor >= other._minor) && (_revision >= other._revision));
+		return ((Build >= other.Build) && (Major >= other.Major) &&
+				(Minor >= other.Minor) && (Revision >= other.Revision));
 	}
 }

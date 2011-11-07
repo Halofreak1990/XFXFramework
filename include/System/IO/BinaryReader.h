@@ -10,11 +10,11 @@ using namespace System::Text;
 
 namespace System
 {
+	class String;
+
 	namespace IO
 	{
-		/// <summary>
-		/// Reads primitive data types as binary values in a specific encoding.
-		/// </summary>
+		// Reads primitive data types as binary values in a specific encoding.
 		class BinaryReader : public IDisposable, virtual Object
 		{
 		private:
@@ -53,7 +53,21 @@ namespace System
 			virtual int Read();
 			virtual int Read(byte buffer[], int index, int count);
 			virtual int Read(char buffer[], int index, int count);
+			virtual bool ReadBoolean();
+			virtual byte ReadByte();
+			virtual byte* ReadBytes(int count);
+			virtual char ReadChar();
+			virtual char* ReadChars(int count);
+			virtual double ReadDouble();
+			virtual short ReadInt16();
+			virtual int ReadInt32();
+			virtual Int64 ReadInt64();
+			virtual sbyte ReadSByte();
 			virtual float ReadSingle();
+			virtual String ReadString();
+			virtual ushort ReadUInt16();
+			virtual uint ReadUInt32();
+			virtual UInt64 ReadUInt64();
 		};
 	}
 }

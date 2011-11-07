@@ -27,9 +27,11 @@
 
 #include <System/Array.h>
 #include <System/Buffer.h>
-#include <System/Exception.h>
-#include <System/IO/IOException.h>
 #include <System/IO/MemoryStream.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -56,7 +58,10 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return -1;
 			}
 			return (_capacity - _origin);
 		}
@@ -65,17 +70,26 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return;
 			}
 			if (value != _capacity)
 			{
 				if (!_expandable)
 				{
-					throw NotSupportedException("");
+#if DEBUG
+					printf("NOT_SUPPORTED in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
+#endif
+					return;
 				}
 				if (value < _length)
 				{
-					throw ArgumentOutOfRangeException("value");
+#if DEBUG
+					printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
+#endif
+					return;
 				}
 				if (value > 0)
 				{
@@ -109,7 +123,10 @@ namespace System
 		{
 			if (capacity < 0)
 			{
-				throw ArgumentOutOfRangeException("capacity", "Negative capacity is not allowed.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "capacity", "Negative capacity is not allowed.");
+#endif
+				return;
 			}
 			_buffer = new byte[capacity];
 			_capacity = capacity;
@@ -124,7 +141,10 @@ namespace System
 		{
 			if (!buffer)
 			{
-				throw ArgumentNullException("buffer", "Buffer was NULL.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
+#endif
+				return;
 			}
 			_buffer = buffer;
 			_length = _capacity = Array::Length(buffer);
@@ -139,7 +159,10 @@ namespace System
 		{
 			if (!buffer)
 			{
-				throw ArgumentNullException("buffer", "Buffer was NULL.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
+#endif
+				return;
 			}
 			_buffer = buffer;
 			_length = _capacity = Array::Length(buffer);
@@ -153,19 +176,31 @@ namespace System
 		{
 			if (!buffer)
 			{
-				throw ArgumentNullException("buffer", "Buffer was NULL.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
+#endif
+				return;
 			}
 			if (index < 0)
 			{
-				throw ArgumentOutOfRangeException("index", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
+#endif
+				return;
 			}
 			if (count < 0)
 			{
-				throw ArgumentOutOfRangeException("count", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return;
 			}
 			if ((Array::Length(buffer) - index) < count)
 			{
-				throw ArgumentException("Invalid offset or length.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__,"Invalid offset or length.");
+#endif
+				return;
 			}
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
@@ -181,19 +216,31 @@ namespace System
 		{
 			if (buffer == null)
 			{
-				throw ArgumentNullException("buffer", "Buffer was NULL.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
+#endif
+				return;
 			}
 			if (index < 0)
 			{
-				throw ArgumentOutOfRangeException("index", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
+#endif
+				return;
 			}
 			if (count < 0)
 			{
-				throw ArgumentOutOfRangeException("count", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return;
 			}
 			if ((Array::Length(buffer) - index) < count)
 			{
-				throw ArgumentException("Invalid offset or length.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
+#endif
+				return;
 			}
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
@@ -209,19 +256,31 @@ namespace System
 		{
 			if (buffer == null)
 			{
-				throw ArgumentNullException("buffer", "Buffer was NULL.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
+#endif
+				return;
 			}
 			if (index < 0)
 			{
-				throw ArgumentOutOfRangeException("index", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
+#endif
+				return;
 			}
 			if (count < 0)
 			{
-				throw ArgumentOutOfRangeException("count", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return;
 			}
 			if ((Array::Length(buffer) - index) < count)
 			{
-				throw ArgumentException("Invalid offset or length.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
+#endif
+				return;
 			}
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
@@ -248,7 +307,10 @@ namespace System
 		{
 			if (value < 0)
 			{
-				throw IOException("Stream too long.");
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream too long.");
+#endif
+				return false;
 			}
 			if (value <= _capacity)
 			{
@@ -275,7 +337,10 @@ namespace System
 		{
 			if (!_exposable)
 			{
-				throw UnauthorizedAccessException("Unauthorized access to this MemoryStream buffer.");
+#if DEBUG
+				printf("UNAUTHORIZED_ACCESS in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Unauthorized access to this MemoryStream buffer.");
+#endif
+				return null;
 			}
 			return _buffer;
 		}
@@ -284,23 +349,38 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return -1;
 			}
-			if (_buffer == null)
+			if (!_buffer)
 			{
-				throw ArgumentNullException("buffer", "Buffer was null.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was null.");
+#endif
+				return -1;
 			}
 			if (offset < 0)
 			{
-				throw ArgumentOutOfRangeException("offset", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
+#endif
+				return -1;
 			}
 			if (count < 0)
 			{
-				throw ArgumentOutOfRangeException("count", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return -1;
 			}
 			if ((Array::Length(buffer) - offset) < count)
 			{
-				throw ArgumentException("Invalid offset or length.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
+#endif
+				return -1;
 			}
 			int num = _length - _position;
 			if (num > count)
@@ -331,7 +411,10 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return -1;
 			}
 			if (_position >= _length)
 			{
@@ -344,18 +427,27 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return -1;
 			}
 			if (offset > MemStreamMaxLength)
 			{
-				throw ArgumentOutOfRangeException("offset", "offset is greater than the maximum length of this Stream.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "offset is greater than the maximum length of this Stream.");
+#endif
+				return -1;
 			}
 			switch (loc)
 			{
 			case SeekOrigin::Begin:
 				if (offset < 0LL)
 				{
-					throw IOException("Attempting to seek before the start of the Stream.");
+#if DEBUG
+					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
+#endif
+					return -1;
 				}
 				_position = _origin + ((int)offset);
 				break;
@@ -363,7 +455,10 @@ namespace System
 			case SeekOrigin::Current:
 				if ((offset + _position) < _origin)
 				{
-					throw IOException("Attempting to seek before the start of the Stream.");
+#if DEBUG
+					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
+#endif
+					return -1;
 				}
 				_position += ((int)offset);
 				break;
@@ -371,13 +466,19 @@ namespace System
 			case SeekOrigin::End:
 				if ((_length + offset) < _origin)
 				{
-					throw IOException("Attempting to seek before the start of the Stream.");
+#if DEBUG
+					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
+#endif
+					return -1;
 				}
 				_position = _length + ((int)offset);
 				break;
 
 			default:
-				throw ArgumentException("Invalid SeekOrigin.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid SeekOrigin.");
+#endif
+				return -1;
 			}
 			return (Int64)_position;
 		}
@@ -386,15 +487,24 @@ namespace System
 		{
 			if (!_writable)
 			{
-				throw NotSupportedException("This Stream does not support writing.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
+#endif
+				return;
 			}
 			if (value > MemStreamMaxLength)
 			{
-				throw ArgumentOutOfRangeException("value", "offset is greater than the maximum length of this Stream.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "value", "offset is greater than the maximum length of this Stream.");
+#endif
+				return;
 			}
 			if ((value < 0LL) || (value > (MemStreamMaxLength - _origin)))
 			{
-				throw ArgumentOutOfRangeException("value", "offset is greater than the maximum length of this Stream.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "value", "offset is greater than the maximum length of this Stream.");
+#endif
+				return;
 			}
 			int num = _origin + ((int)value);
 			if (!EnsureCapacity(num) && (num > _length))
@@ -419,32 +529,51 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return;
 			}
 			if (!_writable)
 			{
-				throw NotSupportedException("This Stream does not support writing.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
+#endif
+				return;
 			}
 			if (!buffer)
 			{
-				throw ArgumentNullException("buffer", "Buffer was null.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was null.");
+#endif
+				return;
 			}
 			if (offset < 0)
 			{
-				throw ArgumentOutOfRangeException("offset", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
+#endif
 			}
 			if (count < 0)
 			{
-				throw ArgumentOutOfRangeException("count", "Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
 			}
 			if ((Array::Length(buffer) - offset) < count)
 			{
-				throw ArgumentException("Invalid offset or length.");
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
+#endif
+				return;
 			}
 			int num = _position + count;
 			if (num < 0)
 			{
-				throw IOException("Stream too long");
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream too long");
+#endif
+				return;
 			}
 			if (num > _length)
 			{
@@ -478,11 +607,16 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return;
 			}
 			if (!_writable)
 			{
-				throw NotSupportedException("This Stream does not support writing.");
+#if DEBUG
+				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
+#endif
 			}
 			if (_position >= _length)
 			{
@@ -505,7 +639,10 @@ namespace System
 		{
 			if (!_isOpen)
 			{
-				throw ObjectDisposedException(null, "Stream is closed.");
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
+#endif
+				return;
 			}
 			stream->Write(_buffer, _origin, _length - _origin);
 		}

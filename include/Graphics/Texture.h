@@ -11,6 +11,7 @@
 #include <System/IO/Stream.h>
 #include "GraphicsResource.h"
 
+using namespace System;
 using namespace System::IO;
 
 namespace XFX
@@ -20,9 +21,7 @@ namespace XFX
 		struct TextureCreationParameters;
 		struct TextureInformation;
 
-		/// <summary>
-		/// Represents a texture resource.
-		/// </summary>
+		// Represents a texture resource.
 		class Texture : public GraphicsResource, virtual Object
 		{
 		private:
@@ -30,7 +29,7 @@ namespace XFX
 			int _levelCount;
 			
 		protected:
-			void Dispose(bool disposing);
+			virtual void Dispose(bool disposing);
 		
 		public:
 			int LevelCount();

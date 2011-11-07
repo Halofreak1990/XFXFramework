@@ -26,14 +26,21 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/DateTime.h>
+#include <System/String.h>
 #include <System/IO/File.h>
 #include <System/IO/FileStream.h>
-#include <System/IO/IOException.h>
 #include <System/IO/Path.h>
 #include <System/IO/StreamReader.h>
 #include <System/IO/StreamWriter.h>
-#include <hal/fileio.h>
+
+#if ENABLE_XBOX
 #include <xboxkrnl/xboxkrnl.h>
+#else
+#endif
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -41,9 +48,6 @@ namespace System
 	{
 		StreamWriter File::AppendText(char* path)
 		{
-			if(path == null)
-				throw ArgumentNullException("path");
-
 			return StreamWriter(path, true);
 		}
 
@@ -54,15 +58,11 @@ namespace System
 
 		void File::Copy(char* sourceFileName, char* destFileName, bool overwrite)
 		{
-			if(sourceFileName == null)
-				throw ArgumentNullException("sourceFileName");
-
-			if(destFileName == null)
-				throw ArgumentNullException("destFileName");
-
 			if(!overwrite && Exists(destFileName))
 			{
-				throw IOException("File specified in 'destFileName' already exists.");
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "File specified in 'destFileName' already exists.");
+#endif
 				return;
 			}
 
@@ -97,83 +97,57 @@ namespace System
 
 		StreamWriter File::CreateText(char* path)
 		{
-			if(path == null)
-				throw ArgumentNullException("path");
-
 			return StreamWriter(path, false);
 		}
 
 		void File::Delete(char* path)
 		{
-			if(path == null)
-				throw ArgumentNullException("path");
-
 			XDeleteFile(path);
 		}
 
 		bool File::Exists(char* path)
 		{
 			bool flag = false;
-			try
-			{
-				if(path == null)
-					return false;
+			if (String::IsNullOrEmpty(path))
+				return false;
 
-				if(sizeof(path)/sizeof(char) == 0)
-					return false;
-
-				path = Path::GetFullPath(path);
-				PXBOX_FIND_DATA data = null;
-				flag = ((FileAttributeInfo(path, data, false, false) == 0) && (data->dwFileAttributes != -1) && ((data->dwFileAttributes & 0x10) == 0));
-			}
-			catch(ArgumentException)
-			{
-			}
-			catch(NotSupportedException)
-			{
-			}
-			catch(IOException)
-			{
-			}
+			path = Path::GetFullPath(path);
+			XBOX_FIND_DATA data;
+			flag = ((FileAttributeInfo(path, &data, false, false) == 0) && (data.dwFileAttributes != -1) && ((data.dwFileAttributes & 0x10) == 0));
+			
 			return flag;			
 		}
 
 		DateTime File::GetCreationTime(char* path)
 		{
-			PXBOX_FIND_DATA data;
+			XBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
-			FileAttributeInfo(path, data, false, false);
-			return DateTime::FromFileTimeUtc(data->ftCreationTime);
+			FileAttributeInfo(path, &data, false, false);
+			return DateTime::FromFileTimeUtc(data.ftCreationTime);
 		}
 
 		DateTime File::GetLastAccessTime(char* path)
 		{
-			PXBOX_FIND_DATA data;
+			XBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
-			FileAttributeInfo(path, data, false, false);
-			return DateTime::FromFileTimeUtc(data->ftLastAccessTime);
+			FileAttributeInfo(path, &data, false, false);
+			return DateTime::FromFileTimeUtc(data.ftLastAccessTime);
 		}
 
 		DateTime File::GetLastWriteTime(char* path)
 		{
-			PXBOX_FIND_DATA data;
+			XBOX_FIND_DATA data;
 			path = Path::GetFullPath(path);
-			FileAttributeInfo(path, data, false, false);
-			return DateTime::FromFileTimeUtc(data->ftLastWriteTime);
+			FileAttributeInfo(path, &data, false, false);
+			return DateTime::FromFileTimeUtc(data.ftLastWriteTime);
 		}
 
 		void File::Move(char* sourceFileName, char* destFileName)
 		{
-			if(sourceFileName == null)
-				throw ArgumentNullException("sourceFileName");
-
-			if(destFileName == null)
-				throw ArgumentNullException("destFileName");
-
 			char* fullPath = Path::GetFullPath(sourceFileName);
 			char* dst = Path::GetFullPath(destFileName);
 
-			//! TODO: Move the file
+			// TODO: Actually MOVE the file
 			// I suspect MoveFile is simply copying the file, and then removing the source file.
 		}
 
@@ -199,9 +173,6 @@ namespace System
 
 		StreamReader File::OpenText(char* path)
 		{
-			if(path == null)
-				throw ArgumentNullException("path");
-
 			return StreamReader(path);
 		}
 		

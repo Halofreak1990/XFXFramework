@@ -14,13 +14,14 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Exposes instance methods for creating, moving, and enumerating through directories and subdirectories. This
-		/// class cannot be inherited.
-		/// </summary>
-		class DirectoryInfo : public FileSystemInfo
+		class Directory;
+
+		// Exposes instance methods for creating, moving, and enumerating through directories and subdirectories. This class cannot be inherited.
+		class DirectoryInfo : public FileSystemInfo, virtual Object
 		{
 		private:
+			friend class Directory;
+
 			char* current;
 			char* parent;
 
@@ -32,7 +33,7 @@ namespace System
 			DirectoryInfo Parent();
 			DirectoryInfo Root();
 
-			DirectoryInfo(const char* path); // Initializes a new instance of the System::IO::DirectoryInfo class on the specified path.
+			DirectoryInfo(char* path); // Initializes a new instance of the System::IO::DirectoryInfo class on the specified path.
 
 			void Create(); // Creates a directory.
 			DirectoryInfo CreateSubDirectory(const char* path); // Creates a subdirectory or subdirectories on the specified path. The specified path can be relative to this instance of the System::IO::DirectoryInfo class.

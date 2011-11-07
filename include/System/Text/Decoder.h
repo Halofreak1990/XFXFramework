@@ -13,9 +13,7 @@ namespace System
 {
 	namespace Text
 	{
-		/// <summary>
-		/// Converts a sequence of encoded bytes into a set of characters.
-		/// </summary>
+		// Converts a sequence of encoded bytes into a set of characters.
 		class Decoder
 		{
 		private:

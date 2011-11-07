@@ -333,7 +333,7 @@ namespace XFX
 			{
 				Default = 0,
 				Four = 8,
-				Immediate = -2147483648,
+				Immediate = 0x80000000,
 				One = 1,
 				Three = 4,
 				Two = 2

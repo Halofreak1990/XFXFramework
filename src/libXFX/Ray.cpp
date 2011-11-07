@@ -30,6 +30,7 @@
 #include <Plane.h>
 #include <Ray.h>
 #include <System/Math.h>
+#include <System/Single.h>
 #include <Vector3.h>
 
 using namespace System;
@@ -54,9 +55,9 @@ namespace XFX
 		Position = Vector3::Zero;
 	}
 
-	bool Ray::Equals(Ray obj)
+	bool Ray::Equals(Ray other)
 	{
-		return ((Direction == obj.Direction) && (Position == obj.Position));
+		return ((Direction == other.Direction) && (Position == other.Position));
 	}
 	
 	int Ray::GetHashCode()
@@ -68,7 +69,7 @@ namespace XFX
 	{
 		float distance;
 		float d = 0.0f; 
-        float MAXValue = MAXFLOAT; 
+		float MAXValue = Single::MaxValue; 
   
 		if (Math::Abs( Direction.X ) < 0.0000001) 
         { 
@@ -243,20 +244,20 @@ namespace XFX
 		distance = Intersects(plane);
 	}
 
-	bool Ray::operator==(const Ray other)
+	bool Ray::operator==(const Ray right)
 	{
-		return Equals(other);
+		return Equals(right);
 	}
 
-	bool Ray::operator!=(const Ray other)
+	bool Ray::operator!=(const Ray right)
 	{
-		return !Equals(other);
+		return !Equals(right);
 	}
 	
-	Ray Ray::operator=(const Ray other)
+	Ray Ray::operator=(const Ray right)
 	{
-		Direction = other.Direction;
-		Position = other.Position;
+		Direction = right.Direction;
+		Position = right.Position;
 		return *this;
 	}
 }

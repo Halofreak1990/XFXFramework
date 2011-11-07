@@ -107,10 +107,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Array.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\BitConverter.cpp"
 				>
 			</File>
@@ -119,11 +115,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Buffer.cpp"
+				RelativePath=".\Byte.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Byte.cpp"
+				RelativePath=".\Console.cpp"
 				>
 			</File>
 			<File
@@ -131,7 +127,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\libSystem\Environment.cpp"
+				RelativePath=".\Double.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Environment.cpp"
 				>
 			</File>
 			<File
@@ -148,6 +148,14 @@
 			</File>
 			<File
 				RelativePath=".\Object.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OperatingSystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Single.cpp"
 				>
 			</File>
 			<File
@@ -248,7 +256,7 @@
 				Name="Threading"
 				>
 				<File
-					RelativePath="..\..\libSystem\Thread.cpp"
+					RelativePath=".\Thread.cpp"
 					>
 				</File>
 			</Filter>
@@ -335,11 +343,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\System\Console.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\System\DateTime.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\include\System\Delegates.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Double.h"
 				>
 			</File>
 			<File
@@ -375,11 +391,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\System\Single.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\System\String.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\include\System.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Threading.h"
 				>
 			</File>
 			<File
@@ -543,10 +567,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\System\Threading\Thread.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Threading\ThreadState.h"
 					>
 				</File>
 				<File

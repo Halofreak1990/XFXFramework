@@ -103,7 +103,11 @@ namespace System
 			if(millisecondsTimeout <= 0)
 				return; //no reason to sleep. We could also throw an ArgumentOutOfRangeException, but what's the point in that?
 
-			
+			LARGE_INTEGER pli;
+
+			pli.QuadPart = -(millisecondsTimeout * 10000);
+
+			KeDelayExecutionThread((KPROCESSOR_MODE)0, FALSE, &pli);
 		}
 		
 		void Thread::Sleep(TimeSpan timeout)
@@ -111,7 +115,10 @@ namespace System
 			if(timeout == TimeSpan::Zero)
 				return; //! no reason to sleep
 
+			LARGE_INTEGER pli;
 
+			pli.QuadPart = -timeout.Ticks();
+			KeDelayExecutionThread((KPROCESSOR_MODE)0, FALSE, &pli);
 		}
 		
 		void Thread::Start()

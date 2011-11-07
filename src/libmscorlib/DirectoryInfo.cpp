@@ -25,21 +25,30 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/Array.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
-#include <System/IO/IOException.h>
 #include <System/String.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
 	namespace IO
 	{
-		DirectoryInfo::DirectoryInfo(const char* path)
+		DirectoryInfo::DirectoryInfo(char* path)
 		{
 			if (path == null)
-				throw ArgumentNullException("path");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
+#endif
+				return;
+			}
 
-			if ((String::Length() == 2) && (path[1] == ':'))
+			if ((Array::Length(path) == 2) && (path[1] == ':'))
 			{
 				OriginalPath = ".";
 			}
@@ -75,10 +84,15 @@ namespace System
 
 		DirectoryInfo* DirectoryInfo::GetDirectories(const char* searchPattern)
 		{
-			if (searchPattern = null)
-				throw ArgumentNullException("searchPattern");
+			if (!searchPattern)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "searchPattern");
+#endif
+				return null;
+			}
 
-
+			return null;
 		}
 	}
 }

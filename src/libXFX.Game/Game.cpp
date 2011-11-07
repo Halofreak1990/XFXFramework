@@ -71,12 +71,12 @@ namespace XFX
 		return components;
 	}
 
-	GraphicsDevice Game::GraphicsDevice_()
+	GraphicsDevice Game::getGraphicsDevice()
 	{
-		return graphicsService->GraphicsDevice_();
+		return graphicsService->getGraphicsDevice();
 	}
 
-	GameServiceContainer Game::Services()
+	GameServiceContainer Game::getServices()
 	{
 		return services;
 	}
@@ -119,7 +119,7 @@ namespace XFX
 
 	void Game::Draw(GameTime gameTime)
 	{
-		for (int i = 0; i < drawableComponents.Count(); i++)
+		/*for (int i = 0; i < drawableComponents.Count(); i++)
 		{
 			currentlyDrawingComponents.Add(drawableComponents[i]);
 		}
@@ -131,12 +131,12 @@ namespace XFX
 				drawable->Draw(gameTime);
 			}
 		}
-		currentlyDrawingComponents.Clear();
+		currentlyDrawingComponents.Clear();*/
 	}
 
 	void Game::EndDraw()
 	{
-		if(graphicsManager != null)
+		if(graphicsManager)
 			graphicsManager->EndDraw();
 	}
 
@@ -171,26 +171,27 @@ namespace XFX
 
 	void Game::OnActivated(Object* sender, EventArgs args)
 	{
-		if (Activated != null)
+		if (Activated)
 			Activated(sender, args);
 	}
 
 	void Game::OnDeactivated(Object* sender, EventArgs args)
 	{
-		if (Deactivated != null)
+		if (Deactivated)
 			Deactivated(sender, args);
 	}
 	
 	void Game::OnExiting(Object* sender, EventArgs args)
 	{
-		if (Exiting != null)
+		if (Exiting)
 			Exiting(sender, args);
 	}
 
 	void Game::Run()
 	{
 		if(inRun)
-			throw InvalidOperationException("Run Method called more than once"); 
+			//throw InvalidOperationException("Run Method called more than once");
+			return;
 
 		inRun = true;
 		BeginRun();
@@ -206,8 +207,6 @@ namespace XFX
 	
 	void Game::Tick()
 	{
-		XInput_GetEvents();
-
 		Update(gameTime);
 		
 		if(BeginDraw())
@@ -230,7 +229,7 @@ namespace XFX
 		/*for (int i = 0; i < this.updateableComponents.Count; i++)
 		{
 			currentlyUpdatingComponents.Add(updateableComponents[i]);
-		}*/
+		}
 		for (int j = 0; j < currentlyUpdatingComponents.Count(); j++)
 		{
 			IUpdateable* updateable = currentlyUpdatingComponents[j];
@@ -239,6 +238,6 @@ namespace XFX
 				updateable->Update(gameTime);
 			}
 		}
-		currentlyUpdatingComponents.Clear();
+		currentlyUpdatingComponents.Clear();*/
 	}
 }

@@ -20,6 +20,9 @@ namespace XFX
 	
 	namespace Graphics
 	{
+		class GraphicsDevice;
+
+		//
 		class Texture2D : public Texture, virtual Object
 		{
 		private:
@@ -41,22 +44,22 @@ namespace XFX
  			
  		public:
  			SurfaceFormat_t Format();
- 			int Height();
- 			TextureUsage_t TextureUsage_();
- 			int Width();
+ 			int getHeight();
+ 			TextureUsage_t TextureUsage();
+ 			int getWidth();
  			
 			Texture2D();
  			Texture2D(GraphicsDevice* graphicsDevice, int width, int height);
  			Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
 			Texture2D(const Texture2D &obj); // Copy constructor
  				
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename, TextureCreationParameters creationParameters);
- 			static Texture2D* FromFile(GraphicsDevice* graphicsDevice, char* filename, int width, int height);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename, TextureCreationParameters creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename, int width, int height);
 
  			template <class T>
  			void GetData(T data[]);

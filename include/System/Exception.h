@@ -11,9 +11,7 @@
 
 namespace System
 {
-	/// <summary>
-	/// Represents errors that occur during application execution.
-	/// </summary>
+	// Represents errors that occur during application execution.
 	class Exception
 	{
 	private:
@@ -34,9 +32,7 @@ namespace System
 		virtual Exception* GetBaseException();
 	};
 
-	/// <summary>
-	/// The exception that is thrown when a non-fatal application error occurs.
-	/// </summary>
+	// The exception that is thrown when a non-fatal application error occurs.
 	class ApplicationException : public Exception
 	{
 	public:
@@ -45,9 +41,7 @@ namespace System
 		ApplicationException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown for errors in an arithmetic, casting, or conversion operation.
-	/// </summary>
+	// The exception that is thrown for errors in an arithmetic, casting, or conversion operation.
 	class ArithmeticException : public Exception
 	{
 	public:
@@ -56,9 +50,7 @@ namespace System
 		ArithmeticException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when there is an attempt to divide an integral or decimal value by zero.
-	/// </summary>
+	// The exception that is thrown when there is an attempt to divide an integral or decimal value by zero.
 	class DivideByZeroException : public ArithmeticException
 	{
 	public:
@@ -67,9 +59,7 @@ namespace System
 		DivideByZeroException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// Defines the base class for predefined exceptions in the System namespace.
-	/// </summary>
+	// Defines the base class for predefined exceptions in the System namespace.
 	class SystemException : public Exception
 	{
 	public:
@@ -78,9 +68,7 @@ namespace System
 		SystemException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when there is an attempt to read or write protected memory.
-	/// </summary>
+	// The exception that is thrown when there is an attempt to read or write protected memory.
 	class AccessViolationException : public SystemException
 	{
 	public:
@@ -89,9 +77,7 @@ namespace System
 		AccessViolationException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when an attempt is made to access an unloaded application domain.
-	/// </summary>
+	// The exception that is thrown when an attempt is made to access an unloaded application domain.
 	class AppDomainUnloadedException : public SystemException
 	{
 	public:
@@ -100,17 +86,15 @@ namespace System
 		AppDomainUnloadedException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when one of the arguments provided to a method is not valid.
-	/// </summary>
+	// The exception that is thrown when one of the arguments provided to a method is not valid.
 	class ArgumentException : public SystemException
 	{
 	protected:
 		char* _paramName;
 
 	public:
-		char* Message();
-		virtual char* ParamName();
+		char* getMessage();
+		virtual char* getParamName();
 
 		ArgumentException();
 		ArgumentException(char* message);
@@ -119,10 +103,7 @@ namespace System
 		ArgumentException(char* message, char* paramName, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when a null reference is passed to a method that does not accept it as a
-	/// valid argument.
-	/// </summary>
+	// The exception that is thrown when a null reference is passed to a method that does not accept it as a valid argument.
 	class ArgumentNullException : public ArgumentException
 	{
 	public:
@@ -132,16 +113,13 @@ namespace System
 		ArgumentNullException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when the value of an argument is outside the allowable range of values as
-	/// defined by the invoked method.
-	/// </summary>
+	// The exception that is thrown when the value of an argument is outside the allowable range of values as defined by the invoked method.
 	class ArgumentOutOfRangeException : public ArgumentException
 	{
 	private:
-		static char* _rangeMessage;
+		char* _rangeMessage;
 		Object* _actualValue;
-		static char* RangeMessage();
+		char* getRangeMessage();
 
 	public:
 		ArgumentOutOfRangeException();
@@ -150,23 +128,19 @@ namespace System
 		ArgumentOutOfRangeException(char* paramName, char* message);
 		ArgumentOutOfRangeException(char* paramName, Object* actualValue, char* message);
 
-		virtual Object* ActualValue();
+		virtual Object* getActualValue();
 	};
 
-	/// <summary>
-	/// The exception that is thrown when an attempt is made to access an element of an array with an index that is
-	/// outside the bounds of the array. This class cannot be inherited.
-	/// </summary>
+	// The exception that is thrown when an attempt is made to access an element of an array with an index that is outside the bounds of the array. This class cannot be inherited.
 	class IndexOutOfRangeException : public SystemException
 	{
 	public:
 		IndexOutOfRangeException();
 		IndexOutOfRangeException(char* message);
+		IndexOutOfRangeException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when a method call is invalid for the object's current state.
-	/// </summary>
+	// The exception that is thrown when a method call is invalid for the object's current state.
 	class InvalidOperationException : public SystemException
 	{
 	public:
@@ -175,9 +149,7 @@ namespace System
 		InvalidOperationException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when a requested method or operation is not implemented.
-	/// </summary>
+	// The exception that is thrown when a requested method or operation is not implemented.
 	class NotImplementedException : public SystemException
 	{
 	public:
@@ -186,67 +158,54 @@ namespace System
 		NotImplementedException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when an invoked method is not supported, or when there is an attempt to read,
-	/// seek, or write to a stream that does not support the invoked functionality.
-	/// </summary>
+	// The exception that is thrown when an invoked method is not supported, or when there is an attempt to read, seek, or write to a stream that does not support the invoked functionality.
 	class NotSupportedException : public SystemException
 	{
 	public:
 		NotSupportedException();
 		NotSupportedException(char* message);
-		NotSupportedException(char* message, Exception innerException);
+		NotSupportedException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The Exception that is thrown when there is not enough memory to continue the execution of a program.
-	/// </summary>
+	// The Exception that is thrown when there is not enough memory to continue the execution of a program.
 	class OutOfMemoryException : public SystemException
 	{
 	public:
 		OutOfMemoryException();
 		OutOfMemoryException(char* message);
-		OutOfMemoryException(char* message, Exception innerException);
+		OutOfMemoryException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when the operating system denies access because of an I/O error or a specific
-	/// type of security error.
-	/// </summary>
+	// The exception that is thrown when the operating system denies access because of an I/O error or a specific type of security error.
 	class UnauthorizedAccessException : public SystemException
 	{
 	public:
 		UnauthorizedAccessException();
 		UnauthorizedAccessException(char* message);
-		UnauthorizedAccessException(char* message, Exception inner);
+		UnauthorizedAccessException(char* message, Exception* innerException);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when an operation is performed on a disposed object.
-	/// </summary>
+	// The exception that is thrown when an operation is performed on a disposed object.
 	class ObjectDisposedException : public InvalidOperationException
 	{
 	private:
 		char* _objectName;
-		ObjectDisposedException();
 
 	public:
-		char* ObjectName();
+		char* getObjectName();
 
 		ObjectDisposedException(char* objectName);
 		ObjectDisposedException(char* message, Exception* innerException);
 		ObjectDisposedException(char* objectName, char* message);
 	};
 
-	/// <summary>
-	/// The exception that is thrown when an arithmetic, casting, or conversion operation in a checked context results in an overflow.
-	/// </summary>
+	// The exception that is thrown when an arithmetic, casting, or conversion operation in a checked context results in an overflow.
 	class OverflowException : public ArithmeticException
 	{
 	public:
 		OverflowException();
 		OverflowException(char* message);
-		OverflowException(char* message, Exception innerException);
+		OverflowException(char* message, Exception* innerException);
 	};
 }
 

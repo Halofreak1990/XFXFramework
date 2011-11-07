@@ -37,7 +37,7 @@ namespace System
 			_state = state;
 		}
 
-		StreamAsyncResult::StreamAsyncResult(const IAsyncResult* &obj)
+		StreamAsyncResult::StreamAsyncResult(const IAsyncResult &obj)
 		{
 			_nbytes = -1;
 		}
@@ -46,9 +46,12 @@ namespace System
 		{
 			_nbytes = -1;
 			_state = obj._state;
+			completed = obj.completed;
+			done = obj.done;
+			//exc = obj.exc;
 		}
 
-		Object* StreamAsyncResult::ASyncState()
+		Object* StreamAsyncResult::AsyncState()
 		{
 			return _state;
 		}
@@ -58,10 +61,10 @@ namespace System
 			return true;
 		}
 
-		Exception* StreamAsyncResult::Exception_()
+		/*Exception* StreamAsyncResult::getException()
 		{
 			return exc;
-		}
+		}*/
 
 		bool StreamAsyncResult::IsCompleted()
 		{
@@ -75,26 +78,26 @@ namespace System
 
 		Threading::WaitHandle* StreamAsyncResult::AsyncWaitHandle()
 		{
-
+			return null;
 		}
 
-		void StreamAsyncResult::SetComplete(Exception* e)
+		/*void StreamAsyncResult::SetComplete(Exception* e)
 		{
 			exc = e;
 			completed = true;
-			/*
+			
 			lock(this)
 			{
-				if(wh != null)
-				wh.Set();
+				if(wh)
+					wh.Set();
 			}
-			*/
+			
 		}
 
 		void StreamAsyncResult::SetComplete(Exception* e, int nbytes)
 		{
 			_nbytes = nbytes;
 			SetComplete(e);
-		}
+		}*/
 	}
 }

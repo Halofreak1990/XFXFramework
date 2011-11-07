@@ -49,25 +49,25 @@ namespace XFX
 		Y = 0;
 	}
 
-	int Point::Equals(const Point &obj)
-	{
-		return ((X == obj.X) && (Y == obj.Y));
-	}
-
-	int Point::operator==(const Point &other)
+	bool Point::Equals(Point other)
 	{
 		return ((X == other.X) && (Y == other.Y));
 	}
 
-	int Point::operator!=(const Point &other)
+	bool Point::operator==(const Point right)
 	{
-		return !((X == other.X) && (Y == other.Y));
+		return ((X == right.X) && (Y == right.Y));
+	}
+
+	bool Point::operator!=(const Point right)
+	{
+		return !((X == right.X) && (Y == right.Y));
 	}
 	
-	Point &Point::operator=(const Point &other)
+	Point Point::operator=(const Point right)
 	{
-		X = other.X;
-		Y = other.Y;
+		X = right.X;
+		Y = right.Y;
 		return *this;
 	}
 }

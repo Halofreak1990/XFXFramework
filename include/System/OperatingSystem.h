@@ -4,33 +4,30 @@
  *	XFX OperatingSystem definition file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _OPERATINGSYSTEM_
-#define _OPERATINGSYSTEM_
+#ifndef _SYSTEM_OPERATINGSYSTEM_
+#define _SYSTEM_OPERATINGSYSTEM_
 
 #include "Enums.h"
+#include <System/Object.h>
+#include <System/Version.h>
 
 namespace System
 {
-	class Version;
-
-	/// <summary>
-	/// Represents information about an operating system, such as the version and platform identifier. This class
-	/// cannot be inherited.
-	/// </summary>
-	class OperatingSystem
+	// Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.
+	class OperatingSystem : virtual Object
 	{
 	private:
 		OperatingSystem();
 
 	public:
-		PlatformID Platform();
-		Version Version_();
+		const PlatformID_t Platform;
+		const System::Version Version;
 
-		OperatingSystem(PlatformID platform, Version version);
+		OperatingSystem(PlatformID_t platform, System::Version version);
 
 		OperatingSystem Clone();
-		String ToString();
+		char* ToString();
 	};
 }
 
-#endif //_OPERATINGSYSTEM_
+#endif //_SYSTEM_OPERATINGSYSTEM_

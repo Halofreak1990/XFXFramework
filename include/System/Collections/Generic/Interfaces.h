@@ -15,26 +15,22 @@ namespace System
 	{
 		namespace Generic
 		{
-			/// <summary>
-			/// Defines methods to manipulate generic collections.
-			/// </summary>
+			// Defines methods to manipulate generic collections.
 			template <class T>
 			interface ICollection
 			{
 			public:
-				virtual void Add(T &item)=0;
+				virtual void Add(T item)=0;
 				virtual void Clear()=0;
-				virtual bool Contains(T &item)=0;
+				virtual bool Contains(T item)=0;
 				virtual void CopyTo(T array[], int arrayIndex)=0;
-				virtual bool Remove(T &item)=0;
+				virtual bool Remove(T item)=0;
 
 				virtual int Count()=0;
-				virtual bool IsReadOnly() { return true; }
+				virtual bool IsReadOnly()=0;
 			};
 
-			/// <summary>
-			/// Defines a method that a type implements to compare two objects.
-			/// </summary>
+			// Defines a method that a type implements to compare two objects.
 			template <class T>
 			interface IComparer
 			{
@@ -42,9 +38,7 @@ namespace System
 				virtual int Compare(T x, T y)=0;
 			};
 
-			/// <summary>
-			/// Represents a generic collection of key/value pairs.
-			/// </summary>
+			// Represents a generic collection of key/value pairs.
 			template <class TKey, class TValue>
 			interface IDictionary
 			{
@@ -58,9 +52,7 @@ namespace System
 				virtual ICollection<TValue>& Values()=0;
 			};
 
-			/// <summary>
-			/// Supports a simple iteration over a generic collection.
-			/// </summary>
+			// Supports a simple iteration over a generic collection.
 			template <class T>
 			interface IEnumerator
 			{
@@ -68,9 +60,7 @@ namespace System
 				virtual T Current()=0;
 			};
 
-			/// <summary>
-			/// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
-			/// </summary>
+			// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
 			template <class T>
 			interface IEnumerable
 			{
@@ -78,9 +68,7 @@ namespace System
 				virtual IEnumerator<T>& GetEnumerator()=0;
 			};
 
-			/// <summary>
-			/// Defines methods to support the comparison of objects for equality.
-			/// </summary>
+			// Defines methods to support the comparison of objects for equality.
 			template <class T>
 			interface IEqualityComparer
 			{
@@ -89,18 +77,16 @@ namespace System
 				virtual int GetHashCode(T obj)=0;
 			};
 
-			/// <summary>
-			/// Represents a collection of objects that can be individually accessed by index.
-			/// </summary>
+			// Represents a collection of objects that can be individually accessed by index.
 			template <class T>
 			interface IList : public ICollection<T>
 			{
 			public:
-				virtual int IndexOf(T &item)=0;
-				virtual void Insert(int index, T &item)=0;
+				virtual int IndexOf(T item)=0;
+				virtual void Insert(int index, T item)=0;
 				virtual void RemoveAt(int index)=0;
 
-				virtual T& operator[](int index)=0;
+				virtual T operator[](int index)=0;
 
 				virtual ~IList() {}
 			};

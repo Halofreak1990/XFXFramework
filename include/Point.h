@@ -4,29 +4,32 @@
  *	XFX Point definition file							*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _POINT_
-#define _POINT_
+#ifndef _XFX_POINT_
+#define _XFX_POINT_
 
-#include <System.h>
+#include <System/Interfaces.h>
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
-	class Point
+	struct Point : public IEquatable<Point>, virtual Object
 	{
-		public:
-			int X;
-			int Y;
-			static const Point Zero;
+	public:
+		int X;
+		int Y;
+		static const Point Zero;
 
-			Point(int x, int y);
-			Point(const Point &obj);
-			Point();
-			
-			int Equals(const Point &obj);
-			int operator==(const Point &other);
-			int operator!=(const Point &other);
-			Point &operator=(const Point &other);
+		Point(int x, int y);
+		Point(const Point &obj);
+		Point();
+		
+		bool Equals(Point other);
+		bool operator==(const Point right);
+		bool operator!=(const Point right);
+		Point operator=(const Point right);
 	};
 }
 
-#endif //_POINT_
+#endif //_XFX_POINT_

@@ -31,8 +31,11 @@
 #include <Vector2.h>
 #include <Vector4.h>
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Math.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 using namespace System;
 
@@ -115,28 +118,28 @@ namespace XFX
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
-        return Math::Sqrt((x*x) + (y*y));
+        return Math::Sqrt((x * x) + (y * y));
 	}
 	
 	void Vector2::Distance(Vector2 value1, Vector2 value2, out float result)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
-        result = Math::Sqrt((x*x) + (y*y));
+        result = Math::Sqrt((x * x) + (y * y));
 	}
 	
 	float Vector2::DistanceSquared(Vector2 value1, Vector2 value2)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
-        return (x*x) + (y*y);
+        return (x * x) + (y * y);
 	}
 	
 	void Vector2::DistanceSquared(Vector2 value1, Vector2 value2, out float result)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
-        result = (x*x) + (y*y);
+        result = (x * x) + (y * y);
 	}
 	
 	float Vector2::Dot(Vector2 value1, Vector2 value2)
@@ -177,7 +180,7 @@ namespace XFX
 	
 	float Vector2::LengthSquared()
 	{
-		return (X*X) + (Y*Y);
+		return (X * X) + (Y * Y);
 	}
 	
 	Vector2 Vector2::Lerp(Vector2 value1, Vector2 value2, float amount)
@@ -259,8 +262,8 @@ namespace XFX
 	Vector2 Vector2::Normalize(Vector2 value)
 	{
 		float length = value.Length(); 
-        	if( length == 0 ) 
-            	return Vector2::Zero; 
+    	if(length == 0) 
+        	return Vector2::Zero; 
         float num = 1 / length;
         return Vector2((value.X *= num), (value.Y *= num));
 	}
@@ -268,8 +271,8 @@ namespace XFX
 	void Vector2::Normalize(Vector2 value, out Vector2 result)
 	{
 		float length = value.Length(); 
-        	if( length == 0 ) 
-            	return; 
+    	if(length == 0) 
+        	return; 
         float num = 1 / length;
         result.X *= num;
         result.Y *= num;
@@ -352,11 +355,21 @@ namespace XFX
 	
 	void Vector2::Transform(Vector2 sourceArray[], int sourceIndex, Matrix matrix, Vector2 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 		
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
@@ -366,11 +379,21 @@ namespace XFX
 	
 	void Vector2::Transform(Vector2 sourceArray[], int sourceIndex, Quaternion rotation, Vector2 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 		
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
@@ -380,14 +403,29 @@ namespace XFX
 	
 	void Vector2::Transform(Vector2 sourceArray[], Matrix matrix, Vector2 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 			
 		if(Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small.");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small.");
+#endif
+			return;
+		}
 			
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{
@@ -397,14 +435,29 @@ namespace XFX
 	
 	void Vector2::Transform(Vector2 sourceArray[], Quaternion rotation, Vector2 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
-		
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
+			
 		if(Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small.");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small.");
+#endif
+			return;
+		}
 			
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{
@@ -429,11 +482,21 @@ namespace XFX
 	
 	void Vector2::TransformNormal(Vector2 sourceArray[], int sourceIndex, Matrix matrix, Vector2 destinationArray[], int destinationIndex, int length)
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 		
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
@@ -443,14 +506,29 @@ namespace XFX
 	
 	void Vector2::TransformNormal(Vector2 sourceArray[], Matrix matrix, Vector2 destinationArray[])
 	{
-		if (sourceArray == null)
-			throw ArgumentNullException("sourceArray");
+		if (!sourceArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
+#endif
+			return;
+		}
 
-		if (destinationArray == null)
-			throw ArgumentNullException("destinationArray");
+		if (!destinationArray)
+		{
+#if DEBUG
+			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
+#endif
+			return;
+		}
 			
 		if(Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small.");
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small.");
+#endif
+			return;
+		}
 			
 		for(int i = 0; i < Array::Length(sourceArray); i++)
 		{

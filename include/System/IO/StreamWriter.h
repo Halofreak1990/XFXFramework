@@ -22,7 +22,7 @@ namespace System
 		/// <summary>
 		/// Implements a TextWriter for writing characters to a stream in a particular encoding.
 		/// </summary>
-		class StreamWriter : public TextWriter
+		class StreamWriter : public TextWriter, virtual Object
 		{
 		private:
 			static Encoding _UTF8NoBOM;
@@ -48,16 +48,16 @@ namespace System
 		public:
 			bool AutoFlush;
 			virtual Stream BaseStream();
-			Encoding Encoding_();
+			Encoding getEncoding();
 			static const StreamWriter Null;
 
-			StreamWriter(Stream* stream);
 			StreamWriter(char* path);
-			StreamWriter(Stream* stream, Encoding encoding);
 			StreamWriter(char* path, bool append);
-			StreamWriter(Stream* stream, Encoding encoding, int bufferSize);
 			StreamWriter(char* path, bool append, Encoding encoding);
 			StreamWriter(char* path, bool append, Encoding encoding, int bufferSize);
+			StreamWriter(Stream* stream);
+			StreamWriter(Stream* stream, Encoding encoding);
+			StreamWriter(Stream* stream, Encoding encoding, int bufferSize);
 			virtual ~StreamWriter();
 
 			void Close();

@@ -8,14 +8,13 @@
 #define _SYSTEM_STRING_
 
 #include "Enums.h"
-#include "Types.h"
+#include "Interfaces.h"
+#include "Object.h"
 
 namespace System
 {
-	/// <summary>
-	/// Represents text as a series of Unicode characters.
-	/// </summary>
-	class String
+	// Represents text as a series of Unicode characters.
+	class String : public IComparable<String>, public IEquatable<String>, virtual Object
 	{
 	private:
 		int m_arrayLength;
@@ -27,7 +26,7 @@ namespace System
 		char* internalString;
 
 	public:
-		int Length();
+		const int Length;
 		static const String Empty;
 
 		String();
@@ -35,11 +34,15 @@ namespace System
 		String(char value[], int startIndex, int length); //Note: can also be used as String(char *value, int startIndex, int length);
 		String(char* value);
 		String(const String &obj); // Copy constructor
-		~String();
+		String(const char* obj);
+		virtual ~String();
 
 		String Clone();
+		int CompareTo(String other);
 		int Compare(String strA, String strB);
 		static String Concat(String values[]);
+		static char* Concat(char* values[]);
+		static char* Concat(char* str1, char* str2, char* str3, char* str4);
 		static String Concat(String str1, String str2, String str3, String str4);
 		bool Contains(char* value);
 		bool EndsWith(char* value);
@@ -51,35 +54,41 @@ namespace System
 		int IndexOf(char value, int startIndex, int count);
 		static bool IsNullOrEmpty(String value);
 		static bool IsNullOrEmpty(char* value);
-		static String Join(String &separator, String value[]);
-		static String Join(String &separator, String value[], int startIndex, int count);
+		static String Join(String separator, String value[]);
+		static String Join(String separator, String value[], int startIndex, int count);
 		String PadLeft(int totalWidth);
 		String PadLeft(int totalWidth, char paddingChar);
 		String PadRight(int totalWidth);
 		String PadRight(int totalWidth, char paddingChar);
 		String Replace(char oldChar, char newChar);
 		String Replace(char* oldValue, char* newValue);
-		char** Split(String *separator, int count, StringSplitOptions_t options);
-		char** Split(String *separator, StringSplitOptions_t options);
+		char** Split(String separator, int count, StringSplitOptions_t options);
+		char** Split(String separator, StringSplitOptions_t options);
 		char** Split(char separator[], int count, StringSplitOptions_t options);
 		char** Split(char separator[], StringSplitOptions_t options);
 		char** Split(char separator[], int count);
 		char** Split(char separator[]);
 		bool StartsWith(char* value);
-		static char* SubString(int startIndex);
+		char* SubString(int startIndex);
 		String SubString(int startIndex, int length);
-		char *ToCharArray(int startIndex, int length);
-		char *ToCharArray();
+		char* ToCharArray(int startIndex, int length);
+		char* ToCharArray();
 		String ToLower();
+		static char* ToLower(char* str);
 		char* ToString();
 		String ToUpper();
+		static char* ToUpper(char* str);
 
 		bool operator!=(const String right);
-		bool operator!=(const char* right);
+		bool operator!=(char* right);
 		bool operator==(const String right);
-		bool operator==(const char* right);
-		String operator=(const char* right);
+		bool operator==(char* right);
+		String operator=(char* right);
 		String operator=(const String right);
+		String operator+(char* right);
+		String operator+=(String right);
+		String operator+=(char* right);
+		String operator+(const String right);
 		char operator [](int index);
 	};
 

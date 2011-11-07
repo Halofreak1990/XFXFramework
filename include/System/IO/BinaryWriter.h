@@ -12,9 +12,7 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Writes primitive types in binary to a stream and supports writing strings in a specific encoding.
-		/// </summary>
+		// Writes primitive types in binary to a stream and supports writing strings in a specific encoding.
 		class BinaryWriter : public IDisposable, virtual Object
 		{
 		private:

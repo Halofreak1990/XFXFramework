@@ -13,17 +13,17 @@
 #include <Rectangle.h>
 #include <Vector2.h>
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		class Sprite
+		// 
+		class Sprite : virtual Object
 		{
 		private:
-			Texture2D* texture;
+			Texture2D texture;
 			Rectangle destinationRectangle;
 			Rectangle sourceRectangle;
 			Color color;
@@ -33,17 +33,17 @@ namespace XFX
 			float layerDepth;
 
 		public:
-			Texture2D* Texture();
+			Texture2D getTexture();
 			Rectangle DestinationRectangle();
 			Rectangle SourceRectangle();
-			Color Color_();
+			Color getColor();
 			float Rotation();
 			Vector2 Origin();
 			SpriteEffects_t Effects();
 			float LayerDepth();
 
 			Sprite();
-			Sprite(Texture2D* texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
+			Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
 
 			bool operator !=(Sprite right);
 			bool operator ==(Sprite right);

@@ -21,9 +21,7 @@ namespace XFX
 	{
 		class StorageDevice;
 	
-		/// <summary>
-		/// Represents a logical collection of storage files.
-		/// </summary>
+		// Represents a logical collection of storage files.
 		class StorageContainer : public IDisposable, virtual Object
 		{
 			friend class StorageDevice;
@@ -36,14 +34,14 @@ namespace XFX
 			char* titleName;
 
 			void Dispose(bool disposing);
-			~StorageContainer();
+			virtual ~StorageContainer();
 
 		public:
 			EventHandler Disposing;
 
 			bool IsDisposed();
 			char* Path();
-			StorageDevice* StorageDevice_();
+			StorageDevice* getStorageDevice();
 			static char* TitleLocation();
 			char* TitleName();
 				

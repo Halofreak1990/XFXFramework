@@ -14,11 +14,8 @@ using namespace System::Collections::Generic;
 
 namespace XFX
 {
-
-	/// <summary>
-	/// A collection of game components.
-	/// </summary>
-	class GameComponentCollection
+	// A collection of game components.
+	class GameComponentCollection : virtual Object
 	{
 	private:
 		List<IGameComponent*> _components;

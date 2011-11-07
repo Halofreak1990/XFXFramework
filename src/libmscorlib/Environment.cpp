@@ -63,7 +63,17 @@ namespace System
 #endif
 	}
 
-	int GetProcessorCount()
+	char* Environment::NewLine()
+	{
+		return "\n";
+	}
+
+	OperatingSystem Environment::OSVersion()
+	{
+		return OperatingSystem(PlatformID::Xbox, Version(1,6));
+	}
+
+	int Environment::ProcessorCount()
 	{
 #if ENABLE_XBOX
 		return 1;

@@ -4,8 +4,8 @@
  *	XFX BoundingBox definition file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _BOUNDINGBOX_
-#define _BOUNDINGBOX_
+#ifndef _XFX_BOUNDINGBOX_
+#define _XFX_BOUNDINGBOX_
 
 #include <System/Types.h>
 #include "Enums.h"
@@ -16,10 +16,8 @@ namespace XFX
 	struct BoundingSphere;
 	struct Plane;
 	struct Ray;
-	
-	/// <summary>
-	/// Defines an axis-aligned box-shaped 3D volume.
-	/// </summary>
+
+	// Defines an axis-aligned box-shaped 3D volume.
 	struct BoundingBox
 	{
 	public:
@@ -58,4 +56,4 @@ namespace XFX
 	};
 }
 
-#endif //_BOUNDINGBOX_
+#endif //_XFX_BOUNDINGBOX_

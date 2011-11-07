@@ -88,6 +88,11 @@ namespace XFX
 		  *cDriveLetter = 0;
 		}
 
+		StorageDevice* StorageContainer::getStorageDevice()
+		{
+			return device;
+		}
+
 		bool StorageContainer::IsDisposed()
 		{
 			return isDisposed;
@@ -118,6 +123,10 @@ namespace XFX
 					Disposing(this, EventArgs::Empty);
 				}
 			}
+		}
+
+		char* StorageContainer::Path()
+		{
 		}
 
 		char* StorageContainer::TitleLocation()

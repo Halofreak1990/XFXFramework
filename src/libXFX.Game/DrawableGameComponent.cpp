@@ -29,9 +29,9 @@
 
 namespace XFX
 {
-	GraphicsDevice DrawableGameComponent::GraphicsDevice_()
+	GraphicsDevice DrawableGameComponent::getGraphicsDevice()
 	{
-		return _graphicsService->GraphicsDevice_();
+		return _graphicsService->getGraphicsDevice();
 	}
 	
 	DrawableGameComponent::DrawableGameComponent(Game game)

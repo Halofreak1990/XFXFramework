@@ -8,6 +8,7 @@
 #define _SYSTEM_IO_DIRECTORY_
 
 #include "../Types.h"
+#include "../Object.h"
 
 namespace System
 {
@@ -17,11 +18,8 @@ namespace System
 	{
 		class DirectoryInfo;
 
-		/// <summary>
-		/// Exposes static methods for creating, moving, and enumerating through directories and subdirectories. This
-		/// class cannot be inherited.
-		/// </summary>
-		class Directory
+		// Exposes static methods for creating, moving, and enumerating through directories and subdirectories. This class cannot be inherited.
+		class Directory : virtual Object
 		{
 		private:
 			Directory();

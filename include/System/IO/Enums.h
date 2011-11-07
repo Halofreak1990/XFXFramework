@@ -5,9 +5,7 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Defines constants for read, write, or read/write access to a file.
-		/// </summary>
+		// Defines constants for read, write, or read/write access to a file.
 		struct FileAccess
 		{
 			enum type
@@ -18,9 +16,7 @@ namespace System
 			};
 		};
 
-		/// <summary>
-		/// Provides attributes for files and directories.
-		/// </summary>
+		// Provides attributes for files and directories.
 		struct FileAttributes
 		{
 			enum type
@@ -42,9 +38,7 @@ namespace System
 			};
 		};
 
-		/// <summary>
-		/// Specifies how the operating system should open a file.
-		/// </summary>
+		// Specifies how the operating system should open a file.
 		struct FileMode
 		{
 			enum type
@@ -58,9 +52,7 @@ namespace System
 			};
 		};
 
-		/// <summary>
-		/// Represents additional options for creating a FileStream object.
-		/// </summary>
+		// Represents additional options for creating a FileStream object.
 		struct FileOptions
 		{
 			enum type
@@ -71,14 +63,11 @@ namespace System
 				None = 0,
 				RandomAccess = 0x10000000,
 				SequentialScan = 0x8000000,
-				WriteThrough = -2147483648
+				WriteThrough = 0x80000000
 			};
 		};
 
-		/// <summary>
-		/// Contains constants for controlling the kind of access other System.IO.FileStream objects can have to the same
-		/// file.
-		/// </summary>
+		// Contains constants for controlling the kind of access other System.IO.FileStream objects can have to the same file.
 		struct FileShare
 		{
 			enum type
@@ -90,9 +79,7 @@ namespace System
 			};
 		};
 
-		/// <summary>
-		/// Provides the fields that represent reference points in streams for seeking.
-		/// </summary>
+		// Provides the fields that represent reference points in streams for seeking.
 		struct SeekOrigin
 		{
 			enum type

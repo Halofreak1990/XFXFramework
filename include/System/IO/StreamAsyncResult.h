@@ -7,7 +7,6 @@
 #ifndef _SYSTEM_IO_STREAMASYNCRESULT_
 #define _SYSTEM_IO_STREAMASYNCRESULT_
 
-#include "../Exception.h"
 #include "../Interfaces.h"
 #include "../Object.h"
 #include "../Types.h"
@@ -17,32 +16,30 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// 
-		/// </summary>
+		// 
 		class StreamAsyncResult : public IAsyncResult, virtual Object
 		{
 			Object* _state;
 			bool completed;
 			bool done;
-			Exception* exc;
+			//Exception* exc;
 			int _nbytes;
 
 		public:
-			Object* ASyncState();
+			Object* AsyncState();
 			Threading::WaitHandle* AsyncWaitHandle();
 			virtual bool CompletedSynchronously();
 			bool IsCompleted();
-			Exception* Exception_();
+			//Exception* getException();
 			int NBytes();
 			bool Done;
 
 			StreamAsyncResult(Object* state);
-			StreamAsyncResult(const IAsyncResult* &obj);
+			StreamAsyncResult(const IAsyncResult &obj);
 			StreamAsyncResult(const StreamAsyncResult &obj);
 
-			void SetComplete(Exception* e);
-			void SetComplete(Exception* e, int nbytes);
+			//void SetComplete(Exception* e);
+			//void SetComplete(Exception* e, int nbytes);
 		};
 	}
 }

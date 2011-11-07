@@ -31,6 +31,7 @@
 #include <Ray.h>
 #include <System/Array.h>
 #include <System/Math.h>
+#include <System/Single.h>
 
 using namespace System;
 
@@ -166,16 +167,16 @@ namespace XFX
 	
 	BoundingBox BoundingBox::CreateFromPoints(Vector3 points[])
 	{
-		if(points == NULL || Array::Length(points) <= 0 ) 
+		if((!points) || Array::Length(points) <= 0) 
             return BoundingBox();
   
-        Vector3 min = FLT_MIN; 
-        Vector3 max = MAXFLOAT; 
+		Vector3 min = Single::MinValue; 
+		Vector3 max = Single::MaxValue; 
   
 		for(int i = 0; i < Array::Length(points); i++)
         {
-	        Vector3::Min( min, points[i], min ); 
-            Vector3::Max( max, points[i], max );
+	        Vector3::Min(min, points[i], min); 
+            Vector3::Max(max, points[i], max);
         }
   
         return BoundingBox(min, max); 

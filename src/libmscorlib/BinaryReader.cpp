@@ -27,9 +27,13 @@
 
 #include <System/Array.h>
 #include <System/Buffer.h>
+#include <System/String.h>
 #include <System/IO/BinaryReader.h>
-#include <System/IO/IOException.h>
-#include <SYstem/IO/MemoryStream.h>
+#include <System/IO/MemoryStream.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -43,7 +47,12 @@ namespace System
 		BinaryReader::BinaryReader(Stream* input)
 		{
 			if (!input->CanRead())
-				throw ArgumentException("The stream doesn't support reading.");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream doesn't support reading.");
+#endif
+				return;
+			}
 
 			m_disposed = false;
 			m_stream = input;
@@ -55,7 +64,12 @@ namespace System
 		BinaryReader::BinaryReader(Stream* input, Encoding encoding)
 		{
 			if (!input->CanRead())
-				throw ArgumentException("The stream doesn't support reading.");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream doesn't support reading.");
+#endif
+				return;
+			}
 
 			m_disposed = false;
 			m_stream = input;
@@ -96,7 +110,12 @@ namespace System
 		void BinaryReader::FillBuffer(int numBytes)
 		{
 			if (m_disposed)
-				throw ObjectDisposedException("BinaryReader", "Cannot read from a closed BinaryReader.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+				return;
+			}
 			
 			int offset = 0;
 			int num2 = 0;
@@ -105,7 +124,10 @@ namespace System
 				num2 = m_stream->ReadByte();
 				if (num2 == -1)
 				{
-					throw EndOfStreamException("Attempted to read beyond End OF File.");
+#if DEBUG
+					printf("END_OF_STREAM in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Attempted to read beyond End Of File.");
+#endif
+					return;
 				}
 				m_buffer[0] = (byte)num2;
 			}
@@ -116,7 +138,10 @@ namespace System
 					num2 = m_stream->Read(m_buffer, offset, numBytes - offset);
 					if (num2 == 0)
 					{
-						throw EndOfStreamException("Attempted to read beyond End OF File.");
+#if DEBUG
+						printf("END_OF_STREAM in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Attempted to read beyond End Of File.");
+#endif
+						return;
 					}
 					offset += num2;
 				}
@@ -146,7 +171,7 @@ namespace System
 				}
 				if (m_isMemoryStream)
 				{
-					/*MemoryStream stream = (MemoryStream)*m_stream;
+					/*MemoryStream stream = (MemoryStream)m_stream;
 					int position = stream.InternalGetPosition();
 					num2 = stream.InternalEmulateRead(num2);
 					if (num2 == 0)
@@ -172,7 +197,7 @@ namespace System
 
 		int BinaryReader::InternalReadOneChar()
 		{
-			Int64 position;
+			/*Int64 position;
 			int num = 0;
 			int byteCount = 0;
 			position = 0LL;
@@ -228,7 +253,9 @@ namespace System
 			{
 				return -1;
 			}
-			return m_singleChar[0];
+			return m_singleChar[0];*/
+
+			return -1;
 		}
 
 		int BinaryReader::PeekChar()
@@ -253,22 +280,49 @@ namespace System
 			if(!m_stream)
 			{
 				if (m_disposed)
-					throw ObjectDisposedException("BinaryReader", "Cannot read from a closed BinaryReader.");
+				{
+#if DEBUG
+					printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+					return -1;
+				}
 
-				throw IOException("Stream is invalid");
+#if DEBUG
+				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream is invalid");
+#endif
 			}
 			
-			if (buffer == null)
-				throw ArgumentNullException("buffer is null");
+			if (!buffer)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "buffer");
+#endif
+				return -1;
+			}
 			
 			if (index < 0)
-				throw ArgumentOutOfRangeException("index is less than 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "index is less than 0");
+#endif
+				return -1;
+			}
 			
 			if (count < 0)
-				throw ArgumentOutOfRangeException("count is less than 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "count is less than 0");
+#endif
+				return -1;
+			}
 
 			if (Array::Length(buffer) < index + count)
-				throw ArgumentException("buffer is too small");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer is too small");
+#endif
+				return -1;
+			}
 
 			int bytes_read = m_stream->Read(buffer, index, count);
 
@@ -278,21 +332,163 @@ namespace System
 		int BinaryReader::Read(char buffer[], int index, int count)
 		{
 			if (m_disposed)
-				throw ObjectDisposedException("BinaryReader", "Cannot read from a closed BinaryReader.");
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+				return -1;
+			}
 
-			if (buffer == null)
-				throw ArgumentNullException("buffer is null");
+			if (!buffer)
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "buffer");
+#endif
+				return -1;
+			}
 			
 			if (index < 0)
-				throw ArgumentOutOfRangeException("index is less than 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "index is less than 0");
+#endif
+				return -1;
+			}
 			
 			if (count < 0)
-				throw ArgumentOutOfRangeException("count is less than 0");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "count is less than 0");
+#endif
+				return -1;
+			}
 			
 			if ((Array::Length(buffer) - index) < count)
-				throw ArgumentException("buffer is too small");
+			{
+#if DEBUG
+				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer is too small");
+#endif
+				return -1;
+			}
 
 			return InternalReadChars(buffer, index, count);
+		}
+
+		bool BinaryReader::ReadBoolean()
+		{
+			FillBuffer(1);
+			return (m_buffer[0] != 0);
+		}
+
+		byte BinaryReader::ReadByte()
+		{
+			if (!m_stream)
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+				return 0;
+			}
+
+			int num = m_stream->ReadByte();
+			if (num == -1)
+			{
+#if DEBUG
+				printf("END_OF_STREAM in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Attempted to read beyond End Of File.");
+#endif
+				return 0;
+			}
+			return (byte)num;
+		}
+
+		byte* BinaryReader::ReadBytes(int count)
+		{
+			if (count < 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return null;
+			}
+
+			if (!m_stream)
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+				return null;
+			}
+
+			byte* buffer = new byte[count];
+			int offset = 0;
+			do
+			{
+				int num2 = m_stream->Read(buffer, offset, count);
+				if (num2 == 0)
+					break;
+				offset += num2;
+				count -= num2;
+			}
+			while (count > 0);
+			if (offset > Array::Length(buffer))
+			{
+				byte* dst = new byte[offset];
+				Buffer::BlockCopy(buffer, 0, dst, 0, offset);
+				buffer = dst;
+			}
+			return buffer;
+		}
+
+		char BinaryReader::ReadChar()
+		{
+			int num = this->Read();
+			if (num == -1)
+			{
+#if DEBUG
+				printf("END_OF_STREAM in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Attempted to read beyond End Of File.");
+#endif
+				return -1;
+			}
+
+			return (char)num;
+		}
+
+		char* BinaryReader::ReadChars(int count)
+		{
+			if (count < 0)
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return null;
+			}
+
+			if (!m_stream)
+			{
+#if DEBUG
+				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
+#endif
+				return null;
+			}
+
+			char* buffer = new char[count];
+			int num = InternalReadChars(buffer, 0, count);
+			if (num != count)
+			{
+				char* dst = new char[num];
+				Buffer::BlockCopy(buffer, 0, dst, 0, num);
+				buffer = dst;
+			}
+			return buffer;
+		}
+
+		double BinaryReader::ReadDouble()
+		{
+			FillBuffer(8);
+			uint num = (uint) (((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
+			uint num2 = (uint) (((m_buffer[4] | (m_buffer[5] << 8)) | (m_buffer[6] << 0x10)) | (m_buffer[7] << 0x18));
+			ulong num3 = ((ulong)num2 << 0x20) | num;
+			return *(((double*) &num3));
 		}
 
 		float BinaryReader::ReadSingle()
@@ -300,6 +496,59 @@ namespace System
 			FillBuffer(4);
 			uint num = (uint) (((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
 			return *(((float*) &num));
+		}
+
+		short BinaryReader::ReadInt16()
+		{
+			FillBuffer(2);
+			return (short)(m_buffer[0] | (m_buffer[1] << 8));
+		}
+
+		int BinaryReader::ReadInt32()
+		{
+			FillBuffer(4);
+			return (((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
+		}
+
+		Int64 BinaryReader::ReadInt64()
+		{
+			FillBuffer(8);
+			uint num = (uint)(((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
+			uint num2 = (uint)(((m_buffer[4] | (m_buffer[5] << 8)) | (m_buffer[6] << 0x10)) | (m_buffer[7] << 0x18));
+			return (Int64) (((Int64)num2 << 0x20) | num);
+		}
+
+		sbyte BinaryReader::ReadSByte()
+		{
+			FillBuffer(1);
+			return (sbyte)m_buffer[0];
+		}
+
+		String BinaryReader::ReadString()
+		{
+			short length = ReadInt16();
+			char* buffer = ReadChars(length);
+			return String(buffer, 0, length);
+		}
+
+		ushort BinaryReader::ReadUInt16()
+		{
+			FillBuffer(2);
+			return (ushort) (m_buffer[0] | (m_buffer[1] << 8));
+		}
+
+		uint BinaryReader::ReadUInt32()
+		{
+			FillBuffer(4);
+			return (uint)(((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
+		}
+
+		ulong BinaryReader::ReadUInt64()
+		{
+			FillBuffer(8);
+			uint num = (uint) (((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
+			uint num2 = (uint) (((m_buffer[4] | (m_buffer[5] << 8)) | (m_buffer[6] << 0x10)) | (m_buffer[7] << 0x18));
+			return (((ulong)num2 << 0x20) | num);
 		}
 	}
 }

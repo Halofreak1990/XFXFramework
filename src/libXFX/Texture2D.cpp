@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Texture2D.h>
+#include <Graphics/GraphicsDevice.h>
 #include <Rectangle.h>
 
 using namespace XFX;
@@ -39,17 +40,17 @@ namespace XFX
 			return _surfaceFormat;
 		}
 		
-		int Texture2D::Height()
+		int Texture2D::getHeight()
 		{
 			return _height;
 		}
 		
-		TextureUsage_t Texture2D::TextureUsage_()
+		TextureUsage_t Texture2D::TextureUsage()
 		{
 			return _textureUsage;
 		}
 		
-		int Texture2D::Width()
+		int Texture2D::getWidth()
 		{
 			return _width;
 		}
@@ -62,13 +63,13 @@ namespace XFX
 		Texture2D::Texture2D(GraphicsDevice* graphicsDevice)
 		{
 			textureId = -1;
-			device = graphicsDevice;
+			this->graphicsDevice = graphicsDevice;
 		}
 		
 		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height)
 		{
 			textureId = -1;
-			device = graphicsDevice;
+			this->graphicsDevice = graphicsDevice;
 			_width = width;
 			_height = height;
 		}
@@ -76,7 +77,7 @@ namespace XFX
 		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format)
 		{
 			textureId = -1;
-			device = graphicsDevice;
+			this->graphicsDevice = graphicsDevice;
 			_width = width;
 			_height = height;
 			_numberOfLevels = numberLevels;
@@ -87,7 +88,7 @@ namespace XFX
 		Texture2D::Texture2D(const Texture2D &obj)
 		{
 			textureId = obj.textureId;
-			device = obj.device;
+			this->graphicsDevice = graphicsDevice;
 			_width = obj._width;
 			_height = obj._height;
 			_numberOfLevels = obj._numberOfLevels;
@@ -99,7 +100,7 @@ namespace XFX
 		{
 			if(!_isDisposed)
 			{
-				try
+				/*try
 				{
 					//glDeleteTextures(1, int[] { textureId });
 				}
@@ -107,7 +108,7 @@ namespace XFX
 				{
 					
 				}
-				/*if(device.Textures().textures.Contains(this))
+				if(device.Textures().textures.Contains(this))
 					device.Textures().textures.Remove(this);*/
 			}
 			_isDisposed = true;

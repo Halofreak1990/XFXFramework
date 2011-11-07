@@ -26,8 +26,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Text/Decoder.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 namespace System
 {
@@ -54,7 +57,12 @@ namespace System
 			CheckArguments (bytes, byteIndex, byteCount);
 			CheckArguments (chars, charIndex);
 			if (charCount < 0 || Array::Length(chars) < charIndex + charCount)
-				throw ArgumentOutOfRangeException("charCount");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "charCount");
+#endif
+				return;
+			}
 
 			bytesUsed = byteCount;
 			while (true)
@@ -80,11 +88,17 @@ namespace System
 		{
 			if (bytes == null)
 			{
-			    throw ArgumentNullException("bytes", "Array was null or empty.");
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "bytes");
+#endif
+				return -1;
 			}
 			if (count < 0)
 		    {
-				throw ArgumentOutOfRangeException("count", "ArgumentOutOfRange: Non-negative number required.");
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
+#endif
+				return -1;
 		    }
 		    byte *buffer = new byte[count];
 		    for (int i = 0; i < count; i++)
@@ -107,31 +121,76 @@ namespace System
 		void Decoder::CheckArguments(char chars[], int charIndex)
 		{
 			if (chars == null)
-				throw ArgumentNullException("chars");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "chars");
+#endif
+				return;
+			}
 			if (charIndex < 0 || Array::Length(chars) <= charIndex)
-				throw ArgumentOutOfRangeException ("charIndex");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "charIndex");
+#endif
+				return;
+			}
 		}
 
 		void Decoder::CheckArguments(byte bytes[], int byteIndex, int byteCount)
 		{
 			if (bytes == null)
-				throw ArgumentNullException("bytes");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "bytes");
+#endif
+				return;
+			}
 			if (byteIndex < 0 || Array::Length(bytes) <= byteIndex)
-				throw ArgumentOutOfRangeException("byteIndex");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "byteIndex");
+#endif
+				return;
+			}
 			if (byteCount < 0 || Array::Length(bytes) < byteIndex + byteCount)
-				throw ArgumentOutOfRangeException("byteCount");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "byteCount");
+#endif
+				return;
+			}
 		}
 
 		void Decoder::CheckArguments(char* chars, int charCount, byte* bytes, int byteCount)
 		{
 			if (chars == null)
-				throw ArgumentNullException("chars");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "chars");
+#endif
+				return;
+			}
 			if (bytes == null)
-				throw ArgumentNullException("bytes");
+			{
+#if DEBUG
+				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "bytes");
+#endif
+				return;
+			}
 			if (charCount < 0)
-				throw ArgumentOutOfRangeException("charCount");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "charCount");
+#endif
+				return;
+			}
 			if (byteCount < 0)
-				throw ArgumentOutOfRangeException("byteCount");
+			{
+#if DEBUG
+				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "byteCount");
+#endif
+				return;
+			}
 		}
 
 		void Decoder::Reset()

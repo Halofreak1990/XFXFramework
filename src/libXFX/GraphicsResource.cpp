@@ -31,29 +31,14 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		GraphicsDevice GraphicsResource::GraphicsDevice_()
+		GraphicsDevice* GraphicsResource::getGraphicsDevice()
 		{
 			return graphicsDevice;
 		}
 		
-		int GraphicsResource::IsDisposed()
+		bool GraphicsResource::IsDisposed()
 		{
-			return isDisposed();
-		}
-		
-		char* GraphicsResource::Name()
-		{
-			return name;
-		}
-		
-		void GraphicsResource::Name(char* value)
-		{
-			name = value;
-		}
-		
-		ResourceType_t GraphicsResource::ResourceType_()
-		{
-			return resourceType;
+			return isDisposed;
 		}
 		
 		GraphicsResource::~GraphicsResource()
@@ -66,12 +51,12 @@ namespace XFX
 			isDisposed = false;
 		}
 		
-		GraphicsResource::Dispose()
+		void GraphicsResource::Dispose()
 		{
 			Dispose(true);
 		}
 		
-		GraphicsResource::Dispose(bool disposing)
+		void GraphicsResource::Dispose(bool disposing)
 		{
 			if(isDisposed) 
             	return; 
@@ -79,7 +64,7 @@ namespace XFX
             isDisposed = true;
 
 			if (Disposing != null)
-				Disposing(*this, EventArgs::Empty);
+				Disposing(this, EventArgs::Empty);
 		}
 	}
 }

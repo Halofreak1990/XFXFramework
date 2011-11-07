@@ -10,9 +10,7 @@ namespace System
 
 	class Environment
 	{
-		/// <summary>
-		/// Specifies enumerated constants used to retrieve directory paths to system special folders.
-		/// </summary>
+		// Specifies enumerated constants used to retrieve directory paths to system special folders.
 		struct SpecialFolder
 		{
 			enum type
@@ -34,7 +32,7 @@ namespace System
 		static OperatingSystem OSVersion();
 		static int ProcessorCount();
 		static int TickCount();
-		static Version Version_();
+		static Version getVersion();
 	};
 }
 

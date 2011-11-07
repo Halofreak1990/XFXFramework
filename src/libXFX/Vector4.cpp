@@ -32,8 +32,11 @@
 #include <Vector3.h>
 #include <Vector4.h>
 #include <System/Array.h>
-#include <System/Exception.h>
 #include <System/Math.h>
+
+#if DEBUG
+#include <stdio.h>
+#endif
 
 using namespace System;
 
@@ -138,7 +141,7 @@ namespace XFX
 		return result;
 	}
 	
-	void CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount, out Vector4 result)
+	void Vector4::CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount, out Vector4 result)
 	{
 		result.X = MathHelper::CatmullRom(value1.X, value2.X, value3.X, value4.X, amount);
 		result.Y = MathHelper::CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount);
@@ -160,7 +163,7 @@ namespace XFX
             MathHelper::Clamp(value1.Y, min.Y, max.Y), 
             MathHelper::Clamp(value1.Z, min.Z, max.Z), 
             MathHelper::Clamp(value1.W, min.W, max.W)); 
-    } 
+    }
 	
 	float Vector4::Distance(Vector4 value1, Vector4 value2) 
     { 
@@ -215,9 +218,9 @@ namespace XFX
 		result.Z = vector1.Z / vector2.Z;
 	}
 
-	bool Vector4::Equals(Vector4 obj)
+	bool Vector4::Equals(Vector4 other)
 	{
-		return ((W == obj.W) && (X == obj.X) && (Y == obj.Y) && (Z == obj.Z));
+		return ((W == other.W) && (X == other.X) && (Y == other.Y) && (Z == other.Z));
 	}
 	
 	int Vector4::GetHashCode()
@@ -232,7 +235,7 @@ namespace XFX
         return result; 
     }
     
-    void Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4 result) 
+    void Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4 result) 
     { 
         result.W = MathHelper::Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount); 
         result.X = MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount); 
@@ -407,8 +410,13 @@ namespace XFX
 
 	void Vector4::Transform(Vector4 sourceArray[], Quaternion rotation, Vector4 destinationArray[])
 	{
-		if(Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small");
+		if (Array::Length(destinationArray) < Array::Length(sourceArray))
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
+#endif
+			return;
+		}
 
 		for(int i = 0; i < Array::Length(sourceArray)-1; i++)
 		{
@@ -426,8 +434,13 @@ namespace XFX
 
 	void Vector4::Transform(Vector4 sourceArray[], Matrix matrix, Vector4 destinationArray[])
 	{
-		if(Array::Length(destinationArray) < Array::Length(sourceArray))
-			throw ArgumentException("destinationArray too small");
+		if (Array::Length(destinationArray) < Array::Length(sourceArray))
+		{
+#if DEBUG
+			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
+#endif
+			return;
+		}
 
 		for(int i = 0; i < Array::Length(sourceArray)-1; i++)
 		{
