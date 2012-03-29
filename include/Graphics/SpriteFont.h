@@ -37,19 +37,21 @@ namespace XFX
 			List<Vector3> kerning;
 			int lineSpacing;
 			float spacing;
-			Texture2D textureValue;
+			Texture2D* textureValue;
 
 			int GetIndexForCharacter(char character);
 
-			SpriteFont(Texture2D texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning);
+			SpriteFont(Texture2D* texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning);
 
-			void Draw(char* text, SpriteBatch spriteBatch, Vector2 textblockPosition, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t spriteEffects, float depth);
+			void Draw(const char* text, SpriteBatch* spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth);
 
 		public:
 			int LineSpacing();
 			float Spacing;
 
-			Vector2 MeasureString(char* text);
+			virtual ~SpriteFont();
+
+			Vector2 MeasureString(const char* text) const;
 		};
 	}
 }

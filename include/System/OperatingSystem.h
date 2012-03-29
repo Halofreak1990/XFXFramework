@@ -24,9 +24,15 @@ namespace System
 		const System::Version Version;
 
 		OperatingSystem(PlatformID_t platform, System::Version version);
+		OperatingSystem(const OperatingSystem &obj);
 
 		OperatingSystem Clone();
+		bool Equals(const OperatingSystem other) const;
+		int GetHashCode();
 		char* ToString();
+
+		bool operator !=(const OperatingSystem right) const;
+		bool operator ==(const OperatingSystem right) const;
 	};
 }
 

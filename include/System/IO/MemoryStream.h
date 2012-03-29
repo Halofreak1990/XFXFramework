@@ -1,7 +1,7 @@
 #ifndef _SYSTEM_IO_MEMORYSTREAM_
 #define _SYSTEM_IO_MEMORYSTREAM_
 
-#include "../Types.h"
+#include <System/Types.h>
 #include "Stream.h"
 
 namespace System
@@ -32,8 +32,8 @@ namespace System
 			bool CanRead();
 			bool CanSeek();
 			bool CanWrite();
-			virtual int Capacity();
-			virtual void Capacity(int value);
+			virtual int getCapacity();
+			virtual void setCapacity(int value);
 			Int64 Length();
 			Int64 Position;
 
@@ -44,6 +44,8 @@ namespace System
 			MemoryStream(byte buffer[], int index, int count);
 			MemoryStream(byte buffer[], int index, int count, bool writable);
 			MemoryStream(byte buffer[], int index, int count, bool writable, bool publiclyVisible);
+			~MemoryStream();
+
 			void Flush();
 			virtual byte* GetBuffer();
 			int Read(byte buffer[], int offset, int count);

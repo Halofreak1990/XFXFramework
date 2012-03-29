@@ -361,7 +361,7 @@ namespace XFX
 		result = (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
 	}
 	
-	bool Quaternion::Equals(Quaternion obj)
+	bool Quaternion::Equals(const Quaternion obj) const
 	{
 		return ((X == obj.X) && (Y == obj.Y) && (Z == obj.Z) && (W == obj.W));
 	}
@@ -607,12 +607,12 @@ namespace XFX
 		return result;
 	}
 	
-	bool Quaternion::operator==(const Quaternion other)
+	bool Quaternion::operator==(const Quaternion other) const
 	{
 		return Equals(other);
 	}
 
-	bool Quaternion::operator!=(const Quaternion other)
+	bool Quaternion::operator!=(const Quaternion other) const
 	{
 		return !Equals(other);
 	}
@@ -669,14 +669,5 @@ namespace XFX
 		result.Z = -Z;
 		result.W = -W;
 		return result;
-	}
-	
-	Quaternion Quaternion::operator=(const Quaternion other)
-	{
-		X = other.X;
-		Y = other.Y;
-		Z = other.Z;
-		W = other.W;
-		return *this;
 	}
 }

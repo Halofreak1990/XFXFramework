@@ -20,14 +20,14 @@ namespace System
 			interface ICollection
 			{
 			public:
-				virtual void Add(T item)=0;
+				virtual void Add(const T& item)=0;
 				virtual void Clear()=0;
-				virtual bool Contains(T item)=0;
-				virtual void CopyTo(T array[], int arrayIndex)=0;
-				virtual bool Remove(T item)=0;
+				virtual bool Contains(const T& item)const =0;
+				virtual void CopyTo(T array[], const int arrayIndex) const =0;
+				virtual bool Remove(const T& item)=0;
 
-				virtual int Count()=0;
-				virtual bool IsReadOnly()=0;
+				virtual int Count() const =0;
+				virtual bool IsReadOnly() const =0;
 			};
 
 			// Defines a method that a type implements to compare two objects.
@@ -43,13 +43,13 @@ namespace System
 			interface IDictionary
 			{
 			public:
-				virtual void Add(TKey key, TValue value)=0;
-				virtual bool ContainsKey(TKey key)=0;
-				virtual bool Remove(TKey key)=0;
-				virtual bool TryGetValue(TKey key, out TValue value)=0;
+				virtual void Add(const TKey& key, const TValue& value)=0;
+				virtual bool ContainsKey(const TKey& key)const =0;
+				virtual bool Remove(const TKey& key)=0;
+				virtual bool TryGetValue(const TKey& key, out TValue value)const =0;
 
-				virtual ICollection<TKey>& Keys()=0;
-				virtual ICollection<TValue>& Values()=0;
+				virtual ICollection<TKey>* Keys()const =0;
+				virtual ICollection<TValue>* Values()const =0;
 			};
 
 			// Supports a simple iteration over a generic collection.
@@ -82,11 +82,11 @@ namespace System
 			interface IList : public ICollection<T>
 			{
 			public:
-				virtual int IndexOf(T item)=0;
-				virtual void Insert(int index, T item)=0;
-				virtual void RemoveAt(int index)=0;
+				virtual int IndexOf(const T& item) const =0;
+				virtual void Insert(const int index, const T& item)=0;
+				virtual void RemoveAt(const int index)=0;
 
-				virtual T operator[](int index)=0;
+				virtual T& operator[](const int index)=0;
 
 				virtual ~IList() {}
 			};

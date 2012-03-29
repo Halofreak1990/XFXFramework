@@ -7,25 +7,18 @@
 #ifndef _SYSTEM_IO_STREAMWRITER_
 #define _SYSTEM_IO_STREAMWRITER_
 
-#include <System/Text/Encoding.h>
-#include <System/Text/Encoder.h>
 #include "Stream.h" 
 #include "TextWriter.h"
 #include <System/Types.h>
-
-using namespace System::Text;
 
 namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Implements a TextWriter for writing characters to a stream in a particular encoding.
-		/// </summary>
+		// Implements a TextWriter for writing characters to a stream in a particular encoding.
 		class StreamWriter : public TextWriter, virtual Object
 		{
 		private:
-			static Encoding _UTF8NoBOM;
 			bool autoFlush;
 			byte* byteBuffer;
 			char* charBuffer;
@@ -33,38 +26,47 @@ namespace System
 			int charPos;
 			bool closable;
 			static const int DefaultBufferSize;
-			Encoder encoder;
-			Encoding encoding;
 			bool haveWrittenPreamble;
 			Stream* stream;
 
-			static Stream* CreateFile(char* path, bool append);
-			void Init(Stream* stream, Encoding encoding, int bufferSize);
-			void Flush(bool flushStream, bool flushEncoder);
+			static Stream* CreateFile(const char* path, const bool append);
+			void Init(Stream* stream, const int bufferSize);
+			void Flush(bool flushStream);
 
 		protected:
 			void Dispose(bool disposing);
 
 		public:
 			bool AutoFlush;
-			virtual Stream BaseStream();
-			Encoding getEncoding();
+			virtual Stream* BaseStream();
 			static const StreamWriter Null;
 
-			StreamWriter(char* path);
-			StreamWriter(char* path, bool append);
-			StreamWriter(char* path, bool append, Encoding encoding);
-			StreamWriter(char* path, bool append, Encoding encoding, int bufferSize);
+			StreamWriter(const char* path);
+			StreamWriter(const char* path, const bool append);
+			StreamWriter(const char* path, const bool append, const int bufferSize);
 			StreamWriter(Stream* stream);
-			StreamWriter(Stream* stream, Encoding encoding);
-			StreamWriter(Stream* stream, Encoding encoding, int bufferSize);
+			StreamWriter(Stream* stream, const int bufferSize);
 			virtual ~StreamWriter();
 
+			// Closes the current StreamWriter object and the underlying stream.
 			void Close();
+			// Clears all buffers for the current writer and causes any buffered data to be written to the underlying stream.
 			void Flush();
-			void Write(char value);
-			void Write(char buffer[]);
-			void Write(char buffer[], int index, int count);
+			// Writes a character to the stream.
+			//	value
+			//		The character to write to the text stream.
+			void Write(const char value);
+			// Writes a subarray of characters to the stream.
+			//	buffer
+			//		A character array containing the data to write.
+			//	index
+			//		The index into buffer at which to begin writing.
+			//	count
+			//		The number of characters to read from buffer.
+			void Write(const char buffer[], const int index, const int count);
+			// Writes a string to the stream.
+			//	value
+			//		The string to write to the stream. If value is null, nothing is written.
 			void Write(const char* value);
 		};
 	}

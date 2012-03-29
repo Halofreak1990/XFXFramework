@@ -6,7 +6,11 @@
  ********************************************************/
 #ifndef _XFX_GRAPHICS_VIEWPORT_
 #define _XFX_GRAPHICS_VIEWPORT_
- 
+
+#include <System/Object.h>
+
+using namespace System;
+
 namespace XFX
 {
 	struct Matrix;
@@ -14,10 +18,8 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		/// <summary>
-		/// Defines the window dimensions of a render-target surface onto which a 3D volume projects.
-		/// </summary>
-		struct Viewport
+		// Defines the window dimensions of a render-target surface onto which a 3D volume projects.
+		struct Viewport : virtual Object
 		{
 		private:
 			static bool WithinEpsilon(float a, float b);
@@ -34,6 +36,7 @@ namespace XFX
 			bool Equals(Viewport obj);
 			int GetHashCode();
 			Vector3 Project(Vector3 source, Matrix projection, Matrix view, Matrix world);
+			char* ToString();
 			Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world);
 
 			bool operator !=(Viewport right);

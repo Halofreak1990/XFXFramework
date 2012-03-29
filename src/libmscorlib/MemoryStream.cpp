@@ -27,11 +27,11 @@
 
 #include <System/Array.h>
 #include <System/Buffer.h>
+#include <System/FrameworkResources.h>
+#include <System/String.h>
 #include <System/IO/MemoryStream.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -54,43 +54,23 @@ namespace System
 			return _writable;
 		}
 
-		int MemoryStream::Capacity()
+		int MemoryStream::getCapacity()
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return -1;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
 			return (_capacity - _origin);
 		}
 
-		void MemoryStream::Capacity(int value)
+		void MemoryStream::setCapacity(int value)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
 			if (value != _capacity)
 			{
-				if (!_expandable)
-				{
-#if DEBUG
-					printf("NOT_SUPPORTED in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
-#endif
-					return;
-				}
-				if (value < _length)
-				{
-#if DEBUG
-					printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
-#endif
-					return;
-				}
+				sassert(_expandable, FrameworkResources::NotSupported_MemStreamNotExpandable);
+
+				sassert(value >= _length, FrameworkResources::ArgumentOutOfRange_SmallCapacity);
+
 				if (value > 0)
 				{
 					byte* dst = new byte[value];
@@ -121,13 +101,8 @@ namespace System
 
 		MemoryStream::MemoryStream(int capacity)
 		{
-			if (capacity < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "capacity", "Negative capacity is not allowed.");
-#endif
-				return;
-			}
+			sassert(capacity >= 0, FrameworkResources::ArgumentOutOfRange_NegativeCapacity);
+
 			_buffer = new byte[capacity];
 			_capacity = capacity;
 			_expandable = true;
@@ -139,13 +114,8 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[])
 		{
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
-#endif
-				return;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
 			_buffer = buffer;
 			_length = _capacity = Array::Length(buffer);
 			_expandable = false;
@@ -157,13 +127,8 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], bool writable)
 		{
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
-#endif
-				return;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
 			_buffer = buffer;
 			_length = _capacity = Array::Length(buffer);
 			_writable = writable;
@@ -174,34 +139,14 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], int index, int count)
 		{
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
-#endif
-				return;
-			}
-			if (index < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
-#endif
-				return;
-			}
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return;
-			}
-			if ((Array::Length(buffer) - index) < count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__,"Invalid offset or length.");
-#endif
-				return;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			sassert(index >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "index"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(!((Array::Length(buffer) - index) < count), FrameworkResources::Argument_InvalidOffLen);
+
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
 			_origin = 0;
@@ -214,34 +159,14 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], int index, int count, bool writable)
 		{
-			if (buffer == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
-#endif
-				return;
-			}
-			if (index < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
-#endif
-				return;
-			}
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return;
-			}
-			if ((Array::Length(buffer) - index) < count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
-#endif
-				return;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			sassert(index >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "index"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(!((Array::Length(buffer) - index) < count), FrameworkResources::Argument_InvalidOffLen);
+
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
 			_origin = 0;
@@ -254,34 +179,14 @@ namespace System
 
 		MemoryStream::MemoryStream(byte buffer[], int index, int count, bool writable, bool publiclyVisible)
 		{
-			if (buffer == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was NULL.");
-#endif
-				return;
-			}
-			if (index < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Non-negative number required.");
-#endif
-				return;
-			}
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return;
-			}
-			if ((Array::Length(buffer) - index) < count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
-#endif
-				return;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			sassert(index >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "index"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(!((Array::Length(buffer) - index) < count), FrameworkResources::Argument_InvalidOffLen);
+
 			_buffer = new byte[count];
 			Array::Copy(buffer, index, _buffer, 0, count);
 			_origin = 0;
@@ -290,6 +195,12 @@ namespace System
 			_exposable = publiclyVisible;
 			_expandable = false;
 			_isOpen = true;
+		}
+
+		MemoryStream::~MemoryStream()
+		{
+			delete[] _buffer;
+			_buffer = null;
 		}
 
 		void MemoryStream::Dispose(bool disposing)
@@ -305,13 +216,8 @@ namespace System
 
 		bool MemoryStream::EnsureCapacity(int value)
 		{
-			if (value < 0)
-			{
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream too long.");
-#endif
-				return false;
-			}
+			sassert(value > 0, FrameworkResources::IO_StreamTooLong);
+
 			if (value <= _capacity)
 			{
 				return false;
@@ -335,53 +241,23 @@ namespace System
 
 		byte* MemoryStream::GetBuffer()
 		{
-			if (!_exposable)
-			{
-#if DEBUG
-				printf("UNAUTHORIZED_ACCESS in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Unauthorized access to this MemoryStream buffer.");
-#endif
-				return null;
-			}
+			sassert(_exposable, FrameworkResources::UnauthorizedAccess_MemStreamBuffer);
+
 			return _buffer;
 		}
 
 		int MemoryStream::Read(byte buffer[], int offset, int count)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return -1;
-			}
-			if (!_buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was null.");
-#endif
-				return -1;
-			}
-			if (offset < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
-#endif
-				return -1;
-			}
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return -1;
-			}
-			if ((Array::Length(buffer) - offset) < count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
-#endif
-				return -1;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			sassert(offset >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "offset"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(!((Array::Length(buffer) - offset) < count), FrameworkResources::Argument_InvalidOffLen);
+
 			int num = _length - _position;
 			if (num > count)
 			{
@@ -409,13 +285,8 @@ namespace System
 
 		int MemoryStream::ReadByte()
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return -1;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
 			if (_position >= _length)
 			{
 				return -1;
@@ -425,87 +296,45 @@ namespace System
 
 		Int64 MemoryStream::Seek(Int64 offset, SeekOrigin_t loc)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return -1;
-			}
-			if (offset > MemStreamMaxLength)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "offset is greater than the maximum length of this Stream.");
-#endif
-				return -1;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
+			sassert(!(offset > MemStreamMaxLength), FrameworkResources::ArgumentOutOfRange_StreamLength);
+
 			switch (loc)
 			{
 			case SeekOrigin::Begin:
-				if (offset < 0LL)
-				{
-#if DEBUG
-					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
-#endif
-					return -1;
-				}
+				sassert(offset >= 0LL, FrameworkResources::IO_SeekBeforeBegin);
+
 				_position = _origin + ((int)offset);
 				break;
 
 			case SeekOrigin::Current:
-				if ((offset + _position) < _origin)
-				{
-#if DEBUG
-					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
-#endif
-					return -1;
-				}
+				sassert(!((offset + _position) < _origin), FrameworkResources::IO_SeekBeforeBegin);
+
 				_position += ((int)offset);
 				break;
 
 			case SeekOrigin::End:
-				if ((_length + offset) < _origin)
-				{
-#if DEBUG
-					printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Attempting to seek before the start of the Stream.");
-#endif
-					return -1;
-				}
+				sassert(!((_length + offset) < _origin), FrameworkResources::IO_SeekBeforeBegin);
+				
 				_position = _length + ((int)offset);
 				break;
 
 			default:
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid SeekOrigin.");
-#endif
-				return -1;
+				sassert(false, FrameworkResources::Argument_InvalidSeekOrigin);
+				break;
 			}
 			return (Int64)_position;
 		}
 
 		void MemoryStream::SetLength(Int64 value)
 		{
-			if (!_writable)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
-#endif
-				return;
-			}
-			if (value > MemStreamMaxLength)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "value", "offset is greater than the maximum length of this Stream.");
-#endif
-				return;
-			}
-			if ((value < 0LL) || (value > (MemStreamMaxLength - _origin)))
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "value", "offset is greater than the maximum length of this Stream.");
-#endif
-				return;
-			}
+			sassert(_writable, FrameworkResources::NotSupported_UnwritableStream);
+
+			sassert(!((value < 0LL) || (value > MemStreamMaxLength)), FrameworkResources::ArgumentOutOfRange_StreamLength);
+
+			sassert(!(value > (MemStreamMaxLength - _origin)), FrameworkResources::ArgumentOutOfRange_StreamLength);
+
 			int num = _origin + ((int)value);
 			if (!EnsureCapacity(num) && (num > _length))
 			{
@@ -527,54 +356,22 @@ namespace System
 
 		void MemoryStream::Write(byte buffer[], int offset, int count)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return;
-			}
-			if (!_writable)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
-#endif
-				return;
-			}
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "buffer", "Buffer was null.");
-#endif
-				return;
-			}
-			if (offset < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
-#endif
-			}
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-			}
-			if ((Array::Length(buffer) - offset) < count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Invalid offset or length.");
-#endif
-				return;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
+			sassert(_writable, FrameworkResources::NotSupported_UnwritableStream);
+
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			sassert(offset >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "offset"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(!((Array::Length(buffer) - offset) < count), FrameworkResources::Argument_InvalidOffLen);
+
 			int num = _position + count;
-			if (num < 0)
-			{
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream too long");
-#endif
-				return;
-			}
+				
+			sassert(num >= 0, FrameworkResources::IO_StreamTooLong);
+			
 			if (num > _length)
 			{
 				bool flag = _position > _length;
@@ -605,19 +402,10 @@ namespace System
 
 		void MemoryStream::WriteByte(byte value)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return;
-			}
-			if (!_writable)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "This Stream does not support writing.");
-#endif
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
+			sassert(_writable, FrameworkResources::NotSupported_UnwritableStream);
+
 			if (_position >= _length)
 			{
 				int num = _position + 1;
@@ -637,13 +425,8 @@ namespace System
 
 		void MemoryStream::WriteTo(Stream* stream)
 		{
-			if (!_isOpen)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "MemoryStream", "Stream is closed.");
-#endif
-				return;
-			}
+			sassert(_isOpen, FrameworkResources::ObjectDisposed_StreamClosed);
+
 			stream->Write(_buffer, _origin, _length - _origin);
 		}
 	}

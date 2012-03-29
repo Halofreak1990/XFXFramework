@@ -13,7 +13,7 @@
 #include "Graphics/IGraphicsDeviceService.h"
 #include "GraphicsDeviceInformation.h"
 #include "Interfaces.h"
-#include "System/Interfaces.h"
+#include <System/Interfaces.h>
 
 using namespace System;
 using namespace XFX::Graphics;
@@ -25,27 +25,25 @@ namespace XFX
 	{
 	private:
 		bool isFullScreen;
-		Game _game;
+		Game* _game;
 		SurfaceFormat_t backBufferFormat;
 		int backBufferHeight;
 		int backBufferWidth;
-		GraphicsDevice graphicsDevice;
+		GraphicsDevice* graphicsDevice;
 		ShaderProfile_t minimumVertexShaderProfile;
 
 		void CreateDevice();
 	
 	protected:
-		virtual bool CanResetDevice(GraphicsDeviceInformation newDeviceInfo);
+		virtual bool CanResetDevice(const GraphicsDeviceInformation newDeviceInfo);
 		virtual void Dispose(bool disposing);
-		virtual GraphicsDeviceInformation FindBestDevice(bool anySuitableDevice);
 		virtual void OnDeviceCreated(Object* sender, EventArgs args);
 		virtual void OnDeviceDisposing(Object* sender, EventArgs args);
 		virtual void OnDeviceReset(Object* sender, EventArgs args);
 		virtual void OnDeviceResetting(Object* sender, EventArgs args);
-		virtual void RankDevices(List<GraphicsDeviceInformation> foundDevices);
 
 	public:
-		GraphicsDevice getGraphicsDevice();
+		GraphicsDevice* getGraphicsDevice() const;
 		bool IsFullScreen();
 		float MinimumPixelShaderProfile;
 		float MinimumVertexShaderProfile;
@@ -62,8 +60,8 @@ namespace XFX
 		static SurfaceFormat_t ValidBackBufferFormats[];
 		static const DeviceType_t ValidDeviceTypes[];
 
-		GraphicsDeviceManager();
-		GraphicsDeviceManager(Game game);
+		GraphicsDeviceManager(Game* game);
+		GraphicsDeviceManager(const GraphicsDeviceManager &obj);
 
 		EventHandler DeviceCreated;
 		EventHandler DeviceDisposing;

@@ -5,6 +5,8 @@
 #include <hal/fileio.h>
 #include <xboxkrnl/xboxkrnl.h>
 
+#include <sassert.h>
+
 #if DEBUG
 #include <stdio.h>
 #endif
@@ -60,6 +62,8 @@ namespace System
 
 		char* Path::Combine(char* path1, char* path2)
 		{
+			//sassert(path1 != null, "path1 cannot be null.");
+
 			if (path1 == null)
 			{
 #if DEBUG
@@ -145,7 +149,11 @@ namespace System
 
 			/* FIXME: check for InvalidPathChars in path
 			if (path.IndexOfAny (InvalidPathChars) != -1)
-				throw new ArgumentException ("Illegal characters in path.");*/
+			{
+#if DEBUG
+				throw new ArgumentException ("Illegal characters in path.");
+#endif
+			}*/
 
 			char c = path [0];
 			return (c == DirectorySeparatorChar || c == AltDirectorySeparatorChar ||

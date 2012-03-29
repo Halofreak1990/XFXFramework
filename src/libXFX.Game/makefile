@@ -3,7 +3,7 @@
 #
 #########################################################################
 PREFIX = /usr/local/openxdk
-XFX_PREFIX = "/cygdrive/c/Users/T.R.J. Lint/Documents/My Dropbox/XFX"
+XFX_PREFIX = /usr/local/XFX
 
 CC = gcc
 CCAS = gcc
@@ -13,19 +13,19 @@ RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG
-CC_FLAGS = -c -g -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -mno-cygwin -march=i386 $(SDLFLAGS)
+CC_FLAGS = -c -g -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 CCAS_FLAGS = -g -O2
-CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-builtin -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-rtti -fno-builtin -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 INCLUDE  = -I$(PREFIX)/i386-pc-xbox/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL -I$(XFX_PREFIX)/include
 
-CLINK = -nostdlib
+CLINK = -nostdlib -fno-rtti -fno-exceptions
 ALIGN = -Wl,--file-alignment,0x20 -Wl,--section-alignment,0x20 
 SHARED = -shared
 ENTRYPOINT = -Wl,--entry,_WinMainCRTStartup 
 STRIP = -Wl,--strip-all
 LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib 
-LD_LIBS  = $(LD_DIRS) -lmscorlib -lXFX -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lstdc++ -lgcc
+LD_LIBS  = $(LD_DIRS) -lmscorlib -lXFX -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc
 
 OBJS = DrawableGameComponent.o Game.o GameComponent.o GameComponentCollection.o GameServiceContainer.o GamerServicesComponent.o GameTime.o GraphicsDeviceManager.o
 

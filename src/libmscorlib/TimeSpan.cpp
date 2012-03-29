@@ -25,17 +25,16 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/String.h>
 #include <System/TimeSpan.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
 	const TimeSpan TimeSpan::Zero = TimeSpan(0L);
-	const TimeSpan TimeSpan::MaxValue = TimeSpan(0L);
-	const TimeSpan TimeSpan::MinValue = TimeSpan(0L);
+	const TimeSpan TimeSpan::MaxValue = TimeSpan(0x7fffffffffffffffLL);
+	const TimeSpan TimeSpan::MinValue = TimeSpan(-9223372036854775808LL);
 	const Int64 TimeSpan::TicksPerMillisecond = 10000L;
 	const Int64 TimeSpan::TicksPerSecond = 10000000L;
 	const Int64 TimeSpan::TicksPerMinute = 600000000L;
@@ -72,80 +71,74 @@ namespace System
 		_ticks = obj._ticks;
 	}
 
-	int TimeSpan::Days()
+	int TimeSpan::Days() const
 	{
 		return (int) (_ticks / TicksPerDay);
 	}
 	
-	int TimeSpan::Hours()
+	int TimeSpan::Hours() const
 	{
 		return (int) (_ticks % TicksPerDay / TicksPerHour);
 	}
 	
-	int TimeSpan::Milliseconds()
+	int TimeSpan::Milliseconds() const
 	{
 		return (int) (_ticks % TicksPerSecond / TicksPerMillisecond);
 	}
 	
-	int TimeSpan::Minutes()
+	int TimeSpan::Minutes() const
 	{
 		return (int) (_ticks % TicksPerHour / TicksPerMinute);
 	}
 	
-	int TimeSpan::Seconds()
+	int TimeSpan::Seconds() const
 	{
 		return (int) (_ticks % TicksPerMinute / TicksPerSecond);
 	}
 
-	Int64 TimeSpan::Ticks()
+	Int64 TimeSpan::Ticks() const
 	{
 		return _ticks;
 	}
 
-	double TimeSpan::TotalDays()
+	double TimeSpan::TotalDays() const
 	{
 		return (double) _ticks / TicksPerDay;
 	}
 
-	double TimeSpan::TotalHours()
+	double TimeSpan::TotalHours() const
 	{
 		return (double) _ticks / TicksPerHour;
 	}
 
-	double TimeSpan::TotalMilliseconds()
+	double TimeSpan::TotalMilliseconds() const
 	{
 		return (double) _ticks  / TicksPerMillisecond;
 	}
 
-	double TimeSpan::TotalMinutes()
+	double TimeSpan::TotalMinutes() const
 	{
 		return (double) _ticks / TicksPerMinute;
 	}
 
-	double TimeSpan::TotalSeconds()
+	double TimeSpan::TotalSeconds() const
 	{
 		return (double) _ticks / TicksPerSecond;
 	}
 
-	TimeSpan TimeSpan::Add(TimeSpan ts)
+	TimeSpan TimeSpan::Add(const TimeSpan ts)
 	{
 		Int64 temp;
 		temp = _ticks + ts._ticks;
 
 		//! Check for overflow
-		if(temp - ts._ticks != _ticks)
-		{
-#if DEBUG
-			printf("OBJECT_DISPOSED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Resulting TimeSpan is too big.");
-#endif
-			return TimeSpan::MaxValue;
-		}
+		sassert(!(temp - ts._ticks != _ticks), "Resulting TimeSpan is too big.");
 
 		//! Everything checks out
 		return TimeSpan(_ticks + ts._ticks);
 	}
 
-	int TimeSpan::Compare(TimeSpan t1, TimeSpan t2)
+	int TimeSpan::Compare(const TimeSpan t1, const TimeSpan t2)
 	{
 		if (t1._ticks < t2._ticks)
 			return -1;
@@ -154,17 +147,17 @@ namespace System
 		return 0;
 	}
 
-	int TimeSpan::CompareTo(TimeSpan ts)
+	int TimeSpan::CompareTo(const TimeSpan ts) const
 	{
 		return Compare(*this, ts);
 	}
 
-	bool TimeSpan::Equals(TimeSpan obj)
+	bool TimeSpan::Equals(const TimeSpan obj) const
 	{
 		return (_ticks == obj._ticks);
 	}
 
-	bool TimeSpan::Equals(TimeSpan t1, TimeSpan t2)
+	bool TimeSpan::Equals(const TimeSpan t1, const TimeSpan t2)
 	{
 		return (t1._ticks == t2._ticks);
 	}
@@ -199,33 +192,30 @@ namespace System
 		return TimeSpan(value);
 	}
 
-	int TimeSpan::GetHashCode()
+	int TimeSpan::GetHashCode() const
 	{
 		return (((int)_ticks) ^ ((int)(_ticks >> 0x20)));
 	}
 
 	TimeSpan TimeSpan::Negate()
 	{
-		if (_ticks == MinValue._ticks)
-		{
-#if DEBUG
-			printf("OBJECT_DISPOSED in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
-#endif
-			return TimeSpan::MinValue;
-		}
+		sassert(_ticks != MinValue._ticks, "");
 
 		return TimeSpan(-_ticks);
 	}
 
-	TimeSpan TimeSpan::Subtract(TimeSpan ts)
+	TimeSpan TimeSpan::Subtract(const TimeSpan ts)
 	{
 		Int64 ticks = _ticks - ts._ticks;
-		if (((_ticks >> 0x3f) != (ts._ticks >> 0x3f)) && ((_ticks >> 0x3f) != (ticks >> 0x3f)))
-#if DEBUG
-			printf("OBJECT_DISPOSED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "TimeSpan too long.");
-#endif
+
+		sassert(!(((_ticks >> 0x3f) != (ts._ticks >> 0x3f)) && ((_ticks >> 0x3f) != (ticks >> 0x3f))), "TimeSpan too long.");
 
 		return TimeSpan(ticks);
+	}
+
+	const char* TimeSpan::ToString() const
+	{
+		return String::Format("{{Ticks: %l}}", _ticks);
 	}
 
 	TimeSpan TimeSpan::operator +(const TimeSpan other)
@@ -233,32 +223,32 @@ namespace System
 		return Add(other);
 	}
 
-	bool TimeSpan::operator==(const TimeSpan other)
+	bool TimeSpan::operator==(const TimeSpan other) const
 	{
-		return Equals(*this, other);
+		return Equals(other);
 	}
 
-	bool TimeSpan::operator >(const TimeSpan other)
+	bool TimeSpan::operator >(const TimeSpan other) const
 	{
 		return _ticks > other._ticks;
 	}
 
-	bool TimeSpan::operator >=(const TimeSpan other)
+	bool TimeSpan::operator >=(const TimeSpan other) const
 	{
 		return _ticks >= other._ticks;
 	}
 	
-	bool TimeSpan::operator!=(const TimeSpan other)
+	bool TimeSpan::operator!=(const TimeSpan other) const
 	{
-		return !Equals(*this, other);
+		return !Equals(other);
 	}
 
-	bool TimeSpan::operator <(const TimeSpan other)
+	bool TimeSpan::operator <(const TimeSpan other) const
 	{
 		return _ticks < other._ticks;
 	}
 
-	bool TimeSpan::operator <=(const TimeSpan other)
+	bool TimeSpan::operator <=(const TimeSpan other) const
 	{
 		return _ticks <= other._ticks;
 	}
@@ -319,10 +309,8 @@ namespace System
 
 		if (overflow)
 		{
-			if (throwExc)
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The timespan is too big or too small.");
-#endif
+			sassert(!throwExc, "The timespan is too big or too small.");
+
 			return false;
 		}
 
@@ -334,12 +322,9 @@ namespace System
 	{
 		double num = value * scale;
 		double num2 = num + ((value >= 0.0) ? 0.5 : -0.5);
-		if ((num2 > 922337203685477LL) || (num2 < -922337203685477LL))
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "TimeSpan too long.");
-#endif
-		}
+
+		sassert(!((num2 > 922337203685477LL) || (num2 < -922337203685477LL)), "TimeSpan too long.");
+
 		return TimeSpan(((Int64) num2) * 0x2710L);
 	}
 }

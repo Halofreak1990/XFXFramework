@@ -8,7 +8,6 @@
 #define _XFX_VECTOR3_
 
 #include <System/Interfaces.h>
-#include <System/Object.h>
 
 using namespace System;
 
@@ -21,7 +20,6 @@ namespace XFX
 	// Defines a vector with three components.
 	struct Vector3 : public IEquatable<Vector3>, virtual Object
 	{
-	public:
 		float X, Y, Z;
 		static const Vector3 Backward;
 		static const Vector3 Down;
@@ -35,82 +33,82 @@ namespace XFX
 		static const Vector3 Up;
 		static const Vector3 Zero;
 
-		Vector3(float value);
-		Vector3(float x, float y, float z);
-		Vector3(Vector2 value, float z);
+		Vector3(const float value);
+		Vector3(const float x, const float y, const float z);
+		Vector3(const Vector2 value, const float z);
 		Vector3(const Vector3 &obj);
 		Vector3();
 
-		static Vector3 Add(Vector3 value1, Vector3 value2);
-		static void Add(Vector3 value1, Vector3 value2, out Vector3 result);
-		static Vector3 Baricentric(Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2);
-		static void Baricentric(Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2, out Vector3 result);
-		static Vector3 CatmullRom(Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount);
-		static void CatmullRom(Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount, out Vector3 result);
-		static Vector3 Clamp(Vector3 value1, Vector3 min, Vector3 max);
-		static void Clamp(Vector3 value1, Vector3 min, Vector3 max, out Vector3 result);
-		static Vector3 Cross(Vector3 vector1, Vector3 vector2);
-		static void Cross(Vector3 vector1, Vector3 vector2, out Vector3 result);
-		static float Distance(Vector3 value1, Vector3 value2);
-		static void Distance(Vector3 value1, Vector3 value2, out float result);
-		static float DistanceSquared(Vector3 value1, Vector3 value2);
-		static void DistanceSquared(Vector3 value1, Vector3 value2, out float result);
-		static Vector3 Divide(Vector3 value1, float value2);
-		static void Divide(Vector3 value1, float value2, out Vector3 result);
-		static Vector3 Divide(Vector3 value1, Vector3 value2);
-		static void Divide(Vector3 value1, Vector3 value2, out Vector3 result);
-		static float Dot(Vector3 value1, Vector3 value2);
-		static void Dot(Vector3 value1, Vector3 value2, out float result);
-		bool Equals(Vector3 other);
-		int GetHashCode();
-		static Vector3 Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount);
-		static void Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount, out Vector3 result);
-		float Length();
-		float LengthSquared();
-		static Vector3 Lerp(Vector3 value1, Vector3 value2, float amount);
-		static void Lerp(Vector3 value1, Vector3 value2, float amount, out Vector3 result);
-		static Vector3 Max(Vector3 value1, Vector3 value2);
-		static void Max(Vector3 value1, Vector3 value2, out Vector3 result);
-		static Vector3 Min(Vector3 value1, Vector3 value2);
-		static void Min(Vector3 value1, Vector3 value2, out Vector3 result);
-		static Vector3 Multiply(Vector3 value1, float scaleFactor);
-		static void Multiply(Vector3 value1, float scaleFactor, out Vector3 result);
-		static Vector3 Multiply(Vector3 value1, Vector3 value2);
-		static void Multiply(Vector3 value1, Vector3 value2, out Vector3 result);
-		static Vector3 Negate(Vector3 value);
-		static void Negate(Vector3 value, out Vector3 result);
+		static Vector3 Add(const Vector3 value1, const Vector3 value2);
+		static void Add(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		static Vector3 Baricentric(const Vector3 value1, const Vector3 value2, const Vector3 value3, const float amount1, const float amount2);
+		static void Baricentric(const Vector3 value1, const Vector3 value2, const Vector3 value3, const float amount1, const float amount2, out Vector3 result);
+		static Vector3 CatmullRom(const Vector3 value1, const Vector3 value2, const Vector3 value3, const Vector3 value4, const float amount);
+		static void CatmullRom(const Vector3 value1, const Vector3 value2, const Vector3 value3, const Vector3 value4, const float amount, out Vector3 result);
+		static Vector3 Clamp(const Vector3 value1, const Vector3 min, const Vector3 max);
+		static void Clamp(const Vector3 value1, const Vector3 min, const Vector3 max, out Vector3 result);
+		static Vector3 Cross(const Vector3 vector1, const Vector3 vector2);
+		static void Cross(const Vector3 vector1, const Vector3 vector2, out Vector3 result);
+		static float Distance(const Vector3 value1, const Vector3 value2);
+		static void Distance(const Vector3 value1, const Vector3 value2, out float result);
+		static float DistanceSquared(const Vector3 value1, const Vector3 value2);
+		static void DistanceSquared(const Vector3 value1, const Vector3 value2, out float result);
+		static Vector3 Divide(const Vector3 value1, const float value2);
+		static void Divide(const Vector3 value1, const float value2, out Vector3 result);
+		static Vector3 Divide(const Vector3 value1, const Vector3 value2);
+		static void Divide(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		static float Dot(const Vector3 value1, const Vector3 value2);
+		static void Dot(const Vector3 value1, const Vector3 value2, out float result);
+		bool Equals(const Vector3 other) const;
+		int GetHashCode() const;
+		static Vector3 Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount);
+		static void Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount, out Vector3 result);
+		float Length() const;
+		float LengthSquared() const;
+		static Vector3 Lerp(const Vector3 value1, const Vector3 value2, float amount);
+		static void Lerp(const Vector3 value1, const Vector3 value2, const float amount, out Vector3 result);
+		static Vector3 Max(const Vector3 value1, const Vector3 value2);
+		static void Max(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		static Vector3 Min(const Vector3 value1, const Vector3 value2);
+		static void Min(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		static Vector3 Multiply(const Vector3 value1, const float scaleFactor);
+		static void Multiply(const Vector3 value1, const float scaleFactor, out Vector3 result);
+		static Vector3 Multiply(const Vector3 value1, const Vector3 value2);
+		static void Multiply(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		static Vector3 Negate(const Vector3 value);
+		static void Negate(const Vector3 value, out Vector3 result);
 		void Normalize();
-		static Vector3 Normalize(Vector3 value);
-		static void Normalize(Vector3 value, out Vector3 result);
-		static Vector3 Reflect(Vector3 vector, Vector3 normal);
-		static void Reflect(Vector3 vector, Vector3 normal, out Vector3 result);
-		static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount);
-		static void SmoothStep(Vector3 value1, Vector3 value2, float amount, out Vector3 result);
-		static Vector3 Subtract(Vector3 value1, Vector3 value2);
-		static void Subtract(Vector3 value1, Vector3 value2, out Vector3 result);
-		static Vector3 Transform(Vector3 position, Matrix matrix);
-		static void Transform(Vector3 position, Matrix matrix, out Vector3 result);
-		static Vector3 Transform(Vector3 position, Quaternion rotation);
-		static void Transform(Vector3 position, Quaternion rotation, out Vector3 result);
-		static void Transform(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length);
-		static void Transform(Vector3 sourceArray[], int sourceIndex, Quaternion rotation, Vector3 destinationArray[], int destinationIndex, int length);
-		static void Transform(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[]);
-		static void Transform(Vector3 sourceArray[], Quaternion rotation, Vector3 destinationArray[]);
-		static Vector3 TransformNormal(Vector3 normal, Matrix matrix);
-		static void TransformNormal(Vector3 normal, Matrix matrix, out Vector3 result);
-		static void TransformNormal(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length);
-		static void TransformNormal(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[]);
+		static Vector3 Normalize(const Vector3 value);
+		static void Normalize(const Vector3 value, out Vector3 result);
+		static Vector3 Reflect(const Vector3 vector, const Vector3 normal);
+		static void Reflect(const Vector3 vector, const Vector3 normal, out Vector3 result);
+		static Vector3 SmoothStep(const Vector3 value1, const Vector3 value2, const float amount);
+		static void SmoothStep(const Vector3 value1, const Vector3 value2, const float amount, out Vector3 result);
+		static Vector3 Subtract(const Vector3 value1, const Vector3 value2);
+		static void Subtract(const Vector3 value1, const Vector3 value2, out Vector3 result);
+		const char* ToString() const;
+		static Vector3 Transform(const Vector3 position, const Matrix matrix);
+		static void Transform(const Vector3 position, const Matrix matrix, out Vector3 result);
+		static Vector3 Transform(const Vector3 position, const Quaternion rotation);
+		static void Transform(const Vector3 position, const Quaternion rotation, out Vector3 result);
+		static void Transform(const Vector3 sourceArray[], const int sourceIndex, const Matrix matrix, Vector3 destinationArray[], const int destinationIndex, const int length);
+		static void Transform(const Vector3 sourceArray[], const int sourceIndex, const Quaternion rotation, Vector3 destinationArray[], const int destinationIndex, const int length);
+		static void Transform(const Vector3 sourceArray[], const Matrix matrix, Vector3 destinationArray[]);
+		static void Transform(const Vector3 sourceArray[], const Quaternion rotation, Vector3 destinationArray[]);
+		static Vector3 TransformNormal(const Vector3 normal, const Matrix matrix);
+		static void TransformNormal(const Vector3 normal, const Matrix matrix, out Vector3 result);
+		static void TransformNormal(const Vector3 sourceArray[], const int sourceIndex, const Matrix matrix, Vector3 destinationArray[], const int destinationIndex, const int length);
+		static void TransformNormal(const Vector3 sourceArray[], const Matrix matrix, Vector3 destinationArray[]);
 
-		Vector3 operator+(Vector3 other);
-		Vector3 operator/(float divider);
-		Vector3 operator/(Vector3 other);
-		bool operator==(const Vector3 other);
-		bool operator!=(const Vector3 other);
-		Vector3 operator*(float scaleFactor);
-		Vector3 operator*(Vector3 other);
-		Vector3 operator-(Vector3 other);
+		Vector3 operator+(const Vector3 other);
+		Vector3 operator/(const float divider);
+		Vector3 operator/(const Vector3 other);
+		bool operator==(const Vector3 other) const;
+		bool operator!=(const Vector3 other) const;
+		Vector3 operator*(const float scaleFactor);
+		Vector3 operator*(const Vector3 other);
+		Vector3 operator-(const Vector3 other);
 		Vector3 operator-();
-		Vector3 operator=(const Vector3 other);
 	} ALIGNED16;
 }
 

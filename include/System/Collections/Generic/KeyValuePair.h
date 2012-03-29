@@ -7,6 +7,8 @@
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_KEYVALUEPAIR_
 #define _SYSTEM_COLLECTIONS_GENERIC_KEYVALUEPAIR_
 
+#include <System/Object.h>
+
 namespace System
 {
 	namespace Collections
@@ -15,18 +17,21 @@ namespace System
 		{
 			// Defines a key/value pair that can be set or retrieved.
 			template <class TKey, class TValue>
-			struct KeyValuePair
+			struct KeyValuePair : virtual Object
 			{
-			private:
-				TKey _key;
-				TValue _value;
-
 			public:
-				TKey Key();
-				TValue Value();
+				const TKey Key;
+				const TValue Value;
 
-				KeyValuePair(TKey key, TValue value);
-				KeyValuePair(const KeyValuePair &obj); //! Copy constructor
+				KeyValuePair(const TKey key, const TValue value)
+					: Key(key), Value(value)
+				{
+				}
+
+				KeyValuePair(const KeyValuePair &obj)
+					: Key(obj.Key), Value(obj.Value)
+				{
+				}
 			};
 		}
 	}

@@ -33,10 +33,9 @@
 #include <Vector4.h>
 #include <System/Array.h>
 #include <System/Math.h>
+#include <System/String.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 using namespace System;
 
@@ -239,12 +238,12 @@ namespace XFX
 		result = (value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z);
 	}
 
-	bool Vector3::Equals(Vector3 other)
+	bool Vector3::Equals(const Vector3 other) const
 	{
 		return ((X == other.X) && (Y == other.Y) && (Z == other.Z));
 	}
 	
-	int Vector3::GetHashCode()
+	int Vector3::GetHashCode() const
 	{
 		return ((int)X ^ (int)Y ^ (int)Z);
 	}
@@ -265,12 +264,12 @@ namespace XFX
 		result.Z = MathHelper::Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
 	}
 	
-	float Vector3::Length()
+	float Vector3::Length() const
 	{
 		return Math::Sqrt((X * X) + (Y * Y) + (Z * Z));
 	}
 	
-	float Vector3::LengthSquared()
+	float Vector3::LengthSquared() const
 	{
 		return (X * X) + (Y * Y) + (Z * Z);
 	}
@@ -458,6 +457,11 @@ namespace XFX
 	    result.Y = value1.Y - value2.Y;
 	    result.Z = value1.Z - value2.Z;
 	}
+
+	const char* Vector3::ToString() const
+	{
+		return String::Format("{{X:%f Y:%f Z:%f}}", X, Y, Z);
+	}
 	
 	Vector3 Vector3::Transform(Vector3 position, Matrix matrix)
 	{
@@ -503,23 +507,11 @@ namespace XFX
 		Add(position, temp, result);
 	}
 	
-	void Vector3::Transform(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length)
+	void Vector3::Transform(const Vector3 sourceArray[], const int sourceIndex, const Matrix matrix, Vector3 destinationArray[], const int destinationIndex, const int length)
 	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
+		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
+		sassert(destinationArray != null, String::Format("destinationArray; %s", FrameworkResources::ArgumentNull_Generic));
 
 		for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
@@ -527,91 +519,15 @@ namespace XFX
 		}
 	}
 	
-	void Vector3::Transform(Vector3 sourceArray[], int sourceIndex, Quaternion rotation, Vector3 destinationArray[], int destinationIndex, int length)
+	void Vector3::Transform(const Vector3 sourceArray[], const int sourceIndex, const Quaternion rotation, Vector3 destinationArray[], const int destinationIndex, const int length)
 	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
+		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
+		sassert(destinationArray != null, String::Format("destinationArray; %s", FrameworkResources::ArgumentNull_Generic));
 
 		for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			Transform(sourceArray[i], rotation, destinationArray[j]);
-		}
-	}
-	
-	void Vector3::Transform(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[])
-	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
-
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
-			
-		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
-#endif
-			return;
-		}
-			
-		for(int i = 0; i < Array::Length(sourceArray); i++)
-		{
-			Transform(sourceArray[i], matrix, destinationArray[i]);
-		}
-	}
-	
-	void Vector3::Transform(Vector3 sourceArray[], Quaternion rotation, Vector3 destinationArray[])
-	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
-
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
-
-		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
-#endif
-			return;
-		}
-		
-		for(int i = 0; i < Array::Length(sourceArray); i++)
-		{
-			Transform(sourceArray[i], rotation, destinationArray[i]);
 		}
 	}
 	
@@ -629,59 +545,15 @@ namespace XFX
         result.Z = ((normal.X * matrix.M13) + (normal.Y * matrix.M23)) + (normal.Z * matrix.M33); 
 	}
 	
-	void Vector3::TransformNormal(Vector3 sourceArray[], int sourceIndex, Matrix matrix, Vector3 destinationArray[], int destinationIndex, int length)
+	void Vector3::TransformNormal(const Vector3 sourceArray[], const int sourceIndex, const Matrix matrix, Vector3 destinationArray[], const int destinationIndex, const int length)
 	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
+		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
+		sassert(destinationArray != null, String::Format("destinationArray; %s", FrameworkResources::ArgumentNull_Generic));
 
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			TransformNormal(sourceArray[i], matrix, destinationArray[j]);
-		}
-	}
-	
-	void Vector3::TransformNormal(Vector3 sourceArray[], Matrix matrix, Vector3 destinationArray[])
-	{
-		if (!sourceArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-			return;
-		}
-
-		if (!destinationArray)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-			return;
-		}
-
-		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
-#endif
-			return;
-		}
-			
-		for(int i = 0; i < Array::Length(sourceArray); i++)
-		{
-			TransformNormal(sourceArray[i], matrix, destinationArray[i]);
 		}
 	}
 	
@@ -712,12 +584,12 @@ namespace XFX
 		return result;
 	}
 	
-	bool Vector3::operator==(const Vector3 other)
+	bool Vector3::operator==(const Vector3 other) const
 	{
 		return Equals(other);
 	}
 	
-	bool Vector3::operator!=(const Vector3 other)
+	bool Vector3::operator!=(const Vector3 other) const
 	{
 		return !Equals(other);
 	}
@@ -748,13 +620,5 @@ namespace XFX
 	Vector3 Vector3::operator-()
 	{
 		return Vector3(-X, -Y, -Z);
-	}
-	
-	Vector3 Vector3::operator=(const Vector3 other)
-	{
-		X = other.X;
-		Y = other.Y;
-		Z = other.Z;
-		return *this;
 	}
 }

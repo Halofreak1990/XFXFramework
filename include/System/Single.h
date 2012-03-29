@@ -26,17 +26,19 @@ namespace System
 		static const float NegativeInfinity;
 		static const float PositiveInfinity;
 
-		Single(float f);
+		Single(const Single &obj);
+		Single(const float &obj);
 
-		int CompareTo(Single other);
-		bool Equals(Single other);
+		int CompareTo(const Single other) const;
+		bool Equals(const Single other) const;
+		int GetHashCode() const;
 		static float Parse(char* str);
-		char* ToString();
+		const char* ToString() const;
 
-		bool operator !=(float right);
-		bool operator !=(Single right);
-		bool operator ==(float right);
-		bool operator ==(Single right);
+		bool operator !=(float right) const;
+		bool operator !=(const Single right) const;
+		bool operator ==(float right) const;
+		bool operator ==(const Single right) const;
 	};
 }
 

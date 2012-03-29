@@ -1,7 +1,8 @@
+
 #ifndef _SYSTEM_GLOBALIZATION_CALENDAR_
 #define _SYSTEM_GLOBALIZATION_CALENDAR_
 
-
+#include <System/Object.h>
 
 namespace System
 {
@@ -9,10 +10,8 @@ namespace System
 
 	namespace Globalization
 	{
-		/// <summary>
-		/// Represents time in divisions, such as weeks, months, and years.
-		/// </summary>
-		class Calendar
+		// Represents time in divisions, such as weeks, months, and years.
+		class Calendar : virtual Object
 		{
 		public:
 			DateTime AddDays(DateTime time, int days);

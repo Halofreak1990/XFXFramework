@@ -43,12 +43,17 @@ namespace System
 	const double Double::PositiveInfinity = *( double* )&rawPosInfD;
 	const double Double::NegativeInfinity = *( double* )&rawNegInfD;
 
-	Double::Double(double d)
+	Double::Double(const Double &obj)
 	{
-		value = d;
+		value = obj.value;
 	}
 
-	int Double::CompareTo(Double other)
+	Double::Double(const double &obj)
+	{
+		value = obj;
+	}
+
+	int Double::CompareTo(const Double other) const
 	{
 		if (value > other.value)
 			return 1;
@@ -57,9 +62,14 @@ namespace System
 		return 0;
 	}
 
-	bool Double::Equals(Double other)
+	bool Double::Equals(const Double other) const
 	{
 		return (value == other.value);
+	}
+
+	int Double::GetHashCode() const
+	{
+		return (int)value;
 	}
 
 	double Double::Parse(char *str)
@@ -86,27 +96,27 @@ namespace System
 		return retval;
 	}
 
-	char* Double::ToString()
+	const char* Double::ToString() const
 	{
 		return String::Format("%d", value);
 	}
 
-	bool Double::operator !=(double right)
+	bool Double::operator !=(double right) const
 	{
 		return (value != right);
 	}
 
-	bool Double::operator !=(Double right)
+	bool Double::operator !=(const Double right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Double::operator ==(double right)
+	bool Double::operator ==(double right) const
 	{
 		return (value == right);
 	}
 
-	bool Double::operator ==(Double right)
+	bool Double::operator ==(const Double right) const
 	{
 		return (value == right.value);
 	}

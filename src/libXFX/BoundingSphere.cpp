@@ -26,10 +26,11 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <BoundingSphere.h>
+#include <System/String.h>
 
 namespace XFX
 {
-	BoundingSphere::BoundingSphere(Vector3 center, float radius)
+	BoundingSphere::BoundingSphere(const Vector3 center, const float radius)
 	{
 		Center = center;
 		Radius = radius;
@@ -46,22 +47,29 @@ namespace XFX
 		Center = Vector3::Zero;
 		Radius = 0.0f;
 	}
-	
-	int BoundingSphere::operator!=(const BoundingSphere other)
-	{
-		return !((Center == other.Center) && (Radius == other.Radius));
-	}
-	
-	int BoundingSphere::operator==(const BoundingSphere other)
+
+	bool BoundingSphere::Equals(const BoundingSphere other) const
 	{
 		return ((Center == other.Center) && (Radius == other.Radius));
 	}
-	
-	BoundingSphere BoundingSphere::operator=(const BoundingSphere other)
+
+	int BoundingSphere::GetHashCode() const
 	{
-		Center = other.Center;
-		Radius = other.Radius;
-		
-		return *this;
+		return Center.GetHashCode() + (int)Radius;
+	}
+
+	const char* BoundingSphere::ToString() const
+	{
+		return String::Format("{{Center:%s Radius:%f}}", Center.ToString(), Radius);
+	}
+	
+	int BoundingSphere::operator!=(const BoundingSphere other) const
+	{
+		return !Equals(other);
+	}
+	
+	int BoundingSphere::operator==(const BoundingSphere other) const
+	{
+		return Equals(other);
 	}
 }

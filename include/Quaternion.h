@@ -14,9 +14,8 @@ namespace XFX
 	struct Matrix;
 	struct Vector3;
 	
-	struct Quaternion
+	struct Quaternion : public IEquatable<Quaternion>, virtual Object
 	{
-	public:
 		float W, X, Y, Z;
 		static const Quaternion Identity;
 		
@@ -42,7 +41,7 @@ namespace XFX
 		static void Divide(Quaternion quaternion1, Quaternion quaternion2, out Quaternion result);
 		static float Dot(Quaternion quaternion1, Quaternion quaternion2);
 		static void Dot(Quaternion quaternion1, Quaternion quaternion2, out float result);
-		bool Equals(Quaternion obj);
+		bool Equals(const Quaternion obj) const;
 		static Quaternion Inverse(Quaternion quaternion);
 		static void Inverse(Quaternion quaternion, out Quaternion result);
 		float Length();
@@ -60,16 +59,16 @@ namespace XFX
 		static void Slerp(Quaternion quaternion1, Quaternion quaternion2, float amount, out Quaternion result);
 		static Quaternion Subtract(Quaternion quaternion1, Quaternion quaternion2);
 		static void Subtract(Quaternion quaternion1, Quaternion quaternion2, out Quaternion result);
+		char* ToString();
 		
 		const Quaternion operator+(const Quaternion other);
 		const Quaternion operator/(const Quaternion other);
-		bool operator==(const Quaternion other);
-		bool operator!=(const Quaternion other);
+		bool operator==(const Quaternion other) const;
+		bool operator!=(const Quaternion other) const;
 		const Quaternion operator*(const Quaternion other);
 		const Quaternion operator*(const float scaleFactor);
 		const Quaternion operator-(const Quaternion other);
 		const Quaternion operator-();
-		Quaternion operator=(const Quaternion other);
 	} ALIGNED16;
 }
 

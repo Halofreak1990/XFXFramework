@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="libmscorlib"
 	ProjectGUID="{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
 	RootNamespace="libmscorlib"
@@ -25,9 +25,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				ReBuildCommandLine="make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				CleanCommandLine="make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				BuildCommandLine="C:\cygwin\bin\make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				ReBuildCommandLine="C:\cygwin\bin\make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				CleanCommandLine="C:\cygwin\bin\make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
 				Output=""
 				PreprocessorDefinitions="ENABLE_XBOX; DEBUG"
 				IncludeSearchPath="C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include"
@@ -135,7 +135,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Exception.cpp"
+				RelativePath=".\FrameworkResources.cpp"
 				>
 			</File>
 			<File
@@ -155,24 +155,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\sassert.c"
+				>
+			</File>
+			<File
 				RelativePath=".\Single.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\String.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)\$(InputName)1.obj"
-						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\SystemException.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -220,10 +211,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\IOException.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\MemoryStream.cpp"
 					>
 				</File>
@@ -267,16 +254,16 @@
 					RelativePath=".\Calendar.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\DaylightTime.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Collections"
 				>
 				<File
 					RelativePath=".\HashHelpers.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Stack.cpp"
 					>
 				</File>
 				<Filter
@@ -290,31 +277,7 @@
 						RelativePath=".\Dictionary.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\KeyNotFoundException.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\KeyValuePair.cpp"
-						>
-					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Text"
-				>
-				<File
-					RelativePath=".\Decoder.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Encoder.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Encoding.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -363,7 +326,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\System\Exception.h"
+				RelativePath="..\..\include\System\EventArgs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\FrameworkResources.h"
 				>
 			</File>
 			<File
@@ -388,6 +355,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\System\OperatingSystem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\sassert.h"
 				>
 			</File>
 			<File
@@ -458,10 +429,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\System\IO\IOException.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\System\IO\MemoryStream.h"
 					>
 				</File>
@@ -505,6 +472,14 @@
 					RelativePath="..\..\include\System\Globalization\CultureInfo.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\System\Globalization\DaylightTime.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\System\Globalization\Enums.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Collections"
@@ -515,10 +490,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\System\Collections\Interfaces.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Collections\Stack.h"
 					>
 				</File>
 				<Filter

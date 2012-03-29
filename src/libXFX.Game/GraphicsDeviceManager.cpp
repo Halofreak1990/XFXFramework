@@ -27,6 +27,8 @@
 
 #include <GraphicsDeviceManager.h>
 
+#include <sassert.h>
+
 extern "C" {
 #include "../libXFX/pbKit.h"
 }
@@ -39,11 +41,7 @@ namespace XFX
 	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr32, SurfaceFormat::Bgr555, SurfaceFormat::Bgr565, SurfaceFormat::Bgra1010102 };
 	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgr555, SurfaceFormat::Bgra5551, SurfaceFormat::Bgr32, SurfaceFormat::Color, SurfaceFormat::Bgra1010102 };
 
-	GraphicsDeviceManager::GraphicsDeviceManager()
-	{
-	}
-
-	GraphicsDeviceManager::GraphicsDeviceManager(Game game)
+	GraphicsDeviceManager::GraphicsDeviceManager(Game* game)
 	{
 		SynchronizeWithVerticalRetrace = true;
 		backBufferFormat = SurfaceFormat::Color;
@@ -51,14 +49,23 @@ namespace XFX
 		backBufferWidth = DefaultBackBufferWidth;
 		minimumVertexShaderProfile = ShaderProfile::XVS_1_1;
 		_game = game;
-        /*	
-		if (game.Services().GetService((Object*)IGraphicsDeviceManager) != null)
-            throw ArgumentException("A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");*/
 
-        game.Services().AddService(this);
+		sassert(game->getServices().GetService("IGraphicsDeviceManager") == null, "A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
+
+        game->getServices().AddService("IGraphicsDeviceManager", this);
+		game->getServices().AddService("IGraphicsDeviceService", this);
 	}
 
-	GraphicsDevice GraphicsDeviceManager::GraphicsDevice_()
+	GraphicsDeviceManager::GraphicsDeviceManager(const GraphicsDeviceManager &obj)
+		: _game(obj._game)
+	{
+		backBufferFormat = obj.backBufferFormat;
+		backBufferHeight = obj.backBufferHeight;
+		backBufferWidth = obj.backBufferWidth;
+		minimumVertexShaderProfile = obj.minimumVertexShaderProfile;
+	}
+
+	GraphicsDevice* GraphicsDeviceManager::getGraphicsDevice() const
 	{
 		return graphicsDevice;
 	}
@@ -75,28 +82,24 @@ namespace XFX
 
 	bool GraphicsDeviceManager::BeginDraw()
 	{
-		pb_reset();
-
 		return true;
 	}
 
-	bool GraphicsDeviceManager::CanResetDevice(GraphicsDeviceInformation newDeviceInfo)
+	bool GraphicsDeviceManager::CanResetDevice(const GraphicsDeviceInformation newDeviceInfo)
 	{
-		if (graphicsDevice.CreationParameters().DeviceType_() != newDeviceInfo.DeviceType_)
+		/*if (graphicsDevice->getDeviceType() != newDeviceInfo.DeviceType_)
         {
             return false;
-        }
+        }*/
         return true;
 	}
 
 	void GraphicsDeviceManager::CreateDevice()
 	{
-		switch(pb_init())
-		{
-		default:
-			OnDeviceCreated(this, EventArgs::Empty);
-			break;
-		}
+		// TODO: properly construct the GraphicsDevice- requires lots of additional coding in multiple places
+		graphicsDevice = new GraphicsDevice(null, DeviceType::Hardware, null);
+
+		OnDeviceCreated(this, EventArgs::Empty);
 	}
 
 	void GraphicsDeviceManager::Dispose()
@@ -108,20 +111,13 @@ namespace XFX
 	{
 		if (disposing)
 		{
+			graphicsDevice->Dispose();
 		}
 	}
 
 	void GraphicsDeviceManager::EndDraw()
 	{
-		pb_wait_for_vbl();
-		pb_finished();
-	}
-
-	GraphicsDeviceInformation GraphicsDeviceManager::FindBestDevice(bool anySuitableDevice)
-	{
-		GraphicsDeviceInformation result;
-		
-		return result;
+		graphicsDevice->Present();
 	}
 
 	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs args)
@@ -148,27 +144,8 @@ namespace XFX
 			DeviceResetting(sender, args);
 	}
 
-	void GraphicsDeviceManager::RankDevices(List<GraphicsDeviceInformation> foundDevices)
-	{
-		int index = 0;
-        while (index < foundDevices.Count())
-        {
-            DeviceType_t deviceType = foundDevices[index].DeviceType_;
-            GraphicsAdapter adapter = foundDevices[index].Adapter;
-            PresentationParameters presentationParameters = foundDevices[index].PresentationParameters_;
-			if (!adapter.CheckDeviceFormat(deviceType, adapter.CurrentDisplayMode().Format, TextureUsage::None, QueryUsages::PostPixelShaderRendering, ResourceType::Texture2D, presentationParameters.BackBufferFormat))
-            {
-                foundDevices.RemoveAt(index);
-            }
-            else
-            {
-                index++;
-            }
-		}
-	}
-
 	void GraphicsDeviceManager::ToggleFullscreen()
 	{
-
+		
 	}
 }

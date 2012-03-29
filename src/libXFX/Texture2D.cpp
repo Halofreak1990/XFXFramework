@@ -25,8 +25,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/Texture2D.h>
+#include <Graphics/Color.h>
+#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
+#include <Graphics/Texture2D.h>
 #include <Rectangle.h>
 
 using namespace XFX;
@@ -35,62 +37,45 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		SurfaceFormat_t Texture2D::Format()
+		SurfaceFormat_t Texture2D::Format() const
 		{
 			return _surfaceFormat;
 		}
 		
-		int Texture2D::getHeight()
-		{
-			return _height;
-		}
-		
-		TextureUsage_t Texture2D::TextureUsage()
+		TextureUsage_t Texture2D::TextureUsage() const
 		{
 			return _textureUsage;
 		}
 		
-		int Texture2D::getWidth()
-		{
-			return _width;
-		}
-
-		Texture2D::Texture2D()
-		{
-			textureId = -1;
-		}
-		
 		Texture2D::Texture2D(GraphicsDevice* graphicsDevice)
+			: Height(0), Width(0)
 		{
 			textureId = -1;
 			this->graphicsDevice = graphicsDevice;
 		}
 		
-		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height)
+		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height)
+			: Height(height), Width(width)
 		{
 			textureId = -1;
 			this->graphicsDevice = graphicsDevice;
-			_width = width;
-			_height = height;
 		}
 		
-		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format)
+		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height, const int numberLevels, const TextureUsage_t usage, const SurfaceFormat_t format)
+			: Height(height), Width(width)
 		{
 			textureId = -1;
 			this->graphicsDevice = graphicsDevice;
-			_width = width;
-			_height = height;
 			_numberOfLevels = numberLevels;
 			_textureUsage = usage;
 			_surfaceFormat = format;
 		}
 
 		Texture2D::Texture2D(const Texture2D &obj)
+			: Height(obj.Height), Width(obj.Width)
 		{
 			textureId = obj.textureId;
-			this->graphicsDevice = graphicsDevice;
-			_width = obj._width;
-			_height = obj._height;
+			this->graphicsDevice = obj.graphicsDevice;
 			_numberOfLevels = obj._numberOfLevels;
 			_textureUsage = obj._textureUsage;
 			_surfaceFormat = obj._surfaceFormat;

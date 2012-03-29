@@ -4,13 +4,10 @@
  *	XFX StreamReader definition file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _STREAMREADER_
-#define _STREAMREADER_
+#ifndef _SYSTEM_IO_STREAMREADER_
+#define _SYSTEM_IO_STREAMREADER_
 
-#include "../Text/Encoding.h"
 #include "TextReader.h"
-
-using namespace System::Text;
 
 namespace System
 {
@@ -18,9 +15,7 @@ namespace System
 	{
 		class Stream;
 
-		/// <summary>
-		/// Implements a System::IO::TextReader that reads characters from a byte stream in a particular encoding.
-		/// </summary>
+		// Implements a System::IO::TextReader that reads characters from a byte stream.
 		class StreamReader : public TextReader
 		{
 		protected:
@@ -28,20 +23,13 @@ namespace System
 
 		public:
 			static const StreamReader Null;
-			Stream BaseStream();
-			Encoding CurrentEncoding();
+			Stream* BaseStream();
 			bool EndOfStream();
 
-			StreamReader(Stream stream);
-			StreamReader(Stream stream, bool detectEncodingFromByteOrderMarks);
-			StreamReader(Stream stream, Encoding encoding);
-			StreamReader(Stream stream, Encoding encoding, bool detectEncodingFromByteOrderMarks);
-			StreamReader(Stream stream, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);
-			StreamReader(char* path);
-			StreamReader(char* path, bool detectEncodingFromByteOrderMarks);
-			StreamReader(char* path, Encoding encoding);
-			StreamReader(char* path, Encoding encoding, bool detectEncodingFromByteOrderMarks);
-			StreamReader(char* path, Encoding encoding, bool detectEncodingFromByteOrderMarks, int bufferSize);
+			StreamReader(Stream* stream);
+			StreamReader(Stream* stream, int bufferSize);
+			StreamReader(const char* path);
+			StreamReader(const char* path, int bufferSize);
 
 			void Close();
 			void DiscardBufferedData();
@@ -54,4 +42,4 @@ namespace System
 	}
 }
 
-#endif //_STREAMREADER_
+#endif //_SYSTEM_IO_STREAMREADER_

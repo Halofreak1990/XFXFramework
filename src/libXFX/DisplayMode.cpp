@@ -32,12 +32,12 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		float DisplayMode::AspectRatio()
+		float DisplayMode::AspectRatio() const
 		{
 			return Width / Height;
 		}
 		
-		Rectangle DisplayMode::TitleSafeArea()
+		Rectangle DisplayMode::TitleSafeArea() const
 		{			
 			/*
 				Based on my own findings on a PAL SD TV set, this roughly equates to a resolution of 600 * 450
@@ -57,22 +57,22 @@ namespace XFX
 			RefreshRate = 50;
 		}
 		
-		bool DisplayMode::Equals(const DisplayMode other)
+		bool DisplayMode::Equals(const DisplayMode other) const
 		{
 			return ((Width == other.Width) && (Height == other.Height) && (Format == other.Format));
 		}
 		
-		int DisplayMode::GetHashCode()
+		int DisplayMode::GetHashCode() const
 		{
 			return (int)AspectRatio() ^ Width ^ Height ^ TitleSafeArea().GetHashCode() ^ Format ^ RefreshRate;
 		}
 		
-		bool DisplayMode::operator!=(const DisplayMode other)
+		bool DisplayMode::operator!=(const DisplayMode other) const
 		{
 			return !Equals(other);
 		}
 		
-		bool DisplayMode::operator==(const DisplayMode other)
+		bool DisplayMode::operator==(const DisplayMode other) const
 		{
 			return Equals(other);
 		}

@@ -28,9 +28,7 @@
 #include <System/String.h>
 #include <System/Version.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -54,28 +52,37 @@ namespace System
 	{
 	}
 
-	Version Version::Clone()
+	Version Version::Clone() const
 	{
 		return Version(Major, Minor, Build, Revision);
 	}
 
-	bool Version::Equals(Version obj)
+	int Version::CompareTo(const Version value) const
+	{
+		if (*this < value)
+			return -1;
+		if (*this > value)
+			return 1;
+		return 0;
+	}
+
+	bool Version::Equals(const Version obj) const
 	{
 		return ((Build == obj.Build) && (Major == obj.Major) &&
 				(Minor == obj.Minor) && (Revision == obj.Revision));
 	}
 
-	int Version::GetHashCode()
+	int Version::GetHashCode() const
 	{
 		return (Build ^ Major ^ Minor ^ Revision);
 	}
 
-	char* Version::ToString()
+	const char* Version::ToString() const
 	{
 		return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 	}
 
-	char* Version::ToString(int fieldCount)
+	const char* Version::ToString(int fieldCount) const
 	{
 		switch(fieldCount)
 		{
@@ -95,42 +102,40 @@ namespace System
 			return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 			break;
 		default:
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "fieldCount");
-#endif
+			sassert(fieldCount <= 4, "fieldCount is out of range");
 			return "";
 		}
 	}
 
-	bool Version::operator !=(Version other)
+	bool Version::operator !=(const Version other) const
 	{
 		return !Equals(other);
 	}
 
-	bool Version::operator <(Version other)
+	bool Version::operator <(const Version other) const
 	{
 		return ((Build < other.Build) && (Major < other.Major) &&
 				(Minor < other.Minor) && (Revision < other.Revision));
 	}
 
-	bool Version::operator <=(Version other)
+	bool Version::operator <=(const Version other) const
 	{
 		return ((Build <= other.Build) && (Major <= other.Major) &&
 				(Minor <= other.Minor) && (Revision <= other.Revision));
 	}
 
-	bool Version::operator ==(Version other)
+	bool Version::operator ==(const Version other) const
 	{
 		return Equals(other);
 	}
 
-	bool Version::operator >(Version other)
+	bool Version::operator >(const Version other) const
 	{
 		return ((Build > other.Build) && (Major > other.Major) &&
 				(Minor > other.Minor) && (Revision > other.Revision));
 	}
 
-	bool Version::operator >=(Version other)
+	bool Version::operator >=(const Version other) const
 	{
 		return ((Build >= other.Build) && (Major >= other.Major) &&
 				(Minor >= other.Minor) && (Revision >= other.Revision));

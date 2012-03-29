@@ -9,6 +9,7 @@
 
 namespace XFX
 { 
+	// Describes how one bounding volume contains another.
 	struct ContainmentType
 	{
 		enum type
@@ -19,6 +20,7 @@ namespace XFX
 		};
 	};
 
+	// Defines the continuity of CurveKeys on a Curve.
 	struct CurveContinuity
 	{
 		enum type
@@ -28,6 +30,7 @@ namespace XFX
 		};
 	};
 	
+	// Defines how the value of a Curve will be determined for positions before the first point on the Curve or after the last point on the Curve.
 	struct CurveLoopType
 	{
 		enum type
@@ -40,6 +43,7 @@ namespace XFX
 		};
 	};
 	
+	// Specifies different tangent types to be calculated for CurveKey points in a Curve.
 	struct CurveTangent
 	{
 		enum type
@@ -50,6 +54,7 @@ namespace XFX
 		};
 	};
 	
+	// Describes the intersection between a plane and a bounding volume.
 	struct PlaneIntersectionType
 	{
 		enum type
@@ -60,6 +65,7 @@ namespace XFX
 		};
 	};
 	
+	// Specifies the index of a player.
 	struct PlayerIndex
 	{
 		enum type
@@ -71,6 +77,7 @@ namespace XFX
 		};
 	};
 
+	// Defines the target platform to be used when compiling content.
 	struct TargetPlatform
 	{
 		enum type

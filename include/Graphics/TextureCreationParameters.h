@@ -10,14 +10,14 @@
 #include "Color.h"
 #include "Enums.h"
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Describes the parameters to use when initializing a new instance of a texture.
-		/// </summary>
-		struct TextureCreationParameters
+		// Describes the parameters to use when initializing a new instance of a texture.
+		struct TextureCreationParameters : virtual Object
 		{
 			int Width;
 			int Height;
@@ -40,7 +40,6 @@ namespace XFX
 			
 			bool operator!=(const TextureCreationParameters other);
 			bool operator==(const TextureCreationParameters other);
-			TextureCreationParameters operator =(const TextureCreationParameters other);
 		};
 	}
 }

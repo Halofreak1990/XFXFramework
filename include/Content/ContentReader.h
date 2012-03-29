@@ -4,13 +4,14 @@
  *	XFX ContentReader class definition file				*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _CONTENT_CONTENTREADER_
-#define _CONTENT_CONTENTREADER_
+#ifndef _XFX_CONTENT_CONTENTREADER_
+#define _XFX_CONTENT_CONTENTREADER_
 
 #include <System/IO/BinaryReader.h>
 #include <Content/ContentManager.h>
 #include <Graphics/GraphicsDevice.h>
 
+using namespace System;
 using namespace System::IO;
 using namespace XFX::Graphics;
 
@@ -26,11 +27,8 @@ namespace XFX
 	{
 		class ContentTypeReader;
 
-		/// <summary>
-		/// A worker object that implements most of ContentManager.Load. A new
-		/// ContentReader is constructed for each asset loaded.
-		/// </summary>
-		class ContentReader : public BinaryReader
+		// A worker object that implements most of ContentManager.Load. A new ContentReader is constructed for each asset loaded.
+		class ContentReader : public BinaryReader, virtual Object
 		{
 		private:
 			ContentManager contentManager;
@@ -71,4 +69,4 @@ namespace XFX
 	}
 }
 
-#endif //_CONTENTREADER_
+#endif //_XFX_CONTENT_CONTENTREADER_

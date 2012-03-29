@@ -13,14 +13,10 @@
 
 namespace System
 {
-	/// <summary>
-	/// References a method to be called when a corresponding asynchronous operation completes.
-	/// </summary>
+	// References a method to be called when a corresponding asynchronous operation completes.
 	typedef void (*AsyncCallback)(IAsyncResult* ar);
 
-	/// <summary>
-	/// Represents the method that will handle an event that has no event data.
-	/// </summary>
+	// Represents the method that will handle an event that has no event data.
 	typedef void (*EventHandler)(Object* sender, EventArgs e);
 }
 

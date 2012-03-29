@@ -4,16 +4,14 @@
  *	XFX::Graphics enumeration definition file			*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _GRAPHICS_ENUMS_
-#define _GRAPHICS_ENUMS_
+#ifndef _XFX_GRAPHICS_ENUMS_
+#define _XFX_GRAPHICS_ENUMS_
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Defines color blending factors.
-		/// </summary>
+		// Defines color blending factors.
 		struct Blend
 		{
 			enum type
@@ -35,9 +33,8 @@ namespace XFX
 				InverseBlendFactor = 15
 			};
 		};
-		/// <summary>
-		/// Defines how to combine a source color with the destination color already on the render target for color blending.
-		/// </summary>
+
+		// Defines how to combine a source color with the destination color already on the render target for color blending.
 		struct BlendFunction
 		{
 			enum type
@@ -49,9 +46,8 @@ namespace XFX
          		Max = 5
 			};
 		};
-		/// <summary>
-		/// Specifies Special Usage of the buffer contents.
-		/// </summary>
+
+		// Specifies Special Usage of the buffer contents.
 		struct BufferUsage
 		{
 			enum type
@@ -61,9 +57,8 @@ namespace XFX
 				WriteOnly = 8
 			};
 		};
-		/// <summary>
-		/// Specifies the buffer to use when calling GraphicsDevice.Clear.
-		/// </summary>
+
+		// Specifies the buffer to use when calling GraphicsDevice.Clear.
 		struct ClearOptions
 		{
 			enum type
@@ -73,9 +68,8 @@ namespace XFX
 				Target = 1
 			};
 		};
-		/// <summary>
-		/// Defines the color channels that can be chosen for a per-channel write to a render target color buffer.
-		/// </summary>
+
+		// Defines the color channels that can be chosen for a per-channel write to a render target color buffer.
 		struct ColorWriteChannels
 		{
 			enum type
@@ -88,9 +82,8 @@ namespace XFX
 				Red = 1
 			};
 		};
-		/// <summary>
-		/// Defines comparison functions that can be chosen for alpha, stencil, or depth-buffer tests.
-		/// </summary>
+
+		// Defines comparison functions that can be chosen for alpha, stencil, or depth-buffer tests.
 		struct CompareFunction
 		{
 			enum type
@@ -105,9 +98,8 @@ namespace XFX
          		Always = 8
      		};
 		};
-		/// <summary>
-		/// Identifies an include file as a local or system resource.
-		/// </summary>
+
+		// Identifies an include file as a local or system resource.
 		struct CompilerIncludeHandlerType
 		{
 			enum type
@@ -116,9 +108,8 @@ namespace XFX
 				System
 			};
 		};
-		/// <summary>
-		/// Defines optimization options that may be chosen for shader and effect code compilation.
-		/// </summary>
+
+		// Defines optimization options that may be chosen for shader and effect code compilation.
 		struct CompilerOptions
 		{
 			enum type
@@ -138,9 +129,8 @@ namespace XFX
 				SkipValidation
 			};
 		};
-		/// <summary>
-		/// Defines the faces of a cube map in the TextureCube class type.
-		/// </summary>
+
+		// Defines the faces of a cube map in the TextureCube class type.
 		struct CubeMapFace
 		{
 			enum type
@@ -153,9 +143,8 @@ namespace XFX
 				PositiveZ = 4
 			};
 		};
-		/// <summary>
-		/// Defines winding orders that may be used to identify back faces for culling.
-		/// </summary>
+
+		// Defines winding orders that may be used to identify back faces for culling.
 		struct CullMode
 		{
 			enum type
@@ -165,9 +154,8 @@ namespace XFX
 				CullCounterClockwiseFace = 3
 			};
 		};
-		/// <summary>
-		/// Defines the format of data in a depth buffer.
-		/// </summary>
+
+		// Defines the format of data in a depth buffer.
 		struct DepthFormat
 		{
 			enum type
@@ -182,9 +170,8 @@ namespace XFX
 				Unknown = -1
 			};
 		};
-		/// <summary>
-		/// Specifies the type of device driver.
-		/// </summary>
+
+		// Specifies the type of device driver.
 		struct DeviceType
 		{
 			enum type
@@ -194,9 +181,8 @@ namespace XFX
 				Reference = 2
 			};
 		};
-		/// <summary>
-		/// Defines classes that can be used for effect parameters or shader constants.
-		/// </summary>
+
+		// Defines classes that can be used for effect parameters or shader constants.
 		struct EffectParameterClass
 		{
 			enum type
@@ -209,9 +195,8 @@ namespace XFX
 				Vector
 			};
 		};
-		/// <summary>
-		/// Describes options for filling the vertices and lines that define a primitive.
-		/// </summary>
+
+		// Describes options for filling the vertices and lines that define a primitive.
 		struct FillMode
 		{
 			enum type
@@ -221,9 +206,8 @@ namespace XFX
 				WireFrame = 2
 			};
 		};
-		/// <summary>
-		/// Defines modes describing how to filter an image or mipmap when it is minified or magnified to fit a set of vertices.
-		/// </summary>
+
+		// Defines modes describing how to filter an image or mipmap when it is minified or magnified to fit a set of vertices.
 		struct FilterOptions
 		{
 			enum type
@@ -244,9 +228,8 @@ namespace XFX
 				Triangle = 4
 			};
 		};
-		/// <summary>
-		/// Defines constants that describe the fog mode.
-		/// </summary>
+
+		// Defines constants that describe the fog mode.
 		struct FogMode
 		{
 			enum type
@@ -257,9 +240,8 @@ namespace XFX
 				None = 0
 			};
 		};
-		/// <summary>
-		/// Describes the status of the device.
-		/// </summary>
+
+		// Describes the status of the device.
 		struct GraphicsDeviceStatus
 		{
 			enum type
@@ -269,9 +251,8 @@ namespace XFX
 				NotReset = 2
 			};
 		};
-		/// <summary>
-		/// Defines supported image file formats that may be used for textures.
-		/// </summary>
+
+		// Defines supported image file formats that may be used for textures.
 		struct ImageFileFormat
 		{
 			enum type
@@ -287,9 +268,8 @@ namespace XFX
 				Tga = 2
 			};
 		};
-		/// <summary>
-		/// Defines the size of an element of an index buffer.
-		/// </summary>
+
+		// Defines the size of an element of an index buffer.
 		struct IndexElementSize
 		{
 			enum type
@@ -298,9 +278,8 @@ namespace XFX
 				ThirtyTwoBits
 			};
 		};
-		/// <summary>
-		/// Defines the levels of full-scene multisampling that the game machine can apply.
-		/// </summary>
+
+		// Defines the levels of full-scene multisampling that the game machine can apply.
 		struct MultiSampleType
 		{
 			enum type
@@ -324,9 +303,8 @@ namespace XFX
 				None = 0
 			};
 		};
-		/// <summary>
-		/// Defines flags that describe the relationship between the adapter refresh rate and the rate at which GraphicsDevice.Present operations are completed.
-		/// </summary>
+
+		// Defines flags that describe the relationship between the adapter refresh rate and the rate at which GraphicsDevice.Present operations are completed.
 		struct PresentInterval
 		{
 			enum type
@@ -339,9 +317,8 @@ namespace XFX
 				Two = 2
 			};
 		};
-		/// <summary>
-		/// Defines flags that control the behavior of the back buffer and depth buffer.
-		/// </summary>
+
+		// Defines flags that control the behavior of the back buffer and depth buffer.
 		struct PresentOptions
 		{
 			enum type
@@ -352,9 +329,8 @@ namespace XFX
 				Video = 16
 			};
 		};
-		/// <summary>
-		/// Defines how data in a vertex stream is interpreted during a draw call.
-		/// </summary>
+
+		// Defines how data in a vertex stream is interpreted during a draw call.
 		struct PrimitiveType
 		{
 			enum type
@@ -367,9 +343,8 @@ namespace XFX
 				TriangleStrip = 5
 			};
 		};
-		/// <summary>
-		/// Defines options for querying device resource formats.
-		/// </summary>
+
+		// Defines options for querying device resource formats.
 		struct QueryUsages
 		{
 			enum type
@@ -383,9 +358,8 @@ namespace XFX
 				WrapAndMip = 2097152
 			};
 		};
-		/// <summary>
-		/// Determines how render target data is used once a new render target is set.
-		/// </summary>
+
+		// Determines how render target data is used once a new render target is set.
 		struct RenderTargetUsage
 		{
 			enum type
@@ -395,9 +369,8 @@ namespace XFX
 				PreserveContents
 			};
 		};
-		/// <summary>
-		/// Defines resource types.
-		/// </summary>
+
+		// Defines resource types.
 		struct ResourceType
 		{
 			enum type
@@ -412,9 +385,8 @@ namespace XFX
 				VertexBuffer = 6
 			};
 		};
-		/// <summary>
-		/// Defines options for saving the graphics device state before and after an effect technique is applied.
-		/// </summary>
+
+		// Defines options for saving the graphics device state before and after an effect technique is applied.
 		struct SaveStateMode
 		{
 			enum type
@@ -423,9 +395,8 @@ namespace XFX
 				SaveState
 			};
 		};
-		/// <summary>
-		/// Describes whether existing buffer data will be overwritten or discarded during a SetData operation.
-		/// </summary>
+
+		// Describes whether existing buffer data will be overwritten or discarded during a SetData operation.
 		struct SetDataOptions
 		{
 			enum type
@@ -435,9 +406,8 @@ namespace XFX
 				NoOverwrite = 4096
 			};
 		};
-		/// <summary>
-		/// Defines vertex and pixel shader versions.
-		/// </summary>
+
+		// Defines vertex and pixel shader versions.
 		struct ShaderProfile
 		{
 			enum type
@@ -450,9 +420,8 @@ namespace XFX
 				XVS_1_1  //Denotes XBOX specific shader configuration
 			};
 		};
-		/// <summary>
-		/// Defines the data type of a shader register.
-		/// </summary>
+
+		// Defines the data type of a shader register.
 		struct ShaderRegisterSet
 		{
 			enum type
@@ -463,9 +432,8 @@ namespace XFX
 				Sampler = 3		//The register contains 4D sampler data.
 			};
 		};
-		/// <summary>
-		/// The following flags are used to specify sprite blending rendering options to the flags parameter in SpriteBatch.Begin:
-		/// </summary>
+
+		// The following flags are used to specify sprite blending rendering options to the flags parameter in SpriteBatch.Begin:
 		struct SpriteBlendMode
 		{
 			enum type
@@ -475,9 +443,8 @@ namespace XFX
 				None = 0		//No blending specified.
 			};
 		};
-		/// <summary>
-		/// Defines sprite rotation options.
-		/// </summary>
+
+		// Defines sprite rotation options.
 		struct SpriteEffects
 		{
 			enum type
@@ -487,9 +454,8 @@ namespace XFX
 				None = 0				//No rotations specified.
 			};
 		};
-		/// <summary>
-		/// Defines sprite sort-rendering options.
-		/// </summary>
+
+		// Defines sprite sort-rendering options.
 		struct SpriteSortMode
 		{
 			enum type
@@ -501,9 +467,8 @@ namespace XFX
 				Texture = 2
 			};
 		};
-		/// <summary>
-		/// Defines stencil buffer operations.
-		/// </summary>
+
+		// Defines stencil buffer operations.
 		struct StencilOperation
 		{
 			enum type
@@ -518,9 +483,8 @@ namespace XFX
 				Zero = 2
 			};
 		};
-		/// <summary>
-		/// Defines various types of surface formats.
-		/// </summary>
+
+		// Defines various types of surface formats.
 		struct SurfaceFormat
 		{
 			enum type
@@ -582,9 +546,8 @@ namespace XFX
 				VideoYuYv = 43
 			};
 		};
-		/// <summary>
-		/// Defines how the device front buffer and back buffer are to be swapped when GraphicsDevice.Present is called.
-		/// </summary>
+
+		// Defines how the device front buffer and back buffer are to be swapped when GraphicsDevice.Present is called.
 		struct SwapEffect
 		{
 			enum type
@@ -595,9 +558,8 @@ namespace XFX
 				Flip = 2
 			};
 		};
-		/// <summary>
-		/// Defines constants that describe supported texture-addressing modes.
-		/// </summary>
+
+		// Defines constants that describe supported texture-addressing modes.
 		struct TextureAddressMode
 		{
 			enum type
@@ -609,9 +571,8 @@ namespace XFX
 				Wrap = 1
 			};
 		};
-		/// <summary>
-		/// Defines how a texture will be filtered as it is minified for each mipmap level.
-		/// </summary>
+
+		// Defines how a texture will be filtered as it is minified for each mipmap level.
 		struct TextureFilter
 		{
 			enum type
@@ -624,9 +585,8 @@ namespace XFX
 				PyramidalQuad = 6
 			};
 		};
-		/// <summary>
-		/// Specifies special usage of the texture data.
-		/// </summary>
+
+		// Specifies special usage of the texture data.
 		struct TextureUsage
 		{
 			enum type
@@ -637,9 +597,8 @@ namespace XFX
 				Tiled
 			};
 		};
-		/// <summary>
-		/// Defines supported wrap coordinates.
-		/// </summary>
+		
+		// Defines supported wrap coordinates.
 		struct TextureWrapCoordinates
 		{
 			enum type
@@ -652,9 +611,7 @@ namespace XFX
 			};
 		};
 		
-		/// <summary>
-		/// Defines vertex element formats.
-		/// </summary>
+		// Defines vertex element formats.
 		struct VertexElementFormat
 		{
 			enum type
@@ -680,9 +637,7 @@ namespace XFX
 			};
 		};
 		
-		/// <summary>
-		/// Defines the tessellator processing method for a vertex element.
-		/// </summary>
+		// Defines the tessellator processing method for a vertex element.
 		struct VertexElementMethod
 		{
 			enum type
@@ -694,9 +649,7 @@ namespace XFX
 			};
 		};
 		
-		/// <summary>
-		/// Defines usage for vertex elements.
-		/// </summary>
+		// Defines usage for vertex elements.
 		struct VertexElementUsage
 		{
 			enum type
@@ -716,7 +669,6 @@ namespace XFX
 				TextureCoordinate
 			};
 		};
-		
 		
 		// Lots of typedefs, but there was no other way to make these typesafe enum hacks look good.
 		typedef Blend::type Blend_t;
@@ -757,12 +709,12 @@ namespace XFX
 		typedef SwapEffect::type SwapEffect_t;
 		typedef TextureAddressMode::type TextureAddressMode_t;
 		typedef TextureFilter::type TextureFilter_t;
-		typedef TextureUsage::type TextureUsage_t;
-		typedef TextureWrapCoordinates::type TextureWrapCoordinates_t;
-		typedef VertexElementFormat::type VertexElementFormat_t;
-		typedef VertexElementMethod::type VertexElementMethod_t;
-		typedef VertexElementUsage::type VertexElementUsage_t;
+		typedef TextureUsage::type TextureUsage_t;						// Specifies special usage of the texture data.
+		typedef TextureWrapCoordinates::type TextureWrapCoordinates_t;	// Defines supported wrap coordinates.
+		typedef VertexElementFormat::type VertexElementFormat_t;		// Defines vertex element formats.
+		typedef VertexElementMethod::type VertexElementMethod_t;		// Defines the tessellator processing method for a vertex element.
+		typedef VertexElementUsage::type VertexElementUsage_t;			// Defines usage for vertex elements.
 	}
 }
 
-#endif //_GRAPHICS_ENUMS_
+#endif //_XFX_GRAPHICS_ENUMS_

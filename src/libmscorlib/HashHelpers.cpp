@@ -53,7 +53,7 @@ namespace System
 #endif
 			}
 
-			for(int i = 0; i < Array::Length(primes); i++)
+			for(int i = 0; i < 72; i++)
 			{
 				int num2 = primes[i];
 				if(num2 >= min)

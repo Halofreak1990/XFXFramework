@@ -4,19 +4,20 @@
  *	XFX TextureInformation definition file				*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _TEXTUREINFORMATION_
-#define _TEXTUREINFORMATION_
+#ifndef _XFX_GRAPHICS_TEXTUREINFORMATION_
+#define _XFX_GRAPHICS_TEXTUREINFORMATION_
 
 #include "Enums.h"
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		///	Encapsulates information describing texture resources.
-		/// </summary>
-		struct TextureInformation
+		//	Encapsulates information describing texture resources.
+		struct TextureInformation : virtual Object
 		{
 			int Depth;
 			SurfaceFormat_t Format;
@@ -36,9 +37,8 @@ namespace XFX
 
 			bool operator!=(const TextureInformation other);
 			bool operator==(const TextureInformation other);
-			TextureInformation operator=(const TextureInformation other);
 		};
 	}
 }
 
-#endif //_TEXTUREINFORMATION_
+#endif //_XFX_GRAPHICS_TEXTUREINFORMATION_

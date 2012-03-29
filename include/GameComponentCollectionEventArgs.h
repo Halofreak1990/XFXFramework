@@ -16,12 +16,12 @@ namespace XFX
 	class GameComponentCollectionEventArgs : public EventArgs, virtual Object
 	{
 	private:
-		IGameComponent _gameComponent;
+		IGameComponent* _gameComponent;
 
 	public:
-		IGameComponent getGameComponent();
+		IGameComponent* getGameComponent();
 
-		GameComponentCollectionEventArgs(IGameComponent gameComponent);
+		GameComponentCollectionEventArgs(IGameComponent* gameComponent);
 	};
 }
 

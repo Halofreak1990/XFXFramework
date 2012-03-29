@@ -1,0 +1,4 @@
+#ifndef _SYSTEM_VALUETYPE_
+#define _SYSTEM_VALUETYPE_
+
+#endif // _SYSTEM_VALUETYPE_

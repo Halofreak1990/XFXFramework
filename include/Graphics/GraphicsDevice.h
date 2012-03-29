@@ -7,13 +7,10 @@
 #ifndef _XFX_GRAPHICS_GRAPHICSDEVICE_
 #define _XFX_GRAPHICS_GRAPHICSDEVICE_
 
-#include <System/Types.h>
 #include "Color.h"
 #include "DepthStencilBuffer.h"
 #include "Enums.h"
 #include "GraphicsAdapter.h"
-#include "GraphicsDeviceCapabilities.h"
-#include "GraphicsDeviceCreationParameters.h"
 #include "PresentationParameters.h"
 #include "RenderTarget2D.h"
 #include "TextureCollection.h"
@@ -29,20 +26,18 @@ namespace XFX
 	
 	namespace Graphics
 	{
+		class DepthStencilBuffer;
 		class GammaRamp;
 		
-		/// <summary>
-		/// Performs primitive-based rendering, creates resources, handles system-level
-		/// variables, adjusts gamma ramp levels, and creates shaders.
-		/// </summary>
+		// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
 		class GraphicsDevice : public IDisposable, virtual Object
 		{
 		private:
 			GraphicsAdapter* _adapter;
 			DepthStencilBuffer _depthStencilBuffer;
 			DeviceType_t _deviceType;
-			GraphicsDeviceCapabilities graphicsDeviceCapabilities;
 			bool isDisposed;
+			PresentationParameters* p_cachedParameters;
 			TextureCollection textures;
 			Color clearColor;
 			Viewport viewport;
@@ -62,23 +57,19 @@ namespace XFX
 			EventHandler DeviceResetting;
 			EventHandler Disposing;
 
-			GraphicsDeviceCreationParameters CreationParameters();
 			DepthStencilBuffer getDepthStencilBuffer();
 			void setDepthStencilBuffer(DepthStencilBuffer buffer);
 			PresentationParameters* getPresentationParameters();
-			TextureCollection Textures();
-			Viewport getViewport();
-			void setViewport(Viewport value);
+			TextureCollection getTextures();
+			Viewport getViewport() const;
+			void setViewport(const Viewport value);
 		
-			GraphicsDevice(GraphicsAdapter* adapter, DeviceType_t deviceType, PresentationParameters* presentationParameters);
-			GraphicsDevice();
+			GraphicsDevice(GraphicsAdapter* adapter, const DeviceType_t deviceType, PresentationParameters* presentationParameters);
 			virtual ~GraphicsDevice();
 			
-			void Clear(Color color);
-			void Clear(ClearOptions_t options, Color color, float depth, int stencil);
-			void Clear(ClearOptions_t options, Vector4 color, float depth, int stencil);
-			void Clear(ClearOptions_t options, Color color, float depth, int stencil, Rectangle regions[]);
-			void Clear(ClearOptions_t options, Vector4 color, float depth, int stencil, Rectangle regions[]);
+			void Clear(const Color color);
+			void Clear(const ClearOptions_t options, const Color color, const float depth, const int stencil);
+			void Clear(const ClearOptions_t options, const Vector4 color, const float depth, const int stencil);
 			void Dispose();
 			void DrawIndexedPrimitives(PrimitiveType_t primitiveType, int baseVertex, int minVertexIndex, int numVertices, int startIndex, int primitiveCount);
 			void DrawPrimitives(PrimitiveType primitiveType, int startVertex, int primitiveCount);
@@ -90,7 +81,7 @@ namespace XFX
 			void DrawUserPrimitives(PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount);
 			void EvictManagedResources();
 			GammaRamp* GetGammaRamp();
-			int* GetPixelShaderBooleanConstant(int startRegister, int constantCount);
+			bool* GetPixelShaderBooleanConstant(int startRegister, int constantCount);
 			int* GetPixelShaderInt32Constant(int startRegister, int constantCount);
 			Matrix* GetPixelShaderMatrixArrayConstant(int startRegister, int constantCount);
 			Matrix GetPixelShaderMatrixConstant(int startRegister);
@@ -102,10 +93,10 @@ namespace XFX
 			void Present();
 			void Reset();
 			void Reset(PresentationParameters* presentationParameters);
-			void SetGammaRamp(bool calibrate, GammaRamp* ramp);
-			void SetRenderTarget(int renderTargetIndex, RenderTarget2D* renderTarget);
-			void SetVertexShaderConstant(int startRegister, Matrix constantData);
-			void SetVertexShaderConstant(int startRegister, Vector4 constantData);
+			void SetGammaRamp(const bool calibrate, GammaRamp* ramp);
+			void SetRenderTarget(RenderTarget2D* renderTarget);
+			void SetVertexShaderConstant(const int startRegister, const Matrix constantData);
+			void SetVertexShaderConstant(const int startRegister, const Vector4 constantData);
 		};
 	}
 }

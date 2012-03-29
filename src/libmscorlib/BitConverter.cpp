@@ -25,8 +25,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Array.h>
 #include <System/BitConverter.h>
+#include <System/FrameworkResources.h>
+
+#include <sassert.h>
 
 #if DEBUG
 #include <stdio.h>
@@ -66,22 +68,13 @@ namespace System
 			return;
 		}
 
-		if (start_index < 0 || (start_index > Array::Length(src) - 1))
+		/*if (start_index < 0 || (start_index > Array::Length(src) - 1))
 		{
 #if DEBUG
 			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
 #endif
 			return;
-		}
-
-		// avoid integer overflow (with large pos/neg start_index values)
-		if (Array::Length(src) - count < start_index)
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Destination array is not long enough to copy all the items in the collection. Check array index and length.");
-#endif
-			return;
-		}
+		}*/
 
 		for (int i = 0; i < count; i++)
 			dst[i] = src[i + start_index];
@@ -126,8 +119,10 @@ namespace System
 			data [6] = p [2];
 			data [7] = p [3];
 			return data;
-		} else {
-			return GetBytes ((byte *) &value, 8);
+		}
+		else
+		{
+			return GetBytes((byte *) &value, 8);
 		}
 	}
 
@@ -163,21 +158,15 @@ namespace System
 
 	bool BitConverter::ToBoolean(byte value[], int startIndex)
 	{
-		if (!value)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
-#endif
-			return false;
-		}
+		sassert(value != null, FrameworkResources::ArgumentNull_Generic);
 
-		if (startIndex < 0 || (startIndex > Array::Length(value) - 1))
+		/*if (startIndex < 0 || (startIndex > Array::Length(value) - 1))
 		{
 #if DEBUG
 			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "startIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
 #endif
 			return false;
-		}
+		}*/
 
 		if (value[startIndex] != 0)
 			return true;
@@ -188,7 +177,7 @@ namespace System
 	char BitConverter::ToChar(byte value[], int startIndex)
 	{
 		char ret;
-		PutBytes ((byte *) &ret, value, startIndex, 1);
+		PutBytes((byte *) &ret, value, startIndex, 1);
 		return ret;
 	}
 

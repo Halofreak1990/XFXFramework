@@ -38,6 +38,8 @@
 #else
 #endif
 
+#include <sassert.h>
+
 #if DEBUG
 #include <stdio.h>
 #endif
@@ -58,13 +60,7 @@ namespace System
 
 		void File::Copy(char* sourceFileName, char* destFileName, bool overwrite)
 		{
-			if(!overwrite && Exists(destFileName))
-			{
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "File specified in 'destFileName' already exists.");
-#endif
-				return;
-			}
+			sassert(!(!overwrite && Exists(destFileName)), "File specified in 'destFileName' already exists.");
 
 			//! Copy the file
 			int ret;

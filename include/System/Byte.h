@@ -22,17 +22,18 @@ namespace System
 		static const byte MaxValue;
 		static const byte MinValue;
 
-		Byte(byte b);
+		Byte(const Byte &obj);
+		Byte(const byte &obj);
 
-		int CompareTo(Byte other);
-		bool Equals(Byte other);
-		char* ToString();
-		static char* ToString(byte value);
+		int CompareTo(const Byte other) const;
+		bool Equals(const Byte other) const;
+		const char* ToString() const;
+		static const char* ToString(byte value);
 
-		bool operator!=(byte right);
-		bool operator!=(Byte right);
-		bool operator==(byte right);
-		bool operator==(Byte right);
+		bool operator!=(byte right) const;
+		bool operator!=(const Byte right) const;
+		bool operator==(byte right) const;
+		bool operator==(const Byte right) const;
 	};
 }
 

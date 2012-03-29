@@ -33,12 +33,17 @@ namespace System
 	const byte Byte::MaxValue = 255;
 	const byte Byte::MinValue = 0;
 
-	Byte::Byte(byte b)
+	Byte::Byte(const Byte &obj)
 	{
-		value = b;
+		value = obj.value;
 	}
 
-	int Byte::CompareTo(Byte other)
+	Byte::Byte(const byte &obj)
+	{
+		value = obj;
+	}
+
+	int Byte::CompareTo(const Byte other) const
 	{
 		if (value > other.value)
 			return 1;
@@ -47,37 +52,37 @@ namespace System
 		return 0;
 	}
 
-	bool Byte::Equals(Byte other)
+	bool Byte::Equals(const Byte other) const
 	{
 		return (value == other.value);
 	}
 
-	char* Byte::ToString()
+	const char* Byte::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	char* Byte::ToString(byte value)
+	const char* Byte::ToString(byte value)
 	{
 		return String::Format("%i", value);
 	}
 
-	bool Byte::operator !=(byte right)
+	bool Byte::operator !=(byte right) const
 	{
 		return (value != right);
 	}
 
-	bool Byte::operator !=(Byte right)
+	bool Byte::operator !=(const Byte right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Byte::operator ==(byte right)
+	bool Byte::operator ==(byte right) const
 	{
 		return (value == right);
 	}
 
-	bool Byte::operator ==(Byte right)
+	bool Byte::operator ==(const Byte right) const
 	{
 		return (value == right.value);
 	}

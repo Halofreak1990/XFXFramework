@@ -7,6 +7,7 @@
 #ifndef _XFX_GRAPHICS_VERTEXELEMENT_
 #define _XFX_GRAPHICS_VERTEXELEMENT_
 
+#include <System/Object.h>
 #include <System/Types.h>
 #include <Graphics/Enums.h>
 
@@ -16,10 +17,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Defines input vertex data to the pipeline.
-		/// </summary>
-		struct VertexElement
+		// Defines input vertex data to the pipeline.
+		struct VertexElement : virtual Object
 		{
 		public:
 			short Offset;
@@ -33,6 +32,7 @@ namespace XFX
 		
 			int Equals(const VertexElement other);
 			int GetHashCode();
+			char* ToString();
 		
 			int operator!=(const VertexElement other);
 			int operator==(const VertexElement other);

@@ -1,10 +1,14 @@
+#include <System/Array.h>
 #include <System/Console.h>
 #include <System/Environment.h>
+#include <System/FrameworkResources.h>
 
 extern "C" 
 {
 #include <openxdk/debug.h>
 }
+
+#include <sassert.h>
 
 namespace System
 {
@@ -13,7 +17,7 @@ namespace System
 		debugClearScreen();
 	}
 
-	void Console::Write(bool value)
+	void Console::Write(const bool value)
 	{
 		if (value)
 			debugPrint("true");
@@ -21,14 +25,39 @@ namespace System
 			debugPrint("false");
 	}
 
-	void Console::Write(Object* value)
+	void Console::Write(const char value)
 	{
-		debugPrint(value->ToString());
+		debugPrint("%c", value);
 	}
 
-	void Console::Write(String value)
+	void Console::Write(const char value[])
 	{
-		debugPrint(value.ToString());
+		debugPrint(const_cast<char *>(value));
+	}
+
+	void Console::Write(const char value[], const int index, const int count)
+	{
+		sassert(value != null, FrameworkResources::ArgumentNull_Generic);
+
+		//sassert(index + count < Array::Length(value), "index + count are out of range of the array.");
+
+		for (int i = index; i < (index + count); i++)
+			debugPrint("%c", value[i]);
+	}
+
+	void Console::Write(const double value)
+	{
+		debugPrint("%f", value);
+	}
+
+	void Console::Write(const Object* value)
+	{
+		Write(value->ToString());
+	}
+
+	void Console::Write(const String value)
+	{
+		Write(value.ToString());
 	}
 
 	void Console::WriteLine()
@@ -36,19 +65,43 @@ namespace System
 		debugPrint(Environment::NewLine());
 	}
 
-	void Console::WriteLine(bool value)
+	void Console::WriteLine(const bool value)
 	{
 		Console::Write(value);
 		Console::WriteLine();
 	}
 
-	void Console::WriteLine(Object* value)
+	void Console::WriteLine(const char value)
 	{
 		Console::Write(value);
 		Console::WriteLine();
 	}
 
-	void Console::WriteLine(String value)
+	void Console::WriteLine(const char value[])
+	{
+		Console::Write(value);
+		Console::WriteLine();
+	}
+
+	void Console::WriteLine(const char value[], const int index, const int count)
+	{
+		Console::Write(value);
+		Console::WriteLine();
+	}
+
+	void Console::WriteLine(const double value)
+	{
+		Console::Write(value);
+		Console::WriteLine();
+	}
+
+	void Console::WriteLine(const Object* value)
+	{
+		Console::Write(value);
+		Console::WriteLine();
+	}
+
+	void Console::WriteLine(const String value)
 	{
 		Console::Write(value);
 		Console::WriteLine();

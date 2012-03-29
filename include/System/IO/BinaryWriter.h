@@ -1,12 +1,8 @@
 #ifndef _SYSTEM_IO_BINARYWRITER_
 #define _SYSTEM_IO_BINARYWRITER_
 
-#include <System/Types.h>
 #include <System/Interfaces.h>
-#include <System/Text/Encoding.h>
 #include "Stream.h"
-
-using namespace System::Text;
 
 namespace System
 {
@@ -17,8 +13,6 @@ namespace System
 		{
 		private:
 			byte* _buffer;
-			Encoder _encoder;
-			Encoding _encoding;
 			byte* _largeByteBuffer;
 			int _maxChars;
 			char* _tmpOneCharBuffer;
@@ -36,7 +30,6 @@ namespace System
 			virtual Stream* BaseStream();
 			
 			BinaryWriter(Stream* output);
-			BinaryWriter(Stream* output, Encoding encoding);
 
 			virtual void Close();
 			void Dispose();

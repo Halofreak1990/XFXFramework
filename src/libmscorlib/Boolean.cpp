@@ -38,7 +38,7 @@ namespace System
 		value = obj;
 	}
 
-	int Boolean::CompareTo(Boolean other)
+	int Boolean::CompareTo(const Boolean other) const
 	{
 		if (value > other.value)
 			return 1;
@@ -47,7 +47,7 @@ namespace System
 		return 0;
 	}
 
-	bool Boolean::Equals(Boolean other)
+	bool Boolean::Equals(const Boolean other) const
 	{
 		return (value == other.value);
 	}
@@ -61,36 +61,36 @@ namespace System
 		return -1;
 	}
 
-	char* Boolean::ToString()
+	const char* Boolean::ToString() const
 	{
 		if (value)
 			return "true";
 		return "false";
 	}
 
-	char* Boolean::ToString(bool value)
+	const char* Boolean::ToString(bool value)
 	{
 		if (value)
 			return "true";
 		return "false";
 	}
 
-	bool Boolean::operator !=(bool right)
+	bool Boolean::operator !=(bool right) const
 	{
 		return (value != right);
 	}
 
-	bool Boolean::operator !=(Boolean right)
+	bool Boolean::operator !=(const Boolean right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Boolean::operator ==(bool right)
+	bool Boolean::operator ==(bool right) const
 	{
 		return (value == right);
 	}
 
-	bool Boolean::operator ==(Boolean right)
+	bool Boolean::operator ==(const Boolean right) const
 	{
 		return (value == right.value);
 	}

@@ -1,6 +1,6 @@
 
-#ifndef _ENVIRONMENT_
-#define _ENVIRONMENT_
+#ifndef _SYSTEM_ENVIRONMENT_
+#define _SYSTEM_ENVIRONMENT_
 
 namespace System
 {
@@ -36,4 +36,4 @@ namespace System
 	};
 }
 
-#endif //_ENVIRONMENT_
+#endif //_SYSTEM_ENVIRONMENT_

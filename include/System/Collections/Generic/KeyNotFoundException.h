@@ -15,10 +15,8 @@ namespace System
 	{
 		namespace Generic
 		{
-			/// <summary>
-			/// The exception that is thrown when the key specified for accessing an element in a collection does not match any
-			/// key in the collection.
-			/// </summary>
+			// The exception that is thrown when the key specified for accessing an element in a collection does not match any
+			// key in the collection.
 			class KeyNotFoundException : public SystemException
 			{
 			public:

@@ -8,9 +8,12 @@
 #define _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_
 
 #include <System/Array.h>
+#include <System/String.h>
 #include "EqualityComparer.h"
 #include "Interfaces.h"
 #include "KeyValuePair.h"
+
+#include <sassert.h>
 
 namespace System
 {
@@ -20,7 +23,7 @@ namespace System
 		{
 			// Represents a collection of keys and values.
 			template <class TKey, class TValue>
-			class Dictionary : public IDictionary<TKey, TValue>, public ICollection<KeyValuePair<TKey, TValue> >, virtual Object
+			class Dictionary : public ICollection<KeyValuePair<TKey, TValue> >, virtual Object //public IDictionary<TKey, TValue>, 
 			{
 			private:
 				template <class UKey, class UValue>
@@ -28,122 +31,258 @@ namespace System
 				{
 					int hashCode;
 					int next;
-					UKey key;
-					UValue value;
+					UKey& key;
+					UValue& value;
 				};
 
-			private:
+				static const int defaultCapacity = 4;
 				int buckets[];
 				static const char* ComparerName;
 				IEqualityComparer<TKey>* comparer;
 				int count;
-				Entry<TKey, TValue> entries[];
-				int freeCount;
-				int freeList;
+				Entry<TKey, TValue>* entries;
+				int _actualSize;
 				static const char* HashSizeName;
 				static const char* KeyValuePairsName;
 				int version;
 				static const char* VersionName;
 
-				void Add(KeyValuePair<TKey, TValue> keyValuePair);
-				bool Contains(KeyValuePair<TKey, TValue> keyValuePair);
-				void CopyTo(KeyValuePair<TKey, TValue> array[], int index);
-				int FindEntry(TKey key);
-				bool Remove(KeyValuePair<TKey, TValue> keyValuePair);
-				void Initialize(int capacity);
-				void Insert(TKey key, TValue value, bool add);
+				void Add(const KeyValuePair<TKey, TValue>& keyValuePair);
+				bool Contains(const KeyValuePair<TKey, TValue>& keyValuePair) const;
+				void CopyTo(KeyValuePair<TKey, TValue> array[], const int index) const;
+				void EnsureCapacity(int capacity);
+				int FindEntry(TKey key) const;
+				bool Remove(const KeyValuePair<TKey, TValue>& keyValuePair);
+				void Initialize(const int capacity);
+				void Insert(const TKey& key, const TValue& value, const bool add);
 				void Resize();
 
 			public:
 				// Represents the collection of keys in a Dictionary<,>. 
 				template <class UKey, class UValue>
-				class KeyCollection : public ICollection<UKey>, public IEnumerable<UKey>
+				class KeyCollection : public ICollection<UKey>
 				{
 				private:
-					Dictionary<TKey, TValue>* _dictionary;
+					Dictionary<UKey, UValue>* _dictionary;
 
 				public:
-					int Count();
+					int Count() const;
 
-					KeyCollection(Dictionary<TKey, TValue> dictionary);
+					KeyCollection(const Dictionary<UKey, UValue>* dictionary);
 					KeyCollection(const KeyCollection<UKey, UValue> &obj);
+					~KeyCollection();
 
-					void Add(UKey item);
+					void Add(const UKey& item);
 					void Clear();
-					bool Contains(UKey item);
-					void CopyTo(UKey array[], int index);
-					bool Remove(UKey item);
+					bool Contains(const UKey& item) const;
+					void CopyTo(UKey array[], const int arrayIndex) const;
+					bool Remove(const UKey& item);
 				};
 
 				// Represents the collection of values in a Dictionary<,>.
 				template <class UKey, class UValue>
-				class ValueCollection : public ICollection<UValue>, public IEnumerable<UValue>
+				class ValueCollection : public ICollection<UValue>
 				{
 				private:
-					Dictionary<TKey, TValue> *_dictionary;
+					Dictionary<UKey, UValue> *_dictionary;
 
 				public:
-					int Count();
+					int Count() const;
 
-					ValueCollection(Dictionary<TKey, TValue> dictionary);
+					ValueCollection(const Dictionary<UKey, UValue>* dictionary);
 					ValueCollection(const ValueCollection<UKey, UValue> &obj);
 
-					void Add(UValue item);
+					void Add(const UValue& item);
 					void Clear();
-					bool Contains(UValue item);
-					void CopyTo(UValue array[], int index);
-					bool Remove(UValue item);
+					bool Contains(const UValue& item) const;
+					void CopyTo(UValue array[], const int arrayIndex) const;
+					bool Remove(const UValue& item);
 				};
 
 			public:
-				IEqualityComparer<TKey>* Comparer()
-				{
-					return comparer;
-				}
+				IEqualityComparer<TKey>* Comparer() const;
 
-				int Count();
-				KeyCollection<TKey, TValue> Keys();
-				ValueCollection<TKey, TValue> Values();
-				TValue operator[](TKey key);
+				int Count() const;
+				bool IsReadOnly() const;
+				KeyCollection<TKey, TValue> Keys() const;
+				ValueCollection<TKey, TValue> Values() const;
+				TValue& operator[](const TKey& key);
 
 				Dictionary();
-				Dictionary(IDictionary<TKey, TValue>* dictionary)
-				{
-					/*foreach (KeyValuePair<TKey, TValue> pair in dictionary)
-					{
-						Add(pair.Key, pair.Value);
-					}*/
-				}
-				Dictionary(int capacity);
-				~Dictionary();
+				Dictionary(const IDictionary<TKey, TValue>* dictionary);
+				Dictionary(const int capacity);
+				virtual ~Dictionary();
 
-				void Add(TKey key, TValue value)
-				{
-					Insert(key, value, true);
-				}
-
+				void Add(const TKey& key, const TValue& value);
 				void Clear();
-				bool ContainsKey(TKey key);
-				bool ContainsValue(TValue value);
+				bool ContainsKey(const TKey& key) const;
+				bool ContainsValue(const TValue& value) const;
 
-				bool Remove(TKey key);
-				bool TryGetValue(TKey key, out TValue value);
+				bool Remove(const TKey& key);
+				bool TryGetValue(const TKey& key, out TValue value) const;
 			};
 
 			//////////////////////////////////////////////////////////////////////
 
 			template <class TKey, class TValue>
+			int Dictionary<TKey, TValue>::Count() const
+			{
+				return count;
+			}
+
+			template <class TKey, class TValue>
+			bool Dictionary<TKey, TValue>::IsReadOnly() const
+			{
+				return false;
+			}
+
+			template <class TKey, class TValue>
+			Dictionary<TKey, TValue>::Dictionary()
+			{
+				entries = new Entry<TKey, TValue>[defaultCapacity];
+				count = 0;
+			}
+
+			template <class TKey, class TValue>
+			Dictionary<TKey, TValue>::Dictionary(const IDictionary<TKey, TValue>* dictionary)
+			{
+				int itemCount = dictionary->Keys()->Count();
+
+				entries = new Entry<TKey, TValue>[itemCount];
+
+				for (int i = 0; i < itemCount; i++)
+				{
+					// TODO: get items
+				}
+			}
+
+			template <class TKey, class TValue>
+			Dictionary<TKey, TValue>::Dictionary(const int capacity)
+			{
+				entries = new Entry<TKey, TValue>[capacity];
+				count = 0;
+			}
+
+			template <class TKey, class TValue>
+			Dictionary<TKey, TValue>::~Dictionary()
+			{
+				delete[] entries;
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::Add(const TKey& key, const TValue& value)
+			{
+				Insert(key, value, true);
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::Add(const KeyValuePair<TKey, TValue>& keyValuePair)
+			{
+				Insert(keyValuePair.Key, keyValuePair.Value, true);
+			}
+
+			template <class TKey, class TValue>
+			bool Dictionary<TKey, TValue>::Contains(const KeyValuePair<TKey, TValue>& keyValuePair) const
+			{
+				for (int i = 0; i < count; i++)
+				{
+					if (entries[i].key == keyValuePair.Key && entries[i].value == keyValuePair.Value)
+						return true;
+				}
+				return false;
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::CopyTo(KeyValuePair<TKey, TValue> array[], const int index) const
+			{
+				return;
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::EnsureCapacity(int capacity)
+			{
+				if (_actualSize < capacity)
+				{
+					int num = (_actualSize == 0) ? defaultCapacity : _actualSize * 2;
+					if (num > 0x7fefffff)
+					{
+						num = 0x7fefffff;
+					}
+					if (num < capacity)
+					{
+						num = capacity;
+					}
+					
+					if (num != _actualSize)
+					{
+						if (num > 0)
+						{
+							Entry<TKey, TValue>* destinationArray = new Entry<TKey, TValue>[num];
+							if (count > 0)
+							{
+								Array::Copy(entries, 0, destinationArray, 0, count);
+							}
+							delete[] entries;
+							entries = destinationArray;
+						}
+						else
+						{
+							delete[] entries;
+							entries = new Entry<TKey, TValue>[0];
+							
+						}
+						_actualSize = num;
+					}
+				}
+			}
+
+			template <class TKey, class TValue>
+			int Dictionary<TKey, TValue>::FindEntry(TKey key) const
+			{
+				for (int i = 0; i < count; i++)
+				{
+					if (entries[i].key == key)
+						return i;
+				}
+				return -1;
+			}
+
+			template <class TKey, class TValue>
+			void Dictionary<TKey, TValue>::Insert(const TKey& key, const TValue& value, const bool add)
+			{
+				int index = FindEntry(key);
+
+				if (index >=0)
+				{
+					sassert(add, "Attempting to add duplicate Key/Value pair to dictionary.");
+
+					entries[index].value = value;
+					return;
+				}
+
+				entries[count].key = key;
+				entries[count].value = value;
+				count++;
+			}
+
+			template <class TKey, class TValue>
+			bool Dictionary<TKey, TValue>::Remove(const KeyValuePair<TKey, TValue>& keyValuePair)
+			{
+				return false;
+			}
+
+			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			int Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Count()
+			int Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Count() const
 			{
 				return _dictionary->Count();
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(Dictionary<TKey, TValue> dictionary)
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::KeyCollection(const Dictionary<UKey, UValue>* dictionary)
 			{
-				_dictionary = &dictionary;
+				_dictionary = dictionary;
 			}
 
 			template <class TKey, class TValue>
@@ -155,9 +294,17 @@ namespace System
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Add(UKey item)
+			Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::~KeyCollection()
 			{
-				//throw NotSupportedException("Adding keys directly to the Dictionary::Keycollection is not supported.");
+				delete _dictionary;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Add(const UKey& item)
+			{
+				sassert(false, "Adding keys directly to the Dictionary::Keycollection is not supported.");
+
 				return;
 			}
 
@@ -165,116 +312,64 @@ namespace System
 			template <class UKey, class UValue>
 			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Clear()
 			{
-				//throw NotSupportedException("Directly clearing the Dictionary::KeyCollection is not supported.");
+				sassert(false, "Directly clearing the Dictionary::KeyCollection is not supported.");
+
 				return;
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Contains(UKey item)
+			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Contains(const UKey& item) const
 			{
 				return _dictionary.ContainsKey(item);
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::CopyTo(UKey array[], int index)
+			void Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::CopyTo(UKey array[], const int arrayIndex) const
 			{
-				if(array == null)
-				{
-					//throw ArgumentNullException("array");
-					return;
-				}
-				if((index < 0) ||(index > Array::Length(array)))
-				{
-					//throw ArgumentOutOfRangeException("index", "Non-negative array index required.");
-					return;
-				}
-				if((Array::Length(array) - index) < _dictionary.Count())
-				{
-					//throw ArgumentException("Array plus offset too small.");
-					return;
-				}
-				int count = _dictionary.Count();
-				Entry<UKey, UValue> entries[] = _dictionary.entries;
-				for(int i = 0; i < count; i++)
-				{
-					if(entries[i].hashCode >= 0)
-					{
-						array[index++] = entries[i].key;
-					}
-				}
+				sassert(array != NULL, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
+
+				sassert(arrayIndex >=0, String::Format("arrayIndex; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+				// TODO: implement
 			}
 
 			template <class TKey, class TValue>
 			template <class UKey, class UValue>
-			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Remove(UKey item)
+			bool Dictionary<TKey, TValue>::KeyCollection<UKey, UValue>::Remove(const UKey& item)
 			{
-				//throw NotSupportedException("Removing keys directly from the Dictionary::KeyCollection is not supported.");
+				sassert(false, "Removing keys directly from the Dictionary::KeyCollection is not supported.");
+
 				return false;
 			}
 
 			template <class TKey, class TValue>
-			Dictionary<TKey, TValue>::~Dictionary()
+			template <class UKey, class UValue>
+			Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::ValueCollection(const Dictionary<UKey, UValue>* dictionary)
 			{
-				delete[] buckets;
-				delete[] entries;
+				_dictionary = dictionary;
 			}
 
 			template <class TKey, class TValue>
 			void Dictionary<TKey, TValue>::Clear()
 			{
-				if(count > 0)
-				{
-					for(int i = 0; i < Array::Length(buckets); i++)
-					{
-						buckets[i] = -1;
-					}
-					Array::Clear(entries, 0, count);
-					freeList = -1;
-					count = 0;
-					freeCount = 0;
-					version++;
-				}
+				// TODO: implement
 			}
 
 			template <class TKey, class TValue>
-			bool Dictionary<TKey, TValue>::Remove(TKey key)
+			bool Dictionary<TKey, TValue>::Remove(const TKey& key)
 			{
-				if(buckets)
+				int index = FindEntry(key);
+				if (index >= 0)
 				{
-					int num = comparer->GetHashCode(key) & 0x7fffffff;
-					int index = num % Array::Length(buckets);
-					int num3 = -1;
-					for(int i = buckets[index]; i >= 0; i = entries[i].next)
-					{
-						if((entries[i].hashCode == num) && comparer->Equals(entries[i].key, key))
-						{
-							if(num3 < 0)
-							{
-								buckets[index] = entries[i].next;
-							}
-							else
-							{
-								entries[num3].next = entries[i].next;
-							}
-							entries[i].hashCode = -1;
-							entries[i].next = freeList;
-							entries[i].key = TKey();
-							entries[i].value = TValue();
-							freeList = i;
-							freeCount++;
-							version++;
-							return true;
-						}
-						num3 = i;
-					}
+					// TODO: implement
 				}
 				return false;
 			}
 
 			template <class TKey, class TValue>
-			bool Dictionary<TKey, TValue>::TryGetValue(TKey key, out TValue value)
+			bool Dictionary<TKey, TValue>::TryGetValue(const TKey& key, out TValue value) const
 			{
 				int index = FindEntry(key);
 				if(index >= 0)
@@ -284,6 +379,16 @@ namespace System
 				}
 				value = TValue();
 				return false;
+			}
+
+			template <class TKey, class TValue>
+			TValue& Dictionary<TKey, TValue>::operator [](const TKey& key)
+			{
+				int index = FindEntry(key);
+
+				sassert(index >= 0, "");
+
+				return entries[index];
 			}
 		}
 	}

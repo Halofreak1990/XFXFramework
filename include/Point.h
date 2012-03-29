@@ -16,19 +16,20 @@ namespace XFX
 {
 	struct Point : public IEquatable<Point>, virtual Object
 	{
-	public:
 		int X;
 		int Y;
 		static const Point Zero;
 
-		Point(int x, int y);
+		Point(const int x, const int y);
 		Point(const Point &obj);
 		Point();
 		
-		bool Equals(Point other);
-		bool operator==(const Point right);
-		bool operator!=(const Point right);
-		Point operator=(const Point right);
+		bool Equals(const Point other) const;
+		int GetHashCode() const;
+		const char* ToString() const;
+
+		bool operator==(const Point right) const;
+		bool operator!=(const Point right) const;
 	};
 }
 

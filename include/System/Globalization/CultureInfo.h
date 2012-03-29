@@ -1,5 +1,6 @@
-#ifndef CULTUREINFO_H_
-#define CULTUREINFO_H_
+
+#ifndef _SYSTEM_GLOBALIZATION_CULTUREINFO_
+#define _SYSTEM_GLOBALIZATION_CULTUREINFO_
 
 namespace System
 {
@@ -9,9 +10,8 @@ namespace System
 		{
 		public:
 			void ClearCacheData();
-
 		};
 	}
 }
 
-#endif //CULTUREINFO_H_
+#endif //_SYSTEM_GLOBALIZATION_CULTUREINFO_

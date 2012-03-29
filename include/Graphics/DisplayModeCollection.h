@@ -18,9 +18,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Manipulates a collection of DisplayMode structures.
-		/// </summaryy>
+		// Manipulates a collection of DisplayMode structures.
 		struct DisplayModeCollection
 		{
 		private:
@@ -32,8 +30,8 @@ namespace XFX
 		public:
 			DisplayModeCollection();
 
-			bool operator!=(DisplayModeCollection other);
-			bool operator==(DisplayModeCollection other);
+			bool operator!=(const DisplayModeCollection other) const;
+			bool operator==(const DisplayModeCollection other) const;
 		};
 	}
 }

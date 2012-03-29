@@ -43,6 +43,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFXTest", "XFXTest\XFXTest.
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_Game_Test", "XFX_Game_Test\XFX_Game_Test.vcproj", "{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -77,6 +83,10 @@ Global
 		{964057F7-66CC-4D34-8571-64C86B11248F}.Debug|Win32.Build.0 = Debug|Win32
 		{964057F7-66CC-4D34-8571-64C86B11248F}.Release|Win32.ActiveCfg = Release|Win32
 		{964057F7-66CC-4D34-8571-64C86B11248F}.Release|Win32.Build.0 = Release|Win32
+		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Debug|Win32.Build.0 = Debug|Win32
+		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Release|Win32.ActiveCfg = Release|Win32
+		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

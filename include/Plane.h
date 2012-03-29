@@ -11,6 +11,8 @@
 #include "Enums.h"
 #include "Vector3.h"
 
+using namespace System;
+
 namespace XFX
 {
 	struct BoundingBox;
@@ -20,43 +22,41 @@ namespace XFX
 	struct Vector4;
 	
 	// Defines a plane.
-	struct Plane
+	struct Plane : public IEquatable<Plane>, virtual Object
 	{
-	public:
 		float D;
 		Vector3 Normal;
 
-		Plane(float a, float b, float c, float d);
-		Plane(Vector3 normal, float d);
-		Plane(Vector3 point1, Vector3 point2, Vector3 point3);
-		Plane(Vector4 value);
+		Plane(const float a, const float b, const float c, const float d);
+		Plane(const Vector3 normal, const float d);
+		Plane(const Vector3 point1, const Vector3 point2, const Vector3 point3);
+		Plane(const Vector4 value);
 		Plane(const Plane &obj);
 		Plane();
 
-		float Dot(Vector4 value);
-		void Dot(Vector4 value, out float result);
-		float DotCoordinate(Vector3 value);
-		void DotCoordinate(Vector3 value, out float result);
-		float DotNormal(Vector3 value);
-		void DotNormal(Vector3 value, out float result);
-		bool Equals(const Plane obj);
-		int GetHashCode();
-		PlaneIntersectionType_t Intersects(BoundingBox boundingbox);
-		void Intersects(BoundingBox boundingbox, out PlaneIntersectionType_t result);
-		PlaneIntersectionType_t Intersects(BoundingSphere sphere);
-		void Intersects(BoundingSphere sphere, out PlaneIntersectionType_t result);
+		float Dot(const Vector4 value) const;
+		void Dot(const Vector4 value, out float result) const;
+		float DotCoordinate(const Vector3 value) const;
+		void DotCoordinate(const Vector3 value, out float result) const;
+		float DotNormal(const Vector3 value) const;
+		void DotNormal(const Vector3 value, out float result) const;
+		bool Equals(const Plane obj) const;
+		int GetHashCode() const;
+		PlaneIntersectionType_t Intersects(const BoundingBox boundingbox) const;
+		void Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t result) const;
+		PlaneIntersectionType_t Intersects(const BoundingSphere sphere) const;
+		void Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t result) const;
 		void Normalize();
-		Plane Normalize(Plane plane);
-		void Normalize(Plane plane, out Plane result);
-		static Plane Transform(Plane plane, Matrix matrix);
-		static void Transform(Plane plane, Matrix matrix, out Plane result);
-		static Plane Transform(Plane plane, Quaternion quaternion);
-		static void Transform(Plane plane, Quaternion quaternion, out Plane result);
+		static Plane Normalize(const Plane plane);
+		static void Normalize(const Plane plane, out Plane result);
+		const char* ToString() const;
+		static Plane Transform(const Plane plane, const Matrix matrix);
+		static void Transform(const Plane plane, const Matrix matrix, out Plane result);
+		static Plane Transform(const Plane plane, const Quaternion quaternion);
+		static void Transform(const Plane plane, const Quaternion quaternion, out Plane result);
 		
-		
-		bool operator==(const Plane other);
-		bool operator!=(const Plane other);
-		Plane operator=(const Plane other);
+		bool operator==(const Plane other) const;
+		bool operator!=(const Plane other) const;
 	};
 }
 

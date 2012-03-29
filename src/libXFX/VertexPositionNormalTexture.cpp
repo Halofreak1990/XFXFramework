@@ -25,13 +25,16 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <Vector2.h>
+#include <Vector3.h>
 #include <Graphics/VertexpositionNormalTexture.h>
+#include <System/String.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		VertexPositionNormalTexture::VertexPositionNormalTexture(Vector3 &position, Vector3 &normal, Vector2 &textureCoordinate)
+		VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3 position, const Vector3 normal, const Vector2 textureCoordinate)
 		{
 			Position = position;
 			Normal = normal;
@@ -43,22 +46,27 @@ namespace XFX
 			return (sizeof(float) * 5);
 		}
 		
-		int VertexPositionNormalTexture::Equals(const VertexPositionNormalTexture &other)
+		bool VertexPositionNormalTexture::Equals(const VertexPositionNormalTexture other) const
 		{
 			return ((Normal == other.Normal) && (Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
 		}
 		
-		int VertexPositionNormalTexture::GetHashCode()
+		int VertexPositionNormalTexture::GetHashCode() const
 		{
 			return Normal.GetHashCode() ^ Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
+
+		const char* VertexPositionNormalTexture::ToString() const
+		{
+			return String::Format("{{Position:%s Normal:%s TextureCoordinate:%s}}", Position.ToString(), Normal.ToString(), TextureCoordinate.ToString());
+		}
 		
-		int VertexPositionNormalTexture::operator!=(const VertexPositionNormalTexture &other)
+		bool VertexPositionNormalTexture::operator!=(const VertexPositionNormalTexture other) const
 		{
 			return !Equals(other);
 		}
 		
-		int VertexPositionNormalTexture::operator==(const VertexPositionNormalTexture &other)
+		bool VertexPositionNormalTexture::operator==(const VertexPositionNormalTexture other) const
 		{
 			return Equals(other);
 		}

@@ -109,8 +109,8 @@ namespace XFX
 		static void Divide(Matrix matrix1, Matrix matrix2, out Matrix result);
 		static Matrix Divide(Matrix matrix1, float divider);
 		static void Divide(Matrix matrix1, float divider, out Matrix result);
-		bool Equals(Matrix other);
-		int GetHashCode();
+		bool Equals(const Matrix other) const;
+		int GetHashCode() const;
 		static Matrix Invert(Matrix matrix);
 		static void Invert(Matrix matrix, out Matrix result);
 		static Matrix Lerp(Matrix value1, Matrix value2, float amount);
@@ -131,13 +131,12 @@ namespace XFX
 		Matrix operator+(const Matrix other);
 		Matrix operator/(const Matrix other);
 		Matrix operator/(const float divider);
-		bool operator==(const Matrix other);
-		bool operator!=(const Matrix other);
+		bool operator==(const Matrix other) const;
+		bool operator!=(const Matrix other) const;
 		Matrix operator*(const Matrix other);
 		Matrix operator*(const float scaleFactor);
 		Matrix operator-(const Matrix other);
 		Matrix operator-();
-		Matrix operator=(const Matrix other);
 	} ALIGNED16;
 }
 

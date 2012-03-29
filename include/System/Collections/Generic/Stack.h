@@ -1,12 +1,11 @@
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_STACK_
 #define _SYSTEM_COLLECTIONS_GENERIC_STACK_
 
+#include <System/Array.h>
 #include <System/Object.h>
-#include <System/Collections/Generic/Interfaces.h>
+#include <System/Collections/Generic/EqualityComparer.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -18,11 +17,16 @@ namespace System
 			class Stack : public ICollection<T>, virtual Object
 			{
 			private:
-				T* _bottom;
-				T* _top;
-				static const int _defaultCapacity;
+				T* _array;
+				static const int _defaultCapacity = 4;
+				int _actualSize;
 				int _size;
 				int _version;
+
+				void EnsureCapacity(int capacity)
+				{
+					// TODO: implement
+				}
 
 			public:
 				int Count()
@@ -38,36 +42,27 @@ namespace System
 				Stack()
 				{
 					_bottom = new T[_defaultCapacity];
+					_actualSize = _defaultCapacity;
 					_size = 0;
 					_version = 0;
 				}
 
 				Stack(ICollection<T>* col)
 				{
-					Stack((!col) ? 0x20 : col->Count());
+					sassert(col != null, "");
 
-					if (!col)
-					{
-#if DEBUG
-						printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "col");
-#endif
-					}
+					_array = new T[col->Count()];
+					_actualSize = col->Count();
 
 					for (int i = 0; i < col->Count(); i++)
 					{
-						// TODO: Push all values in the ICollection into this Stack.
-						
+						this->Push(col[i]);
 					}
 				}
 
 				Stack(int initialCapacity)
 				{
-					if (initialCapacity < 0)
-					{
-#if DEBUG
-						printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "initialCapacity", "Non-negative number required");
-#endif
-					}
+					sassert(initialCapacity >= 0, "");
 
 					if (initialCapacity < _defaultCapacity)
 						initialCapacity = _defaultCapacity;
@@ -79,40 +74,71 @@ namespace System
 
 				virtual ~Stack()
 				{
-					delete[] _bottom;
+					delete[] _array;
 				}
 
 				virtual void Clear()
 				{
-					Array::Clear(_bottom, 0, _size);
+					Array::Clear(_array, 0, _size);
 					_size = 0;
 					_version++;
 				}
 
-				virtual bool Contains(T obj);
-				virtual void CopyTo(T array[], int index);
-
-				virtual T Peek();
+				virtual bool Contains(T item)
 				{
-					return *_top;
+					int index = _size;
+					EqualityComparer<T> comparer = EqualityComparer<T>::Default();
+					while (index-- > 0)
+					{
+						if (comparer.Equals(_array[index], item))
+							return true;
+					}
+					return false;
 				}
 
-				virtual T Pop()
+				virtual void CopyTo(T array[], int index)
 				{
-					_top--;
+					sassert(array != null, "");
+
+					/*if ((arrayIndex < 0) || (arrayIndex > Array::Length(_array)))
+						throw;*/
+
+					Array::Copy(_array, 0, array, index, _size);
+					Array::Reverse(_array, index, _size);
+				}
+
+				virtual T& Peek();
+				{
+					sassert(size != 0, "");
+
+					return _array[_size - 1];
+				}
+
+				virtual T& Pop()
+				{
+					sassert(size != 0, "");
+
 					_version++;
-					return *_top;
+					T local = _array[--_size];
+					_array[_size] = NULL;
+					
+					return local;
 				}
 
-				virtual void Push(T obj)
+				virtual void Push(T& obj)
 				{
-					*_top = obj; 
-					_top++;
 					_version++;
 				}
 
 				virtual T* ToArray()
 				{
+					T[] localArray = new T[_size];
+
+					for (int i = 0; i < _size; i++)
+					{
+						localArray[i] = _array[(_size - i) - 1];
+					}
+					return localArray;
 				}
 			};
 		}

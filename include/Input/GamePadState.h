@@ -13,10 +13,7 @@ namespace XFX
 {
 	namespace Input
 	{
-		/// <summary>
-		/// Represents specific information about the state of an Xbox Controller, including the current state of buttons
-		/// and sticks.
-		/// </summary>
+		// Represents specific information about the state of an Xbox Controller, including the current state of buttons and sticks.
 		struct GamePadState
 		{
 			GamePadButtons Buttons;
@@ -25,19 +22,20 @@ namespace XFX
 			GamePadThumbSticks ThumbSticks;
 			GamePadTriggers Triggers;
 
-			GamePadState(GamePadThumbSticks thumbSticks, GamePadTriggers triggers, GamePadButtons buttons, GamePadDPad dPad);
-			GamePadState(Vector2 leftThumbStick, Vector2 rightThumbStick, float leftTrigger, float rightTrigger, Buttons_t buttons[]);
+			GamePadState(const GamePadThumbSticks thumbSticks, const GamePadTriggers triggers, const GamePadButtons buttons, const GamePadDPad dPad);
 			GamePadState();
 			GamePadState(const GamePadState &obj);
 
-			bool Equals(const GamePadState obj);
-			int GetHashCode();
+			bool Equals(const GamePadState& obj) const;
+			int GetHashCode() const;
+			bool IsButtonDown(const Buttons_t button) const;
+			bool IsButtonUp(const Buttons_t button) const;
+			const char* ToString() const;
 
-			bool IsButtonDown(Buttons_t button);
-			bool IsButtonUp(Buttons_t button);
+			bool operator==(const GamePadState& right) const;
+			bool operator!=(const GamePadState& right) const;
 
-			bool operator==(const GamePadState other);
-			bool operator!=(const GamePadState other);
+			inline GamePadState operator =(const GamePadState right) { return GamePadState(right); }
 		};
 	}
 }

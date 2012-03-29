@@ -10,30 +10,35 @@
 #include <System/Delegates.h>
 #include "GraphicsDevice.h"
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics
 	{
-		class StateBlock : public IDisposable
+		class StateBlock : public IDisposable, virtual Object
 		{
+		private:
+			GraphicsDevice* device;
+
 		protected:
 			void Dispose(bool disposing);
 
 		public:
 			EventHandler Disposing;
 
-			StateBlock();
 			StateBlock(GraphicsDevice* graphiceDevice);
 			StateBlock(const StateBlock &obj);
 
 			void Apply();
 			void Capture();
 			void Dispose();
-			bool Equals(StateBlock other);
-			int GetHashCode();
+			bool Equals(const StateBlock& obj) const;
+			int GetHashCode() const;
+			const char* ToString() const;
 
-			bool operator!=(const StateBlock other);
-			bool operator==(const StateBlock other);
+			bool operator!=(const StateBlock& right) const;
+			bool operator==(const StateBlock& right) const;
 		};
 	}
 }

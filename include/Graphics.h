@@ -15,16 +15,19 @@
 #include "Graphics/DepthStencilBuffer.h"
 #include "Graphics/DisplayMode.h"
 #include "Graphics/DisplayModeCollection.h"
-#include "Graphics/Exceptions.h"
 #include "Graphics/GraphicsAdapter.h"
 #include "Graphics/GraphicsDevice.h"
-#include "Graphics/GraphicsDeviceCapabilities.h"
 #include "Graphics/GraphicsResource.h"
 #include "Graphics/PresentationParameters.h"
+#include "Graphics/RenderTarget.h"
+#include "Graphics/RenderTarget2D.h"
 #include "Graphics/SpriteBatch.h"
+#include "Graphics/SpriteFont.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Texture2D.h"
 #include "Graphics/TextureCollection.h"
+#include "Graphics/TextureCreationParameters.h"
+#include "Graphics/TextureInformation.h"
 #include "Graphics/VertexElement.h"
 #include "Graphics/VertexPositionColor.h"
 #include "Graphics/VertexPositionNormalTexture.h"
@@ -37,6 +40,6 @@
 //
 //Interfaces
 //
-#include "Graphics/IGraphicsDeviceservice.h"
+#include "Graphics/IGraphicsDeviceService.h"
 
 #endif //_GRAPHICS_

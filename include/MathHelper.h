@@ -4,8 +4,8 @@
  *	XFX MathHelper definition file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _SYSTEM_MATHHELPER_
-#define _SYSTEM_MATHHELPER_
+#ifndef _XFX_MATHHELPER_
+#define _XFX_MATHHELPER_
 
 namespace XFX
 {
@@ -38,4 +38,4 @@ namespace XFX
 	};
 }
 
-#endif //_SYSTEM_MATHHELPER_
+#endif //_XFX_MATHHELPER_

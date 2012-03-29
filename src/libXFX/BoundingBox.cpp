@@ -32,6 +32,7 @@
 #include <System/Array.h>
 #include <System/Math.h>
 #include <System/Single.h>
+#include <System/String.h>
 
 using namespace System;
 
@@ -57,7 +58,7 @@ namespace XFX
 		Max = Vector3::Zero;
 	}
 
-	ContainmentType_t BoundingBox::Contains(BoundingBox box)
+	ContainmentType_t BoundingBox::Contains(const BoundingBox box) const
 	{
 		if( Max.X < box.Min.X || Min.X > box.Max.X ) 
         	return ContainmentType::Disjoint; 
@@ -75,7 +76,7 @@ namespace XFX
         return ContainmentType::Intersects; 
 	}
 
-	void BoundingBox::Contains(BoundingBox box, out ContainmentType_t result)
+	void BoundingBox::Contains(const BoundingBox box, out ContainmentType_t result) const
 	{
 		if( Max.X < box.Min.X || Min.X > box.Max.X ) 
         	result = ContainmentType::Disjoint; 
@@ -93,7 +94,7 @@ namespace XFX
         result = ContainmentType::Intersects; 
 	}
 	
-	ContainmentType_t BoundingBox::Contains(BoundingSphere sphere)
+	ContainmentType_t BoundingBox::Contains(const BoundingSphere sphere) const
 	{
 		float dist; 
         Vector3 clamped; 
@@ -120,7 +121,7 @@ namespace XFX
         return ContainmentType::Intersects; 
 	}
 	
-	void BoundingBox::Contains(BoundingSphere sphere, out ContainmentType_t result)
+	void BoundingBox::Contains(const BoundingSphere sphere, out ContainmentType_t result) const
 	{
 		float dist; 
         Vector3 clamped; 
@@ -147,7 +148,7 @@ namespace XFX
         result = ContainmentType::Intersects;
 	}
 	
-	ContainmentType_t BoundingBox::Contains(Vector3 vector)
+	ContainmentType_t BoundingBox::Contains(const Vector3 vector) const
 	{
 		if(Min.X <= vector.X && vector.X <= Max.X && Min.Y <= vector.Y &&  
             vector.Y <= Max.Y && Min.Z <= vector.Z && vector.Z <= Max.Z) 
@@ -156,7 +157,7 @@ namespace XFX
         return ContainmentType::Disjoint; 
 	}
 	
-	void BoundingBox::Contains(Vector3 vector, out ContainmentType_t result)
+	void BoundingBox::Contains(const Vector3 vector, out ContainmentType_t result) const
 	{
 		if(Min.X <= vector.X && vector.X <= Max.X && Min.Y <= vector.Y &&  
             vector.Y <= Max.Y && Min.Z <= vector.Z && vector.Z <= Max.Z) 
@@ -165,15 +166,14 @@ namespace XFX
         result = ContainmentType::Disjoint;
 	}
 	
-	BoundingBox BoundingBox::CreateFromPoints(Vector3 points[])
+	BoundingBox BoundingBox::CreateFromPoints(const Vector3 points[], const int startIndex, const int length)
 	{
-		if((!points) || Array::Length(points) <= 0) 
-            return BoundingBox();
-  
+		sassert(points != null, "");
+
 		Vector3 min = Single::MinValue; 
 		Vector3 max = Single::MaxValue; 
   
-		for(int i = 0; i < Array::Length(points); i++)
+		for(int i = startIndex; i < length; i++)
         {
 	        Vector3::Min(min, points[i], min); 
             Vector3::Max(max, points[i], max);
@@ -182,7 +182,7 @@ namespace XFX
         return BoundingBox(min, max); 
 	}
 	
-	BoundingBox BoundingBox::CreateFromSphere(BoundingSphere sphere)
+	BoundingBox BoundingBox::CreateFromSphere(const BoundingSphere sphere)
 	{
 		BoundingBox result; 
         result.Min = Vector3(sphere.Center.X - sphere.Radius, sphere.Center.Y - sphere.Radius, sphere.Center.Z - sphere.Radius ); 
@@ -190,13 +190,13 @@ namespace XFX
         return result; 
 	}
 	
-	void BoundingBox::CreateFromSphere(BoundingSphere sphere, out BoundingBox result)
+	void BoundingBox::CreateFromSphere(const BoundingSphere sphere, out BoundingBox result)
 	{
 		result.Min = Vector3(sphere.Center.X - sphere.Radius, sphere.Center.Y - sphere.Radius, sphere.Center.Z - sphere.Radius ); 
         result.Max = Vector3(sphere.Center.X + sphere.Radius, sphere.Center.Y + sphere.Radius, sphere.Center.Z + sphere.Radius ); 
 	}
 	
-	BoundingBox BoundingBox::CreateMerged(BoundingBox box1, BoundingBox box2)
+	BoundingBox BoundingBox::CreateMerged(const BoundingBox box1, const BoundingBox box2)
 	{
 		BoundingBox result; 
         Vector3::Min(box1.Min, box2.Min, result.Min); 
@@ -204,18 +204,23 @@ namespace XFX
         return result; 
 	}
 	
-	void BoundingBox::CreateMerged(BoundingBox box1, BoundingBox box2, out BoundingBox result)
+	void BoundingBox::CreateMerged(const BoundingBox box1, const BoundingBox box2, out BoundingBox result)
 	{
 		Vector3::Min(box1.Min, box2.Min, result.Min); 
         Vector3::Max(box1.Max, box2.Max, result.Max); 
 	}
 	
-	bool BoundingBox::Equals(BoundingBox obj)
+	bool BoundingBox::Equals(const BoundingBox obj) const
 	{
 		return ((Max == obj.Max) && (Min == obj.Min));
 	}
+
+	int BoundingBox::GetHashCode() const
+	{
+		return Min.GetHashCode() + Max.GetHashCode();
+	}
 	
-	int BoundingBox::Intersects(BoundingBox box)
+	bool BoundingBox::Intersects(const BoundingBox box) const
 	{
 		if (Max.X < box.Min.X || Min.X > box.Max.X) 
             return false; 
@@ -226,7 +231,7 @@ namespace XFX
         return (Max.Z >= box.Min.Z && Min.Z <= box.Max.Z);  
 	}
 	
-	void BoundingBox::Intersects(BoundingBox box, out int result)
+	void BoundingBox::Intersects(const BoundingBox box, out int result) const
 	{
 		if (Max.X < box.Min.X || Min.X > box.Max.X) 
             result = false; 
@@ -237,7 +242,7 @@ namespace XFX
         result = (Max.Z >= box.Min.Z && Min.Z <= box.Max.Z); 
 	}
 	
-	int BoundingBox::Intersects(BoundingSphere sphere)
+	bool BoundingBox::Intersects(const BoundingSphere sphere) const
 	{
 		float dist; 
         Vector3 clamped; 
@@ -253,7 +258,7 @@ namespace XFX
         return (dist <= (sphere.Radius * sphere.Radius)); 
 	}
 	
-	void BoundingBox::Intersects(BoundingSphere sphere, out int result)
+	void BoundingBox::Intersects(const BoundingSphere sphere, out int result) const
 	{
 		float dist; 
         Vector3 clamped; 
@@ -269,42 +274,40 @@ namespace XFX
         result = (dist <= (sphere.Radius * sphere.Radius));
 	}
 	
-	PlaneIntersectionType_t BoundingBox::Intersects(Plane plane)
+	PlaneIntersectionType_t BoundingBox::Intersects(const Plane plane) const
 	{
 		return plane.Intersects(*this);
 	}
 	
-	void BoundingBox::Intersects(Plane plane, out PlaneIntersectionType_t result)
+	void BoundingBox::Intersects(const Plane plane, out PlaneIntersectionType_t result) const
 	{
 		result = plane.Intersects(*this);
 	}
 	
-	float BoundingBox::Intersects(Ray ray)
+	float BoundingBox::Intersects(const Ray ray) const
 	{
 		float distance = 0;
 		ray.Intersects(*this, distance);
 		return distance;
 	}
 	
-	void BoundingBox::Intersects(Ray ray, out float distance)
+	void BoundingBox::Intersects(const Ray ray, out float distance) const
 	{
 		ray.Intersects(*this, distance);
 	}
+
+	const char* BoundingBox::ToString() const
+	{
+		return String::Format("{{Min:%s Max:%s}}", Min.ToString(), Max.ToString());
+	}
 	
-	bool BoundingBox::operator!=(const BoundingBox other)
+	bool BoundingBox::operator!=(const BoundingBox other) const
 	{
 		return !Equals(other);
 	}
 	
-	bool BoundingBox::operator==(const BoundingBox other)
+	bool BoundingBox::operator==(const BoundingBox other) const
 	{
 		return Equals(other);
-	}
-	
-	BoundingBox BoundingBox::operator=(const BoundingBox other)
-	{
-		Max = other.Max;
-		Min = other.Min;
-		return *this;
 	}
 }

@@ -57,7 +57,7 @@ namespace System
 			
 			state = ThreadState::Unstarted;
 			
-			Id++; //increment Id so every thread is unique
+			Id++; //increment Id so every thread Id is unique
 		}
 		
 		void Thread::Abort()

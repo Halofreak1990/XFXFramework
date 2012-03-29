@@ -7,11 +7,10 @@
 #ifndef _XFX_GRAPHICS_COLOR_
 #define _XFX_GRAPHICS_COLOR_
 
+#include <System/Interfaces.h>
 #include <System/Types.h>
-#include "PackedVector/IPackedVector.h"
 
 using namespace System;
-using namespace XFX::Graphics::PackedVector;
 
 namespace XFX
 {
@@ -20,17 +19,15 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		/// <summary>
-		/// Represents a color using Red, Green, Blue, and Alpha values.
-		/// </summary>
-		struct Color : public IEquatable<Color>
+		// Represents a color using Red, Green, Blue, and Alpha values.
+		struct Color : public IEquatable<Color>, virtual Object
 		{
 		private:
-			uint _packedValue;
-			uint RGBAtoARGB(uint value);
-			Color(uint packedValue);
-			static uint InitializeFromVector4(Vector4 vector);
-			static uint InitializeFromVector3(Vector3 vector);
+			unsigned int _packedValue;
+			unsigned int RGBAtoARGB(unsigned int value);
+			Color(unsigned int packedValue);
+			static unsigned int InitializeFromVector4(Vector4 vector);
+			static unsigned int InitializeFromVector3(Vector3 vector);
 		
 		public:
 			byte A();
@@ -187,14 +184,14 @@ namespace XFX
 			Color(byte r, byte g, byte b, byte a);
 			Color(const Color &obj);
 			
-			bool Equals(Color other);
+			bool Equals(const Color other) const;
 			int GetHashCode();
-			uint PackedValue();
+			unsigned int PackedValue();
 			Vector4 ToVector4();
 			Vector3 ToVector3();
 			
-			bool operator!=(const Color other);
-			bool operator==(const Color other);
+			bool operator!=(const Color other) const;
+			bool operator==(const Color other) const;
 		};
 	}
 }

@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include "Point.h"
+#include <System/String.h>
 
 namespace XFX
 {
@@ -49,25 +50,28 @@ namespace XFX
 		Y = 0;
 	}
 
-	bool Point::Equals(Point other)
+	bool Point::Equals(const Point other) const
 	{
 		return ((X == other.X) && (Y == other.Y));
 	}
 
-	bool Point::operator==(const Point right)
+	int Point::GetHashCode() const
+	{
+		return (X + Y);
+	}
+
+	const char* Point::ToString() const
+	{
+		return String::Format("{X:%i Y:%i}", X, Y);
+	}
+
+	bool Point::operator==(const Point right) const
 	{
 		return ((X == right.X) && (Y == right.Y));
 	}
 
-	bool Point::operator!=(const Point right)
+	bool Point::operator!=(const Point right) const
 	{
 		return !((X == right.X) && (Y == right.Y));
-	}
-	
-	Point Point::operator=(const Point right)
-	{
-		X = right.X;
-		Y = right.Y;
-		return *this;
 	}
 }

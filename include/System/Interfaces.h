@@ -28,7 +28,7 @@ namespace System
 	interface IComparable
 	{
 	public:
-		virtual int CompareTo(T other)=0;
+		virtual int CompareTo(const T other) const =0;
 	};
 
 	// Defines a method to release allocated resources.
@@ -43,7 +43,7 @@ namespace System
 	interface IEquatable
 	{
 	public:
-		virtual bool Equals(const T other)=0;
+		virtual bool Equals(const T other) const =0;
 	};
 
 	// Provides a mechanism for retrieving an object to control formatting.
@@ -56,7 +56,7 @@ namespace System
 	interface IServiceProvider
 	{
 	public:
-		virtual Object* GetService(Object* serviceType)=0;
+		virtual Object* GetService(const char* serviceType)=0;
 	};
 }
 

@@ -15,25 +15,22 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		/// <summary>
-		/// Describes the display mode.
-		/// </summary>
+		// Describes the display mode.
 		struct DisplayMode
 		{
-		public:
-			float AspectRatio();
+			float AspectRatio() const;
 			int Height;
 			SurfaceFormat_t Format;
 			int RefreshRate;
-			Rectangle TitleSafeArea();
+			Rectangle TitleSafeArea() const;
 			int Width;
 				
 			DisplayMode();
-			bool Equals(const DisplayMode other);
-			int GetHashCode();
+			bool Equals(const DisplayMode other) const;
+			int GetHashCode() const;
 			
-			bool operator!=(const DisplayMode other);
-			bool operator==(const DisplayMode other);
+			bool operator!=(const DisplayMode other) const;
+			bool operator==(const DisplayMode other) const;
 		};
 	}
 }

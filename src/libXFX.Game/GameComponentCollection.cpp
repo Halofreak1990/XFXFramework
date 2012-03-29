@@ -26,10 +26,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GameComponentCollection.h>
+#include <GameComponentCollectionEventArgs.h>
 
 namespace XFX
 {
 	GameComponentCollection::GameComponentCollection()
+	{
+	}
+
+	GameComponentCollection::~GameComponentCollection()
 	{
 	}
 
@@ -38,18 +43,46 @@ namespace XFX
 		_components.Clear();
 	}
 
+	int GameComponentCollection::Count() const
+	{
+		return _components.Count();
+	}
+
 	void GameComponentCollection::InsertItem(int index, IGameComponent* item)
 	{
 		_components.Insert(index, item);
+
+		if (ComponentAdded)
+			ComponentAdded(this, GameComponentCollectionEventArgs(item));
 	}
 
 	void GameComponentCollection::RemoveItem(int index)
 	{
+		IGameComponent* component = _components[index];
+
 		_components.RemoveAt(index);
+
+		if (ComponentRemoved)
+			ComponentRemoved(this, GameComponentCollectionEventArgs(component));
 	}
 
 	void GameComponentCollection::SetItem(int index, IGameComponent* item)
 	{
 		_components[index] = item;
+	}
+
+	GameComponentCollectionEventArgs::GameComponentCollectionEventArgs(IGameComponent* gameComponent)
+	{
+		_gameComponent = gameComponent;
+	}
+
+	IGameComponent* GameComponentCollectionEventArgs::getGameComponent()
+	{
+		return _gameComponent;
+	}
+
+	IGameComponent* GameComponentCollection::operator[](const int index)
+	{
+		return _components[index];
 	}
 }

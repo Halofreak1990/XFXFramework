@@ -1,44 +1,32 @@
 #include <Graphics/DepthStencilBuffer.h>
+#include <Graphics/GraphicsDevice.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		DepthStencilBuffer::DepthStencilBuffer()
-		{
-			_graphicsDevice = null;
-			_width = 0;
-			_height = 0;
-			_format = DepthFormat::Unknown;
-			_multiSampleType = MultiSampleType::None;
-			isDisposed = false;
-		}
-		
-		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format)
+		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, const int width, const int height, DepthFormat_t format)
+			: Height(height), Width(width)
 		{
 			_graphicsDevice = graphicsDevice;
-			_width = width;
-			_height = height;
 			_format = format;
 			_multiSampleType = MultiSampleType::None;
 			isDisposed = false;
 		}
 		
-		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, int width, int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality)
+		DepthStencilBuffer::DepthStencilBuffer(GraphicsDevice* graphicsDevice, const int width, const int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality)
+			: Height(height), Width(width)
 		{
 			_graphicsDevice = graphicsDevice;
-			_width = width;
-			_height = height;
 			_format = format;
 			_multiSampleType = multiSampleType;
 			isDisposed = false;
 		}
 
 		DepthStencilBuffer::DepthStencilBuffer(const DepthStencilBuffer &obj)
+			: Height(height), Width(width)
 		{
 			_graphicsDevice = obj._graphicsDevice;
-			_width = obj._width;
-			_height = obj._height;
 			_format = obj._format;
 			_multiSampleType = obj._multiSampleType;
 			isDisposed = obj.isDisposed;
@@ -54,7 +42,7 @@ namespace XFX
 			return _format;
 		}
 		
-		GraphicsDevice* DepthStencilBuffer::GraphicsDevice_()
+		GraphicsDevice* DepthStencilBuffer::getGraphicsDevice()
 		{
 			return _graphicsDevice;
 		}

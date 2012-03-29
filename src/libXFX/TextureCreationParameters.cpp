@@ -93,18 +93,5 @@ namespace XFX
 		{
 			return Equals(other);
 		}
-
-		TextureCreationParameters TextureCreationParameters::operator =(TextureCreationParameters other)
-		{
-			Width = other.Width;
-			Height = other.Height;
-			Depth = other.Depth;
-			MipLevels = other.MipLevels;
-			Format = other.Format;
-			ColorKey = other.ColorKey;
-			Filter = other.Filter;
-			MipFilter = other.MipFilter;
-			return *this;
-		}
 	}
 }

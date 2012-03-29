@@ -7,15 +7,18 @@
 #ifndef _XFX_RECTANGLE_
 #define _XFX_RECTANGLE_
 
+#include <System/Interfaces.h>
 #include <System/Types.h>
+
+using namespace System;
 
 namespace XFX
 {
 	struct Point;
 	
-	struct Rectangle
+	// Defines a rectangle.
+	struct Rectangle : public IEquatable<Rectangle>, virtual Object
 	{
-	public:
 		int Bottom();	//Returns the y-coordinate of the bottom of the rectangle.
 		static const Rectangle Empty; //Returns a Rectangle with all of its values set to zero.
 		int Left();		//Returns the x-coordinate of the left side of the rectangle.
@@ -30,22 +33,22 @@ namespace XFX
 		Rectangle(const Rectangle &obj);
 		Rectangle();
 		
-		int Contains(int x, int y);
-		int Contains(Point pt);
+		bool Contains(int x, int y);
+		bool Contains(Point pt);
 		void Contains(Point pt, out int result);
-		int Contains(Rectangle other);
+		bool Contains(Rectangle other);
 		void Contains(Rectangle other, out int result);
-		int Equals(const Rectangle obj);
+		bool Equals(const Rectangle obj) const;
 		int GetHashCode();
 		void Inflate(int horizontalAmount, int verticalAmount);
-		int Intersects(Rectangle other);
+		bool Intersects(Rectangle other);
 		void Intersects(Rectangle other, out int result);
 		void Offset(int x, int y);
 		void Offset(Point pt);
+		char* ToString();
 		
-		int operator==(const Rectangle other);
-		int operator!=(const Rectangle other);
-		Rectangle operator=(const Rectangle other);
+		bool operator==(const Rectangle other) const;
+		bool operator!=(const Rectangle other) const;
 	};
 }
 

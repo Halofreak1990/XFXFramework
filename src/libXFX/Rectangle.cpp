@@ -76,12 +76,12 @@ namespace XFX
 		return Y;
 	}
 	
-	int Rectangle::Contains(int x, int y)
+	bool Rectangle::Contains(int x, int y)
 	{
 		return ((x >= X) && (y >=Y) && (x <= Right()) && (y <= Bottom()));
 	}
 	
-	int Rectangle::Contains(Point pt)
+	bool Rectangle::Contains(Point pt)
 	{
 		return ((pt.X >= X) && (pt.Y >=Y) && (pt.X <= Right()) && (pt.Y <= Bottom()));
 	}
@@ -91,7 +91,7 @@ namespace XFX
 		result = ((pt.X >= X) && (pt.Y >=Y) && (pt.X <= Right()) && (pt.Y <= Bottom()));
 	}
 	
-	int Rectangle::Contains(Rectangle other)
+	bool Rectangle::Contains(Rectangle other)
 	{
 		return ((other.X >= X) && (other.Y >= Y) && (other.Bottom() <= Bottom()) && (other.Right() <= Right()));
 	}
@@ -101,7 +101,7 @@ namespace XFX
 		result = ((other.X >= X) && (other.Y >= Y) && (other.Bottom() <= Bottom()) && (other.Right() <= Right()));
 	}
 	
-	int Rectangle::Equals(const Rectangle obj)
+	bool Rectangle::Equals(const Rectangle obj) const
 	{
 		return ((X == obj.X) && (Y == obj.Y) && (Width == obj.Width) && (Height == obj.Height));
 	}
@@ -117,7 +117,7 @@ namespace XFX
 		Height += verticalAmount;
 	}
 	
-	int Rectangle::Intersects(Rectangle other)
+	bool Rectangle::Intersects(Rectangle other)
 	{
 		return ((Contains(other.Left(), other.Top())) || (Contains(other.Left(), other.Bottom())) || (Contains(other.Right(), other.Top())) || (Contains(other.Right(),other.Bottom())));
 	}
@@ -139,22 +139,13 @@ namespace XFX
 		Y += pt.Y;
 	}
 	
-	int Rectangle::operator==(const Rectangle other)
+	bool Rectangle::operator==(const Rectangle other) const
 	{
 		return Equals(other);
 	}
 	
-	int Rectangle::operator!=(const Rectangle other)
+	bool Rectangle::operator!=(const Rectangle other) const
 	{
 		return !Equals(other);
-	}
-	
-	Rectangle Rectangle::operator=(const Rectangle other)
-	{
-		X = other.X;
-		Y = other.Y;
-		Width = other.Width;
-		Height = other.Height;
-		return *this;
 	}
 }

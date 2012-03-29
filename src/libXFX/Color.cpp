@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/Math.h>
 #include <Graphics/Color.h>
 #include <Vector3.h>
 #include <Vector4.h>
@@ -241,7 +242,7 @@ namespace XFX
 			_packedValue = obj._packedValue;
 		}
 		
-		bool Color::Equals(Color other)
+		bool Color::Equals(const Color other) const
 		{
 			return (_packedValue == other._packedValue);
 		}
@@ -283,12 +284,12 @@ namespace XFX
             return Vector3((float)R() / 255, (float)G() / 255, (float)B() / 255); 
         } 
 		
-		bool Color::operator!=(const Color other)
+		bool Color::operator!=(const Color other) const
 		{
 			return !Equals(other);
 		}
 		
-		bool Color::operator==(const Color other) 
+		bool Color::operator==(const Color other) const
         { 
             return Equals(other);
         }

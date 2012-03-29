@@ -4,8 +4,8 @@
  *	XFX FileStream definition file						*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _FILESTREAM_
-#define _FILESTREAM_
+#ifndef _SYSTEM_IO_FILESTREAM_
+#define _SYSTEM_IO_FILESTREAM_
 
 #include "../Types.h"
 #include "Enums.h"
@@ -15,11 +15,8 @@ namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Exposes a Stream around a file, supporting both synchronous and asynchronous read and write
-		/// operations.
-		/// </summary>
-		class FileStream : public Stream
+		// Exposes a Stream around a file, supporting both synchronous and asynchronous read and write operations.
+		class FileStream : public Stream, virtual Object
 		{
 		private:
 			int handle;
@@ -44,28 +41,28 @@ namespace System
 			bool CanSeek();
 			bool CanWrite();
 			virtual bool IsAsync();
-			long long Length();
+			Int64 Length();
 			char* Name();
-			long long Position(); //get
-			void Position(long long newPosition); //set
+			Int64 getPosition();
+			void setPosition(Int64 newPosition);
 
 			FileStream();
-			FileStream(char* path, FileMode_t mode);
-			FileStream(char* path, FileMode_t mode, FileAccess_t access);
-			FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share);
-			FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize);
-			FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize, bool useAsync);
+			FileStream(const char* path, const FileMode_t mode);
+			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access);
+			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share);
+			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize);
+			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync);
 			virtual ~FileStream();
 
 			void Flush();
-			int Read(byte array[], int offset, int count) __attribute__((nonnull (1)));
+			int Read(byte array[], const int offset, const int count) __attribute__((nonnull (1)));
 			int ReadByte();
-			long long Seek(long long offset, SeekOrigin_t origin);
-			void SetLength(long long value);
-			void Write(byte array[], int offset, int count) __attribute__((nonnull (1)));
-			void WriteByte(byte value);
+			Int64 Seek(const Int64 offset, const SeekOrigin_t origin);
+			void SetLength(const Int64 value);
+			void Write(byte array[], const int offset, const int count) __attribute__((nonnull (1)));
+			void WriteByte(const byte value);
 		};
 	}
 }
 
-#endif //_FILESTREAM_
+#endif //_SYSTEM_IO_FILESTREAM_

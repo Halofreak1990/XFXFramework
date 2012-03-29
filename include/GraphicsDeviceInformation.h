@@ -14,9 +14,7 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	/// <summary>
-	/// Holds the settings for creating a graphics device.
-	/// </summary>
+	// Holds the settings for creating a graphics device.
 	class GraphicsDeviceInformation
 	{
 	public:

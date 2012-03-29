@@ -20,17 +20,19 @@ namespace System
 		static const double NegativeInfinity;
 		static const double PositiveInfinity;
 
-		Double(double d);
+		Double(const double &obj);
+		Double(const Double &obj);
 
-		int CompareTo(Double other);
-		bool Equals(Double other);
+		int CompareTo(const Double other) const;
+		bool Equals(const Double other) const;
+		int GetHashCode() const;
 		static double Parse(char* str);
-		char* ToString();
+		const char* ToString() const;
 
-		bool operator !=(double right);
-		bool operator !=(Double right);
-		bool operator ==(double right);
-		bool operator ==(Double right);
+		bool operator !=(double right) const;
+		bool operator !=(const Double right) const;
+		bool operator ==(double right) const;
+		bool operator ==(const Double right) const;
 	};
 }
 

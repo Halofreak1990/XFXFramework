@@ -8,13 +8,12 @@
 #ifndef _SYSTEM_ARRAY_
 #define _SYSTEM_ARRAY_
 
+#include "FrameworkResources.h"
 #include <System/Collections/Generic/Interfaces.h>
 
 using namespace System::Collections::Generic;
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -39,39 +38,19 @@ namespace System
 		template <class T>
 		static void Copy(T sourceArray[], int sourceIndex, T destinationArray[], int destinationIndex, int length)
 		{
-			if (!sourceArray)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "sourceArray");
-#endif
-				return;
-			}
+			sassert(sourceArray != null, "");
 
-			if (!destinationArray)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray");
-#endif
-				return;
-			}
+			sassert(destinationArray != null, "");
 
-			if (sourceIndex < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "sourceIndex must be 0 or greater");
-#endif
-				return;
-			}
+			sassert(sourceIndex >= 0, "");
+			
+			//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "sourceIndex must be 0 or greater");
 
-			if (destinationIndex < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationIndex must be 0 or greater");
-#endif
-				return;
-			}
+			sassert(destinationIndex >= 0, "");
 
-			if((sourceIndex + length) > Length(sourceArray))
+			//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationIndex must be 0 or greater");
+
+			/*if((sourceIndex + length) > Length(sourceArray))
 			{
 #if DEBUG
 				printf("ARGUMENT in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
@@ -85,7 +64,7 @@ namespace System
 				printf("ARGUMENT in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
 #endif
 				return;
-			}
+			}*/
 
 			for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 			{
@@ -94,42 +73,25 @@ namespace System
 		}
 
 		template <class T>
-		static int IndexOf(T array[], T value, int startIndex, int count)
+		static int IndexOf(const T array[], const T value, const int startIndex, const int count)
 		{
-			return -1;
-		}
-
-		template <class T>
-		static int Length(T array[])
-		{
-			if (!array)
+			for (int i = startIndex; i < count; i++)
 			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "array");
-#endif
-				return 0;
+				if (array[i] == value)
+					return i;
 			}
-			return (sizeof(array)/sizeof(T));
+			return -1;
 		}
 
 		template <class T>
 		static void Reverse(T array[], int index, int length)
 		{
-			if (!array)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "array");
-#endif
-				return;
-			}
+			sassert(array != null, "");
 
-			if ((Length(array) - index) < length)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
-#endif
-				return;
-			}
+			//if ((Length(array) - index) < length)
+			
+			//printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+
 			int num = index;
         	int num2 = (index + length) - 1;
 			while (num < num2)

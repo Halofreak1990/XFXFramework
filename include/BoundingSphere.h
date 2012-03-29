@@ -7,27 +7,29 @@
 #ifndef _XFX_BOUNDINGSPHERE_
 #define _XFX_BOUNDINGSPHERE_
 
-#include <System/Types.h>
+#include <System/Interfaces.h>
 #include "Vector3.h"
+
+using namespace System;
 
 namespace XFX
 {
-	/// <summary>
-	/// Defines a sphere.
-	/// </summary>
-	class BoundingSphere
+	// Defines a sphere.
+	struct BoundingSphere : public IEquatable<BoundingSphere>, virtual Object
 	{
-	public:
 		Vector3 Center;
 		float Radius;
 		
-		BoundingSphere(Vector3 center, float radius);
+		BoundingSphere(const Vector3 center, const float radius);
 		BoundingSphere(const BoundingSphere &obj);
 		BoundingSphere();
+
+		bool Equals(const BoundingSphere other) const;
+		int GetHashCode() const;
+		const char* ToString() const;
 		
-		int operator==(const BoundingSphere other);
-		int operator!=(const BoundingSphere other);
-		BoundingSphere operator=(const BoundingSphere other);
+		int operator==(const BoundingSphere other) const;
+		int operator!=(const BoundingSphere other) const;
 	};
 }
 

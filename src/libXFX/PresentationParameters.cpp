@@ -64,7 +64,7 @@ namespace XFX
             SwapEffect_ = SwapEffect::Default; 
         }
          
-        PresentationParameters PresentationParameters::Clone() 
+        PresentationParameters PresentationParameters::Clone() const
         { 
             PresentationParameters clone = PresentationParameters(); 
             clone.AutoDepthStencilFormat = AutoDepthStencilFormat; 
@@ -105,7 +105,7 @@ namespace XFX
             }
         }
         
-        bool PresentationParameters::Equals(const PresentationParameters other)
+        bool PresentationParameters::Equals(const PresentationParameters other) const
         {
 	        return ((other.AutoDepthStencilFormat == AutoDepthStencilFormat) &&
             (other.BackBufferCount == BackBufferCount) &&
@@ -115,7 +115,7 @@ namespace XFX
 #if !ENABLE_XBOX
             (other.DeviceWindowHandle == DeviceWindowHandle) &&
 #endif
-            (other.Disposed == Disposed) &&
+            (other.disposed == disposed) &&
             (other.EnableAutoDepthStencil == EnableAutoDepthStencil) &&
             (other.FullScreenRefreshRateInHz == FullScreenRefreshRateInHz) &&
             (other.IsFullScreen == IsFullScreen) &&
@@ -126,12 +126,12 @@ namespace XFX
             (other.SwapEffect_ == SwapEffect_));
         }
         
-        bool PresentationParameters::operator!=(const PresentationParameters other)
+        bool PresentationParameters::operator!=(const PresentationParameters other) const
         {
 	        return !Equals(other);
         }
         
-		bool PresentationParameters::operator==(const PresentationParameters other)
+		bool PresentationParameters::operator==(const PresentationParameters other) const
 		{
 			return Equals(other);
 		}

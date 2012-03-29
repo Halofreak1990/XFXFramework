@@ -25,15 +25,22 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#if ENABLE_XBOX
 extern "C"
 {
 #include <hal/input.h>
 #include <hal/xbox.h>
-}
 #include "../libXFX/pbKit.h"
+}
+#endif
 
 #include <Game.h>
 #include <System/Collections/Generic/List.h>
+//#include <Graphics/Color.h>
+#include <Graphics/DepthStencilBuffer.h>
+#include <Graphics/GraphicsDevice.h>
+
+#include <sassert.h>
 
 namespace XFX
 {
@@ -71,7 +78,7 @@ namespace XFX
 		return components;
 	}
 
-	GraphicsDevice Game::getGraphicsDevice()
+	GraphicsDevice* Game::getGraphicsDevice()
 	{
 		return graphicsService->getGraphicsDevice();
 	}
@@ -87,6 +94,9 @@ namespace XFX
 
 	bool Game::BeginDraw()
 	{
+		if (IsFixedTimeStep && gameTime.IsRunningSlowly())
+            return false;
+
 		return graphicsManager->BeginDraw();
 	}
 
@@ -102,14 +112,12 @@ namespace XFX
 
 		if(disposing)
 		{
-			/*
-			foreach (IGameComponent component in components)
+			for (int i = 0; i < components.Count(); i++)
 			{
-				IDisposable disposable = component as IDisposable;
-				if (disposable != null)
+				IDisposable* disposable = dynamic_cast<IDisposable*>(components[i]);
+				if (disposable)
 					disposable->Dispose();
-			}  
-			*/
+			}
 		}
 
 		disposed = true;
@@ -152,13 +160,12 @@ namespace XFX
 
 	void Game::Initialize()
 	{
-		/*
-		this.graphicsService = this.Services.GetService(typeof(IGraphicsDeviceService)) as IGraphicsDeviceService;
-		
-		foreach (IGameComponent component in components)
+		graphicsService = dynamic_cast<IGraphicsDeviceService*>(services.GetService("IGraphicsDeviceService"));
+
+		for (int i = 0; i < components.Count(); i++)
 		{
-			component.Initialize();
-		}*/
+			components[i]->Initialize();
+		}
 
 		XInput_Init();
 
@@ -189,13 +196,15 @@ namespace XFX
 
 	void Game::Run()
 	{
-		if(inRun)
-			//throw InvalidOperationException("Run Method called more than once");
-			return;
+		sassert(!inRun, "Run Method called more than once.");
 
 		inRun = true;
 		BeginRun();
 			
+		graphicsManager = dynamic_cast<IGraphicsDeviceManager*>(services.GetService("IGraphicsDeviceManager"));
+		if (graphicsManager != null)
+			graphicsManager->CreateDevice();
+
 		Initialize(); 
         
 		while(1)
@@ -211,9 +220,6 @@ namespace XFX
 		
 		if(BeginDraw())
 		{
-			pb_reset();
-			pb_erase_depth_stencil_buffer(0, 0, 640, 480);
-
 			Draw(gameTime);
 
 			EndDraw();

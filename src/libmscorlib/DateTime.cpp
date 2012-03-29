@@ -34,6 +34,8 @@
 #include <System/TimeSpan.h>
 #include <System/TimeZone.h>
 
+#include <sassert.h>
+
 namespace System
 {
 	// Encodes the DateTime in 64 bits, top two bits contain the DateTimeKind,
@@ -82,15 +84,21 @@ namespace System
 
 	void DateTime::InvalidTickValue(Int64 ticks)
 	{
+#if DEBUG
 		//throw ArgumentOutOfRangeException("ticks", String::Format("Value %d is outside the valid range [0,%d].", ticks, MAX_VALUE_TICKS));
+#endif
 	}
 
 	DateTime DateTime::Add(double value, int scale)
 	{
 		Int64 num = (Int64) ((value * scale) + ((value >= 0.0) ? 0.5 : -0.5));
         if ((num <= -315537897600000LL) || (num >= 0x11efae44cb400LL))
+		{
+#if DEBUG
             //throw ArgumentOutOfRangeException("value", "ArgumentOutOfRange_AddValue");
+#endif
 			return *this;
+		}
 
         return AddTicks(num * 0x2710L);
 	}
@@ -112,12 +120,10 @@ namespace System
 
 	DateTime::DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond)
 	{
-		if (year < 1 || year > 9999 || month < 1 || month >12  ||
+		sassert(!(year < 1 || year > 9999 || month < 1 || month >12  ||
 			day < 1 || day > DaysInMonth(year, month) || hour < 0 || hour > 23 ||
 			minute < 0 || minute > 59 || second < 0 || second > 59 ||
-			millisecond < 0 || millisecond > 999)
-			//throw ArgumentOutOfRangeException("Parameters describe an unrepresentable DateTime.");
-			return;
+			millisecond < 0 || millisecond > 999), "Parameters describe an unrepresentable DateTime.");
 
 		encoded = TimeSpan(AbsoluteDays(year,month,day), hour, minute, second, millisecond).Ticks();
 	}
@@ -125,17 +131,15 @@ namespace System
 	DateTime::DateTime(Int64 ticks)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
-				InvalidTickValue(ticks);
-			encoded = ticks;
+			InvalidTickValue(ticks);
+		encoded = ticks;
 	}
 
 	DateTime::DateTime(Int64 ticks, DateTimeKind_t kind)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
 			InvalidTickValue(ticks);
-		if (kind < 0 || kind > DateTimeKind::Local)
-			//throw ArgumentException("Invalid DateTimeKind value.", "kind");
-			return;
+		sassert(!(kind < 0 || kind > DateTimeKind::Local), "kind is an invalid DateTimeKind value.");
 
 		encoded = ((Int64)kind << KindShift) | ticks;
 	}
@@ -202,7 +206,7 @@ namespace System
 		return AddMonths(value * 12);
 	}
 
-	int DateTime::Compare(DateTime t1, DateTime t2)
+	int DateTime::Compare(const DateTime t1, const DateTime t2)
 	{
 		Int64 t1t = t1.encoded & TicksMask;
 		Int64 t2t = t2.encoded & TicksMask;
@@ -215,7 +219,7 @@ namespace System
 			return 0;
 	}
 
-	int DateTime::CompareTo(DateTime value)
+	int DateTime::CompareTo(const DateTime value) const
 	{
 		return Compare(*this, value);
 	}
@@ -224,37 +228,29 @@ namespace System
 	{
 		int *days;
 
-		if (month < 1 || month >12)
-			//throw ArgumentOutOfRangeException("month");
-			return -1;
+		sassert(!(month < 1 || month > 12), "month must be greater than 0 and smaller than, or equal to 12.");
 
-		if (year < 1 || year > 9999)
-			//throw ArgumentOutOfRangeException("year");
-			return -1;
+		sassert(!(year < 1 || year > 9999), "year must be greater than 0 and smaller than, or equal to 9999.");
 
 		days = (IsLeapYear(year) ? daysmonthleap  : daysmonth);
 		return days[month];
 	}
 
-	bool DateTime::Equals(DateTime obj)
+	bool DateTime::Equals(const DateTime obj) const
 	{
 		return (encoded & TicksMask) == (obj.encoded & TicksMask);
 	}
 
 	DateTime DateTime::FromFileTime(Int64 fileTime)
 	{
-		if (fileTime < 0)
-			//throw ArgumentOutOfRangeException("fileTime", "< 0");
-			return DateTime(0);
+		sassert(fileTime >= 0, "fileTime must be non-negative.");
 
 		return DateTime(w32file_epoch + fileTime).ToLocalTime();
 	}
 
 	DateTime DateTime::FromFileTimeUtc(Int64 fileTime)
 	{
-		if (fileTime < 0)
-			//throw ArgumentOutOfRangeException("fileTime", "< 0");
-			return DateTime(0);
+		sassert(fileTime >= 0, "fileTime must be non-negative.");
 
 		return DateTime(w32file_epoch + fileTime);
 	}
@@ -265,9 +261,7 @@ namespace System
 		// whose value is the number of days from midnight, 30 December 1899.
 
 		// d must be negative 657435.0 through positive 2958466.0.
-		if ((d <= OAMinValue) || (d >= OAMaxValue))
-			//throw ArgumentException("d", "[-657435,2958466]");
-			return DateTime(0);
+		sassert(!((d <= OAMinValue) || (d >= OAMaxValue)), "");
 
 		DateTime dt = DateTime(ticks18991230);
 		if (d < 0.0) {
@@ -285,7 +279,7 @@ namespace System
 		return dt;
 	}
 
-	int DateTime::GetHashCode()
+	int DateTime::GetHashCode() const
 	{
 		return (int)encoded;
 	}
@@ -299,25 +293,22 @@ namespace System
 
 	bool DateTime::IsLeapYear(int year)
 	{
-		if (year < 1 || year > 9999)
-			//throw ArgumentOutOfRangeException();
-			return false;
+		sassert(!(year < 1 || year > 9999), "year must be greater than 0 and smaller than, or equal to 9999.");
+
 		return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 	}
 
-	TimeSpan DateTime::Subtract(DateTime value)
+	TimeSpan DateTime::Subtract(const DateTime value)
 	{
 		return TimeSpan(Ticks()) - TimeSpan(value.Ticks());
 	}
 
-	DateTime DateTime::Subtract(TimeSpan value)
+	DateTime DateTime::Subtract(const TimeSpan value)
 	{
 		Int64 newticks;
 
 		newticks = Ticks() - value.Ticks();
-		if (newticks < 0 || newticks > MAX_VALUE_TICKS)
-			//throw new ArgumentOutOfRangeException();
-			return DateTime(0);
+		sassert(!(newticks < 0 || newticks > MAX_VALUE_TICKS), "argument out of range.");
 
 		DateTime ret = DateTime(newticks);
 		ret.encoded |= (encoded & KindMask);
@@ -328,18 +319,14 @@ namespace System
 	{
 		DateTime universalTime = ToUniversalTime();
 			
-		if (universalTime.Ticks() < w32file_epoch)
-			//throw ArgumentOutOfRangeException("file time is not valid");
-			return -1;
+		sassert(universalTime.Ticks() >= w32file_epoch, "file time is not valid.");
 			
 		return(universalTime.Ticks() - w32file_epoch);
 	}
 
 	Int64 DateTime::ToFileTimeUtc()
 	{
-		if (Ticks() < w32file_epoch)
-			//throw ArgumentOutOfRangeException("file time is not valid");
-			return -1;
+		sassert(Ticks() >= w32file_epoch, "file time is not valid.");
 
 		return (Ticks() - w32file_epoch);
 	}
@@ -377,39 +364,41 @@ namespace System
 		Int64 res = ((encoded & TicksMask) + other.Ticks());
 		if (res < 0 || res > MAX_VALUE_TICKS)
 		{
+#if DEBUG
 			//throw new ArgumentOutOfRangeException();
+#endif
 			return DateTime(0);
 		}
 				
 		return DateTime(res, Kind());
 	}
 
-	bool DateTime::operator==(DateTime other)
+	bool DateTime::operator==(const DateTime other) const
 	{
 		return Equals(other);
 	}
 
-	bool DateTime::operator >(const DateTime other)
+	bool DateTime::operator >(const DateTime other) const
 	{
 		return ((encoded & TicksMask) > (other.encoded & TicksMask));
 	}
 
-	bool DateTime::operator>=(const DateTime other)
+	bool DateTime::operator>=(const DateTime other) const
 	{
 		return ((encoded & TicksMask) >= (other.encoded & TicksMask));
 	}
 
-	bool DateTime::operator!=(DateTime other)
+	bool DateTime::operator!=(const DateTime other) const
 	{
 		return !Equals(other);
 	}
 
-	bool DateTime::operator <(DateTime other)
+	bool DateTime::operator <(const DateTime other) const
 	{
 		return ((encoded & TicksMask) < (other.encoded & TicksMask));
 	}
 
-	bool DateTime::operator<=(DateTime other)
+	bool DateTime::operator<=(const DateTime other) const
 	{
 		return ((encoded & TicksMask) <= (other.encoded & TicksMask));
 	}
@@ -423,8 +412,12 @@ namespace System
 	{
 		Int64 res = ((encoded & TicksMask) - t.Ticks());
 		if (res < 0 || res > MAX_VALUE_TICKS)
+		{
+#if DEBUG
 			//throw ArgumentOutOfRangeException();
+#endif
 			return DateTime(0);
+		}
 		return DateTime(res, Kind());
 	}
 }

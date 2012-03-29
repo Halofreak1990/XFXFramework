@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/String.h>
 #include <System/IO/File.h>
 #include <System/IO/FileStream.h>
 #include <System/IO/IOException.h>
@@ -43,6 +44,8 @@ extern "C" {
 
 #endif
 
+#include <sassert.h>
+
 using namespace System;
 
 namespace XFX
@@ -51,20 +54,17 @@ namespace XFX
 	{	
 		ContentManager::ContentManager(IServiceProvider* provider)
 		{
-			if (provider == null)
-				throw ArgumentNullException("serviceProvider");
+			sassert(provider != null, String::Format("provider; %s", FrameworkResources::ArgumentNull_Generic));
 
 			_provider = provider;
 			RootDirectory = "";
 		}
 
-		ContentManager::ContentManager(IServiceProvider* provider, char* rootDirectory)
+		ContentManager::ContentManager(IServiceProvider* provider, const char* rootDirectory)
 		{
-			if (provider == null)
-				throw ArgumentNullException("serviceProvider");
+			sassert(provider != null, String::Format("provider; %s", FrameworkResources::ArgumentNull_Generic));
 
-			if(rootDirectory == null)
-				throw ArgumentNullException("rootDirectory");
+			sassert(rootDirectory != null, String::Format("rootDirectory; %s", FrameworkResources::ArgumentNull_Generic));
 
 			_provider = provider;
 			RootDirectory = rootDirectory;
@@ -95,7 +95,7 @@ namespace XFX
 		}
 		
 		template <class T>
-		T ContentManager::Load(char* assetName)
+		T ContentManager::Load(const char* assetName)
 		{	
 			/* TODO: port the C# code below to C++
 			 object obj2;
@@ -120,14 +120,16 @@ namespace XFX
 			this.loadedAssets.Add(assetName, local);
 			return local;
 			*/
-			if (assetName == null || assetName == "")
-				throw ArgumentNullException("assetName");
+			if (String::IsNullOrEmpty(assetName))
+			{
+				//throw ArgumentNullException("assetName");
+			}				
 		}
 
-		Stream ContentManager::OpenStream(char* assetName)
+		Stream* ContentManager::OpenStream(char* assetName)
 		{
-			Stream stream;
-			try
+			Stream* stream;
+			/*try
 			{
 				int len = strlen(assetName);
 
@@ -154,20 +156,21 @@ namespace XFX
 			catch(Exception exception)
 			{
 				throw ContentLoadException("Error opening stream.", exception);
-			}
+			}*/
 			return stream;
 		}
 
 		template <class T>
-		T ContentManager::ReadAsset(char* assetName)
+		T ContentManager::ReadAsset(const char* assetName)
 		{
 			if(disposed)
-				throw ObjectDisposedException("ContentManager");
+			{
+				//throw ObjectDisposedException("ContentManager");
+			}
 
-			if (assetName == "" || assetName == null)
-				throw ArgumentNullException("assetName");
+			sassert(!String::IsNullOrEmpty(assetName), String::Format("assetName; %s", FrameworkResources::ArgumentNull_Generic));
 
-			Stream assetStream = OpenStream(assetName);
+			Stream* assetStream = OpenStream(assetName);
 			
 			ContentReader reader = ContentReader(this, assetStream, assetName);
 			
@@ -177,7 +180,9 @@ namespace XFX
 		void ContentManager::Unload()
 		{
 			if(disposed)
-				throw ObjectDisposedException("ContentManager");
+			{
+				//throw ObjectDisposedException("ContentManager");
+			}
 
 			for(int i = 0; i < disposableAssets.Count(); i++)
 			{

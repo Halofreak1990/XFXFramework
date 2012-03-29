@@ -33,24 +33,25 @@
 #include <Vector3.h>
 #include <Vector4.h>
 #include <System/Math.h>
+#include <System/String.h>
 
 using namespace System;
 
 namespace XFX
 {
-	Plane::Plane(float a, float b, float c, float d)
+	Plane::Plane(const float a, const float b, const float c, const float d)
 	{
 		Normal = Vector3(a, b, c);
 		D = d;
 	}
 	
-	Plane::Plane(Vector3 normal, float d)
+	Plane::Plane(const Vector3 normal, const float d)
 	{
 		Normal = normal;
 		D = d;
 	}
 	
-	Plane::Plane(Vector3 point1, Vector3 point2, Vector3 point3)
+	Plane::Plane(const Vector3 point1, const Vector3 point2, const Vector3 point3)
 	{
 		float x1 = point2.X - point1.X; 
         float y1 = point2.Y - point1.Y; 
@@ -69,7 +70,7 @@ namespace XFX
         D = -((Normal.X * point1.X) + (Normal.Y * point1.Y) + (Normal.Z * point1.Z)); 
 	}
 	
-	Plane::Plane(Vector4 value)
+	Plane::Plane(const Vector4 value)
 	{
 		Normal = Vector3(value.X, value.Y, value.Z); 
         D = value.W; 
@@ -87,47 +88,47 @@ namespace XFX
 		D = 0;
 	}
 	
-	float Plane::Dot(Vector4 value)
+	float Plane::Dot(const Vector4 value) const
 	{
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
 	}
 	
-	void Plane::Dot(Vector4 value, out float result)
+	void Plane::Dot(const Vector4 value, out float result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
 	}
 	
-	float Plane::DotCoordinate(Vector3 value)
+	float Plane::DotCoordinate(const Vector3 value) const
 	{
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
 	}
 	
-	void Plane::DotCoordinate(Vector3 value, out float result)
+	void Plane::DotCoordinate(const Vector3 value, out float result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
 	}
 	
-	float Plane::DotNormal(Vector3 value)
+	float Plane::DotNormal(const Vector3 value) const
 	{
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z); 
 	}
 	
-	void Plane::DotNormal(Vector3 value, out float result)
+	void Plane::DotNormal(const Vector3 value, out float result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z); 
 	}
 	
-	bool Plane::Equals(const Plane obj)
+	bool Plane::Equals(const Plane obj) const
 	{
 		return ((D == obj.D) && (Normal == obj.Normal));
 	}
 	
-	int Plane::GetHashCode()
+	int Plane::GetHashCode() const
 	{
 		return Normal.GetHashCode() ^ (int)D;
 	}
 	
-	PlaneIntersectionType_t Plane::Intersects(BoundingBox boundingbox)
+	PlaneIntersectionType_t Plane::Intersects(const BoundingBox boundingbox) const
 	{
 		Vector3 min; 
         Vector3 max; 
@@ -151,7 +152,7 @@ namespace XFX
         return PlaneIntersectionType::Intersecting; 
 	}
 	
-	void Plane::Intersects(BoundingBox boundingbox, out PlaneIntersectionType_t result)
+	void Plane::Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t result) const
 	{
 		Vector3 min; 
         Vector3 max; 
@@ -175,7 +176,7 @@ namespace XFX
         result = PlaneIntersectionType::Intersecting;
 	}
 	
-	PlaneIntersectionType_t Plane::Intersects(BoundingSphere sphere)
+	PlaneIntersectionType_t Plane::Intersects(const BoundingSphere sphere) const
 	{
 		float dot = (sphere.Center.X * Normal.X) + (sphere.Center.Y * Normal.Y) + (sphere.Center.Z * Normal.Z) + D; 
 
@@ -188,7 +189,7 @@ namespace XFX
         return PlaneIntersectionType::Intersecting; 
 	}
 	
-	void Plane::Intersects(BoundingSphere sphere, out PlaneIntersectionType_t result)
+	void Plane::Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t result) const
 	{
 		float dot = (sphere.Center.X * Normal.X) + (sphere.Center.Y * Normal.Y) + (sphere.Center.Z * Normal.Z) + D; 
 
@@ -201,7 +202,7 @@ namespace XFX
         result = PlaneIntersectionType::Intersecting; 
 	}
 	
-	void Plane::Normalize() 
+	void Plane::Normalize()
     { 
         float magnitude = 1.0f / Math::Sqrt((Normal.X * Normal.X) + (Normal.Y * Normal.Y) + (Normal.Z * Normal.Z)); 
 		
@@ -211,17 +212,22 @@ namespace XFX
         D *= magnitude; 
     }
     
-    Plane Plane::Normalize(Plane plane)
+    Plane Plane::Normalize(const Plane plane)
     {
 	    float magnitude = 1.0f / Math::Sqrt((plane.Normal.X * plane.Normal.X) + (plane.Normal.Y * plane.Normal.Y) + (plane.Normal.Z * plane.Normal.Z)); 
   
         return Plane(plane.Normal.X * magnitude, plane.Normal.Y * magnitude, plane.Normal.Z * magnitude, plane.D * magnitude); 
     }
      
-    void Plane::Normalize(Plane plane, out Plane result)
+    void Plane::Normalize(const Plane plane, out Plane result)
     {
 	    result = Normalize(plane);
     }
+
+	const char* Plane::ToString() const
+	{
+		return String::Format("{{Normal:%s D:%f}}", Normal.ToString(), D);
+	}
 	
 	Plane Plane::Transform(Plane plane, Matrix matrix)
 	{
@@ -306,20 +312,13 @@ namespace XFX
         result.D = plane.D; 
 	}
 	
-	bool Plane::operator==(const Plane other)
+	bool Plane::operator==(const Plane other) const
 	{
 		return Equals(other);
 	}
 	
-	bool Plane::operator!=(const Plane other)
+	bool Plane::operator!=(const Plane other) const
 	{
 		return !Equals(other);
-	}
-	
-	Plane Plane::operator=(const Plane other)
-	{
-		Normal = other.Normal;
-		D = other.D;
-		return *this;
 	}
 }

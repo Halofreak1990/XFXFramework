@@ -53,7 +53,7 @@ namespace XFX
 		static void Divide(Vector4 value, float scale, out Vector4 result);
 		static Vector4 Divide(Vector4 vector1, Vector4 vector2);
 		static void Divide(Vector4 vector1, Vector4 vector2, out Vector4 result);
-		bool Equals(Vector4 obj);
+		bool Equals(const Vector4 obj) const;
 		int GetHashCode();
 		static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount);
 		static void Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4 result);
@@ -78,6 +78,7 @@ namespace XFX
 		static void SmoothStep(Vector4 value1, Vector4 value2, float amount, out Vector4 result);
 		static Vector4 Subtract(Vector4 value1, Vector4 value2);
 		static void Subtract(Vector4 value1, Vector4 value2, out Vector4 result);
+		char* ToString();
 		static void Transform(Vector4 sourceArray[], Quaternion rotation, Vector4 destinationArray[]);
 		static void Transform(Vector4 sourceArray[], int sourceIndex, Quaternion rotation, Vector4 destinationArray[], int destinationIndex, int length);
 		static void Transform(Vector4 sourceArray[], Matrix matrix, Vector4 destinationArray[]);
@@ -97,14 +98,13 @@ namespace XFX
 
 		const Vector4 operator-(const Vector4 other);
 		const Vector4 operator-();
-		bool operator!=(const Vector4 other);
-		const Vector4 operator*(const float scaleFactor);
-		const Vector4 operator*(const Vector4 other);
+		bool operator!=(const Vector4 other) const;
+		const Vector4 operator *(const float scaleFactor);
+		const Vector4 operator *(const Vector4 other);
 		const Vector4 operator /(const float divider);
 		const Vector4 operator /(const Vector4 other);
-		const Vector4 operator+(const Vector4 other);
-		bool operator==(const Vector4 other);
-		Vector4 operator =(const Vector4 other);
+		const Vector4 operator +(const Vector4 other);
+		bool operator==(const Vector4 other) const;
 	} ALIGNED16;
 }
 

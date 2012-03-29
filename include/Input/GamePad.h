@@ -15,19 +15,17 @@ namespace XFX
 {
 	namespace Input
 	{
-		/// <summary>
-		/// Allows retrieval of user interaction with an XBOX Controller
-		/// and setting of controller vibration motors.
-		/// </summary>
+		// Allows retrieval of user interaction with an XBOX Controller
+		// and setting of controller vibration motors.
 		class GamePad
 		{
 		private:
 			GamePad(); // Private constructor to prevent instantiation.
 
 		public:
-			static GamePadState GetState(PlayerIndex_t playerIndex);
-			static GamePadState GetState(PlayerIndex_t playerIndex, GamePadDeadZone_t deadZoneMode);
-			static int SetVibration(PlayerIndex_t playerIndex, float leftMotor, float rightMotor);
+			static GamePadState GetState(const PlayerIndex_t playerIndex);
+			static GamePadState GetState(const PlayerIndex_t playerIndex, const GamePadDeadZone_t deadZoneMode);
+			static bool SetVibration(const PlayerIndex_t playerIndex, const float leftMotor, const float rightMotor);
 		};
 	}
 }

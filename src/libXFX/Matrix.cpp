@@ -32,6 +32,8 @@
 #include <Quaternion.h>
 #include <Vector3.h>
 
+#include <sassert.h>
+
 using namespace System;
 
 namespace XFX
@@ -528,27 +530,12 @@ namespace XFX
 
 	void Matrix::CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
 	{
-		if (nearPlaneDistance <= 0.0f)
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "nearPlaneDistance", "You should specify a positive value for nearPlaneDistance.");
-#endif
-			return;
-		}
-		if (farPlaneDistance <= 0.0f)
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "farPlaneDistance", "You should specify a positive value for farPlaneDistance.");
-#endif
-			return;
-		}
-		if (nearPlaneDistance >= farPlaneDistance)
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Near plane distance is larger than Far plane distance. Near plane distance must be smaller than Far plane distance.");
-#endif
-			return;
-		}
+		sassert(nearPlaneDistance > 0.0f, "You should specify a positive value for nearPlaneDistance.");
+
+		sassert(farPlaneDistance > 0.0f, "You should specify a positive value for farPlaneDistance.");
+
+		sassert(nearPlaneDistance < farPlaneDistance, "Near plane distance is larger than Far plane distance. Near plane distance must be smaller than Far plane distance.");
+
 		result.M11 = (2.0f * nearPlaneDistance) / (right - left);
 		result.M12 = result.M13 = result.M14 = 0.0f;
 		result.M22 = (2.0f * nearPlaneDistance) / (top - bottom);
@@ -998,7 +985,7 @@ namespace XFX
 	    return result;
     }
     
-    bool Matrix::Equals(Matrix other) 
+    bool Matrix::Equals(const Matrix other) const
     { 
     	return ((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
 				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
@@ -1006,7 +993,7 @@ namespace XFX
 				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
     } 
 
-	int Matrix::GetHashCode()
+	int Matrix::GetHashCode() const
 	{
 		return ((int)M11 ^ (int)M12 ^ (int)M13 ^ (int)M14 ^ (int)M21 ^ (int)M22 ^ (int)M23 ^ (int)M24 ^
 			(int)M31 ^ (int)M32 ^ (int)M33 ^ (int)M34 ^ (int)M41 ^ (int)M42 ^ (int)M43 ^ (int)M44);
@@ -1271,12 +1258,12 @@ namespace XFX
 		return Divide(*this, divider);
 	}
 
-	bool Matrix::operator==(const Matrix other)
+	bool Matrix::operator==(const Matrix other) const
 	{
 		return Equals(other);
 	}
 	
-	bool Matrix::operator!=(const Matrix other)
+	bool Matrix::operator!=(const Matrix other) const
 	{
 		return !Equals(other);
 	}
@@ -1299,26 +1286,5 @@ namespace XFX
 	Matrix Matrix::operator -()
 	{
 		return Negate(*this);
-	}
-	
-	Matrix Matrix::operator=(const Matrix other)
-	{
-		M11 = other.M11;
-		M12 = other.M12;
-		M13 = other.M13;
-		M14 = other.M14;
-		M21 = other.M21;
-		M22 = other.M22;
-		M23 = other.M23;
-		M24 = other.M24;
-		M31 = other.M31;
-		M32 = other.M32;
-		M33 = other.M33;
-		M34 = other.M34;
-		M41 = other.M41;
-		M42 = other.M42;
-		M43 = other.M43;
-		M44 = other.M44;
-		return *this;
 	}
 }

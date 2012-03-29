@@ -1,12 +1,8 @@
-#ifndef _IO_BINARYREADER_
-#define _IO_BINARYREADER_
+#ifndef _SYSTEM_IO_BINARYREADER_
+#define _SYSTEM_IO_BINARYREADER_
 
-#include "../Types.h"
-#include "../Interfaces.h"
-#include "../Text/Encoding.h"
+#include <System/Interfaces.h>
 #include "Stream.h"
-
-using namespace System::Text;
 
 namespace System
 {
@@ -24,9 +20,7 @@ namespace System
 			byte* m_charBytes;
 			char* m_singleChar;
 			Stream* m_stream;
-			Encoding m_encoding;
 			bool m_isMemoryStream;
-			Decoder m_decoder;
 
 			//! 128 chars should cover most strings in one grab.
 			static const int MaxBufferSize = 128;
@@ -44,7 +38,6 @@ namespace System
 			virtual Stream* BaseStream();
 
 			BinaryReader(Stream* input);
-			BinaryReader(Stream* input, Encoding encoding);
 			virtual ~BinaryReader();
 
 			virtual void Close();
@@ -72,4 +65,4 @@ namespace System
 	}
 }
 
-#endif //_IO_BINARYREADER_
+#endif //_SYSTEM_IO_BINARYREADER_

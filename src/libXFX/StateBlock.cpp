@@ -31,31 +31,55 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		StateBlock::StateBlock()
-		{
-		}
-
 		StateBlock::StateBlock(GraphicsDevice* graphicsDevice)
+			: device(graphicsDevice)
 		{
 		}
 
 		StateBlock::StateBlock(const StateBlock &obj)
+			: device(obj.device)
 		{
 		}
 
-		bool StateBlock::Equals(StateBlock other)
+		void StateBlock::Apply()
 		{
-
 		}
 
-		bool StateBlock::operator!=(const StateBlock other)
+		void StateBlock::Dispose(bool disposing)
 		{
-			return !Equals(other);
+			if (disposing)
+			{
+			}
+
+			if (Disposing != null)
+				Disposing(this, EventArgs::Empty);
 		}
 
-		bool StateBlock::operator==(const StateBlock other)
+		void StateBlock::Dispose()
 		{
-			return Equals(other);
+			Dispose(true);
+		}
+
+		bool StateBlock::Equals(const StateBlock& obj) const
+		{
+		}
+
+		int StateBlock::GetHashCode() const
+		{
+		}
+
+		const char* StateBlock::ToString() const
+		{
+		}
+
+		bool StateBlock::operator!=(const StateBlock& right) const
+		{
+			return !Equals(right);
+		}
+
+		bool StateBlock::operator==(const StateBlock& right) const
+		{
+			return Equals(right);
 		}
 	}
 }

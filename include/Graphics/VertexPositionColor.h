@@ -11,14 +11,14 @@
 #include <Vector3.h>
 #include "VertexElement.h"
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Describes a custom vertex format structure that contains position and color information.
-		/// </summary>
-		struct VertexPositionColor
+		// Describes a custom vertex format structure that contains position and color information.
+		struct VertexPositionColor : virtual Object
 		{
 			Vector3 Position;
 			Color Color_;
@@ -29,6 +29,7 @@ namespace XFX
 
 			bool Equals(const VertexPositionColor obj);
 			int GetHashCode();
+			char* ToString();
 
 			bool operator!=(const VertexPositionColor other);
 			bool operator==(const VertexPositionColor other);

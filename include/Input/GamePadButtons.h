@@ -8,109 +8,103 @@
 #define _XFX_INPUT_GAMEPADBUTTONS_
 
 #include "Enums.h"
+#include <System/Object.h>
 #include <Vector2.h>
+
+using namespace System;
 
 namespace XFX
 {
 	namespace Input
 	{
-		/// <summary>
-		/// Identifies whether the buttons on an Xbox Controller are pressed or released.
-		/// </summary>
-		struct GamePadButtons
+		// Identifies whether the buttons on an Xbox Controller are pressed or released.
+		struct GamePadButtons : virtual Object
 		{
-			ButtonState_t A;
-			ButtonState_t B;
-			ButtonState_t Back;
-			ButtonState_t Black;
-			ButtonState_t LeftStick;
-			ButtonState_t RightStick;
-			ButtonState_t Start;
-			ButtonState_t White;
-			ButtonState_t X;
-			ButtonState_t Y;
+			const ButtonState_t A;
+			const ButtonState_t B;
+			const ButtonState_t Back;
+			const ButtonState_t Black;
+			const ButtonState_t LeftStick;
+			const ButtonState_t RightStick;
+			const ButtonState_t Start;
+			const ButtonState_t White;
+			const ButtonState_t X;
+			const ButtonState_t Y;
 			
-			bool GamePadButtons::operator!=(const GamePadButtons other)
-			{
-				return !((A == other.A) && (B == other.B) && (Back == other.Back) && 
-					(Black == other.Black) && (LeftStick == other.LeftStick) &&
-					(RightStick == other.RightStick) && (Start == other.Start) &&
-					(White == other.White) && (X == other.X) && (Y == other.Y));		
-			}
-			
-			bool GamePadButtons::operator==(const GamePadButtons other)
-			{
-				return ((A == other.A) && (B == other.B) && (Back == other.Back) && 
-					(Black == other.Black) && (LeftStick == other.LeftStick) &&
-					(RightStick == other.RightStick) && (Start == other.Start) &&
-					(White == other.White) && (X == other.X) && (Y == other.Y));
-			}
+			GamePadButtons(const uint /* Buttons */ buttons);
+			GamePadButtons();
+			GamePadButtons(const GamePadButtons &obj);
+
+			bool Equals(const GamePadButtons obj) const;
+			int GetHashCode() const;
+			const char* ToString() const;
+
+			bool operator !=(const GamePadButtons right) const;
+			bool operator ==(const GamePadButtons right) const;
+
+			inline GamePadButtons operator=(const GamePadButtons right) { return GamePadButtons(right); }
 		};
 	
-		/// <summary>
-		/// Identifies which directions on the directional pad of an Xbox Controller are being pressed.
-		/// </summary>
-		struct GamePadDPad
+		// Identifies which directions on the directional pad of an Xbox Controller are being pressed.
+		struct GamePadDPad : virtual Object
 		{
-			ButtonState_t Down;
-			ButtonState_t Left;
-			ButtonState_t Right;
-			ButtonState_t Up;
+			const ButtonState_t Down;
+			const ButtonState_t Left;
+			const ButtonState_t Right;
+			const ButtonState_t Up;
 
-			GamePadDPad(ButtonState_t upValue, ButtonState_t downValue, ButtonState_t leftValue, ButtonState_t rightValue);
+			GamePadDPad(const ButtonState_t upValue, const ButtonState_t downValue, const ButtonState_t leftValue, const ButtonState_t rightValue);
 			GamePadDPad();
-			GamePadDPad(const GamePadDPad &other);
+			GamePadDPad(const GamePadDPad &obj);
 
-			bool Equals(const GamePadDPad other);
-			int GetHashCode();
+			bool Equals(const GamePadDPad& obj) const;
+			int GetHashCode() const;
+			const char* ToString() const;
 			
-			bool GamePadDPad::operator!=(const GamePadDPad other)
-			{
-				return !Equals(other);
-			}
-			
-			bool GamePadDPad::operator==(const GamePadDPad other)
-			{
-				return Equals(other);
-			}
+			bool operator!=(const GamePadDPad& right) const;
+			bool operator==(const GamePadDPad& right) const;
+
+			inline GamePadDPad operator=(const GamePadDPad right) { return GamePadDPad(right); }
 		};
 
-		/// <summary>
-		/// Structure that represents the position of left and right sticks (thumbsticks) on an Xbox Controller.
-		/// </summary>
-		struct GamePadThumbSticks
+		// Structure that represents the position of left and right sticks (thumbsticks) on an Xbox Controller.
+		struct GamePadThumbSticks : virtual Object
 		{
-			Vector2 Left;
-			Vector2 Right;
+			const Vector2 Left;
+			const Vector2 Right;
 
-			GamePadThumbSticks(Vector2 leftThumbstick, Vector2 rightThumbstick);
+			GamePadThumbSticks(const Vector2 leftThumbstick, const Vector2 rightThumbstick);
 			GamePadThumbSticks();
 			GamePadThumbSticks(const GamePadThumbSticks &obj);
 
-			bool Equals(const GamePadThumbSticks obj);
-			int GetHashCode();
+			bool Equals(const GamePadThumbSticks obj) const;
+			int GetHashCode() const;
+			const char* ToString() const;
 
-			bool operator!=(GamePadThumbSticks other);
-			bool operator==(GamePadThumbSticks other);
+			bool operator!=(const GamePadThumbSticks right) const;
+			bool operator==(const GamePadThumbSticks right) const;
+
+			inline GamePadThumbSticks operator=(const GamePadThumbSticks right) { return GamePadThumbSticks(right); }
 		};
 
-		/// <summary>
-		/// Structure that defines the position of the left and right triggers on an Xbox Controller.
-		/// </summary>
-		struct GamePadTriggers
+		// Structure that defines the position of the left and right triggers on an Xbox Controller.
+		struct GamePadTriggers : virtual Object
 		{
-			float Left;
-			float Right;
+			const float Left;
+			const float Right;
 
-			GamePadTriggers(float left, float right);
+			GamePadTriggers(const float left, const float right);
 			GamePadTriggers();
 			GamePadTriggers(const GamePadTriggers &obj);
 
-			bool Equals(const GamePadTriggers obj);
-			int GetHashCode();
+			bool Equals(const GamePadTriggers obj) const;
+			int GetHashCode() const;
+			const char* ToString() const;
 
-			bool operator!=(const GamePadTriggers other);
-			bool operator==(const GamePadTriggers other);
+			bool operator!=(const GamePadTriggers right) const;
+			bool operator==(const GamePadTriggers right) const;
+
+			inline GamePadTriggers operator=(const GamePadTriggers right) { return GamePadTriggers(right); }
 		};
 	}
 }

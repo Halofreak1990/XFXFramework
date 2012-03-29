@@ -14,7 +14,7 @@ using namespace System;
 namespace XFX
 {
 	// Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed- step (game time) games.
-	class GameTime
+	class GameTime : virtual Object
 	{
 	private:
 		TimeSpan _elapsedGameTime; 

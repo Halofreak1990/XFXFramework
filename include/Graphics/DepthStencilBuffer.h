@@ -1,7 +1,8 @@
-#ifndef _DEPTHSTENCILBUFFER_
-#define _DEPTHSTENCILBUFFER_
+#ifndef _XFX_GRAPHICS_DEPTHSTENCILBUFFER_
+#define _XFX_GRAPHICS_DEPTHSTENCILBUFFER_
 
-#include "../System.h"
+#include <System/Interfaces.h>
+#include <System/Types.h>
 #include "Enums.h"
 
 using namespace System;
@@ -12,15 +13,11 @@ namespace XFX
 	{	
 		class GraphicsDevice;
 		
-		/// <summary>
-		/// Queries and prepares depth stencil buffers.
-		/// </summary>
-		class DepthStencilBuffer : public IDisposable
+		// Queries and prepares depth stencil buffers.
+		class DepthStencilBuffer : public IDisposable, virtual Object
 		{
 		private:
-			GraphicsDevice *_graphicsDevice;
-			int _width;
-			int _height;
+			GraphicsDevice* _graphicsDevice;
 			DepthFormat_t _format;
 			bool isDisposed;
 			int _multiSampleQuality;
@@ -31,16 +28,15 @@ namespace XFX
 			
 		public:
 			DepthFormat_t Format();
-			GraphicsDevice *GraphicsDevice_();
+			GraphicsDevice* getGraphicsDevice();
 			bool IsDisposed();
 			int MultiSampleQuality();
-			MultiSampleType_t MultiSampleType_();
-			int Height();
-			int Width();
+			MultiSampleType_t getMultiSampleType();
+			const int Height;
+			const int Width;
 			
-			DepthStencilBuffer(GraphicsDevice *graphicsDevice, int width, int height, DepthFormat_t format);
-			DepthStencilBuffer(GraphicsDevice *graphicsDevice, int width, int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality);
-			DepthStencilBuffer();
+			DepthStencilBuffer(GraphicsDevice* graphicsDevice, const int width, const int height, DepthFormat_t format);
+			DepthStencilBuffer(GraphicsDevice* graphicsDevice, const int width, const int height, DepthFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality);
 			DepthStencilBuffer(const DepthStencilBuffer &obj);
 			virtual ~DepthStencilBuffer();
 			
@@ -49,4 +45,4 @@ namespace XFX
 	}
 }
 
-#endif //_DEPTHSTENCILBUFFER_
+#endif //_XFX_GRAPHICS_DEPTHSTENCILBUFFER_

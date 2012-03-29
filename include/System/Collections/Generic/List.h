@@ -8,15 +8,15 @@
 #define _SYSTEM_COLLECTIONS_GENERIC_LIST_
 
 #include <System/Array.h>
+#include <System/FrameworkResources.h>
 #include <System/Object.h>
+#include <System/String.h>
 #include "Interfaces.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -48,25 +48,25 @@ namespace System
 						{
 							num = capacity;
 						}
-						_actualSize = num;
+						setCapacity(num);
 					}
 				}
 
 			public:	
 				// Gets the number of elements actually contained in the List<>.
-				int Count()
+				int Count() const
 				{
 					return _size;
 				}
 
 				// Gets the total number of elements the internal data structure can hold without resizing.
-				int getCapacity()
+				int getCapacity() const
 				{
 					return _actualSize;
 				}
 
 				// Sets the total number of elements the internal data structure can hold without resizing.
-				void setCapacity(int value)
+				void setCapacity(const int value)
 				{
 					if (value < _size)
 						return;
@@ -93,7 +93,7 @@ namespace System
 					}
 				}
 
-				bool IsReadOnly()
+				bool IsReadOnly() const
 				{
 					return false;
 				}
@@ -109,7 +109,7 @@ namespace System
 				}
 
 				// Initializes a new instance of the List<> class that is empty and has the specified initial capacity.
-				List(int capacity)
+				List(const int capacity)
 				{
 					if (capacity < 0)
 						_actualSize = _defaultCapacity;
@@ -121,7 +121,15 @@ namespace System
 					_items = new T[_actualSize];
 				}
 
-				List(const List &obj); // Copy constructor
+				// Copy constructor
+				List(const List<T> &obj)
+				{
+					_actualSize = obj._actualSize;
+					_size = obj._size;
+					_items = new T[obj._actualSize];
+					Array::Copy(obj._items, 0, _items, 0, obj._size);
+					_version = obj._version;
+				}
 
 				~List()
 				{
@@ -129,9 +137,9 @@ namespace System
 				}
 
 				// Adds an element to the end of the list
- 				void Add(T item)
+ 				void Add(const T& item)
 				{
-					if (_size == Array::Length(_items))
+					if (_size == _actualSize)
 					{
 						EnsureCapacity(_size + 1);
 					}
@@ -144,7 +152,7 @@ namespace System
 				{
 					if (_size > 0)
 					{
-						delete _items;
+						delete[] _items;
 						_items = new T[_actualSize];
 						_size = 0;
 					}
@@ -152,45 +160,36 @@ namespace System
 				}
 
 				// Determines whether an element is in the List<>.
-				bool Contains(T item)
+				bool Contains(const T& item) const
 				{
 					for (int i = 0; i < _size; i++)
 					{
-						/*if (_items[i] == item)
+						if (_items[i] == item)
 						{
 							return true;
-						}*/
+						}
 					}
 					return false;
 				}
 
-				// Copies the entire List<> to a compatible one-dimensional array, starting at the beginning of the target array.
-				void CopyTo(T array[])
-				{
-					Array::Copy(_items, 0, array, 0, _size);
-				}
-
 				// Copies the entire List<> to a compatible one-dimensional array, starting at the specified index of the target array.
-				void CopyTo(T array[], int arrayIndex)
+				void CopyTo(T array[], const int arrayIndex) const
 				{
 					Array::Copy(_items, 0, array, arrayIndex, _size);
 				}
 
 				// Searches for the specified object and returns the zero-based index of the first occurrence within the entire List<>.
-				int IndexOf(T item)
+				int IndexOf(const T& item) const
 				{
 					return Array::IndexOf(_items, item, 0, _size);
 				}
 				
 				// Inserts an element into the List<> at the specified index.
-				void Insert(int index, T item)
+				void Insert(const int index, const T& item)
 				{
-					if (index > _size)
-					{
-						//throw ArgumentOutOfRangeException("index", "Index must be within the bounds of the List.");
-						return;
-					}
-					if (_size == Array::Length(_items))
+					sassert(index < _size, "Index must be within the bounds of the List.");
+
+					if (_size == _actualSize)
 					{
 						EnsureCapacity(_size + 1);
 					}
@@ -204,7 +203,7 @@ namespace System
 				}
 
 				// Removes the first occurrence of a specific object from the List<>.
- 				bool Remove(T item)
+ 				bool Remove(const T& item)
 				{
 					int index = IndexOf(item);
 					if (index >= 0)
@@ -216,7 +215,7 @@ namespace System
 				}
 
 				// Removes the element at the specified index of the List<>.
-				void RemoveAt(int index)
+				void RemoveAt(const int index)
 				{
 					Array::Copy(_items, index + 1, _items, index, _size - index);
 					_size--;
@@ -224,22 +223,14 @@ namespace System
 				}
 
 				// Removes a range of elements from the List<>.
- 				void RemoveRange(int index, int count)
+ 				void RemoveRange(const int index, const int count)
 				{
-					if ((index < 0) || (count < 0))
-					{
-#if DEBUG
-						printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, (index < 0) ? "index" : "count", "Non-negative number required.");
-#endif
-						return;
-					}
-					if ((_size - index) < count)
-					{
-#if DEBUG
-						printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
-#endif
-						return;
-					}
+					sassert(index >= 0, String::Format("index; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+					sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+					
+					sassert(!((_size - index) < count), "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+
 					if (count > 0)
 					{
 						_size -= count;
@@ -257,53 +248,45 @@ namespace System
 					Reverse(0, _size);
 				}
 
-				void Reverse(int index, int count)
+				void Reverse(const int index, const int count)
 				{
-					if ((index < 0) || (count < 0))
-					{
-#if DEBUG
-						printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, (index < 0) ? "index" : "count", "Non-negative number required.");
-#endif
-						return;
-					}
-					if ((_size - index) < count)
-					{
-#if DEBUG
-						printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
-#endif
-						return;
-					}
+					sassert(index >= 0, String::Format("index; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+					sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+					
+					sassert(!((_size - index) < count), "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+
 					Array::Reverse(_items, index, count);
 					_version++;
 				}
 
-				T* ToArray()
+				T* ToArray() const
 				{
 					T* destinationArray = new T[_size];
 					Array::Copy(_items, 0, destinationArray, 0, _size);
 					return destinationArray;
 				}
 
-				char* ToString()
+				const char* ToString() const
 				{
 					return "";
 				}
 
 				void TrimExcess()
 				{
-					int num = (int)(Array::Length(_items) * 0.9);
+					int num = (int)(_actualSize * 0.9);
 					if(_size < num)
 					{
 						setCapacity(_size);
 					}
 				}
 
-				T operator[](int index)
+				T& operator[](int index)
 				{
 					return _items[index];
 				}
 
-				List<T> operator =(const List<T> other)
+				const List<T>& operator =(const List<T> other)
 				{
 					delete[] _items;
 					_actualSize = other._actualSize;
@@ -311,18 +294,19 @@ namespace System
 					_items = new T[other._actualSize];
 					Array::Copy(other._items, 0, _items, 0, other._size);
 					_version = other._version;
+					return *this;
 				}
 			};
 
 			//////////////////////////////////////////////////////////////////////
 
-			template <class T>
-			class List<T*> : public IList<T*>, virtual Object
+			/*template <class T>
+			class List<T *> : public IList<T *>, virtual Object
 			{
 			private:
 				static const int _defaultCapacity = 4;
-				static T* _emptyArray;
-				T* _items;
+				static T** _emptyArray;
+				T** _items;
 				int _size;
 				int _actualSize;
 				int _version;
@@ -377,29 +361,37 @@ namespace System
 					_items = new T[_actualSize];
 				}
 
+				List(const List<T *> &obj)
+				{
+					_size = obj._size;
+					_actualSize = obj._actualSize;
+					_items = new T[_actualSize];
+					Array::Copy(obj._items, 0, _items, 0, _size);
+				}
+
 				~List()
 				{
 					delete[] _items;
 				}
 
-				void Add(T* item)
+				void Add(T *item)
 				{
 					if (_size == Array::Length(_items))
 					{
 						EnsureCapacity(_size + 1);
 					}
-					_items[_size++] = *item;
+					_items[_size++] = item;
 					_version++;
 				}
 
-				bool Contains(T* item)
+				bool Contains(T *item)
 				{
 					for (int i = 0; i < _size; i++)
 					{
-						/*if (_items[i] == *item)
+						if (_items[i] == *item)
 						{
 							return true;
-						}*/
+						}
 					}
 					return false;
 				}
@@ -417,29 +409,31 @@ namespace System
 				}
 
 				// Copies the entire List<> to a compatible one-dimensional array, starting at the beginning of the target array.
-				void CopyTo(T* array[])
+				void CopyTo(T *array[])
 				{
-					Array::Copy(_items, 0, *array, 0, _size);
+					Array::Copy(_items, 0, array, 0, _size);
 				}
 
 				// Copies the entire List<> to a compatible one-dimensional array, starting at the specified index of the target array.
-				void CopyTo(T* array[], int arrayIndex)
+				void CopyTo(T *array[], int arrayIndex)
 				{
-					Array::Copy(_items, 0, *array, arrayIndex, _size);
+					Array::Copy(_items, 0, array, arrayIndex, _size);
 				}
 
 				// Searches for the specified object and returns the zero-based index of the first occurrence within the entire List<>.
-				int IndexOf(T* item)
+				int IndexOf(T *item)
 				{
 					return Array::IndexOf(_items, *item, 0, _size);
 				}
 				
 				// Inserts an element into the List<> at the specified index.
-				void Insert(int index, T* item)
+				void Insert(int index, T *item)
 				{
 					if (index > _size)
 					{
-						//throw ArgumentOutOfRangeException("index", "Index must be within the bounds of the List.");
+#if DEBUG
+						printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "index", "Index must be within the bounds of the List.");
+#endif
 						return;
 					}
 					if (_size == Array::Length(_items))
@@ -450,13 +444,13 @@ namespace System
 					{
 						Array::Copy(_items, index, _items, index + 1, _size - index);
 					}
-					_items[index] = *item;
+					_items[index] = item;
 					_size++;
 					_version++;
 				}
 
 				// Removes the first occurrence of a specific object from the List<>.
- 				bool Remove(T* item)
+ 				bool Remove(T *item)
 				{
 					int index = IndexOf(item);
 					if (index >= 0)
@@ -475,9 +469,9 @@ namespace System
 					_version++;
 				}
 
-				T* ToArray()
+				T** ToArray()
 				{
-					T* destinationArray = new T[_size];
+					T** destinationArray = new T[_size];
 					Array::Copy(_items, 0, destinationArray, 0, _size);
 					return destinationArray;
 				}
@@ -489,12 +483,9 @@ namespace System
 
 				T* operator[](int index)
 				{
+					return _items[index];
 				}
-
-				List<T> operator =(const List other)
-				{
-				}
-			};
+			};*/
 		}
 	}
 }

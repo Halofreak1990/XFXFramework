@@ -7,17 +7,17 @@
 #ifndef _SYSTEM_TIMESPAN_
 #define _SYSTEM_TIMESPAN_
 
-#include "Types.h"
+#include "Interfaces.h"
 
 namespace System
 {
 	// Represents a time interval.
-	class TimeSpan
+	struct TimeSpan : public IComparable<TimeSpan>, public IEquatable<TimeSpan>, virtual Object
 	{
 	private:
 		Int64 _ticks;
 
-		static bool CalculateTicks(int days, int hours, int minutes, int seconds, int milliseconds, bool throwExc, out long long result);
+		static bool CalculateTicks(int days, int hours, int minutes, int seconds, int milliseconds, bool throwExc, out Int64 result);
 		static TimeSpan Interval(double value, int scale);
 			
 	public:
@@ -30,49 +30,49 @@ namespace System
 		static const Int64 TicksPerHour;
 		static const Int64 TicksPerDay;
 		
-		int Days();
-		int Hours();
-		int Milliseconds();
-		int Minutes();
-		int Seconds();
-		Int64 Ticks();
-		double TotalDays();
-		double TotalHours();
-		double TotalMilliseconds();
-		double TotalMinutes();
-		double TotalSeconds();
+		int Days() const;
+		int Hours() const;
+		int Milliseconds() const;
+		int Minutes() const;
+		int Seconds() const;
+		Int64 Ticks() const;
+		double TotalDays() const;
+		double TotalHours() const;
+		double TotalMilliseconds() const;
+		double TotalMinutes() const;
+		double TotalSeconds() const;
 			
 		TimeSpan();
 		TimeSpan(int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds, int milliseconds);
-		TimeSpan(long long ticks);
+		TimeSpan(Int64 ticks);
 		TimeSpan(const TimeSpan &obj);
 
-		TimeSpan Add(TimeSpan ts);
-		int Compare(TimeSpan t1, TimeSpan t2);
-		int CompareTo(TimeSpan ts);
-		bool Equals(TimeSpan obj);
-		bool Equals(TimeSpan t1, TimeSpan t2);
+		TimeSpan Add(const TimeSpan ts);
+		static int Compare(const TimeSpan t1, const TimeSpan t2);
+		int CompareTo(const TimeSpan ts) const;
+		bool Equals(const TimeSpan obj) const;
+		static bool Equals(const TimeSpan t1, const TimeSpan t2);
 		static TimeSpan FromDays(double value);
 		static TimeSpan FromHours(double value);
 		static TimeSpan FromMilliseconds(double value);
 		static TimeSpan FromMinutes(double value);
 		static TimeSpan FromSeconds(double value);
 		static TimeSpan FromTicks(Int64 value);
-		int GetHashCode();
+		int GetHashCode() const;
 		TimeSpan Negate();
 		TimeSpan Parse(char* s); //! TODO
-		TimeSpan Subtract(TimeSpan ts);
-		char* ToString(); //! TODO
+		TimeSpan Subtract(const TimeSpan ts);
+		const char* ToString() const; //! TODO
 
 		TimeSpan operator+(const TimeSpan other);
-		bool operator==(const TimeSpan other);
-		bool operator >(const TimeSpan other);
-		bool operator>=(const TimeSpan other);
-		bool operator!=(const TimeSpan other);
-		bool operator <(const TimeSpan other);
-		bool operator<=(const TimeSpan other);
+		bool operator==(const TimeSpan other) const;
+		bool operator >(const TimeSpan other) const;
+		bool operator>=(const TimeSpan other) const;
+		bool operator!=(const TimeSpan other) const;
+		bool operator <(const TimeSpan other) const;
+		bool operator<=(const TimeSpan other) const;
 		TimeSpan operator -(const TimeSpan other);
 		TimeSpan operator -();
 	};

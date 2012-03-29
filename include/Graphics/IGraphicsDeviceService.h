@@ -8,16 +8,15 @@
 #define _XFX_GRAPHICS_IGRAPHICSDEVICESERVICE_
 
 #include <System/Types.h>
-#include "GraphicsDevice.h"
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Defines a mechanism for retrieving GraphicsDevice objects.
-		/// </summary>
-		interface IGraphicsDeviceService
+		class GraphicsDevice;
+
+		// Defines a mechanism for retrieving GraphicsDevice objects.
+		interface IGraphicsDeviceService : virtual Object
 		{
 		public:
 			EventHandler DeviceCreated;
@@ -25,7 +24,7 @@ namespace XFX
 			EventHandler DeviceReset;
 			EventHandler DeviceResetting;
 
-			virtual GraphicsDevice getGraphicsDevice()=0;
+			virtual GraphicsDevice* getGraphicsDevice() const =0;
 		};
 	}
 }

@@ -25,14 +25,13 @@ namespace System
 			char* current;
 			char* parent;
 
-			DirectoryInfo();
-
 		public:
 			bool Exists();
 			char* Name();
 			DirectoryInfo Parent();
 			DirectoryInfo Root();
 
+			DirectoryInfo();
 			DirectoryInfo(char* path); // Initializes a new instance of the System::IO::DirectoryInfo class on the specified path.
 
 			void Create(); // Creates a directory.
@@ -44,7 +43,10 @@ namespace System
 			FileSystemInfo* GetFileSystemInfos();
 			FileSystemInfo* GetFileSystemInfos(const char* searchPattern);
 			void MoveTo(const char* destDirName);
-			char* ToString();
+			const char* ToString() const;
+
+			bool operator !=(const DirectoryInfo right) const;
+			bool operator ==(const DirectoryInfo right) const;
 		};
 	}
 }

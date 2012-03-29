@@ -29,140 +29,61 @@
 #include <System/Buffer.h>
 #include <System/IO/FileStream.h>
 #include <System/IO/StreamWriter.h>
-#include <System/Text/UTF8Encoding.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
 	namespace IO
 	{
 		const int StreamWriter::DefaultBufferSize = 0x400;
-		Encoding StreamWriter::_UTF8NoBOM = UTF8Encoding(false, true);
 
 		StreamWriter::StreamWriter(Stream* stream)
 			: TextWriter(null)
 		{
-			if (!stream)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
-#endif
-				return;
-			}
-			if (!stream->CanWrite())
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
-#endif
-				return;
-			}
-			Init(stream, _UTF8NoBOM, DefaultBufferSize);
+			sassert(stream != null, "stream cannot be null.");
+
+			sassert(stream->CanWrite(), FrameworkResources::NotSupported_UnwritableStream);
+
+			Init(stream, DefaultBufferSize);
 		}
 
-		StreamWriter::StreamWriter(char* path)
+		StreamWriter::StreamWriter(const char* path)
 			: TextWriter(null)
 		{
-			if (!path)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return;
-			}
+			sassert(path != null, FrameworkResources::ArgumentNull_Path);
 			Stream* stream = CreateFile(path, true);
-			Init(stream, _UTF8NoBOM, 0x400);
+			Init(stream, 0x400);
 		}
 
-		StreamWriter::StreamWriter(Stream* stream, Encoding encoding)
+		StreamWriter::StreamWriter(const char* path, const bool append)
 			: TextWriter(null)
 		{
-			if (!stream)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
-#endif
-				return;
-			}
-			if (!stream->CanWrite())
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
-#endif
-				return;
-			}
-			Init(stream, encoding, DefaultBufferSize);
-		}
+			sassert(path != null, FrameworkResources::ArgumentNull_Path);
 
-		StreamWriter::StreamWriter(char* path, bool append)
-			: TextWriter(null)
-		{
-			if (!path)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return;
-			}
 			Stream* stream = CreateFile(path, append);
-			Init(stream, _UTF8NoBOM, 0x400);
+			Init(stream, 0x400);
 		}
 
-		StreamWriter::StreamWriter(Stream* stream, Encoding encoding, int bufferSize)
+		StreamWriter::StreamWriter(Stream* stream, const int bufferSize)
 			: TextWriter(null)
 		{
-			if (!stream)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "stream");
-#endif
-				return;
-			}
-			if (!stream->CanWrite())
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support writing.");
-#endif
-				return;
-			}
-			if (bufferSize < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Non-negative number required.");
-#endif
-				return;
-			}
-			Init(stream, encoding, bufferSize);
+			sassert(stream != null, "stream cannot be null.");
+
+			sassert(stream->CanWrite(), FrameworkResources::NotSupported_UnwritableStream);
+
+			sassert(!(bufferSize < 0), "bufferSize must be non-negative.");
+
+			Init(stream, bufferSize);
 		}
 
-		StreamWriter::StreamWriter(char* path, bool append, Encoding encoding)
+		StreamWriter::StreamWriter(const char* path, const bool append, const int bufferSize)
 			: TextWriter(null)
 		{
-			if (!path)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return;
-			}
+			sassert(path != null, FrameworkResources::ArgumentNull_Path);
+
 			Stream* stream = CreateFile(path, append);
-			Init(stream, encoding, 0x400);
-		}
-
-		StreamWriter::StreamWriter(char* path, bool append, Encoding encoding, int bufferSize)
-			: TextWriter(null)
-		{
-			if (!path)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return;
-			}
-			Stream* stream = CreateFile(path, append);
-			Init(stream, encoding, bufferSize);
+			Init(stream, bufferSize);
 		}
 
 		void StreamWriter::Close()
@@ -170,7 +91,7 @@ namespace System
 			Dispose(true);
 		}
 
-		Stream* StreamWriter::CreateFile(char* path, bool append)
+		Stream* StreamWriter::CreateFile(const char* path, const bool append)
 		{
 			return new FileStream(path, append ? FileMode::Append : FileMode::Create, FileAccess::Write, FileShare::Read, 0x1000, FileOptions::SequentialScan);
 		}
@@ -179,28 +100,19 @@ namespace System
 		{
 			if(!closable)
 			{
-				Flush(true, true);
+				Flush(true);
 			}
 		}
 
 		void StreamWriter::Flush()
 		{
-			Flush(true, true);
+			Flush(true);
 		}
 
-		void StreamWriter::Flush(bool flushStream, bool flushEncoder)
+		void StreamWriter::Flush(bool flushStream)
 		{
-			if (((charPos != 0) || flushStream) || flushEncoder)
+			/*if (((charPos != 0) || flushStream) || flushEncoder)
 			{
-				if (!haveWrittenPreamble)
-				{
-					haveWrittenPreamble = true;
-					byte* preamble = encoding.GetPreamble();
-					if (Array::Length(preamble) > 0)
-					{
-						stream->Write(preamble, 0, Array::Length(preamble));
-					}
-				}
 				int count = encoder.GetBytes(charBuffer, 0, charPos, byteBuffer, 0, flushEncoder);
 				charPos = 0;
 				if (count > 0)
@@ -211,21 +123,21 @@ namespace System
 				{
 					stream->Flush();
 				}
-			}
+			}*/
 		}
 
-		void StreamWriter::Init(Stream* stream, Encoding encoding, int bufferSize)
+		void StreamWriter::Init(Stream* stream, const int bufferSize)
 		{
 			this->stream = stream;
-			this->encoding = encoding;
-			encoder = this->encoding.GetEncoder();
-			if (bufferSize < 0x80)
+			int bufSiz = bufferSize;
+
+			if (bufSiz < 0x80)
 			{
-				bufferSize = 0x80;
+				bufSiz = 0x80;
 			}
-			charBuffer = new char[bufferSize];
-			byteBuffer = new byte[encoding.GetMaxByteCount(bufferSize)];
-			charLen = bufferSize;
+			charBuffer = new char[bufSiz];
+			byteBuffer = new byte[bufSiz];
+			charLen = bufSiz;
 			if (stream->CanSeek() && (stream->Position > 0L))
 			{
 				haveWrittenPreamble = true;
@@ -233,46 +145,31 @@ namespace System
 			closable = true;
 		}
 
-		void StreamWriter::Write(char value)
+		void StreamWriter::Write(const char value)
 		{
 			if(charPos == charLen)
 			{
-				Flush(false, false);
+				Flush(false);
 			}
 			charBuffer[charPos] = value;
 			charPos++;
 			if (autoFlush)
 			{
-				Flush(true, false);
+				Flush(true);
 			}
 		}
 
-		void StreamWriter::Write(char buffer[])
+		void StreamWriter::Write(const char buffer[], const int arrayIndex, const int count)
 		{
-			if (buffer)
-			{
-				int num3;
-				int num = 0;
-				for (int i = Array::Length(buffer); i > 0; i -= num3)
-				{
-					if (charPos == charLen)
-					{
-						Flush(false, false);
-					}
-					num3 = charLen - charPos;
-					if (num3 > i)
-					{
-						num3 = i;
-					}
-					Buffer::BlockCopy(buffer, num * 2, charBuffer, charPos * 2, num3 * 2);
-					charPos += num3;
-					num += num3;
-				}
-				if (autoFlush)
-				{
-					Flush(true, false);
-				}
-			}
+			// TODO: Implement
+		}
+
+		void StreamWriter::Write(const char* value)
+		{
+			if (!value)
+				return;
+			
+			// TODO: Implement
 		}
 	}
 }

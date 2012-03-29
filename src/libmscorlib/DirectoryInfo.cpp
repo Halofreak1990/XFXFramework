@@ -25,14 +25,16 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Array.h>
+#include <System/Collections/Generic/List.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
 #include <System/String.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <string.h>
+
+#include <sassert.h>
+
+using namespace System::Collections::Generic;
 
 namespace System
 {
@@ -40,15 +42,9 @@ namespace System
 	{
 		DirectoryInfo::DirectoryInfo(char* path)
 		{
-			if (path == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return;
-			}
+			sassert(path != null, "");
 
-			if ((Array::Length(path) == 2) && (path[1] == ':'))
+			if ((strlen(path) == 2) && (path[1] == ':'))
 			{
 				OriginalPath = ".";
 			}
@@ -84,15 +80,25 @@ namespace System
 
 		DirectoryInfo* DirectoryInfo::GetDirectories(const char* searchPattern)
 		{
-			if (!searchPattern)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "searchPattern");
-#endif
-				return null;
-			}
+			sassert(searchPattern != null, "");
 
-			return null;
+			List<DirectoryInfo> infos = List<DirectoryInfo>();
+
+			//! TODO: Implement
+
+			return infos.ToArray();
+		}
+
+		bool DirectoryInfo::operator !=(const DirectoryInfo right) const
+		{
+			return !((strncmp(current, right.current, strlen(current)) == 0) &&
+				(strncmp(parent, right.parent, strlen(parent)) == 0));
+		}
+
+		bool DirectoryInfo::operator ==(const DirectoryInfo right) const
+		{
+			return ((strncmp(current, right.current, strlen(current)) == 0) &&
+				(strncmp(parent, right.parent, strlen(parent)) == 0));
 		}
 	}
 }

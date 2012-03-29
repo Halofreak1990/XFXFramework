@@ -15,9 +15,7 @@ namespace System
 	{
 		namespace XPath
 		{
-			/// <summary>
-			/// Provides the exception thrown when an error occurs while processing an XPath expression. 
-			/// </summary>
+			// Provides the exception thrown when an error occurs while processing an XPath expression. 
 			class XPathException : public SystemException
 			{
 			public:

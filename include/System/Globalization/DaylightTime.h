@@ -8,22 +8,21 @@ namespace System
 {
 	namespace Globalization
 	{
-		/// <summary>
-		/// Defines the period of daylight saving time.
-		/// </summary>
-		class DaylightTime
+		// Defines the period of daylight saving time.
+		class DaylightTime : public IEquatable<DaylightTime>, virtual Object
 		{
-		private:
-			DateTime _start;
-			DateTime _end;
-			TimeSpan _delta;
-
 		public:
-			TimeSpan Delta();
-			DateTime End();
-			DateTime Start();
+			const TimeSpan Delta;
+			const DateTime End;
+			const DateTime Start;
 
-			DaylightTime(DateTime start, DateTime end, DateTime delta);
+			DaylightTime(const DateTime start, const DateTime end, const TimeSpan delta);
+			DaylightTime(const DaylightTime &obj);
+
+			bool Equals(const DaylightTime other) const;
+
+			bool operator !=(const DaylightTime right) const;
+			bool operator ==(const DaylightTime right) const;
 		};
 	}
 }

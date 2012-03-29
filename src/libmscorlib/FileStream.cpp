@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/FrameworkResources.h>
 #include <System/String.h>
 #include <System/IO/FileStream.h>
 
@@ -33,9 +34,7 @@ extern "C"
 #include <hal/fileio.h>
 }
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -58,28 +57,14 @@ namespace System
 
 		Int64 FileStream::Length()
 		{
-			if(handle == -1)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
-#endif
-				return -1;
-			}
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			if(!canSeek)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
-#endif
-				return -1;
-			}
+			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
 			UInt32 length;
 			if(XGetFileSize(handle, &length) != STATUS_SUCCESS)
 			{
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Could not determine file size. The file may be corrupt.");
-#endif
+				//printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Could not determine file size. The file may be corrupt.");
 				return -1;
 			}
 
@@ -90,42 +75,22 @@ namespace System
 			return length;
 		}
 
-		Int64 FileStream::Position()
+		Int64 FileStream::getPosition()
 		{
-			if (handle == -1)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
-#endif
-				return -1;
-			}
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			if (!canSeek)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
-#endif
-				return -1;
-			}
+			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
 			return (_pos + ((_readPos - _readLen) + _writePos));
 		}
 
-		void FileStream::Position(Int64 newPosition)
+		void FileStream::setPosition(Int64 newPosition)
 		{
-			if(canSeek == false)
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
-#endif
-				return;
-			}
+			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
 			if(newPosition < 0)
 			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "newPosition", "Attempt to set the position to a negative value.");
-#endif
+				//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "newPosition", "Attempt to set the position to a negative value.");
 				return;
 			}
 
@@ -137,80 +102,45 @@ namespace System
 			handle = -1;
 		}
 
-		FileStream::FileStream(char* path, FileMode_t mode)
+		FileStream::FileStream(const char* path, const FileMode_t mode)
 		{
-			if (String::IsNullOrEmpty(path))
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
-#endif
-				handle = -1;
-				return;
-			}
+			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = (mode == FileMode::Append ? FileAccess::Write : FileAccess::ReadWrite);
 
-			XCreateFile(&handle, path, _access, FileShare::Read, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path), _access, FileShare::Read, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access)
+		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access)
 		{
-			if (String::IsNullOrEmpty(path))
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
-#endif
-				handle = -1;
-				return;
-			}
+			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = access;
 
-			XCreateFile(&handle, path, access, FILE_SHARE_READ | FILE_SHARE_WRITE, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path), access, FILE_SHARE_READ | FILE_SHARE_WRITE, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share)
+		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share)
 		{
-			if (String::IsNullOrEmpty(path))
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "path", "path was either NULL or an empty string.");
-#endif
-				handle = -1;
-				return;
-			}
+			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = access;
 
-			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize)
+		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize)
 		{
-			if (bufferSize <= 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Positive number required.");
-#endif
-				handle = -1;
-				return;
-			}
+			sassert (bufferSize > 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "bufferSize"), FrameworkResources::ArgumentOutOfRange_NeedPosNum));
 
-			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share, int bufferSize, bool useAsync)
+		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync)
 		{
-			if (bufferSize <= 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "bufferSize", "Positive number required.");
-#endif
-				handle = -1;
-				return;
-			}
+			sassert (bufferSize > 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "bufferSize"), FrameworkResources::ArgumentOutOfRange_NeedPosNum));
 
-			XCreateFile(&handle, path, access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
 		FileStream::~FileStream()
@@ -233,13 +163,7 @@ namespace System
 
 		void FileStream::Flush()
 		{
-			if(handle == -1)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
-#endif
-				return;
-			}
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
 			if (_writePos > 0)
 			{
@@ -259,62 +183,23 @@ namespace System
 			_writePos = 0;
 		}
 
-		int FileStream::Read(byte array[], int offset, int count)
+		int FileStream::Read(byte array[], const int offset, const int count)
 		{
-			if(handle == -1)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
-#endif
-				return -1;
-			}
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			if(array == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "array");
-#endif
-				return -1;
-			}
+			sassert(array != null, "array cannot be null.");
 
-			if (!CanRead())
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream does not support reading");
-#endif
-				return -1;
-			}
+			sassert(CanRead(), FrameworkResources::NotSupported_UnreadableStream);
 
 			int len = (sizeof(array)/sizeof(byte));
-			if (offset < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "offset", "Non-negative number required.");
-#endif
-				return -1;
-			}
 
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return -1;
-			}
-			if (offset > len)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destination offset is beyond array size");
-#endif
-				return -1;
-			}
+			sassert(offset >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "offset"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 
-			if (offset > len - count)
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Reading would overrun buffer");
-#endif
-			}
+			sassert(count >= 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "count"), FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(offset < len, "destination offset is beyond array size");
+
+			sassert(!(offset > (len - count)), "Reading would overrun buffer.");
 
 			UInt32 bytesRead;
 			XReadFile(handle, &array[offset], count, &bytesRead);
@@ -330,18 +215,12 @@ namespace System
 			if(bytesRead != 1)
 				return -1;
 
-			return (int)data;
+			return data;
 		}
 
-		long long FileStream::Seek(long long offset, SeekOrigin_t origin)
+		Int64 FileStream::Seek(const Int64 offset, const SeekOrigin_t origin)
 		{
-			if(handle == -1)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s\n: %s\n", __FUNCTION__, __LINE__, __FILE__, "FileStream", "The stream has been closed.");
-#endif
-				return -1;
-			}
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
 			FILE_POSITION_INFORMATION positionInfo;
 			LARGE_INTEGER             targetPointer;
@@ -383,46 +262,40 @@ namespace System
 			}
 		}
 
-		void FileStream::SetLength(long long value)
+		void FileStream::SetLength(const Int64 value)
 		{
-			if(!CanSeek())
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support seeking.");
-#endif
-				return;
-			}
+			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
-			if(!CanWrite())
-			{
-#if DEBUG
-				printf("NOT_SUPPORTED in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "The stream does not support writing.");
-#endif
-				return;
-			}
+			sassert(CanWrite(), FrameworkResources::NotSupported_UnwritableStream);
 
-			if(value < 0)
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
+
+			/*if(value < 0)
 			{
 #if DEBUG
 				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "value is less than 0");
 #endif
 				return;
-			}
+			}*/
 
 			Flush();
 
-			if (Position() > value)
-				Position(value);
+			if (getPosition() > value)
+				setPosition(value);
 		}
 
-		void FileStream::Write(byte array[], int offset, int count)
+		void FileStream::Write(byte array[], const int offset, const int count)
 		{
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
+
 			XWriteFile(handle, &array[offset], count, null);
 		}
 
 		void FileStream::WriteByte(byte value)
 		{
-			XWriteFile(handle, &value, 1, null);
+			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
+
+			XWriteFile(handle, (void*)value, 1, null);
 		}
 	}
 }

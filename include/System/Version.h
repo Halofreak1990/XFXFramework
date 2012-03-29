@@ -7,12 +7,12 @@
 #ifndef _SYSTEM_VERSION_
 #define _SYSTEM_VERSION_
 
-#include "Object.h"
+#include "Interfaces.h"
 
 namespace System
 {
 	// Represents the version number for a common language runtime assembly.
-	class Version : virtual Object
+	class Version : public IComparable<Version>, public IEquatable<Version>, virtual Object
 	{
 	public:
 		const int Build;
@@ -20,25 +20,25 @@ namespace System
 		const int Minor;
 		const int Revision;
 
-		Version(int major, int minor);
-		Version(int major, int minor, int build);
-		Version(int major, int minor, int build, int revision);
-		Version(char* version);
+		Version(const int major, const int minor);
+		Version(const int major, const int minor, const int build);
+		Version(const int major, const int minor, const int build, const int revision);
+		Version(const char* version);
 		Version(const Version &obj);
 
-		Version Clone();
-		int CompareTo(Version value);
-		bool Equals(Version obj);
-		int GetHashCode();
-		char* ToString();
-		char* ToString(int fieldCount);
+		Version Clone() const;
+		int CompareTo(const Version value) const;
+		bool Equals(const Version obj) const;
+		int GetHashCode() const;
+		const char* ToString() const;
+		const char* ToString(const int fieldCount) const;
 
-		bool operator !=(const Version other);
-		bool operator <(const Version other);
-		bool operator <=(const Version other);
-		bool operator ==(const Version other);
-		bool operator >(const Version other);
-		bool operator >=(const Version other);
+		bool operator !=(const Version other) const;
+		bool operator  <(const Version other) const;
+		bool operator <=(const Version other) const;
+		bool operator ==(const Version other) const;
+		bool operator  >(const Version other) const;
+		bool operator >=(const Version other) const;
 	};
 }
 

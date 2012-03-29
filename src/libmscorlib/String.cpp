@@ -28,10 +28,13 @@
 #include <System/Array.h>
 #include <System/Buffer.h>
 #include <System/String.h>
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include <sassert.h>
 
 namespace System
 {
@@ -46,15 +49,9 @@ namespace System
 	String::String(char c, int count)
 		: Length(count)
 	{
-		if(count < 0)
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "count");
-#endif
-			return;
-		}
+		sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 			
-		internalString = (char*)malloc(count + 1);
+		internalString = new char[count + 1];
 		memset(internalString, c, count);
 		internalString[count] = '\0';
 	}
@@ -62,31 +59,19 @@ namespace System
 	String::String(char value[], int startIndex, int length)
 		: Length(length)
 	{
-		if(value == NULL)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
-#endif
-			return;
-		}
+		sassert(value != null, "value cannot be null.");
 
-		if((length < 0) || startIndex + length > Array::Length(value))
-		{
-#if DEBUG
-			printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "length");
-#endif
-			return;
-		}
+		//sassert(!((length < 0) || startIndex + length > Array::Length(value)), "length is out of range.");
 
-		internalString = (char*)malloc(length + 1);
+		internalString = new char[length + 1];
 		Array::Copy(value, startIndex, internalString, 0, length);
 		internalString[length] = '\0';
 	}
 
 	String::String(char *value)
-		: Length(Array::Length(value))
+		: Length(strlen(value))
 	{
-		internalString = (char*)malloc(Length+1);
+		internalString = new char[Length+1];
 		Buffer::BlockCopy(value, 0, internalString, 0, Length);
 		internalString[Length] = '\0';
 	}
@@ -96,12 +81,12 @@ namespace System
 	{
 		// allocate storage
 		internalString = (char*)malloc(obj.Length + 1);
-		// copy the source string including null-terminator
-		strncpy(obj.internalString, internalString, obj.Length + 1);
+		// copy the source string
+		strncpy(obj.internalString, internalString, obj.Length);
 	}
 
 	String::String(const char* obj)
-		: Length(Array::Length(obj) - 1)
+		: Length(strlen(obj))
 	{
 		internalString = (char*)malloc(Length + 1);
 		strncpy(internalString, obj, Length);
@@ -114,64 +99,24 @@ namespace System
 			free(internalString);
 	}
 
-	String String::Clone()
+	String String::Clone() const
 	{
 		return String(*this);
 	}
 
-	int String::CompareTo(String other)
+	int String::CompareTo(const String other) const
 	{
 		return (Compare(*this, other));
 	}
 
-	int String::Compare(String str1, String str2)
+	int String::Compare(const String str1, const String str2)
 	{
 		return strncmp(str1.internalString, str2.internalString, str1.Length);
 	}
 
-	String String::Concat(String values[])
-	{
-		if(!values)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "values");
-#endif
-			return String();
-		}
-
-		String buf = values[0];
-
-		for (int i = 1; i < Array::Length(values); i++)
-		{
-			buf += values[i];
-		}
-		
-		return buf;
-	}
-
-	char* String::Concat(char* values[])
-	{
-		if (!values)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "values");
-#endif
-			return "";
-		}
-
-		String buf = String(values[0]);
-
-		for (int i = 1; i < Array::Length(values); i++)
-		{
-			buf += String(values[i]);
-		}
-		
-		return buf.ToCharArray();
-	}
-
 	String String::Concat(String str1, String str2, String str3, String str4)
 	{
-		char* newString = (char*)malloc(str1.Length + str2.Length + str3.Length + str4.Length + 1);
+		char* newString = new char[str1.Length + str2.Length + str3.Length + str4.Length + 1];
 
 		// Copy all source Strings to the destination buffer
 		Buffer::BlockCopy(str1.internalString, 0, newString, 0, str1.Length);
@@ -182,11 +127,11 @@ namespace System
 		newString[str1.Length + str2.Length + str3.Length + str4.Length] = '\0';
 
 		String result = String(newString);
-		free(newString);
+		delete[] newString;
 		return result;
 	}
 
-	bool String::Equals(const String obj)
+	bool String::Equals(const String obj) const
 	{
 		return (Compare(internalString, obj.internalString) == 0);
 	}
@@ -196,27 +141,23 @@ namespace System
 		return (Compare(str1.internalString, str2.internalString) == 0);
 	}
 
-	char* String::Format(char* format, ...)
+	const char* String::Format(const char* format, ...)
 	{
-		if (!format)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "format");
-#endif
-			return "";
-		}
-
-		char* res = (char*)malloc(128);
+		sassert(format != null, "format cannot be null.");
 
 		va_list	args;
 		va_start(args, format);
 
-		vsprintf(res, format, args);
+		int count = vsnprintf(NULL, 0, format, args);
+
+		char* res = (char*)malloc(count + 1);
+
+		vsnprintf(res, count + 1, format, args);
 
 		return res;
 	}
 
-	int String::IndexOf(char value)
+	int String::IndexOf(char value) const
 	{
 		for(int i = 0; i <= Length; i++)
 		{
@@ -226,7 +167,7 @@ namespace System
 		return -1;
 	}
 	
-	int String::IndexOf(char value, int startIndex)
+	int String::IndexOf(char value, int startIndex) const
 	{
 		for(int i = startIndex; i <= Length; i++)
 		{
@@ -236,7 +177,7 @@ namespace System
 		return -1;
 	}
 
-	int String::IndexOf(char value, int startIndex, int count)
+	int String::IndexOf(char value, int startIndex, int count) const
 	{
 		if((startIndex + count) > Length)
 			return -1;
@@ -251,61 +192,7 @@ namespace System
 
 	bool String::IsNullOrEmpty(String value)
 	{
-		return ((!value.internalString) || value.internalString == "");
-	}
-	
-	String String::Join(String separator, String value[])
-	{
-		if (!value)
-    		return "";
-
-		return Join(separator, value, 0, Array::Length(value));
-	}
-	
-	String String::Join(String separator, String value[], int startIndex, int count)
-	{	
-    	if (separator == NULL)
-    	{
-    	    separator = Empty;
-    	}
-    	if (!value)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
-#endif
-    	    return "";
-		}
-
-    	if(startIndex < 0)
-		{
-#if DEBUG
-    	    printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "startIndex");
-#endif
-			return "";
-		}
-
-    	if (count < 0)
-		{
-#if DEBUG
-    	    printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "count");
-#endif
-			return "";
-		}
-
-		if (startIndex > (Array::Length(value) - count))
-		{
-#if DEBUG
-    	    printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "startIndex");
-#endif
-			return "";
-		}
-
-    	if (count == 0)
-    	{
-    	    return Empty;
-    	}
-
-
+		return ((!value.internalString) || (value.internalString == ""));
 	}
 
 	String String::PadLeft(int totalWidth)
@@ -352,37 +239,37 @@ namespace System
 		return result;
 	}
 
-	char** String::Split(String separator, int count, StringSplitOptions_t options)
+	char** String::Split(String separator, int count, StringSplitOptions_t options) const
 	{
 		return null;
 	}
 
-	char** String::Split(String separator, StringSplitOptions_t options)
+	char** String::Split(String separator, StringSplitOptions_t options) const
 	{
 		return null;
 	}
 
-	char** String::Split(char separator[], int count, StringSplitOptions_t options)
+	char** String::Split(char separator[], int count, StringSplitOptions_t options) const
 	{
 		return null;
 	}
 
-	char** String::Split(char separator[], StringSplitOptions_t options)
+	char** String::Split(char separator[], StringSplitOptions_t options) const
 	{
 		return Split(separator, 0x7fffffff, options);
 	}
 
-	char** String::Split(char separator[], int count)
+	char** String::Split(char separator[], int count) const
 	{
 		return Split(separator, count, StringSplitOptions::None);
 	}
 
-	char** String::Split(char separator[])
+	char** String::Split(char separator[]) const
 	{
 		return Split(separator, 0x7fffffff, StringSplitOptions::None);
 	}
 	
-	bool String::StartsWith(char* value)
+	bool String::StartsWith(char* value) const
 	{
 		if (!value)
 	    	return false;
@@ -390,107 +277,122 @@ namespace System
 		return (strncmp(internalString, value, strlen(value)));
 	}
 
-	char* String::SubString(int startIndex)
+	char* String::SubString(const int startIndex) const
 	{
-		char* newString = (char*)malloc(Length - startIndex); // allocate space for the SubString and accompanying null-terminator.
+		int newstrLen = (Length + 1) - startIndex;
+		char* newString = new char[newstrLen]; // allocate space for the SubString and accompanying null-terminator.
 
 		Buffer::BlockCopy(internalString, startIndex, newString, 0, Length - startIndex); // copy  the string, starting at startIndex to destination
 		
-		newString[Array::Length(newString)] = '\0'; // null-terminate the resulting string
+		newString[newstrLen] = '\0'; // null-terminate the resulting string
 
 		return newString; // return the result
 	}
 	
-	String String::SubString(int startIndex, int length)
+	String String::SubString(int startIndex, int length) const
 	{
-		char* newString = (char*)malloc(length + 1); // allocate space for the SubString and accompanying null-terminator.
+		char* newString = new char[length + 1]; // allocate space for the SubString and accompanying null-terminator.
 		
 		Buffer::BlockCopy(internalString, startIndex, newString, 0, length); // copy length chars, starting at startIndex, to newString
 
 		newString[length] = '\0'; // null-terminate the resulting string
 		
 		String result = String(newString); // copy the newly created substring to a new String instance
-		free(newString); // free the temporary buffer
+		delete[] newString; // free the temporary buffer
 		return result; // return the result
 	}
 
-	char *String::ToCharArray(int startIndex, int length)
+	char* String::ToCharArray(const int startIndex, const int length) const
 	{
-		/*if (startIndex + length > Length)
-			throw ArgumentOutOfRangeException("startIndex + length exceeds the length of this String");*/
+		sassert((startIndex + length) < Length, "startIndex + length exceeds the length of this String");
 
-		char* tmp = (char*)malloc(length);
+		char* tmp = new char[length];
 		
 		Buffer::BlockCopy(internalString, startIndex, tmp, 0, length);
 
 		return tmp;
 	}
 
-	char *String::ToCharArray()
+	char *String::ToCharArray() const
 	{
-		char* result = (char*)malloc(Length + 1);
-		strncpy(result, internalString, Length + 1);
+		char* result = new char[Length];
+		Buffer::BlockCopy(internalString, 0, result, 0, Length);
 		return result;
 	}
 
 	String String::ToLower()
 	{
+		char* tmp = new char[Length+1];
+		for (int i = 0; i < Length; i++)
+			tmp[i] = tolower(internalString[i]);
+
+		tmp[Length] = '\0';
+		String result = tmp;
+		delete tmp;
+		return result;
+	}
+
+	const char* String::ToLower(char* str)
+	{
 		
 	}
-
-	char* String::ToLower(char* str)
-	{
-
-	}
 	
-	char* String::ToString()
+	const char* String::ToString() const
 	{
-		char* result = (char*)malloc(Length + 1);
-		Buffer::BlockCopy(internalString, 0, result, 0, Length + 1);
+		char* result = new char[Length + 1];
+		Buffer::BlockCopy(internalString, 0, result, 0, Length);
+		result[Length] = '\0';
 		return result;
 	}
 
 	String String::ToUpper()
 	{
+		char* tmp = new char[Length+1];
+		for (int i = 0; i < Length; i++)
+			tmp[i] = toupper(internalString[i]);
+
+		tmp[Length] = '\0';
+		String result = tmp;
+		delete tmp;
+		return result;
+	}
+
+	const char* String::ToUpper(char* str)
+	{
 		
 	}
 
-	char* String::ToUpper(char* str)
-	{
-
-	}
-
-	bool String::operator!=(const String right)
+	bool String::operator!=(const String right) const
 	{
 		return !Equals(right);
 	}
 
-	bool String::operator !=(char* right)
+	bool String::operator !=(const char* right) const
 	{
 		return (strncmp(internalString, right, Length) != 0);
 	}
 
-	bool String::operator==(const String right)
+	bool String::operator==(const String right) const
 	{
 		return Equals(right);
 	}
 
-	bool String::operator ==(char* right)
+	bool String::operator ==(const char* right) const
 	{
 		return (strncmp(internalString, right, Length) == 0);
 	}
 
-	String String::operator=(char* right)
+	/*String String::operator=(const char* right)
 	{
 		return String(right);
-	}
+	}*/
 
 	String String::operator=(const String right)
 	{
 		return String(right);
 	}
 
-	String String::operator +(char *right)
+	String String::operator +(const char *right)
 	{
 		// Allocate a temporary buffer
 		char* newString = (char*)malloc(Length + strlen(right) + 1);
@@ -509,7 +411,7 @@ namespace System
 		return *this + right;
 	}
 
-	String String::operator +=(char* right)
+	String String::operator +=(const char* right)
 	{
 		return *this + right;
 	}
@@ -529,8 +431,7 @@ namespace System
 	
 	char String::operator [](int index)
 	{
-		/*if (index < 0 || index >= strlen(internalString))
-			throw IndexOutOfRangeException();*/
+		sassert(index > 0 && index < Length, "index out of range.");
 
 		return internalString[index];
 	}

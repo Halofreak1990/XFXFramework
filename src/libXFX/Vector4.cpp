@@ -34,9 +34,7 @@
 #include <System/Array.h>
 #include <System/Math.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 using namespace System;
 
@@ -218,7 +216,7 @@ namespace XFX
 		result.Z = vector1.Z / vector2.Z;
 	}
 
-	bool Vector4::Equals(Vector4 other)
+	bool Vector4::Equals(const Vector4 other) const
 	{
 		return ((W == other.W) && (X == other.X) && (Y == other.Y) && (Z == other.Z));
 	}
@@ -408,43 +406,11 @@ namespace XFX
 		result.W = vector1.W - vector2.W;
 	}
 
-	void Vector4::Transform(Vector4 sourceArray[], Quaternion rotation, Vector4 destinationArray[])
-	{
-		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
-#endif
-			return;
-		}
-
-		for(int i = 0; i < Array::Length(sourceArray)-1; i++)
-		{
-			Transform(sourceArray[i], rotation, destinationArray[i]);
-		}
-	}
-
 	void Vector4::Transform(Vector4 sourceArray[], int sourceIndex, Quaternion rotation, Vector4 destinationArray[], int destinationIndex, int length)
 	{
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			Transform(sourceArray[i], rotation, destinationArray[j]);
-		}
-	}
-
-	void Vector4::Transform(Vector4 sourceArray[], Matrix matrix, Vector4 destinationArray[])
-	{
-		if (Array::Length(destinationArray) < Array::Length(sourceArray))
-		{
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationArray too small");
-#endif
-			return;
-		}
-
-		for(int i = 0; i < Array::Length(sourceArray)-1; i++)
-		{
-			Transform(sourceArray[i], matrix, destinationArray[i]);
 		}
 	}
 
@@ -597,7 +563,7 @@ namespace XFX
 		return Vector4(-X, -Y, -Z, -W);
 	}
 
-	bool Vector4::operator!=(const Vector4 other)
+	bool Vector4::operator!=(const Vector4 other) const
 	{
 		return !Equals(other);
 	}
@@ -647,17 +613,9 @@ namespace XFX
 		return *this;
 	}
 
-	bool Vector4::operator==(const Vector4 other)
+	bool Vector4::operator==(const Vector4 other) const
 	{
 		return Equals(other);
 	}
-	
-	Vector4 Vector4::operator=(const Vector4 other)
-	{
-		X = other.X;
-		Y = other.Y;
-		Z = other.Z;
-		W = other.W;
-		return *this;
-	}
+
 }

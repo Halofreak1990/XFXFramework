@@ -1,5 +1,11 @@
-#ifndef _GAMERSERVICES_ENUMS_H_
-#define _GAMERSERVICES_ENUMS_H_
+/********************************************************
+ *	Enums.h												*
+ *														*
+ *	XFX::GamerServices enumerations definition file		*
+ *	Copyright © XFX Team. All Rights Reserved			*
+ ********************************************************/
+#ifndef _XFX_GAMERSERVICES_ENUMS_H_
+#define _XFX_GAMERSERVICES_ENUMS_H_
 
 namespace XFX
 {

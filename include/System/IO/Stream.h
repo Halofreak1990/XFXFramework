@@ -14,7 +14,10 @@
 
 namespace System
 {
-	class WaitHandle;
+	namespace Threading
+	{
+		class WaitHandle;
+	}
 
 	namespace IO
 	{

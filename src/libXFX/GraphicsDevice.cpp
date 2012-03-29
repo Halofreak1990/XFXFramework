@@ -27,15 +27,20 @@
 
 #include <Graphics/Color.h>
 #include <Graphics/DepthStencilBuffer.h>
-#include <Graphics/Exceptions.h>
 #include <Graphics/GraphicsDevice.h>
+#include <System/FrameworkResources.h>
+#include <System/String.h>
 #include <Matrix.h>
 #include <Quaternion.h>
 #include <Rectangle.h>
 #include <Vector2.h>
 #include <Vector4.h>
 
+extern "C" {
 #include "pbKit.h"
+}
+
+#include <sassert.h>
 
 using namespace System;
 using namespace XFX;
@@ -44,11 +49,6 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		GraphicsDeviceCreationParameters GraphicsDevice::CreationParameters()
-		{
-
-		}
-
 		DepthStencilBuffer GraphicsDevice::getDepthStencilBuffer()
 		{
 			return _depthStencilBuffer;
@@ -59,17 +59,40 @@ namespace XFX
 			_depthStencilBuffer = buffer;
 		}
 
+		PresentationParameters* GraphicsDevice::getPresentationParameters()
+		{
+			return p_cachedParameters;
+		}
+
 		void GraphicsDevice::setPresentationParameters(PresentationParameters* presentationParameters)
 		{
+			DWORD* p = pb_begin();
+
 			viewport.X = 0;
 			viewport.Y = 0;
 			viewport.Width = presentationParameters->BackBufferWidth;
 			viewport.Height = presentationParameters->BackBufferHeight;
 
+			if (presentationParameters->BackBufferFormat == SurfaceFormat::Color ||
+				presentationParameters->BackBufferFormat == SurfaceFormat::Bgr32 ||
+				presentationParameters->BackBufferFormat == SurfaceFormat::Rgba32)
+			{
+				
+			}
 
+			if (presentationParameters->EnableAutoDepthStencil)
+			{
+				if (presentationParameters->AutoDepthStencilFormat == DepthFormat::Depth16)
+					;
+			}
 		}
 
-		Viewport GraphicsDevice::getViewport()
+		TextureCollection GraphicsDevice::getTextures()
+		{
+			return textures;
+		}
+
+		Viewport GraphicsDevice::getViewport() const
 		{
 			return viewport;
 		}
@@ -78,44 +101,34 @@ namespace XFX
 		{
 			if (viewport != value)
 			{
-
+				viewport = value;
+				pb_set_viewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth);
 			}
 		}
 
-		TextureCollection GraphicsDevice::Textures()
+		GraphicsDevice::GraphicsDevice(GraphicsAdapter* adapter, const DeviceType_t deviceType, PresentationParameters* presentationParameters)
 		{
-			return textures;
-		}
+			//sassert(adapter != null, String::Format("adapter; %s", FrameworkResources::ArgumentNull_Generic));
 
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter* adapter, DeviceType_t deviceType, PresentationParameters* presentationParameters)
-		{
-			if (!adapter || !presentationParameters)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "adapter or presentationParameters is null.");
-#endif
-			}
+			//sassert(presentationParameters != null, String::Format("presentationParameters; %s", FrameworkResources::ArgumentNull_Generic));
 
-			_adapter = adapter;
-			if(deviceType != DeviceType::Hardware)
-			{
-#if DEBUG
-				printf("DEVICE_NOT_SUPPORTED in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, "Only DeviceType::Hardware is supported.");
-#endif
-			}
+			//graphicsDeviceCapabilities = adapter->
+
+			//_adapter = adapter;
+
+			sassert(deviceType == DeviceType::Hardware, "Only DeviceType::Hardware is supported.");
 
 			_deviceType = deviceType;
 			clearColor = Color::Black;
-		}
-		
-		GraphicsDevice::GraphicsDevice()
-		{
-			clearColor = Color::Black;
+
+			pb_init();
 		}
 		
 		GraphicsDevice::~GraphicsDevice()
 		{
 			Dispose(false);
+			delete _adapter;
+			delete presentationParameters;
 		}
 		
 		void GraphicsDevice::Clear(Color color)
@@ -159,6 +172,46 @@ namespace XFX
 			glClear(GL_COLOR_BUFFER_BIT);
 			glLoadIdentity();*/
 		}
+
+		void GraphicsDevice::Clear(const ClearOptions_t options, const Color color, const float depth, const int stencil)
+		{
+			DWORD		*p;
+			DWORD		format;
+			DWORD		_depth;
+			
+			int		x1,y1,x2,y2;
+			
+			//Set the coordinates for the rectangle to be cleared
+			x1 = 0;
+			y1 = 0;
+			x2 = x1 + _depthStencilBuffer.Width();
+			y2 = y1 + _depthStencilBuffer.Height();
+
+			p=pb_begin();
+			pb_push(p++,NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_HORIZ,2);		//sets rectangle coordinates
+			*(p++)=((x2-1)<<16)|x1;
+			*(p++)=((y2-1)<<16)|y1;
+
+			if ((options & ClearOptions::Depth) != 0)
+			{
+				
+			}
+			if ((options & ClearOptions::Stencil) != 0)
+			{
+
+			}
+			if ((options & ClearOptions::Target) != 0)
+			{
+
+			}
+
+			pb_end(p);
+		}
+
+		void GraphicsDevice::Clear(const ClearOptions_t options, const Vector4 color, const float depth, const int stencil)
+		{
+			Clear(options, Color(color), depth, stencil);
+		}
 		
 		void GraphicsDevice::Dispose()
 		{
@@ -178,27 +231,35 @@ namespace XFX
 			}
 		}
 
+		void GraphicsDevice::Present()
+		{
+			while(pb_finished());
+
+			// reset the push buffer
+			pb_reset();
+		}
+
 		void GraphicsDevice::raise_DeviceLost(Object* sender, EventArgs e)
 		{
-			if (DeviceLost != null)
+			if (DeviceLost)
 				DeviceLost(sender, e);
 		}
 
 		void GraphicsDevice::raise_DeviceReset(Object* sender, EventArgs e)
 		{
-			if (DeviceReset != null)
+			if (DeviceReset)
 				DeviceReset(sender, e);
 		}
 
 		void GraphicsDevice::raise_DeviceResetting(Object* sender, EventArgs e)
 		{
-			if (DeviceResetting != null)
+			if (DeviceResetting)
 				DeviceResetting(sender, e);
 		}
 
 		void GraphicsDevice::raise_Disposing(Object* sender, EventArgs e)
 		{
-			if (Disposing != null)
+			if (Disposing)
 				Disposing(sender, e);
 		}
 
@@ -212,6 +273,18 @@ namespace XFX
 			raise_DeviceResetting(this, EventArgs::Empty);
 			setPresentationParameters(presentationParameters);
 			raise_DeviceReset(this, EventArgs::Empty);
+		}
+
+		void GraphicsDevice::SetRenderTarget(RenderTarget2D* renderTarget)
+		{
+			if (renderTarget == null) // the user wants to reset the render target to the normal back buffer
+			{
+				pb_target_back_buffer();
+			}
+			else
+			{
+				//! TODO: set the render target.
+			}
 		}
 	}
 }

@@ -25,44 +25,40 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/SpriteBatch.h>
 #include <Graphics/SpriteFont.h>
 #include <Matrix.h>
 #include <System/Array.h>
+#include <System/FrameworkResources.h>
 #include <System/Math.h>
+#include <System/String.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteFont::SpriteFont(Texture2D texture, List<Rectangle> glyphs, List<Rectangle> cropping, List<char> charMap, int lineSpacing, float spacing, List<Vector3> kerning)
+		SpriteFont::SpriteFont(Texture2D* texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning)
+			: characterMap(charMap), croppingData(cropping), glyphData(glyphs), kerning(kerning), textureValue(texture)
 		{
-			textureValue = texture;
-			glyphData = glyphs;
-			croppingData = cropping;
-			characterMap = charMap;
 			this->lineSpacing = lineSpacing;
 			this->spacing = spacing;
-			this->kerning = kerning;
 		}
 
-		void SpriteFont::Draw(char* text, SpriteBatch spriteBatch, Vector2 textblockPosition, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t spriteEffects, float depth)
+		SpriteFont::~SpriteFont()
+		{
+			delete textureValue;
+		}
+
+		void SpriteFont::Draw(const char* text, SpriteBatch* spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth)
 		{
 			Vector2 vector2;
 			Matrix matrix;
 			Matrix matrix2;
 
-			if (text == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "text");
-#endif
-				return;
-			}
+			sassert(text != null, String::Format("text; %s", FrameworkResources::ArgumentNull_Generic));
 
 			Matrix::CreateRotationZ(rotation, matrix2);
 			Matrix::CreateTranslation(-origin.X * scale.X, -origin.Y * scale.Y, 0.0f, matrix);
@@ -70,12 +66,12 @@ namespace XFX
 			int num2 = 1;
 			float num4 = 0.0f;
 			bool flag = true;
-			if ((spriteEffects & SpriteEffects::FlipHorizontally) == SpriteEffects::FlipHorizontally)
+			if ((spriteEffects & SpriteEffects::FlipHorizontally) != 0)
 			{
 				num4 = MeasureString(text).X * scale.X;
 				num2 = -1;
 			}
-			if ((spriteEffects & SpriteEffects::FlipVertically) == SpriteEffects::FlipVertically)
+			if ((spriteEffects & SpriteEffects::FlipVertically) != 0)
 			{
 				vector2.Y = (MeasureString(text).Y - lineSpacing) * scale.Y;
 			}
@@ -84,7 +80,8 @@ namespace XFX
 				vector2.Y = 0.0f;
 			}
 			vector2.X = num4;
-			for (int i = 0; i < Array::Length(text); i++)
+			int strLen = strlen(text);
+			for (int i = 0; i < strLen; i++)
 			{
 				char character = text[i];
 				switch (character)
@@ -134,7 +131,7 @@ namespace XFX
 						Vector2::Transform(position, matrix2, position);
 						position.X += textblockPosition.X;
 						position.Y += textblockPosition.Y;
-						spriteBatch.Draw(textureValue, position, rectangle, color, rotation, Vector2::Zero, scale, spriteEffects, depth);
+						spriteBatch->Draw(textureValue, position, rectangle, color, rotation, Vector2::Zero, scale, spriteEffects, depth);
 						flag = false;
 						vector2.X += ((vector3.Y + vector3.Z) * scale.X) * num2;
 						break;
@@ -164,9 +161,14 @@ namespace XFX
 					num3 = num - 1;
 				}
 			}
-#if DEBUG
-			printf("ARGUMENT in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "character");
-#endif
+
+			sassert(false, "character; Character not in Font.");
+		}
+
+		Vector2 SpriteFont::MeasureString(const char* text) const
+		{
+			//! TODO: implement
+			return Vector2::Zero;
 		}
 	}
 }

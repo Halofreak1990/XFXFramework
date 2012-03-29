@@ -17,7 +17,9 @@ namespace System
 	public:
 		static const EventArgs Empty;
 
-		EventArgs();
+		EventArgs()
+		{
+		}
 	};
 }
 

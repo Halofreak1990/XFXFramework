@@ -7,8 +7,8 @@
 #ifndef _XFX_GRAPHICS_RENDERTARGET_
 #define _XFX_GRAPHICS_RENDERTARGET_
 
+#include <System/Delegates.h>
 #include <System/Interfaces.h>
-#include <System/Types.h>
 #include "Enums.h"
 
 using namespace System;
@@ -17,6 +17,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		class GraphicsDevice;
+
 		class RenderTarget : public IDisposable, virtual Object
 		{
 		private:

@@ -11,6 +11,7 @@ namespace XFX
 {
 	namespace Net
 	{
+		// Defines the reason a session ended.
 		struct NetworkSessionEndReason
 		{
 			enum type
@@ -22,6 +23,7 @@ namespace XFX
 			};
 		};
 		
+		// Contains additional data about a NetworkSessionJoinException.
 		struct NetworkSessionJoinError
 		{
 			enum type
@@ -32,6 +34,7 @@ namespace XFX
 			};
 		};
 		
+		// Defines the different states of a multiplayer session.
 		struct NetworkSessionState
 		{
 			enum type
@@ -42,6 +45,7 @@ namespace XFX
 			};
 		};
 
+		// Defines the different types of a multiplayer session.
 		struct NetworkSessionType
 		{
 			enum type
@@ -53,6 +57,7 @@ namespace XFX
 			};
 		};
 
+		// Defines options for network packet transmission.
 		struct SendDataOptions
 		{
 			enum type

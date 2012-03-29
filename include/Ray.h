@@ -22,26 +22,25 @@ namespace XFX
 	// Defines a ray.
 	struct Ray : public IEquatable<Ray>, virtual Object
 	{
-	public:
 		Vector3 Direction;
 		Vector3 Position;
 
-		Ray(Vector3 direction, Vector3 position);
+		Ray(const Vector3 direction, const Vector3 position);
 		Ray(const Ray &obj);
 		Ray();
 		
-		bool Equals(Ray other);
-		int GetHashCode();
-		float Intersects(BoundingBox boundingbox);
-		void Intersects(BoundingBox boundingbox, out float result);
-		float Intersects(BoundingSphere sphere);
-		void Intersects(BoundingSphere sphere, out float result);
-		float Intersects(Plane plane);
-		void Intersects(Plane plane, out float result);
+		bool Equals(const Ray other) const;
+		int GetHashCode() const;
+		float Intersects(const BoundingBox boundingbox) const;
+		void Intersects(const BoundingBox boundingbox, out float result) const;
+		float Intersects(const BoundingSphere sphere) const;
+		void Intersects(const BoundingSphere sphere, out float result) const;
+		float Intersects(const Plane plane) const;
+		void Intersects(const Plane plane, out float result) const;
+		const char* ToString() const;
 		
-		bool operator==(const Ray right);
-		bool operator!=(const Ray right);
-		Ray operator=(const Ray right);
+		bool operator==(const Ray right) const;
+		bool operator!=(const Ray right) const;
 	};
 }
 

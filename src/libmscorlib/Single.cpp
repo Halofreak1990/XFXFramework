@@ -43,12 +43,17 @@ namespace System
 	const float Single::PositiveInfinity = *( float* )&rawPosInfF;
 	const float Single::NegativeInfinity = *( float* )&rawNegInfF;
 
-	Single::Single(float f)
+	Single::Single(const Single &obj)
 	{
-		value = f;
+		value = obj.value;
 	}
 
-	int Single::CompareTo(Single other)
+	Single::Single(const float &obj)
+	{
+		value = obj;
+	}
+
+	int Single::CompareTo(const Single other) const
 	{
 		if (value > other.value)
 			return 1;
@@ -57,9 +62,14 @@ namespace System
 		return 0;
 	}
 
-	bool Single::Equals(Single other)
+	bool Single::Equals(const Single other) const
 	{
 		return (value == other.value);
+	}
+
+	int Single::GetHashCode() const
+	{
+		return (int)value;
 	}
 
 	float Single::Parse(char *str)
@@ -86,27 +96,27 @@ namespace System
 		return retval;
 	}
 
-	char* Single::ToString()
+	const char* Single::ToString() const
 	{
 		return String::Format("%f", value);
 	}
 
-	bool Single::operator !=(float right)
+	bool Single::operator !=(float right) const
 	{
 		return (value != right);
 	}
 
-	bool Single::operator !=(Single right)
+	bool Single::operator !=(const Single right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Single::operator ==(float right)
+	bool Single::operator ==(float right) const
 	{
 		return (value == right);
 	}
 
-	bool Single::operator ==(Single right)
+	bool Single::operator ==(const Single right) const
 	{
 		return (value == right.value);
 	}

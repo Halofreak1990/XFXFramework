@@ -39,7 +39,7 @@ namespace XFX
 	};
 
 	// Defines the interface for an object that manages a Graphics.GraphicsDevice.
-	interface IGraphicsDeviceManager
+	interface IGraphicsDeviceManager : virtual Object
 	{
 	public:
 		virtual bool BeginDraw()=0;

@@ -8,7 +8,6 @@
 #define _XFX_GAME_
 
 #include <System/Delegates.h>
-#include <System/Object.h>
 #include <System/Types.h>
 
 #include "Content/ContentManager.h"
@@ -19,6 +18,8 @@
 #include "Interfaces.h"
 
 using namespace System;
+using namespace System::Collections::Generic;
+
 using namespace XFX::Content;
 using namespace XFX::Graphics;
 
@@ -33,11 +34,11 @@ namespace XFX
 		bool isActive;
 
 		GameComponentCollection components;
-		List<IDrawable*> currentlyDrawingComponents;
+		/*List<IDrawable*> currentlyDrawingComponents;
 		List<IUpdateable*> currentlyUpdatingComponents;
 		List<IDrawable*> drawableComponents;
 		List<IUpdateable*> enabledUpdateable;
-		List<IGameComponent*> notYetInitialized;
+		List<IGameComponent*> notYetInitialized;*/
 		GameServiceContainer services;
 		bool disposed;
 		GameTime gameTime;
@@ -67,7 +68,7 @@ namespace XFX
 	public:
 		GameComponentCollection Components();
 		//ContentManager Content;
-		GraphicsDevice getGraphicsDevice();
+		GraphicsDevice* getGraphicsDevice();
 		GameServiceContainer getServices();
 		bool IsActive();
 
@@ -119,7 +120,6 @@ namespace XFX
 		EventHandler Disposed;
 		
 		GameComponent(Game game);
-		GameComponent();
 		
 		virtual void Dispose();
 		virtual void Initialize();
@@ -144,7 +144,7 @@ namespace XFX
     public:
     	int DrawOrder(); 
 		void DrawOrder(int value);
-    	GraphicsDevice getGraphicsDevice();
+    	GraphicsDevice* getGraphicsDevice();
     	bool Visible();
 		void Visible(bool value);
 

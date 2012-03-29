@@ -27,8 +27,10 @@
 
 #include <Storage/StorageContainer.h>
 #include <Storage/StorageDevice.h>
-#include <System/Exception.h>
+#include <System/String.h>
 #include <System/Types.h>
+
+#include <sassert.h>
 
 namespace XFX
 {
@@ -54,8 +56,7 @@ namespace XFX
 
 		StorageContainer StorageDevice::OpenContainer(char* titleName)
 		{
-			/*if(!titleName || titleName == "")
-				throw ArgumentNullException("Non-null title name required.");*/
+			sassert(!String::IsNullOrEmpty(titleName), "titleName cannot be null.");
 
 			//return StorageContainer(this, titleName, _deviceIndex, _playerIndex);
 		}

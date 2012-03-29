@@ -33,14 +33,13 @@ namespace XFX
 		class SpriteBatch : public IDisposable, virtual Object
 		{
 		private:
-			Texture2D currentTexture;
 			GraphicsDevice* device;
 			bool isDisposed;
 			bool inBeginEndPair;
 			SaveStateMode_t saveStateMode;
-			StateBlock saveState;
+			StateBlock* saveState;
 			SpriteSortMode_t spriteSortMode;
-			static SpriteBlendMode_t spriteBlendMode;
+			SpriteBlendMode_t spriteBlendMode;
 			int spriteQueueCount;
 			List<Sprite> SpriteList;
 
@@ -52,31 +51,29 @@ namespace XFX
 			virtual void Dispose(bool disposing);
 			
 		public:
-			GraphicsDevice* getGraphicsDevice();
-			bool IsDisposed();
+			GraphicsDevice* getGraphicsDevice() const;
+			bool IsDisposed() const;
 
 			EventHandler Disposing;
 
 			virtual ~SpriteBatch();
 			SpriteBatch(GraphicsDevice* graphicsDevice);
-			SpriteBatch();
 			
 			void Begin();
-			void Begin(SpriteBlendMode_t blendMode);
-			void Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode);
-			void Begin(SpriteBlendMode_t blendMode, SpriteSortMode_t sortMode, SaveStateMode_t stateMode, Matrix transformMatrix);
+			void Begin(const SpriteBlendMode_t blendMode);
+			void Begin(const SpriteBlendMode_t blendMode, const SpriteSortMode_t sortMode, const SaveStateMode_t stateMode);
+			void Begin(const SpriteBlendMode_t blendMode, const SpriteSortMode_t sortMode, const SaveStateMode_t stateMode, const Matrix transformMatrix);
 			void Dispose();
-			void Draw(Texture2D texture, Rectangle destinationRectangle, Color color);
-			void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color);
-			void Draw(Texture2D texture, Vector2 position, Color color);
-			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color);
-			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth);
-			void Draw(Texture2D texture, Vector2 position, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth);
-			void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle sourceRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth);
-			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color);
-			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects_t effects, float layerDepth);
-			void DrawString(SpriteFont spriteFont, char* text, Vector2 position, Color color, float rotation, Vector2 origin, float scale, SpriteEffects_t effects, float layerDepth);
-
+			void Draw(Texture2D* texture, const Rectangle destinationRectangle, Color color);
+			void Draw(Texture2D* texture, const Rectangle destinationRectangle, Rectangle sourceRectangle, Color color);
+			void Draw(Texture2D* texture, const Vector2 position, const Color color);
+			void Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color);
+			void Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth);
+			void Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth);
+			void Draw(Texture2D* texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth);
+			void DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color);
+			void DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth);
+			void DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth);
 			void End();
 		};
 	}

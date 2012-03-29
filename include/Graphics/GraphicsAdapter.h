@@ -4,8 +4,8 @@
  *	XFX GraphicsAdapter definition file					*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _GRAPHICSADAPTER_
-#define _GRAPHICSADAPTER_
+#ifndef _XFX_GRAPHICS_GRAPHICSADAPTER_
+#define _XFX_GRAPHICS_GRAPHICSADAPTER_
 
 #include <System/Types.h>
 #include <System/Interfaces.h>
@@ -20,10 +20,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Provides methods to retrieve and manipulate graphics adapters.
-		/// </summary>
-		class GraphicsAdapter : public IDisposable
+		// Provides methods to retrieve and manipulate graphics adapters.
+		class GraphicsAdapter : public IDisposable, virtual Object
 		{
 		protected:
 			void Dispose(bool __p1);
@@ -61,4 +59,4 @@ namespace XFX
 	}
 }
 
-#endif //_GRAPHICSADAPTER_
+#endif //_XFX_GRAPHICS_GRAPHICSADAPTER_

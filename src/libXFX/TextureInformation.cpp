@@ -91,16 +91,5 @@ namespace XFX
 		{
 			return Equals(other);
 		}
-
-		TextureInformation TextureInformation::operator =(TextureInformation other)
-		{
-			Width = other.Width;
-			Height = other.Height;
-			Depth = other.Depth;
-			Format = other.Format;
-			MipLevels = other.MipLevels;
-			ResourceType_ = other.ResourceType;
-			ImageFormat = other.ImageFormat;
-		}
 	}
 }

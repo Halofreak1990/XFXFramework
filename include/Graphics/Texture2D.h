@@ -27,12 +27,10 @@ namespace XFX
 		{
 		private:
 			GraphicsDevice* device;
- 			int _height; // The height of the texture before resizing it 
  			bool _isDisposed; // True when the texture has been disposed 
  			int _numberOfLevels; // The number of mip levels for the texture 
  			TextureUsage_t _textureUsage; 
  			SurfaceFormat_t _surfaceFormat; // The colour format of the texture 
- 			int _width; // the width of the texture before resizing it
  			int textureId; // The reference ID of the texture in OpenGL memory 
  			int imageId;
  				
@@ -43,30 +41,29 @@ namespace XFX
  			void Dispose(bool disposing);
  			
  		public:
- 			SurfaceFormat_t Format();
- 			int getHeight();
- 			TextureUsage_t TextureUsage();
- 			int getWidth();
+ 			SurfaceFormat_t Format() const;
+ 			const int Height;
+ 			TextureUsage_t TextureUsage() const;
+ 			const int Width;
  			
-			Texture2D();
- 			Texture2D(GraphicsDevice* graphicsDevice, int width, int height);
- 			Texture2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, TextureUsage_t usage, SurfaceFormat_t format);
+ 			Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height);
+ 			Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height, const int numberLevels, const TextureUsage_t usage, const SurfaceFormat_t format);
 			Texture2D(const Texture2D &obj); // Copy constructor
  				
  			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, int numberBytes, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename, TextureCreationParameters creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, char* filename, int width, int height);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const TextureCreationParameters& creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const int numberBytes);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const int numberBytes, const TextureCreationParameters& creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename, const TextureCreationParameters& creationParameters);
+ 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename, const int width, const int height);
 
  			template <class T>
- 			void GetData(T data[]);
+ 			void GetData(T data[]) const;
 			template <class T>
- 			void GetData(T data[], int startIndex, int elementCount);
+ 			void GetData(T data[], int startIndex, int elementCount) const;
 			template <class T>
- 			void GetData(int level, Rectangle rect, T data[], int startIndex, int elementCount);
+ 			void GetData(int level, Rectangle rect, T data[], int startIndex, int elementCount) const;
 			template <class T>
  			void SetData(T data[]);
 			template <class T>

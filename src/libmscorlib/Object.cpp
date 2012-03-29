@@ -30,23 +30,23 @@
 
 namespace System
 {
-	bool Object::Equals(Object* obj)
+	bool Object::Equals(const Object* obj) const
 	{
 		//! compare this instance to obj, using the size of the smallest of the two classes
 		return (memcmp(this, obj, (sizeof(obj) > sizeof(this)) ? sizeof(this) : sizeof(obj)) == 0);
 	}
 
-	bool Object::Equals(Object* objA, Object* objB)
+	bool Object::Equals(const Object* objA, const Object* objB)
 	{
 		return ((&objA == &objB) || ((objA) && (objB) && objA->Equals(objB)) || (!objA) && (!objB));
 	}
 
-	int Object::GetHashCode()
+	int Object::GetHashCode() const
 	{
 		return 1;
 	}
 
-	char* Object::ToString()
+	const char* Object::ToString() const
 	{
 		return "Object";
 	}

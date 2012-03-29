@@ -8,16 +8,13 @@
 #define _SYSTEM_IO_TEXTWRITER_
 
 #include <System/Interfaces.h>
-#include <System/Text/Encoding.h>
 
 namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Represents a writer that can write a sequential series of characters. This class is abstract.
-		/// </summary>
-		class TextWriter : public IDisposable, virtual Object
+		// Represents a writer that can write a sequential series of characters. This class is abstract.
+		class TextWriter : public IDisposable
 		{
 		private:
 			IFormatProvider* InternalFormatProvider;
@@ -27,13 +24,12 @@ namespace System
 			char CoreNewLine[];
 
 			TextWriter();
-			TextWriter(IFormatProvider* provider);
+			TextWriter(const IFormatProvider* provider);
 			TextWriter(const TextWriter &obj);
 
 			virtual void Dispose(bool disposing);
 
 		public:
-			virtual System::Text::Encoding getEncoding()=0;
 			virtual IFormatProvider* getFormatProvider();
 			char* NewLine;
 			static const TextWriter Null;

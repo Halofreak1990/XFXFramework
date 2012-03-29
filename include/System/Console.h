@@ -9,29 +9,36 @@ namespace System
 {
 	class Console
 	{
+	private:
+		Console();
+
 	public:
 		static void Clear();
-		static void Write(bool value);
-		static void Write(char value);
-		static void Write(char value[]);
-		static void Write(char value[], int index, int count);
-		static void Write(double value);
-		static void Write(int value);
-		static void Write(long long value);
-		static void Write(Object* value);
-		static void Write(float value);
-		static void Write(String value);
+		static void Write(const bool value);
+		static void Write(const byte value);
+		static void Write(const char value);
+		static void Write(const char value[]);
+		static void Write(const char value[], const int index, const int count);
+		static void Write(const double value);
+		static void Write(const int value);
+		static void Write(const long long value);
+		static void Write(const Object* value);
+		static void Write(const float value);
+		static void Write(const short value);
+		static void Write(const String value);
 		static void WriteLine();
-		static void WriteLine(bool value);
-		static void WriteLine(char value);
-		static void WriteLine(char value[]);
-		static void WriteLine(char value[], int index, int count);
-		static void WriteLine(double value);
-		static void WriteLine(int value);
-		static void WriteLine(long long value);
-		static void WriteLine(Object* value);
-		static void WriteLine(float value);
-		static void WriteLine(String value);
+		static void WriteLine(const bool value);
+		static void WriteLine(const byte value);
+		static void WriteLine(const char value);
+		static void WriteLine(const char value[]);
+		static void WriteLine(const char value[], const int index, const int count);
+		static void WriteLine(const double value);
+		static void WriteLine(const int value);
+		static void WriteLine(const long long value);
+		static void WriteLine(const Object* value);
+		static void WriteLine(const float value);
+		static void WriteLine(const short value);
+		static void WriteLine(const String value);
 	};
 }
 

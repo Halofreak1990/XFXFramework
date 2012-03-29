@@ -4,8 +4,8 @@
  *	XFX Math definition file							*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _MATH_
-#define _MATH_
+#ifndef _SYSTEM_MATH_
+#define _SYSTEM_MATH_
 
 #include "Types.h"
 
@@ -24,7 +24,7 @@ namespace System
 		static double Abs(double value);
 		static float Abs(float value);
 		static int Abs(int value);
-		static long long Abs(long long value);
+		static Int64 Abs(Int64 value);
 		static sbyte Abs(sbyte value);
 		static short Abs(short value);
 		static double Acos(double value);
@@ -43,7 +43,7 @@ namespace System
 		static double Max(double value1, double value2);
 		static float Max(float value1, float value2);
 		static int Max(int value1, int value2);
-		static long long Max(long long value1, long long value2);
+		static Int64 Max(Int64 value1, Int64 value2);
 		static sbyte Max(sbyte value1, sbyte value2);
 		static short Max(short value1, short value2);
 		static uint Max(uint value1, uint value2);
@@ -52,8 +52,8 @@ namespace System
 		static double Min(double value1, double value2);
 		static float Min(float value1, float value2);
 		static int Min(int value1, int value2);
-		static long long Min(long long value1, long long value2);
-		static sbyte Min(sbyte value2, sbyte value2);
+		static Int64 Min(Int64 value1, Int64 value2);
+		static sbyte Min(sbyte value1, sbyte value2);
 		static short Min(short value1, short value2);
 		static uint Min(uint value1, uint value2);
 		static ulong Min(ulong value1, ulong value2);
@@ -64,7 +64,7 @@ namespace System
 		static int Sign(double value);
 		static int Sign(float value);
 		static int Sign(int value);
-		static int Sign(long long value);
+		static int Sign(Int64 value);
 		static int Sign(sbyte value);
 		static int Sign(short value);
 		static double Sin(double value);
@@ -75,4 +75,4 @@ namespace System
 	};
 }
 
-#endif //MATH_H
+#endif //_SYSTEM_MATH_

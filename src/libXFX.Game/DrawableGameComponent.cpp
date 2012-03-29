@@ -25,11 +25,14 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <Graphics/Color.h>
+#include <Graphics/DepthStencilBuffer.h>
+#include <Graphics/GraphicsDevice.h>
 #include <Game.h>
 
 namespace XFX
 {
-	GraphicsDevice DrawableGameComponent::getGraphicsDevice()
+	GraphicsDevice* DrawableGameComponent::getGraphicsDevice()
 	{
 		return _graphicsService->getGraphicsDevice();
 	}
@@ -65,7 +68,7 @@ namespace XFX
 	
 	void DrawableGameComponent::Initialize()
 	{
-        LoadContent();
+		LoadContent();
 	}
 
 	void DrawableGameComponent::OnDrawOrderChanged(Object* sender, EventArgs args)

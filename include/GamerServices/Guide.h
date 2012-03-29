@@ -23,9 +23,7 @@ namespace XFX
 {
 	namespace GamerServices
 	{
-		/// <summary>
-		/// Provides access to the Guide user interface.
-		/// </summary>
+		// Provides access to the Guide user interface.
 		class Guide
 		{
 		private:

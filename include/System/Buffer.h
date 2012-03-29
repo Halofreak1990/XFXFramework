@@ -20,7 +20,7 @@ namespace System
 	{
 	public:
 		template <class T>
-		static void BlockCopy(T src[], int srcOffset, T dst[], int dstOffset, int count)
+		static void BlockCopy(const T src[], const int srcOffset, T dst[], const int dstOffset, const int count)
 		{
 			if (!src)
 			{
@@ -77,13 +77,13 @@ namespace System
 		}
 
 		template <class T>
-		static int ByteLength(T array[])
+		static int ByteLength(const T array[])
 		{
 			return sizeof(array);
 		}
 
 		template <class T>
-		static byte GetByte(T array[], int index)
+		static byte GetByte(const T array[], const int index)
 		{
 			if (index < 0 || index >= ByteLength(array))
 			{
@@ -96,7 +96,7 @@ namespace System
 		}
 
 		template <class T>
-		static void SetByte(T array[], int index, byte value)
+		static void SetByte(T array[], const int index, const byte value)
 		{
 			if (index < 0 || index >= ByteLength(array))
 			{

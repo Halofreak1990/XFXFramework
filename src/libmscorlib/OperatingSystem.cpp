@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/OperatingSystem.h>
+#include <System/String.h>
 
 namespace System
 {
@@ -34,12 +35,38 @@ namespace System
 	{
 	}
 
+	OperatingSystem::OperatingSystem(const System::OperatingSystem &obj)
+		: Platform(obj.Platform), Version(obj.Version)
+	{
+	}
+
 	OperatingSystem OperatingSystem::Clone()
 	{
 		return OperatingSystem(Platform, Version);
 	}
 
+	bool OperatingSystem::Equals(const OperatingSystem other) const
+	{
+		return ((Platform == other.Platform) && (Version == other.Version));
+	}
+
+	int OperatingSystem::GetHashCode()
+	{
+		return (int)Platform + Version.GetHashCode();
+	}
+
 	char* OperatingSystem::ToString()
 	{
+		return "";
+	}
+
+	bool OperatingSystem::operator !=(const OperatingSystem right) const
+	{
+		return !Equals(right);
+	}
+
+	bool OperatingSystem::operator ==(const OperatingSystem right) const
+	{
+		return Equals(right);
 	}
 }

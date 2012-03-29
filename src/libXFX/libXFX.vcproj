@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="libXFX"
 	ProjectGUID="{379FFCFD-88FA-46D6-A686-CAE8F58652FC}"
 	RootNamespace="libXFX"
@@ -24,9 +24,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				ReBuildCommandLine="make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				CleanCommandLine="make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				BuildCommandLine="C:\cygwin\bin\make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				ReBuildCommandLine="C:\cygwin\bin\make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				CleanCommandLine="C:\cygwin\bin\make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
 				Output=""
 				PreprocessorDefinitions="ENABLE_XBOX; DEBUG"
 				IncludeSearchPath="C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include"
@@ -121,7 +121,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\BoundingFrustrum.cpp"
+				RelativePath=".\BoundingFrustum.cpp"
 				>
 			</File>
 			<File
@@ -171,6 +171,10 @@
 			<Filter
 				Name="Audio"
 				>
+				<File
+					RelativePath=".\SoundEffect.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Content"
@@ -212,11 +216,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\GraphicsDeviceCapabilities.cpp"
+					RelativePath=".\GraphicsResource.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\GraphicsResource.cpp"
+					RelativePath=".\pbKit.c"
 					>
 				</File>
 				<File
@@ -363,7 +367,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\BoundingFrustrum.h"
+				RelativePath="..\..\include\BoundingFrustum.h"
 				>
 			</File>
 			<File
@@ -429,6 +433,14 @@
 					RelativePath="..\..\include\Audio\Enums.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\Audio\SoundEffect.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Audio\SoundEffectInstance.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Content"
@@ -474,10 +486,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\Graphics\Exceptions.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\Graphics.h"
 					>
 				</File>
@@ -487,10 +495,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\Graphics\GraphicsDevice.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\Graphics\GraphicsDeviceCapabilities.h"
 					>
 				</File>
 				<File

@@ -31,9 +31,13 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		Sprite::Sprite(Texture2D texture, Rectangle sourceRectangle, Rectangle destinationRectangle, Color color, float rotation, Vector2 origin, SpriteEffects_t effects, float layerDepth)
+		Sprite::Sprite()
 		{
-			this->texture = texture;
+		}
+
+		Sprite::Sprite(Texture2D* texture, const Rectangle sourceRectangle, const Rectangle destinationRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
+			: texture(texture)
+		{
 			this->sourceRectangle = sourceRectangle;
 			this->destinationRectangle = destinationRectangle;
 			this->color = color;
@@ -43,47 +47,59 @@ namespace XFX
 			this->layerDepth = layerDepth;
 		}
 
-		Texture2D Sprite::getTexture()
+		Sprite::Sprite(const Sprite &obj)
+			: texture(obj.texture)
+		{
+			this->sourceRectangle = obj.sourceRectangle;
+			this->destinationRectangle = obj.destinationRectangle;
+			this->color = obj.color;
+			this->rotation = obj.rotation;
+			this->origin = obj.origin;
+			this->effects = obj.effects;
+			this->layerDepth = obj.layerDepth;
+		}
+
+		Texture2D* Sprite::getTexture() const
 		{
 			return texture;
 		}
 
-		Rectangle Sprite::SourceRectangle()
+		Rectangle Sprite::SourceRectangle() const
 		{
 			return sourceRectangle;
 		}
 
-		Rectangle Sprite::DestinationRectangle()
+		Rectangle Sprite::DestinationRectangle() const
 		{
 			return destinationRectangle;
 		}
 
-		Color Sprite::getColor()
+		Color Sprite::getColor() const
 		{
 			return color;
 		}
 
-		float Sprite::Rotation()
+		float Sprite::Rotation() const
 		{
 			return rotation;
 		}
 
-		Vector2 Sprite::Origin()
+		Vector2 Sprite::Origin() const
 		{
 			return origin;
 		}
 
-		SpriteEffects_t Sprite::Effects()
+		SpriteEffects_t Sprite::Effects() const
 		{
 			return effects;
 		}
 
-		float Sprite::LayerDepth()
+		float Sprite::LayerDepth() const
 		{
 			return layerDepth;
 		}
 
-		bool Sprite::operator !=(Sprite right)
+		bool Sprite::operator !=(const Sprite& right) const
 		{
 			// TODO: either remove the Sprite class entirely, or compare the Texture2D instances
 			return !((sourceRectangle == right.sourceRectangle) &&
@@ -92,7 +108,7 @@ namespace XFX
 				(layerDepth == right.layerDepth));
 		}
 
-		bool Sprite::operator ==(Sprite right)
+		bool Sprite::operator ==(const Sprite& right) const
 		{
 			// TODO: either remove the Sprite class entirely, or compare the Texture2D instances
 			return ((sourceRectangle == right.sourceRectangle) &&

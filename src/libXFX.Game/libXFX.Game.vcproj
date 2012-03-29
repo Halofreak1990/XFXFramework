@@ -24,9 +24,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				ReBuildCommandLine="make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
-				CleanCommandLine="make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				BuildCommandLine="C:\cygwin\bin\make -f makefile all 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				ReBuildCommandLine="C:\cygwin\bin\make -f makefile rebuild 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
+				CleanCommandLine="C:\cygwin\bin\make -f makefile clean 2&gt;&amp;1 | sed -e &apos;s/\(\w\+\):\([0-9]\+\):/\1(\2):/&apos;"
 				Output=""
 				PreprocessorDefinitions="ENABLE_XBOX; DEBUG"
 				IncludeSearchPath="C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include"
@@ -144,10 +144,6 @@
 				RelativePath=".\GraphicsDeviceManager.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\makefile"
-				>
-			</File>
 			<Filter
 				Name="GamerServices"
 				>
@@ -183,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\GraphicsDeviceInformation.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\GraphicsDeviceManager.h"
 				>
 			</File>
@@ -203,6 +203,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\makefile"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
