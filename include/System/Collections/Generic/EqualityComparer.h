@@ -11,7 +11,7 @@ namespace System
 		namespace Generic
 		{
 			template <class T>
-			class EqualityComparer : public IEqualityComparer<T>, virtual Object
+			class EqualityComparer : public IEqualityComparer<T>, public Object
 			{
 			private:
 				static EqualityComparer<T> defaultComparer;
@@ -19,8 +19,9 @@ namespace System
 			public:
 				static EqualityComparer<T> Default();
 
-				bool Equals(T x, T y);
-				int GetHashCode(T obj);
+				bool Equals(const T x, const T y) const;
+				int GetHashCode(const T obj) const;
+				int GetType() const;
 			};
 		}
 	}

@@ -1,32 +1,34 @@
 /********************************************************
  *	AudioListener.h										*
  *														*
- *	XFramework AudioListener definition file			*
- *	Copyright © XFX Team. All Rights Reserved		*
+ *	XFX::Audio::AudioListener definition file			*
+ *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
+#ifndef _XFX_AUDIO_AUDIOLISTENER_
+#define _XFX_AUDIO_AUDIOLISTENER_
 
-#ifndef XFRAMEWORK_AUDIOLISTENER_H
-#define XFRAMEWORK_AUDIOLISTENER_H
+#include <System/Object.h>
+#include <Vector3.h>
 
-#include "System/System.h"
+using namespace System;
 
-namespace XFramework
+namespace XFX
 {
-	class Vector3;
-	
 	namespace Audio
 	{
-		class AudioListener
+		class AudioListener : public Object
 		{
-			public:
-				Vector3 Forward;
-				Vector3 Position;
-				Vector3 Up;
-				Vector3 Velocity;
+		public:
+			Vector3 Forward;
+			Vector3 Position;
+			Vector3 Up;
+			Vector3 Velocity;
 
-				AudioListener();
-		}
+			AudioListener();
+
+			int GetType() const;
+		};
 	}
 }
 
-#endif //XFRAMEWORK_AUDIOLISTENER_H
+#endif //_XFX_AUDIO_AUDIOLISTENER_

@@ -10,8 +10,8 @@ namespace System
 
 	namespace IO
 	{
-		// Reads primitive data types as binary values in a specific encoding.
-		class BinaryReader : public IDisposable, virtual Object
+		// Reads primitive data types as binary values.
+		class BinaryReader : public IDisposable
 		{
 		private:
 			bool m_2BytesPerChar;
@@ -54,13 +54,13 @@ namespace System
 			virtual double ReadDouble();
 			virtual short ReadInt16();
 			virtual int ReadInt32();
-			virtual Int64 ReadInt64();
+			virtual long long ReadInt64();
 			virtual sbyte ReadSByte();
 			virtual float ReadSingle();
 			virtual String ReadString();
 			virtual ushort ReadUInt16();
 			virtual uint ReadUInt32();
-			virtual UInt64 ReadUInt64();
+			virtual ulong ReadUInt64();
 		};
 	}
 }

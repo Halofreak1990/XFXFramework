@@ -10,19 +10,23 @@
 #include <Graphics/Enums.h>
 #include <Graphics/PresentationParameters.h>
 
+using namespace System;
 using namespace XFX::Graphics;
 
 namespace XFX
 {
 	// Holds the settings for creating a graphics device.
-	class GraphicsDeviceInformation
+	class GraphicsDeviceInformation : public Object
 	{
 	public:
 		GraphicsAdapter Adapter;
-		DeviceType_t DeviceType_;
-		PresentationParameters PresentationParameters_;
+		XFX::Graphics::PresentationParameters PresentationParameters;
+
+		GraphicsDeviceInformation();
 	
-		GraphicsDeviceInformation Clone();
+		GraphicsDeviceInformation Clone() const;
+		bool Equals(const Object* obj) const;
+		int GetType() const;
 	};
 }
 

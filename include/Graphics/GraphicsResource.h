@@ -7,8 +7,8 @@
 #ifndef _XFX_GRAPHICS_GRAPHICSRESOURCE_
 #define _XFX_GRAPHICS_GRAPHICSRESOURCE_
 
-#include <System/Types.h>
-#include <System/Delegates.h>
+#include <System/Event.h>
+#include <System/String.h>
 #include "Enums.h"
 
 using namespace System;
@@ -20,12 +20,10 @@ namespace XFX
 		class GraphicsDevice;
 
 		// Queries and prepares resources.
-		class GraphicsResource : public IDisposable, virtual Object
+		class GraphicsResource : public IDisposable, public Object
 		{
 		private:
-			bool isDisposed; 
-            char* name;  
-            ResourceType_t resourceType; 
+			bool isDisposed;   
 		
 		protected:
 			GraphicsDevice* graphicsDevice;
@@ -35,8 +33,8 @@ namespace XFX
 		public:
 			virtual GraphicsDevice* getGraphicsDevice();
 			bool IsDisposed();
-			char* Name;
-			Object Tag;
+			String Name;
+			Object* Tag;
 
 			EventHandler Disposing;
 			
@@ -44,6 +42,7 @@ namespace XFX
 			GraphicsResource();
 
 			void Dispose();
+			int GetType() const;
 		};
 	}
 }

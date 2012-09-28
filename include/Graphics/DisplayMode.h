@@ -8,6 +8,9 @@
 #define _XFX_GRAPHICS_DISPLAYMODE_
 
 #include "Enums.h"
+#include <System/Object.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -16,21 +19,22 @@ namespace XFX
 	namespace Graphics
 	{
 		// Describes the display mode.
-		struct DisplayMode
+		struct DisplayMode : Object
 		{
-			float AspectRatio() const;
+			float getAspectRatio() const;
 			int Height;
 			SurfaceFormat_t Format;
 			int RefreshRate;
-			Rectangle TitleSafeArea() const;
+			Rectangle getTitleSafeArea() const;
 			int Width;
 				
 			DisplayMode();
-			bool Equals(const DisplayMode other) const;
+			bool Equals(const Object* obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			
-			bool operator!=(const DisplayMode other) const;
-			bool operator==(const DisplayMode other) const;
+			bool operator!=(const DisplayMode& other) const;
+			bool operator==(const DisplayMode& other) const;
 		};
 	}
 }

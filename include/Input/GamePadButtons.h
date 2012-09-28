@@ -18,7 +18,7 @@ namespace XFX
 	namespace Input
 	{
 		// Identifies whether the buttons on an Xbox Controller are pressed or released.
-		struct GamePadButtons : virtual Object
+		struct GamePadButtons : Object
 		{
 			const ButtonState_t A;
 			const ButtonState_t B;
@@ -35,18 +35,23 @@ namespace XFX
 			GamePadButtons();
 			GamePadButtons(const GamePadButtons &obj);
 
+			bool Equals(const Object* obj) const;
 			bool Equals(const GamePadButtons obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			const char* ToString() const;
 
-			bool operator !=(const GamePadButtons right) const;
-			bool operator ==(const GamePadButtons right) const;
+			bool operator !=(const GamePadButtons& right) const;
+			bool operator ==(const GamePadButtons& right) const;
 
-			inline GamePadButtons operator=(const GamePadButtons right) { return GamePadButtons(right); }
+			inline GamePadButtons operator=(const GamePadButtons& right)
+			{
+				return (right == *this) ? *this : GamePadButtons(right);
+			}
 		};
 	
 		// Identifies which directions on the directional pad of an Xbox Controller are being pressed.
-		struct GamePadDPad : virtual Object
+		struct GamePadDPad : Object
 		{
 			const ButtonState_t Down;
 			const ButtonState_t Left;
@@ -57,18 +62,23 @@ namespace XFX
 			GamePadDPad();
 			GamePadDPad(const GamePadDPad &obj);
 
-			bool Equals(const GamePadDPad& obj) const;
+			bool Equals(const Object* obj) const;
+			bool Equals(const GamePadDPad obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			const char* ToString() const;
 			
 			bool operator!=(const GamePadDPad& right) const;
 			bool operator==(const GamePadDPad& right) const;
 
-			inline GamePadDPad operator=(const GamePadDPad right) { return GamePadDPad(right); }
+			inline GamePadDPad operator=(const GamePadDPad& right)
+			{
+				return (right == *this) ? *this : GamePadDPad(right);
+			}
 		};
 
 		// Structure that represents the position of left and right sticks (thumbsticks) on an Xbox Controller.
-		struct GamePadThumbSticks : virtual Object
+		struct GamePadThumbSticks : Object
 		{
 			const Vector2 Left;
 			const Vector2 Right;
@@ -77,18 +87,23 @@ namespace XFX
 			GamePadThumbSticks();
 			GamePadThumbSticks(const GamePadThumbSticks &obj);
 
+			bool Equals(const Object* obj) const;
 			bool Equals(const GamePadThumbSticks obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			const char* ToString() const;
 
-			bool operator!=(const GamePadThumbSticks right) const;
-			bool operator==(const GamePadThumbSticks right) const;
+			bool operator!=(const GamePadThumbSticks& right) const;
+			bool operator==(const GamePadThumbSticks& right) const;
 
-			inline GamePadThumbSticks operator=(const GamePadThumbSticks right) { return GamePadThumbSticks(right); }
+			inline GamePadThumbSticks operator=(const GamePadThumbSticks& right)
+			{
+				return (right == *this) ? *this : GamePadThumbSticks(right);
+			}
 		};
 
 		// Structure that defines the position of the left and right triggers on an Xbox Controller.
-		struct GamePadTriggers : virtual Object
+		struct GamePadTriggers : Object
 		{
 			const float Left;
 			const float Right;
@@ -97,14 +112,19 @@ namespace XFX
 			GamePadTriggers();
 			GamePadTriggers(const GamePadTriggers &obj);
 
+			bool Equals(const Object* obj) const;
 			bool Equals(const GamePadTriggers obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			const char* ToString() const;
 
-			bool operator!=(const GamePadTriggers right) const;
-			bool operator==(const GamePadTriggers right) const;
+			bool operator!=(const GamePadTriggers& right) const;
+			bool operator==(const GamePadTriggers& right) const;
 
-			inline GamePadTriggers operator=(const GamePadTriggers right) { return GamePadTriggers(right); }
+			inline GamePadTriggers operator=(const GamePadTriggers& right)
+			{
+				return (right == *this) ? *this : GamePadTriggers(right);
+			}
 		};
 	}
 }

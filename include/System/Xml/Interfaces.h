@@ -13,18 +13,14 @@ namespace System
 	{
 		class XmlNode;
 
-		/// <summary>
-		/// Enables a class to return an System::Xml::XmlNode from the current context or position.
-		/// </summary>
+		// Enables a class to return an System::Xml::XmlNode from the current context or position.
 		interface IHasXmlNode
 		{
 		public:
 			virtual XmlNode GetNode()=0;
 		};
 
-		/// <summary>
-		/// Provides an interface to enable a class to return line and position information.
-		/// </summary>
+		// Provides an interface to enable a class to return line and position information.
 		interface IXmlLineInfo
 		{
 		public:
@@ -34,15 +30,13 @@ namespace System
 			virtual int LinePosition();
 		};
 
-		/// <summary>
-		/// Provides read-only access to a set of prefix and namespace mappings.
-		/// </summary>
+		// Provides read-only access to a set of prefix and namespace mappings.
 		interface IXmlNamespaceResolver
 		{
 		public:
-			virtual IDictionary<char*, char*>* GetNamespacesInScope(XmlNamespaceScope_t scope)=0;
-			virtual char* LookupNamespace(char* prefix)=0;
-			virtual char* LookupPrefix(char* namespaceName)=0;
+			virtual IDictionary<String, String>* GetNamespacesInScope(const XmlNamespaceScope_t scope) const=0;
+			virtual String LookupNamespace(const String prefix) const=0;
+			virtual String LookupPrefix(const String namespaceName) const=0;
 		};
 	}
 }

@@ -33,32 +33,26 @@
 #include <System/IO/StreamReader.h>
 #include <System/IO/StreamWriter.h>
 
-#if ENABLE_XBOX
 #include <xboxkrnl/xboxkrnl.h>
-#else
-#endif
+#include <stdlib.h>
 
 #include <sassert.h>
-
-#if DEBUG
-#include <stdio.h>
-#endif
 
 namespace System
 {
 	namespace IO
 	{
-		StreamWriter File::AppendText(char* path)
+		StreamWriter* File::AppendText(const String& path)
 		{
-			return StreamWriter(path, true);
+			return new StreamWriter(path, true);
 		}
 
-		void File::Copy(char* sourceFileName, char* destFileName)
+		void File::Copy(const String& sourceFileName, const String& destFileName)
 		{
 			Copy(sourceFileName, destFileName, false);
 		}
 
-		void File::Copy(char* sourceFileName, char* destFileName, bool overwrite)
+		void File::Copy(const String& sourceFileName, const String& destFileName, const bool overwrite)
 		{
 			sassert(!(!overwrite && Exists(destFileName)), "File specified in 'destFileName' already exists.");
 
@@ -66,115 +60,127 @@ namespace System
 			int ret;
 			int sourceHandle;
 			int destHandle;
-			UInt32 length;
+			uint length;
 			void *buffer;
-			ret = XCreateFile(&sourceHandle, sourceFileName, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL);
+
+			ret = XCreateFile(
+				&sourceHandle,
+				const_cast<char*>(sourceFileName.ToString()),
+				GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL
+				);
+
 			if(ret == 0)
 			{
 				XGetFileSize(sourceHandle, &length);
 				buffer = MmAllocateContiguousMemory((int)length);
 				XReadFile(sourceHandle, buffer, length, NULL);
 				XCloseHandle(sourceHandle);
-				XCreateFile(&destHandle, destFileName, GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL);
+
+				XCreateFile(
+					&destHandle,
+					const_cast<char*>(destFileName.ToString()),
+					GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL
+					);
+
 				XWriteFile(destHandle, buffer, length, NULL);
 				XCloseHandle(destHandle);
 			}
 		}
 
-		FileStream File::Create(char* path)
+		FileStream* File::Create(const String& path)
 		{
-			return FileStream(path, FileMode::CreateNew, FileAccess::ReadWrite, FileShare::None);
+			return new FileStream(path, FileMode::CreateNew, FileAccess::ReadWrite, FileShare::None);
 		}
 
-		FileStream File::Create(char* path, int bufferSize)
+		FileStream* File::Create(const String& path, const int bufferSize)
 		{
-			return FileStream(path, FileMode::CreateNew, FileAccess::ReadWrite, FileShare::None, bufferSize);
+			return new FileStream(path, FileMode::CreateNew, FileAccess::ReadWrite, FileShare::None, bufferSize);
 		}
 
-		StreamWriter File::CreateText(char* path)
+		StreamWriter* File::CreateText(const String& path)
 		{
-			return StreamWriter(path, false);
+			return new StreamWriter(path, false);
 		}
 
-		void File::Delete(char* path)
+		void File::Delete(const String& path)
 		{
-			XDeleteFile(path);
+			XDeleteFile(const_cast<char*>(path.ToString()));
 		}
 
-		bool File::Exists(char* path)
+		bool File::Exists(const String& path)
 		{
 			bool flag = false;
 			if (String::IsNullOrEmpty(path))
 				return false;
 
-			path = Path::GetFullPath(path);
+			String path2(Path::GetFullPath(path));
 			XBOX_FIND_DATA data;
-			flag = ((FileAttributeInfo(path, &data, false, false) == 0) && (data.dwFileAttributes != -1) && ((data.dwFileAttributes & 0x10) == 0));
+			flag = ((FileAttributeInfo(path2, &data, false, false) == 0) && (data.dwFileAttributes != (uint)-1) && ((data.dwFileAttributes & 0x10) == 0));
 			
 			return flag;			
 		}
 
-		DateTime File::GetCreationTime(char* path)
+		DateTime File::GetCreationTime(const String& path)
 		{
 			XBOX_FIND_DATA data;
-			path = Path::GetFullPath(path);
+			String path2(Path::GetFullPath(path));
 			FileAttributeInfo(path, &data, false, false);
 			return DateTime::FromFileTimeUtc(data.ftCreationTime);
 		}
 
-		DateTime File::GetLastAccessTime(char* path)
+		DateTime File::GetLastAccessTime(const String& path)
 		{
 			XBOX_FIND_DATA data;
-			path = Path::GetFullPath(path);
+			String path2(Path::GetFullPath(path));
 			FileAttributeInfo(path, &data, false, false);
 			return DateTime::FromFileTimeUtc(data.ftLastAccessTime);
 		}
 
-		DateTime File::GetLastWriteTime(char* path)
+		DateTime File::GetLastWriteTime(const String& path)
 		{
 			XBOX_FIND_DATA data;
-			path = Path::GetFullPath(path);
+			String path2(Path::GetFullPath(path));
 			FileAttributeInfo(path, &data, false, false);
 			return DateTime::FromFileTimeUtc(data.ftLastWriteTime);
 		}
 
-		void File::Move(char* sourceFileName, char* destFileName)
+		void File::Move(const String& sourceFileName, const String& destFileName)
 		{
-			char* fullPath = Path::GetFullPath(sourceFileName);
-			char* dst = Path::GetFullPath(destFileName);
+			String fullPath = Path::GetFullPath(sourceFileName);
+			String dst = Path::GetFullPath(destFileName);
 
 			// TODO: Actually MOVE the file
 			// I suspect MoveFile is simply copying the file, and then removing the source file.
 		}
 
-		FileStream File::Open(char* path, FileMode_t mode)
+		FileStream* File::Open(const String& path, const FileMode_t mode)
 		{
 			return Open(path, mode, (mode == FileMode::Append) ? FileAccess::Write : FileAccess::ReadWrite, FileShare::None);
 		}
 
-		FileStream File::Open(char* path, FileMode_t mode, FileAccess_t access)
+		FileStream* File::Open(const String& path, const FileMode_t mode, const FileAccess_t access)
 		{
-			return FileStream(path, mode, access, FileShare::None);
+			return new FileStream(path, mode, access, FileShare::None);
 		}
 
-		FileStream File::Open(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share)
+		FileStream* File::Open(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share)
 		{
-			return FileStream(path, mode, access, share);
+			return new FileStream(path, mode, access, share);
 		}
 
-		FileStream File::OpenRead(char* path)
+		FileStream* File::OpenRead(const String& path)
 		{
-			return FileStream(path, FileMode::Open, FileAccess::Read, FileShare::Read);
+			return new FileStream(path, FileMode::Open, FileAccess::Read, FileShare::Read);
 		}
 
-		StreamReader File::OpenText(char* path)
+		StreamReader* File::OpenText(const String& path)
 		{
-			return StreamReader(path);
+			return new StreamReader(path);
 		}
 		
-		FileStream File::OpenWrite(char* path)
+		FileStream* File::OpenWrite(const String& path)
 		{
-			return FileStream(path, FileMode::OpenOrCreate, FileAccess::Write, FileShare::None);
+			return new FileStream(path, FileMode::OpenOrCreate, FileAccess::Write, FileShare::None);
 		}
 	}
 }

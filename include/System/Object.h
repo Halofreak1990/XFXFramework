@@ -14,11 +14,17 @@ namespace System
 	class Object
 	{
 	public:
-		virtual bool Equals(const Object* obj) const;
+		virtual bool Equals(Object const * const obj) const;
 		static bool Equals(const Object* objA, const Object* objB);
 		virtual int GetHashCode() const;
+		virtual int GetType() const =0;
+		static bool ReferenceEquals(const Object& objA, const Object& objB);
 		virtual const char* ToString() const;
+
+		virtual ~Object() { }
 	};
+
+	bool is(Object const * const obj1, Object const * const obj2);
 }
 
 #endif //_SYSTEM_OBJECT_

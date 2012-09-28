@@ -22,54 +22,42 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		//
-		class Texture2D : public Texture, virtual Object
+		// 
+		class Texture2D : public Texture
 		{
 		private:
-			GraphicsDevice* device;
  			bool _isDisposed; // True when the texture has been disposed 
  			int _numberOfLevels; // The number of mip levels for the texture 
- 			TextureUsage_t _textureUsage; 
  			SurfaceFormat_t _surfaceFormat; // The colour format of the texture 
  			int textureId; // The reference ID of the texture in OpenGL memory 
- 			int imageId;
+			uint* textureData;
  				
  			void Load(byte buffer[]);
-			Texture2D(GraphicsDevice* graphicsDevice);
  			
  		protected:
  			void Dispose(bool disposing);
  			
  		public:
+			Rectangle getBounds() const;
  			SurfaceFormat_t Format() const;
  			const int Height;
- 			TextureUsage_t TextureUsage() const;
  			const int Width;
  			
- 			Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height);
- 			Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height, const int numberLevels, const TextureUsage_t usage, const SurfaceFormat_t format);
-			Texture2D(const Texture2D &obj); // Copy constructor
- 				
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const TextureCreationParameters& creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const int numberBytes);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, Stream* textureStream, const int numberBytes, const TextureCreationParameters& creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename, const TextureCreationParameters& creationParameters);
- 			static Texture2D FromFile(GraphicsDevice* graphicsDevice, const char* filename, const int width, const int height);
+			Texture2D();
+ 			Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height);
+			Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height, bool mipmap, const SurfaceFormat_t format);
+			virtual ~Texture2D();
 
- 			template <class T>
- 			void GetData(T data[]) const;
-			template <class T>
- 			void GetData(T data[], int startIndex, int elementCount) const;
-			template <class T>
- 			void GetData(int level, Rectangle rect, T data[], int startIndex, int elementCount) const;
-			template <class T>
- 			void SetData(T data[]);
-			template <class T>
- 			void SetData(T data[], int startIndex, int elementCount, SetDataOptions_t options);
-			template <class T>
- 			void SetData(int level, Rectangle rect, T data[], int startIndex, int elementCount, SetDataOptions_t options);
+			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream);
+			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream, int width, int height, bool zoom);
+ 			void GetData(uint data[], const int startIndex, const int elementCount) const;
+			int GetType() const;
+			void SaveAsJpeg(Stream * const stream, int width, int height);
+			void SaveAsPng(Stream * const stream, int width, int height);
+ 			void SetData(uint data[], const int startIndex, const int elementCount, const SetDataOptions_t options);
+
+			bool operator ==(const Texture2D& right) const;
+			bool operator !=(const Texture2D& right) const;
 		};
 	}
 }

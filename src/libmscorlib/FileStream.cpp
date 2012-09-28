@@ -55,13 +55,13 @@ namespace System
 			return _access == FileAccess::Write || _access == FileAccess::ReadWrite;
 		}
 
-		Int64 FileStream::Length()
+		long long FileStream::Length()
 		{
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
 			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
-			UInt32 length;
+			uint length;
 			if(XGetFileSize(handle, &length) != STATUS_SUCCESS)
 			{
 				//printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Could not determine file size. The file may be corrupt.");
@@ -75,7 +75,7 @@ namespace System
 			return length;
 		}
 
-		Int64 FileStream::getPosition()
+		long long FileStream::getPosition()
 		{
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
@@ -84,7 +84,7 @@ namespace System
 			return (_pos + ((_readPos - _readLen) + _writePos));
 		}
 
-		void FileStream::setPosition(Int64 newPosition)
+		void FileStream::setPosition(long long newPosition)
 		{
 			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
@@ -102,45 +102,45 @@ namespace System
 			handle = -1;
 		}
 
-		FileStream::FileStream(const char* path, const FileMode_t mode)
+		FileStream::FileStream(const String& path, const FileMode_t mode)
 		{
 			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = (mode == FileMode::Append ? FileAccess::Write : FileAccess::ReadWrite);
 
-			XCreateFile(&handle, const_cast<char *>(path), _access, FileShare::Read, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path.ToString()), _access, FileShare::Read, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access)
+		FileStream::FileStream(const String& path, const FileMode_t mode, const FileAccess_t access)
 		{
 			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = access;
 
-			XCreateFile(&handle, const_cast<char *>(path), access, FILE_SHARE_READ | FILE_SHARE_WRITE, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path.ToString()), access, FILE_SHARE_READ | FILE_SHARE_WRITE, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share)
+		FileStream::FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share)
 		{
 			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
 			_access = access;
 
-			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path.ToString()), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize)
+		FileStream::FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize)
 		{
 			sassert (bufferSize > 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "bufferSize"), FrameworkResources::ArgumentOutOfRange_NeedPosNum));
 
-			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path.ToString()), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
-		FileStream::FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync)
+		FileStream::FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync)
 		{
 			sassert (bufferSize > 0, String::Format("%s; %s", String::Format(FrameworkResources::Arg_ParamName_Name, "bufferSize"), FrameworkResources::ArgumentOutOfRange_NeedPosNum));
 
-			XCreateFile(&handle, const_cast<char *>(path), access, share, mode, FILE_ATTRIBUTE_NORMAL);
+			XCreateFile(&handle, const_cast<char *>(path.ToString()), access, share, mode, FILE_ATTRIBUTE_NORMAL);
 		}
 
 		FileStream::~FileStream()
@@ -187,7 +187,7 @@ namespace System
 		{
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			sassert(array != null, "array cannot be null.");
+			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
 			sassert(CanRead(), FrameworkResources::NotSupported_UnreadableStream);
 
@@ -201,7 +201,7 @@ namespace System
 
 			sassert(!(offset > (len - count)), "Reading would overrun buffer.");
 
-			UInt32 bytesRead;
+			uint bytesRead;
 			XReadFile(handle, &array[offset], count, &bytesRead);
 			return bytesRead;
 		}
@@ -209,7 +209,7 @@ namespace System
 		int FileStream::ReadByte()
 		{
 			byte data;
-			UInt32 bytesRead;
+			uint bytesRead;
 			XReadFile(handle, &data, 1, &bytesRead);
 
 			if(bytesRead != 1)
@@ -218,15 +218,15 @@ namespace System
 			return data;
 		}
 
-		Int64 FileStream::Seek(const Int64 offset, const SeekOrigin_t origin)
+		long long FileStream::Seek(const long long offset, const SeekOrigin_t origin)
 		{
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			FILE_POSITION_INFORMATION positionInfo;
-			LARGE_INTEGER             targetPointer;
-			IO_STATUS_BLOCK           ioStatusBlock;
-			NTSTATUS                  status;
-			UInt32                    filesize;
+			FILE_POSITION_INFORMATION	positionInfo;
+			LARGE_INTEGER				targetPointer;
+			IO_STATUS_BLOCK				ioStatusBlock;
+			NTSTATUS					status;
+			uint						filesize;
 						
 			// Calculate the target pointer
 			switch (origin)
@@ -262,7 +262,7 @@ namespace System
 			}
 		}
 
-		void FileStream::SetLength(const Int64 value)
+		void FileStream::SetLength(const long long value)
 		{
 			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
@@ -270,13 +270,10 @@ namespace System
 
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			/*if(value < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "value is less than 0");
-#endif
+			sassert(value >= 0, String::Format("value; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			if (!canSeek || !CanWrite() || (handle == -1) || value < 0)
 				return;
-			}*/
 
 			Flush();
 
@@ -295,7 +292,7 @@ namespace System
 		{
 			sassert(handle != -1, FrameworkResources::ObjectDisposed_FileClosed);
 
-			XWriteFile(handle, (void*)value, 1, null);
+			XWriteFile(handle, &value, 1, null);
 		}
 	}
 }

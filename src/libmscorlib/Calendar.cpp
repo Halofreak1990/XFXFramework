@@ -45,5 +45,31 @@ namespace System
 			result.AddHours((double)hours);
 			return result;
 		}
+
+		DateTime Calendar::AddMilliseconds(DateTime time, double milliseconds)
+		{
+			DateTime result(time);
+			result.AddMilliseconds(milliseconds);
+			return result;
+		}
+
+		DateTime Calendar::AddMinutes(DateTime time, int minutes)
+		{
+			DateTime result(time);
+			result.AddMinutes(minutes);
+			return result;
+		}
+
+		DateTime Calendar::AddMonths(DateTime time, int months)
+		{
+			DateTime result(time);
+			result.AddMonths(months);
+			return result;
+		}
+
+		int Calendar::GetType() const
+		{
+			//! TODO: implement
+		}
 	}
 }

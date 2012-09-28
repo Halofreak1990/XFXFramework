@@ -14,48 +14,33 @@ using namespace System;
 
 namespace XFX
 {
+	struct Rectangle;
+
 	namespace Graphics
 	{
 		// Contains presentation parameters.
-		class PresentationParameters : public IDisposable, virtual Object
+		class PresentationParameters : public Object
 		{
-		private:
-     		bool disposed; 
-		
-		protected:
-			virtual void Dispose(bool disposing);
-			
 		public:
-			DepthFormat_t AutoDepthStencilFormat;
-			int BackBufferCount;
 			SurfaceFormat_t BackBufferFormat;
 			int BackBufferHeight;
 			int BackBufferWidth;
-			static const int DefaultPresentRate;
-			
-#if !ENABLE_XBOX //Only valid on Linux
-			IntPtr DeviceWindowHandle;
-#endif
-
-			bool EnableAutoDepthStencil;
-			int FullScreenRefreshRateInHz;
+			Rectangle getBounds() const;
+			DepthFormat_t DepthStencilFormat;
 			bool IsFullScreen;
-			int MultiSampleQuality; 
-     		MultiSampleType_t MultiSampleType_; 
+     		int MultiSampleCount;
 			PresentInterval_t PresentationInterval;
-			PresentOptions_t PresentOptions_;
-			SwapEffect_t SwapEffect_;
+			RenderTargetUsage_t RenderTargetUsage;
 
-			virtual ~PresentationParameters();
 			PresentationParameters();
-			
-			void Clear();
-			PresentationParameters Clone() const;
-			void Dispose();
+
+			PresentationParameters* Clone() const;
+			bool Equals(const Object* obj) const;
 			bool Equals(const PresentationParameters other) const;
+			int GetType() const;
 			
-			bool operator!=(const PresentationParameters other) const;
-			bool operator==(const PresentationParameters other) const;
+			bool operator!=(const PresentationParameters& other) const;
+			bool operator==(const PresentationParameters& other) const;
 		};
 	}
 }

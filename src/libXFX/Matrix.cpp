@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Math.h>
+#include <System/String.h>
 #include <MathHelper.h>
 #include <Matrix.h>
 #include <Plane.h>
@@ -41,63 +42,27 @@ namespace XFX
 	const Matrix Matrix::Identity = Matrix(1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f);
 	
 	Matrix::Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+		: M11(m11), M12(m12), M13(m13), M14(m14),
+		  M21(m21), M22(m22), M23(m23), M24(m24),
+		  M31(m31), M32(m32), M33(m33), M34(m34),
+		  M41(m41), M42(m42), M43(m43), M44(m44)
 	{
-		M11 = m11;
-		M12 = m12;
-		M13 = m13;
-		M14 = m14;
-		M21 = m21;
-		M22 = m22;
-		M23 = m23;
-		M24 = m24;
-		M31 = m31;
-		M32 = m32;
-		M33 = m33;
-		M34 = m34;
-		M41 = m41;
-		M42 = m42;
-		M43 = m43;
-		M44 = m44;
 	}
 	
 	Matrix::Matrix(const Matrix &obj)
+		: M11(obj.M11), M12(obj.M12), M13(obj.M13), M14(obj.M14),
+		  M21(obj.M21), M22(obj.M22), M23(obj.M23), M24(obj.M24),
+		  M31(obj.M31), M32(obj.M32), M33(obj.M33), M34(obj.M34),
+		  M41(obj.M41), M42(obj.M42), M43(obj.M43), M44(obj.M44)
 	{
-		M11 = obj.M11;
-		M12 = obj.M12;
-		M13 = obj.M13;
-		M14 = obj.M14;
-		M21 = obj.M21;
-		M22 = obj.M22;
-		M23 = obj.M23;
-		M24 = obj.M24;
-		M31 = obj.M31;
-		M32 = obj.M32;
-		M33 = obj.M33;
-		M34 = obj.M34;
-		M41 = obj.M41;
-		M42 = obj.M42;
-		M43 = obj.M43;
-		M44 = obj.M44;
 	}
 	
 	Matrix::Matrix()
+		: M11(0), M12(0), M13(0), M14(0),
+		  M21(0), M22(0), M23(0), M24(0),
+		  M31(0), M32(0), M33(0), M34(0),
+		  M41(0), M42(0), M43(0), M44(0)
 	{
-		M11 = 0;
-		M12 = 0;
-		M13 = 0;
-		M14 = 0;
-		M21 = 0;
-		M22 = 0;
-		M23 = 0;
-		M24 = 0;
-		M31 = 0;
-		M32 = 0;
-		M33 = 0;
-		M34 = 0;
-		M41 = 0;
-		M42 = 0;
-		M43 = 0;
-		M44 = 0;
 	}
 	
 	Vector3 Matrix::Backward()
@@ -985,18 +950,25 @@ namespace XFX
 	    return result;
     }
     
+	bool Matrix::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? this->Equals((*(Matrix*)obj)) : false;
+	}
+
     bool Matrix::Equals(const Matrix other) const
     { 
-    	return ((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
-				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
-				(M31 == other.M31) & (M32 == other.M32) & (M33 == other.M33) & (M34 == other.M34) &
-				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
+    	return (*this == other);
     } 
 
 	int Matrix::GetHashCode() const
 	{
 		return ((int)M11 ^ (int)M12 ^ (int)M13 ^ (int)M14 ^ (int)M21 ^ (int)M22 ^ (int)M23 ^ (int)M24 ^
 			(int)M31 ^ (int)M32 ^ (int)M33 ^ (int)M34 ^ (int)M41 ^ (int)M42 ^ (int)M43 ^ (int)M44);
+	}
+
+	int Matrix::GetType() const
+	{
+		// TODO: implement
 	}
     
     void Matrix::Invert(Matrix matrix, out Matrix result) 
@@ -1216,6 +1188,16 @@ namespace XFX
 		result.M44 = matrix1.M44 - matrix2.M44; 
 	}
 
+	const char* Matrix::ToString() const
+	{
+		return String::Format("{{{M11:%f M12:%f M13:%f M14:%f}}\
+								{{M21:%f M22:%f M23:%f M24:%f}}\
+								{{M31:%f M32:%f M33:%f M34:%f}}\
+								{{M41:%f M42:%f M43:%f M44:%f}}}",
+			M11, M12, M13, M14, M21, M22, M23, M24,
+			M31, M32, M33, M34, M41, M42, M43, M44);
+	}
+
 	Matrix Matrix::Transpose(Matrix matrix)
 	{
 		Matrix ret;
@@ -1258,14 +1240,20 @@ namespace XFX
 		return Divide(*this, divider);
 	}
 
-	bool Matrix::operator==(const Matrix other) const
+	bool Matrix::operator==(const Matrix& other) const
 	{
-		return Equals(other);
+		return ((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
+				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
+				(M31 == other.M31) & (M32 == other.M32) & (M33 == other.M33) & (M34 == other.M34) &
+				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
 	}
 	
-	bool Matrix::operator!=(const Matrix other) const
+	bool Matrix::operator!=(const Matrix& other) const
 	{
-		return !Equals(other);
+		return !((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
+				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
+				(M31 == other.M31) & (M32 == other.M32) & (M33 == other.M33) & (M34 == other.M34) &
+				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
 	}
 
 	Matrix Matrix::operator *(const Matrix other)

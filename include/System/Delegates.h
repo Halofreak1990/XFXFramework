@@ -17,7 +17,7 @@ namespace System
 	typedef void (*AsyncCallback)(IAsyncResult* ar);
 
 	// Represents the method that will handle an event that has no event data.
-	typedef void (*EventHandler)(Object* sender, EventArgs e);
+	//typedef void (*EventHandler)(Object* sender, EventArgs e);
 }
 
 #endif

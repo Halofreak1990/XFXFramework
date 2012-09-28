@@ -26,7 +26,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Color.h>
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
 #include <System/FrameworkResources.h>
 #include <System/String.h>
@@ -38,6 +37,8 @@
 
 extern "C" {
 #include "pbKit.h"
+#include <openxdk/debug.h>
+#include <hal/xbox.h>
 }
 
 #include <sassert.h>
@@ -49,45 +50,38 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		DepthStencilBuffer GraphicsDevice::getDepthStencilBuffer()
-		{
-			return _depthStencilBuffer;
-		}
-
-		void GraphicsDevice::setDepthStencilBuffer(DepthStencilBuffer buffer)
-		{
-			_depthStencilBuffer = buffer;
-		}
-
-		PresentationParameters* GraphicsDevice::getPresentationParameters()
+		PresentationParameters* GraphicsDevice::getPresentationParameters() const
 		{
 			return p_cachedParameters;
 		}
 
 		void GraphicsDevice::setPresentationParameters(PresentationParameters* presentationParameters)
 		{
-			DWORD* p = pb_begin();
-
 			viewport.X = 0;
 			viewport.Y = 0;
 			viewport.Width = presentationParameters->BackBufferWidth;
 			viewport.Height = presentationParameters->BackBufferHeight;
 
-			if (presentationParameters->BackBufferFormat == SurfaceFormat::Color ||
-				presentationParameters->BackBufferFormat == SurfaceFormat::Bgr32 ||
-				presentationParameters->BackBufferFormat == SurfaceFormat::Rgba32)
-			{
-				
-			}
+			DWORD* p = pb_begin();
 
-			if (presentationParameters->EnableAutoDepthStencil)
+			if (presentationParameters->BackBufferFormat == SurfaceFormat::Color)
 			{
-				if (presentationParameters->AutoDepthStencilFormat == DepthFormat::Depth16)
-					;
+				// TODO: find command *RED_SIZE
+				//pb_push1(p, 0, 0);
+				// TODO: find command *GREEN_SIZE
+				//pb_push1(p, 0, 0);
+				// TODO: find command *BLUE_SIZE
+				//pb_push1(p, 0, 0);
+				//  TODO: find command *ALPHA_SIZE
+				//pb_push1(p, 0, 0);
 			}
+			
+			pb_end(p);
+
+			pb_set_viewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth);
 		}
 
-		TextureCollection GraphicsDevice::getTextures()
+		TextureCollection GraphicsDevice::getTextures() const
 		{
 			return textures;
 		}
@@ -106,33 +100,52 @@ namespace XFX
 			}
 		}
 
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter* adapter, const DeviceType_t deviceType, PresentationParameters* presentationParameters)
+		GraphicsDevice::GraphicsDevice(GraphicsAdapter * const  adapter, PresentationParameters * const presentationParameters)
 		{
 			//sassert(adapter != null, String::Format("adapter; %s", FrameworkResources::ArgumentNull_Generic));
 
-			//sassert(presentationParameters != null, String::Format("presentationParameters; %s", FrameworkResources::ArgumentNull_Generic));
+			sassert(presentationParameters != null, String::Format("presentationParameters; %s", FrameworkResources::ArgumentNull_Generic));
 
-			//graphicsDeviceCapabilities = adapter->
+			//this->_adapter = adapter;
 
-			//_adapter = adapter;
+			int err = pb_init();
 
-			sassert(deviceType == DeviceType::Hardware, "Only DeviceType::Hardware is supported.");
+			switch (err)
+			{
+			case 0: break; //no error
+			case -4:		
+				debugPrint("IRQ3 already handled. Can't install GPU interrupt.\n");
+				debugPrint("You must apply the patch and compile OpenXDK again.\n");
+				debugPrint("Also be sure to call pb_init() before any other call.\n");
+				XSleep(2000);
+				return;
+			case -5:		
+				debugPrint("Unexpected PLL configuration. Report this issue please.\n");
+				XSleep(2000);
+				return;
+			default:
+				debugPrint("pb_init Error %d\n", err);
+				XSleep(2000);
+				return;
+			}
 
-			_deviceType = deviceType;
-			clearColor = Color::Black;
+			this->setPresentationParameters(presentationParameters);
 
-			pb_init();
+			pb_reset();
 		}
 		
 		GraphicsDevice::~GraphicsDevice()
 		{
 			Dispose(false);
 			delete _adapter;
-			delete presentationParameters;
+			delete p_cachedParameters;
 		}
 		
-		void GraphicsDevice::Clear(Color color)
+		void GraphicsDevice::Clear(const Color color)
 		{
+			// start of frame-- reset push buffer
+			pb_reset();
+
 			DWORD		*p;
 			DWORD		format;
 			DWORD		depth;
@@ -142,26 +155,26 @@ namespace XFX
 			//Set the coordinates for the rectangle to be cleared
 			x1 = 0;
 			y1 = 0;
-			x2 = x1 + _depthStencilBuffer.Width();
-			y2 = y1 + _depthStencilBuffer.Height();
+			x2 = x1 + this->p_cachedParameters->BackBufferWidth;
+			y2 = y1 + this->p_cachedParameters->BackBufferHeight;
 			
-			switch(_depthStencilBuffer.Format())
+			switch(this->p_cachedParameters->DepthStencilFormat)
 			{
-				case DepthFormat::Depth24Stencil4: {format = 0x03; depth = 0xffffff0;}
-				case DepthFormat::Depth24Stencil8: {format = 0x03; depth = 0xffffff00;}
-				case DepthFormat::Depth32: {format = 0x03; depth = 0xffffffff;}
-				case DepthFormat::Unknown:
-				default: return;
+				// TODO: verify
+				case DepthFormat::Depth16: { format = 0x03; depth = 0xffff00; } break;
+				case DepthFormat::Depth24: { format = 0x03; depth = 0xffffff00; } break;
+				case DepthFormat::Depth24Stencil8: { format = 0x03; depth = 0xffffff00; } break;
+				case DepthFormat::None: break;
 			}
 			
-			p=pb_begin();
-			pb_push(p++,NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_HORIZ,2);		//sets rectangle coordinates
-			*(p++)=((x2-1)<<16)|x1;
-			*(p++)=((y2-1)<<16)|y1;
-			pb_push(p++,NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_DEPTH,3);		//sets data used to fill in rectangle
-			*(p++)=depth;				//depth to clear
-			*(p++)=color.PackedValue();	//color
-			*(p++)=format;				//triggers the HW rectangle fill (only on D&S)
+			p = pb_begin();
+			pb_push(p++, NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_HORIZ, 2);		//sets rectangle coordinates
+			*(p++) = ((x2-1) << 16) | x1;
+			*(p++) = ((y2-1) << 16) | y1;
+			pb_push(p++, NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_DEPTH, 3);		//sets data used to fill in rectangle
+			*(p++) = depth;					//depth to clear
+			*(p++) = color.PackedValue();	//color
+			*(p++) = format;				//triggers the HW rectangle fill (only on D&S)
 			pb_end(p);
 
 			/*if(color != clearColor)
@@ -175,35 +188,40 @@ namespace XFX
 
 		void GraphicsDevice::Clear(const ClearOptions_t options, const Color color, const float depth, const int stencil)
 		{
+			// start of frame-- reset push buffer
+			pb_reset();
+
 			DWORD		*p;
 			DWORD		format;
-			DWORD		_depth;
 			
 			int		x1,y1,x2,y2;
 			
 			//Set the coordinates for the rectangle to be cleared
 			x1 = 0;
 			y1 = 0;
-			x2 = x1 + _depthStencilBuffer.Width();
-			y2 = y1 + _depthStencilBuffer.Height();
+			x2 = x1 + this->p_cachedParameters->BackBufferWidth;
+			y2 = y1 + this->p_cachedParameters->BackBufferHeight;
 
-			p=pb_begin();
-			pb_push(p++,NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_HORIZ,2);		//sets rectangle coordinates
-			*(p++)=((x2-1)<<16)|x1;
-			*(p++)=((y2-1)<<16)|y1;
+			p = pb_begin();
+			pb_push(p++, NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_HORIZ, 2);		//sets rectangle coordinates
+			*(p++)= ((x2 - 1) << 16) | x1;
+			*(p++)= ((y2 - 1) << 16) | y1;
 
 			if ((options & ClearOptions::Depth) != 0)
 			{
-				
+				// clear the depth buffer
 			}
 			if ((options & ClearOptions::Stencil) != 0)
 			{
-
+				// clear the stencil buffer
 			}
 			if ((options & ClearOptions::Target) != 0)
 			{
-
+				// clear the current render target
 			}
+
+			*(p++) = color.PackedValue();
+			*(p++) = format;
 
 			pb_end(p);
 		}
@@ -222,6 +240,8 @@ namespace XFX
 		{
 			if (!isDisposed)
 			{
+				pb_kill();
+
 				if(disposing)
 				{
 					textures.Dispose();
@@ -231,36 +251,33 @@ namespace XFX
 			}
 		}
 
+		int GraphicsDevice::GetType() const
+		{
+		}
+
 		void GraphicsDevice::Present()
 		{
 			while(pb_finished());
-
-			// reset the push buffer
-			pb_reset();
 		}
 
-		void GraphicsDevice::raise_DeviceLost(Object* sender, EventArgs e)
+		void GraphicsDevice::raise_DeviceLost(Object* sender, EventArgs* e)
 		{
-			if (DeviceLost)
-				DeviceLost(sender, e);
+			DeviceLost(sender, e);
 		}
 
-		void GraphicsDevice::raise_DeviceReset(Object* sender, EventArgs e)
+		void GraphicsDevice::raise_DeviceReset(Object* sender, EventArgs* e)
 		{
-			if (DeviceReset)
-				DeviceReset(sender, e);
+			DeviceReset(sender, e);
 		}
 
-		void GraphicsDevice::raise_DeviceResetting(Object* sender, EventArgs e)
+		void GraphicsDevice::raise_DeviceResetting(Object* sender, EventArgs* e)
 		{
-			if (DeviceResetting)
-				DeviceResetting(sender, e);
+			DeviceResetting(sender, e);
 		}
 
-		void GraphicsDevice::raise_Disposing(Object* sender, EventArgs e)
+		void GraphicsDevice::raise_Disposing(Object* sender, EventArgs* e)
 		{
-			if (Disposing)
-				Disposing(sender, e);
+			Disposing(sender, e);
 		}
 
 		void GraphicsDevice::Reset()
@@ -270,12 +287,12 @@ namespace XFX
 
 		void GraphicsDevice::Reset(PresentationParameters* presentationParameters)
 		{
-			raise_DeviceResetting(this, EventArgs::Empty);
+			raise_DeviceResetting(this, const_cast<EventArgs*>(EventArgs::Empty));
 			setPresentationParameters(presentationParameters);
-			raise_DeviceReset(this, EventArgs::Empty);
+			raise_DeviceReset(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 
-		void GraphicsDevice::SetRenderTarget(RenderTarget2D* renderTarget)
+		void GraphicsDevice::SetRenderTarget(RenderTarget2D * const renderTarget)
 		{
 			if (renderTarget == null) // the user wants to reset the render target to the normal back buffer
 			{

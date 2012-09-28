@@ -12,30 +12,30 @@
 namespace System
 {
 	// Represents a time interval.
-	struct TimeSpan : public IComparable<TimeSpan>, public IEquatable<TimeSpan>, virtual Object
+	struct TimeSpan : IComparable<TimeSpan>, IEquatable<TimeSpan>, Object
 	{
 	private:
-		Int64 _ticks;
+		long long _ticks;
 
-		static bool CalculateTicks(int days, int hours, int minutes, int seconds, int milliseconds, bool throwExc, out Int64 result);
+		static bool CalculateTicks(int days, int hours, int minutes, int seconds, int milliseconds, bool throwExc, out long long result);
 		static TimeSpan Interval(double value, int scale);
 			
 	public:
 		static const TimeSpan MaxValue;
 		static const TimeSpan MinValue;
 		static const TimeSpan Zero;
-		static const Int64 TicksPerMillisecond;
-		static const Int64 TicksPerSecond;
-		static const Int64 TicksPerMinute;
-		static const Int64 TicksPerHour;
-		static const Int64 TicksPerDay;
+		static const long long TicksPerMillisecond;
+		static const long long TicksPerSecond;
+		static const long long TicksPerMinute;
+		static const long long TicksPerHour;
+		static const long long TicksPerDay;
 		
 		int Days() const;
 		int Hours() const;
 		int Milliseconds() const;
 		int Minutes() const;
 		int Seconds() const;
-		Int64 Ticks() const;
+		long long Ticks() const;
 		double TotalDays() const;
 		double TotalHours() const;
 		double TotalMilliseconds() const;
@@ -46,7 +46,7 @@ namespace System
 		TimeSpan(int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds);
 		TimeSpan(int days, int hours, int minutes, int seconds, int milliseconds);
-		TimeSpan(Int64 ticks);
+		TimeSpan(long long ticks);
 		TimeSpan(const TimeSpan &obj);
 
 		TimeSpan Add(const TimeSpan ts);
@@ -59,10 +59,11 @@ namespace System
 		static TimeSpan FromMilliseconds(double value);
 		static TimeSpan FromMinutes(double value);
 		static TimeSpan FromSeconds(double value);
-		static TimeSpan FromTicks(Int64 value);
+		static TimeSpan FromTicks(long long value);
 		int GetHashCode() const;
+		int GetType() const;
 		TimeSpan Negate();
-		TimeSpan Parse(char* s); //! TODO
+		TimeSpan Parse(const String& s); //! TODO
 		TimeSpan Subtract(const TimeSpan ts);
 		const char* ToString() const; //! TODO
 

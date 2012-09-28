@@ -16,9 +16,7 @@ namespace XFX
 {
 	namespace Input
 	{
-		/// <summary>
-		/// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
-		/// </summary>
+		// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
 		struct MouseState
 		{
 			ButtonState_t LeftButton;
@@ -33,13 +31,12 @@ namespace XFX
 			bool operator==(const MouseState other);
 		};
 		
-		/// <summary>
-		/// Allows retrieval of position and button clicks from a mouse input device.
-		/// </summary>
+		// Allows retrieval of position and button clicks from a mouse input device.
 		class Mouse
 		{
 		private:
 			Mouse(); //Private constructor to prevent instantiation.
+
 		public:
 			static MouseState GetState();
 			static void SetPosition(int x, int y);

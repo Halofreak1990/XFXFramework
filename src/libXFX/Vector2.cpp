@@ -30,7 +30,7 @@
 #include <Quaternion.h>
 #include <Vector2.h>
 #include <Vector4.h>
-#include <System/Array.h>
+#include <System/FrameworkResources.h>
 #include <System/Math.h>
 #include <System/String.h>
 
@@ -40,8 +40,8 @@ using namespace System;
 
 namespace XFX
 {	
-	const Vector2 Vector2::One = Vector2(1,1);
-	const Vector2 Vector2::Zero = Vector2(0,0);
+	const Vector2 Vector2::One = Vector2(1, 1);
+	const Vector2 Vector2::Zero = Vector2(0, 0);
 
 	Vector2::Vector2(const float x, const float y)
 	{
@@ -67,106 +67,116 @@ namespace XFX
 		Y = 0;
 	}
 
-	Vector2 Vector2::Add(Vector2 value1, Vector2 value2)
+	Vector2 Vector2::Add(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2(value1.X + value2.X, value1.Y + value2.Y);
 	}
 
-	void Vector2::Add(Vector2 value1, Vector2 value2, Vector2 result)
+	void Vector2::Add(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = value1.X + value2.X;
 		result.Y = value1.Y + value2.Y;
 	}
 
-	Vector2 Vector2::Baricentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2)
+	Vector2 Vector2::Baricentric(const Vector2 value1, const Vector2 value2, const Vector2 value3, const float amount1, const float amount2)
 	{
 		return Vector2(MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2),
 			MathHelper::Baricentric(value1.Y, value2.Y, value3.Y, amount1, amount2));
 	}
 
-	void Vector2::Baricentric(Vector2 value1, Vector2 value2, Vector2 value3, float amount1, float amount2, out Vector2 result)
+	void Vector2::Baricentric(const Vector2& value1, const Vector2& value2, const Vector2& value3, const float amount1, const float amount2, out Vector2& result)
 	{
 		result.X = MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2);
 		result.Y = MathHelper::Baricentric(value1.Y, value2.Y, value3.Y, amount1, amount2);
 	}
 
-	Vector2 Vector2::CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount)
+	Vector2 Vector2::CatmullRom(const Vector2 value1, const Vector2 value2, const Vector2 value3, const Vector2 value4, const float amount)
 	{
 		return Vector2(MathHelper::CatmullRom(value1.X, value2.X, value3.X, value4.X, amount),
 			MathHelper::CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount));
 	}
 
-	void Vector2::CatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount, out Vector2 result)
+	void Vector2::CatmullRom(const Vector2& value1, const Vector2& value2, const Vector2& value3, const Vector2& value4, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::CatmullRom(value1.X, value2.X, value3.X, value4.X, amount);
 		result.Y = MathHelper::CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount);
 	}
 
-	Vector2 Vector2::Clamp(Vector2 value, Vector2 min, Vector2 max)
+	Vector2 Vector2::Clamp(const Vector2 value, const Vector2 min, const Vector2 max)
 	{
 		return Vector2(MathHelper::Clamp(value.X, min.X, max.X), MathHelper::Clamp(value.Y, min.Y, max.Y));
 	}
 
-	void Vector2::Clamp(Vector2 value, Vector2 min, Vector2 max, out Vector2 result)
+	void Vector2::Clamp(const Vector2& value, const Vector2& min, const Vector2& max, out Vector2& result)
 	{
 		result.X = MathHelper::Clamp(value.X, min.X, max.X);
 		result.Y = MathHelper::Clamp(value.Y, min.Y, max.Y);
 	}
 	
-	float Vector2::Distance(Vector2 value1, Vector2 value2)
+	float Vector2::Distance(const Vector2 value1, const Vector2 value2)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
         return Math::Sqrt((x * x) + (y * y));
 	}
 	
-	void Vector2::Distance(Vector2 value1, Vector2 value2, out float result)
+	void Vector2::Distance(const Vector2& value1, const Vector2& value2, out float& result)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
         result = Math::Sqrt((x * x) + (y * y));
 	}
 	
-	float Vector2::DistanceSquared(Vector2 value1, Vector2 value2)
+	float Vector2::DistanceSquared(const Vector2 value1, const Vector2 value2)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
         return (x * x) + (y * y);
 	}
 	
-	void Vector2::DistanceSquared(Vector2 value1, Vector2 value2, out float result)
+	void Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2, out float& result)
 	{
 		float x = value1.X - value2.X; 
         float y = value1.Y - value2.Y;
         result = (x * x) + (y * y);
 	}
 	
-	float Vector2::Dot(Vector2 value1, Vector2 value2)
+	float Vector2::Dot(const Vector2 value1, const Vector2 value2)
 	{
 		return (value1.X * value2.X + value1.Y * value2.Y); 
 	}
 	
-	void Vector2::Dot(Vector2 value1, Vector2 value2, out float result)
+	void Vector2::Dot(const Vector2& value1, const Vector2& value2, out float& result)
 	{
 		result = (value1.X * value2.X + value1.Y * value2.Y);
 	}
 
+	bool Vector2::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? (*this == *(Vector2*)obj) : false;
+	}
+
 	bool Vector2::Equals(const Vector2 other) const
 	{
-		return ((X == other.X) & (Y == other.Y));
+		return (*this == other);
 	}
 	
 	int Vector2::GetHashCode() const
 	{
 		return (int)X ^ (int)Y;
 	}
-	
-	Vector2 Vector2::Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount)
+
+	int Vector2::GetType() const
 	{
-		return Vector2(MathHelper::Hermite(value1.X,tangent1.X,value2.X,tangent2.X,amount),MathHelper::Hermite(value1.Y,tangent1.Y,value2.Y,tangent2.Y,amount));
+		// TODO: implement
 	}
 	
-	void Vector2::Hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, Vector2 tangent2, float amount, out Vector2 result)
+	Vector2 Vector2::Hermite(const Vector2 value1, const Vector2 tangent1, const Vector2 value2, const Vector2 tangent2, const float amount)
+	{
+		return Vector2(MathHelper::Hermite(value1.X,tangent1.X,value2.X,tangent2.X,amount), MathHelper::Hermite(value1.Y,tangent1.Y,value2.Y,tangent2.Y,amount));
+	}
+	
+	void Vector2::Hermite(const Vector2& value1, const Vector2& tangent1, const Vector2& value2, const Vector2& tangent2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::Hermite(value1.X,tangent1.X,value2.X,tangent2.X,amount);
 		result.Y = MathHelper::Hermite(value1.Y,tangent1.Y,value2.Y,tangent2.Y,amount);
@@ -174,7 +184,7 @@ namespace XFX
 	
 	float Vector2::Length() const
 	{
-		return Math::Sqrt((X*X) + (Y*Y));
+		return Math::Sqrt((X * X) + (Y * Y));
 	}
 	
 	float Vector2::LengthSquared() const
@@ -182,67 +192,67 @@ namespace XFX
 		return (X * X) + (Y * Y);
 	}
 	
-	Vector2 Vector2::Lerp(Vector2 value1, Vector2 value2, float amount)
+	Vector2 Vector2::Lerp(const Vector2 value1, const Vector2 value2, const float amount)
 	{
 		return Vector2(MathHelper::Lerp(value1.X, value2.X, amount), MathHelper::Lerp(value1.Y, value2.Y, amount));
 	}
 	
-	void Vector2::Lerp(Vector2 value1, Vector2 value2, float amount, out Vector2 result)
+	void Vector2::Lerp(const Vector2& value1, const Vector2& value2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::Lerp(value1.X, value2.X, amount);
 		result.Y = MathHelper::Lerp(value1.Y, value2.Y, amount);
 	}
 	
-	Vector2 Vector2::Max(Vector2 value1, Vector2 value2)
+	Vector2 Vector2::Max(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2((value1.X > value2.X) ? value1.X : value2.X,(value1.Y > value2.Y) ? value1.Y : value2.Y);
 	}
 	
-	void Vector2::Max(Vector2 value1, Vector2 value2, out Vector2 result)
+	void Vector2::Max(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = (value1.X > value2.X) ? value1.X : value2.X;
 		result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
 	}
 	
-	Vector2 Vector2::Min(Vector2 value1, Vector2 value2)
+	Vector2 Vector2::Min(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2((value1.X < value2.X) ? value1.X : value2.X, (value1.Y < value2.Y) ? value1.Y : value2.Y);
 	}
 	
-	void Vector2::Min(Vector2 value1, Vector2 value2, out Vector2 result)
+	void Vector2::Min(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = (value1.X < value2.X) ? value1.X : value2.X;
 		result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
 	}
 
-	Vector2 Vector2::Multiply(Vector2 value, float scaleFactor)
+	Vector2 Vector2::Multiply(const Vector2 value, const float scaleFactor)
 	{
 		return Vector2(value.X * scaleFactor, value.Y * scaleFactor);
 	}
 
-	void Vector2::Multiply(Vector2 value, float scaleFactor, out Vector2 result)
+	void Vector2::Multiply(const Vector2& value, const float scaleFactor, out Vector2& result)
 	{
 		result.X = value.X * scaleFactor;
 		result.Y = value.Y * scaleFactor;
 	}
 
-	Vector2 Vector2::Multiply(Vector2 value1, Vector2 value2)
+	Vector2 Vector2::Multiply(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2(value1.X * value2.X, value1.Y * value2.Y);
 	}
 
-	void Vector2::Multiply(Vector2 value1, Vector2 value2, out Vector2 result)
+	void Vector2::Multiply(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = value1.X * value2.X;
 		result.Y = value1.Y * value2.Y;
 	}
 
-	Vector2 Vector2::Negate(Vector2 value)
+	Vector2 Vector2::Negate(const Vector2 value)
 	{
 		return Vector2(-value.X, -value.Y);
 	}
 
-	void Vector2::Negate(Vector2 value, out Vector2 result)
+	void Vector2::Negate(const Vector2& value, out Vector2& result)
 	{
 		result.X = -value.X;
 		result.Y = -value.Y;
@@ -258,57 +268,58 @@ namespace XFX
         Y *= num; 
 	}
 	
-	Vector2 Vector2::Normalize(Vector2 value)
+	Vector2 Vector2::Normalize(const Vector2 value)
 	{
-		float length = value.Length(); 
-    	if(length == 0) 
-        	return Vector2::Zero; 
-        float num = 1 / length;
-        return Vector2((value.X *= num), (value.Y *= num));
+		Vector2 result;
+		Normalize(value, result);
+        return result;
 	}
 	
-	void Vector2::Normalize(Vector2 value, out Vector2 result)
+	void Vector2::Normalize(const Vector2& value, out Vector2& result)
 	{
 		float length = value.Length(); 
-    	if(length == 0) 
+    	if (length == 0) 
         	return; 
         float num = 1 / length;
-        result.X *= num;
-        result.Y *= num;
+        result.X = value.X * num;
+        result.Y = value.Y * num;
 	}
 	
-	Vector2 Vector2::Reflect(Vector2 vector, Vector2 normal)
+	Vector2 Vector2::Reflect(const Vector2 vector, const Vector2 normal)
 	{
-		float dp = Dot(vector, normal);	
-		return Vector2(vector.X - normal.X * dp, vector.Y - normal.Y * dp);
+		Vector2 result;
+		Reflect(vector, normal, result);
+		return result;
 	}
 	
-	void Vector2::Reflect(Vector2 vector, Vector2 normal, out Vector2 result)
+	void Vector2::Reflect(const Vector2& vector, const Vector2& normal, out Vector2& result)
 	{
 		float dp = Dot(vector, normal);
 		result.X = vector.X - normal.X * dp;
 		result.Y = vector.Y - normal.Y * dp;
 	}
 	
-	Vector2 Vector2::SmoothStep(Vector2 value1, Vector2 value2, float amount)
+	Vector2 Vector2::SmoothStep(const Vector2 value1, const Vector2 value2, const float amount)
 	{
-		return Vector2(
-			MathHelper::SmoothStep(value1.X, value2.X, amount),
-			MathHelper::SmoothStep(value1.Y, value2.Y, amount));
+		Vector2 result;
+		SmoothStep(value1, value2, amount, result);
+		return result;
 	}
 	
-	void Vector2::SmoothStep(Vector2 value1, Vector2 value2, float amount, out Vector2 result)
+	void Vector2::SmoothStep(const Vector2& value1, const Vector2& value2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::SmoothStep(value1.X, value2.X, amount);
 		result.Y = MathHelper::SmoothStep(value1.Y, value2.Y, amount);
 	}
 
-	Vector2 Vector2::Subtract(Vector2 value1, Vector2 value2)
+	Vector2 Vector2::Subtract(const Vector2 value1, const Vector2 value2)
 	{
-		return Vector2(value1.X - value2.X, value1.Y - value2.Y);
+		Vector2 result;
+		Subtract(value1, value2, result);
+		return result;
 	}
 	
-	void Vector2::Subtract(Vector2 value1, Vector2 value2, out Vector2 result)
+	void Vector2::Subtract(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = value1.X - value2.X;
 		result.Y = value1.Y - value2.Y;
@@ -319,14 +330,14 @@ namespace XFX
 		return String::Format("{{X:%f Y:%f}}", X, Y);
 	}
 	
-	Vector2 Vector2::Transform(Vector2 position, Matrix matrix)
+	Vector2 Vector2::Transform(const Vector2 position, const Matrix matrix)
 	{
 		Vector2 result; 
 		Transform(position, matrix, result);
 		return result; 
 	}
 	
-	void Vector2::Transform(Vector2 position, Matrix matrix, out Vector2 result)
+	void Vector2::Transform(const Vector2& position, const Matrix& matrix, out Vector2& result)
 	{
 		Vector4 vector; 
   
@@ -339,14 +350,14 @@ namespace XFX
         result.Y = vector.Y * vector.W;
 	}
 	
-	Vector2 Vector2::Transform(Vector2 position, Quaternion rotation)
+	Vector2 Vector2::Transform(const Vector2 position, const Quaternion rotation)
 	{
 		Vector2 result;
 		Transform(position, rotation, result);
 		return result;
 	}
 	
-	void Vector2::Transform(const Vector2 position, const Quaternion rotation, out Vector2 result)
+	void Vector2::Transform(const Vector2& position, const Quaternion& rotation, out Vector2& result)
 	{
 		Quaternion quat = Quaternion(position.X, position.Y, 0, 0), i, t;
 		Quaternion::Inverse(rotation, i);
@@ -357,7 +368,7 @@ namespace XFX
 		result.Y = quat.Y;
 	}
 	
-	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Matrix matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
+	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Matrix& matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, "sourceArray cannot be null.");
 
@@ -369,7 +380,7 @@ namespace XFX
 		}
 	}
 	
-	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Quaternion rotation, Vector2 destinationArray[], const int destinationIndex, const int length)
+	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Quaternion& rotation, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -390,13 +401,13 @@ namespace XFX
         return result;  
 	}
 	
-	void Vector2::TransformNormal(Vector2 normal, Matrix matrix, out Vector2 result)
+	void Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix, out Vector2& result)
 	{
 		result.X = (normal.X * matrix.M11) + (normal.Y * matrix.M21); 
         result.Y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
 	}
 	
-	void Vector2::TransformNormal(const Vector2 sourceArray[], const int sourceIndex, const Matrix matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
+	void Vector2::TransformNormal(const Vector2 sourceArray[], const int sourceIndex, const Matrix& matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -408,62 +419,53 @@ namespace XFX
 		}
 	}
 
-	Vector2 Vector2::operator+(const Vector2 other)
+	Vector2 Vector2::operator+(const Vector2& other) const
 	{
-    	X += other.X;
-    	Y += other.Y;
-    	return *this;
+		return Vector2(X + other.X, Y + other.Y);
 	}
 	
-	Vector2 Vector2::operator/(float divider)
+	Vector2 Vector2::operator/(const float divider) const
 	{
-		X /= divider;
-		Y /= divider;
-		return *this;
+		return Vector2(X / divider, Y / divider);
 	}
 	
-	Vector2 Vector2::operator/(const Vector2 other)
+	Vector2 Vector2::operator/(const Vector2& other) const
 	{
-		X /= other.X;
-		Y /= other.Y;
-		return *this;
+		return Vector2(X / other.X, Y / other.Y);
 	}
 	
-	bool Vector2::operator==(const Vector2 other) const
+	bool Vector2::operator==(const Vector2& other) const
 	{
-		return Equals(other);
+		return ((X == other.X) && (Y == other.Y));
 	}
 
-	bool Vector2::operator!=(const Vector2 other) const
+	bool Vector2::operator!=(const Vector2& other) const
 	{
-		return !Equals(other);
+		return ((X != other.X) || (Y != other.Y));
 	}
 
-	Vector2 Vector2::operator*(const float scaleFactor)
+	Vector2 Vector2::operator*(const float scaleFactor) const
 	{
-		X *= scaleFactor;
-		Y *= scaleFactor;
-		return *this;
+		return Vector2(X * scaleFactor, Y * scaleFactor);
 	}
 	
-	Vector2 Vector2::operator*(const Vector2 other)
+	Vector2 Vector2::operator*(const Vector2& other) const
 	{
-		X *= other.X;
-		Y *= other.Y;
-		return *this;
+		return Vector2(X * other.X, Y * other.Y);
 	}
 
-	Vector2 Vector2::operator-(const Vector2 other)
+	Vector2 Vector2::operator-(const Vector2& other) const
 	{
-		X -= other.X;
-		Y -= other.Y;
-		return *this;
+		return Vector2(X - other.X, Y - other.Y);
 	}
 	
-	Vector2 Vector2::operator-()
+	Vector2 Vector2::operator-() const
 	{
-		X = -X;
-		Y = -Y;
-		return *this;
+		return Vector2(-X, -Y);
+	}
+
+	Vector2 operator *(const float scaleFactor, const Vector2& vector)
+	{
+		return Vector2(vector.X * scaleFactor, vector.Y * scaleFactor);
 	}
 }

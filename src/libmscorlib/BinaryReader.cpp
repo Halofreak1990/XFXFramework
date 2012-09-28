@@ -26,13 +26,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
-#include <System/Buffer.h>
 #include <System/FrameworkResources.h>
-#include <System/String.h>
 #include <System/IO/BinaryReader.h>
+#include <System/String.h>
 #include <System/IO/MemoryStream.h>
 
 #include <sassert.h>
+#include <string.h>
 
 namespace System
 {
@@ -223,7 +223,7 @@ namespace System
 			{
 				return -1;
 			}
-			Int64 position = m_stream->Position;
+			long long position = m_stream->Position;
 			int num2 = this->Read();
 			m_stream->Position = position;
 			return num2;
@@ -238,42 +238,19 @@ namespace System
 		{
 			if(!m_stream)
 			{
-				if (m_disposed)
-				{
-#if DEBUG
-					printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
-#endif
-					return -1;
-				}
+				sassert(!m_disposed, String::Format("BinaryReader; %s", "Cannot read from a closed BinaryReader."));
 
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Stream is invalid");
-#endif
+				sassert(false, "Stream is invalid.");
 			}
+
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
 			
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "buffer");
-#endif
+			sassert(index >= 0, String::Format("index; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			if (!m_stream || m_disposed || !buffer || index < 0 || count < 0)
 				return -1;
-			}
-			
-			if (index < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "index is less than 0");
-#endif
-				return -1;
-			}
-			
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "count is less than 0");
-#endif
-				return -1;
-			}
 
 			/*if (Array::Length(buffer) < index + count)
 			{
@@ -290,37 +267,16 @@ namespace System
 
 		int BinaryReader::Read(char buffer[], int index, int count)
 		{
-			if (m_disposed)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
-#endif
-				return -1;
-			}
+			sassert(!m_disposed, String::Format("BinaryReader; %s", "Cannot read from a closed BinaryReader."));
 
-			if (!buffer)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "buffer");
-#endif
-				return -1;
-			}
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
 			
-			if (index < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "index is less than 0");
-#endif
+			sassert(index >= 0, String::Format("index; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+			if (m_disposed || buffer == null || index < 0 || count < 0)
 				return -1;
-			}
-			
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "count is less than 0");
-#endif
-				return -1;
-			}
 			
 			//sassert(!((Array::Length(buffer) - index) < count), FrameworkResources::Argument_InvalidOffLen);
 
@@ -346,21 +302,12 @@ namespace System
 
 		byte* BinaryReader::ReadBytes(int count)
 		{
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return null;
-			}
+			sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 
-			if (!m_stream)
-			{
-#if DEBUG
-				printf("OBJECT_DISPOSED in function %s, at line %i in file %s, object %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "BinaryReader", "Cannot read from a closed BinaryReader.");
-#endif
+			sassert(m_stream != null, String::Format("BinaryReader; %s", "Cannot read from a closed BinaryReader."));
+
+			if (count < 0 || !m_stream)
 				return null;
-			}
 
 			byte* buffer = new byte[count];
 			int offset = 0;
@@ -402,7 +349,7 @@ namespace System
 			if (num != count)
 			{
 				char* dst = new char[num];
-				Buffer::BlockCopy(buffer, 0, dst, 0, num);
+				strncpy(dst, buffer, num);
 				buffer = dst;
 			}
 			return buffer;
@@ -436,12 +383,12 @@ namespace System
 			return (((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
 		}
 
-		Int64 BinaryReader::ReadInt64()
+		long long BinaryReader::ReadInt64()
 		{
 			FillBuffer(8);
 			uint num = (uint)(((m_buffer[0] | (m_buffer[1] << 8)) | (m_buffer[2] << 0x10)) | (m_buffer[3] << 0x18));
 			uint num2 = (uint)(((m_buffer[4] | (m_buffer[5] << 8)) | (m_buffer[6] << 0x10)) | (m_buffer[7] << 0x18));
-			return (Int64) (((Int64)num2 << 0x20) | num);
+			return (long long) (((long long)num2 << 0x20) | num);
 		}
 
 		sbyte BinaryReader::ReadSByte()

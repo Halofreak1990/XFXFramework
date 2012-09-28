@@ -29,36 +29,36 @@
 
 namespace XFX
 {
-	bool GameComponent::Enabled()
+	bool GameComponent::getEnabled() const
 	{
 		return _enabled;
 	}
 
-	void GameComponent::Enabled(bool value)
+	void GameComponent::setEnabled(const bool value)
 	{
 		if(_enabled != value)
 		{
 			_enabled = value;
-			OnEnabledChanged(this, EventArgs::Empty);
+			OnEnabledChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 	}
 
-	Game GameComponent::getGame()
+	Game* GameComponent::getGame() const
 	{
 		return _game;
 	}
 
-	int GameComponent::UpdateOrder()
+	int GameComponent::getUpdateOrder() const
 	{
 		return _updateOrder;
 	}
 
-	void GameComponent::UpdateOrder(int value)
+	void GameComponent::setUpdateOrder(const int value)
 	{
 		if(_updateOrder != value)
 		{
 			_updateOrder = value;
-			OnUpdateOrderChanged(this, EventArgs::Empty);
+			OnUpdateOrderChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 	}
 
@@ -72,12 +72,11 @@ namespace XFX
 		if (!_disposed)
             {
                 _disposed = true;
-                if (Disposed != null)
-					Disposed(this, EventArgs::Empty);
+				Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
             }
 	}
 
-	GameComponent::GameComponent(Game game)
+	GameComponent::GameComponent(Game * const game)
 	{
 		_game = game;
 		_enabled = true;
@@ -92,16 +91,14 @@ namespace XFX
 	{
 	}
 
-	void GameComponent::OnEnabledChanged(Object* sender, EventArgs args)
+	void GameComponent::OnEnabledChanged(Object* sender, EventArgs* args)
 	{
-		if (EnabledChanged != null)
-			EnabledChanged(sender, args);
+		EnabledChanged(sender, args);
 	}
 
-	void GameComponent::OnUpdateOrderChanged(Object* sender, EventArgs args)
+	void GameComponent::OnUpdateOrderChanged(Object* sender, EventArgs* args)
 	{
-		if (UpdateOrderChanged != null)
-			UpdateOrderChanged(sender, args);
+		UpdateOrderChanged(sender, args);
 	}
 
 	void GameComponent::Update(GameTime gameTime)

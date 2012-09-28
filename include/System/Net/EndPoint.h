@@ -13,7 +13,7 @@ namespace System
 		class SocketAddress;
 
 		// Identifies a network address. This is an abstract class.
-		class EndPoint : virtual Object
+		class EndPoint : public virtual Object
 		{
 		protected:
 			EndPoint();

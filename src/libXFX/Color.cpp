@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Math.h>
+#include <System/String.h>
 #include <Graphics/Color.h>
 #include <Vector3.h>
 #include <Vector4.h>
@@ -50,9 +51,9 @@ namespace XFX
 		const Color Color::Azure = Color(((uint)255 << 24) + ((uint)240 << 16) + ((uint)255 << 8) + 255);
 		const Color Color::Beige = Color(((uint)255 << 24) + ((uint)245 << 16) + ((uint)245 << 8) + 220);
 		const Color Color::Bisque = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)228 << 8) + 196);
-		const Color Color::Black = Color(((uint)255 << 24) + ((uint)0 << 16) + ((uint)0 << 8) + 0);
+		const Color Color::Black = Color(0xFF00000);
 		const Color Color::BlanchedAlmond = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)235 << 8) + 205); 
-		const Color Color::Blue = Color(((uint)255 << 24) + ((uint)0 << 16) + ((uint)0 << 8) + 255);
+		const Color Color::Blue = Color(0xFF0000FF);
 		const Color Color::BlueViolet = Color(((uint)255 << 24) + ((uint)138 << 16) + ((uint)43 << 8) + 226);
 		const Color Color::Brown = Color(((uint)255 << 24) + ((uint)165 << 16) + ((uint)42 << 8) + 42);
 		const Color Color::BurlyWood = Color(((uint)255 << 24) + ((uint)222 << 16) + ((uint)184 << 8) + 135);
@@ -60,7 +61,7 @@ namespace XFX
 		const Color Color::Chartreuse = Color(((uint)255 << 24) + ((uint)127 << 16) + ((uint)255 << 8) + 0);
 		const Color Color::Chocolate = Color(((uint)255 << 24) + ((uint)210 << 16) + ((uint)105 << 8) + 30);
 		const Color Color::Coral = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)127 << 8) + 80);
-		const Color Color::CornflowerBlue = Color(((uint)255 << 24) + ((uint)100 << 16) + ((uint)149 << 8) + 237);
+		const Color Color::CornflowerBlue = Color((255 << 24) | (100 << 16) | (149 << 8) | 237);
 		const Color Color::Cornsilk = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)248 << 8) + 220);
 		const Color Color::Crimson = Color(((uint)255 << 24) + ((uint)220 << 16) + ((uint)20 << 8) + 60);
 		const Color Color::Cyan = Color(((uint)255 << 24) + ((uint)0 << 16) + ((uint)255 << 8) + 255);
@@ -119,7 +120,7 @@ namespace XFX
 		const Color Color::LightSlateGray = Color(((uint)255 << 24) + ((uint)119 << 16) + ((uint)136 << 8) + 153);
 		const Color Color::LightSteelBlue = Color(((uint)255 << 24) + ((uint)176 << 16) + ((uint)196 << 8) + 222);
 		const Color Color::LightYellow = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)255 << 8) + 224);
-		const Color Color::Lime = Color(((uint)255 << 24) + ((uint)0 << 16) + ((uint)255 << 8) + 0);
+		const Color Color::Lime = Color(0xFF00FF00);
 		const Color Color::LimeGreen = Color(((uint)255 << 24) + ((uint)50 << 16) + ((uint)205 << 8) + 50);
 		const Color Color::Linen = Color(((uint)255 << 24) + ((uint)250 << 16) + ((uint)240 << 8) + 230);
 		const Color Color::Magenta = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)0 << 8) + 255);
@@ -156,7 +157,7 @@ namespace XFX
 		const Color Color::Plum = Color(((uint)255 << 24) + ((uint)221 << 16) + ((uint)160 << 8) + 221);
 		const Color Color::PowderBlue = Color(((uint)255 << 24) + ((uint)176 << 16) + ((uint)224 << 8) + 230);
 		const Color Color::Purple = Color(((uint)255 << 24) + ((uint)128 << 16) + ((uint)0 << 8) + 128);
-		const Color Color::Red = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)0 << 8) + 0);
+		const Color Color::Red = Color(0xFFFF0000);
 		const Color Color::RosyBrown = Color(((uint)255 << 24) + ((uint)188 << 16) + ((uint)143 << 8) + 143);
 		const Color Color::RoyalBlue = Color(((uint)255 << 24) + ((uint)65 << 16) + ((uint)105 << 8) + 225);
 		const Color Color::SaddleBrown = Color(((uint)255 << 24) + ((uint)139 << 16) + ((uint)69 << 8) + 19);
@@ -181,83 +182,93 @@ namespace XFX
 		const Color Color::Turquoise = Color(((uint)255 << 24) + ((uint)64 << 16) + ((uint)224 << 8) + 208);
 		const Color Color::Violet = Color(((uint)255 << 24) + ((uint)238 << 16) + ((uint)130 << 8) + 238);
 		const Color Color::Wheat = Color(((uint)255 << 24) + ((uint)245 << 16) + ((uint)222 << 8) + 179);
-		const Color Color::White = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)255 << 8) + 255);
+		const Color Color::White = Color(0xFFFFFF);
 		const Color Color::WhiteSmoke = Color(((uint)255 << 24) + ((uint)245 << 16) + ((uint)245 << 8) + 245);
 		const Color Color::Yellow = Color(((uint)255 << 24) + ((uint)255 << 16) + ((uint)255 << 8) + 0);
 		const Color Color::YellowGreen = Color(((uint)255 << 24) + ((uint)154 << 16) + ((uint)205 << 8) + 50);
 		/*** END OF COLOR DEFINITIONS ***/
 		
-		byte Color::A()
+		byte Color::A() const
 		{
-			return (uint)((_packedValue >> 24 & 0xff));
+			return (byte)((_packedValue >> 24 & 0xff));
 		}
 		
-		byte Color::B()
+		byte Color::B() const
 		{
-			return (uint)(_packedValue & 0xff); 
+			return (byte)(_packedValue & 0xff); 
 		}
 		
-		byte Color::G()
+		byte Color::G() const
 		{
-			return (uint)((_packedValue >> 8 & 0xff));
+			return (byte)((_packedValue >> 8 & 0xff));
 		}
 		
-		byte Color::R()
+		byte Color::R() const
 		{
-			return (uint)((_packedValue >> 16 & 0xff));
+			return (byte)((_packedValue >> 16 & 0xff));
 		}
 		
 		Color::Color()
+			: _packedValue(Color::Black._packedValue)
 		{
-			_packedValue = Color::Black._packedValue;
 		}
 
 		Color::Color(uint packedValue)
+			: _packedValue(packedValue)
 		{
-			_packedValue = packedValue;
 		}
 		
-		Color::Color(Vector3 vector)
+		Color::Color(const Vector3 vector)
+			: _packedValue(InitializeFromVector3(vector))
 		{
-			_packedValue = InitializeFromVector3(vector);
 		}
 		
-		Color::Color(Vector4 vector)
+		Color::Color(const Vector4 vector)
+			: _packedValue(InitializeFromVector4(vector))
 		{
-			_packedValue = InitializeFromVector4(vector);
 		}
 		
-		Color::Color(byte r, byte g, byte b)
+		Color::Color(const byte r, const byte g, const byte b)
+			: _packedValue((uint)(255 << 24) + (uint)(r << 16) + (uint)(g << 8) + b)
 		{
-			_packedValue = (uint)(255 << 24) + (uint)(r << 16) + (uint)(g << 8) + b;
 		}
 		
-		Color::Color(byte r, byte g, byte b, byte a)
+		Color::Color(const byte r, const byte g, const byte b, const byte a)
+			: _packedValue((uint)(a << 24) + (uint)(r << 16) + (uint)(g << 8) + b)
 		{
-			_packedValue = (uint)(a << 24) + (uint)(r << 16) + (uint)(g << 8) + b;
 		}
 
 		Color::Color(const Color &obj)
+			: _packedValue(obj._packedValue)
 		{
-			_packedValue = obj._packedValue;
+		}
+
+		bool Color::Equals(const Object *obj) const
+		{
+			return is(this, obj) ? (*this == *(Color*)obj) : false;
 		}
 		
 		bool Color::Equals(const Color other) const
 		{
-			return (_packedValue == other._packedValue);
+			return (*this == other);
 		}
 		
-		int Color::GetHashCode()
+		int Color::GetHashCode() const
 		{
 			return (int)_packedValue;
 		}
+
+		int Color::GetType() const
+		{
+			// TODO: implement
+		}
 		
-		uint Color::PackedValue()
+		uint Color::PackedValue() const
 		{
 			return _packedValue;
 		}
 		
-		uint Color::InitializeFromVector4(Vector4 value) 
+		uint Color::InitializeFromVector4(const Vector4 value) 
         { 
             byte r = (byte)(Math::Round(value.X * 255)); 
             byte g = (byte)(Math::Round(value.Y * 255)); 
@@ -266,32 +277,37 @@ namespace XFX
             return ((uint)a << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
         } 
   
-        uint Color::InitializeFromVector3(Vector3 value) 
+        uint Color::InitializeFromVector3(const Vector3 value) 
         { 
             byte r = (byte)(Math::Round(value.X * 255)); 
             byte g = (byte)(Math::Round(value.Y * 255)); 
             byte b = (byte)(Math::Round(value.Z * 255)); 
             return ((uint)255 << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
-        } 
+        }
+
+		const char* Color::ToString() const
+		{
+			return String::Format("{R:%i G:%i B:%i A:%i}", R(), G(), B(), A());
+		}
 		
-		Vector4 Color::ToVector4() 
+		Vector4 Color::ToVector4() const
         { 
             return Vector4((float)R() / 255, (float)G() / 255, (float)B() / 255, (float)A() / 255); 
         } 
   
-        Vector3 Color::ToVector3() 
+        Vector3 Color::ToVector3() const
         { 
             return Vector3((float)R() / 255, (float)G() / 255, (float)B() / 255); 
         } 
 		
-		bool Color::operator!=(const Color other) const
+		bool Color::operator!=(const Color& other) const
 		{
-			return !Equals(other);
+			return (_packedValue != other._packedValue);
 		}
 		
-		bool Color::operator==(const Color other) const
+		bool Color::operator==(const Color& other) const
         { 
-            return Equals(other);
+            return (_packedValue == other._packedValue);
         }
 	}
 }

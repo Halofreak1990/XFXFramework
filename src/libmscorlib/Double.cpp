@@ -39,18 +39,18 @@ namespace System
 	const double Double::Epsilon =  4.94066e-324;
 	const double Double::MaxValue = 1.79769e+308;
 	const double Double::MinValue = -1.79769e+308;
-	const double Double::NaN = *( double* )&rawNaND;
-	const double Double::PositiveInfinity = *( double* )&rawPosInfD;
-	const double Double::NegativeInfinity = *( double* )&rawNegInfD;
+	const double Double::NaN = *(double*)&rawNaND;
+	const double Double::PositiveInfinity = *(double*)&rawPosInfD;
+	const double Double::NegativeInfinity = *(double*)&rawNegInfD;
 
 	Double::Double(const Double &obj)
+		: value(obj.value)
 	{
-		value = obj.value;
 	}
 
 	Double::Double(const double &obj)
+		: value(obj)
 	{
-		value = obj;
 	}
 
 	int Double::CompareTo(const Double other) const
@@ -64,12 +64,17 @@ namespace System
 
 	bool Double::Equals(const Double other) const
 	{
-		return (value == other.value);
+		return (*this == other);
 	}
 
 	int Double::GetHashCode() const
 	{
 		return (int)value;
+	}
+
+	int Double::GetType() const
+	{
+		return 14;
 	}
 
 	double Double::Parse(char *str)
@@ -101,19 +106,14 @@ namespace System
 		return String::Format("%d", value);
 	}
 
-	bool Double::operator !=(double right) const
+	const char* Double::ToString(const double value)
 	{
-		return (value != right);
+		return String::Format("%d", value);
 	}
 
 	bool Double::operator !=(const Double right) const
 	{
 		return (value != right.value);
-	}
-
-	bool Double::operator ==(double right) const
-	{
-		return (value == right);
 	}
 
 	bool Double::operator ==(const Double right) const

@@ -16,7 +16,7 @@ namespace System
 	namespace IO
 	{
 		// Implements a TextWriter for writing characters to a stream in a particular encoding.
-		class StreamWriter : public TextWriter, virtual Object
+		class StreamWriter : public TextWriter
 		{
 		private:
 			bool autoFlush;
@@ -29,7 +29,7 @@ namespace System
 			bool haveWrittenPreamble;
 			Stream* stream;
 
-			static Stream* CreateFile(const char* path, const bool append);
+			static Stream* CreateFile(const String& path, const bool append);
 			void Init(Stream* stream, const int bufferSize);
 			void Flush(bool flushStream);
 
@@ -41,9 +41,9 @@ namespace System
 			virtual Stream* BaseStream();
 			static const StreamWriter Null;
 
-			StreamWriter(const char* path);
-			StreamWriter(const char* path, const bool append);
-			StreamWriter(const char* path, const bool append, const int bufferSize);
+			StreamWriter(const String& path);
+			StreamWriter(const String& path, const bool append);
+			StreamWriter(const String& path, const bool append, const int bufferSize);
 			StreamWriter(Stream* stream);
 			StreamWriter(Stream* stream, const int bufferSize);
 			virtual ~StreamWriter();
@@ -67,7 +67,7 @@ namespace System
 			// Writes a string to the stream.
 			//	value
 			//		The string to write to the stream. If value is null, nothing is written.
-			void Write(const char* value);
+			void Write(const String& value);
 		};
 	}
 }

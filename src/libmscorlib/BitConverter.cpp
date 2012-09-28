@@ -27,12 +27,9 @@
 
 #include <System/BitConverter.h>
 #include <System/FrameworkResources.h>
+#include <System/String.h>
 
 #include <sassert.h>
-
-#if DEBUG
-#include <stdio.h>
-#endif
 
 namespace System
 {
@@ -44,7 +41,7 @@ namespace System
 		// arm fpa little endian: 00 00 f0 3f 00 00 00 00
 		double d = 1.0;
 		byte *b = (byte*)&d;
-		return (b [0] == 0);
+		return (b[0] == 0);
 	}
 
 	bool BitConverter::SwappedWordsInDouble()
@@ -55,18 +52,12 @@ namespace System
 		// arm fpa little endian: 00 00 f0 3f 00 00 00 00
 		double d = 1.0;
 		byte *b = (byte*)&d;
-		return b [2] == 0xf0;
+		return b[2] == 0xf0;
 	}
 
 	void PutBytes(byte *dst, byte src[], int start_index, int count)
 	{
-		if (!src)
-		{
-#if DEBUG
-			printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "value");
-#endif
-			return;
-		}
+		sassert(src != null, String::Format("src; %s", FrameworkResources::ArgumentNull_Generic));
 
 		/*if (start_index < 0 || (start_index > Array::Length(src) - 1))
 		{
@@ -136,29 +127,29 @@ namespace System
 		return GetBytes((byte *) &value, 4);
 	}
 
-	byte *BitConverter::GetBytes(Int64 value)
+	byte *BitConverter::GetBytes(long long value)
 	{
 		return GetBytes((byte *) &value, 8);
 	}
 
-	byte *BitConverter::GetBytes(UInt16 value)
+	byte *BitConverter::GetBytes(ushort value)
 	{
 		return GetBytes((byte *) &value, 2);
 	}
 
-	byte *BitConverter::GetBytes(UInt32 value)
+	byte *BitConverter::GetBytes(uint value)
 	{
 		return GetBytes((byte *) &value, 4);
 	}
 
-	byte *BitConverter::GetBytes(UInt64 value)
+	byte *BitConverter::GetBytes(ulong value)
 	{
 		return GetBytes((byte *) &value, 8);
 	}
 
 	bool BitConverter::ToBoolean(byte value[], int startIndex)
 	{
-		sassert(value != null, FrameworkResources::ArgumentNull_Generic);
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
 
 		/*if (startIndex < 0 || (startIndex > Array::Length(value) - 1))
 		{
@@ -176,6 +167,8 @@ namespace System
 
 	char BitConverter::ToChar(byte value[], int startIndex)
 	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
 		char ret;
 		PutBytes((byte *) &ret, value, startIndex, 1);
 		return ret;
@@ -183,6 +176,8 @@ namespace System
 
 	double BitConverter::ToDouble(byte value[], int startIndex)
 	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
 		double ret;
 		PutBytes((byte*)&ret, value, startIndex, 8);
 		return ret;
@@ -190,6 +185,8 @@ namespace System
 
 	short BitConverter::ToInt16(byte value[], int startIndex)
 	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
 		short ret;
 		PutBytes((byte*)&ret, value, startIndex, 2);
 		return ret;
@@ -197,8 +194,46 @@ namespace System
 
 	int BitConverter::ToInt32(byte value[], int startIndex)
 	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
 		int ret;
 		PutBytes((byte*)&ret, value, startIndex, 4);
+		return ret;
+	}
+
+	float BitConverter::ToSingle(byte value[], int startIndex)
+	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
+		float ret;
+		PutBytes((byte*)&ret, value, startIndex, 4);
+		return ret;
+	}
+
+	ushort BitConverter::ToUInt16(byte value[], int startIndex)
+	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
+		ushort ret;
+		PutBytes((byte*)&ret, value, startIndex, 2);
+		return ret;
+	}
+
+	uint BitConverter::ToUInt32(byte value[], int startIndex)
+	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
+		uint ret;
+		PutBytes((byte*)&ret, value, startIndex, 4);
+		return ret;
+	}
+
+	ulong BitConverter::ToUInt64(byte value[], int startIndex)
+	{
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
+		ulong ret;
+		PutBytes((byte*)&ret, value, startIndex, 8);
 		return ret;
 	}
 }

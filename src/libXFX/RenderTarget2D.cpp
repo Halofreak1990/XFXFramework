@@ -26,10 +26,60 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/RenderTarget2D.h>
+#include <Graphics/Texture2D.h>
+#include <sassert.h>
+
+#include "pbkit.h"
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		int RenderTarget2D::bufferCount = 0;
+
+		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height)
+			: Texture2D(graphicsDevice, width, height)
+		{
+			//! TODO: implement
+		}
+
+		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat)
+			: Texture2D(graphicsDevice, width, height, mipmap, TextureUsage::None, preferredFormat)
+		{
+			//! TODO: implement
+		}
+
+		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat, const int multisampleCount, const RenderTargetUsage_t usage)
+			: Texture2D(graphicsDevice, width, height, mipmap, TextureUsage::None, preferredFormat)
+		{
+			//! TODO: implement
+		}
+
+		RenderTarget2D::~RenderTarget()
+		{
+		}
+
+		void RenderTarget2D::Dispose(bool disposing)
+		{
+		}
+
+		int RenderTarget2D::GetType() const
+		{
+		}
+
+		void RenderTarget2D::raise_ContentLost(Object * const sender, EventArgs * const e)
+		{
+			ContentLost(sender, e);
+		}
+
+		bool RenderTarget2D::operator !=(const RenderTarget2D& right) const
+		{
+			return !Object::ReferenceEquals(*this, right);
+		}
+
+		bool RenderTarget2D::operator ==(const RenderTarget2D& right) const
+		{
+			return Object::ReferenceEquals(*this, right);
+		}
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="libmscorlib"
 	ProjectGUID="{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
 	RootNamespace="libmscorlib"
@@ -135,7 +135,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\EventArgs.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FrameworkResources.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Int16.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Int32.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Int64.cpp"
 				>
 			</File>
 			<File
@@ -159,6 +175,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SByte.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Single.cpp"
 				>
 			</File>
@@ -177,6 +197,18 @@
 			</File>
 			<File
 				RelativePath=".\TimeSpan.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UInt16.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UInt32.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UInt64.cpp"
 				>
 			</File>
 			<File
@@ -279,6 +311,14 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Text"
+				>
+				<File
+					RelativePath=".\StringBuilder.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -326,6 +366,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\System\Event.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\System\EventArgs.h"
 				>
 			</File>
@@ -335,6 +379,18 @@
 			</File>
 			<File
 				RelativePath=".\HashHelpers.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Int16.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Int32.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\Int64.h"
 				>
 			</File>
 			<File
@@ -350,6 +406,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\System\Nullable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\System\Object.h"
 				>
 			</File>
@@ -359,6 +419,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\sassert.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\SByte.h"
 				>
 			</File>
 			<File
@@ -387,6 +451,18 @@
 			</File>
 			<File
 				RelativePath="..\..\include\System\Types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\UInt16.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\UInt32.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\System\UInt64.h"
 				>
 			</File>
 			<File
@@ -469,10 +545,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\System\Globalization\CultureInfo.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\System\Globalization\DaylightTime.h"
 					>
 				</File>
@@ -484,14 +556,6 @@
 			<Filter
 				Name="Collections"
 				>
-				<File
-					RelativePath="..\..\include\System\Collections\IList.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Collections\Interfaces.h"
-					>
-				</File>
 				<Filter
 					Name="Generic"
 					>
@@ -509,10 +573,6 @@
 					</File>
 					<File
 						RelativePath="..\..\include\System\Collections\Generic\Interfaces.h"
-						>
-					</File>
-					<File
-						RelativePath="..\..\include\System\Collections\Generic\KeyNotFoundException.h"
 						>
 					</File>
 					<File
@@ -537,6 +597,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\System\Threading\Interlocked.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\System\Threading\Thread.h"
 					>
 				</File>
@@ -549,37 +613,9 @@
 				Name="Text"
 				>
 				<File
-					RelativePath="..\..\include\System\Text\ASCIIEncoding.h"
+					RelativePath="..\..\include\System\Text\StringBuilder.h"
 					>
 				</File>
-				<File
-					RelativePath="..\..\include\System\Text\Decoder.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Text\Encoder.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Text\Encoding.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\System\Text\UTF8Encoding.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Runtime"
-				>
-				<Filter
-					Name="InteropServices"
-					>
-					<File
-						RelativePath="..\..\include\System\Runtime\InteropServices\ExternalException.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

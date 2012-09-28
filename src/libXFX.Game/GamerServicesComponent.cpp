@@ -31,8 +31,12 @@ namespace XFX
 {
 	namespace GamerServices
 	{
-		GamerServicesComponent::GamerServicesComponent(Game game)
+		GamerServicesComponent::GamerServicesComponent(Game * const game)
 			: GameComponent(game)
+		{
+		}
+
+		int GamerServicesComponent::GetType() const
 		{
 		}
 

@@ -32,22 +32,40 @@ namespace System
 {
 	bool Object::Equals(const Object* obj) const
 	{
-		//! compare this instance to obj, using the size of the smallest of the two classes
-		return (memcmp(this, obj, (sizeof(obj) > sizeof(this)) ? sizeof(this) : sizeof(obj)) == 0);
+		return is(this, obj);
 	}
 
 	bool Object::Equals(const Object* objA, const Object* objB)
 	{
-		return ((&objA == &objB) || ((objA) && (objB) && objA->Equals(objB)) || (!objA) && (!objB));
+		return ((objA == objB) || ((objA) && (objB) && objA->Equals(objB)) || (!objA) && (!objB));
 	}
 
 	int Object::GetHashCode() const
 	{
+		//! TODO: implement
+	}
+
+	int Object::GetType() const
+	{
 		return 1;
+	}
+
+	bool Object::ReferenceEquals(const Object& objA, const Object& objB)
+	{
+		return (&objA == &objB);
 	}
 
 	const char* Object::ToString() const
 	{
 		return "Object";
+	}
+
+	// returns whether the type of obj1 matches that of obj2
+	bool is(Object const * const obj1, Object const * const obj2)
+	{
+		if ((obj1 != NULL) && (obj2 != NULL))
+		{
+			return (obj1->GetType() == obj2->GetType());
+		}
 	}
 }

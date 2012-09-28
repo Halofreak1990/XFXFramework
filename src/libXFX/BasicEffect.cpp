@@ -25,44 +25,70 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <BasicEffect.h>
+#include <Matrix.h>
+#include <Vector3.h>
+#include <Graphics/BasicEffect.h>
+#include <Graphics/DirectionalLight.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		BasicEffect::BasicEffect(GraphicsDevice &device, BasicEffect &clone)
-			: Effect(device, clone)
-		{
-		}
-		BasicEffect::BasicEffect(GraphicsDevice &device, EffectPool &effectPool)
+		DirectionalLight* BasicEffect::getDirectionalLight0() const
 		{
 		}
 
-		Effect BasicEffact::Clone(GraphicsDevice &device)
+		DirectionalLight* BasicEffect::getDirectionalLight1() const
 		{
-			BasicEffect effect = BasicEffect(device, *this);
-			return effect;
+		}
+
+		DirectionalLight* BasicEffect::getDirectionalLight2() const
+		{
+		}
+
+		BasicEffect::BasicEffect(BasicEffect const * const cloneSource)
+			: Effect(cloneSource),
+			dirtyFlags(-1),
+			Alpha(cloneSource->Alpha), AmbientLightColor(cloneSource->AmbientLightColor), DiffuseColor(cloneSource->DiffuseColor),
+			EmissiveColor(cloneSource->EmissiveColor), FogColor(cloneSource->FogColor), FogEnabled(cloneSource->FogEnabled),
+			FogEnd(1), FogStart(cloneSource->FogStart), LightingEnabled(cloneSource->LightingEnabled),
+			PreferPerPixelLighting(cloneSource->PreferPerPixelLighting), Projection(cloneSource->Projection), SpecularColor(cloneSource->SpecularColor),
+			SpecularPower(cloneSource->SpecularPower), Texture(cloneSource->Texture), TextureEnabled(cloneSource->TextureEnabled),
+			VertexColorEnabled(cloneSource->VertexColorEnabled), View(cloneSource->View), World(cloneSource->World)
+		{
+		}
+
+		BasicEffect::BasicEffect(GraphicsDevice * const device)
+			: Effect(device, null), // TODO: replace null by byte array of actual basic effect shader code
+			dirtyFlags(-1),
+			Alpha(1), AmbientLightColor(Vector3::Zero), DiffuseColor(Vector3::One),
+			EmissiveColor(Vector3::Zero), FogEnabled(false), FogEnd(1.0f),
+			Projection(Matrix::Identity), SpecularColor(Vector3::One), SpecularPower(16.0f),
+			View(Matrix::Identity), World(Matrix::Identity)
+		{
+		}
+
+		BasicEffect::~BasicEffect()
+		{
+		}
+
+		Effect* BasicEffect::Clone() const
+		{
+			return new BasicEffect(this);
 		}
 
 		void BasicEffect::EnableDefaultLighting()
 		{
 			LightingEnabled = true;
-			AmbientLightColor = Vector3(0.05333332f, 0.09882354f, 0.1819608f);
-			Vector3 color = Vector3(1f, 0.9607844f, 0.8078432f);
-			DirectionalLight0.DiffuseColor = color;
-			DirectionalLight0.Direction = Vector3(-0.5265408f, -0.5735765f, -0.6275069f);
-			DirectionalLight0.SpecularColor = color;
-			DirectionalLight0.Enabled = true;
-			DirectionalLight1.DiffuseColor = Vector3(0.9647059f, 0.7607844f, 0.4078432f);
-			DirectionalLight1.Direction = Vector3(0.7198464f, 0.3420201f, 0.6040227f);
-			DirectionalLight1.SpecularColor = Vector3.Zero;
-			DirectionalLight1.Enabled = true;
-			color = Vector3(0.3231373f, 0.3607844f, 0.3937255f);
-			DirectionalLight2.DiffuseColor = color;
-			DirectionalLight2.Direction = Vector3(0.4545195f, -0.7660444f, 0.4545195f);
-			DirectionalLight2.SpecularColor = color;
-			DirectionalLight2.Enabled = true;
+		}
+
+		int BasicEffect::GetType() const
+		{
+			// TODO: implement
+		}
+
+		void BasicEffect::OnApply()
+		{
 		}
 	}
 }

@@ -39,7 +39,7 @@ extern "C" {
 
 namespace System
 {
-	char* Environment::GetFolderPath(SpecialFolder_t folder)
+	const char* Environment::GetFolderPath(const SpecialFolder_t folder)
 	{
 #if ENABLE_XBOX
 		switch(folder)
@@ -63,14 +63,14 @@ namespace System
 #endif
 	}
 
-	char* Environment::NewLine()
-	{
-		return "\n";
-	}
+#if ENABLE_XBOX
+	const char* Environment::NewLine = "\r\n";
+#else
+#endif
 
 	OperatingSystem Environment::OSVersion()
 	{
-		return OperatingSystem(PlatformID::Xbox, Version(1,6));
+		return OperatingSystem(PlatformID::Xbox, Version(XboxKrnlVersion->VersionMajor,XboxKrnlVersion->VersionMinor, XboxKrnlVersion->Build));
 	}
 
 	int Environment::ProcessorCount()

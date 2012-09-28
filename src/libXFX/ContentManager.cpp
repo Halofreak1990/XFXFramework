@@ -53,18 +53,18 @@ namespace XFX
 	namespace Content
 	{	
 		ContentManager::ContentManager(IServiceProvider* provider)
+			: RootDirectory(String::Empty)
 		{
 			sassert(provider != null, String::Format("provider; %s", FrameworkResources::ArgumentNull_Generic));
 
 			_provider = provider;
-			RootDirectory = "";
 		}
 
-		ContentManager::ContentManager(IServiceProvider* provider, const char* rootDirectory)
+		ContentManager::ContentManager(IServiceProvider* provider, const String& rootDirectory)
 		{
 			sassert(provider != null, String::Format("provider; %s", FrameworkResources::ArgumentNull_Generic));
 
-			sassert(rootDirectory != null, String::Format("rootDirectory; %s", FrameworkResources::ArgumentNull_Generic));
+			sassert(!String::IsNullOrEmpty(rootDirectory), String::Format("rootDirectory; %s", FrameworkResources::ArgumentNull_Generic));
 
 			_provider = provider;
 			RootDirectory = rootDirectory;
@@ -93,10 +93,16 @@ namespace XFX
 		{
 			Dispose(true);
 		}
+
+		int ContentManager::GetType() const
+		{
+		}
 		
 		template <class T>
-		T ContentManager::Load(const char* assetName)
+		T ContentManager::Load(const String& assetName)
 		{	
+			T dummyVal;
+
 			/* TODO: port the C# code below to C++
 			 object obj2;
 			if (this.loadedAssets == null)
@@ -120,13 +126,21 @@ namespace XFX
 			this.loadedAssets.Add(assetName, local);
 			return local;
 			*/
-			if (String::IsNullOrEmpty(assetName))
+
+			Object* obj2;
+			sassert(!String::IsNullOrEmpty(assetName), String::Format("assetName; %s", FrameworkResources::ArgumentNull_Generic));
+			/*if (this->loadedAssets.TryGetValue(assetName, obj2))
 			{
-				//throw ArgumentNullException("assetName");
-			}				
+				sassert(is(obj2, &dummyVal), "");
+
+				return (T)obj2;
+			}*/
+			T local = this->ReadAsset<T>(assetName);
+			//this->loadedAssets.Add(assetName, local);
+			return local;
 		}
 
-		Stream* ContentManager::OpenStream(char* assetName)
+		Stream* ContentManager::OpenStream(const String& assetName)
 		{
 			Stream* stream;
 			/*try
@@ -161,8 +175,10 @@ namespace XFX
 		}
 
 		template <class T>
-		T ContentManager::ReadAsset(const char* assetName)
+		T ContentManager::ReadAsset(const String& assetName)
 		{
+			sassert(!disposed, "");
+
 			if(disposed)
 			{
 				//throw ObjectDisposedException("ContentManager");
@@ -179,6 +195,8 @@ namespace XFX
 
 		void ContentManager::Unload()
 		{
+			sassert(!disposed, "");
+
 			if(disposed)
 			{
 				//throw ObjectDisposedException("ContentManager");

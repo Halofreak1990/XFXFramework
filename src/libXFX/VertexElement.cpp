@@ -26,40 +26,58 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/VertexElement.h>
+#include <System/String.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		VertexElement::VertexElement(short stream, short offset, VertexElementFormat_t elementFormat, VertexElementMethod_t elementMethod, VertexElementUsage_t elementUsage, byte usageIndex)
+		VertexElement::VertexElement(const int offset, const VertexElementFormat_t elementFormat, const VertexElementUsage_t elementUsage, const int usageIndex)
+			: Offset(offset), UsageIndex(usageIndex),
+			VertexElementFormat(elementFormat), VertexElementUsage(elementUsage)
 		{
-			Stream = stream;
-			Offset = offset;
-			VertexElementFormat_ = elementFormat;
-			VertexElementMethod_ = elementMethod;
-			VertexElementUsage_ = elementUsage;
-			UsageIndex = usageIndex;
+		}
+
+		VertexElement::VertexElement(const VertexElement &obj)
+			: Offset(obj.Offset), UsageIndex(obj.UsageIndex),
+			VertexElementFormat(obj.VertexElementFormat), VertexElementUsage(obj.VertexElementUsage)
+		{
+		}
+
+		bool VertexElement::Equals(const Object* obj) const
+		{
+			return is(obj, this) ? (*this == *(VertexElement*)obj) : false;
 		}
 		
-		int VertexElement::Equals(const VertexElement other)
+		int VertexElement::GetHashCode() const
 		{
-			return ((Offset == other.Offset) && (Stream == other.Stream) && (VertexElementFormat_ == other.VertexElementFormat_) &&
-				(VertexElementMethod_ == other.VertexElementMethod_) && (VertexElementUsage_ == other.VertexElementUsage_) && (UsageIndex == other.UsageIndex));
+			return (Offset ^ UsageIndex);
+		}
+
+		int VertexElement::GetType() const
+		{
+			// TODO: implement
+		}
+
+		const char* VertexElement::ToString() const
+		{
+			// TODO: implement
 		}
 		
-		int VertexElement::GetHashCode()
+		bool VertexElement::operator!=(const VertexElement& other) const
 		{
-			return (Stream ^ Offset ^ UsageIndex);
+			return ((Offset != other.Offset) ||
+				(this->VertexElementFormat != other.VertexElementFormat) ||
+				(this->VertexElementUsage != other.VertexElementUsage) ||
+				(this->UsageIndex != other.UsageIndex));
 		}
 		
-		int VertexElement::operator!=(const VertexElement other)
+		bool VertexElement::operator==(const VertexElement& other) const
 		{
-			return !Equals(other);
-		}
-		
-		int VertexElement::operator==(const VertexElement other)
-		{
-			return Equals(other);
+			return ((Offset == other.Offset) &&
+				(this->VertexElementFormat == other.VertexElementFormat) &&
+				(this->VertexElementUsage == other.VertexElementUsage) &&
+				(this->UsageIndex == other.UsageIndex));
 		}
 	}
 }

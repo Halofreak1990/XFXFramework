@@ -41,14 +41,14 @@ namespace System
 		StreamWriter::StreamWriter(Stream* stream)
 			: TextWriter(null)
 		{
-			sassert(stream != null, "stream cannot be null.");
+			sassert(stream != null, String::Format("stream; %s", FrameworkResources::ArgumentNull_Generic));
 
 			sassert(stream->CanWrite(), FrameworkResources::NotSupported_UnwritableStream);
 
 			Init(stream, DefaultBufferSize);
 		}
 
-		StreamWriter::StreamWriter(const char* path)
+		StreamWriter::StreamWriter(const String& path)
 			: TextWriter(null)
 		{
 			sassert(path != null, FrameworkResources::ArgumentNull_Path);
@@ -56,7 +56,7 @@ namespace System
 			Init(stream, 0x400);
 		}
 
-		StreamWriter::StreamWriter(const char* path, const bool append)
+		StreamWriter::StreamWriter(const String& path, const bool append)
 			: TextWriter(null)
 		{
 			sassert(path != null, FrameworkResources::ArgumentNull_Path);
@@ -77,7 +77,7 @@ namespace System
 			Init(stream, bufferSize);
 		}
 
-		StreamWriter::StreamWriter(const char* path, const bool append, const int bufferSize)
+		StreamWriter::StreamWriter(const String& path, const bool append, const int bufferSize)
 			: TextWriter(null)
 		{
 			sassert(path != null, FrameworkResources::ArgumentNull_Path);
@@ -91,7 +91,7 @@ namespace System
 			Dispose(true);
 		}
 
-		Stream* StreamWriter::CreateFile(const char* path, const bool append)
+		Stream* StreamWriter::CreateFile(const String& path, const bool append)
 		{
 			return new FileStream(path, append ? FileMode::Append : FileMode::Create, FileAccess::Write, FileShare::Read, 0x1000, FileOptions::SequentialScan);
 		}
@@ -111,19 +111,21 @@ namespace System
 
 		void StreamWriter::Flush(bool flushStream)
 		{
-			/*if (((charPos != 0) || flushStream) || flushEncoder)
+			if ((charPos != 0) || flushStream)
 			{
-				int count = encoder.GetBytes(charBuffer, 0, charPos, byteBuffer, 0, flushEncoder);
+				// TODO: calculate how many bytes to write out (calculate buffer contents)
+
+				/*int count = encoder.GetBytes(charBuffer, 0, charPos, byteBuffer, 0, flushEncoder);
 				charPos = 0;
 				if (count > 0)
 				{
 					stream->Write(byteBuffer, 0, count);
-				}
+				}*/
 				if(flushStream)
 				{
 					stream->Flush();
 				}
-			}*/
+			}
 		}
 
 		void StreamWriter::Init(Stream* stream, const int bufferSize)
@@ -161,15 +163,20 @@ namespace System
 
 		void StreamWriter::Write(const char buffer[], const int arrayIndex, const int count)
 		{
-			// TODO: Implement
+			sassert(buffer != null, FrameworkResources::ArgumentNull_Buffer);
+
+			for (int i = arrayIndex; i < (arrayIndex + count); i++)
+			{
+				Write(buffer[i]);
+			}
 		}
 
-		void StreamWriter::Write(const char* value)
+		void StreamWriter::Write(const String& value)
 		{
-			if (!value)
+			if (String::IsNullOrEmpty(value))
 				return;
 			
-			// TODO: Implement
+			Write(value.ToString(), 0, value.Length);
 		}
 	}
 }

@@ -25,7 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System.h>
+#include <System/String.h>
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Graphics/VertexPositionTexture.h>
@@ -34,38 +34,55 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		const VertexElement VertexPositionTexture::VertexElements[] = { VertexElement(0, 0, VertexElementFormat::Vector3, VertexElementMethod::Default, VertexElementUsage::Position, 0),
-				VertexElement(0, 0, VertexElementFormat::Vector2, VertexElementMethod::Default, VertexElementUsage::TextureCoordinate, 0) }; 
+		const VertexElement VertexPositionTexture::vertexArray[] =
+		{
+			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+			VertexElement(12, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 0)
+		};
 
-		VertexPositionTexture::VertexPositionTexture(Vector3 position, Vector2 textureCoordinate)
+		VertexDeclaration VertexPositionTexture::getVertexDeclaration() const
 		{
-			Position = position;
-			TextureCoordinate = textureCoordinate;
+			return VertexDeclaration(vertexArray, 2);
+		}
+
+		VertexPositionTexture::VertexPositionTexture()
+			: Position(Vector3::Zero), TextureCoordinate(Vector2::Zero)
+		{
+		}
+
+		VertexPositionTexture::VertexPositionTexture(const Vector3 position, const Vector2 textureCoordinate)
+			: Position(position), TextureCoordinate(textureCoordinate)
+		{
+		}
+
+		bool VertexPositionTexture::Equals(const Object* obj) const
+		{
+			return is(obj, this) ? (*this == *(VertexPositionTexture*)obj) : false;
 		}
 		
-		int VertexPositionTexture::SizeInBytes()
-		{
-			return sizeof(VertexPositionTexture);
-		}
-		
-		bool VertexPositionTexture::Equals(const VertexPositionTexture other)
-		{
-			return ((Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
-		}
-		
-		int VertexPositionTexture::GetHashCode()
+		int VertexPositionTexture::GetHashCode() const
 		{
 			return Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
-		
-		bool VertexPositionTexture::operator!=(const VertexPositionTexture other)
+
+		int VertexPositionTexture::GetType() const
 		{
-			return !Equals(other);
+			// TODO: implement
+		}
+
+		const char* VertexPositionTexture::ToString() const
+		{
+			return String::Format("{Position:%s TextureCoordinate:%s}", Position.ToString(), TextureCoordinate.ToString());
 		}
 		
-		bool VertexPositionTexture::operator==(const VertexPositionTexture other)
+		bool VertexPositionTexture::operator!=(const VertexPositionTexture& other) const
 		{
-			return Equals(other);
+			return ((Position != other.Position) || (TextureCoordinate != other.TextureCoordinate));
+		}
+		
+		bool VertexPositionTexture::operator==(const VertexPositionTexture& other) const
+		{
+			return ((Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
 		}
 	}
 }

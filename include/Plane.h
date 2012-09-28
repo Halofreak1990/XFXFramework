@@ -22,7 +22,7 @@ namespace XFX
 	struct Vector4;
 	
 	// Defines a plane.
-	struct Plane : public IEquatable<Plane>, virtual Object
+	struct Plane : IEquatable<Plane>, Object
 	{
 		float D;
 		Vector3 Normal;
@@ -40,8 +40,10 @@ namespace XFX
 		void DotCoordinate(const Vector3 value, out float result) const;
 		float DotNormal(const Vector3 value) const;
 		void DotNormal(const Vector3 value, out float result) const;
+		bool Equals(const Object* obj) const;
 		bool Equals(const Plane obj) const;
 		int GetHashCode() const;
+		int GetType() const;
 		PlaneIntersectionType_t Intersects(const BoundingBox boundingbox) const;
 		void Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t result) const;
 		PlaneIntersectionType_t Intersects(const BoundingSphere sphere) const;
@@ -55,8 +57,8 @@ namespace XFX
 		static Plane Transform(const Plane plane, const Quaternion quaternion);
 		static void Transform(const Plane plane, const Quaternion quaternion, out Plane result);
 		
-		bool operator==(const Plane other) const;
-		bool operator!=(const Plane other) const;
+		bool operator==(const Plane& other) const;
+		bool operator!=(const Plane& other) const;
 	};
 }
 

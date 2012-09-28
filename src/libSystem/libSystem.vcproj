@@ -136,12 +136,28 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="ComponentModel"
+				>
+				<File
+					RelativePath=".\CancelEventArgs.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<Filter
+				Name="ComponentModel"
+				>
+				<File
+					RelativePath="..\..\include\System\ComponentModel\CancelEventArgs.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"

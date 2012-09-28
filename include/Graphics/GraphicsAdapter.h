@@ -21,18 +21,18 @@ namespace XFX
 	namespace Graphics
 	{
 		// Provides methods to retrieve and manipulate graphics adapters.
-		class GraphicsAdapter : public IDisposable, virtual Object
+		class GraphicsAdapter : public IDisposable, public Object
 		{
 		protected:
-			void Dispose(bool __p1);
+			void Dispose(bool disposing);
 		
 		public:
 			DisplayMode CurrentDisplayMode();
 
-			char* Description();
+			const char* Description();
 			int DeviceId();		
-			char* DeviceName();
-			char* DriverDLL();		
+			const char* DeviceName();
+			const char* DriverDLL();		
 			float DriverVersion();		
 			bool IsDefaultAdapter();		
 			int VendorId();
@@ -41,20 +41,16 @@ namespace XFX
 		
 			virtual ~GraphicsAdapter();
 
-			bool CheckDepthStencilMatch(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, SurfaceFormat_t renderTargetFormat, DepthFormat_t depthStencilFormat);
-			bool CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, SurfaceFormat_t checkFormat);
-			bool CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, DepthFormat_t checkFormat);
-			bool CheckDeviceFormatConversion(DeviceType_t deviceType, SurfaceFormat_t sourceFormat, SurfaceFormat_t targetFormat);
-			bool CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType);
-			bool CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType, out int qualityLevels);
-			bool CheckDeviceType(DeviceType_t deviceType, SurfaceFormat_t displayFormat, SurfaceFormat_t backBufferFormat, bool isFullScreen);
 			void Dispose();
-			bool Equals(const GraphicsAdapter obj);
-			int GetHashCode();
-			bool IsDeviceTypeAvailable(DeviceType_t deviceType);
+			bool Equals(const Object* obj) const;
+			bool Equals(const GraphicsAdapter obj) const;
+			int GetHashCode() const;
+			int GetType() const;
+			bool QueryBackBufferFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const;
+			bool QueryRenderTargetFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const;
 			
-			bool operator!=(const GraphicsAdapter other);
-			bool operator==(const GraphicsAdapter other);
+			bool operator!=(const GraphicsAdapter& other) const;
+			bool operator==(const GraphicsAdapter& other) const;
 		};
 	}
 }

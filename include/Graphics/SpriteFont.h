@@ -26,7 +26,7 @@ namespace XFX
 		class SpriteBatch;
 
 		// Represents a font texture.
-		class SpriteFont : virtual Object
+		class SpriteFont : public virtual Object
 		{
 		private:
 			friend class SpriteBatch;
@@ -41,9 +41,9 @@ namespace XFX
 
 			int GetIndexForCharacter(char character);
 
-			SpriteFont(Texture2D* texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning);
+			SpriteFont(Texture2D * const texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning);
 
-			void Draw(const char* text, SpriteBatch* spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth);
+			void Draw(String& text, SpriteBatch * const spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth);
 
 		public:
 			int LineSpacing();
@@ -51,7 +51,7 @@ namespace XFX
 
 			virtual ~SpriteFont();
 
-			Vector2 MeasureString(const char* text) const;
+			Vector2 MeasureString(String& text) const;
 		};
 	}
 }

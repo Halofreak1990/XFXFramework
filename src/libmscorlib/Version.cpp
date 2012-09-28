@@ -77,6 +77,10 @@ namespace System
 		return (Build ^ Major ^ Minor ^ Revision);
 	}
 
+	int Version::GetType() const
+	{
+	}
+
 	const char* Version::ToString() const
 	{
 		return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);

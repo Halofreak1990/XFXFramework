@@ -27,10 +27,10 @@
 
 #include <System/IO/Stream.h>
 #include <System/IO/StreamAsyncResult.h>
+#include <System/FrameworkResources.h>
+#include <System/String.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -64,13 +64,12 @@ namespace System
 
 		void Stream::EndWrite(IAsyncResult* asyncResult)
 		{
-			if (!asyncResult)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "asyncResult");
-#endif
-				return;
-			}
+			sassert(asyncResult, String::Format("asyncResult: %s", FrameworkResources::ArgumentNull_Generic));
+		}
+
+		int Stream::GetType() const
+		{
+			//! TODO: implement
 		}
 
 		int Stream::ReadByte()

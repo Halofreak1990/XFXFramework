@@ -59,7 +59,7 @@ namespace XFX
 		};
 		char extendPartitionMapping[] = { 'F','G','R','S','V','W','A','B' };
 
-#define NUM_OF_DRIVES ( sizeof( driveMapping) / sizeof( driveMapping[0] ) )
+#define NUM_OF_DRIVES (sizeof(driveMapping) / sizeof(driveMapping[0]))
 #define EXTEND_PARTITION_BEGIN  6
 
 		void GetDrive(const char* szPartition, char* cDriveLetter)
@@ -88,7 +88,7 @@ namespace XFX
 		  *cDriveLetter = 0;
 		}
 
-		StorageDevice* StorageContainer::getStorageDevice()
+		StorageDevice* StorageContainer::getStorageDevice() const
 		{
 			return device;
 		}
@@ -118,26 +118,26 @@ namespace XFX
 			if (!isDisposed)
 			{
 				isDisposed = true;
-				if (disposing && (Disposing != null))
-				{
-					Disposing(this, EventArgs::Empty);
-				}
+
+				if (disposing)
+					Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 			}
 		}
 
-		char* StorageContainer::Path()
+		const char* StorageContainer::Path() const
 		{
+			// Calculate the path to this storage location
 		}
 
-		char* StorageContainer::TitleLocation()
+		const char* StorageContainer::TitleLocation()
 		{
-			//XBOX returns the XeImageFileName like \device\harddisk0\partition2\apps\default.xbe
+			// XBOX returns the XeImageFileName like \device\harddisk0\partition2\apps\default.xbe
 			// we need to map the partitions, and strip the \default.xbe from this string
 
 			// copy the XeImageFileName to tmp, and strip the \default.xbe
 			//char *tmp = strncpy(tmp, XeImageFileName->Buffer, XeImageFileName->Length - 12);
 	
-			char szTemp[256];
+			char* szTemp = (char*)malloc(256);
 			char cDriveLetter = 0;
 			char* szDest;
 
@@ -152,7 +152,7 @@ namespace XFX
 			return szDest;
 		}
 
-		char* StorageContainer::TitleName()
+		const char* StorageContainer::TitleName() const
 		{
 			//! TODO: Read the Title field from the XBE header
 		}

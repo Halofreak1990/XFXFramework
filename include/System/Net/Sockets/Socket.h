@@ -25,7 +25,7 @@ namespace System
 		{
 			class SocketAsyncEventArgs;
 
-			class Socket : public IDisposable, virtual Object
+			class Socket : public IDisposable, public virtual Object
 			{
 			private:
 				AddressFamily_t addressFamily;
@@ -58,6 +58,7 @@ namespace System
 				void Dispose();
 				void EndConnect(IAsyncResult* asyncResult);
 				void EndDisconnect(IAsyncResult* asyncResult);
+				int GetType() const;
 				bool ReceiveAsync(SocketAsyncEventArgs e);
 				bool ReceiveFromAsync(SocketAsyncEventArgs e);
 				bool SendAsync(SocketAsyncEventArgs e);

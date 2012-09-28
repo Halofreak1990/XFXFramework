@@ -16,21 +16,32 @@ namespace XFX
 		{
 			enum type
 			{
+				// Each component of the color is multiplied by (1, 1, 1, 1).
+				One = 0,
+				// Each component of the color is multiplied by (0, 0, 0, 0).
 				Zero = 1,
-				One = 2,
-				SourceColor = 3,
-				InversourceColor = 4,
-				SourceAlpha = 5,
-				InverseSourceAlpha = 6,
-				Destinationalpha = 7,
-				InverseDestinationAlpha = 8,
-				DestinationColor = 9,
-				InverseDestinationColor = 10,
-				SourceAlphaSaturation = 11,
-				BothSourceAlpha = 12,
-				BothInverseSourceAlpha = 13,
-				BlendFactor = 14,
-				InverseBlendFactor = 15
+				// Each component of the color is multiplied by the source color. This can be represented as (Rs, Gs, Bs, As), where R, G, B, and A respectively stand for the red, green, blue, and alpha source values.
+				SourceColor = 2,
+				// Each component of the color is multiplied by the inverse of the source color. This can be represented as (1 ? Rs, 1 ? Gs, 1 ? Bs, 1 ? As) where R, G, B, and A respectively stand for the red, green, blue, and alpha destination values.
+				InversourceColor = 3,
+				// Each component of the color is multiplied by the alpha value of the source. This can be represented as (As, As, As, As), where As is the alpha source value.
+				SourceAlpha = 4,
+				// Each component of the color is multiplied by the inverse of the alpha value of the source. This can be represented as (1 ? As, 1 ? As, 1 ? As, 1 ? As), where As is the alpha destination value.
+				InverseSourceAlpha = 5,
+				// Each component color is multiplied by the destination color. This can be represented as (Rd, Gd, Bd, Ad), where R, G, B, and A respectively stand for red, green, blue, and alpha destination values.
+				DestinationColor = 6,
+				// Each component of the color is multiplied by the inverse of the destination color. This can be represented as (1 ? Rd, 1 ? Gd, 1 ? Bd, 1 ? Ad), where Rd, Gd, Bd, and Ad respectively stand for the red, green, blue, and alpha destination values.
+				InverseDestinationColor = 7,
+				// Each component of the color is multiplied by the alpha value of the destination. This can be represented as (Ad, Ad, Ad, Ad), where Ad is the destination alpha value.
+				DestinationAlpha = 8,
+				// Each component of the color is multiplied by the inverse of the alpha value of the destination. This can be represented as (1 ? Ad, 1 ? Ad, 1 ? Ad, 1 ? Ad), where Ad is the alpha destination value.
+				InverseDestinationAlpha = 9,
+				// Each component of the color is multiplied by a constant set in BlendFactor.
+				BlendFactor = 10,
+				// Each component of the color is multiplied by the inverse of a constant set in BlendFactor.
+				InverseBlendFactor = 11,
+				// Each component of the color is multiplied by either the alpha of the source color, or the inverse of the alpha of the source color, whichever is greater. This can be represented as (f, f, f, 1), where f = min(A, 1 ? Ad).
+				SourceAlphaSaturation = 12
 			};
 		};
 
@@ -39,11 +50,16 @@ namespace XFX
 		{
 			enum type
 			{
-				Add = 1,
-         		Subtract = 2,
-         		ReverseSubtract = 3,
-         		Min = 4,
-         		Max = 5
+				// The result is the destination added to the source. Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
+				Add,
+				// The result is the destination subtracted from the source. Result = (Source Color * Source Blend) ? (Destination Color * Destination Blend)
+         		Subtract,
+				// The result is the source subtracted from the destination. Result = (Destination Color * Destination Blend) ? (Source Color * Source Blend)
+         		ReverseSubtract,
+				// The result is the minimum of the source and destination. Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+         		Min,
+				// The result is the maximum of the source and destination. Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+         		Max
 			};
 		};
 
@@ -99,37 +115,6 @@ namespace XFX
      		};
 		};
 
-		// Identifies an include file as a local or system resource.
-		struct CompilerIncludeHandlerType
-		{
-			enum type
-			{
-				Local,
-				System
-			};
-		};
-
-		// Defines optimization options that may be chosen for shader and effect code compilation.
-		struct CompilerOptions
-		{
-			enum type
-			{
-				AvoidFlowControl,
-				Debug,
-				ForcePixelShaderSoftwareNoOptimizations,
-				ForceVertexShaderSoftwareNoOptimizations,
-				None,
-				NoPreShader,
-				NotCloneable,
-				PackMatrixColumnMajor,
-				PackMatrixRowMajor,
-				PartialPrecision,
-				PreferFlowControl,
-				SkipOptimization,
-				SkipValidation
-			};
-		};
-
 		// Defines the faces of a cube map in the TextureCube class type.
 		struct CubeMapFace
 		{
@@ -149,9 +134,9 @@ namespace XFX
 		{
 			enum type
 			{
-				None = 1,
-				CullClockwiseFace = 2,
-				CullCounterClockwiseFace = 3
+				None,
+				CullClockwiseFace,
+				CullCounterClockwiseFace
 			};
 		};
 
@@ -160,25 +145,10 @@ namespace XFX
 		{
 			enum type
 			{
-				Depth15Stencil1 = 56,
-				Depth16 = 54,
-				Depth24 = 51,
-				Depth24Stencil8 = 48,
-				Depth24Stencil8Single = 49,
-				Depth24Stencil4 = 50,
-				Depth32 = 52,			
-				Unknown = -1
-			};
-		};
-
-		// Specifies the type of device driver.
-		struct DeviceType
-		{
-			enum type
-			{
-				Hardware = 1,
-				NullReference = 4,
-				Reference = 2
+				None,
+				Depth16,
+				Depth24,
+				Depth24Stencil8,
 			};
 		};
 
@@ -187,12 +157,39 @@ namespace XFX
 		{
 			enum type
 			{
-				MatrixColumns,
-				MatrixRows,
-				Object,
 				Scalar,
+				Vector,
+				Matrix,
+				Object,
 				Struct,
-				Vector
+			};
+		};
+
+		// Defines types that can be used for effect parameters or shader constants.
+		struct EffectParameterType
+		{
+			enum type
+			{
+				// Parameter is a void pointer.
+				Void,
+				// Parameter is a Boolean. Any nonzero value passed in will be mapped to 1 (TRUE) before being written into the constant table; otherwise, the value will be set to 0 in the constant table.
+				Bool,
+				// Parameter is an integer. Any floating-point values passed in will be rounded off (to zero decimal places) before being written into the constant table.
+				Int32,
+				// Parameter is a floating-point number.
+				Single,
+				// Parameter is a string.
+				String,
+				// Parameter is a texture.
+				Texture,
+				// Parameter is a 1D texture.
+				Texture1D,
+				// Parameter is a 2D texture.
+				Texture2D,
+				// Parameter is a 3D texture.
+				Texture3D,
+				// Parameter is a cube texture.
+				TextureCube
 			};
 		};
 
@@ -204,40 +201,6 @@ namespace XFX
 				Point = 1,
 				Solid = 3,
 				WireFrame = 2
-			};
-		};
-
-		// Defines modes describing how to filter an image or mipmap when it is minified or magnified to fit a set of vertices.
-		struct FilterOptions
-		{
-			enum type
-			{
-				Box = 5,
-				Dither = 524288,
-				DitherDiffusion = 1048576,
-				Linear = 3,
-				Mirror = 458752,
-				MirrorU = 65536,
-				MirrorV = 131072,
-				MirrorW = 262144,
-				None = 1,
-				Point = 2,
-				Srgb = 6291456,
-				SrgbIn = 2097152,
-				SrgbOut = 4194304,
-				Triangle = 4
-			};
-		};
-
-		// Defines constants that describe the fog mode.
-		struct FogMode
-		{
-			enum type
-			{
-				Exponent = 1,
-				ExponentSquared = 2,
-				Linear = 3,
-				None = 0
 			};
 		};
 
@@ -279,54 +242,15 @@ namespace XFX
 			};
 		};
 
-		// Defines the levels of full-scene multisampling that the game machine can apply.
-		struct MultiSampleType
-		{
-			enum type
-			{
-				SixteenSamples = 16,
-				FifteenSamples = 15,
-				FourteenSamples = 14,
-				ThirteenSamples = 13,
-				TwelveSamples = 12,
-				ElevenSamples = 11,
-				TenSamples = 10,
-				NineSamples = 9,
-				EightSamples = 8,
-				SevenSamples = 7,
-				SixSamples = 6,
-				FiveSamples = 5,
-				FourSamples = 4,
-				ThreeSamples = 3,
-				TwoSamples = 2,
-				NonMaskable = 1,
-				None = 0
-			};
-		};
-
 		// Defines flags that describe the relationship between the adapter refresh rate and the rate at which GraphicsDevice.Present operations are completed.
 		struct PresentInterval
 		{
 			enum type
 			{
 				Default = 0,
-				Four = 8,
 				Immediate = 0x80000000,
 				One = 1,
-				Three = 4,
 				Two = 2
-			};
-		};
-
-		// Defines flags that control the behavior of the back buffer and depth buffer.
-		struct PresentOptions
-		{
-			enum type
-			{
-				DeviceClip = 4,
-				DiscardDepthStencil = 2,
-				None = 0,
-				Video = 16
 			};
 		};
 
@@ -336,26 +260,10 @@ namespace XFX
 			enum type
 			{
 				LineList = 2,
-				LineStrip = 3,
+				LineStrip = 4,
 				PointList = 1,
-				TriangleFan = 6,
-				TriangleList = 4,
-				TriangleStrip = 5
-			};
-		};
-
-		// Defines options for querying device resource formats.
-		struct QueryUsages
-		{
-			enum type
-			{
-				Filter = 131072,
-				None = 0,
-				PostPixelShaderRendering = 524288,
-				SrgbRead = 65536,
-				SrgbWrite = 262144,
-				VertexTexture = 1048576,
-				WrapAndMip = 2097152
+				TriangleList = 5,
+				TriangleStrip = 6
 			};
 		};
 
@@ -370,32 +278,6 @@ namespace XFX
 			};
 		};
 
-		// Defines resource types.
-		struct ResourceType
-		{
-			enum type
-			{
-				DepthStencilBuffer = 1,
-				IndexBuffer = 7,
-				RenderTarget = 8,
-				Texture2D = 3,
-				Texture3D = 4,
-				Texture3DVolume = 2,
-				TextureCube = 5,
-				VertexBuffer = 6
-			};
-		};
-
-		// Defines options for saving the graphics device state before and after an effect technique is applied.
-		struct SaveStateMode
-		{
-			enum type
-			{
-				None,
-				SaveState
-			};
-		};
-
 		// Describes whether existing buffer data will be overwritten or discarded during a SetData operation.
 		struct SetDataOptions
 		{
@@ -404,20 +286,6 @@ namespace XFX
 				Discard = 8192,
 				None = 0,
 				NoOverwrite = 4096
-			};
-		};
-
-		// Defines vertex and pixel shader versions.
-		struct ShaderProfile
-		{
-			enum type
-			{
-				PS_1_1,
-				PS_1_2,
-				PS_1_3,
-				VS_1_1,
-				XPS_1_1, //Denotes XBOX specific shader configuration
-				XVS_1_1  //Denotes XBOX specific shader configuration
 			};
 		};
 
@@ -430,17 +298,6 @@ namespace XFX
 				Float = 2,		//4D floating-point number.
 				Int4 = 1,		//4D integer number.
 				Sampler = 3		//The register contains 4D sampler data.
-			};
-		};
-
-		// The following flags are used to specify sprite blending rendering options to the flags parameter in SpriteBatch.Begin:
-		struct SpriteBlendMode
-		{
-			enum type
-			{
-				Additive = 2,	//Enable Additive blending.
-				AlphaBlend = 1,	//Enable Alpha blending.
-				None = 0		//No blending specified.
 			};
 		};
 
@@ -490,24 +347,10 @@ namespace XFX
 			enum type
 			{
 				Alpha8 = 15,
-				Bgr233 = 16,
-				Bgr24 = 17,
-				Bgr32 = 2,
-				Bgr444 = 13,
-				Bgr555 = 11,
 				Bgr565 = 9,
-				Bgra1010102 = 3,
-				Bgra2338 = 14,
 				Bgra4444 = 12,
 				Bgra5551 = 10,
 				Color = 1,
-				Depth15Stencil1 = 56,
-				Depth16 = 54,
-				Depth24 = 51,
-				Depth24Stencil4 = 50,
-				Depth24Stencil8 = 48,
-				Depth24Stencil8Single = 49,
-				Depth32 = 52,
 				Dxt1 = 28,
 				Dxt2 = 29,
 				Dxt3 = 30,
@@ -516,46 +359,15 @@ namespace XFX
 				HalfSingle = 25,
 				HalfVector2 = 26,
 				HalfVector4 = 27,
-				Luminance16 = 34,
-				Luminance8 = 33,
-				LuminanceAlpha16 = 36,
-				LuminanceAlpha8 = 35,
-				Multi2Bgra32 = 47,
-				NormalizedAlpha1010102 = 41,
+				HdrBlendable = 19,
 				NormalizedByte2 = 18,
-				NormalizedByte2Computed = 42,
 				NormalizedByte4 = 19,
-				NormalizedLuminance16 = 39,
-				NormalizedLuminance32 = 40,
-				NormalizedShort2 = 20,
-				Normalizedshort4 = 21,
-				Palette8 = 37,
-				PaletteAlpha16 = 38,
 				Rg32 = 7,
-				Rgb32 = 5,
 				Rgba1010102 = 6,
-				Rgba32 = 4,
 				Rgba64 = 8,
 				Single = 22,
-				Unknown = -1,
 				Vector2 = 23,
 				Vector4 = 24,
-				VideoGrGb = 45,
-				VideoRgBg = 46,
-				VideoUyVy = 44,
-				VideoYuYv = 43
-			};
-		};
-
-		// Defines how the device front buffer and back buffer are to be swapped when GraphicsDevice.Present is called.
-		struct SwapEffect
-		{
-			enum type
-			{
-				Copy = 3,
-				Default = 1,
-				Discard = 1,
-				Flip = 2
 			};
 		};
 
@@ -564,10 +376,8 @@ namespace XFX
 		{
 			enum type
 			{
-				Border = 4,
 				Clamp = 3,
 				Mirror = 2,
-				MirrorOnce = 5,
 				Wrap = 1
 			};
 		};
@@ -577,37 +387,24 @@ namespace XFX
 		{
 			enum type
 			{
-				Anisotropic = 3,
-				GaussianQuad = 7,
-				Linear = 2,
-				None = 0,
-				Point = 1,
-				PyramidalQuad = 6
-			};
-		};
-
-		// Specifies special usage of the texture data.
-		struct TextureUsage
-		{
-			enum type
-			{
-				AutoGenerateMipMap,
+				// Use linear filtering.
 				Linear,
-				None,
-				Tiled
-			};
-		};
-		
-		// Defines supported wrap coordinates.
-		struct TextureWrapCoordinates
-		{
-			enum type
-			{
-				None = 0,
-				One = 2,
-				Three = 8,
-				Two = 4,
-				Zero = 1
+				// Use point filtering.
+				Point,
+				// Use anisotropic filtering.
+				Anisotropic,
+				// Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
+				LinearMipPoint,
+				// Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
+				PointMipLinear,
+				// Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
+				MinLinearMagPointMipLinear,
+				// Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
+				MinLinearMagPointMipPoint,
+				// Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
+				MinPointMagLinearMipLinear,
+				// Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
+				MinPointMagLinearMipPoint
 			};
 		};
 		
@@ -620,32 +417,14 @@ namespace XFX
 				Color,
 				HalfVector2,
 				HalfVector4,
-				Normalized101010,
 				NormalizedShort2,
 				NormalizedShort4,
-				Rg32,
-				Rgba32,
-				Rgba64,
 				Short2,
 				Short4,
 				Single,
-				UInt101010,
-				Unused,
 				Vector2,
 				Vector3,
 				Vector4
-			};
-		};
-		
-		// Defines the tessellator processing method for a vertex element.
-		struct VertexElementMethod
-		{
-			enum type
-			{
-				Default,
-				LookUp,
-				LookUpPresampled,
-				UV
 			};
 		};
 		
@@ -671,49 +450,35 @@ namespace XFX
 		};
 		
 		// Lots of typedefs, but there was no other way to make these typesafe enum hacks look good.
-		typedef Blend::type Blend_t;
-		typedef BlendFunction::type BlendFunction_t;
-		typedef BufferUsage::type BufferUsage_t;
-		typedef ClearOptions::type ClearOptions_t;
-		typedef ColorWriteChannels::type ColorWriteChannels_t;
-		typedef CompareFunction::type CompareFunction_t;
-		typedef CompilerIncludeHandlerType::type CompilerIncludeHandlerType_t;
-		typedef CompilerOptions::type CompilerOptions_t;
-		typedef CubeMapFace::type CubeMapFace_t;
-		typedef CullMode::type CullMode_t;
-		typedef DepthFormat::type DepthFormat_t;
-		typedef DeviceType::type DeviceType_t;
-		typedef EffectParameterClass::type EffectParameterClass_t;
-		typedef FillMode::type FillMode_t;
-		typedef FilterOptions::type FilterOptions_t;
-		typedef FogMode::type FogMode_t;
-		typedef GraphicsDeviceStatus::type GraphicsDeviceStatus_t;
-		typedef ImageFileFormat::type ImageFileFormat_t;
-		typedef IndexElementSize::type IndexElementSize_t;
-		typedef MultiSampleType::type MultiSampleType_t;
-		typedef PresentInterval::type PresentInterval_t;
-		typedef PresentOptions::type PresentOptions_t;
-		typedef PrimitiveType::type PrimitiveType_t;
-		typedef QueryUsages::type QueryUsages_t;
-		typedef RenderTargetUsage::type RenderTargetUsage_t;
-		typedef ResourceType::type ResourceType_t;
-		typedef SaveStateMode::type SaveStateMode_t;
-		typedef SetDataOptions::type SetDataOptions_t;
-		typedef ShaderProfile::type ShaderProfile_t;
-		typedef ShaderRegisterSet::type ShaderRegisterSet_t;
-		typedef SpriteBlendMode::type SpriteBlendMode_t;
-		typedef SpriteEffects::type SpriteEffects_t;
-		typedef SpriteSortMode::type SpriteSortMode_t;
-		typedef StencilOperation::type StencilOperation_t;
-		typedef SurfaceFormat::type SurfaceFormat_t;
-		typedef SwapEffect::type SwapEffect_t;
-		typedef TextureAddressMode::type TextureAddressMode_t;
-		typedef TextureFilter::type TextureFilter_t;
-		typedef TextureUsage::type TextureUsage_t;						// Specifies special usage of the texture data.
-		typedef TextureWrapCoordinates::type TextureWrapCoordinates_t;	// Defines supported wrap coordinates.
-		typedef VertexElementFormat::type VertexElementFormat_t;		// Defines vertex element formats.
-		typedef VertexElementMethod::type VertexElementMethod_t;		// Defines the tessellator processing method for a vertex element.
-		typedef VertexElementUsage::type VertexElementUsage_t;			// Defines usage for vertex elements.
+
+		typedef Blend::type					Blend_t;
+		typedef BlendFunction::type			BlendFunction_t;
+		typedef BufferUsage::type			BufferUsage_t;
+		typedef ClearOptions::type			ClearOptions_t;
+		typedef ColorWriteChannels::type	ColorWriteChannels_t;
+		typedef CompareFunction::type		CompareFunction_t;
+		typedef CubeMapFace::type			CubeMapFace_t;
+		typedef CullMode::type				CullMode_t;
+		typedef DepthFormat::type			DepthFormat_t;
+		typedef EffectParameterClass::type	EffectParameterClass_t;
+		typedef EffectParameterType::type	EffectParameterType_t;
+		typedef FillMode::type				FillMode_t;
+		typedef GraphicsDeviceStatus::type	GraphicsDeviceStatus_t;
+		typedef ImageFileFormat::type		ImageFileFormat_t;
+		typedef IndexElementSize::type		IndexElementSize_t;
+		typedef PresentInterval::type		PresentInterval_t;
+		typedef PrimitiveType::type			PrimitiveType_t;
+		typedef RenderTargetUsage::type		RenderTargetUsage_t;
+		typedef SetDataOptions::type		SetDataOptions_t;
+		typedef ShaderRegisterSet::type		ShaderRegisterSet_t;
+		typedef SpriteEffects::type			SpriteEffects_t;
+		typedef SpriteSortMode::type		SpriteSortMode_t;
+		typedef StencilOperation::type		StencilOperation_t;
+		typedef SurfaceFormat::type			SurfaceFormat_t;
+		typedef TextureAddressMode::type	TextureAddressMode_t;
+		typedef TextureFilter::type			TextureFilter_t;
+		typedef VertexElementFormat::type	VertexElementFormat_t;		// Defines vertex element formats.
+		typedef VertexElementUsage::type	VertexElementUsage_t;		// Defines usage for vertex elements.
 	}
 }
 

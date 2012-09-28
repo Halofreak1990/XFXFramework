@@ -15,7 +15,7 @@ using namespace System;
 namespace XFX
 {
 	// Defines a sphere.
-	struct BoundingSphere : public IEquatable<BoundingSphere>, virtual Object
+	struct BoundingSphere : IEquatable<BoundingSphere>, Object
 	{
 		Vector3 Center;
 		float Radius;
@@ -24,12 +24,14 @@ namespace XFX
 		BoundingSphere(const BoundingSphere &obj);
 		BoundingSphere();
 
+		bool Equals(const Object* obj) const;
 		bool Equals(const BoundingSphere other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		const char* ToString() const;
 		
-		int operator==(const BoundingSphere other) const;
-		int operator!=(const BoundingSphere other) const;
+		bool operator==(const BoundingSphere& other) const;
+		bool operator!=(const BoundingSphere& other) const;
 	};
 }
 

@@ -14,25 +14,23 @@ using namespace System;
 namespace XFX
 {
 	// Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed- step (game time) games.
-	class GameTime : virtual Object
+	class GameTime : public Object
 	{
 	private:
 		TimeSpan _elapsedGameTime; 
-     	TimeSpan _elapsedRealTime; 
      	bool _isRunningSlowly; 
      	TimeSpan _totalGameTime; 
-     	TimeSpan _totalRealTime; 	
 	
 	public:
-		TimeSpan ElapsedGameTime();
-		TimeSpan ElapsedRealTime();
+		TimeSpan getElapsedGameTime() const;
 		bool IsRunningSlowly();
-		TimeSpan TotalGameTime();
-		TimeSpan TotalRealTime();
+		TimeSpan getTotalGameTime() const;
 	
-		GameTime(TimeSpan totalRealTime, TimeSpan elapsedRealTime, TimeSpan totalGameTime, TimeSpan elapsedGameTime);
-		GameTime(TimeSpan totalRealTime, TimeSpan elapsedRealTime, TimeSpan totalGameTime, TimeSpan elapsedGameTime, bool isRunningSlowly);
+		GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime);
+		GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime, const bool isRunningSlowly);
 		GameTime();
+
+		int GetType() const;
 	};
 }
 

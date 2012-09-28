@@ -18,24 +18,23 @@ namespace XFX
 	namespace Graphics
 	{
 		// Defines input vertex data to the pipeline.
-		struct VertexElement : virtual Object
+		struct VertexElement : Object
 		{
-		public:
-			short Offset;
-			short Stream;
-			byte UsageIndex;
-			VertexElementFormat_t VertexElementFormat_;
-			VertexElementMethod_t VertexElementMethod_;
-			VertexElementUsage_t VertexElementUsage_;
+			int Offset;
+			int UsageIndex;
+			VertexElementFormat_t VertexElementFormat;
+			VertexElementUsage_t VertexElementUsage;
 		
-			VertexElement(short stream, short offset, VertexElementFormat_t elementFormat, VertexElementMethod_t elementMethod, VertexElementUsage_t elementUsage, byte usageIndex);
+			VertexElement(const int offset, const VertexElementFormat_t elementFormat, const VertexElementUsage_t elementUsage, const int usageIndex);
+			VertexElement(const VertexElement &obj);
 		
-			int Equals(const VertexElement other);
-			int GetHashCode();
-			char* ToString();
+			bool Equals(const Object* obj) const;
+			int GetHashCode() const;
+			int GetType() const;
+			const char* ToString() const;
 		
-			int operator!=(const VertexElement other);
-			int operator==(const VertexElement other);
+			bool operator!=(const VertexElement& other) const;
+			bool operator==(const VertexElement& other) const;
 		};
 	}
 }

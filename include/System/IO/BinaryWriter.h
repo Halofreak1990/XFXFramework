@@ -9,7 +9,7 @@ namespace System
 	namespace IO
 	{
 		// Writes primitive types in binary to a stream and supports writing strings in a specific encoding.
-		class BinaryWriter : public IDisposable, virtual Object
+		class BinaryWriter : public IDisposable
 		{
 		private:
 			byte* _buffer;
@@ -23,7 +23,7 @@ namespace System
 			BinaryWriter();
 
 			virtual void Dispose(bool disposing);
-			void Write7BiteEncodedInt(int value);
+			void Write7BitEncodedInt(int value);
 
 		public:
 			static const BinaryWriter Null;
@@ -34,23 +34,23 @@ namespace System
 			virtual void Close();
 			void Dispose();
 			virtual void Flush();
-			virtual Int64 Seek(int offset, SeekOrigin_t origin);
-			virtual void Write(bool value);
-			virtual void Write(byte value);
+			virtual long long Seek(const int offset, const SeekOrigin_t origin);
+			virtual void Write(const bool value);
+			virtual void Write(const byte value);
 			virtual void Write(byte* value);
-			virtual void Write(sbyte value);
-			virtual void Write(char ch);
-			virtual void Write(double value);
-			virtual void Write(short value);
-			virtual void Write(int value);
-			virtual void Write(Int64 value);
-			virtual void Write(float value);
-			virtual void Write(char* value);
-			virtual void Write(ushort value);
-			virtual void Write(uint value);
-			virtual void Write(ulong value);
-			virtual void Write(byte* buffer, int index, int count);
-			virtual void Write(char chars[], int index, int count);
+			virtual void Write(const sbyte value);
+			virtual void Write(const char ch);
+			virtual void Write(const double value);
+			virtual void Write(const short value);
+			virtual void Write(const int value);
+			virtual void Write(const long long value);
+			virtual void Write(const float value);
+			virtual void Write(const String value);
+			virtual void Write(const ushort value);
+			virtual void Write(const uint value);
+			virtual void Write(const ulong value);
+			virtual void Write(byte* buffer, const int index, const int count);
+			virtual void Write(char chars[], const int index, const int count);
 		};
 	}
 }

@@ -16,7 +16,7 @@ namespace XFX
 		class GraphicsDevice;
 
 		// Defines a mechanism for retrieving GraphicsDevice objects.
-		interface IGraphicsDeviceService : virtual Object
+		interface IGraphicsDeviceService : public Object
 		{
 		public:
 			EventHandler DeviceCreated;
@@ -24,7 +24,12 @@ namespace XFX
 			EventHandler DeviceReset;
 			EventHandler DeviceResetting;
 
+			virtual ~IGraphicsDeviceService() {}
+
 			virtual GraphicsDevice* getGraphicsDevice() const =0;
+
+			//! TODO: return typecode
+			int GetType() const { }
 		};
 	}
 }

@@ -7,7 +7,7 @@
 namespace System
 {
 	// Represents a double precision floating point value.
-	struct Double : public IComparable<Double>, public IEquatable<Double>, virtual Object
+	struct Double : IComparable<Double>, IEquatable<Double>, Object
 	{
 	private:
 		double value;
@@ -26,12 +26,12 @@ namespace System
 		int CompareTo(const Double other) const;
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		static double Parse(char* str);
 		const char* ToString() const;
+		static const char* ToString(const double value);
 
-		bool operator !=(double right) const;
 		bool operator !=(const Double right) const;
-		bool operator ==(double right) const;
 		bool operator ==(const Double right) const;
 	};
 }

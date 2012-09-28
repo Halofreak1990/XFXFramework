@@ -9,6 +9,7 @@
 
 #include "Color.h"
 #include <Vector3.h>
+#include "IVertexType.h"
 #include "VertexElement.h"
 
 using namespace System;
@@ -18,21 +19,27 @@ namespace XFX
 	namespace Graphics
 	{
 		// Describes a custom vertex format structure that contains position and color information.
-		struct VertexPositionColor : virtual Object
+		struct VertexPositionColor : IVertexType, Object
 		{
+		private:
+			static const VertexElement vertexArray[];
+
+		public:
 			Vector3 Position;
-			Color Color_;
-			static int SizeInBytes();
-			static const VertexElement VertexElements[];
+			XFX::Graphics::Color Color;
 
-			VertexPositionColor(Vector3 position, Color color);
+			VertexDeclaration getVertexDeclaration() const;
 
-			bool Equals(const VertexPositionColor obj);
-			int GetHashCode();
-			char* ToString();
+			VertexPositionColor();
+			VertexPositionColor(const Vector3 position, const XFX::Graphics::Color color);
 
-			bool operator!=(const VertexPositionColor other);
-			bool operator==(const VertexPositionColor other);
+			bool Equals(const Object* obj) const;
+			int GetHashCode() const;
+			int GetType() const;
+			const char* ToString() const;
+
+			bool operator!=(const VertexPositionColor& other) const;
+			bool operator==(const VertexPositionColor& other) const;
 		};
 	}
 }

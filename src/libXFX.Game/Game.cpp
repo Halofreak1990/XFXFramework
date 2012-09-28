@@ -28,23 +28,23 @@
 #if ENABLE_XBOX
 extern "C"
 {
+#if DEBUG
+	#include <openxdk/debug.h>
+#endif
 #include <hal/input.h>
 #include <hal/xbox.h>
-#include "../libXFX/pbKit.h"
 }
 #endif
 
 #include <Game.h>
 #include <System/Collections/Generic/List.h>
-//#include <Graphics/Color.h>
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
 
 #include <sassert.h>
 
 namespace XFX
 {
-	const Int64 Game::DefaultTargetElapsedTicks = 10000000L / 60L;
+	const long long Game::DefaultTargetElapsedTicks = 10000000L / 60L;
 	const TimeSpan Game::maximumElapsedTime = TimeSpan::FromMilliseconds(500.0);
 	
 	bool Game::IsActive()
@@ -58,9 +58,9 @@ namespace XFX
 		
 		IsFixedTimeStep = true;
 
-		//content = ContentManager(services);
+		Content = new ContentManager(&services);
 		
-		gameTime = GameTime(TimeSpan::Zero, TimeSpan::Zero, TimeSpan::Zero, TimeSpan::Zero);
+		gameTime = GameTime(TimeSpan::Zero, TimeSpan::Zero);
 
 		TargetElapsedTime = TimeSpan::FromTicks(0x28b0bL);
 		inactiveSleepTime = TimeSpan::FromMilliseconds(20.0);
@@ -73,7 +73,7 @@ namespace XFX
 
 	}
 
-	GameComponentCollection Game::Components()
+	GameComponentCollection& Game::Components()
 	{
 		return components;
 	}
@@ -114,15 +114,15 @@ namespace XFX
 		{
 			for (int i = 0; i < components.Count(); i++)
 			{
-				IDisposable* disposable = dynamic_cast<IDisposable*>(components[i]);
+				IDisposable* disposable = (IDisposable*)components[i];
 				if (disposable)
 					disposable->Dispose();
 			}
 		}
 
 		disposed = true;
-		if(Disposed != null)
-			Disposed(this, EventArgs::Empty);
+
+		Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
 	}
 
 	void Game::Draw(GameTime gameTime)
@@ -158,9 +158,13 @@ namespace XFX
 		XReboot();
 	}
 
+	int Game::GetType() const
+	{
+	}
+
 	void Game::Initialize()
 	{
-		graphicsService = dynamic_cast<IGraphicsDeviceService*>(services.GetService("IGraphicsDeviceService"));
+		graphicsService = (IGraphicsDeviceService*)services.GetService("IGraphicsDeviceService");
 
 		for (int i = 0; i < components.Count(); i++)
 		{
@@ -176,22 +180,19 @@ namespace XFX
 	{
 	}
 
-	void Game::OnActivated(Object* sender, EventArgs args)
+	void Game::OnActivated(Object* sender, EventArgs* args)
 	{
-		if (Activated)
-			Activated(sender, args);
+		Activated(sender, args);
 	}
 
-	void Game::OnDeactivated(Object* sender, EventArgs args)
+	void Game::OnDeactivated(Object* sender, EventArgs* args)
 	{
-		if (Deactivated)
-			Deactivated(sender, args);
+		Deactivated(sender, args);
 	}
 	
-	void Game::OnExiting(Object* sender, EventArgs args)
+	void Game::OnExiting(Object* sender, EventArgs* args)
 	{
-		if (Exiting)
-			Exiting(sender, args);
+		Exiting(sender, args);
 	}
 
 	void Game::Run()
@@ -201,9 +202,14 @@ namespace XFX
 		inRun = true;
 		BeginRun();
 			
-		graphicsManager = dynamic_cast<IGraphicsDeviceManager*>(services.GetService("IGraphicsDeviceManager"));
+		graphicsManager = (IGraphicsDeviceManager*)((GraphicsDeviceManager*)services.GetService("IGraphicsDeviceManager"));
+
 		if (graphicsManager != null)
 			graphicsManager->CreateDevice();
+#if DEBUG
+		else
+			debugPrint("graphicsManager is NULL.\n");
+#endif
 
 		Initialize(); 
         

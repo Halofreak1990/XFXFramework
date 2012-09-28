@@ -8,7 +8,7 @@
 #define _XFX_INTERFACES_
 
 #include <System/Types.h>
-#include <System/Delegates.h>
+#include <System/Event.h>
 
 using namespace System;
 
@@ -20,8 +20,8 @@ namespace XFX
 	interface IDrawable
 	{
 	public:
-		virtual int DrawOrder()=0;
-		virtual bool Visible()=0;
+		virtual int getDrawOrder() const =0;
+		virtual bool getVisible() const =0;
 
 		virtual void Draw(GameTime gameTime)=0;
 		virtual ~IDrawable() {}
@@ -53,10 +53,10 @@ namespace XFX
 	interface IUpdateable
 	{
 	public:
-		virtual bool Enabled()=0;
-		virtual void Enabled(int value)=0;
-		virtual int UpdateOrder()=0;
-		virtual void UpdateOrder(int value)=0;
+		virtual bool getEnabled() const =0;
+		virtual void setEnabled(int value)=0;
+		virtual int getUpdateOrder() const =0;
+		virtual void setUpdateOrder(int value)=0;
 
 		virtual ~IUpdateable() {}
 		virtual void Update(GameTime gameTime)=0;

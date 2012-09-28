@@ -24,17 +24,17 @@ namespace XFX
 		static const float PiOver4;
 		static const float TwoPi;
 
-		static float Baricentric(float value1, float value2, float value3, float amount1, float amount2);
-		static float CatmullRom(float value1, float value2, float value3, float value4, float amount);
-		static float Clamp(float value, float min, float max);
-		static float Distance(float value1, float value2);
-		static float Hermite(float value1, float tangent1, float value2, float tangent2, float amount);
-		static float Lerp(float value1, float value2, float amount);
-		static float Max(float value1, float value2);
-		static float Min(float value1, float value2);
-		static float SmoothStep(float value1, float value2, float amount);
-		static float ToDegrees(float radians);
-		static float ToRadians(float degrees);
+		static float Baricentric(const float value1, const float value2, const float value3, const float amount1, const float amount2);
+		static float CatmullRom(const float value1, const float value2, const float value3, const float value4, const float amount);
+		static float Clamp(const float value, const float min, const float max);
+		static float Distance(const float value1, const float value2);
+		static float Hermite(const float value1, const float tangent1, const float value2, const float tangent2, const float amount);
+		static float Lerp(const float value1, const float value2, const float amount);
+		static float Max(const float value1, const float value2);
+		static float Min(const float value1, const float value2);
+		static float SmoothStep(const float value1, const float value2, const float amount);
+		static float ToDegrees(const float radians);
+		static float ToRadians(const float degrees);
 	};
 }
 

@@ -25,7 +25,7 @@ namespace System
 		static void Write(const Object* value);
 		static void Write(const float value);
 		static void Write(const short value);
-		static void Write(const String value);
+		static void Write(const String& value);
 		static void WriteLine();
 		static void WriteLine(const bool value);
 		static void WriteLine(const byte value);
@@ -38,7 +38,7 @@ namespace System
 		static void WriteLine(const Object* value);
 		static void WriteLine(const float value);
 		static void WriteLine(const short value);
-		static void WriteLine(const String value);
+		static void WriteLine(const String& value);
 	};
 }
 

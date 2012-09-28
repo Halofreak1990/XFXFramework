@@ -72,7 +72,7 @@ void *memcpy(void *dest, const void *src, size_t count)
 			small_memcpy(dest, src, delta);
 		}
 		i = count >> 6; /* count / 64 */
-		count &=63;
+		count &= 63;
 		if (((unsigned long)src) & 15)
 			/* If src is misaligned */
 			for (; i > 0; i--)

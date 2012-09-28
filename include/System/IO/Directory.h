@@ -8,7 +8,8 @@
 #define _SYSTEM_IO_DIRECTORY_
 
 #include "../Types.h"
-#include "../Object.h"
+//#include "../Object.h"
+#include "../String.h"
 
 namespace System
 {
@@ -19,29 +20,29 @@ namespace System
 		class DirectoryInfo;
 
 		// Exposes static methods for creating, moving, and enumerating through directories and subdirectories. This class cannot be inherited.
-		class Directory : virtual Object
+		class Directory : public virtual Object
 		{
 		private:
 			Directory();
 
 		public:
-			static DirectoryInfo CreateDirectory(char* path);
-			static void Delete(char* path);
-			static void Delete(char* path, bool recursive);
-			static bool Exists(char* path);
-			static DateTime GetCreationTime(const char* path);
-			static char* GetCurrentDirectory();
-			static char** GetDirectories(char* path);
-			static char** GetDirectories(char* path, char* searchPattern);
-			static char* GetDirectoryRoot(char* path);
-			static char** GetFiles(char* path);
-			static char** GetFiles(char* path, char* searchPattern);
-			static char** GetFileSystemEntries(char* path);
-			static char** GetFileSystemEntries(char* path, char* searchPattern);
-			static DateTime GetLastAccessTime(char* path);
-			static DateTime GetLastWriteTime(char* path);
-			static void Move(char* sourceDirName, char* destDirName);
-			static void SetCurrentDirectory(char* path);
+			static DirectoryInfo CreateDirectory(const String& path);
+			static void Delete(const String& path);
+			static void Delete(const String& path, const bool recursive);
+			static bool Exists(const String& path);
+			static DateTime GetCreationTime(const String& path);
+			static String GetCurrentDirectory();
+			static char** GetDirectories(const String& path);
+			static char** GetDirectories(const String& path, const String& searchPattern);
+			static char* GetDirectoryRoot(String& path);
+			static char** GetFiles(const String& path);
+			static char** GetFiles(const String& path, const String& searchPattern);
+			static char** GetFileSystemEntries(const String& path);
+			static char** GetFileSystemEntries(const String& path, const String& searchPattern);
+			static DateTime GetLastAccessTime(const String& path);
+			static DateTime GetLastWriteTime(const String& path);
+			static void Move(const String& sourceDirName, const String& destDirName);
+			static void SetCurrentDirectory(const String& path);
 		};
 	}
 }

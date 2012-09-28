@@ -1,18 +1,21 @@
-#ifndef _IO_FILESYSTEMINFO_
-#define _IO_FILESYSTEMINFO_
+#ifndef _SYSTEM_IO_FILESYSTEMINFO_
+#define _SYSTEM_IO_FILESYSTEMINFO_
+
+#include <System/Object.h>
 
 namespace System
 {
 	namespace IO
 	{
-		class FileSystemInfo
+		class FileSystemInfo : public virtual Object
 		{
 		protected:
-			char* FullPath;
-			char* OriginalPath;
+			virtual ~FileSystemInfo() {}
+			String FullPath;
+			String OriginalPath;
 
 		public:
-			virtual char* FullName();
+			virtual const char* FullName();
 		};
 	}
 }

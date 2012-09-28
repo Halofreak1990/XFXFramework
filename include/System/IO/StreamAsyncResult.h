@@ -17,7 +17,7 @@ namespace System
 	namespace IO
 	{
 		// 
-		class StreamAsyncResult : public IAsyncResult, virtual Object
+		class StreamAsyncResult : public IAsyncResult, public virtual Object
 		{
 			Object* _state;
 			bool completed;

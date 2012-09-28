@@ -63,8 +63,7 @@ namespace XFX
                           
             isDisposed = true;
 
-			if (Disposing != null)
-				Disposing(this, EventArgs::Empty);
+			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 	}
 }

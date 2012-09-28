@@ -14,10 +14,9 @@ namespace System
 			{
 			}
 			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs e)
+			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
 			{
-				if (Completed)
-					Completed(this, e);
+				Completed(this, e);
 			}
 		}
 	}

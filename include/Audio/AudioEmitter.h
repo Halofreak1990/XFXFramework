@@ -1,33 +1,33 @@
 /********************************************************
  *	AudioEmitter.h										*
  *														*
- *	XFX AudioEmitter definition file					*
- *	Copyright © XFX Team. All Rights Reserved		*
+ *	XFX::Audio::AudioEmitter definition file			*
+ *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef AUDIOEMITTER_H
-#define AUDIOEMITTER_H
+#ifndef _XFX_AUDIO_AUDIOEMITTER_
+#define _XFX_AUDIO_AUDIOEMITTER_
 
-#include "System/System.h"
+#include <System/Object.h>
+#include <Vector3.h>
 
 namespace XFX
 {
 	namespace Audio
-	{
-		class Vector3;
-		
-		class Audioemitter
+	{		
+		class AudioEmitter : public Object
 		{
-			public:
-				float DopplerScale;
-				Vector3 Forward;
-				Vector3 Position;
-				Vector3 Up;
-				Vector3 Velocity;
-	
-				AudioEmitter();
-				
-		}
+		public:
+			float DopplerScale;
+			Vector3 Forward;
+			Vector3 Position;
+			Vector3 Up;
+			Vector3 Velocity;
+
+			AudioEmitter();	
+
+			int GetType() const;
+		};
 	}
 }
 
-#endif //AUDIOEMITTER_H
+#endif //XFX_AUDIO_AUDIOEMITTER_H

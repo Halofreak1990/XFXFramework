@@ -27,20 +27,26 @@
 
 #include <System/Byte.h>
 #include <System/String.h>
+#include <stdlib.h>
 
 namespace System
 {
 	const byte Byte::MaxValue = 255;
 	const byte Byte::MinValue = 0;
 
-	Byte::Byte(const Byte &obj)
+	byte Byte::getValue() const
 	{
-		value = obj.value;
+		return value;
+	}
+
+	Byte::Byte(const Byte &obj)
+		: value(obj.value)
+	{
 	}
 
 	Byte::Byte(const byte &obj)
+		: value(obj)
 	{
-		value = obj;
 	}
 
 	int Byte::CompareTo(const Byte other) const
@@ -57,6 +63,11 @@ namespace System
 		return (value == other.value);
 	}
 
+	int Byte::GetType() const
+	{
+		return 6;
+	}
+
 	const char* Byte::ToString() const
 	{
 		return String::Format("%i", value);
@@ -67,19 +78,28 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool Byte::operator !=(byte right) const
+	bool Byte::TryParse(const String& str, out byte result)
 	{
-		return (value != right);
+		result = 0;
+		char* end = NULL;
+
+		if (String::IsNullOrEmpty(str))
+			return false;
+
+		uint res = strtoul(str.ToString(), &end, 10);
+
+		if (*end)
+		{
+			return false;
+		}
+		
+		result = (byte)res;
+		return true;
 	}
 
 	bool Byte::operator !=(const Byte right) const
 	{
 		return (value != right.value);
-	}
-
-	bool Byte::operator ==(byte right) const
-	{
-		return (value == right);
 	}
 
 	bool Byte::operator ==(const Byte right) const

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Schema">
+      <UniqueIdentifier>{035469f2-6beb-49ec-bcfe-459fee618078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Serialization">
+      <UniqueIdentifier>{92510549-77b2-4443-bf76-466a2ee1fce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\XPath">
+      <UniqueIdentifier>{04cf9d28-3f56-4400-abea-771cae278c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Xsl">
+      <UniqueIdentifier>{4f793422-7942-421e-9305-f89c29a4d917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Schema">
+      <UniqueIdentifier>{6bf7127f-060b-44be-878d-abec9caa2d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Serialization">
+      <UniqueIdentifier>{a14407f6-c291-48d8-b520-e238533ec6d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\XPath">
+      <UniqueIdentifier>{2aabf86a-5a55-49ec-8dfd-c5478ef4d4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Xsl">
+      <UniqueIdentifier>{fcf51c92-d0f4-4bf3-894e-616c06e52632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\System\Xml\Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\Interfaces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+</Project>

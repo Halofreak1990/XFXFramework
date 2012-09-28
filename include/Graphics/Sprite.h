@@ -19,8 +19,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// 
-		class Sprite : virtual Object
+		// Internal helper class to aid drawing via the SpriteBatch.
+		class Sprite : public Object
 		{
 		private:
 			Texture2D* texture;
@@ -45,6 +45,8 @@ namespace XFX
 			Sprite();
 			Sprite(Texture2D* texture, const Rectangle sourceRectangle, const Rectangle destinationRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth);
 			Sprite(const Sprite &obj);
+
+			int GetType() const;
 
 			bool operator !=(const Sprite& right) const;
 			bool operator ==(const Sprite& right) const;

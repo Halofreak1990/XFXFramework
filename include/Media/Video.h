@@ -16,14 +16,16 @@ namespace XFX
 	namespace Media
 	{
 		// Represents a video.
-		class Video : virtual Object
+		class Video : public Object
 		{
 		public:
-			TimeSpan Duration();
-			float FramesPerSecond();
-			int Height();
-			VideoSoundtrackType_t videoSoundtrackType();
-			int Width();
+			TimeSpan getDuration();
+			float getFramesPerSecond();
+			int getHeight();
+			VideoSoundtrackType_t getVideoSoundtrackType();
+			int getWidth();
+
+			int GetType() const;
 		};
 	}
 }

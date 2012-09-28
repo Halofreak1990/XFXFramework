@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="libXFX"
 	ProjectGUID="{379FFCFD-88FA-46D6-A686-CAE8F58652FC}"
 	RootNamespace="libXFX"
@@ -192,6 +192,10 @@
 				Name="Graphics"
 				>
 				<File
+					RelativePath=".\BasicEffect.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\Color.cpp"
 					>
 				</File>
@@ -225,10 +229,6 @@
 				</File>
 				<File
 					RelativePath=".\PresentationParameters.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\RenderTarget.cpp"
 					>
 				</File>
 				<File
@@ -430,6 +430,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\Audio\AudioEmitter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Audio\AudioListener.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\Audio\Enums.h"
 					>
 				</File>
@@ -457,12 +465,16 @@
 					RelativePath="..\..\include\Content\ContentReader.h"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\Content\ContentTypeReader.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Graphics"
 				>
 				<File
-					RelativePath="..\..\include\Graphics\BasicDirectionalLight.h"
+					RelativePath="..\..\include\Graphics\BasicEffect.h"
 					>
 				</File>
 				<File
@@ -479,6 +491,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\Graphics\DisplayModeCollection.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\Graphics\Effect.h"
 					>
 				</File>
 				<File
@@ -507,10 +523,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\Graphics\PresentationParameters.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\Graphics\RenderTarget.h"
 					>
 				</File>
 				<File

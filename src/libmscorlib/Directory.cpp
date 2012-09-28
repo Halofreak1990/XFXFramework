@@ -26,70 +26,61 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/DateTime.h>
+#include <System/FrameworkResources.h>
 #include <System/String.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
 #include <System/IO/File.h>
 
 #include <hal/fileio.h>
+#include <stdlib.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
 	namespace IO
 	{
-		DirectoryInfo Directory::CreateDirectory(char* path)
+		DirectoryInfo Directory::CreateDirectory(const String& path)
 		{
-			if (path == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path");
-#endif
-				return DirectoryInfo();
-			}
+			char* tmp = const_cast<char*>(path.ToString());
+			sassert(path != null, FrameworkResources::ArgumentNull_Path);
 
-			if (File::Exists(path))
-			{
-#if DEBUG
-				printf("IO in function %s, at line %i in file %s: %s", __FUNCTION__, __LINE__, __FILE__, String::Format("Cannot create %s because a file with the same name already exists.\n", path));
-#endif
-				return DirectoryInfo();
-			}
+			sassert(!File::Exists(path), String::Format("Cannot create %s because a file with the same name already exists.\n", tmp));
 
-			XCreateDirectory(path);
+			XCreateDirectory(tmp);
+
+			free(tmp);
 
 			return DirectoryInfo(path);
 		}
 
-		void Directory::Delete(char* path)
+		void Directory::Delete(const String& path)
 		{
 			Delete(path, false);
 		}
 
-		void Directory::Delete(char* path, bool recursive)
+		void Directory::Delete(const String& path, const bool recursive)
 		{
-			
+			// TODO: implement
 		}
 
-		bool Directory::Exists(char* path)
+		bool Directory::Exists(const String& path)
 		{
 			return File::Exists(path);
 		}
 
-		DateTime Directory::GetLastAccessTime(char* path)
+		DateTime Directory::GetLastAccessTime(const String& path)
 		{
 			return File::GetLastAccessTime(path);
 		}
 
-		DateTime Directory::GetLastWriteTime(char* path)
+		DateTime Directory::GetLastWriteTime(const String& path)
 		{
 			return File::GetLastWriteTime(path);
 		}
 
-		void Directory::Move(char* sourceDirName, char* destDirName)
+		void Directory::Move(const String& sourceDirName, const String& destDirName)
 		{
 			File::Move(sourceDirName, destDirName);
 		}

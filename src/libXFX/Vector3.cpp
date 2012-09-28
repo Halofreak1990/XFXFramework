@@ -238,14 +238,24 @@ namespace XFX
 		result = (value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z);
 	}
 
+	bool Vector3::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? (*this == *(Vector3*)obj) : false;
+	}
+
 	bool Vector3::Equals(const Vector3 other) const
 	{
-		return ((X == other.X) && (Y == other.Y) && (Z == other.Z));
+		return (*this == other);
 	}
 	
 	int Vector3::GetHashCode() const
 	{
 		return ((int)X ^ (int)Y ^ (int)Z);
+	}
+
+	int Vector3::GetType() const
+	{
+		// TODO: implement
 	}
 	
 	Vector3 Vector3::Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount)

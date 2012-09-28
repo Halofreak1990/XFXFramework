@@ -18,21 +18,21 @@ using namespace System::Globalization;
 namespace System
 {
 	class String;
-	class TimeSpan;
+	struct TimeSpan;
 
 	// Represents an instant in time, typically expressed as a date and time of day.
-	class DateTime
+	struct DateTime : IComparable<DateTime>, IEquatable<DateTime>, Object
 	{
 	private:
-		static const Int64 TicksMask;
-		static const Int64 KindMask;
+		static const long long TicksMask;
+		static const long long KindMask;
 		static const int KindShift;
-		static const Int64 w32file_epoch;
-		static const Int64 MAX_VALUE_TICKS;
-		static const Int64 UnixEpoch;
-		Int64 encoded;
+		static const long long w32file_epoch;
+		static const long long MAX_VALUE_TICKS;
+		static const long long UnixEpoch;
+		long long encoded;
 		int AbsoluteDays(int year, int month, int day);
-		void InvalidTickValue(Int64 ticks);
+		void InvalidTickValue(long long ticks);
 		DateTime Add(double value, int scale);
 
 	public:
@@ -47,7 +47,7 @@ namespace System
 		int Month() const;
 		static DateTime Now();
 		int Second() const;
-		Int64 Ticks() const;
+		long long Ticks() const;
 		TimeSpan TimeOfDay() const;
 		static DateTime Today();
 		static DateTime UtcNow();
@@ -64,8 +64,8 @@ namespace System
 		DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, DateTimeKind_t kind);
 		DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, Calendar calendar);
 		DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, Calendar calendar, DateTimeKind_t kind);
-		DateTime(Int64 ticks);
-		DateTime(Int64 ticks, DateTimeKind_t kind);
+		DateTime(long long ticks);
+		DateTime(long long ticks, DateTimeKind_t kind);
 		DateTime(const DateTime &obj); //Copy constructor
 
 		DateTime Add(const TimeSpan value);
@@ -75,51 +75,53 @@ namespace System
 		DateTime AddMinutes(double value);
 		DateTime AddMonths(int months);
 		DateTime AddSeconds(double value);
-		DateTime AddTicks(Int64 value);
+		DateTime AddTicks(long long value);
 		DateTime AddYears(int value);
 		static int Compare(const DateTime t1, const DateTime t2);
 		int CompareTo(const DateTime value) const;
 		static int DaysInMonth(int year, int month);
+		bool Equals(const Object* obj) const;
 		bool Equals(const DateTime obj) const;
 		bool static Equals(const DateTime t1, const DateTime t2);
-		static DateTime FromFileTime(Int64 fileTime);
-		static DateTime FromFileTimeUtc(Int64 fileTime);
+		static DateTime FromFileTime(long long fileTime);
+		static DateTime FromFileTimeUtc(long long fileTime);
 		static DateTime FromOADate(double d);
 		String *GetDateTimeFormats();
 		String *GetDateTimeFormats(char format);
 		String *GetDateTimeFormats(char format, IFormatProvider* formatProvider);
 		String *GetDateTimeFormats(IFormatProvider* formatProvider);
 		int GetHashCode() const;
+		int GetType() const;
 		bool IsDaylighSavingTime();
 		static bool IsLeapYear(int year);
 		static DateTime Parse(String s);
-		static DateTime Parse(String s, IFormatProvider &formatProvider);
-		static DateTime Parse(String s, IFormatProvider &formatProvider, System::Globalization::DateTimeStyles_t styles);
-		static DateTime ParseExact(String s, String format, IFormatProvider &formatProvider);
-		static DateTime ParseExact(String s, String format, IFormatProvider &formatProvider, System::Globalization::DateTimeStyles_t style);
-		static DateTime ParseExact(String s, String formats[], IFormatProvider &formatProvider, System::Globalization::DateTimeStyles_t style);
+		static DateTime Parse(String s, IFormatProvider* formatProvider);
+		static DateTime Parse(String s, IFormatProvider* formatProvider, DateTimeStyles_t styles);
+		static DateTime ParseExact(String s, String format, IFormatProvider* formatProvider);
+		static DateTime ParseExact(String s, String format, IFormatProvider* formatProvider, DateTimeStyles_t style);
+		static DateTime ParseExact(String s, String formats[], IFormatProvider* formatProvider, DateTimeStyles_t style);
 		static DateTime ParseExact(DateTime value, DateTimeKind kind);
 		TimeSpan Subtract(const DateTime value);
 		DateTime Subtract(const TimeSpan value);
-		Int64 ToFileTime();
-		Int64 ToFileTimeUtc();
+		long long ToFileTime();
+		long long ToFileTimeUtc();
 		DateTime ToLocalTime();
-		char* ToLongDateString();
-		char* ToLongTimeString();
+		const char* ToLongDateString();
+		const char* ToLongTimeString();
 		double ToOADate();
-		char* ToShortDateString();
-		char* ToShortTimeString();
-		char* ToString() const;
-		char* ToString(IFormatProvider* provider);
-		char* ToString(const char* format);
-		char* ToString(const char* format, IFormatProvider* provider);
+		const char* ToShortDateString();
+		const char* ToShortTimeString();
+		const char* ToString() const;
+		const char* ToString(IFormatProvider* provider);
+		const char* ToString(const String& format);
+		const char* ToString(const String& format, IFormatProvider* provider);
 		DateTime ToUniversalTime();
 
 		DateTime operator +(const TimeSpan other);
-		bool operator==(const DateTime other) const;
+		bool operator==(const DateTime& other) const;
 		bool operator >(const DateTime other) const;
 		bool operator>=(const DateTime other) const;
-		bool operator!=(const DateTime other) const;
+		bool operator!=(const DateTime& other) const;
 		bool operator <(const DateTime other) const;
 		bool operator<=(const DateTime other) const;
 		TimeSpan operator-(const DateTime other);

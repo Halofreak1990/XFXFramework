@@ -51,8 +51,7 @@ namespace XFX
 			{
 			}
 
-			if (Disposing != null)
-				Disposing(this, EventArgs::Empty);
+			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 
 		void StateBlock::Dispose()
@@ -60,11 +59,16 @@ namespace XFX
 			Dispose(true);
 		}
 
-		bool StateBlock::Equals(const StateBlock& obj) const
+		bool StateBlock::Equals(const Object* obj) const
 		{
+			return is(obj, this) ? (*this == (*(StateBlock*)obj)) : false;
 		}
 
 		int StateBlock::GetHashCode() const
+		{
+		}
+
+		int StateBlock::GetType() const
 		{
 		}
 
@@ -74,12 +78,12 @@ namespace XFX
 
 		bool StateBlock::operator!=(const StateBlock& right) const
 		{
-			return !Equals(right);
+			
 		}
 
 		bool StateBlock::operator==(const StateBlock& right) const
 		{
-			return Equals(right);
+			
 		}
 	}
 }

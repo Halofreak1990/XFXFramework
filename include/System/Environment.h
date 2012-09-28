@@ -1,4 +1,5 @@
 
+
 #ifndef _SYSTEM_ENVIRONMENT_
 #define _SYSTEM_ENVIRONMENT_
 
@@ -10,6 +11,10 @@ namespace System
 
 	class Environment
 	{
+	private:
+		Environment();
+
+	public:
 		// Specifies enumerated constants used to retrieve directory paths to system special folders.
 		struct SpecialFolder
 		{
@@ -26,9 +31,9 @@ namespace System
 
 		typedef SpecialFolder::type SpecialFolder_t;
 
-	public:
-		static char* GetFolderPath(SpecialFolder_t folder);
-		static char* NewLine();
+		static const char* NewLine;
+
+		static const char* GetFolderPath(const SpecialFolder_t folder);
 		static OperatingSystem OSVersion();
 		static int ProcessorCount();
 		static int TickCount();

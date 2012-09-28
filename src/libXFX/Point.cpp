@@ -33,26 +33,28 @@ namespace XFX
 	const Point Point::Zero = Point(0, 0);
 	
 	Point::Point(int x, int y)
+		: X(x), Y(y)
 	{
-		X = x;
-		Y = y;
 	}
 	
 	Point::Point(const Point &obj)
+		: X(obj.X), Y(obj.Y)
 	{
-		X = obj.X;
-		Y = obj.Y;
 	}
 	
 	Point::Point()
+		: X(0), Y(0)
 	{
-		X = 0;
-		Y = 0;
+	}
+
+	bool Point::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? this->Equals((*(Point*)obj)) : false;
 	}
 
 	bool Point::Equals(const Point other) const
 	{
-		return ((X == other.X) && (Y == other.Y));
+		return (*this == other);
 	}
 
 	int Point::GetHashCode() const
@@ -60,17 +62,22 @@ namespace XFX
 		return (X + Y);
 	}
 
+	int Point::GetType() const
+	{
+		// TODO: implement
+	}
+
 	const char* Point::ToString() const
 	{
 		return String::Format("{X:%i Y:%i}", X, Y);
 	}
 
-	bool Point::operator==(const Point right) const
+	bool Point::operator==(const Point& right) const
 	{
 		return ((X == right.X) && (Y == right.Y));
 	}
 
-	bool Point::operator!=(const Point right) const
+	bool Point::operator!=(const Point& right) const
 	{
 		return !((X == right.X) && (Y == right.Y));
 	}

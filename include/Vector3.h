@@ -18,7 +18,7 @@ namespace XFX
 	struct Vector2;
 	
 	// Defines a vector with three components.
-	struct Vector3 : public IEquatable<Vector3>, virtual Object
+	struct Vector3 : IEquatable<Vector3>, Object
 	{
 		float X, Y, Z;
 		static const Vector3 Backward;
@@ -59,8 +59,10 @@ namespace XFX
 		static void Divide(const Vector3 value1, const Vector3 value2, out Vector3 result);
 		static float Dot(const Vector3 value1, const Vector3 value2);
 		static void Dot(const Vector3 value1, const Vector3 value2, out float result);
+		bool Equals(const Object* obj) const;
 		bool Equals(const Vector3 other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		static Vector3 Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount);
 		static void Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount, out Vector3 result);
 		float Length() const;

@@ -7,7 +7,7 @@
 #ifndef _XFX_GRAPHICS_RENDERTARGET_
 #define _XFX_GRAPHICS_RENDERTARGET_
 
-#include <System/Delegates.h>
+#include <System/Event.h>
 #include <System/Interfaces.h>
 #include "Enums.h"
 
@@ -19,7 +19,7 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		class RenderTarget : public IDisposable, virtual Object
+		class RenderTarget : public IDisposable, public Object
 		{
 		private:
 			bool isContentLost;
@@ -31,13 +31,12 @@ namespace XFX
 			int width;
 			int height;
 			int multiSampleQuality;
-			MultiSampleType_t multiSampleType;
 			RenderTargetUsage_t renderTargetUsage;
 			int numLevels;
 
 			virtual void Dispose(bool disposing);
-			virtual void raise_ContentLost(Object* sender, EventArgs e);
-			void raise_Disposing(Object* sender, EventArgs e);
+			virtual void raise_ContentLost(Object* sender, EventArgs* e);
+			void raise_Disposing(Object* sender, EventArgs* e);
 
 		public:
 			SurfaceFormat_t getFormat();
@@ -46,7 +45,6 @@ namespace XFX
 			bool IsContentLost();
 			bool IsDisposed();
 			int MultiSampleQuality();
-			MultiSampleType_t getMultiSampleType();
 			char* Name;
 			Object* Tag;
 			int Width();
@@ -57,6 +55,7 @@ namespace XFX
 			virtual ~RenderTarget();
 
 			void Dispose();
+			int GetType() const;
 		};
 	}
 }

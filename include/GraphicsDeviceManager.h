@@ -7,7 +7,6 @@
 #ifndef _XFX_GRAPHICSDEVICEMANAGER_
 #define _XFX_GRAPHICSDEVICEMANAGER_
 
-#include "Game.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/Enums.h"
 #include "Graphics/IGraphicsDeviceService.h"
@@ -20,8 +19,10 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
+	class Game;
+
 	// Handles the configuration and management of the graphics device.
-	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager, virtual Object
+	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager
 	{
 	private:
 		bool isFullScreen;
@@ -30,17 +31,17 @@ namespace XFX
 		int backBufferHeight;
 		int backBufferWidth;
 		GraphicsDevice* graphicsDevice;
-		ShaderProfile_t minimumVertexShaderProfile;
+		DepthFormat_t preferredDepthStencilFormat;
 
 		void CreateDevice();
 	
 	protected:
 		virtual bool CanResetDevice(const GraphicsDeviceInformation newDeviceInfo);
 		virtual void Dispose(bool disposing);
-		virtual void OnDeviceCreated(Object* sender, EventArgs args);
-		virtual void OnDeviceDisposing(Object* sender, EventArgs args);
-		virtual void OnDeviceReset(Object* sender, EventArgs args);
-		virtual void OnDeviceResetting(Object* sender, EventArgs args);
+		virtual void OnDeviceCreated(Object* sender, EventArgs* args);
+		virtual void OnDeviceDisposing(Object* sender, EventArgs* args);
+		virtual void OnDeviceReset(Object* sender, EventArgs* args);
+		virtual void OnDeviceResetting(Object* sender, EventArgs* args);
 
 	public:
 		GraphicsDevice* getGraphicsDevice() const;
@@ -58,10 +59,10 @@ namespace XFX
 		static const int DefaultBackBufferHeight;
 		static SurfaceFormat_t ValidAdapterFormats[];
 		static SurfaceFormat_t ValidBackBufferFormats[];
-		static const DeviceType_t ValidDeviceTypes[];
 
-		GraphicsDeviceManager(Game* game);
+		GraphicsDeviceManager(Game * const game);
 		GraphicsDeviceManager(const GraphicsDeviceManager &obj);
+		~GraphicsDeviceManager();
 
 		EventHandler DeviceCreated;
 		EventHandler DeviceDisposing;
@@ -73,6 +74,7 @@ namespace XFX
 		bool BeginDraw();
 		void Dispose();
 		void EndDraw();
+		int GetType() const;
 		void ToggleFullscreen();
 	};
 }

@@ -26,10 +26,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Color.h>
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
 #include <Graphics/Texture2D.h>
 #include <Rectangle.h>
+#include <System/FrameworkResources.h>
+
+#include <sassert.h>
 
 using namespace XFX;
 
@@ -42,43 +44,24 @@ namespace XFX
 			return _surfaceFormat;
 		}
 		
-		TextureUsage_t Texture2D::TextureUsage() const
-		{
-			return _textureUsage;
-		}
-		
-		Texture2D::Texture2D(GraphicsDevice* graphicsDevice)
-			: Height(0), Width(0)
+		Texture2D::Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height)
+			: textureData(new uint[width*height]), Height(height), Width(width)
 		{
 			textureId = -1;
 			this->graphicsDevice = graphicsDevice;
-		}
-		
-		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height)
-			: Height(height), Width(width)
-		{
-			textureId = -1;
-			this->graphicsDevice = graphicsDevice;
-		}
-		
-		Texture2D::Texture2D(GraphicsDevice* graphicsDevice, const int width, const int height, const int numberLevels, const TextureUsage_t usage, const SurfaceFormat_t format)
-			: Height(height), Width(width)
-		{
-			textureId = -1;
-			this->graphicsDevice = graphicsDevice;
-			_numberOfLevels = numberLevels;
-			_textureUsage = usage;
-			_surfaceFormat = format;
+			this->graphicsDevice->getTextures().textures.Add(this);
+			_surfaceFormat = SurfaceFormat::Color;
 		}
 
-		Texture2D::Texture2D(const Texture2D &obj)
-			: Height(obj.Height), Width(obj.Width)
+		Texture2D::Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height, bool mipmap, const SurfaceFormat_t format)
+			: textureData(new uint[width*height]), Height(height), Width(width)
 		{
-			textureId = obj.textureId;
-			this->graphicsDevice = obj.graphicsDevice;
-			_numberOfLevels = obj._numberOfLevels;
-			_textureUsage = obj._textureUsage;
-			_surfaceFormat = obj._surfaceFormat;
+			// TODO: see if there are more supported surfaceformats (likely)
+			sassert(format == SurfaceFormat::Color, "Invalid surface format. Valid SurfaceFormats are: Color");
+
+			this->graphicsDevice = graphicsDevice;
+			this->graphicsDevice->getTextures().textures.Add(this);
+			_surfaceFormat = format;
 		}
 		
 		void Texture2D::Dispose(bool disposing)
@@ -95,8 +78,42 @@ namespace XFX
 				}
 				if(device.Textures().textures.Contains(this))
 					device.Textures().textures.Remove(this);*/
+
+				delete[] textureData;
+
+				if (graphicsDevice->getTextures().textures.Contains(this))
+					graphicsDevice->getTextures().textures.Remove(this);
 			}
 			_isDisposed = true;
+		}
+
+		int Texture2D::GetType() const
+		{
+			// TODO: implement
+		}
+
+		void Texture2D::GetData(uint data[], const int startIndex, const int elementCount) const
+		{
+			sassert(data != null, FrameworkResources::ArgumentNull_Generic);
+
+			sassert(elementCount < (Width * Height), "");
+
+			uint valueMask;
+
+			switch(_surfaceFormat)
+			{
+			case SurfaceFormat::Color:
+				valueMask = 0xFFFFFFFF;
+				break;
+				// TODO: see if there are more values
+			default:
+				break;
+			}
+
+			for (int i = startIndex, j = 0; i < startIndex + elementCount; i++, j++)
+			{
+				data[i] = (textureData[j] & valueMask);
+			}
 		}
 		
 		void Texture2D::Load(byte buffer[])
@@ -113,49 +130,38 @@ namespace XFX
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 		}
-		
-		template <class T>
-		void Texture2D::SetData(T data[]) 
- 		{ 
- 			Rectangle rect; 
- 			SetData<T>(0, rect, data, 0, data.Length, SetDataOptions::None); 
- 		}
  		
-		template <class T>
- 		void Texture2D::SetData(T data[], int startIndex, int elementCount, SetDataOptions_t options) 
+ 		void Texture2D::SetData(uint data[], const int startIndex, const int elementCount, const SetDataOptions_t options) 
  		{ 
- 			Rectangle rect; 
- 			SetData<T>(0, rect, data, startIndex, elementCount, options); 
- 		} 
-		
-		template <class T>
-		void Texture2D::SetData(int level, Rectangle rect, T data[], int startIndex, int elementCount, SetDataOptions_t options) 
- 		{ 
- 			if (textureId == -1 || options == SetDataOptions::NoOverwrite) 
- 			{ 
-				/*int[] texture = new int[1];
- 				glGenTextures(1, texture); 
- 				textureId = texture[0];*/
- 			} 
- 			//glBindTexture(GL_TEXTURE_2D, textureId);
+			sassert(data != null, FrameworkResources::ArgumentNull_Buffer);
 
- 			switch (_surfaceFormat) 
- 			{ 
- 				case SurfaceFormat::Color:
- 					//glTexImage2D(GL_TEXTURE_2D, 0, 4, _width, _height, 0, GL_BGRA, GL_UNSIGNED_BYTE, data); 
- 					break; 
- 				case SurfaceFormat::Dxt1: 
- 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, _width, _height, 0, elementCount, data);
-					break; 
- 				case SurfaceFormat::Dxt3:
- 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, _width, _height, 0, elementCount, data);
- 					break; 
- 				case SurfaceFormat::Dxt5:
- 					//glCompressedTexImage2D(GL_TEXTURE_2D, 0, GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, _width, _height, 0, elementCount, data);
- 					break; 
- 			}
- 			/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
- 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
- 		} 
+			sassert(elementCount <= Width * Height, "elementCount is larger than the texture size");
+
+			uint dataMask;
+			switch(_surfaceFormat)
+			{
+			case SurfaceFormat::Color:
+				dataMask = 0;
+				break;
+				// TODO: see if there are more values
+			default:
+				break;
+			}
+
+			for (int i = 0, j = startIndex; i < elementCount; i++, j++)
+			{
+				textureData[i] = (data[j] | dataMask);
+			}
+ 		}
+
+		bool Texture2D::operator ==(const Texture2D& right) const
+		{
+			return Object::ReferenceEquals(*this, right);
+		}
+
+		bool Texture2D::operator !=(const Texture2D& right) const
+		{
+			return !Object::ReferenceEquals(*this, right);
+		}
 	}
 }

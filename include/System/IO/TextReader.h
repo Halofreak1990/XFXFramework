@@ -2,15 +2,14 @@
 #define _SYSTEM_IO_TEXTREADER_
 
 #include "../Interfaces.h"
+#include "../String.h"
 
 namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Represents a reader that can read a sequential series of characters.
-		/// </summary>
-		class TextReader : public IDisposable, virtual Object
+		// Represents a reader that can read a sequential series of characters.
+		class TextReader : public IDisposable
 		{
 		protected:
 			void Dispose(bool disposing);
@@ -22,12 +21,12 @@ namespace System
 
 			virtual void Close();
 			void Dispose();
-			virtual int Peek();
+			virtual int Peek() const;
 			virtual int Read();
-			virtual int Read(char buffer[], int index, int count);
-			virtual int ReadBlock(char buffer[], int index, int count);
-			virtual char* ReadLine();
-			virtual char* ReadToEnd();
+			virtual int Read(char buffer[], const int index, const int count);
+			virtual int ReadBlock(char buffer[], const int index, const int count);
+			virtual String ReadLine();
+			virtual String ReadToEnd();
 		};
 	}
 }

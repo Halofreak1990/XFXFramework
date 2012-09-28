@@ -1,53 +1,28 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX", "src\libXFX\libXFX.vcproj", "{379FFCFD-88FA-46D6-A686-CAE8F58652FC}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{888801DD-E68C-4BDE-8B21-890076EF7A59}"
+	ProjectSection(SolutionItems) = preProject
+		XFX TypeInfo.ods = XFX TypeInfo.ods
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX.Game", "src\libXFX.Game\libXFX.Game.vcproj", "{467C54AE-676B-4D1A-AB8E-60B930F09FB1}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX", "src\libXFX\libXFX.vcxproj", "{379FFCFD-88FA-46D6-A686-CAE8F58652FC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmscorlib", "src\libmscorlib\libmscorlib.vcproj", "{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libXFX.Game", "src\libXFX.Game\libXFX.Game.vcxproj", "{467C54AE-676B-4D1A-AB8E-60B930F09FB1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_XBoxWiz", "XFX XBOX Game\XFX XBOX Game.vcproj", "{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libmscorlib", "src\libmscorlib\libmscorlib.vcxproj", "{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Xml", "src\libSystem.Xml\libSystem.Xml.vcproj", "{4797B7BB-E670-4486-8053-CD969AD3CED5}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_XBoxWiz", "XFX XBOX Game\XFX XBOX Game.vcxproj", "{1E24F74A-2232-4FD3-87B5-DCBA309E6BC9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem", "src\libSystem\libSystem.vcproj", "{D9A1DA2E-E4C3-430F-998E-51C2B3F92C24}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Xml", "src\libSystem.Xml\libSystem.Xml.vcxproj", "{4797B7BB-E670-4486-8053-CD969AD3CED5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFXTest", "XFXTest\XFXTest.vcproj", "{964057F7-66CC-4D34-8571-64C86B11248F}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem", "src\libSystem\libSystem.vcxproj", "{D9A1DA2E-E4C3-430F-998E-51C2B3F92C24}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_Game_Test", "XFX_Game_Test\XFX_Game_Test.vcproj", "{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFXTest", "XFXTest\XFXTest.vcxproj", "{964057F7-66CC-4D34-8571-64C86B11248F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XFX_Game_Test", "XFX_Game_Test\XFX_Game_Test.vcxproj", "{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Windows", "src\libSystem.Windows\libSystem.Windows.vcxproj", "{4A050C55-9479-4AE9-8B7A-62A6B89739BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +62,10 @@ Global
 		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Debug|Win32.Build.0 = Debug|Win32
 		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Release|Win32.ActiveCfg = Release|Win32
 		{F38BEFDB-F91F-4555-B004-87E54C9DC5FE}.Release|Win32.Build.0 = Release|Win32
+		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Debug|Win32.Build.0 = Debug|Win32
+		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Release|Win32.ActiveCfg = Release|Win32
+		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

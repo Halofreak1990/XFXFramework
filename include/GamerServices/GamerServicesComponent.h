@@ -14,11 +14,12 @@ namespace XFX
 	namespace GamerServices
 	{
 		// Creates a new GamerServicesComponent.
-		class GamerServicesComponent : public GameComponent, virtual Object
+		class GamerServicesComponent : public GameComponent
 		{	
 		public:
-			GamerServicesComponent(Game game);
+			GamerServicesComponent(Game * const game);
 	
+			int GetType() const;
 			void Initialize();
 			void Update(GameTime gameTime);
 		};

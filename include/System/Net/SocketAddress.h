@@ -12,7 +12,7 @@ namespace System
 	namespace Net
 	{
 		// Stores serialized information from System::Net::EndPoint derived classes.
-		class SocketAddress : virtual Object
+		class SocketAddress : public virtual Object
 		{
 		private:
 			AddressFamily_t addressFamily;

@@ -14,7 +14,7 @@ namespace XFX
 	struct Matrix;
 	struct Vector3;
 	
-	struct Quaternion : public IEquatable<Quaternion>, virtual Object
+	struct Quaternion : IEquatable<Quaternion>, Object
 	{
 		float W, X, Y, Z;
 		static const Quaternion Identity;
@@ -41,7 +41,10 @@ namespace XFX
 		static void Divide(Quaternion quaternion1, Quaternion quaternion2, out Quaternion result);
 		static float Dot(Quaternion quaternion1, Quaternion quaternion2);
 		static void Dot(Quaternion quaternion1, Quaternion quaternion2, out float result);
+		bool Equals(const Object* obj) const;
 		bool Equals(const Quaternion obj) const;
+		int GetHashCode() const;
+		int GetType() const;
 		static Quaternion Inverse(Quaternion quaternion);
 		static void Inverse(Quaternion quaternion, out Quaternion result);
 		float Length();
@@ -63,8 +66,8 @@ namespace XFX
 		
 		const Quaternion operator+(const Quaternion other);
 		const Quaternion operator/(const Quaternion other);
-		bool operator==(const Quaternion other) const;
-		bool operator!=(const Quaternion other) const;
+		bool operator==(const Quaternion& other) const;
+		bool operator!=(const Quaternion& other) const;
 		const Quaternion operator*(const Quaternion other);
 		const Quaternion operator*(const float scaleFactor);
 		const Quaternion operator-(const Quaternion other);

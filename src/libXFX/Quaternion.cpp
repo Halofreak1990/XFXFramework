@@ -35,38 +35,26 @@ using namespace System;
 
 namespace XFX
 {
-	const Quaternion Quaternion::Identity = Quaternion(0,0,0,1);
+	const Quaternion Quaternion::Identity = Quaternion(0, 0, 0, 1);
 
 	Quaternion::Quaternion(float x, float y, float z, float w)
+		: W(w), X(x), Y(y), Z(z)
 	{
-		X = x;
-		Y = y;
-		Z = z;
-		W = w;
 	}
 
 	Quaternion::Quaternion(Vector3 vectorPart, float scalarPart)
+		: W(scalarPart), X(vectorPart.X), Y(vectorPart.Y), Z(vectorPart.Z)
 	{
-		X = vectorPart.X;
-		Y = vectorPart.Y;
-		Z = vectorPart.Z;
-		W = scalarPart;
 	}
 	
 	Quaternion::Quaternion(const Quaternion &obj)
+		: W(obj.W), X(obj.X), Y(obj.Y), Z(obj.Z)
 	{
-		X = obj.X;
-		Y = obj.Y;
-		Z = obj.Z;
-		W = obj.W;
 	}
 	
 	Quaternion::Quaternion()
+		: W(0), X(0), Y(0), Z(0)
 	{
-		X = 0;
-		Y = 0;
-		Z = 0;
-		W = 0;
 	}
 
 	Quaternion Quaternion::Add(Quaternion quaternion1, Quaternion quaternion2)
@@ -192,7 +180,7 @@ namespace XFX
 		Quaternion result;
 		float scale = matrix.M11 + matrix.M22 + matrix.M33;
 		
-		if(scale >0.0f)
+		if(scale > 0.0f)
 		{
 			float Sqrt = Math::Sqrt(scale + 1.0f);
 			
@@ -360,10 +348,25 @@ namespace XFX
 	{
 		result = (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
 	}
+
+	bool Quaternion::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? (*this == *(Quaternion*)obj) : false;
+	}
 	
 	bool Quaternion::Equals(const Quaternion obj) const
 	{
-		return ((X == obj.X) && (Y == obj.Y) && (Z == obj.Z) && (W == obj.W));
+		return (*this == obj);
+	}
+
+	int Quaternion::GetHashCode() const
+	{
+		return ((((int)X + (int)Y) + (int)Z) + (int)W);
+	}
+
+	int Quaternion::GetType() const
+	{
+		// TODO: implement
 	}
 	
 	Quaternion Quaternion::Inverse(Quaternion quaternion)
@@ -607,14 +610,14 @@ namespace XFX
 		return result;
 	}
 	
-	bool Quaternion::operator==(const Quaternion other) const
+	bool Quaternion::operator==(const Quaternion& other) const
 	{
-		return Equals(other);
+		return ((X == other.X) && (Y == other.Y) && (Z == other.Z) && (W == other.W));
 	}
 
-	bool Quaternion::operator!=(const Quaternion other) const
+	bool Quaternion::operator!=(const Quaternion& other) const
 	{
-		return !Equals(other);
+		return ((X != other.X) || (Y != other.Y) || (Z != other.Z) || (W != other.W));
 	}
 	
 	const Quaternion Quaternion::operator*(const Quaternion other)

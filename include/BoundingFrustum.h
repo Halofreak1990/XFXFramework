@@ -23,7 +23,7 @@ namespace XFX
 	struct Vector3;
 
 	// Defines a frustum and helps determine whether forms intersect with it.
-	class BoundingFrustum : public IEquatable<BoundingFrustum>, virtual Object
+	class BoundingFrustum : public IEquatable<BoundingFrustum>, public Object
 	{
 	private:
 		static const int BottomPlaneIndex;
@@ -64,10 +64,12 @@ namespace XFX
 		void Contains(BoundingBox box, out ContainmentType_t result);
 		void Contains(BoundingSphere sphere, out ContainmentType_t result);
 		void Contains(Vector3 point, out ContainmentType_t result);
+		bool Equals(const Object* obj) const;
 		bool Equals(const BoundingFrustum other) const;
 		Vector3* GetCorners();
 		void GetCorners(Vector3 corners[]);
 		int GetHashCode() const;
+		int GetType() const;
 		bool Intersects(BoundingBox box);
 		bool Intersects(BoundingFrustum frustrum);
 		bool Intersects(BoundingSphere sphere);
@@ -79,8 +81,8 @@ namespace XFX
 		void Intersects(Ray ray, out float result);
 		char* ToString() const;
 
-		bool operator==(const BoundingFrustum other) const;
-		bool operator!=(const BoundingFrustum other) const;
+		bool operator==(const BoundingFrustum& other) const;
+		bool operator!=(const BoundingFrustum& other) const;
 	};
 }
 

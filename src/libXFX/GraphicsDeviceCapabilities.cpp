@@ -31,7 +31,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		DeviceType_t GraphicsDeviceCapabilities::DeviceType_()
+		DeviceType_t GraphicsDeviceCapabilities::getDeviceType()
 		{
 #if ENABLE_XBOX
 			return DeviceType::Hardware;
@@ -41,22 +41,22 @@ namespace XFX
 		}
 		
 		/*** BLENDCAPS STRUCTURE DEFINITION ***/
-		int SupportsBlendFactor()
+		int GraphicsDeviceCapabilities::BlendCaps::SupportsBlendFactor()
 		{
 			return true;
 		}
 		
-		int SupportsBothInverseSourceAlpha()
+		int GraphicsDeviceCapabilities::BlendCaps::SupportsBothInverseSourceAlpha()
 		{
 			return true;
 		}
 		
-		int SupportsBothSourceAlpha()
+		int GraphicsDeviceCapabilities::BlendCaps::SupportsBothSourceAlpha()
 		{
 			return true;
 		}
 		
-		int SupportsDestinationAlpha()
+		int GraphicsDeviceCapabilities::BlendCaps::SupportsDestinationAlpha()
 		{
 			return true;
 		}

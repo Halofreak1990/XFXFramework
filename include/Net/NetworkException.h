@@ -16,9 +16,7 @@ namespace XFX
 {
 	namespace Net
 	{
-		/// <summary>
-		/// Thrown if there is a network communication failure.
-		/// </summary>
+		// Thrown if there is a network communication failure.
 		class NetworkException : public Exception
 		{
 		public:
@@ -27,9 +25,7 @@ namespace XFX
 			NetworkException(char* message, Exception innerException);
 		};
 
-		/// <summary>
-		/// Thrown if an error was encountered while joining a session.
-		/// </summary>
+		// Thrown if an error was encountered while joining a session.
 		class NetworkSessionJoinException : public NetworkException
 		{
 		public:

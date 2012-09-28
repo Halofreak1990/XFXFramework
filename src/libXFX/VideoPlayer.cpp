@@ -45,7 +45,7 @@ namespace XFX
 		{
 		}
 
-		Video VideoPlayer::getVideo()
+		Video* VideoPlayer::getVideo()
 		{
 		}
 
@@ -62,7 +62,7 @@ namespace XFX
 		{
 		}
 
-		Texture2D VideoPlayer::GetTexture()
+		Texture2D* VideoPlayer::GetTexture()
 		{
 		}
 
@@ -70,7 +70,7 @@ namespace XFX
 		{
 		}
 
-		void VideoPlayer::Play(Video video)
+		void VideoPlayer::Play(Video* video)
 		{
 		}
 

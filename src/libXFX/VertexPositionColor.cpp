@@ -26,43 +26,56 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/VertexPositionColor.h>
+#include <System/String.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		const VertexElement VertexPositionColor::VertexElements[] = { VertexElement(0, 0, VertexElementFormat::Vector3, VertexElementMethod::Default, VertexElementUsage::Position, 0),
-				VertexElement(0, 12, VertexElementFormat::Color, VertexElementMethod::Default, VertexElementUsage::Color, 0) };
-
-		int VertexPositionColor::SizeInBytes()
+		const VertexElement vertexArray[] =
 		{
-			return sizeof(VertexPositionColor);
+			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+			VertexElement(12, VertexElementFormat::Color, VertexElementUsage::Color, 0)
+		};
+
+		VertexDeclaration VertexPositionColor::getVertexDeclaration() const
+		{
+			return VertexDeclaration(vertexArray, 2);
 		}
 
-		VertexPositionColor::VertexPositionColor(Vector3 position, Color color)
+		VertexPositionColor::VertexPositionColor()
+			: Position(Vector3::Zero), Color(Color::Black)
 		{
-			Position = position;
-			Color_ = color;
 		}
 
-		bool VertexPositionColor::Equals(const VertexPositionColor obj)
+		VertexPositionColor::VertexPositionColor(const Vector3 position, const XFX::Graphics::Color color)
+			: Position(position), Color(color)
 		{
-			return ((Position == obj.Position) && (Color_ == obj.Color_));
 		}
 
-		int VertexPositionColor::GetHashCode()
+		bool VertexPositionColor::Equals(const Object* obj) const
 		{
-			return Position.GetHashCode() ^ Color_.GetHashCode();
+			return is(this, obj) ? (*this == *(VertexPositionColor*)obj) : false;
 		}
 
-		bool VertexPositionColor::operator !=(const VertexPositionColor other)
+		int VertexPositionColor::GetHashCode() const
 		{
-			return !Equals(other);
+			return Position.GetHashCode() ^ this->Color.GetHashCode();
 		}
 
-		bool VertexPositionColor::operator ==(const VertexPositionColor other)
+		const char* VertexPositionColor::ToString() const
 		{
-			return Equals(other);
+			return String::Format("{Position:%s Color:%s}", Position.ToString(), Color.ToString());
+		}
+
+		bool VertexPositionColor::operator !=(const VertexPositionColor& other) const
+		{
+			return (this->Color != other.Color || Position != other.Position);
+		}
+
+		bool VertexPositionColor::operator ==(const VertexPositionColor& other) const
+		{
+			return (this->Color == other.Color && Position == other.Position);
 		}
 	}
 }

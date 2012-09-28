@@ -11,10 +11,8 @@ namespace System
 {
 	namespace Collections
 	{
-		/// <summary>
-		/// This helper class is not meant to be used by the end user.
-		/// Only XFX source files should reference this class.
-		/// </summary>
+		// This helper class is not meant to be used by the end user.
+		// Only XFX source files should reference this class.
 		class HashHelpers
 		{
 		private:

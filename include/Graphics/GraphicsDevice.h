@@ -8,12 +8,14 @@
 #define _XFX_GRAPHICS_GRAPHICSDEVICE_
 
 #include "Color.h"
-#include "DepthStencilBuffer.h"
+#include "DisplayMode.h"
 #include "Enums.h"
 #include "GraphicsAdapter.h"
+#include "IndexBuffer.h"
 #include "PresentationParameters.h"
 #include "RenderTarget2D.h"
 #include "TextureCollection.h"
+#include "VertexBuffer.h"
 #include "Viewport.h"
 
 namespace XFX
@@ -26,16 +28,12 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		class DepthStencilBuffer;
-		class GammaRamp;
-		
 		// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
-		class GraphicsDevice : public IDisposable, virtual Object
+		class GraphicsDevice : public IDisposable, public Object
 		{
 		private:
+			IndexBuffer* _indices;
 			GraphicsAdapter* _adapter;
-			DepthStencilBuffer _depthStencilBuffer;
-			DeviceType_t _deviceType;
 			bool isDisposed;
 			PresentationParameters* p_cachedParameters;
 			TextureCollection textures;
@@ -46,10 +44,10 @@ namespace XFX
 			
 		protected:
 			virtual void Dispose(bool disposing);
-			virtual void raise_DeviceLost(Object* sender, EventArgs e);
-			virtual void raise_DeviceReset(Object* sender, EventArgs e);
-			virtual void raise_DeviceResetting(Object* sender, EventArgs e);
-			virtual void raise_Disposing(Object* sender, EventArgs e);
+			virtual void raise_DeviceLost(Object* sender, EventArgs* e);
+			virtual void raise_DeviceReset(Object* sender, EventArgs* e);
+			virtual void raise_DeviceResetting(Object* sender, EventArgs* e);
+			virtual void raise_Disposing(Object* sender, EventArgs* e);
 		
 		public:
 			EventHandler DeviceLost;
@@ -57,46 +55,40 @@ namespace XFX
 			EventHandler DeviceResetting;
 			EventHandler Disposing;
 
-			DepthStencilBuffer getDepthStencilBuffer();
-			void setDepthStencilBuffer(DepthStencilBuffer buffer);
-			PresentationParameters* getPresentationParameters();
-			TextureCollection getTextures();
+			PresentationParameters* getPresentationParameters() const;
+			TextureCollection getTextures() const;
 			Viewport getViewport() const;
 			void setViewport(const Viewport value);
 		
-			GraphicsDevice(GraphicsAdapter* adapter, const DeviceType_t deviceType, PresentationParameters* presentationParameters);
+			GraphicsDevice(GraphicsAdapter * const adapter, PresentationParameters * const presentationParameters);
 			virtual ~GraphicsDevice();
 			
 			void Clear(const Color color);
 			void Clear(const ClearOptions_t options, const Color color, const float depth, const int stencil);
 			void Clear(const ClearOptions_t options, const Vector4 color, const float depth, const int stencil);
 			void Dispose();
-			void DrawIndexedPrimitives(PrimitiveType_t primitiveType, int baseVertex, int minVertexIndex, int numVertices, int startIndex, int primitiveCount);
-			void DrawPrimitives(PrimitiveType primitiveType, int startVertex, int primitiveCount);
+			void DrawIndexedPrimitives(const PrimitiveType_t primitiveType, const int baseVertex, const int minVertexIndex, int numVertices, int startIndex, int primitiveCount);
+			void DrawInstancedPrimitives(const PrimitiveType_t primitiveType, const int baseVertex, const int minVertexIndex, int numVertices, int startIndex, int primitiveCount);
+			void DrawPrimitives(const PrimitiveType_t primitiveType, const int startVertex, const int primitiveCount);
 			template <class T>
-			void DrawUserIndexedPrimitives(PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, int indexData[], int indexOffset, int primitiveCount);
+			void DrawUserIndexedPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, int indexData[], int indexOffset, int primitiveCount);
 			template <class T>
-			void DrawUserIndexedPrimitives(PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, short indexData[], int indexOffset, int primitiveCount);
+			void DrawUserIndexedPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, int indexData[], int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration);
 			template <class T>
-			void DrawUserPrimitives(PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount);
-			void EvictManagedResources();
-			GammaRamp* GetGammaRamp();
-			bool* GetPixelShaderBooleanConstant(int startRegister, int constantCount);
-			int* GetPixelShaderInt32Constant(int startRegister, int constantCount);
-			Matrix* GetPixelShaderMatrixArrayConstant(int startRegister, int constantCount);
-			Matrix GetPixelShaderMatrixConstant(int startRegister);
-			Quaternion* GetPixelShaderQuaternionArrayConstant(int startRegister, int constantCount);
-			Quaternion GetPixelShaderQuaternionConstant(int startRegister);
-			float* GetPixelShaderSingleConstant(int startRegister, int constantCount);
-			Vector2* GetPixelShaderVector2ArrayConstant(int startRegister, int constantCount);
-			Vector2 GetPixelShaderVector2Constant(int startRegister);
+			void DrawUserIndexedPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, short indexData[], int indexOffset, int primitiveCount);
+			template <class T>
+			void DrawUserIndexedPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int numVertices, short indexData[], int indexOffset, int primitiveCount, VertexDeclaration vertexDeclaration);
+			template <class T>
+			void DrawUserPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount);
+			template <class T>
+			void DrawUserPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount, VertexDeclaration vertexDeclaration);
+			template <typename T>
+			void GetBackBufferData(T data[], const int startIndex, const int elementCount);
+			int GetType() const;
 			void Present();
 			void Reset();
-			void Reset(PresentationParameters* presentationParameters);
-			void SetGammaRamp(const bool calibrate, GammaRamp* ramp);
-			void SetRenderTarget(RenderTarget2D* renderTarget);
-			void SetVertexShaderConstant(const int startRegister, const Matrix constantData);
-			void SetVertexShaderConstant(const int startRegister, const Vector4 constantData);
+			void Reset(PresentationParameters * const presentationParameters);
+			void SetRenderTarget(RenderTarget2D * const renderTarget);
 		};
 	}
 }

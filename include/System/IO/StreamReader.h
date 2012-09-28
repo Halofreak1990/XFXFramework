@@ -24,20 +24,20 @@ namespace System
 		public:
 			static const StreamReader Null;
 			Stream* BaseStream();
-			bool EndOfStream();
+			bool EndOfStream() const;
 
 			StreamReader(Stream* stream);
-			StreamReader(Stream* stream, int bufferSize);
-			StreamReader(const char* path);
-			StreamReader(const char* path, int bufferSize);
+			StreamReader(Stream* stream, const int bufferSize);
+			StreamReader(const String& path);
+			StreamReader(const String& path, const int bufferSize);
 
 			void Close();
 			void DiscardBufferedData();
-			int Peek();
+			int Peek() const;
 			int Read();
-			int Read(char buffer[], int index, int count);
-			char* ReadLine();
-			char* ReadToEnd();
+			int Read(char buffer[], const int index, const int count);
+			String ReadLine();
+			String ReadToEnd();
 		};
 	}
 }

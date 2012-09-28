@@ -13,15 +13,18 @@
 namespace XFX
 {
 	// Arguments used with events from the GameComponentCollection.
-	class GameComponentCollectionEventArgs : public EventArgs, virtual Object
+	class GameComponentCollectionEventArgs : public EventArgs
 	{
 	private:
 		IGameComponent* _gameComponent;
 
 	public:
-		IGameComponent* getGameComponent();
+		IGameComponent* getGameComponent() const;
 
 		GameComponentCollectionEventArgs(IGameComponent* gameComponent);
+		virtual ~GameComponentCollectionEventArgs() { }
+
+		int GetType() const;
 	};
 }
 

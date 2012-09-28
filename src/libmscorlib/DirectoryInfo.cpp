@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Collections/Generic/List.h>
+#include <System/FrameworkResources.h>
 #include <System/IO/Directory.h>
 #include <System/IO/DirectoryInfo.h>
 #include <System/String.h>
@@ -40,11 +41,11 @@ namespace System
 {
 	namespace IO
 	{
-		DirectoryInfo::DirectoryInfo(char* path)
+		DirectoryInfo::DirectoryInfo(const String& path)
 		{
-			sassert(path != null, "");
+			sassert(path != null, FrameworkResources::ArgumentNull_Path);
 
-			if ((strlen(path) == 2) && (path[1] == ':'))
+			if ((path.Length == 2) && (path[1] == ':'))
 			{
 				OriginalPath = ".";
 			}
@@ -58,7 +59,7 @@ namespace System
 		{
 		}
 
-		DirectoryInfo DirectoryInfo::CreateSubDirectory(const char* path)
+		DirectoryInfo DirectoryInfo::CreateSubDirectory(const String& path)
 		{
 			
 		}
@@ -68,7 +69,7 @@ namespace System
 			Directory::Delete(FullPath, false);
 		}
 
-		void DirectoryInfo::Delete(bool recursive)
+		void DirectoryInfo::Delete(const bool recursive)
 		{
 			Directory::Delete(FullPath, recursive);
 		}
@@ -78,9 +79,9 @@ namespace System
 			return GetDirectories("*");
 		}
 
-		DirectoryInfo* DirectoryInfo::GetDirectories(const char* searchPattern)
+		DirectoryInfo* DirectoryInfo::GetDirectories(const String& searchPattern)
 		{
-			sassert(searchPattern != null, "");
+			sassert(searchPattern != null, String::Format("searchPattern; %s", FrameworkResources::ArgumentNull_Generic));
 
 			List<DirectoryInfo> infos = List<DirectoryInfo>();
 
@@ -89,13 +90,13 @@ namespace System
 			return infos.ToArray();
 		}
 
-		bool DirectoryInfo::operator !=(const DirectoryInfo right) const
+		bool DirectoryInfo::operator !=(const DirectoryInfo& right) const
 		{
 			return !((strncmp(current, right.current, strlen(current)) == 0) &&
 				(strncmp(parent, right.parent, strlen(parent)) == 0));
 		}
 
-		bool DirectoryInfo::operator ==(const DirectoryInfo right) const
+		bool DirectoryInfo::operator ==(const DirectoryInfo& right) const
 		{
 			return ((strncmp(current, right.current, strlen(current)) == 0) &&
 				(strncmp(parent, right.parent, strlen(parent)) == 0));

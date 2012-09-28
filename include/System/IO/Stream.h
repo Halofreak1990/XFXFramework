@@ -22,7 +22,7 @@ namespace System
 	namespace IO
 	{
 		// Provides a generic view of a sequence of bytes.
-		class Stream : public IDisposable, virtual Object
+		class Stream : public IDisposable, public virtual Object
 		{
 		private:
 			int _asyncActiveCount;
@@ -35,8 +35,8 @@ namespace System
 			virtual bool CanSeek();
 			virtual bool CanTimeOut();
 			virtual bool CanWrite();
-			virtual Int64 Length();
-			Int64 Position;
+			virtual long long Length();
+			long long Position;
 			int ReadTimeOut;
 			int WriteTimeOut;
 			static const Stream* Null;
@@ -51,10 +51,11 @@ namespace System
 			virtual int EndRead(IAsyncResult* asyncResult);
 			virtual void EndWrite(IAsyncResult* asyncResult);
 			virtual void Flush();
+			int GetType() const;
 			virtual int Read(byte buffer[], int offset, int count);
 			virtual int ReadByte();
-			virtual Int64 Seek(Int64 offset, SeekOrigin_t origin);
-			virtual void SetLength(Int64 value);
+			virtual long long Seek(long long offset, SeekOrigin_t origin);
+			virtual void SetLength(long long value);
 			virtual void Write(byte buffer[], int offset, int count);
 			virtual void WriteByte(byte value);
 		};

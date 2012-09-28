@@ -1,60 +1,66 @@
 /********************************************************
  *	BasicEffect.h										*
  *														*
- *	BasicEffect definition file							*
+ *	XFX::Graphics::BasicEffect definition file			*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _BASICEFFECT_H_
-#define _BASICEFFECT_H_
+#ifndef _XFX_GRAPHICS_BASICEFFECT_
+#define _XFX_GRAPHICS_BASICEFFECT_
 
-#include "BasicDirectionalLight.h"
-#include "Effect.h"
-//#include "GraphicsDevice.h"
-#include <Matrix.h>
-#include "Texture2D.h"
-#include <Vector3.h>
+#include <Graphics/Effect.h>
 
 namespace XFX
 {
+	struct Matrix;
+	struct Vector3;
+
 	namespace Graphics
 	{
-		/// <summary>
-		/// Represents shader model 1.1 Effect that has optional support for vertex colors, texturing, and lighting.
-		/// </summary>
+		class DirectionalLight;
+		class GraphicsDevice;
+		class Texture2D;
+
+		// Contains a basic rendering effect.
 		class BasicEffect : public Effect
 		{
+		private:
+			int dirtyFlags;
+
 		protected:
-			BasicEffect(GraphicsDevice device, BasicEffect clone);
-			
+			BasicEffect(BasicEffect const * const cloneSource);
+			void OnApply();
+
 		public:
 			float Alpha;
 			Vector3 AmbientLightColor;
 			Vector3 DiffuseColor;
-			BasicDirectionalLight DirectionalLight0();
-			BasicDirectionalLight DirectionalLight1();
-			BasicDirectionalLight DirectionalLight2();
+			DirectionalLight* getDirectionalLight0() const;
+			DirectionalLight* getDirectionalLight1() const;
+			DirectionalLight* getDirectionalLight2() const;
 			Vector3 EmissiveColor;
 			Vector3 FogColor;
-			int FogEnabled;
+			bool FogEnabled;
 			float FogEnd;
 			float FogStart;
-			int LightingEnabled;
-			int PreferPerPixelLighting;
+			bool LightingEnabled;
+			bool PreferPerPixelLighting;
 			Matrix Projection;
 			Vector3 SpecularColor;
 			float SpecularPower;
-			Texture2D Texture_;
-			int TextureEnabled;
-			int VertexColorEnabled;
+			Texture2D* Texture;
+			bool TextureEnabled;
+			bool VertexColorEnabled;
 			Matrix View;
 			Matrix World;
-		
-			BasicEffect(GraphicsDevice device, EffectPool effectPool);
-			
-			Effect Clone(GraphicsDevice device);
+
+			BasicEffect(GraphicsDevice * const device);
+			~BasicEffect();
+
+			Effect* Clone() const;
 			void EnableDefaultLighting();
+			int GetType() const;
 		};
 	}
 }
 
-#endif //_BASICEFFECT_H_
+#endif //_XFX_GRAPHICS_BASICEFFECT_

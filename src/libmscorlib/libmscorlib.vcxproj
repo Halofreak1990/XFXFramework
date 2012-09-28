@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B7A9CAB6-B307-4A2E-A01F-970F9A8B044E}</ProjectGuid>
+    <RootNamespace>libmscorlib</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile all 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile rebuild 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile clean 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeCleanCommandLine>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ENABLE_XBOX; DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog>
+      <Path>BuildLog.htm</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BitConverter.cpp" />
+    <ClCompile Include="Boolean.cpp" />
+    <ClCompile Include="Byte.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="DateTime.cpp" />
+    <ClCompile Include="Double.cpp" />
+    <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="EventArgs.cpp" />
+    <ClCompile Include="FrameworkResources.cpp" />
+    <ClCompile Include="Int16.cpp" />
+    <ClCompile Include="Int32.cpp" />
+    <ClCompile Include="Int64.cpp" />
+    <ClCompile Include="Math.cpp" />
+    <ClCompile Include="misc.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="OperatingSystem.cpp" />
+    <ClCompile Include="sassert.c" />
+    <ClCompile Include="SByte.cpp" />
+    <ClCompile Include="Single.cpp" />
+    <ClCompile Include="String.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="TimeSpan.cpp" />
+    <ClCompile Include="UInt16.cpp" />
+    <ClCompile Include="UInt32.cpp" />
+    <ClCompile Include="UInt64.cpp" />
+    <ClCompile Include="Version.cpp" />
+    <ClCompile Include="BinaryReader.cpp" />
+    <ClCompile Include="BinaryWriter.cpp" />
+    <ClCompile Include="Directory.cpp" />
+    <ClCompile Include="DirectoryInfo.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileStream.cpp" />
+    <ClCompile Include="MemoryStream.cpp" />
+    <ClCompile Include="Path.cpp" />
+    <ClCompile Include="Stream.cpp" />
+    <ClCompile Include="StreamAsyncResult.cpp" />
+    <ClCompile Include="StreamReader.cpp" />
+    <ClCompile Include="StreamWriter.cpp" />
+    <ClCompile Include="TextWriter.cpp" />
+    <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="Calendar.cpp" />
+    <ClCompile Include="DaylightTime.cpp" />
+    <ClCompile Include="HashHelpers.cpp" />
+    <ClCompile Include="Comparer.cpp" />
+    <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="StringBuilder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\System\Array.h" />
+    <ClInclude Include="..\..\include\System\BitConverter.h" />
+    <ClInclude Include="..\..\include\System\Boolean.h" />
+    <ClInclude Include="..\..\include\System\Buffer.h" />
+    <ClInclude Include="..\..\include\System\Byte.h" />
+    <ClInclude Include="..\..\include\System\Console.h" />
+    <ClInclude Include="..\..\include\System\DateTime.h" />
+    <ClInclude Include="..\..\include\System\Delegates.h" />
+    <ClInclude Include="..\..\include\System\Double.h" />
+    <ClInclude Include="..\..\include\System\Environment.h" />
+    <ClInclude Include="..\..\include\System\Event.h" />
+    <ClInclude Include="..\..\include\System\EventArgs.h" />
+    <ClInclude Include="..\..\include\System\FrameworkResources.h" />
+    <ClInclude Include="HashHelpers.h" />
+    <ClInclude Include="..\..\include\System\Int16.h" />
+    <ClInclude Include="..\..\include\System\Int32.h" />
+    <ClInclude Include="..\..\include\System\Int64.h" />
+    <ClInclude Include="..\..\include\System\Interfaces.h" />
+    <ClInclude Include="..\..\include\System\Math.h" />
+    <ClInclude Include="..\..\include\System\misc.h" />
+    <ClInclude Include="..\..\include\System\Nullable.h" />
+    <ClInclude Include="..\..\include\System\Object.h" />
+    <ClInclude Include="..\..\include\System\OperatingSystem.h" />
+    <ClInclude Include="..\..\include\sassert.h" />
+    <ClInclude Include="..\..\include\System\SByte.h" />
+    <ClInclude Include="..\..\include\System\Single.h" />
+    <ClInclude Include="..\..\include\System\String.h" />
+    <ClInclude Include="..\..\include\System.h" />
+    <ClInclude Include="..\..\include\System\Threading.h" />
+    <ClInclude Include="..\..\include\System\TimeSpan.h" />
+    <ClInclude Include="..\..\include\System\TimeZone.h" />
+    <ClInclude Include="..\..\include\System\Types.h" />
+    <ClInclude Include="..\..\include\System\UInt16.h" />
+    <ClInclude Include="..\..\include\System\UInt32.h" />
+    <ClInclude Include="..\..\include\System\UInt64.h" />
+    <ClInclude Include="..\..\include\System\Version.h" />
+    <ClInclude Include="..\..\include\System\IO\BinaryReader.h" />
+    <ClInclude Include="..\..\include\System\IO\BinaryWriter.h" />
+    <ClInclude Include="..\..\include\System\IO\Directory.h" />
+    <ClInclude Include="..\..\include\System\IO\DirectoryInfo.h" />
+    <ClInclude Include="..\..\include\System\IO\Enums.h" />
+    <ClInclude Include="..\..\include\System\IO\File.h" />
+    <ClInclude Include="..\..\include\System\IO\FileStream.h" />
+    <ClInclude Include="..\..\include\System\IO\FileSystemInfo.h" />
+    <ClInclude Include="..\..\include\System\IO\MemoryStream.h" />
+    <ClInclude Include="..\..\include\System\IO\Path.h" />
+    <ClInclude Include="..\..\include\System\IO\Stream.h" />
+    <ClInclude Include="..\..\include\System\IO\StreamAsyncResult.h" />
+    <ClInclude Include="..\..\include\System\IO\StreamReader.h" />
+    <ClInclude Include="..\..\include\System\IO\StreamWriter.h" />
+    <ClInclude Include="..\..\include\System\IO\TextReader.h" />
+    <ClInclude Include="..\..\include\System\IO\TextWriter.h" />
+    <ClInclude Include="..\..\include\System\Globalization\Calendar.h" />
+    <ClInclude Include="..\..\include\System\Globalization\DaylightTime.h" />
+    <ClInclude Include="..\..\include\System\Globalization\Enums.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\Comparer.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\Dictionary.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\EqualityComparer.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\Interfaces.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\KeyValuePair.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\List.h" />
+    <ClInclude Include="..\..\include\System\Collections\Generic\Stack.h" />
+    <ClInclude Include="..\..\include\System\Threading\Enums.h" />
+    <ClInclude Include="..\..\include\System\Threading\Interlocked.h" />
+    <ClInclude Include="..\..\include\System\Threading\Thread.h" />
+    <ClInclude Include="..\..\include\System\Threading\WaitHandle.h" />
+    <ClInclude Include="..\..\include\System\Text\StringBuilder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

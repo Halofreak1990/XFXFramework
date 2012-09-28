@@ -27,9 +27,7 @@
 
 #include <System/Text/Encoder.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace System
 {
@@ -51,21 +49,9 @@ namespace System
 
 		int Encoder::GetByteCount(char* chars, int count, bool flush)
 		{
-			if (chars == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "chars");
-#endif
-				return -1;
-			}
+			sassert(chars != null, "chars cannot be null.");
 
-			if (count < 0)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "count", "Non-negative number required.");
-#endif
-				return -1;
-			}
+			sassert(!(count < 0), "count must be non-negative.");
 
 			char chArray[count];
 			for (int i = 0; i < count; i++)
@@ -75,9 +61,9 @@ namespace System
 			return GetByteCount(chArray, 0, count, flush);
 		}
 
-		int GetBytes(char* chars, int charCount, byte* bytes, int byteCount, bool flush)
+		int Encoder::GetBytes(char* chars, int charCount, byte* bytes, int byteCount, bool flush)
 		{
-
+			return -1;
 		}
 	}
 }

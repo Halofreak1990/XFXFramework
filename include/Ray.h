@@ -20,7 +20,7 @@ namespace XFX
 	struct Vector3;
 	
 	// Defines a ray.
-	struct Ray : public IEquatable<Ray>, virtual Object
+	struct Ray : IEquatable<Ray>, Object
 	{
 		Vector3 Direction;
 		Vector3 Position;
@@ -29,8 +29,10 @@ namespace XFX
 		Ray(const Ray &obj);
 		Ray();
 		
+		bool Equals(const Object* obj) const;
 		bool Equals(const Ray other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		float Intersects(const BoundingBox boundingbox) const;
 		void Intersects(const BoundingBox boundingbox, out float result) const;
 		float Intersects(const BoundingSphere sphere) const;
@@ -39,8 +41,8 @@ namespace XFX
 		void Intersects(const Plane plane, out float result) const;
 		const char* ToString() const;
 		
-		bool operator==(const Ray right) const;
-		bool operator!=(const Ray right) const;
+		bool operator==(const Ray& right) const;
+		bool operator!=(const Ray& right) const;
 	};
 }
 

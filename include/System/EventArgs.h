@@ -12,14 +12,17 @@
 namespace System
 {
 	// EventArgs is the base class for classes containing event data.
-	class EventArgs : virtual Object
+	class EventArgs : public Object
 	{
 	public:
-		static const EventArgs Empty;
+		static const EventArgs* Empty;
 
 		EventArgs()
 		{
 		}
+		virtual ~EventArgs() { }
+
+		int GetType() const;
 	};
 }
 

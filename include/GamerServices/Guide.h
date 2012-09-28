@@ -37,14 +37,14 @@ namespace XFX
 			static bool IsVisible();
 			static NotificationPosition_t NotificationPosition;
 
-			static IAsyncResult* BeginShowKeyboardInput(PlayerIndex_t player, char* title, char* description, char* defaultText, AsyncCallback callback, Object* state);
-			static IAsyncResult* BeginShowMessageBox(PlayerIndex_t player, char* title, char* text, IEnumerable<char*>* buttons, int focusButton, MessageBoxIcon_t icon, AsyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowKeyboardInput(const PlayerIndex_t player, String& title, String& description, String& defaultText, AsyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowMessageBox(const PlayerIndex_t player, String& title, String& text, IEnumerable<String>* buttons, const int focusButton, const MessageBoxIcon_t icon, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(AsyncCallback callback, Object* state);
-			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state);
-			static IAsyncResult* BeginShowStorageDeviceSelector(PlayerIndex_t player, AsyncCallback callback, Object* state);
-			static void DelayNotifications(TimeSpan timespan);
-			static char* EndShowKeyboardInput(IAsyncResult* result);
+			static IAsyncResult* BeginShowStorageDeviceSelector(const PlayerIndex_t player, const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state);
+			static IAsyncResult* BeginShowStorageDeviceSelector(const PlayerIndex_t player, AsyncCallback callback, Object* state);
+			static void DelayNotifications(const TimeSpan timespan);
+			static const char* EndShowKeyboardInput(IAsyncResult* result);
 			static int EndShowMessageBox(IAsyncResult* result);
 			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult* result);
 		};

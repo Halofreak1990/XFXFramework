@@ -25,13 +25,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/String.h>
 #include <GamerServices/Guide.h>
 #include <GamerServices/StorageDeviceAsyncResult.h>
+#include <System/FrameworkResources.h>
 #include <System/TimeSpan.h>
 
-#if DEBUG
-#include <stdio.h>
-#endif
+#include <sassert.h>
 
 namespace XFX
 {
@@ -42,28 +42,28 @@ namespace XFX
 			return _isVisible;
 		}
 
-		IAsyncResult* Guide::BeginShowKeyboardInput(PlayerIndex_t player, char *title, char *description, char *defaultText, AsyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowKeyboardInput(const PlayerIndex_t player, String& title, String& description, String& defaultText, AsyncCallback callback, Object* state)
 		{
-			if (!title)
-				title = "";
+			if (String::IsNullOrEmpty(title))
+				title = String::Empty;
 
-			if (!description)
-				description = "";
+			if (String::IsNullOrEmpty(description))
+				description = String::Empty;
 
-			if (!defaultText)
-				defaultText = "";
+			if (String::IsNullOrEmpty(defaultText))
+				defaultText = String::Empty;
 
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowMessageBox(PlayerIndex_t player, char* title, char* text, IEnumerable<char*>* buttons, int focusButton, MessageBoxIcon_t icon, AsyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowMessageBox(const PlayerIndex_t player, String& title, String& text, IEnumerable<String>* buttons, const int focusButton, const MessageBoxIcon_t icon, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
@@ -75,19 +75,19 @@ namespace XFX
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, int sizeInBytes, int directoryCount, AsyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const PlayerIndex_t player, const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		IAsyncResult* Guide::BeginShowStorageDeviceSelector(PlayerIndex_t player, AsyncCallback callback, Object* state)
+		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const PlayerIndex_t player, AsyncCallback callback, Object* state)
 		{
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		char* Guide::EndShowKeyboardInput(IAsyncResult* result)
+		const char* Guide::EndShowKeyboardInput(IAsyncResult* result)
 		{
 			// just return an empty string to stop warning until this thing's coded
 			return "";
@@ -102,12 +102,9 @@ namespace XFX
 		StorageDevice Guide::EndShowStorageDeviceSelector(IAsyncResult* asyncResult)
 		{
 			StorageDeviceAsyncResult* result = (StorageDeviceAsyncResult*)asyncResult;
-			if (!result)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "result");
-#endif
-			}
+
+			sassert(result, String::Format("result; %s", FrameworkResources::ArgumentNull_Generic));
+
 			return StorageDevice(0, (PlayerIndex_t)result->playerIndex);
 		}
 	}

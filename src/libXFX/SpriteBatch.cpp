@@ -29,8 +29,8 @@ extern "C"
 {
 #include "pbkit.h"
 }
+
 #include <Graphics/Color.h>
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
 #include <Graphics/Sprite.h>
 #include <Graphics/SpriteBatch.h>
@@ -44,13 +44,11 @@ extern "C"
 
 #include <sassert.h>
 
-using namespace XFX;
-
 namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteBatch::SpriteBatch(GraphicsDevice* graphicsDevice)
+		SpriteBatch::SpriteBatch(GraphicsDevice * const graphicsDevice)
 			: device(graphicsDevice)
 		{
 		}
@@ -72,41 +70,41 @@ namespace XFX
 	
 		void SpriteBatch::Begin() 
         { 
-            Begin(SpriteBlendMode::AlphaBlend, SpriteSortMode::Deferred, SaveStateMode::None, Matrix::Identity); 
+			Begin(SpriteSortMode::Deferred, BlendState::AlphaBlend); 
         }
 
-		void SpriteBatch::Begin(const SpriteBlendMode_t blendMode)
+		void SpriteBatch::Begin(SpriteSortMode_t sortMode, const BlendState& blendState)
 		{
-			Begin(blendMode, SpriteSortMode::Deferred, SaveStateMode::None, Matrix::Identity);
+
 		}
-        
-        void SpriteBatch::Begin(const SpriteBlendMode_t blendMode, const SpriteSortMode_t sortMode, const SaveStateMode_t stateMode)
-        {
-	        Begin(blendMode, sortMode, stateMode, Matrix::Identity);
-        }
-        
-        void SpriteBatch::Begin(const SpriteBlendMode_t blendMode, const SpriteSortMode_t sortMode, const SaveStateMode_t stateMode, const Matrix transformMatrix) 
-        {
+
+		void SpriteBatch::Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState)
+		{
+
+		}
+
+		void SpriteBatch::Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect* effect)
+		{
+
+		}
+
+		void SpriteBatch::Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect* effect, Matrix transformMatrix)
+		{
 			sassert(!inBeginEndPair, "Begin cannot be called again until End has been successfully called.");
-  
-			if (stateMode == SaveStateMode::SaveState)
-				saveState = new StateBlock(device);
-			spriteBlendMode = blendMode;
+
 			spriteSortMode = sortMode;
 			if (sortMode == SpriteSortMode::Immediate)
+			{
 				applyGraphicsDeviceSettings();
-
+			}
 			inBeginEndPair = true;
-        }
+		}
          
         void SpriteBatch::Dispose(bool disposing)
         {
 	        if (disposing && !isDisposed)
 			{
-				if (Disposing != null)
-				{
-					Disposing(this, EventArgs::Empty);
-				}
+				Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 			}
 			isDisposed = true;
         }
@@ -116,28 +114,29 @@ namespace XFX
 	        Dispose(true);
         }
          
-        void SpriteBatch::Draw(Texture2D* texture, const Rectangle destinationRectangle, const Color color)
+        void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Color color)
         {
 			Draw(texture, destinationRectangle, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, const Vector2 position, const Color color)
+		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Color color)
         {
-			Draw(texture, position, Rectangle::Empty, color);
+			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width, texture->Height);
+			Draw(texture, destination, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
          
-        void SpriteBatch::Draw(Texture2D* texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color)
+        void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color)
         {
 			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
         }
         
-        void SpriteBatch::Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color)
+        void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color)
         {
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width, texture->Height);
 			Draw(texture, destination, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f); 	
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
         {
 			Sprite sprite = Sprite(texture, 
 				sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture->Width, texture->Height), 
@@ -154,7 +153,7 @@ namespace XFX
 				Flush(); 
         }
 
-		void SpriteBatch::Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
         { 
             int width;
 			int height;
@@ -172,7 +171,7 @@ namespace XFX
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
         }
         
-        void SpriteBatch::Draw(Texture2D* texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
+        void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
         {
 	        int width;
 			int height;
@@ -190,17 +189,17 @@ namespace XFX
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth);
         }
         
-        void SpriteBatch::DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color)
+        void SpriteBatch::DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color)
         {            
            	spriteFont->Draw(text, this, position, color, 0.0f, Vector2::Zero, Vector2::One, SpriteEffects::None, 0.0f); 
         }
 
-		void SpriteBatch::DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
 		{
 			spriteFont->Draw(text, this, position, color, rotation, origin, scale, effects, layerDepth);
 		}
         
-        void SpriteBatch::DrawString(SpriteFont* spriteFont, const char* text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
+        void SpriteBatch::DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
         {
 			Vector2 vector = Vector2::Zero;
             vector.X = scale; 
@@ -228,48 +227,58 @@ namespace XFX
 
 			inBeginEndPair = false;
         }
+
+		int SpriteBatch::GetType() const
+		{
+			// TODO: implement
+		}
         
         void SpriteBatch::restoreRenderState()
         {
-	        if (saveStateMode == SaveStateMode::SaveState) 
-                saveState->Apply(); 
+	        
         }
         
         void SpriteBatch::applyGraphicsDeviceSettings() 
         {
 			DWORD* p;
 
+			p = pb_begin();
+
+			
+
+			pb_end(p);
+
             // Set the blend mode 
-            switch (spriteBlendMode) 
-            { 
-                case SpriteBlendMode::AlphaBlend: 
-                    p = pb_begin();
-					//Enable blending
-					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
-					//set blendmode
-					pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (0x303<<16) | 0x303); p+=3;
-					//send data to GPU
-					pb_end(p);
-                    break; 
-                case SpriteBlendMode::Additive:
-					p = pb_begin();
-					//Enable blending
-					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
-					//set blendmode
-					pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (1<<16) | 1); p+=3;
-					//send data to GPU
-					pb_end(p);
-                    break; 
-                case SpriteBlendMode::None: 
-                    p = pb_begin();
-					//Disable Blending
-					pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 0); p+=2;
-					//send data to GPU
-					pb_end(p);
-                    break; 
-                default: 
-                    return; 
-            } 
+     //       switch (spriteBlendMode) 
+     //       { 
+     //           case SpriteBlendMode::AlphaBlend: 
+     //               p = pb_begin();
+					////Enable blending
+					//pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
+					////set blendmode
+					//pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (0x303<<16) | 0x303); p+=3;
+					////send data to GPU
+					//pb_end(p);
+     //               break; 
+     //           case SpriteBlendMode::Additive:
+					//p = pb_begin();
+					////Enable blending
+					//pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 1); p+=2;
+					////set blendmode
+					//pb_push2(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_SRC, (0x302<<16) | 0x302, (1<<16) | 1); p+=3;
+					////send data to GPU
+					//pb_end(p);
+     //               break; 
+     //           case SpriteBlendMode::None: 
+     //               p = pb_begin();
+					////Disable Blending
+					//pb_push(p, NV20_TCL_PRIMITIVE_3D_BLEND_FUNC_ENABLE, 0); p+=2;
+					////send data to GPU
+					//pb_end(p);
+     //               break; 
+     //           default: 
+     //               return; 
+     //       } 
                           
             //glEnable(GL_TEXTURE_2D); 
   

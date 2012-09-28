@@ -7,7 +7,7 @@
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONTEXTURE_
 #define _XFX_GRAPHICS_VERTEXPOSITIONTEXTURE_
 
-#include "VertexElement.h"
+#include "VertexDeclaration.h"
 
 namespace XFX
 {
@@ -17,23 +17,26 @@ namespace XFX
 	namespace Graphics
 	{
 		// Describes a custom vertex format structure that contains position and one set of texture coordinates.
-		struct VertexPositionTexture : virtual Object
+		struct VertexPositionTexture : Object
 		{
+		private:
+			static const VertexElement vertexArray[];
+
 		public:
 			Vector3 Position;
 			Vector2 TextureCoordinate;
-			static const VertexElement VertexElements[];
+			VertexDeclaration getVertexDeclaration() const;
 			
-			static int SizeInBytes();
+			VertexPositionTexture();
+			VertexPositionTexture(const Vector3 position, const Vector2 textureCoordinate);
 			
-			VertexPositionTexture(Vector3 position, Vector2 textureCoordinate);
-			
-			bool Equals(const VertexPositionTexture other);
-			int GetHashCode();
-			char* ToString();
+			bool Equals(const Object* obj) const;
+			int GetHashCode() const;
+			int GetType() const;
+			const char* ToString() const;
 		
-			bool operator!=(const VertexPositionTexture other);
-			bool operator==(const VertexPositionTexture other);
+			bool operator!=(const VertexPositionTexture& other) const;
+			bool operator==(const VertexPositionTexture& other) const;
 		};
 	}
 }

@@ -24,7 +24,7 @@ namespace XFX
 		class StorageContainer;
 		
 		// Represents a storage device for user data, such as a memory unit or hard drive.
-		class StorageDevice : virtual Object
+		class StorageDevice : public Object
 		{
 		private:
 			friend class XFX::GamerServices::Guide;
@@ -36,11 +36,12 @@ namespace XFX
 			virtual ~StorageDevice();
 
 		public:
-			Int64 FreeSpace();
-			bool IsConnected();
-			Int64 TotalSpace();
+			long long FreeSpace() const;
+			bool IsConnected() const;
+			long long TotalSpace() const;
 			
-			StorageContainer OpenContainer(char* titleName) __attribute__((nonnull (1)));
+			int GetType() const;
+			StorageContainer* OpenContainer(const char* titleName);
 		};
 	}
 }

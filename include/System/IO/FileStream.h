@@ -7,6 +7,7 @@
 #ifndef _SYSTEM_IO_FILESTREAM_
 #define _SYSTEM_IO_FILESTREAM_
 
+#include "../String.h"
 #include "../Types.h"
 #include "Enums.h"
 #include "Stream.h"
@@ -16,7 +17,7 @@ namespace System
 	namespace IO
 	{
 		// Exposes a Stream around a file, supporting both synchronous and asynchronous read and write operations.
-		class FileStream : public Stream, virtual Object
+		class FileStream : public Stream, public virtual Object
 		{
 		private:
 			int handle;
@@ -24,7 +25,7 @@ namespace System
 			FileAccess_t _access;
 			bool canSeek;
 			bool isAsync;
-			Int64 _pos;
+			long long _pos;
 			int _readLen;
 			int _readPos;
 			int _writePos;
@@ -41,25 +42,25 @@ namespace System
 			bool CanSeek();
 			bool CanWrite();
 			virtual bool IsAsync();
-			Int64 Length();
+			long long Length();
 			char* Name();
-			Int64 getPosition();
-			void setPosition(Int64 newPosition);
+			long long getPosition();
+			void setPosition(long long newPosition);
 
 			FileStream();
-			FileStream(const char* path, const FileMode_t mode);
-			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access);
-			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share);
-			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize);
-			FileStream(const char* path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync);
+			FileStream(const String& path, const FileMode_t mode);
+			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access);
+			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share);
+			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize);
+			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync);
 			virtual ~FileStream();
 
 			void Flush();
-			int Read(byte array[], const int offset, const int count) __attribute__((nonnull (1)));
+			int Read(byte array[], const int offset, const int count);
 			int ReadByte();
-			Int64 Seek(const Int64 offset, const SeekOrigin_t origin);
-			void SetLength(const Int64 value);
-			void Write(byte array[], const int offset, const int count) __attribute__((nonnull (1)));
+			long long Seek(const long long offset, const SeekOrigin_t origin);
+			void SetLength(const long long value);
+			void Write(byte array[], const int offset, const int count);
 			void WriteByte(const byte value);
 		};
 	}

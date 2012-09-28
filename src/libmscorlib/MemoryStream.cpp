@@ -26,12 +26,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Array.h>
-#include <System/Buffer.h>
 #include <System/FrameworkResources.h>
 #include <System/String.h>
 #include <System/IO/MemoryStream.h>
 
 #include <sassert.h>
+#include <string.h>
 
 namespace System
 {
@@ -76,7 +76,7 @@ namespace System
 					byte* dst = new byte[value];
 					if (_length > 0)
 					{
-						Buffer::BlockCopy(_buffer, 0, dst, 0, _length);
+						memcpy(dst, _buffer, _length);
 					}
 					_buffer = dst;
 				}
@@ -277,7 +277,7 @@ namespace System
 			}
 			else
 			{
-				Buffer::BlockCopy(_buffer, _position, buffer, offset, num);
+				memcpy(&_buffer[_position], &_buffer[offset], num);
 			}
 			_position += num;
 			return num;
@@ -350,7 +350,7 @@ namespace System
 		byte* MemoryStream::ToArray()
 		{
 			byte* dst = new byte[_length - _origin];
-			Buffer::BlockCopy(_buffer, _origin, dst, 0, _length - _origin);
+			memcpy(dst, &_buffer[_origin], _length - _origin);
 			return dst;
 		}
 
@@ -395,7 +395,7 @@ namespace System
 			}
 			else
 			{
-				Buffer::BlockCopy(buffer, offset, _buffer, _position, count);
+				memcpy(&_buffer[_position], &buffer[offset], count);
 			}
 			_position = num;
 		}

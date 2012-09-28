@@ -7,36 +7,39 @@
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_
 #define _XFX_GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_
 
+#include "IVertexType.h"
+#include <Vector2.h>
+#include <Vector3.h>
 #include "VertexElement.h"
 
 using namespace System;
 
 namespace XFX
 {
-	struct Vector2;
-	struct Vector3;
-
 	namespace Graphics
 	{
 		// Describes a custom vertex format structure that contains position, normal data, and one set of texture coordinates.
-		struct VertexPositionNormalTexture : virtual Object
+		struct VertexPositionNormalTexture : IVertexType, Object
 		{
+		private:
+			static const VertexElement vertexArray[];
+
 		public:
 			Vector3 Normal;
 			Vector3 Position;
 			Vector2 TextureCoordinate;
-			static const VertexElement VertexElements[];
+			VertexDeclaration getVertexDeclaration() const;
 			
-			static int SizeInBytes();
-			
+			VertexPositionNormalTexture();
 			VertexPositionNormalTexture(const Vector3 position, const Vector3 normal, const Vector2 textureCoordinate);
 			
-			bool Equals(const VertexPositionNormalTexture other) const;
+			bool Equals(const Object* obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			const char* ToString() const;
 		
-			bool operator!=(const VertexPositionNormalTexture other) const;
-			bool operator==(const VertexPositionNormalTexture other) const;
+			bool operator!=(const VertexPositionNormalTexture& other) const;
+			bool operator==(const VertexPositionNormalTexture& other) const;
 		};
 	}
 }

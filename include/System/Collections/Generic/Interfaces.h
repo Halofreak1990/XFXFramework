@@ -7,6 +7,7 @@
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_
 #define _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_
 
+#include <System/Object.h>
 #include <System/Types.h>
 
 namespace System
@@ -22,12 +23,14 @@ namespace System
 			public:
 				virtual void Add(const T& item)=0;
 				virtual void Clear()=0;
-				virtual bool Contains(const T& item)const =0;
+				virtual bool Contains(const T& item) const =0;
 				virtual void CopyTo(T array[], const int arrayIndex) const =0;
 				virtual bool Remove(const T& item)=0;
 
 				virtual int Count() const =0;
 				virtual bool IsReadOnly() const =0;
+
+				virtual ~ICollection() { }
 			};
 
 			// Defines a method that a type implements to compare two objects.
@@ -35,7 +38,9 @@ namespace System
 			interface IComparer
 			{
 			public:
-				virtual int Compare(T x, T y)=0;
+				virtual int Compare(const T x, const T y) const =0;
+
+				virtual ~IComparer() { }
 			};
 
 			// Represents a generic collection of key/value pairs.
@@ -48,8 +53,10 @@ namespace System
 				virtual bool Remove(const TKey& key)=0;
 				virtual bool TryGetValue(const TKey& key, out TValue value)const =0;
 
-				virtual ICollection<TKey>* Keys()const =0;
-				virtual ICollection<TValue>* Values()const =0;
+				virtual ICollection<TKey>* getKeys()const =0;
+				virtual ICollection<TValue>* getValues()const =0;
+
+				virtual ~IDictionary() { }
 			};
 
 			// Supports a simple iteration over a generic collection.
@@ -57,7 +64,11 @@ namespace System
 			interface IEnumerator
 			{
 			public:
-				virtual T Current()=0;
+				virtual T& Current() const =0;
+				virtual bool MoveNext()=0;
+				virtual void Reset()=0;
+
+				virtual ~IEnumerator() { }
 			};
 
 			// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
@@ -65,7 +76,9 @@ namespace System
 			interface IEnumerable
 			{
 			public:
-				virtual IEnumerator<T>& GetEnumerator()=0;
+				virtual IEnumerator<T>* GetEnumerator()=0;
+
+				virtual ~IEnumerable() { }
 			};
 
 			// Defines methods to support the comparison of objects for equality.
@@ -73,8 +86,10 @@ namespace System
 			interface IEqualityComparer
 			{
 			public:
-				virtual bool Equals(T x, T y)=0;
-				virtual int GetHashCode(T obj)=0;
+				virtual bool Equals(const T x, const T y) const =0;
+				virtual int GetHashCode(const T obj) const =0;
+
+				virtual ~IEqualityComparer() { }
 			};
 
 			// Represents a collection of objects that can be individually accessed by index.

@@ -20,9 +20,7 @@ namespace XFX
 	{
 		class Video;
 
-		/// <summary>
-		/// Provides methods and properties to playback, pause, resume, and stop video. VideoPlayer also exposes repeat, volume, and play position information.
-		/// </summary>
+		// Provides methods and properties to playback, pause, resume, and stop video. VideoPlayer also exposes repeat, volume, and play position information.
 		class VideoPlayer
 		{
 		private:
@@ -38,15 +36,15 @@ namespace XFX
 			bool IsMuted;
 			TimeSpan getPlayPosition();
 			MediaState_t getState();
-			Video getVideo();
+			Video* getVideo();
 			float Volume;
 		
 			VideoPlayer();
 		
 			void Dispose();
-			Texture2D GetTexture();
+			Texture2D* GetTexture();
 			void Pause();
-			void Play(Video video);
+			void Play(Video* video);
 			void Resume();
 			void Stop();
 		};

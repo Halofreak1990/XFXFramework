@@ -39,31 +39,38 @@ using namespace System;
 namespace XFX
 {
 	Ray::Ray(Vector3 direction, Vector3 position)
+		: Direction(direction), Position(position)
 	{
-		Direction = direction;
-		Position = position;
 	}
 	
 	Ray::Ray(const Ray &obj)
+		: Direction(obj.Direction), Position(obj.Position)
 	{
-		Direction = obj.Direction;
-		Position = obj.Position;
 	}
 	
 	Ray::Ray()
+		: Direction(Vector3::Zero), Position(Vector3::Zero)
 	{
-		Direction = Vector3::Zero;
-		Position = Vector3::Zero;
+	}
+
+	bool Ray::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? (*this == *(Ray*)obj) : false;
 	}
 
 	bool Ray::Equals(const Ray other) const
 	{
-		return ((Direction == other.Direction) && (Position == other.Position));
+		return (*this == other);
 	}
 	
 	int Ray::GetHashCode() const
 	{
 		return (Direction.GetHashCode() ^ Position.GetHashCode());
+	}
+
+	int Ray::GetType() const
+	{
+		// TODO: implement
 	}
 
 	float Ray::Intersects(const BoundingBox boundingbox) const
@@ -250,13 +257,13 @@ namespace XFX
 		return String::Format("{{Position:%s Direction:%s}}", Position.ToString(), Direction.ToString());
 	}
 
-	bool Ray::operator==(const Ray right) const
+	bool Ray::operator==(const Ray& right) const
 	{
-		return Equals(right);
+		return ((Direction == right.Direction) && (Position == right.Position));
 	}
 
-	bool Ray::operator!=(const Ray right) const
+	bool Ray::operator!=(const Ray& right) const
 	{
-		return !Equals(right);
+		return !((Direction == right.Direction) && (Position == right.Position));
 	}
 }

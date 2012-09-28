@@ -37,12 +37,12 @@ namespace XFX
 	const float MathHelper::PiOver4 = 0.7853982f;
 	const float MathHelper::TwoPi = 6.283185f;
 
-	float MathHelper::Baricentric(float value1, float value2, float value3, float amount1, float amount2)
+	float MathHelper::Baricentric(const float value1, const float value2, const float value3, const float amount1, const float amount2)
 	{
 		return (value1 + (amount1 * (value2 - value1))) + (amount2 * (value3 - value1));
 	}
 
-	float MathHelper::CatmullRom(float value1, float value2, float value3, float value4, float amount)
+	float MathHelper::CatmullRom(const float value1, const float value2, const float value3, const float value4, const float amount)
 	{
 	    float squared = amount * amount; 
         float cubed = amount * squared; 
@@ -52,59 +52,59 @@ namespace XFX
                          ((((-value1 + (3.0f * value2)) - (3.0f * value3)) + value4) * cubed)); 
 	}
 
-	float MathHelper::Clamp(float value, float min, float max)
+	float MathHelper::Clamp(const float value, const float min, const float max)
 	{
 		float x = value;
 		x = (x > max) ? max : x; 
-                x = (x < min) ? min : x;
+        x = (x < min) ? min : x;
 		return x;
 	}
 
-	float MathHelper::Distance(float value1, float value2)
+	float MathHelper::Distance(const float value1, const float value2)
 	{
 		return value1 - value2;
 	}
 
-	float MathHelper::Hermite(float value1, float tangent1, float value2, float tangent2, float amount)
+	float MathHelper::Hermite(const float value1, const float tangent1, const float value2, const float tangent2, const float amount)
 	{
 		float squared = amount * amount; 
-                float cubed = amount * squared;
+        float cubed = amount * squared;
 		float part1 = ((2.0f * cubed) - (3.0f * squared)) + 1.0f; 
-                float part2 = (-2.0f * cubed) + (3.0f * squared); 
-                float part3 = (cubed - (2.0f * squared)) + amount; 
-                float part4 = cubed - squared; 
+        float part2 = (-2.0f * cubed) + (3.0f * squared); 
+        float part3 = (cubed - (2.0f * squared)) + amount; 
+        float part4 = cubed - squared; 
 
 		return (((value1 * part1) + (value2 * part2)) + (tangent1 * part3)) + (tangent2 * part4);
 	}
 
-	float MathHelper::Lerp(float value1, float value2, float amount)
+	float MathHelper::Lerp(const float value1, const float value2, const float amount)
 	{
 		return value1 + ((value2 - value1) * amount); 
 	}
 	
-	float MathHelper::Max(float value1, float value2)
+	float MathHelper::Max(const float value1, const float value2)
 	{
 		return (value1 > value2) ? value2 : value1;
 	}
 
-	float MathHelper::Min(float value1, float value2)
+	float MathHelper::Min(const float value1, const float value2)
 	{
 		return (value1 < value2) ? value1 : value2;
 	}
 
-	float MathHelper::SmoothStep(float value1, float value2, float amount)
+	float MathHelper::SmoothStep(const float value1, const float value2, const float amount)
 	{
-		amount = (amount > 1.0f) ? 1.0f : ((amount < 0.0f) ? 0.0f : amount); 
-                amount = (amount * amount) * (3.0f - (2.0f * amount)); 
-		return value1 + ((value2 - value1) * amount);
+		float temp = Clamp(amount, 0.0f, 1.0f);
+        temp = (temp * temp) * (3.0f - (2.0f * temp)); 
+		return value1 + ((value2 - value1) * temp);
 	}
 	
-	float MathHelper::ToDegrees(float radians)
+	float MathHelper::ToDegrees(const float radians)
 	{
 		return radians * 180 / Pi;
 	}
 
-	float MathHelper::ToRadians(float degrees)
+	float MathHelper::ToRadians(const float degrees)
 	{
 		return degrees * Pi / 180;
 	}

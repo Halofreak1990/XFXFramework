@@ -41,7 +41,7 @@ namespace XFX
 			Dispose(false);
 		}
 
-		char* GraphicsAdapter::Description()
+		const char* GraphicsAdapter::Description()
 		{
 			//TODO: Come up with a device description
 			return "";
@@ -52,12 +52,12 @@ namespace XFX
 			return 0x2a0;
 		}
 		
-		char* GraphicsAdapter::DeviceName()
+		const char* GraphicsAdapter::DeviceName()
 		{
 			return "NV2A";
 		}
 		
-		char* GraphicsAdapter::DriverDLL()
+		const char* GraphicsAdapter::DriverDLL()
 		{
 			return "pbKit";
 		}
@@ -83,31 +83,12 @@ namespace XFX
 			return false;
 		}
 
-		bool GraphicsAdapter::CheckDepthStencilMatch(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, SurfaceFormat_t renderTargetFormat, DepthFormat_t depthStencilFormat)
+		bool GraphicsAdapter::QueryBackBufferFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const
 		{
+
 		}
 
-		bool GraphicsAdapter::CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, SurfaceFormat_t checkFormat)
-		{
-		}
-
-		bool GraphicsAdapter::CheckDeviceFormat(DeviceType_t deviceType, SurfaceFormat_t adapterFormat, TextureUsage_t usage, QueryUsages_t queryUsages, ResourceType_t resourceType, DepthFormat_t checkFormat)
-		{
-		}
-
-		bool GraphicsAdapter::CheckDeviceFormatConversion(DeviceType_t deviceType, SurfaceFormat_t sourceFormat, SurfaceFormat_t targetFormat)
-		{
-		}
-
-		bool GraphicsAdapter::CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType)
-		{
-		}
-
-		bool GraphicsAdapter::CheckDeviceMultiSampleType(DeviceType_t deviceType, SurfaceFormat_t surfaceFormat, bool isFullScreen, MultiSampleType_t sampleType, out int qualityLevels)
-		{
-		}
-
-		bool GraphicsAdapter::CheckDeviceType(DeviceType_t deviceType, SurfaceFormat_t displayFormat, SurfaceFormat_t backBufferFormat, bool isFullScreen)
+		bool GraphicsAdapter::QueryRenderTargetFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const
 		{
 		}
 		
@@ -120,13 +101,11 @@ namespace XFX
 			disp.RefreshRate = mode.refresh;
 			disp.Width = mode.width;
 
-			//FIXME: get the proper SurfaceFormat for 16-bit
+			// TODO: verify-- from the formats in SurfaceFormat, one could deduce that only 16- and 32-bit formats are supported
 			switch(mode.bpp)
 			{
 			case 32: disp.Format = SurfaceFormat::Color;
-			case 24: disp.Format = SurfaceFormat::Rgb32;
-			case 8: disp.Format = SurfaceFormat::Palette8;
-			default: disp.Format = SurfaceFormat::Unknown;
+			case 16: disp.Format = SurfaceFormat::Bgr565;
 			}
 			return disp;
 		}
@@ -136,45 +115,39 @@ namespace XFX
 			Dispose(true);
 		}
 
-		void GraphicsAdapter::Dispose(bool __p1)
+		void GraphicsAdapter::Dispose(bool disposing)
 		{
-			if (__p1)
+			if (disposing)
 			{
 			}
 		}
 
-		bool GraphicsAdapter::Equals(const GraphicsAdapter obj)
+		bool GraphicsAdapter::Equals(const Object* obj) const
+		{
+			return is(this, obj) ? (*this == *(GraphicsAdapter*)obj) : false;
+		}
+
+		bool GraphicsAdapter::Equals(const GraphicsAdapter obj) const
 		{
 			// There's for now only one GraphicsAdapter instance, so just return true;
 			return true;
-		}
-		
-		bool GraphicsAdapter::IsDeviceTypeAvailable(DeviceType_t deviceType)
-		{
-			switch(deviceType)
-			{
-			case DeviceType::Hardware: return true;
-			case DeviceType::NullReference: return false;
-			case DeviceType::Reference: return false;
-			default: return false;
-			}
 		}
 
 		DisplayModeCollection GraphicsAdapter::SupportedDisplayModes()
 		{
 			DisplayModeCollection collection;
-
+			// TODO: get a lsit of displaymodes supported
 			return collection;
 		}
 
-		bool GraphicsAdapter::operator!=(const GraphicsAdapter other)
+		bool GraphicsAdapter::operator!=(const GraphicsAdapter& other) const
 		{
-			return !Equals(other);
+			return false;
 		}
 
-		bool GraphicsAdapter::operator==(const GraphicsAdapter other)
+		bool GraphicsAdapter::operator==(const GraphicsAdapter& other) const
 		{
-			return Equals(other);
+			return true;
 		}
 	}
 }

@@ -26,12 +26,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Boolean.h>
+#include <System/String.h>
 #include <string.h>
 
 namespace System
 {
-	const char* Boolean::True = "True";
-	const char* Boolean::False = "False";
+	const char* Boolean::TrueString = "True";
+	const char* Boolean::FalseString = "False";
+
+	Boolean::Boolean(const Boolean &obj)
+	{
+		value = obj.value;
+	}
 
 	Boolean::Boolean(const bool &obj)
 	{
@@ -49,14 +55,19 @@ namespace System
 
 	bool Boolean::Equals(const Boolean other) const
 	{
-		return (value == other.value);
+		return (*this == other);
 	}
 
-	bool Boolean::Parse(char* str)
+	int Boolean::GetType() const
 	{
-		if (strncmp(str, "false", 5) == 0)
+		return 3;
+	}
+
+	bool Boolean::Parse(const String& str)
+	{
+		if (str.CompareTo("false") == 0)
 			return false;
-		if (strncmp(str, "true", 4) == 0)
+		if (str.CompareTo("true") == 0)
 			return true;
 		return -1;
 	}
@@ -75,19 +86,9 @@ namespace System
 		return "false";
 	}
 
-	bool Boolean::operator !=(bool right) const
-	{
-		return (value != right);
-	}
-
 	bool Boolean::operator !=(const Boolean right) const
 	{
 		return (value != right.value);
-	}
-
-	bool Boolean::operator ==(bool right) const
-	{
-		return (value == right);
 	}
 
 	bool Boolean::operator ==(const Boolean right) const

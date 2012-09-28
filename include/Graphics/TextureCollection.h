@@ -17,10 +17,14 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		class Texture2D;
+
 		// Represents a collection of Texture objects.
-		class TextureCollection : virtual Object
+		class TextureCollection : public Object
 		{
 		private:
+			friend class Texture2D;
+
 			bool disposed;
 			List<Texture*> textures;
 			void Dispose(bool disposing);
@@ -30,8 +34,9 @@ namespace XFX
 			virtual ~TextureCollection();
 
 			void Dispose();
+			int GetType() const;
 
-			Texture* operator[](int index);
+			Texture* operator[](const int index);
 		};
 	}
 }

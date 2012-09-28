@@ -20,23 +20,23 @@ namespace XFX
 	namespace Graphics
 	{
 		// Represents a color using Red, Green, Blue, and Alpha values.
-		struct Color : public IEquatable<Color>, virtual Object
+		struct Color : IEquatable<Color>, Object
 		{
 		private:
 			unsigned int _packedValue;
 			unsigned int RGBAtoARGB(unsigned int value);
 			Color(unsigned int packedValue);
-			static unsigned int InitializeFromVector4(Vector4 vector);
-			static unsigned int InitializeFromVector3(Vector3 vector);
+			static unsigned int InitializeFromVector4(const Vector4 vector);
+			static unsigned int InitializeFromVector3(const Vector3 vector);
 		
 		public:
-			byte A();
+			byte A() const;
 			static const Color AliceBlue;
 			static const Color AntiqueWhite;
 			static const Color Aqua;
 			static const Color AquaMarine;
 			static const Color Azure;
-			byte B();
+			byte B() const;
 			static const Color Beige;
 			static const Color Bisque;
 			static const Color Black;
@@ -78,7 +78,7 @@ namespace XFX
 			static const Color FloralWhite;
 			static const Color ForestGreen;
 			static const Color Fuchsia;
-			byte G();
+			byte G() const;
 			static const Color Gainsboro;
 			static const Color GhostWhite;
 			static const Color Gold;
@@ -146,7 +146,7 @@ namespace XFX
 			static const Color Plum;
 			static const Color PowderBlue;
 			static const Color Purple;
-			byte R();
+			byte R() const;
 			static const Color Red;
 			static const Color RosyBrown;
 			static const Color RoyalBlue;
@@ -178,20 +178,23 @@ namespace XFX
 			static const Color YellowGreen;
 			
 			Color();
-			Color(Vector3 vector);
-			Color(Vector4 vector);
-			Color(byte r, byte g, byte b);
-			Color(byte r, byte g, byte b, byte a);
+			Color(const Vector3 vector);
+			Color(const Vector4 vector);
+			Color(const byte r, const byte g, const byte b);
+			Color(const byte r, const byte g, const byte b, const byte a);
 			Color(const Color &obj);
 			
+			bool Equals(const Object* obj) const;
 			bool Equals(const Color other) const;
-			int GetHashCode();
-			unsigned int PackedValue();
-			Vector4 ToVector4();
-			Vector3 ToVector3();
+			int GetHashCode() const;
+			int GetType() const;
+			unsigned int PackedValue() const;
+			const char* ToString() const;
+			Vector4 ToVector4() const;
+			Vector3 ToVector3() const;
 			
-			bool operator!=(const Color other) const;
-			bool operator==(const Color other) const;
+			bool operator!=(const Color& other) const;
+			bool operator==(const Color& other) const;
 		};
 	}
 }

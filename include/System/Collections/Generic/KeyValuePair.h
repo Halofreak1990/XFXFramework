@@ -17,19 +17,23 @@ namespace System
 		{
 			// Defines a key/value pair that can be set or retrieved.
 			template <class TKey, class TValue>
-			struct KeyValuePair : virtual Object
+			struct KeyValuePair : public Object
 			{
 			public:
 				const TKey Key;
 				const TValue Value;
 
-				KeyValuePair(const TKey key, const TValue value)
+				KeyValuePair(const TKey& key, const TValue& value)
 					: Key(key), Value(value)
 				{
 				}
 
 				KeyValuePair(const KeyValuePair &obj)
 					: Key(obj.Key), Value(obj.Value)
+				{
+				}
+
+				int GetType() const
 				{
 				}
 			};

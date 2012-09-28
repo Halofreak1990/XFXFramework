@@ -72,6 +72,11 @@ namespace System
 		return (int)value;
 	}
 
+	int Single::GetType() const
+	{
+		return 13;
+	}
+
 	float Single::Parse(char *str)
 	{
 		float retval;
@@ -101,7 +106,7 @@ namespace System
 		return String::Format("%f", value);
 	}
 
-	bool Single::operator !=(float right) const
+	bool Single::operator !=(const float right) const
 	{
 		return (value != right);
 	}
@@ -111,7 +116,7 @@ namespace System
 		return (value != right.value);
 	}
 
-	bool Single::operator ==(float right) const
+	bool Single::operator ==(const float right) const
 	{
 		return (value == right);
 	}

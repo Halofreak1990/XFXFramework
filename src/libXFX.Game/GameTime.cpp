@@ -34,31 +34,31 @@ namespace XFX
 		return _isRunningSlowly;
 	}
 	
-	TimeSpan GameTime::TotalGameTime()
+	TimeSpan GameTime::getTotalGameTime() const
 	{
 		return _totalGameTime;
 	}
 	
-	TimeSpan GameTime::TotalRealTime()
+	TimeSpan GameTime::getElapsedGameTime() const
 	{
-		return _totalRealTime;
+		return _elapsedGameTime;
 	}
 	
 	GameTime::GameTime()
 	{
 	}
 	
-	GameTime::GameTime(TimeSpan totalRealTime, TimeSpan elapsedRealTime, TimeSpan totalGameTime, TimeSpan elapsedGameTime)
+	GameTime::GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime)
+		: _elapsedGameTime(elapsedGameTime), _isRunningSlowly(false), _totalGameTime(totalGameTime)
 	{
-		GameTime(totalRealTime, elapsedRealTime, totalGameTime, elapsedGameTime, false);
 	}
 	
-	GameTime::GameTime(TimeSpan totalRealTime, TimeSpan elapsedRealTime, TimeSpan totalGameTime, TimeSpan elapsedGameTime, bool isRunningSlowly)
+	GameTime::GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime, const bool isRunningSlowly)
+		: _elapsedGameTime(elapsedGameTime), _isRunningSlowly(isRunningSlowly), _totalGameTime(totalGameTime)
 	{
-		_totalRealTime = totalRealTime; 
-        _elapsedRealTime = elapsedRealTime; 
-        _totalGameTime = totalGameTime; 
-        _elapsedGameTime = elapsedGameTime; 
-        _isRunningSlowly = isRunningSlowly; 
+	}
+
+	int GameTime::GetType() const
+	{
 	}
 }

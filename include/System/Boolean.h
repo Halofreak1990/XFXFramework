@@ -5,28 +5,29 @@
 
 namespace System
 {
+	class String;
+
 	// Represents a Boolean value.
-	struct Boolean : public IComparable<Boolean>, public IEquatable<Boolean>, virtual Object
+	struct Boolean : IComparable<Boolean>, IEquatable<Boolean>, virtual Object
 	{
 	private:
 		bool value;
 
 	public:
 		Boolean(const Boolean &obj);
-		Boolean(const bool &obj); // Copy constructor
+		Boolean(const bool &obj);
 
-		static const char* True;
-		static const char* False;
+		static const char* TrueString;
+		static const char* FalseString;
 
 		int CompareTo(const Boolean other) const;
 		bool Equals(const Boolean other) const;
-		bool Parse(char* str);
+		int GetType() const;
+		static bool Parse(const String& str);
 		const char* ToString() const;
 		static const char* ToString(bool value);
 
-		bool operator!=(bool right) const;
 		bool operator!=(const Boolean right) const;
-		bool operator==(bool right) const;
 		bool operator==(const Boolean right) const;
 	};
 }

@@ -25,8 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Array.h>
-#include <System/Buffer.h>
+#include <System/FrameworkResources.h>
 #include <System/String.h>
 #include <ctype.h>
 #include <stdarg.h>
@@ -51,7 +50,7 @@ namespace System
 	{
 		sassert(count >= 0, String::Format("count; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 			
-		internalString = new char[count + 1];
+		internalString = (char*)malloc(count + 1);
 		memset(internalString, c, count);
 		internalString[count] = '\0';
 	}
@@ -59,21 +58,11 @@ namespace System
 	String::String(char value[], int startIndex, int length)
 		: Length(length)
 	{
-		sassert(value != null, "value cannot be null.");
+		sassert(value != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
 
-		//sassert(!((length < 0) || startIndex + length > Array::Length(value)), "length is out of range.");
-
-		internalString = new char[length + 1];
-		Array::Copy(value, startIndex, internalString, 0, length);
+		internalString = (char*)malloc(length + 1);
+		strncpy(internalString, &value[startIndex], length);
 		internalString[length] = '\0';
-	}
-
-	String::String(char *value)
-		: Length(strlen(value))
-	{
-		internalString = new char[Length+1];
-		Buffer::BlockCopy(value, 0, internalString, 0, Length);
-		internalString[Length] = '\0';
 	}
 
 	String::String(const String &obj)
@@ -88,9 +77,7 @@ namespace System
 	String::String(const char* obj)
 		: Length(strlen(obj))
 	{
-		internalString = (char*)malloc(Length + 1);
-		strncpy(internalString, obj, Length);
-		internalString[Length] = '\n';
+		internalString = (char*)obj;
 	}
 
 	String::~String()
@@ -104,31 +91,46 @@ namespace System
 		return String(*this);
 	}
 
+	int String::Compare(const String str1, const String str2)
+	{
+		return strcmp(str1.internalString, str2.internalString);
+	}
+
 	int String::CompareTo(const String other) const
 	{
 		return (Compare(*this, other));
 	}
 
-	int String::Compare(const String str1, const String str2)
+	String String::Concat(const String values[], const int stringCount)
 	{
-		return strncmp(str1.internalString, str2.internalString, str1.Length);
+		String result(Empty);
+		for (int i = 0; i < stringCount; i++)
+		{
+			result += values[i];
+		}
+		return result;
 	}
 
 	String String::Concat(String str1, String str2, String str3, String str4)
 	{
-		char* newString = new char[str1.Length + str2.Length + str3.Length + str4.Length + 1];
+		char* newString = (char*)malloc(str1.Length + str2.Length + str3.Length + str4.Length + 1);
 
 		// Copy all source Strings to the destination buffer
-		Buffer::BlockCopy(str1.internalString, 0, newString, 0, str1.Length);
-		Buffer::BlockCopy(str2.internalString, 0, newString, str1.Length, str2.Length);
-		Buffer::BlockCopy(str3.internalString, 0, newString, str1.Length + str2.Length, str3.Length);
-		Buffer::BlockCopy(str4.internalString, 0, newString, str1.Length + str2.Length + str3.Length, str4.Length);
+		strncpy(newString, str1.internalString, str1.Length);
+		strncpy(newString + str1.Length, str2.internalString, str2.Length);
+		strncpy(newString + (str1.Length + str2.Length), str3.internalString, str3.Length);
+		strncpy(newString + (str1.Length + str2.Length + str3.Length), str4.internalString, str4.Length);
 
 		newString[str1.Length + str2.Length + str3.Length + str4.Length] = '\0';
 
 		String result = String(newString);
-		delete[] newString;
+		free(newString);
 		return result;
+	}
+
+	bool String::Equals(const Object* obj) const
+	{
+		return is(obj, this) ? this->Equals(*(String*)obj) : false;
 	}
 
 	bool String::Equals(const String obj) const
@@ -155,6 +157,23 @@ namespace System
 		vsnprintf(res, count + 1, format, args);
 
 		return res;
+	}
+
+	int String::GetHashCode() const
+	{
+		int a = 31415, b = 27183;
+		const char* v = internalString;
+		int h;
+
+		for (h = 0; *v != 0; v++, a = a * b)
+			h = (a*h + *v);
+
+		return h;
+	}
+
+	int String::GetType() const
+	{
+		return 18;
 	}
 
 	int String::IndexOf(char value) const
@@ -190,9 +209,38 @@ namespace System
 		return -1;
 	}
 
+	int String::IndexOfAny(char anyOf[], int charCount) const
+	{
+		return IndexOfAny(anyOf, 0, Length);
+	}
+
+	int String::IndexOfAny(char anyOf[], int charCount, int startIndex) const
+	{
+		return IndexOfAny(anyOf, 0, Length - startIndex);
+	}
+
+	int String::IndexOfAny(char anyOf[], int charCount, int startIndex, int count) const
+	{
+		int indexOf = -1;
+
+		for (int i = 0; i < charCount; i++)
+		{
+			indexOf = IndexOf(anyOf[i], startIndex, count);
+			if (indexOf != -1)
+				return indexOf;
+		}
+
+		return indexOf;
+	}
+
+	bool String::IsNullOrEmpty(const char* value)
+	{
+		return (value == NULL || strlen(value) == 0);
+	}
+
 	bool String::IsNullOrEmpty(String value)
 	{
-		return ((!value.internalString) || (value.internalString == ""));
+		return (value == NULL || value.Length == 0);
 	}
 
 	String String::PadLeft(int totalWidth)
@@ -230,7 +278,7 @@ namespace System
 
 		char* newString = (char*)malloc(totalWidth + 1);
 		
-		Buffer::BlockCopy(internalString, 0, newString, 0, Length);
+		strncpy(newString, internalString, Length);
 		memset(&internalString[Length], paddingChar, totalWidth - Length);
 		newString[totalWidth] = '\0';
 
@@ -239,18 +287,20 @@ namespace System
 		return result;
 	}
 
-	char** String::Split(String separator, int count, StringSplitOptions_t options) const
+	char** String::Split(const String& separator, int count, StringSplitOptions_t options) const
 	{
+		// TODO: implement
 		return null;
 	}
 
-	char** String::Split(String separator, StringSplitOptions_t options) const
+	char** String::Split(const String& separator, StringSplitOptions_t options) const
 	{
-		return null;
+		return Split(separator, 0x7fffffff, options);
 	}
 
 	char** String::Split(char separator[], int count, StringSplitOptions_t options) const
 	{
+		// TODO: implement
 		return null;
 	}
 
@@ -269,20 +319,17 @@ namespace System
 		return Split(separator, 0x7fffffff, StringSplitOptions::None);
 	}
 	
-	bool String::StartsWith(char* value) const
+	bool String::StartsWith(const String value) const
 	{
-		if (!value)
-	    	return false;
-
-		return (strncmp(internalString, value, strlen(value)));
+		return (strncmp(internalString, value.internalString, value.Length) == 0);
 	}
 
 	char* String::SubString(const int startIndex) const
 	{
 		int newstrLen = (Length + 1) - startIndex;
-		char* newString = new char[newstrLen]; // allocate space for the SubString and accompanying null-terminator.
+		char* newString = (char*)malloc(newstrLen); // allocate space for the SubString and accompanying null-terminator.
 
-		Buffer::BlockCopy(internalString, startIndex, newString, 0, Length - startIndex); // copy  the string, starting at startIndex to destination
+		strncpy(newString, internalString + startIndex, newstrLen); // copy  the string, starting at startIndex to destination
 		
 		newString[newstrLen] = '\0'; // null-terminate the resulting string
 
@@ -291,14 +338,14 @@ namespace System
 	
 	String String::SubString(int startIndex, int length) const
 	{
-		char* newString = new char[length + 1]; // allocate space for the SubString and accompanying null-terminator.
+		char* newString = (char*)malloc(length + 1); // allocate space for the SubString and accompanying null-terminator.
 		
-		Buffer::BlockCopy(internalString, startIndex, newString, 0, length); // copy length chars, starting at startIndex, to newString
+		strncpy(newString, internalString + startIndex, length); // copy length chars, starting at startIndex, to newString
 
 		newString[length] = '\0'; // null-terminate the resulting string
 		
 		String result = String(newString); // copy the newly created substring to a new String instance
-		delete[] newString; // free the temporary buffer
+		free(newString); // free the temporary buffer
 		return result; // return the result
 	}
 
@@ -306,107 +353,137 @@ namespace System
 	{
 		sassert((startIndex + length) < Length, "startIndex + length exceeds the length of this String");
 
-		char* tmp = new char[length];
+		char* tmp = (char*)malloc(length);
 		
-		Buffer::BlockCopy(internalString, startIndex, tmp, 0, length);
+		strncpy(tmp, internalString + startIndex, length);
 
 		return tmp;
 	}
 
 	char *String::ToCharArray() const
 	{
-		char* result = new char[Length];
-		Buffer::BlockCopy(internalString, 0, result, 0, Length);
+		char* result = (char*)malloc(Length);
+		strncpy(result, internalString, Length);
 		return result;
 	}
 
-	String String::ToLower()
+	String String::ToLower() const
 	{
-		char* tmp = new char[Length+1];
+		char* tmp = (char*)malloc(Length+1);
 		for (int i = 0; i < Length; i++)
 			tmp[i] = tolower(internalString[i]);
 
 		tmp[Length] = '\0';
 		String result = tmp;
-		delete tmp;
+		free(tmp);
 		return result;
 	}
 
 	const char* String::ToLower(char* str)
 	{
-		
+		size_t strLen = strlen(str);
+		char* tmp = (char*)malloc(strLen + 1);
+		for (size_t i = 0; i < strLen; i++)
+			tmp[i] = tolower(str[i]);
+
+		tmp[strLen] = '\0';
+		return tmp;
 	}
 	
 	const char* String::ToString() const
 	{
-		char* result = new char[Length + 1];
-		Buffer::BlockCopy(internalString, 0, result, 0, Length);
-		result[Length] = '\0';
-		return result;
+		return internalString;
 	}
 
-	String String::ToUpper()
+	String String::ToUpper() const
 	{
-		char* tmp = new char[Length+1];
+		char* tmp = (char*)malloc(Length+1);
 		for (int i = 0; i < Length; i++)
 			tmp[i] = toupper(internalString[i]);
 
 		tmp[Length] = '\0';
 		String result = tmp;
-		delete tmp;
+		free(tmp);
 		return result;
 	}
 
 	const char* String::ToUpper(char* str)
 	{
-		
+		size_t strLen = strlen(str);
+		char* tmp = (char*)malloc(strLen + 1);
+		for (size_t i = 0; i < strLen; i++)
+			tmp[i] = toupper(str[i]);
+
+		tmp[strLen] = '\0';
+		return tmp;
 	}
 
-	bool String::operator!=(const String right) const
+	bool String::operator!=(const String& right) const
 	{
-		return !Equals(right);
+		if (Length == right.Length)
+		{
+			return !Equals(right);
+		}
+		return true;
 	}
 
-	bool String::operator !=(const char* right) const
+	bool String::operator!=(const char* right) const
 	{
-		return (strncmp(internalString, right, Length) != 0);
+		if (Length == strlen(right))
+		{
+			return (strncmp(internalString, right, Length) != 0);
+		}
+		return false;
 	}
 
-	bool String::operator==(const String right) const
+	bool String::operator==(const String& right) const
 	{
-		return Equals(right);
+		if (Length == right.Length)
+		{
+			return Equals(right);
+		}
+		return false;
 	}
 
-	bool String::operator ==(const char* right) const
+	bool String::operator==(const char* right) const
 	{
-		return (strncmp(internalString, right, Length) == 0);
+		if (Length == strlen(right))
+		{
+			return (strncmp(internalString, right, Length) == 0);
+		}
+		return false;
 	}
 
-	/*String String::operator=(const char* right)
+	String& String::operator=(const String& right)
 	{
-		return String(right);
-	}*/
+		// check for self-assignment
+		if (*this == right)
+			return *this;
 
-	String String::operator=(const String right)
-	{
-		return String(right);
+		*(const_cast<int*>(&Length)) = right.Length;
+		free(internalString);
+		internalString = (char*)malloc(Length + 1);
+		strncpy(internalString, right.internalString, Length);
+		internalString[Length] = '\0';
+
+		return *this;
 	}
 
-	String String::operator +(const char *right)
+	String String::operator +(const char *right) const
 	{
 		// Allocate a temporary buffer
 		char* newString = (char*)malloc(Length + strlen(right) + 1);
 
-		Buffer::BlockCopy(internalString, 0, newString, 0, Length);
-		Buffer::BlockCopy(right, 0, newString, Length, strlen(right));
+		strncpy(newString, internalString, Length);
+		strncpy(newString + Length, right, strlen(right));
 		newString[Length + strlen(right)] = '\0';
 
-		String result = String(newString);
+		String result(newString);
 		free(newString);
 		return result;
 	}
 
-	String String::operator +=(const String right)
+	String String::operator +=(const String& right)
 	{
 		return *this + right;
 	}
@@ -416,12 +493,12 @@ namespace System
 		return *this + right;
 	}
 
-	String String::operator +(const String right)
+	String String::operator +(const String& right) const
 	{
 		char* newString = (char*)malloc(Length + right.Length + 1);
 
-		Buffer::BlockCopy(internalString, 0, newString, 0, Length);
-		Buffer::BlockCopy(right.internalString, 0, newString, Length, right.Length);
+		strncpy(newString, internalString, Length);
+		strncpy(newString + Length, right.internalString, right.Length);
 		newString[Length + right.Length] = '\0';
 
 		String result = String(newString);
@@ -429,7 +506,7 @@ namespace System
 		return result;
 	}
 	
-	char String::operator [](int index)
+	char String::operator [](const int index) const
 	{
 		sassert(index > 0 && index < Length, "index out of range.");
 

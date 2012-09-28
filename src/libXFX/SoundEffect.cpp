@@ -15,6 +15,7 @@ namespace XFX
 
 		SoundEffect::~SoundEffect()
 		{
+			Dispose(false);
 		}
 
 		SoundEffectInstance SoundEffect::CreateInstance()
@@ -40,6 +41,7 @@ namespace XFX
 
 		bool SoundEffect::Play(float volume, float pitch, float pan)
 		{
+			SoundEffectInstance sei(this);
 		}
 	}
 }

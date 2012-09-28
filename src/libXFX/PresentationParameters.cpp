@@ -25,115 +25,71 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <Rectangle.h>
 #include <Graphics/PresentationParameters.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		const int PresentationParameters::DefaultPresentRate = 60;
-		
 		PresentationParameters::PresentationParameters()
+			: BackBufferFormat(SurfaceFormat::Color),
+			BackBufferHeight(0), BackBufferWidth(0),
+			IsFullScreen(true), MultiSampleCount(0),
+			PresentationInterval(PresentInterval::Default),
+			RenderTargetUsage(RenderTargetUsage::DiscardContents)
 		{
-			disposed = false;
-			Clear();
 		}
 
-		PresentationParameters::~PresentationParameters()
+		Rectangle PresentationParameters::getBounds() const
 		{
-			Dispose(false);
+			return Rectangle(0, 0, BackBufferWidth, BackBufferHeight);
 		}
-		
-		void PresentationParameters::Clear() 
+         
+        PresentationParameters* PresentationParameters::Clone() const
         { 
-            AutoDepthStencilFormat = DepthFormat::Unknown; 
-            BackBufferCount = 0; 
-            BackBufferFormat = SurfaceFormat::Unknown; 
-            BackBufferHeight = 0; 
-            BackBufferWidth = 0;
-#if !ENABLE_XBOX
-            DeviceWindowHandle = IntPtr::Zero; 
-#endif
-            EnableAutoDepthStencil = false; 
-            FullScreenRefreshRateInHz = 0; 
-            IsFullScreen = false; 
-            MultiSampleQuality = 0; 
-            MultiSampleType_ = MultiSampleType::None; 
-            PresentationInterval = PresentInterval::Default; 
-            PresentOptions_ = PresentOptions::None; 
-            SwapEffect_ = SwapEffect::Default; 
+            PresentationParameters* clone = new PresentationParameters();
+			clone->BackBufferFormat = this->BackBufferFormat;
+			clone->BackBufferHeight = this->BackBufferHeight;
+			clone->BackBufferWidth = this->BackBufferWidth;
+			clone->DepthStencilFormat = this->DepthStencilFormat;
+			clone->IsFullScreen = this->IsFullScreen;
+			clone->MultiSampleCount = this->MultiSampleCount;
+			clone->PresentationInterval = this->PresentationInterval;
+			clone->RenderTargetUsage = this->RenderTargetUsage;
+			return clone;
         }
-         
-        PresentationParameters PresentationParameters::Clone() const
-        { 
-            PresentationParameters clone = PresentationParameters(); 
-            clone.AutoDepthStencilFormat = AutoDepthStencilFormat; 
-            clone.BackBufferCount = BackBufferCount; 
-            clone.BackBufferFormat = BackBufferFormat; 
-            clone.BackBufferHeight = BackBufferHeight; 
-            clone.BackBufferWidth = BackBufferWidth; 
-#if !ENABLE_XBOX
-            clone.DeviceWindowHandle = DeviceWindowHandle; 
-#endif
-            clone.disposed = disposed; 
-            clone.EnableAutoDepthStencil = EnableAutoDepthStencil; 
-            clone.FullScreenRefreshRateInHz = FullScreenRefreshRateInHz; 
-            clone.IsFullScreen = IsFullScreen; 
-            clone.MultiSampleQuality = MultiSampleQuality; 
-            clone.MultiSampleType_ = MultiSampleType_; 
-            clone.PresentationInterval = PresentationInterval;
-            clone.PresentOptions_ = PresentOptions_;
-            clone.SwapEffect_ = SwapEffect_;
-            return clone; 
-        }
-         
-        void PresentationParameters::Dispose()
+
+		bool PresentationParameters::Equals(const Object* obj) const
+		{
+			return is(this, obj) ? (*this == *(PresentationParameters*)obj) : false;
+		}
+
+		int PresentationParameters::GetType() const
+		{
+			// TODO: implement
+		}
+        
+        bool PresentationParameters::operator!=(const PresentationParameters& other) const
         {
-	        Dispose(true);
-        }
-         
-        void PresentationParameters::Dispose(bool disposing)
-        {
-         	 if (!disposed) 
-         	 { 
-         	     disposed = true; 
-         	     if (disposing) 
-				{ 
-                  	// Dispose managed resources 
-				} 
-            	// Dispose unmanaged resources 
-            }
+	        return ((other.BackBufferFormat != BackBufferFormat) ||
+            (other.BackBufferHeight != BackBufferHeight) ||
+            (other.BackBufferWidth != BackBufferWidth) ||
+            (other.IsFullScreen != IsFullScreen) ||
+            (other.MultiSampleCount != MultiSampleCount) ||
+            (other.PresentationInterval != this->PresentationInterval) ||
+            (other.RenderTargetUsage != this->RenderTargetUsage));
         }
         
-        bool PresentationParameters::Equals(const PresentationParameters other) const
-        {
-	        return ((other.AutoDepthStencilFormat == AutoDepthStencilFormat) &&
-            (other.BackBufferCount == BackBufferCount) &&
-            (other.BackBufferFormat == BackBufferFormat) &&
+		bool PresentationParameters::operator==(const PresentationParameters& other) const
+		{
+			return ((other.BackBufferFormat == BackBufferFormat) &&
             (other.BackBufferHeight == BackBufferHeight) &&
             (other.BackBufferWidth == BackBufferWidth) &&
-#if !ENABLE_XBOX
-            (other.DeviceWindowHandle == DeviceWindowHandle) &&
-#endif
-            (other.disposed == disposed) &&
-            (other.EnableAutoDepthStencil == EnableAutoDepthStencil) &&
-            (other.FullScreenRefreshRateInHz == FullScreenRefreshRateInHz) &&
             (other.IsFullScreen == IsFullScreen) &&
-            (other.MultiSampleQuality == MultiSampleQuality) &&
-            (other.MultiSampleType_ == MultiSampleType_) &&
-            (other.PresentationInterval == PresentationInterval) &&
-            (other.PresentOptions_ == PresentOptions_) &&
-            (other.SwapEffect_ == SwapEffect_));
-        }
-        
-        bool PresentationParameters::operator!=(const PresentationParameters other) const
-        {
-	        return !Equals(other);
-        }
-        
-		bool PresentationParameters::operator==(const PresentationParameters other) const
-		{
-			return Equals(other);
+            (other.MultiSampleCount == MultiSampleCount) &&
+            (other.PresentationInterval == this->PresentationInterval) &&
+			(other.RenderTargetUsage == this->RenderTargetUsage));
 		}
 	}
 }

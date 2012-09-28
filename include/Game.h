@@ -7,14 +7,14 @@
 #ifndef _XFX_GAME_
 #define _XFX_GAME_
 
-#include <System/Delegates.h>
+#include <System/Event.h>
 #include <System/Types.h>
 
 #include "Content/ContentManager.h"
 #include "GameComponentCollection.h"
 #include "GameServiceContainer.h"
 #include "GameTime.h"
-#include "Graphics/IGraphicsDeviceService.h"
+#include "GraphicsDeviceManager.h"
 #include "Interfaces.h"
 
 using namespace System;
@@ -26,7 +26,7 @@ using namespace XFX::Graphics;
 namespace XFX
 {
 	// Provides basic graphics device initialization, game logic, and rendering code.
-	class Game : public IDisposable, virtual Object
+	class Game : public IDisposable, public Object
 	{
 	private:
 		bool exiting;
@@ -47,7 +47,7 @@ namespace XFX
 		IGraphicsDeviceManager* graphicsManager;
 		IGraphicsDeviceService* graphicsService; 
 
-		static const Int64 DefaultTargetElapsedTicks;
+		static const long long DefaultTargetElapsedTicks;
 
 	protected:
 		virtual bool BeginDraw();
@@ -59,15 +59,15 @@ namespace XFX
 		void Finalize();
 		virtual void LoadContent();
 		virtual void Initialize();
-		virtual void OnActivated(Object* sender, EventArgs args);
-		virtual void OnDeactivated(Object* sender, EventArgs args);
-		virtual void OnExiting(Object* sender, EventArgs args);
+		virtual void OnActivated(Object* sender, EventArgs* args);
+		virtual void OnDeactivated(Object* sender, EventArgs* args);
+		virtual void OnExiting(Object* sender, EventArgs* args);
 		virtual void UnloadContent();
 		virtual void Update(GameTime gameTime);
 
 	public:
-		GameComponentCollection Components();
-		//ContentManager Content;
+		GameComponentCollection& Components();
+		ContentManager* Content;
 		GraphicsDevice* getGraphicsDevice();
 		GameServiceContainer getServices();
 		bool IsActive();
@@ -86,6 +86,7 @@ namespace XFX
 
 		void Dispose();
 		void Exit();
+		int GetType() const;
 		void ResetElapsedTime();
 		virtual void Run();
 		void SuppressDraw();
@@ -93,10 +94,10 @@ namespace XFX
 	};
 	
 	// Base class for all XNA Framework game components.
-	class GameComponent : public IGameComponent, public IUpdateable, public IDisposable, virtual Object
+	class GameComponent : public IGameComponent, public IUpdateable, public IDisposable, public Object
 	{
 	private:
-		Game _game;
+		Game* _game;
 		bool _disposed;
 		bool _enabled;
 		int _updateOrder;
@@ -105,29 +106,30 @@ namespace XFX
 		virtual void Dispose(bool disposing);
 		virtual ~GameComponent();
 
-		virtual void OnEnabledChanged(Object* sender, EventArgs args);
-		virtual void OnUpdateOrderChanged(Object* sender, EventArgs args);
+		virtual void OnEnabledChanged(Object* sender, EventArgs* args);
+		virtual void OnUpdateOrderChanged(Object* sender, EventArgs* args);
 		
 	public:
-		bool Enabled();
-		void Enabled(bool value);
-		int UpdateOrder();
-		void UpdateOrder(int value);
-		Game getGame();
+		bool getEnabled() const;
+		void setEnabled(const bool value);
+		int getUpdateOrder() const;
+		void setUpdateOrder(const int value);
+		Game* getGame() const;
 
 		EventHandler EnabledChanged;
 		EventHandler UpdateOrderChanged;
 		EventHandler Disposed;
 		
-		GameComponent(Game game);
+		GameComponent(Game * const game);
 		
 		virtual void Dispose();
+		int GetType() const;
 		virtual void Initialize();
 		virtual void Update(GameTime gameTime);
 	};
 	
 	// A game component that is notified when it needs to draw itself.
-	class DrawableGameComponent : public GameComponent, public IDrawable, virtual Object
+	class DrawableGameComponent : public GameComponent, public IDrawable
 	{
 	private:
 		int _drawOrder;
@@ -137,22 +139,23 @@ namespace XFX
     protected:
     	void Dispose(bool disposing);
     	virtual void LoadContent();
-		virtual void OnDrawOrderChanged(Object* sender, EventArgs args);
-		virtual void OnVisibleChanged(Object* sender, EventArgs args);
+		virtual void OnDrawOrderChanged(Object* sender, EventArgs* args);
+		virtual void OnVisibleChanged(Object* sender, EventArgs* args);
     	virtual void UnloadContent();
     
     public:
-    	int DrawOrder(); 
-		void DrawOrder(int value);
-    	GraphicsDevice* getGraphicsDevice();
-    	bool Visible();
-		void Visible(bool value);
+    	int getDrawOrder() const; 
+		void setDrawOrder(const int value);
+    	GraphicsDevice* getGraphicsDevice() const;
+    	bool getVisible() const;
+		void setVisible(const bool value);
 
 		EventHandler DrawOrderChanged;
 		EventHandler VisibleChanged;
     
-		DrawableGameComponent(Game game);
+		DrawableGameComponent(Game * const game);
 		virtual void Draw(GameTime gameTime);
+		int GetType() const;
 		void Initialize();
 		virtual void Update(GameTime gameTime);
 	};

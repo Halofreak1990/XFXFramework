@@ -40,15 +40,13 @@ using namespace System;
 namespace XFX
 {
 	Plane::Plane(const float a, const float b, const float c, const float d)
+		: D(d), Normal(a, b, c)
 	{
-		Normal = Vector3(a, b, c);
-		D = d;
 	}
 	
 	Plane::Plane(const Vector3 normal, const float d)
+		: D(d), Normal(normal)
 	{
-		Normal = normal;
-		D = d;
 	}
 	
 	Plane::Plane(const Vector3 point1, const Vector3 point2, const Vector3 point3)
@@ -71,21 +69,18 @@ namespace XFX
 	}
 	
 	Plane::Plane(const Vector4 value)
+		: D(value.W), Normal(value.X, value.Y, value.Z)
 	{
-		Normal = Vector3(value.X, value.Y, value.Z); 
-        D = value.W; 
 	}
 	
 	Plane::Plane(const Plane &obj)
+		: D(obj.D), Normal(obj.Normal)
 	{
-		Normal = obj.Normal;
-		D = obj.D;
 	}
 	
 	Plane::Plane()
+		: D(0), Normal(Vector3::Zero)
 	{
-		Normal = Vector3::Zero;
-		D = 0;
 	}
 	
 	float Plane::Dot(const Vector4 value) const
@@ -117,15 +112,25 @@ namespace XFX
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z); 
 	}
+
+	bool Plane::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? this->Equals((*(Plane*)obj)) : false;
+	}
 	
 	bool Plane::Equals(const Plane obj) const
 	{
-		return ((D == obj.D) && (Normal == obj.Normal));
+		return (*this == obj);
 	}
 	
 	int Plane::GetHashCode() const
 	{
 		return Normal.GetHashCode() ^ (int)D;
+	}
+
+	int Plane::GetType() const
+	{
+		// TODO: implement
 	}
 	
 	PlaneIntersectionType_t Plane::Intersects(const BoundingBox boundingbox) const
@@ -226,7 +231,7 @@ namespace XFX
 
 	const char* Plane::ToString() const
 	{
-		return String::Format("{{Normal:%s D:%f}}", Normal.ToString(), D);
+		return String::Format("{Normal:%s D:%f}", Normal.ToString(), D);
 	}
 	
 	Plane Plane::Transform(Plane plane, Matrix matrix)
@@ -312,13 +317,13 @@ namespace XFX
         result.D = plane.D; 
 	}
 	
-	bool Plane::operator==(const Plane other) const
+	bool Plane::operator==(const Plane& other) const
 	{
-		return Equals(other);
+		return ((D == other.D) && (Normal == other.Normal));
 	}
 	
-	bool Plane::operator!=(const Plane other) const
+	bool Plane::operator!=(const Plane& other) const
 	{
-		return !Equals(other);
+		return !((D == other.D) && (Normal == other.Normal));
 	}
 }

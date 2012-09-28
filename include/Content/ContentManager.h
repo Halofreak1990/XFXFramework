@@ -8,6 +8,7 @@
 #define _XFX_CONTENT_CONTENTMANAGER_
 
 #include <System/Collections/Generic/List.h>
+#include <System/Collections/Generic/Dictionary.h>
 #include <System/IO/Stream.h>
 #include <System/Interfaces.h>
 #include <System/String.h>
@@ -21,30 +22,31 @@ namespace XFX
 	namespace Content
 	{		
 		// The ContentManager is the run-time component which loads managed objects from the binary files produced by the design time content pipeline. It also manages the lifespan of the loaded objects, disposing the content manager will also dispose any assets which are themselves System.IDisposable.
-		class ContentManager : public IDisposable, virtual Object
+		class ContentManager : public IDisposable, public Object
 		{
 		private:
 			List<IDisposable*> disposableAssets;
-			//Dictionary<const char*, Object*>* loadedAssets;
+			Dictionary<String, Object*> loadedAssets;
 			bool disposed;
 			IServiceProvider* _provider;
 
 		protected:
 			virtual void Dispose(bool disposing);
-			virtual Stream* OpenStream(char* assetName);
+			virtual Stream* OpenStream(const String& assetName);
 			template <class T>
-			T ReadAsset(char* assetName); //! usage: T ReadAsset<T>(assetName); where T is the preferred type, i.e. Texture2D
+			T ReadAsset(const String& assetName); //! usage: T ReadAsset<T>(assetName); where T is the preferred type, i.e. Texture2D*
 			
 		public:
-			char* RootDirectory;
+			String RootDirectory;
 
 			ContentManager(IServiceProvider* provider);
-			ContentManager(IServiceProvider* provider, const char* rootDirectory);
+			ContentManager(IServiceProvider* provider, const String& rootDirectory);
 			virtual ~ContentManager();
 		
 			void Dispose();
+			int GetType() const;
 			template <class T>
-			T Load(const char* assetName); //! usage: T Load<T>(assetName); where T is the preferred type, i.e. Texture2D
+			T Load(const String& assetName); //! usage: T Load<T>(assetName); where T is the preferred type, i.e. Texture2D*
 			virtual void Unload();
 		};
 	}

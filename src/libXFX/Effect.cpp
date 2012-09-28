@@ -31,6 +31,24 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		Effect::Effect(Effect const * const cloneSource)
+		{
+		}
 
+		Effect::Effect(GraphicsDevice * const graphicsDevice, byte effectCode[])
+		{
+			this->graphicsDevice = graphicsDevice;
+
+			// TODO: implement the remainder
+		}
+
+		Effect* Effect::Clone() const
+		{
+			return new Effect(this);
+		}
+
+		int Effect::GetType() const
+		{
+		}
 	}
 }

@@ -19,12 +19,12 @@ namespace System
 			return ((Delta == other.Delta) && (End == other.End) && (Start == other.Start));
 		}
 
-		bool DaylightTime::operator !=(const DaylightTime right) const
+		bool DaylightTime::operator !=(const DaylightTime& right) const
 		{
 			return !Equals(right);
 		}
 
-		bool DaylightTime::operator ==(const DaylightTime right) const
+		bool DaylightTime::operator ==(const DaylightTime& right) const
 		{
 			return Equals(right);
 		}

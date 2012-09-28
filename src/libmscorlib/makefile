@@ -24,9 +24,9 @@ ENTRYPOINT = -Wl,--entry,_WinMainCRTStartup
 STRIP = -Wl,--strip-all
 LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib 
-LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lgcc
+LD_LIBS  = $(LD_DIRS) -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lgcc
 
-OBJS = BinaryReader.o BinaryWriter.o BitConverter.o Boolean.o Byte.o Calendar.o Comparer.o Console.o DateTime.o DaylightTime.o Directory.o DirectoryInfo.o Double.o Environment.o File.o FileStream.o FrameworkResources.o HashHelpers.o Math.o Object.o OperatingSystem.o Path.o sassert.o Single.o Stream.o StreamAsyncResult.o StreamReader.o StreamWriter.o String.o Thread.o TimeSpan.o Version.o
+OBJS = BinaryReader.o BinaryWriter.o BitConverter.o Boolean.o Byte.o Calendar.o Comparer.o Console.o DateTime.o DaylightTime.o Directory.o DirectoryInfo.o Double.o Environment.o EventArgs.o File.o FileStream.o FrameworkResources.o HashHelpers.o Int32.o Int64.o Math.o Object.o OperatingSystem.o Path.o sassert.o SByte.o Single.o Stream.o StreamAsyncResult.o StreamReader.o StreamWriter.o String.o StringBuilder.o Thread.o TimeSpan.o UInt16.o UInt32.o UInt64.o Version.o
 
 all: libmscorlib.a
 

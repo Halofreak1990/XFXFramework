@@ -30,7 +30,7 @@
 
 namespace System
 {
-	OperatingSystem::OperatingSystem(PlatformID_t platform, System::Version version)
+	OperatingSystem::OperatingSystem(const PlatformID_t platform, const System::Version version)
 		: Platform(platform), Version(version)
 	{
 	}
@@ -40,7 +40,7 @@ namespace System
 	{
 	}
 
-	OperatingSystem OperatingSystem::Clone()
+	OperatingSystem OperatingSystem::Clone() const
 	{
 		return OperatingSystem(Platform, Version);
 	}
@@ -50,22 +50,26 @@ namespace System
 		return ((Platform == other.Platform) && (Version == other.Version));
 	}
 
-	int OperatingSystem::GetHashCode()
+	int OperatingSystem::GetHashCode() const
 	{
 		return (int)Platform + Version.GetHashCode();
 	}
 
-	char* OperatingSystem::ToString()
+	int OperatingSystem::GetType() const
+	{
+	}
+
+	const char* OperatingSystem::ToString() const
 	{
 		return "";
 	}
 
-	bool OperatingSystem::operator !=(const OperatingSystem right) const
+	bool OperatingSystem::operator !=(const OperatingSystem& right) const
 	{
 		return !Equals(right);
 	}
 
-	bool OperatingSystem::operator ==(const OperatingSystem right) const
+	bool OperatingSystem::operator ==(const OperatingSystem& right) const
 	{
 		return Equals(right);
 	}

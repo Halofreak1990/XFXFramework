@@ -5,9 +5,7 @@ namespace System
 {
 	namespace Globalization
 	{
-		/// <summary>
-		/// Defines different rules for determining the first week of the year.
-		/// </summary>
+		// Defines different rules for determining the first week of the year.
 		struct CalendarWeekRule
 		{
 			enum type
@@ -17,9 +15,8 @@ namespace System
 				FirstFullWeek = 1
 			};
 		};
-		/// <summary>
-		/// Defines the string comparison options to use with System.Globalization.CompareInfo.
-		/// </summary>
+
+		// Defines the string comparison options to use with System.Globalization.CompareInfo.
 		struct CompareOptions
 		{
 			enum type
@@ -35,24 +32,9 @@ namespace System
 				StringSort = 536870912
 			};
 		};
-		/// <summary>
-		/// Defines the types of culture lists that can be retrieved using System::Globalization::CultureInfo::GetCultures
-		/// (System.Globalization.CultureTypes).
-		/// </summary>
-		struct CultureTypes
-		{
-			enum type
-			{
-				AllCultures = 7,
-				InstalledWin32Cultures = 4,
-				NeutralCultures = 1,
-				SpecificCulture = 2
-			};
-		};
-		/// <summary>
-		/// Defines the formatting options that customize string parsing for the System::DateTime::Parse and
-		/// System::DateTime::ParseExact methods.
-		/// </summary>
+
+		// Defines the formatting options that customize string parsing for the System::DateTime::Parse and
+		// System::DateTime::ParseExact methods.
 		struct DateTimeStyles
 		{
 			enum type
@@ -69,9 +51,8 @@ namespace System
 				RoundtripKind = 128
 			};
 		};
-		/// <summary>
-		/// Defines the different language versions of the Gregorian calendar.
-		/// </summary>
+
+		// Defines the different language versions of the Gregorian calendar.
 		struct GregorianCalenderTypes
 		{
 			enum type
@@ -84,10 +65,9 @@ namespace System
 				USEnglish = 2
 			};
 		};
-		/// <summary>
-		/// Determines the styles permitted in numeric string arguments that are passed to the Parse methods of the
-		/// numeric base type classes.
-		/// </summary>
+
+		// Determines the styles permitted in numeric string arguments that are passed to the Parse methods of the
+		// numeric base type classes.
 		struct NumberStyles
 		{
 			enum type
@@ -114,7 +94,6 @@ namespace System
 
 		typedef CalendarWeekRule::type			CalendarWeekRule_t;
 		typedef CompareOptions::type			CompareOptions_t;
-		typedef CultureTypes::type				CultureTypes_t;
 		typedef DateTimeStyles::type			DateTimeStyles_t;
 		typedef GregorianCalenderTypes::type	GregorianCalenderTypes_t;
 		typedef NumberStyles::type				NumberStyles_t;

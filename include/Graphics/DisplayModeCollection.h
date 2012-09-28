@@ -30,8 +30,12 @@ namespace XFX
 		public:
 			DisplayModeCollection();
 
-			bool operator!=(const DisplayModeCollection other) const;
-			bool operator==(const DisplayModeCollection other) const;
+			bool Equals(Object* obj) const;
+			IEnumerator<DisplayMode>* GetEnumerator();
+			int GetHashCode() const;
+
+			bool operator!=(const DisplayModeCollection& other) const;
+			bool operator==(const DisplayModeCollection& other) const;
 		};
 	}
 }

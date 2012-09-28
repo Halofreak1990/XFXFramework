@@ -25,7 +25,6 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/SpriteBatch.h>
 #include <Graphics/SpriteFont.h>
 #include <Matrix.h>
@@ -40,7 +39,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		SpriteFont::SpriteFont(Texture2D* texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning)
+		SpriteFont::SpriteFont(Texture2D * const texture, const List<Rectangle>& glyphs, const List<Rectangle>& cropping, const List<char>& charMap, const int lineSpacing, const float spacing, const List<Vector3>& kerning)
 			: characterMap(charMap), croppingData(cropping), glyphData(glyphs), kerning(kerning), textureValue(texture)
 		{
 			this->lineSpacing = lineSpacing;
@@ -52,17 +51,17 @@ namespace XFX
 			delete textureValue;
 		}
 
-		void SpriteFont::Draw(const char* text, SpriteBatch* spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth)
+		void SpriteFont::Draw(String& text, SpriteBatch * const spriteBatch, const Vector2 textblockPosition, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t spriteEffects, const float depth)
 		{
 			Vector2 vector2;
-			Matrix matrix;
-			Matrix matrix2;
 
 			sassert(text != null, String::Format("text; %s", FrameworkResources::ArgumentNull_Generic));
 
-			Matrix::CreateRotationZ(rotation, matrix2);
-			Matrix::CreateTranslation(-origin.X * scale.X, -origin.Y * scale.Y, 0.0f, matrix);
-			Matrix::Multiply(matrix, matrix2, matrix2);
+			sassert(spriteBatch != null, String::Format("spriteBatch; %s", FrameworkResources::ArgumentNull_Generic));
+
+			Matrix matrix2 = Matrix::CreateRotationZ(rotation);
+			Matrix matrix = Matrix::CreateTranslation(-origin.X * scale.X, -origin.Y * scale.Y, 0.0f);
+			matrix2 = matrix * matrix2;
 			int num2 = 1;
 			float num4 = 0.0f;
 			bool flag = true;
@@ -80,8 +79,7 @@ namespace XFX
 				vector2.Y = 0.0f;
 			}
 			vector2.X = num4;
-			int strLen = strlen(text);
-			for (int i = 0; i < strLen; i++)
+			for (int i = 0; i < text.Length; i++)
 			{
 				char character = text[i];
 				switch (character)
@@ -165,7 +163,7 @@ namespace XFX
 			sassert(false, "character; Character not in Font.");
 		}
 
-		Vector2 SpriteFont::MeasureString(const char* text) const
+		Vector2 SpriteFont::MeasureString(String& text) const
 		{
 			//! TODO: implement
 			return Vector2::Zero;

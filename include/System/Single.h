@@ -32,12 +32,13 @@ namespace System
 		int CompareTo(const Single other) const;
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		static float Parse(char* str);
 		const char* ToString() const;
 
-		bool operator !=(float right) const;
+		bool operator !=(const float right) const;
 		bool operator !=(const Single right) const;
-		bool operator ==(float right) const;
+		bool operator ==(const float right) const;
 		bool operator ==(const Single right) const;
 	};
 }

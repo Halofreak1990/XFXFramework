@@ -121,15 +121,23 @@ namespace XFX
 		{
 		}
 
-		bool GamePadState::Equals(const GamePadState& obj) const
+		bool GamePadState::Equals(const Object* obj) const
 		{
-			return ((Buttons == obj.Buttons) && (DPad == obj.DPad) &&
-					(ThumbSticks == obj.ThumbSticks) && (Triggers == obj.Triggers));
+			return is(obj, this) ? this->Equals(*(GamePadState*)obj) : false;
+		}
+
+		bool GamePadState::Equals(const GamePadState obj) const
+		{
+			return (*this == obj);
 		}
 
 		int GamePadState::GetHashCode() const
 		{
 			return (Buttons.GetHashCode() + DPad.GetHashCode() ^ ThumbSticks.GetHashCode() ^ Triggers.GetHashCode());
+		}
+
+		int GamePadState::GetType() const
+		{
 		}
 
 		bool GamePadState::IsButtonDown(const Buttons_t button) const
@@ -190,58 +198,7 @@ namespace XFX
 
 		bool GamePadState::IsButtonUp(const Buttons_t button) const
 		{
-			switch(button)
-			{
-			case Buttons::A:
-				return Buttons.A == ButtonState::Released;
-			case Buttons::B:
-				return Buttons.B == ButtonState::Released;
-			case Buttons::Back:
-				return Buttons.Back == ButtonState::Released;
-			case Buttons::Black:
-				return Buttons.Black == ButtonState::Released;
-			case Buttons::DPadDown:
-				return DPad.Down == ButtonState::Released;
-			case Buttons::DPadLeft:
-				return DPad.Left == ButtonState::Released;
-			case Buttons::DPadRight:
-				return DPad.Right == ButtonState::Released;
-			case Buttons::DPadUp:
-				return DPad.Up == ButtonState::Released;
-			case Buttons::LeftStick:
-				return Buttons.LeftStick == ButtonState::Released;
-			case Buttons::LeftThumbstickDown:
-				return !(ThumbSticks.Left.Y < -64);
-			case Buttons::LeftThumbstickLeft:
-				return !(ThumbSticks.Left.X < -64);
-			case Buttons::LeftThumbstickRight:
-				return !(ThumbSticks.Left.X > 64);
-			case Buttons::LeftThumbstickUp:
-				return !(ThumbSticks.Left.Y > 64);
-			case Buttons::LeftTrigger:
-				return !(Triggers.Left > 0);
-			case Buttons::RightStick:
-				return Buttons.RightStick == ButtonState::Released;
-			case Buttons::RightThumbstickDown:
-				return !(ThumbSticks.Right.Y < -64);
-			case Buttons::RightThumbstickLeft:
-				return !(ThumbSticks.Right.X < -64);
-			case Buttons::RightThumbstickRight:
-				return !(ThumbSticks.Right.X > 64);
-			case Buttons::RightThumbstickUp:
-				return !(ThumbSticks.Right.Y > 64);
-			case Buttons::RightTrigger:
-				return !(Triggers.Right > 0);
-			case Buttons::Start:
-				return Buttons.Start == ButtonState::Released;
-			case Buttons::White:
-				return Buttons.White == ButtonState::Released;
-			case Buttons::X:
-				return Buttons.X == ButtonState::Released;
-			case Buttons::Y:
-				return Buttons.Y == ButtonState::Released;
-			}
-			return false;
+			return !IsButtonDown(button);
 		}
 
 		const char* GamePadState::ToString() const
@@ -251,12 +208,14 @@ namespace XFX
 
 		bool GamePadState::operator ==(const GamePadState& right) const
 		{
-			return Equals(right);
+			return ((Buttons == right.Buttons) && (DPad == right.DPad) &&
+					(ThumbSticks == right.ThumbSticks) && (Triggers == right.Triggers));
 		}
 
 		bool GamePadState::operator !=(const GamePadState& right) const
 		{
-			return !Equals(right);
+			return ((Buttons != right.Buttons) || (DPad != right.DPad) ||
+					(ThumbSticks != right.ThumbSticks) || (Triggers != right.Triggers));
 		}
 
 		GamePadButtons::GamePadButtons(const uint /* Buttons_t */ buttons)
@@ -289,12 +248,14 @@ namespace XFX
 		{
 		}
 
+		bool GamePadButtons::Equals(const Object* obj) const
+		{
+			return is(obj, this) ? this->Equals(*(GamePadButtons*)obj) : false;
+		}
+
 		bool GamePadButtons::Equals(const GamePadButtons other) const
 		{
-			return ((A == other.A) && (B == other.B) && (Back == other.Back) && 
-				(Black == other.Black) && (LeftStick == other.LeftStick) &&
-				(RightStick == other.RightStick) && (Start == other.Start) &&
-				(White == other.White) && (X == other.X) && (Y == other.Y));
+			return (*this == other);
 		}
 
 		int GamePadButtons::GetHashCode() const
@@ -303,9 +264,13 @@ namespace XFX
 				Start + White + X + Y);
 		}
 
+		int GamePadButtons::GetType() const
+		{
+		}
+
 		const char* GamePadButtons::ToString() const
 		{
-			String str = String::Empty;
+			String str = "";
 			if (A == ButtonState::Pressed)
 			{
 				str = str + ((str.Length != 0) ? " " : "") + "A";
@@ -322,7 +287,6 @@ namespace XFX
 			{
 				str = str + ((str.Length != 0) ? " " : "") + "Y";
 			}
-
 			if (White == ButtonState::Pressed)
 			{
 				str = str + ((str.Length != 0) ? " " : "") + "White";
@@ -355,14 +319,20 @@ namespace XFX
 			return String::Format("{{Buttons:%s}}", str.ToString());
 		}
 
-		bool GamePadButtons::operator!=(const GamePadButtons other) const
+		bool GamePadButtons::operator!=(const GamePadButtons& other) const
 		{
-			return !Equals(other);		
+			return ((A != other.A) || (B != other.B) || (Back != other.Back) ||
+				(Black != other.Black) || (LeftStick != other.LeftStick) ||
+				(RightStick != other.RightStick) || (Start != other.Start) ||
+				(White != other.White) || (X != other.X) || (Y != other.Y));		
 		}
 		
-		bool GamePadButtons::operator==(const GamePadButtons other) const
+		bool GamePadButtons::operator==(const GamePadButtons& other) const
 		{
-			return Equals(other);
+			return ((A == other.A) && (B == other.B) && (Back == other.Back) && 
+				(Black == other.Black) && (LeftStick == other.LeftStick) &&
+				(RightStick == other.RightStick) && (Start == other.Start) &&
+				(White == other.White) && (X == other.X) && (Y == other.Y));
 		}
 
 		GamePadDPad::GamePadDPad()
@@ -380,10 +350,14 @@ namespace XFX
 		{
 		}
 
-		bool GamePadDPad::Equals(const GamePadDPad& obj) const
+		bool GamePadDPad::Equals(const Object* obj) const
 		{
-			return ((Down == obj.Down) && (Left == obj.Left) &&
-					(Right == obj.Right) && (Up == obj.Up));
+			return is(obj, this) ? this->Equals(*(GamePadDPad*)obj) : false;
+		}
+
+		bool GamePadDPad::Equals(const GamePadDPad obj) const
+		{
+			return (*this == obj);
 		}
 
 		int GamePadDPad::GetHashCode() const
@@ -391,9 +365,13 @@ namespace XFX
 			return Down + Left + Right + Up;
 		}
 
+		int GamePadDPad::GetType() const
+		{
+		}
+
 		const char* GamePadDPad::ToString() const
 		{
-			String str = String::Empty;
+			String str = "";
 			if (Up == ButtonState::Pressed)
 			{
 				str = str + ((str.Length != 0) ? " " : "") + "Up";
@@ -420,12 +398,14 @@ namespace XFX
 
 		bool GamePadDPad::operator !=(const GamePadDPad& right) const
 		{
-			return !Equals(right);
+			return ((Down != right.Down) || (Left != right.Left) ||
+					(Right != right.Right) || (Up != right.Up));
 		}
 
 		bool GamePadDPad::operator ==(const GamePadDPad& right) const
 		{
-			return Equals(right);
+			return ((Down == right.Down) && (Left == right.Left) &&
+					(Right == right.Right) && (Up == right.Up));
 		}
 
 		GamePadThumbSticks::GamePadThumbSticks(const Vector2 leftThumbstick, const Vector2 rightThumbstick)
@@ -443,9 +423,14 @@ namespace XFX
 		{
 		}
 
+		bool GamePadThumbSticks::Equals(const Object* obj) const
+		{
+			return is(obj, this) ? this->Equals(*(GamePadThumbSticks*)obj) : false;
+		}
+
 		bool GamePadThumbSticks::Equals(const GamePadThumbSticks obj) const
 		{
-			return (Left == obj.Left) && (Right == obj.Right);
+			return (*this == obj);
 		}
 
 		int GamePadThumbSticks::GetHashCode() const
@@ -453,19 +438,23 @@ namespace XFX
 			return Left.GetHashCode() ^ Right.GetHashCode();
 		}
 
+		int GamePadThumbSticks::GetType() const
+		{
+		}
+
 		const char* GamePadThumbSticks::ToString() const
 		{
 			return String::Format("{{Left:%s Right%s}}", Left.ToString(), Right.ToString());
 		}
 
-		bool GamePadThumbSticks::operator!=(const GamePadThumbSticks other) const
+		bool GamePadThumbSticks::operator!=(const GamePadThumbSticks& other) const
 		{
-			return !Equals(other);
+			return (Left != other.Left) || (Right != other.Right);
 		}
 
-		bool GamePadThumbSticks::operator==(const GamePadThumbSticks other) const
+		bool GamePadThumbSticks::operator==(const GamePadThumbSticks& other) const
 		{
-			return Equals(other);
+			return (Left == other.Left) && (Right == other.Right);
 		}
 
 		GamePadTriggers::GamePadTriggers(const float left, const float right)
@@ -483,9 +472,14 @@ namespace XFX
 		{
 		}
 
+		bool GamePadTriggers::Equals(const Object* obj) const
+		{
+			return is(obj, this) ? this->Equals(*(GamePadTriggers*)obj) : false;
+		}
+
 		bool GamePadTriggers::Equals(const GamePadTriggers obj) const
 		{
-			return (Left == obj.Left) && (Right == obj.Right);
+			return (*this == obj);
 		}
 
 		int GamePadTriggers::GetHashCode() const
@@ -493,19 +487,23 @@ namespace XFX
 			return (int)Left ^ (int)Right;
 		}
 
+		int GamePadTriggers::GetType() const
+		{
+		}
+
 		const char* GamePadTriggers::ToString() const
 		{
 			return String::Format("{{Left:%f Right:%f}}", Left, Right);
 		}
 
-		bool GamePadTriggers::operator!=(const GamePadTriggers other) const
+		bool GamePadTriggers::operator!=(const GamePadTriggers& other) const
 		{
-			return !Equals(other);
+			return (Left != other.Left) || (Right != other.Right);
 		}
 
-		bool GamePadTriggers::operator==(const GamePadTriggers other) const
+		bool GamePadTriggers::operator==(const GamePadTriggers& other) const
 		{
-			return Equals(other);
+			return (Left == other.Left) && (Right == other.Right);
 		}
 	}
 }

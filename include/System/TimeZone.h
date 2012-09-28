@@ -19,7 +19,7 @@ namespace System
 	class TimeSpan;
 
 	// Represents a time zone.
-	class TimeZone : virtual Object
+	class TimeZone : public Object
 	{
 	protected:
 		TimeZone();
@@ -30,6 +30,7 @@ namespace System
 		String StandardName();
 
 		DaylightTime GetDaylightChanges(int year);
+		int GetType() const;
 		TimeSpan GetUtcOffset(DateTime time);
 		bool IsDaylightSavingTime(DateTime time);
 		static bool IsDaylightSavingTime(DateTime time, DaylightTime daylightTimes);

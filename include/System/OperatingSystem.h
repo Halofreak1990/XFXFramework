@@ -14,7 +14,7 @@
 namespace System
 {
 	// Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.
-	class OperatingSystem : virtual Object
+	class OperatingSystem : public Object
 	{
 	private:
 		OperatingSystem();
@@ -23,16 +23,17 @@ namespace System
 		const PlatformID_t Platform;
 		const System::Version Version;
 
-		OperatingSystem(PlatformID_t platform, System::Version version);
+		OperatingSystem(const PlatformID_t platform, const System::Version version);
 		OperatingSystem(const OperatingSystem &obj);
 
-		OperatingSystem Clone();
+		OperatingSystem Clone() const;
 		bool Equals(const OperatingSystem other) const;
-		int GetHashCode();
-		char* ToString();
+		int GetHashCode() const;
+		int GetType() const;
+		const char* ToString() const;
 
-		bool operator !=(const OperatingSystem right) const;
-		bool operator ==(const OperatingSystem right) const;
+		bool operator !=(const OperatingSystem& right) const;
+		bool operator ==(const OperatingSystem& right) const;
 	};
 }
 

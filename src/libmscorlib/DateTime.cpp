@@ -42,25 +42,25 @@ namespace System
 	// the rest contains the 62 bit value for the ticks.   This reduces the
 	// memory usage from 16 to 8 bytes.
 	//
-	const Int64 DateTime::TicksMask = 0x3fffffffffffffffLL;
-	const Int64 DateTime::KindMask = ((Int64)0xc000000000000000LL);
+	const long long DateTime::TicksMask = 0x3fffffffffffffffLL;
+	const long long DateTime::KindMask = ((long long)0xc000000000000000LL);
 	const int DateTime::KindShift = 62;
 	//
 	// w32 file time starts counting from 1/1/1601 00:00 GMT
 	// which is the constant ticks from the .NET epoch
-	const Int64 DateTime::w32file_epoch = 504911232000000000LL;
+	const long long DateTime::w32file_epoch = 504911232000000000LL;
 	//
 	//private const long MAX_VALUE_TICKS = 3155378975400000000L;
 	// -- Microsoft .NET has this value.
-	const Int64 DateTime::MAX_VALUE_TICKS = 3155378975999999999LL;
+	const long long DateTime::MAX_VALUE_TICKS = 3155378975999999999LL;
 	//
 	// The UnixEpoch, it begins on Jan 1, 1970 at 0:0:0, expressed
 	// in Ticks
 	//
-	const Int64 DateTime::UnixEpoch = 621355968000000000LL;
+	const long long DateTime::UnixEpoch = 621355968000000000LL;
 
 	// for OLE Automation dates
-	Int64 ticks18991230 = 599264352000000000LL;
+	long long ticks18991230 = 599264352000000000LL;
 	double OAMinValue = -657435.0;
 	double OAMaxValue = 2958466.0;
 
@@ -82,7 +82,7 @@ namespace System
 	const DateTime DateTime::MaxValue = DateTime(3155378975999999999LL);
 	const DateTime DateTime::MinValue = DateTime(0);
 
-	void DateTime::InvalidTickValue(Int64 ticks)
+	void DateTime::InvalidTickValue(long long ticks)
 	{
 #if DEBUG
 		//throw ArgumentOutOfRangeException("ticks", String::Format("Value %d is outside the valid range [0,%d].", ticks, MAX_VALUE_TICKS));
@@ -91,7 +91,7 @@ namespace System
 
 	DateTime DateTime::Add(double value, int scale)
 	{
-		Int64 num = (Int64) ((value * scale) + ((value >= 0.0) ? 0.5 : -0.5));
+		long long num = (long long)((value * scale) + ((value >= 0.0) ? 0.5 : -0.5));
         if ((num <= -315537897600000LL) || (num >= 0x11efae44cb400LL))
 		{
 #if DEBUG
@@ -128,20 +128,20 @@ namespace System
 		encoded = TimeSpan(AbsoluteDays(year,month,day), hour, minute, second, millisecond).Ticks();
 	}
 
-	DateTime::DateTime(Int64 ticks)
+	DateTime::DateTime(long long ticks)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
 			InvalidTickValue(ticks);
 		encoded = ticks;
 	}
 
-	DateTime::DateTime(Int64 ticks, DateTimeKind_t kind)
+	DateTime::DateTime(long long ticks, DateTimeKind_t kind)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
 			InvalidTickValue(ticks);
 		sassert(!(kind < 0 || kind > DateTimeKind::Local), "kind is an invalid DateTimeKind value.");
 
-		encoded = ((Int64)kind << KindShift) | ticks;
+		encoded = ((long long)kind << KindShift) | ticks;
 	}
 
 	DateTime::DateTime(const DateTime &obj)
@@ -208,8 +208,8 @@ namespace System
 
 	int DateTime::Compare(const DateTime t1, const DateTime t2)
 	{
-		Int64 t1t = t1.encoded & TicksMask;
-		Int64 t2t = t2.encoded & TicksMask;
+		long long t1t = t1.encoded & TicksMask;
+		long long t2t = t2.encoded & TicksMask;
 
 		if (t1t < t2t)
 			return -1;
@@ -236,19 +236,29 @@ namespace System
 		return days[month];
 	}
 
+	bool DateTime::Equals(const Object* obj) const
+	{
+		return is(obj, this) ? this->Equals((*(DateTime*)obj)) : false;
+	}
+
 	bool DateTime::Equals(const DateTime obj) const
 	{
 		return (encoded & TicksMask) == (obj.encoded & TicksMask);
 	}
 
-	DateTime DateTime::FromFileTime(Int64 fileTime)
+	bool DateTime::Equals(const DateTime t1, const DateTime t2)
+	{
+		return t1.Equals(t2);
+	}
+
+	DateTime DateTime::FromFileTime(long long fileTime)
 	{
 		sassert(fileTime >= 0, "fileTime must be non-negative.");
 
 		return DateTime(w32file_epoch + fileTime).ToLocalTime();
 	}
 
-	DateTime DateTime::FromFileTimeUtc(Int64 fileTime)
+	DateTime DateTime::FromFileTimeUtc(long long fileTime)
 	{
 		sassert(fileTime >= 0, "fileTime must be non-negative.");
 
@@ -284,6 +294,11 @@ namespace System
 		return (int)encoded;
 	}
 
+	int DateTime::GetType() const
+	{
+		return 16;
+	}
+
 	bool DateTime::IsDaylighSavingTime()
 	{
 		if ((int)((ulong)encoded >> KindShift) == (int)DateTimeKind::Utc)
@@ -305,7 +320,7 @@ namespace System
 
 	DateTime DateTime::Subtract(const TimeSpan value)
 	{
-		Int64 newticks;
+		long long newticks;
 
 		newticks = Ticks() - value.Ticks();
 		sassert(!(newticks < 0 || newticks > MAX_VALUE_TICKS), "argument out of range.");
@@ -315,7 +330,7 @@ namespace System
 		return ret;
 	}
 
-	Int64 DateTime::ToFileTime()
+	long long DateTime::ToFileTime()
 	{
 		DateTime universalTime = ToUniversalTime();
 			
@@ -324,7 +339,7 @@ namespace System
 		return(universalTime.Ticks() - w32file_epoch);
 	}
 
-	Int64 DateTime::ToFileTimeUtc()
+	long long DateTime::ToFileTimeUtc()
 	{
 		sassert(Ticks() >= w32file_epoch, "file time is not valid.");
 
@@ -333,7 +348,7 @@ namespace System
 
 	double DateTime::ToOADate()
 	{
-		Int64 t = Ticks();
+		long long t = Ticks();
 		// uninitialized DateTime case
 		if (t == 0)
 			return 0;
@@ -361,7 +376,7 @@ namespace System
 
 	DateTime DateTime::operator +(TimeSpan other)
 	{
-		Int64 res = ((encoded & TicksMask) + other.Ticks());
+		long long res = ((encoded & TicksMask) + other.Ticks());
 		if (res < 0 || res > MAX_VALUE_TICKS)
 		{
 #if DEBUG
@@ -373,7 +388,7 @@ namespace System
 		return DateTime(res, Kind());
 	}
 
-	bool DateTime::operator==(const DateTime other) const
+	bool DateTime::operator==(const DateTime& other) const
 	{
 		return Equals(other);
 	}
@@ -388,7 +403,7 @@ namespace System
 		return ((encoded & TicksMask) >= (other.encoded & TicksMask));
 	}
 
-	bool DateTime::operator!=(const DateTime other) const
+	bool DateTime::operator!=(const DateTime& other) const
 	{
 		return !Equals(other);
 	}
@@ -410,7 +425,7 @@ namespace System
 
 	DateTime DateTime::operator -(TimeSpan t)
 	{
-		Int64 res = ((encoded & TicksMask) - t.Ticks());
+		long long res = ((encoded & TicksMask) - t.Ticks());
 		if (res < 0 || res > MAX_VALUE_TICKS)
 		{
 #if DEBUG

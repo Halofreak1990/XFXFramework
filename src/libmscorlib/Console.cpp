@@ -1,4 +1,3 @@
-#include <System/Array.h>
 #include <System/Console.h>
 #include <System/Environment.h>
 #include <System/FrameworkResources.h>
@@ -50,19 +49,24 @@ namespace System
 		debugPrint("%f", value);
 	}
 
+	void Console::Write(const int value)
+	{
+		debugPrint("%i", value);
+	}
+
 	void Console::Write(const Object* value)
 	{
 		Write(value->ToString());
 	}
 
-	void Console::Write(const String value)
+	void Console::Write(const String& value)
 	{
-		Write(value.ToString());
+		debugPrint(const_cast<char*>(value.ToString()));
 	}
 
 	void Console::WriteLine()
 	{
-		debugPrint(Environment::NewLine());
+		debugPrint(const_cast<char*>(Environment::NewLine));
 	}
 
 	void Console::WriteLine(const bool value)
@@ -95,13 +99,19 @@ namespace System
 		Console::WriteLine();
 	}
 
+	void Console::WriteLine(const int value)
+	{
+		Console::Write(value);
+		Console::WriteLine();
+	}
+
 	void Console::WriteLine(const Object* value)
 	{
 		Console::Write(value);
 		Console::WriteLine();
 	}
 
-	void Console::WriteLine(const String value)
+	void Console::WriteLine(const String& value)
 	{
 		Console::Write(value);
 		Console::WriteLine();

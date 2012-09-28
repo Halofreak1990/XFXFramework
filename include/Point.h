@@ -14,7 +14,8 @@ using namespace System;
 
 namespace XFX
 {
-	struct Point : public IEquatable<Point>, virtual Object
+	// Defines a point in 2D space.
+	struct Point : IEquatable<Point>, Object
 	{
 		int X;
 		int Y;
@@ -24,12 +25,14 @@ namespace XFX
 		Point(const Point &obj);
 		Point();
 		
+		bool Equals(const Object* obj) const;
 		bool Equals(const Point other) const;
 		int GetHashCode() const;
+		int GetType() const;
 		const char* ToString() const;
 
-		bool operator==(const Point right) const;
-		bool operator!=(const Point right) const;
+		bool operator==(const Point& right) const;
+		bool operator!=(const Point& right) const;
 	};
 }
 

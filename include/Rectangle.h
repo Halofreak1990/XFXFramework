@@ -17,7 +17,7 @@ namespace XFX
 	struct Point;
 	
 	// Defines a rectangle.
-	struct Rectangle : public IEquatable<Rectangle>, virtual Object
+	struct Rectangle : IEquatable<Rectangle>, Object
 	{
 		int Bottom();	//Returns the y-coordinate of the bottom of the rectangle.
 		static const Rectangle Empty; //Returns a Rectangle with all of its values set to zero.
@@ -29,7 +29,7 @@ namespace XFX
 		int X;			//Specifies the x-coordinate of the rectangle.
 		int Y;			//Specifies the y-coordinate of the rectangle.
 
-		Rectangle(int x,int y,int width,int height);
+		Rectangle(const int x, const int y, const int width, const int height);
 		Rectangle(const Rectangle &obj);
 		Rectangle();
 		
@@ -38,8 +38,10 @@ namespace XFX
 		void Contains(Point pt, out int result);
 		bool Contains(Rectangle other);
 		void Contains(Rectangle other, out int result);
+		bool Equals(const Object* obj) const;
 		bool Equals(const Rectangle obj) const;
 		int GetHashCode();
+		int GetType() const;
 		void Inflate(int horizontalAmount, int verticalAmount);
 		bool Intersects(Rectangle other);
 		void Intersects(Rectangle other, out int result);
@@ -47,8 +49,8 @@ namespace XFX
 		void Offset(Point pt);
 		char* ToString();
 		
-		bool operator==(const Rectangle other) const;
-		bool operator!=(const Rectangle other) const;
+		bool operator==(const Rectangle& other) const;
+		bool operator!=(const Rectangle& other) const;
 	};
 }
 

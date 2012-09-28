@@ -26,14 +26,16 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Viewport.h>
+#include <System/String.h>
 #include <Matrix.h>
+#include <Rectangle.h>
 #include <Vector3.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		float Viewport::AspectRatio()
+		float Viewport::getAspectRatio() const
 		{
 			if ((Height != 0) && (Width != 0))
             {
@@ -42,25 +44,66 @@ namespace XFX
             return 0.0f;
 		}
 
+		Rectangle Viewport::getBounds() const
+		{
+			return Rectangle(X, Y, Width, Height);
+		}
+
+		void Viewport::setBounds(Rectangle value)
+		{
+			X = value.X;
+			Y = value.Y;
+			Width = value.Width;
+			Height = value.Height;
+		}
+
+		Rectangle Viewport::getTitleSafeArea() const
+		{
+			// TODO calculate this
+			return Rectangle(32, 32, 576, 416);
+		}
+
 		bool Viewport::WithinEpsilon(float a, float b)
 		{
 			float num = a - b;
 			return ((-1.401298E-45f <= num) && (num <= 1.401298E-45f));
 		}
 
-		bool Viewport::Equals(Viewport obj)
+		Viewport::Viewport()
+			: Height(0), MaxDepth(1.0f), MinDepth(0.0f), Width(0), X(0), Y(0)
 		{
-			return ((AspectRatio() == obj.AspectRatio()) && (Height == obj.Height) &&
-				(MaxDepth == obj.MaxDepth) && (MinDepth == obj.MinDepth) &&
-				(Width == obj.Width) && (X == obj.X) && (Y == obj.Y));
 		}
 
-		int Viewport::GetHashCode()
+		Viewport::Viewport(const int x, const int y, const int width, const int height)
+			: Height(height), Width(width), X(x), Y(y)
 		{
-			return ((int)AspectRatio() + Height + MaxDepth + MinDepth + Width + X + Y);
 		}
 
-		Vector3 Viewport::Project(Vector3 source, Matrix projection, Matrix view, Matrix world)
+		Viewport::Viewport(const Rectangle bounds)
+			: Height(bounds.Height), Width(bounds.Width), X(bounds.X), Y(bounds.Y)
+		{
+		}
+
+		bool Viewport::Equals(const Object* obj) const
+		{
+			return is(this, obj) ? this->Equals(*(Viewport*)obj) : false;
+		}
+
+		bool Viewport::Equals(const Viewport obj) const
+		{
+			return (*this == obj);
+		}
+
+		int Viewport::GetHashCode() const
+		{
+			return ((int)getAspectRatio() + Height + MaxDepth + MinDepth + Width + X + Y);
+		}
+
+		int Viewport::GetType() const
+		{
+		}
+
+		Vector3 Viewport::Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const
 		{
 			Matrix matrix = Matrix::Multiply(Matrix::Multiply(world, view), projection);
 			Vector3 vector = Vector3::Transform(source, matrix);
@@ -75,7 +118,7 @@ namespace XFX
 			return vector;
 		}
 
-		Vector3 Viewport::Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world)
+		Vector3 Viewport::Unproject(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const
 		{
 			Vector3 position = Vector3();
 			Matrix matrix = Matrix::Invert(Matrix::Multiply(Matrix::Multiply(world, view), projection));
@@ -86,19 +129,28 @@ namespace XFX
 			float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
 			if (!WithinEpsilon(a, 1))
 			{
-				position = (Vector3) (position / a);
+				position = (position / a);
 			}
 			return position;
 		}
 
-		bool Viewport::operator !=(Viewport right)
+		const char* Viewport::ToString() const
 		{
-			return !Equals(right);
+			return String::Format("{X:%i Y:%i Width:%i Height:%i MinDepth:%f MaxDepth:%f}", X, Y, Width, Height, MinDepth, MaxDepth);
 		}
 
-		bool Viewport::operator ==(Viewport right)
+		bool Viewport::operator !=(const Viewport& right) const
 		{
-			return Equals(right);
+			return ((Height != right.Height) || (MaxDepth != right.MaxDepth) ||
+				(MinDepth != right.MinDepth) || (Width != right.Width) ||
+				(X != right.X) || (Y != right.Y));
+		}
+
+		bool Viewport::operator ==(const Viewport& right) const
+		{
+			return ((Height == right.Height) && (MaxDepth == right.MaxDepth) &&
+				(MinDepth == right.MinDepth) && (Width == right.Width) && 
+				(X == right.X) && (Y == right.Y));
 		}
 	}
 }

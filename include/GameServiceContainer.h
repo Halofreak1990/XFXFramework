@@ -17,18 +17,18 @@ using namespace System::Collections::Generic;
 namespace XFX
 {
 	// A collection of game services.
-	class GameServiceContainer : public IServiceProvider, virtual Object
+	class GameServiceContainer : public IServiceProvider
 	{
 	private:
-		Dictionary<const char*, Object*>* _services;
+		Dictionary<String, Object*> _services;
 
 	public:
 		GameServiceContainer();
-		virtual ~GameServiceContainer();
+		virtual ~GameServiceContainer() {}
 
-		void AddService(const char* serviceType, Object* provider);
-		Object* GetService(const char* ServiceType);
-		void RemoveService(const char* type);
+		void AddService(const String& serviceType, Object* provider);
+		Object* GetService(const String& ServiceType);
+		void RemoveService(const String& type);
 	};
 }
 

@@ -16,7 +16,7 @@ AR = ar rcu
 RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
-SDLFLAGS = -DENABLE_XBOX
+SDLFLAGS = -DENABLE_XBOX -DDEBUG
 CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 CCAS_FLAGS = -g -O2
 CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-builtin -fno-rtti -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
@@ -29,19 +29,19 @@ ENTRYPOINT = -Wl,--entry,_WinMainCRTStartup
 STRIP = -Wl,--strip-all
 LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib -L$(XFX_PREFIX)/lib
-LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc
+LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lstdc++
 
 OBJS = BoundingBox.o BoundingFrustum.o BoundingSphere.o MathHelper.o Matrix.o Plane.o Point.o Quaternion.o Ray.o Rectangle.o Vector2.o Vector3.o Vector4.o
-AUDIO_OBJS = 
+AUDIO_OBJS = SoundEffect.o
 CONTENT_OBJS = ContentManager.o ContentReader.o
 GAMERSERVICES_OBJS = Guide.o StorageDeviceAsyncResult.o
-GRAPHICS_OBJS = Color.o DepthStencilBuffer.o DisplayMode.o DisplayModeCollection.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o TextureCreationParameters.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
+GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
 INPUT_OBJS = GamePad.o Keyboard.o Mouse.o
 MEDIA_OBJS = VideoPlayer.o
 NET_OBJS = PacketReader.o PacketWriter.o
 STORAGE_OBJS = StorageContainer.o StorageDevice.o
 
-OBJS1 = $(OBJS) $(GAMERSERVICES_OBJS) $(GRAPHICS_OBJS) $(INPUT_OBJS) $(MEDIA_OBJS) $(STORAGE_OBJS)
+OBJS1 = $(OBJS) $(AUDIO_OBJS) $(CONTENT_OBJS) $(GAMERSERVICES_OBJS) $(GRAPHICS_OBJS) $(INPUT_OBJS) $(MEDIA_OBJS) $(STORAGE_OBJS)
 
 all: libXFX.a
 

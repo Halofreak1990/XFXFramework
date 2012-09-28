@@ -35,7 +35,7 @@ namespace XFX
 		{
 		}
 
-		bool DisplayModeCollection::operator!=(const DisplayModeCollection other) const
+		bool DisplayModeCollection::operator!=(const DisplayModeCollection& other) const
 		{
 			int num;
 			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))
@@ -49,7 +49,7 @@ namespace XFX
 			return (bool)((byte)(((byte) num) == 0));
 		}
 
-		bool DisplayModeCollection::operator==(const DisplayModeCollection other) const
+		bool DisplayModeCollection::operator==(const DisplayModeCollection& other) const
 		{
 			int num;
 			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))

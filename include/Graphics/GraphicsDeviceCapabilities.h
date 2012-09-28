@@ -4,8 +4,8 @@
  *	XFX GraphicsDeviceCapabilities definition file		*
  *	Copyright © XFX Team. All Rights Reserved			*
  ********************************************************/
-#ifndef _GRAPHICSDEVICECAPABILITIES_
-#define _GRAPHICSDEVICECAPABILITIES_
+#ifndef _XFX_GRAPHICS_GRAPHICSDEVICECAPABILITIES_
+#define _XFX_GRAPHICS_GRAPHICSDEVICECAPABILITIES_
 
 #include <System.h>
 #include "Enums.h"
@@ -16,10 +16,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		/// <summary>
-		/// Represents the capabilities of the hardware.
-		/// </summary>
-		class GraphicsDeviceCapabilities : IDisposable
+		// Represents the capabilities of the hardware.
+		class GraphicsDeviceCapabilities : public IDisposable, virtual Object
 		{
 		protected:
 			void Dispose(bool disposing);
@@ -41,19 +39,20 @@ namespace XFX
 			CompareCaps DepthBufferCompareCapabilities();
 			BlendCaps DestinationBlendCapabilities();
 			DeviceCaps DeviceCapabilities();
-			DeviceType_t DeviceType_();
+			DeviceType_t getDeviceType();
 			DriverCaps DriverCapabilities();
 
 			void Dispose();
+			bool Equals(const GraphicsDeviceCapabilities obj) const;
+			int GetHashCode() const;
+			char* ToString() const;
 		
-			int operator!=(GraphicsDeviceCapabilities other);
-			int operator==(GraphicsDeviceCapabilities other);
+			bool operator!=(const GraphicsDeviceCapabilities other) const;
+			bool operator==(const GraphicsDeviceCapabilities other) const;
 			
 		public:
-			/// <summary>
-			/// Represents the texture addressing capabilities for Texture structures.
-			/// </summary>
-			struct AddressCaps
+			// Represents the texture addressing capabilities for Texture structures.
+			struct AddressCaps : virtual Object
 			{
 				bool SupportsBorder();
 				bool SupportsClamp();
@@ -62,34 +61,32 @@ namespace XFX
 				bool SupportsMirrorOnce();
 				bool SupportsWrap();
 
-				bool Equals(AddressCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const AddressCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(AddressCaps other);
-				bool operator==(AddressCaps other);
+				bool operator!=(const AddressCaps other) const;
+				bool operator==(const AddressCaps other) const;
 			};
-			/// <summary>
-			/// Represents the supported blend capabilities.
-			/// </summary>
-			struct BlendCaps
+
+			// Represents the supported blend capabilities.
+			struct BlendCaps : virtual Object
 			{
 				int SupportsBlendFactor();
 				int SupportsBothInverseSourceAlpha();
 				int SupportsBothSourceAlpha();
 				int SupportsDestinationAlpha();
 				
-				bool Equals(BlendCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const BlendCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 				
-				int operator!=(BlendCaps other);
-				int operator==(BlendCaps other);
+				bool operator!=(const BlendCaps other) const;
+				bool operator==(const BlendCaps other) const;
 			};
-			/// <summary>
-			/// Represents comparison capabilities.
-			/// </summary>
-			struct CompareCaps
+
+			// Represents comparison capabilities.
+			struct CompareCaps : virtual Object
 			{
 				bool SupportsAlways();
 				bool SupportsEqual();
@@ -100,32 +97,30 @@ namespace XFX
 				bool SupportsNever();
 				bool SupportsNotEqual();
 
-				bool Equals(CompareCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const CompareCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(CompareCaps other);
-				bool operator==(CompareCaps other);
+				bool operator!=(const CompareCaps other) const;
+				bool operator==(const CompareCaps other) const;
 			};
-			/// <summary>
-			/// Represents hardware support for cursors.
-			/// </summary>
+
+			// Represents hardware support for cursors.
 			struct CursorCaps
 			{
 				bool SupportsColor();
 				bool SupportsLowResolution();
 
-				bool Equals(CursorCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const CursorCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(CursorCaps other);
-				bool operator==(CursorCaps other);
+				bool operator!=(const CursorCaps other) const;
+				bool operator==(const CursorCaps other) const;
 			};
-			/// <summary>
-			/// Represents data types contained in a vertex declaration.
-			/// </summary>
-			struct DeclarationTypeCaps
+
+			// Represents data types contained in a vertex declaration.
+			struct DeclarationTypeCaps : virtual Object
 			{
 				bool SupportsByte4();
 				bool SupportsHalfVector2();
@@ -138,17 +133,16 @@ namespace XFX
 				bool SupportsRgba64();
 				bool SupportsUInt101010();
 
-				bool Equals(DeclarationTypeCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const DeclarationTypeCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(DeclarationTypeCaps other);
-				bool operator==(DeclarationTypeCaps other);
+				bool operator!=(const DeclarationTypeCaps other) const;
+				bool operator==(const DeclarationTypeCaps other) const;
 			};
-			/// <summary>
-			/// Represents device-specific capabilities.
-			/// </summary>
-			struct DeviceCaps
+
+			// Represents device-specific capabilities.
+			struct DeviceCaps : virtual Object
 			{
 				bool CanDrawSystemToNonLocal();
 				bool CanRenderAfterFlip();
@@ -156,27 +150,26 @@ namespace XFX
 				bool SupportsDrawPrimitives2();
 				bool SupportsDrawPrimitives2Ex();
 
-				bool Equals(DeviceCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const DeviceCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(DeviceCaps other);
-				bool operator==(DeviceCaps other);
+				bool operator!=(const DeviceCaps other) const;
+				bool operator==(const DeviceCaps other) const;
 			};
-			/// <summary>
-			/// Represents texture filter capabilities.
-			/// </summary>
+
+			// Represents texture filter capabilities.
 			struct FilterCaps
 			{
-				bool Equals(FilterCaps obj);
-				int GetHashCode();
-				char* ToString();
+				bool Equals(const FilterCaps obj) const;
+				int GetHashCode() const;
+				char* ToString() const;
 
-				bool operator!=(FilterCaps other);
-				bool operator==(FilterCaps other);
+				bool operator!=(const FilterCaps other) const;
+				bool operator==(const FilterCaps other) const;
 			};
 		};
 	}
 }
 
-#endif //_GRAPHICSDEVICECAPABILITIES_
+#endif //_XFX_GRAPHICS_GRAPHICSDEVICECAPABILITIES_

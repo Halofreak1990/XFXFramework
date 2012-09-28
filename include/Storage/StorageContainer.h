@@ -7,7 +7,7 @@
 #ifndef _XFX_STORAGE_STORAGECONTAINER_
 #define _XFX_STORAGE_STORAGECONTAINER_
 
-#include <System/Delegates.h>
+#include <System/Event.h>
 #include <System/Interfaces.h>
 #include <System/IO/DirectoryInfo.h>
 #include "../Enums.h"
@@ -22,7 +22,7 @@ namespace XFX
 		class StorageDevice;
 	
 		// Represents a logical collection of storage files.
-		class StorageContainer : public IDisposable, virtual Object
+		class StorageContainer : public IDisposable, public virtual Object
 		{
 			friend class StorageDevice;
 
@@ -40,10 +40,10 @@ namespace XFX
 			EventHandler Disposing;
 
 			bool IsDisposed();
-			char* Path();
-			StorageDevice* getStorageDevice();
-			static char* TitleLocation();
-			char* TitleName();
+			const char* Path() const;
+			StorageDevice* getStorageDevice() const;
+			static const char* TitleLocation();
+			const char* TitleName() const;
 				
 			void Delete();
 			void Dispose();

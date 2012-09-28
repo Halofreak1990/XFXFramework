@@ -26,43 +26,48 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GraphicsDeviceManager.h>
+#include <Game.h>
+#include <System/Event.h>
 
 #include <sassert.h>
 
-extern "C" {
-#include "../libXFX/pbKit.h"
+#if DEBUG
+extern "C"
+{
+#include <openxdk/debug.h>
 }
+#endif
 
 namespace XFX
 {
 	const int GraphicsDeviceManager::DefaultBackBufferWidth = 640;
 	const int GraphicsDeviceManager::DefaultBackBufferHeight = 480;
-	const DeviceType_t GraphicsDeviceManager::ValidDeviceTypes[] = { DeviceType::Hardware };
-	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr32, SurfaceFormat::Bgr555, SurfaceFormat::Bgr565, SurfaceFormat::Bgra1010102 };
-	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgr555, SurfaceFormat::Bgra5551, SurfaceFormat::Bgr32, SurfaceFormat::Color, SurfaceFormat::Bgra1010102 };
+	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr565 }; // TODO figure out which ones are really supported
+	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgra5551, SurfaceFormat::Color }; // idem
 
-	GraphicsDeviceManager::GraphicsDeviceManager(Game* game)
+	GraphicsDeviceManager::GraphicsDeviceManager(Game * const game)
+		: _game(game), backBufferFormat(SurfaceFormat::Color), backBufferHeight(DefaultBackBufferHeight), backBufferWidth(DefaultBackBufferWidth)
 	{
 		SynchronizeWithVerticalRetrace = true;
-		backBufferFormat = SurfaceFormat::Color;
-		backBufferHeight = DefaultBackBufferHeight;
-		backBufferWidth = DefaultBackBufferWidth;
-		minimumVertexShaderProfile = ShaderProfile::XVS_1_1;
-		_game = game;
+		preferredDepthStencilFormat = DepthFormat::Depth24;
 
-		sassert(game->getServices().GetService("IGraphicsDeviceManager") == null, "A graphics device manager is already registered.  The graphics device manager cannot be changed once it is set.");
+		sassert(game->getServices().GetService("IGraphicsDeviceManager") == null, "A graphics device manager is already registered. The graphics device manager cannot be changed once it is set.");
 
+#if DEBUG
+		debugPrint("Registering GraphicsDeviceManager\n");
+#endif
         game->getServices().AddService("IGraphicsDeviceManager", this);
 		game->getServices().AddService("IGraphicsDeviceService", this);
 	}
 
 	GraphicsDeviceManager::GraphicsDeviceManager(const GraphicsDeviceManager &obj)
-		: _game(obj._game)
+		: _game(obj._game), backBufferFormat(obj.backBufferFormat), backBufferHeight(obj.backBufferHeight), backBufferWidth(obj.backBufferWidth)
 	{
-		backBufferFormat = obj.backBufferFormat;
-		backBufferHeight = obj.backBufferHeight;
-		backBufferWidth = obj.backBufferWidth;
-		minimumVertexShaderProfile = obj.minimumVertexShaderProfile;
+	}
+
+	GraphicsDeviceManager::~GraphicsDeviceManager()
+	{
+		// TODO: implement
 	}
 
 	GraphicsDevice* GraphicsDeviceManager::getGraphicsDevice() const
@@ -72,7 +77,7 @@ namespace XFX
 	
 	bool GraphicsDeviceManager::IsFullScreen()
 	{
-		return true;
+		return isFullScreen;
 	}
 	
 	void GraphicsDeviceManager::ApplyChanges()
@@ -96,15 +101,30 @@ namespace XFX
 
 	void GraphicsDeviceManager::CreateDevice()
 	{
-		// TODO: properly construct the GraphicsDevice- requires lots of additional coding in multiple places
-		graphicsDevice = new GraphicsDevice(null, DeviceType::Hardware, null);
+#if DEBUG
+		debugPrint("Creating GraphicsDevice\n");
+#endif
 
-		OnDeviceCreated(this, EventArgs::Empty);
+		PresentationParameters* p = new PresentationParameters();
+		p->BackBufferWidth = backBufferWidth;
+		p->BackBufferHeight = backBufferHeight;
+		p->BackBufferFormat = backBufferFormat;
+		p->IsFullScreen = true;
+
+		// TODO: properly construct the GraphicsDevice- requires lots of additional coding in multiple places
+		graphicsDevice = new GraphicsDevice(null, p);
+
+		graphicsDevice->Disposing += new EventHandler::T<GraphicsDeviceManager>(this, &GraphicsDeviceManager::OnDeviceDisposing);
+		graphicsDevice->DeviceResetting += new EventHandler::T<GraphicsDeviceManager>(this, &GraphicsDeviceManager::OnDeviceResetting);
+		graphicsDevice->DeviceReset += new EventHandler::T<GraphicsDeviceManager>(this, &GraphicsDeviceManager::OnDeviceReset);
+
+		OnDeviceCreated(this, const_cast<EventArgs*>(EventArgs::Empty));
 	}
 
 	void GraphicsDeviceManager::Dispose()
 	{
 		Dispose(true);
+		delete graphicsDevice;
 	}
 
 	void GraphicsDeviceManager::Dispose(bool disposing)
@@ -120,32 +140,35 @@ namespace XFX
 		graphicsDevice->Present();
 	}
 
-	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs args)
+	int GraphicsDeviceManager::GetType() const
 	{
-		if (DeviceCreated != null)
-			DeviceCreated(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceDisposing(Object* sender, EventArgs args)
+	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs* args)
 	{
-		if (DeviceDisposing != null)
-			DeviceDisposing(sender, args);
+		DeviceCreated(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceReset(Object* sender, EventArgs args)
+	void GraphicsDeviceManager::OnDeviceDisposing(Object* sender, EventArgs* args)
 	{
-		if (DeviceReset != null)
-			DeviceReset(sender, args);
+		DeviceDisposing(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceResetting(Object* sender, EventArgs args)
+	void GraphicsDeviceManager::OnDeviceReset(Object* sender, EventArgs* args)
 	{
-		if (DeviceResetting != null)
-			DeviceResetting(sender, args);
+		DeviceReset(sender, args);
+	}
+
+	void GraphicsDeviceManager::OnDeviceResetting(Object* sender, EventArgs* args)
+	{
+		DeviceResetting(sender, args);
 	}
 
 	void GraphicsDeviceManager::ToggleFullscreen()
 	{
-		
+		isFullScreen = !isFullScreen;
+		PresentationParameters* p = graphicsDevice->getPresentationParameters();
+		p->IsFullScreen = isFullScreen;
+		graphicsDevice->Reset(p);
 	}
 }

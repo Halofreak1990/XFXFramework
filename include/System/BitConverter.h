@@ -24,21 +24,26 @@ namespace System
 	public:
 		static const bool IsLittleEndian;
 
-		static byte *GetBytes(bool value);
-		static byte *GetBytes(char value);
-		static byte *GetBytes(double value);
-		static byte *GetBytes(short value);
-		static byte *GetBytes(int value);
-		static byte *GetBytes(Int64 value);
-		static byte *GetBytes(float value);
-		static byte *GetBytes(UInt16 value);
-		static byte *GetBytes(UInt32 value);
-		static byte *GetBytes(UInt64 value);
+		static byte* GetBytes(bool value);
+		static byte* GetBytes(char value);
+		static byte* GetBytes(double value);
+		static byte* GetBytes(short value);
+		static byte* GetBytes(int value);
+		static byte* GetBytes(long long value);
+		static byte* GetBytes(float value);
+		static byte* GetBytes(ushort value);
+		static byte* GetBytes(uint value);
+		static byte* GetBytes(ulong value);
 		static bool ToBoolean(byte value[], int startIndex) __attribute__((nonnull(1)));
 		static char ToChar(byte value[], int startIndex) __attribute__((nonnull(1)));
 		static double ToDouble(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static Int16 ToInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static Int32 ToInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static short ToInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static int ToInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static long long ToInt64(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static float ToSingle(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static ushort ToUInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static uint ToUInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static ulong ToUInt64(byte value[], int startIndex) __attribute__((nonnull(1)));
 	};
 }
 

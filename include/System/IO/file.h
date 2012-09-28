@@ -16,7 +16,7 @@
 
 namespace System
 {
-	class DateTime;
+	struct DateTime;
 
 	namespace IO
 	{
@@ -25,34 +25,34 @@ namespace System
 		class StreamWriter;
 
 		// Provides static methods for the creation, copying, deletion, moving, and opening of files, and aids in the creation of FileStream objects.
-		class File : virtual Object
+		class File : public virtual Object
 		{
 		private:
 #if ENABLE_XBOX
-			static int FileAttributeInfo(char* path, PXBOX_FIND_DATA data, bool tryagain, bool returnErrorOnNotFound);
+			static int FileAttributeInfo(const String& path, PXBOX_FIND_DATA data, bool tryagain, bool returnErrorOnNotFound);
 #else
-			static int FileAttributeInfo(char* path, data, bool tryagain, bool returnErrorOnNotFound);
+			static int FileAttributeInfo(char* path, <unknown> data, bool tryagain, bool returnErrorOnNotFound);
 #endif
 
 		public:
-			static StreamWriter AppendText(char* path) __attribute__((nonnull (1)));
-			static void Copy(char* sourceFileName, char* destFileName) __attribute__((nonnull (1, 2)));
-			static void Copy(char* sourceFileName, char* destFileName, bool overwrite) __attribute__((nonnull (1, 2)));
-			static FileStream Create(char* path);
-			static FileStream Create(char* path, int bufferSize);
-			static StreamWriter CreateText(char* path) __attribute__((nonnull (1)));
-			static void Delete(char* path) __attribute__((nonnull (1)));
-			static bool Exists(char* path);
-			static DateTime GetCreationTime(char* path);
-			static DateTime GetLastAccessTime(char* path);
-			static DateTime GetLastWriteTime(char* path);
-			static void Move(char* sourceFileName, char* destFileName) __attribute__((nonnull (1, 2)));
-			static FileStream Open(char* path, FileMode_t mode);
-			static FileStream Open(char* path, FileMode_t mode, FileAccess_t access);
-			static FileStream Open(char* path, FileMode_t mode, FileAccess_t access, FileShare_t share);
-			static FileStream OpenRead(char* path);
-			static StreamReader OpenText(char* path) __attribute__((nonnull (1)));
-			static FileStream OpenWrite(char* path);
+			static StreamWriter* AppendText(const String& path);
+			static void Copy(const String& sourceFileName, const String& destFileName);
+			static void Copy(const String& sourceFileName, const String& destFileName, const bool overwrite);
+			static FileStream* Create(const String& path);
+			static FileStream* Create(const String& path, const int bufferSize);
+			static StreamWriter* CreateText(const String& path);
+			static void Delete(const String& path);
+			static bool Exists(const String& path);
+			static DateTime GetCreationTime(const String& path);
+			static DateTime GetLastAccessTime(const String& path);
+			static DateTime GetLastWriteTime(const String& path);
+			static void Move(const String& sourceFileName, const String& destFileName);
+			static FileStream* Open(const String& path, const FileMode_t mode);
+			static FileStream* Open(const String& path, const FileMode_t mode, const FileAccess_t access);
+			static FileStream* Open(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share);
+			static FileStream* OpenRead(const String& path);
+			static StreamReader* OpenText(const String& path);
+			static FileStream* OpenWrite(const String& path);
 		};
 	}
 }

@@ -15,9 +15,7 @@ namespace XFX
 {
 	namespace Storage
 	{
-		/// <summary>
-		/// The exception that is thrown when the requested StorageDevice is not connected
-		/// </summary>
+		// The exception that is thrown when the requested StorageDevice is not connected
 		class StorageDeviceNotConnectedException : public ExternalException
 		{
 		public:

@@ -14,7 +14,7 @@ namespace XFX
 	namespace Input
 	{
 		// Represents specific information about the state of an Xbox Controller, including the current state of buttons and sticks.
-		struct GamePadState
+		struct GamePadState : Object
 		{
 			GamePadButtons Buttons;
 			GamePadDPad DPad;
@@ -26,8 +26,10 @@ namespace XFX
 			GamePadState();
 			GamePadState(const GamePadState &obj);
 
-			bool Equals(const GamePadState& obj) const;
+			bool Equals(const Object* obj) const;
+			bool Equals(const GamePadState obj) const;
 			int GetHashCode() const;
+			int GetType() const;
 			bool IsButtonDown(const Buttons_t button) const;
 			bool IsButtonUp(const Buttons_t button) const;
 			const char* ToString() const;
@@ -35,7 +37,10 @@ namespace XFX
 			bool operator==(const GamePadState& right) const;
 			bool operator!=(const GamePadState& right) const;
 
-			inline GamePadState operator =(const GamePadState right) { return GamePadState(right); }
+			inline GamePadState operator =(const GamePadState right)
+			{
+				return (*this == right) ? *this : GamePadState(right);
+			}
 		};
 	}
 }

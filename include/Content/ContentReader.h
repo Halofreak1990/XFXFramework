@@ -25,22 +25,27 @@ namespace XFX
 
 	namespace Content
 	{
+		template <typename T>
 		class ContentTypeReader;
 
 		// A worker object that implements most of ContentManager.Load. A new ContentReader is constructed for each asset loaded.
-		class ContentReader : public BinaryReader, virtual Object
+		class ContentReader : public BinaryReader, public Object
 		{
 		private:
-			ContentManager contentManager;
-			GraphicsDevice _graphicsDevice;
-			char* _assetName;
+			ContentManager* contentManager;
+			GraphicsDevice* _graphicsDevice;
+			String _assetName;
 			static const short XnbVersion;
 
-			static Stream* PrepareStream(Stream* stream, char* assetName);
+			static Stream* PrepareStream(Stream * const stream, const String& assetName);
 
 		public:
-			ContentReader(ContentManager manager, Stream* stream, GraphicsDevice graphicsDevice);
-			ContentReader(ContentManager manager, Stream* input, char* assetName); 
+			String getAssetName() const;
+			ContentManager* getContentManager() const;
+
+			ContentReader(ContentManager * const manager, Stream * const stream, GraphicsDevice * const graphicsDevice);
+			ContentReader(ContentManager * const manager, Stream * const input, const String& assetName);
+			~ContentReader();
 
 			template <class T>
 			T ReadExternalReference();
@@ -50,18 +55,18 @@ namespace XFX
 			template <class T>
 			T ReadObject(T existingInstance);
 			template <class T>
-			T ReadObject(ContentTypeReader typeReader);
+			T ReadObject(ContentTypeReader<T>* typeReader);
 			template <class T>
-			T ReadObject(ContentTypeReader typeReader, T existingInstance);
+			T ReadObject(ContentTypeReader<T>* typeReader, T existingInstance);
 			Quaternion ReadQuaternion();
 			template <class T>
 			T ReadRawObject();
 			template <class T>
-			T ReadRawObject(ContentTypeReader typeReader);
+			T ReadRawObject(ContentTypeReader<T>* typeReader);
 			template <class T>
 			T ReadRawObject(T existingInstance);
 			template <class T>
-			T ReadRawObject(ContentTypeReader typeReader, T existingInstance);
+			T ReadRawObject(ContentTypeReader<T>* typeReader, T existingInstance);
 			Vector2 ReadVector2();
 			Vector3 ReadVector3();
 			Vector4 ReadVector4();

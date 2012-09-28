@@ -14,14 +14,10 @@
 #include "nv_objects.h"  //shared with renouveau files
 #include "nv20_shader.h" //(search "nouveau" on wiki)
 
-
-
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-
-
 
 
 
@@ -44,9 +40,9 @@
 #define GPU_IRQ						3
 
 #define XTAL_16MHZ					16.6667f
-#define DW_XTAL_16MHZ					16666666
+#define DW_XTAL_16MHZ				16666666
 
-#define MAX_EXTRA_BUFFERS				8
+#define MAX_EXTRA_BUFFERS			8
 
 #define MAXRAM						0x03FFAFFF
 
@@ -65,7 +61,6 @@ struct s_CtxDma
 	DWORD				Class;
 	DWORD				isGr;
 };
-
 
 struct s_PseudoReg
 {
@@ -87,7 +82,6 @@ struct s_PseudoRegs
 	struct s_PseudoReg	src1;
 	struct s_PseudoReg	src2;
 };
-
 
 static	int			pb_running=0;
 
@@ -248,7 +242,6 @@ static int			pb_log_constflag;
 //forward references
 static void pb_load_gr_ctx(int ctx_id);
 
-
 //private pb_text_screen functions
 
 #define ROWS	16
@@ -391,7 +384,6 @@ static unsigned char systemFont[] =
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
-
 static void pb_scrollup(void)
 {
 	int i;
@@ -433,8 +425,6 @@ static void pb_print_char(char c)
 	}
 }
 
-
-
 //private functions
 
 static void pb_set_gamma_ramp(BYTE *pGammaRamp)
@@ -450,10 +440,6 @@ static void pb_set_gamma_ramp(BYTE *pGammaRamp)
 		VIDEOREG8(NV_USER_DAC_PALETTE_DATA)=pGammaRamp[i+512];	//&NV_USER_DAC_PALETTE_DATA_VALUE
 	}
 }
-
-
-
-
 
 static void pb_vbl_handler(void)
 {
@@ -504,12 +490,6 @@ static void pb_vbl_handler(void)
 	VIDEOREG8(NV_PRMCIO_CRX__COLOR)=old_color_addr; //restore color index
 }
 
-
-
-
-
-
-
 static void pb_cache_flush(void)
 {
 	__asm__ __volatile__ ("sfence");
@@ -518,9 +498,6 @@ static void pb_cache_flush(void)
 	VIDEOREG(NV_PFB_WC_CACHE)|=NV_PFB_WC_CACHE_FLUSH_TRIGGER;
 	while(VIDEOREG(NV_PFB_WC_CACHE)&NV_PFB_WC_CACHE_FLUSH_IN_PROGRESS) {};
 }
-
-
-
 
 static void pb_subprog(DWORD subprogID, DWORD paramA, DWORD paramB)
 {
@@ -565,24 +542,16 @@ static void pb_subprog(DWORD subprogID, DWORD paramA, DWORD paramB)
 			break;
 	}
 }
- 
-
 
 static DWORD pb_gr_handler(void)
 {
 	DWORD			status;
-
 	DWORD			trapped_address;
-	int			trapped_ctx_id;
-
+	int				trapped_ctx_id;
 	DWORD			nsource;
-
 	DWORD			GrClass;
-	
 	DWORD			DataLow;
-
-	int			i;
-
+	int				i;
 	DWORD			*p;
 
 	VIDEOREG(NV_PGRAPH_FIFO)=NV_PGRAPH_FIFO_ACCESS_DISABLE;
@@ -724,7 +693,6 @@ static DWORD pb_gr_handler(void)
 	return VIDEOREG(NV_PGRAPH_INTR);
 }
 
-
 static void pb_wait_until_gr_not_busy(void)
 {
 	DWORD		status;
@@ -736,9 +704,6 @@ static void pb_wait_until_gr_not_busy(void)
 		if (status&NV_PMC_INTR_0_PCRTC_PENDING) pb_vbl_handler();
 	}
 }
-
-
-
 
 static void pb_load_gr_ctx(int ctx_id)
 {
@@ -804,8 +769,6 @@ static void pb_load_gr_ctx(int ctx_id)
 		VIDEOREG(NV_PGRAPH_FFINTFC_ST2)&=(NV_PGRAPH_FFINTFC_ST2_CHSWITCH_CLEAR&NV_PGRAPH_FFINTFC_ST2_FIFOHOLD_CLEAR);
 	}
 }
-
-
 
 static DWORD pb_fifo_handler(void)
 {
@@ -917,7 +880,6 @@ static DWORD pb_fifo_handler(void)
 	return VIDEOREG(NV_PFIFO_INTR_0)|(VIDEOREG(NV_PFIFO_DEBUG_0)&NV_PFIFO_DEBUG_0_CACHE_ERROR0_PENDING);
 }
 
-
 static void pb_set_fifo_channel(int channel)
 {
 	DWORD		old_caches,old_push,old_pull,old_channel;
@@ -995,10 +957,6 @@ static void pb_set_fifo_channel(int channel)
 	VIDEOREG(NV_PFIFO_CACHES)=old_caches;
 }
 
-
-
-
-
 static void __stdcall DPC(PKDPC Dpc, PVOID DeferredContext, PVOID SystemArgument1, PVOID SystemArgument2)
 {
 	//Deferred Procedure Call (delayed treatment, triggered by ISR)
@@ -1061,8 +1019,6 @@ static BOOLEAN __stdcall ISR(PKINTERRUPT Interrupt, PVOID ServiceContext)
 
 	return TRUE;
 }
-
-
 
 static int pb_install_gpu_interrupt(void)
 {
@@ -3083,17 +3039,12 @@ int pb_init(void)
 
 
 	pb_GrCtxID=NONE;
-	
-
 
 	VIDEOREG(NV_PGRAPH_CHANNEL_CTX_TABLE)=pb_GrCtxTableInst&NV_PGRAPH_CHANNEL_CTX_TABLE_INST;
 
 	p=(DWORD *)(VIDEO_BASE+NV_PRAMIN+(pb_GrCtxTableInst<<4));
 	*(p+0)=0; //we don't point at the 2 graphic contexts yet
 	*(p+1)=0;
-
-
-
 
 	VIDEOREG(NV_PFIFO_CACHE1_PUT)=0;
 	VIDEOREG(NV_PFIFO_CACHE1_GET)=0;
@@ -3108,9 +3059,7 @@ int pb_init(void)
 	VIDEOREG(NV_PFIFO_RUNOUT_PUT)=0;
 	VIDEOREG(NV_PFIFO_RUNOUT_GET)=0;
 
-
 	pb_running=1;
-
 
 	old=VIDEOREG(NV_PBUS_PCI_NV_19);
 	VIDEOREG(NV_PBUS_PCI_NV_19)=old&NV_PBUS_PCI_NV_19_AGP_COMMAND_SBA_ENABLE_OFF&NV_PBUS_PCI_NV_19_AGP_COMMAND_AGP_ENABLE_OFF;
@@ -3123,8 +3072,6 @@ int pb_init(void)
 //VIDEOREG(NV_PTIMER_TIME_1)=ticks; //time & date in ticks (nasty calculation, let's skip it for now)
 
 	VIDEOREG(NV_PGRAPH_FIFO)=NV_PGRAPH_FIFO_ACCESS_DISABLE;
-
-
 
 	VIDEOREG(NV_PMC_ENABLE)=VIDEOREG(NV_PMC_ENABLE)&NV_PMC_ENABLE_PGRAPH_DISABLED;
 	VIDEOREG(NV_PMC_ENABLE)=VIDEOREG(NV_PMC_ENABLE)|NV_PMC_ENABLE_PGRAPH_ENABLED;
@@ -3221,10 +3168,8 @@ int pb_init(void)
 	VIDEOREG(NV_PFIFO_CACHES)=NV_PFIFO_CACHES_REASSIGN_ENABLED;
 	VIDEOREG(NV_PFIFO_CACHES)=NV_PFIFO_CACHES_ALL_DISABLE;
 
-
 	VIDEOREG(NV_PFIFO_INTR_0)=NV_PFIFO_INTR_0_ALL_RESET;
 	VIDEOREG(NV_PFIFO_INTR_EN_0)=NV_PFIFO_INTR_EN_0_ALL_ENABLE;;
-
 
 	//calculate number of CPU cycles per second
 	HalReadWritePCISpace(0,0x60,0x6C,&value,4,FALSE);
@@ -3233,7 +3178,6 @@ int pb_init(void)
 		pb_CpuFrequency=5.5f*((float)((value>>8)&0xFF))*(XTAL_16MHZ/((float)(value&0xFF)));
 	else
 		pb_CpuFrequency=733.33f; //Mhz, theoretically
-
 
 	pb_create_dma_ctx(3,DMA_CLASS_3D,0,MAXRAM,&sDmaObject3);
 	pb_create_dma_ctx(5,DMA_CLASS_2,0,MAXRAM,&sDmaObject5);
@@ -3316,7 +3260,6 @@ int pb_init(void)
 	VIDEOREG(NV_PFIFO_CACHES)=NV_PFIFO_CACHES_REASSIGN_ENABLED;
 
 	pb_FifoChannelsReady|=(1<<channel);
-
 
 	UserAddr=VIDEO_BASE+NV_USER+(pb_FifoChannelID<<16);
 
@@ -3667,9 +3610,6 @@ int pb_init(void)
 
 	}
 
-
-
-
 	pb_FBVFlag=0x0000; //Quincunx & Gaussian need special flags. We don't, for now.
 	pb_XScale=(float)HScale;
 	pb_YScale=(float)VScale;
@@ -3873,9 +3813,6 @@ DWORD *pb_push_mcode(DWORD *p,DWORD *mcode)
 
 	return p;
 }
-
-
-
 
 //converts pseudo-code register into encoded xbox gpu pixel shader input register
 static int pb_preg2psreg(struct s_PseudoReg *pReg)
@@ -4950,7 +4887,6 @@ DWORD *pb_pcode2mcode(const DWORD *pseudocode)
 				}
 				p+=4;
 				break;
-
 
 			case 0x00000014: //m4x4 dest, src0, ?i (matrix multiply)
 			case 0x40000014: //+m4x4

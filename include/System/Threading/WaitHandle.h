@@ -14,7 +14,7 @@ namespace System
 	namespace Threading
 	{
 		// Encapsulates operating system–specific objects that wait for exclusive access to shared resources.
-		class WaitHandle : virtual Object
+		class WaitHandle
 		{
 		protected:
 			static const IntPtr InvalidHandle;

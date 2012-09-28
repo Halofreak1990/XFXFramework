@@ -27,28 +27,37 @@
 
 #include <Vector2.h>
 #include <Vector3.h>
-#include <Graphics/VertexpositionNormalTexture.h>
+#include <Graphics/VertexPositionNormalTexture.h>
 #include <System/String.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const VertexElement VertexPositionNormalTexture::vertexArray[] =
+		{
+			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
+			VertexElement(12, VertexElementFormat::Vector3, VertexElementUsage::Normal, 0),
+			VertexElement(24, VertexElementFormat::Vector2, VertexElementUsage::TextureCoordinate, 0)
+		};
+
+		VertexDeclaration VertexPositionNormalTexture::getVertexDeclaration() const
+		{
+			return VertexDeclaration(vertexArray, 3);
+		}
+
+		VertexPositionNormalTexture::VertexPositionNormalTexture()
+		{
+		}
+
 		VertexPositionNormalTexture::VertexPositionNormalTexture(const Vector3 position, const Vector3 normal, const Vector2 textureCoordinate)
+			: Position(position), Normal(normal), TextureCoordinate(textureCoordinate)
 		{
-			Position = position;
-			Normal = normal;
-			TextureCoordinate = textureCoordinate;
 		}
-		
-		int VertexPositionNormalTexture::SizeInBytes()
+
+		bool VertexPositionNormalTexture::Equals(const Object* obj) const
 		{
-			return (sizeof(float) * 5);
-		}
-		
-		bool VertexPositionNormalTexture::Equals(const VertexPositionNormalTexture other) const
-		{
-			return ((Normal == other.Normal) && (Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
+			return is(obj, this) ? (*this == *(VertexPositionNormalTexture*)obj) : false;
 		}
 		
 		int VertexPositionNormalTexture::GetHashCode() const
@@ -56,19 +65,24 @@ namespace XFX
 			return Normal.GetHashCode() ^ Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
 
+		int VertexPositionNormalTexture::GetType() const
+		{
+			// TODO: implement
+		}
+
 		const char* VertexPositionNormalTexture::ToString() const
 		{
-			return String::Format("{{Position:%s Normal:%s TextureCoordinate:%s}}", Position.ToString(), Normal.ToString(), TextureCoordinate.ToString());
+			return String::Format("{Position:%s Normal:%s TextureCoordinate:%s}", Position.ToString(), Normal.ToString(), TextureCoordinate.ToString());
 		}
 		
-		bool VertexPositionNormalTexture::operator!=(const VertexPositionNormalTexture other) const
+		bool VertexPositionNormalTexture::operator!=(const VertexPositionNormalTexture& other) const
 		{
-			return !Equals(other);
+			return ((Normal != other.Normal) || (Position != other.Position) || (TextureCoordinate != other.TextureCoordinate));
 		}
 		
-		bool VertexPositionNormalTexture::operator==(const VertexPositionNormalTexture other) const
+		bool VertexPositionNormalTexture::operator==(const VertexPositionNormalTexture& other) const
 		{
-			return Equals(other);
+			return ((Normal == other.Normal) && (Position == other.Position) && (TextureCoordinate == other.TextureCoordinate));
 		}
 	}
 }

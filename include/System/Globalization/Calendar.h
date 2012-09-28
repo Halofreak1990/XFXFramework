@@ -1,4 +1,3 @@
-
 #ifndef _SYSTEM_GLOBALIZATION_CALENDAR_
 #define _SYSTEM_GLOBALIZATION_CALENDAR_
 
@@ -6,12 +5,12 @@
 
 namespace System
 {
-	class DateTime;
+	struct DateTime;
 
 	namespace Globalization
 	{
 		// Represents time in divisions, such as weeks, months, and years.
-		class Calendar : virtual Object
+		class Calendar : public Object
 		{
 		public:
 			DateTime AddDays(DateTime time, int days);
@@ -19,6 +18,7 @@ namespace System
 			DateTime AddMilliseconds(DateTime time, double milliseconds);
 			DateTime AddMinutes(DateTime time, int minutes);
 			DateTime AddMonths(DateTime time, int months);
+			int GetType() const;
 		};
 	}
 }

@@ -1,8 +1,7 @@
 #ifndef _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
 #define _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
 
-#include <System/Delegates.h>
-#include <System/Exception.h>
+#include <System/Event.h>
 #include "../Endpoint.h"
 #include "Socket.h"
 #include "Enums.h"
@@ -15,20 +14,20 @@ namespace System
 	{
 		namespace Sockets
 		{
-			class SocketAsyncEventArgs : public EventArgs, virtual Object
+			class SocketAsyncEventArgs : public EventArgs
 			{
 			protected:
-				virtual void Oncompleted(SocketAsyncEventArgs e);
+				virtual void Oncompleted(SocketAsyncEventArgs* e);
 				virtual ~SocketAsyncEventArgs();
 
 			public:
 				byte* getBuffer();
-				int getBytesTransferred();
-				Exception* getConnectByNameError();
-				Socket getConnectSocket();
+				int getBytesTransferred() const;
+				//Exception* getConnectByNameError() const;
+				Socket getConnectSocket() const;
 				int Count();
-				SocketAsyncOperation_t getLastOperation();
-				int getOffset();
+				SocketAsyncOperation_t getLastOperation() const;
+				int getOffset() const;
 				EndPoint* RemoteEndPoint;
 				SocketError_t SocketError;
 				Object* UserToken;
@@ -38,8 +37,9 @@ namespace System
 				SocketAsyncEventArgs();
 
 				void Dispose();
-				void SetBuffer(int offset, int count);
-				void SetBuffer(byte buffer[], int offset, int count);
+				int GetType() const;
+				void SetBuffer(const int offset, const int count);
+				void SetBuffer(byte buffer[], const int offset, const int count);
 			};
 		}
 	}

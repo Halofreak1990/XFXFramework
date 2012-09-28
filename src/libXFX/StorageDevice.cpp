@@ -36,15 +36,15 @@ namespace XFX
 {
 	namespace Storage
 	{
-		long long StorageDevice::FreeSpace()
+		long long StorageDevice::FreeSpace() const
 		{
 		}
 
-		bool StorageDevice::IsConnected()
+		bool StorageDevice::IsConnected() const
 		{
 		}
 
-		long long StorageDevice::TotalSpace()
+		long long StorageDevice::TotalSpace() const
 		{
 		}
 
@@ -54,11 +54,11 @@ namespace XFX
 			_deviceIndex = deviceIndex;
 		}
 
-		StorageContainer StorageDevice::OpenContainer(char* titleName)
+		StorageContainer* StorageDevice::OpenContainer(const char* titleName)
 		{
 			sassert(!String::IsNullOrEmpty(titleName), "titleName cannot be null.");
 
-			//return StorageContainer(this, titleName, _deviceIndex, _playerIndex);
+			//return new StorageContainer(this, titleName, _deviceIndex, _playerIndex);
 		}
 	}
 }

@@ -7,9 +7,8 @@
 #ifndef _XFX_GRAPHICS_RENDERTARGET2D_
 #define _XFX_GRAPHICS_RENDERTARGET2D_
 
-#include <System/Types.h>
-#include "RenderTarget.h"
-//#include "Texture2D.h"
+#include <System/Event.h>
+#include <Graphics/Texture2D.h>
 
 using namespace System;
 
@@ -18,24 +17,39 @@ namespace XFX
 	namespace Graphics
 	{
 		class GraphicsDevice;
-		class Texture2D;
 
-		class RenderTarget2D : public RenderTarget, virtual Object
+		// Contains a 2D texture that can be used as a render target.
+		class RenderTarget2D : public Texture2D
 		{
 		private:
-			Texture2D* texture;
+			friend class GraphicsDevice;
+
 			int renderBufferIdentifier;
+			static int bufferCount;
+
+			DepthFormat_t depthStencilFormat;
 
 		protected:
 			void Dispose(bool disposing);
+			virtual void raise_ContentLost(Object * const sender, EventArgs * const e);
 
 		public:
-			RenderTarget2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, SurfaceFormat_t format);
-			RenderTarget2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, SurfaceFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality);
-			RenderTarget2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, SurfaceFormat_t format, RenderTargetUsage_t usage);
-			RenderTarget2D(GraphicsDevice* graphicsDevice, int width, int height, int numberLevels, SurfaceFormat_t format, MultiSampleType_t multiSampleType, int multiSampleQuality, RenderTargetUsage_t usage);
+			DepthFormat_t getDepthStencilFormat() const;
+			bool IsContentLost() const;
+			int getMultiSampleCount() const;
+			RenderTargetUsage_t getRenderTargetUsage() const;
 
-			Texture2D* GetTexture();
+			RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height);
+			RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat);
+			RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat, const int multisampleCount, const RenderTargetUsage_t usage);
+			~RenderTarget2D();
+
+			EventHandler ContentLost;
+			
+			int GetType() const;
+
+			bool operator ==(const RenderTarget2D& right) const;
+			bool operator !=(const RenderTarget2D& right) const;
 		};
 	}
 }

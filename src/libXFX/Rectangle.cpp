@@ -32,28 +32,19 @@ namespace XFX
 {
 	const Rectangle Rectangle::Empty = Rectangle(0, 0, 0, 0);
 	
-	Rectangle::Rectangle(int x, int y, int width, int height)
+	Rectangle::Rectangle(const int x, const int y, const int width, const int height)
+		: Height(height), Width(width), X(x), Y(y)
 	{
-		X = x;
-		Y = y;
-		Width = width;
-		Height = height;
 	}
 	
 	Rectangle::Rectangle(const Rectangle &obj)
+		: Height(obj.Height), Width(obj.Width), X(obj.X), Y(obj.Y)
 	{
-		X = obj.X;
-		Y = obj.Y;
-		Width = obj.Width;
-		Height = obj.Height;
 	}
 	
 	Rectangle::Rectangle()
+		: Height(0), Width(0), X(0), Y(0)
 	{
-		X = 0;
-		Y = 0;
-		Width = 0;
-		Height = 0;
 	}
 	
 	int Rectangle::Bottom()
@@ -101,14 +92,24 @@ namespace XFX
 		result = ((other.X >= X) && (other.Y >= Y) && (other.Bottom() <= Bottom()) && (other.Right() <= Right()));
 	}
 	
+	bool Rectangle::Equals(const Object *obj) const
+	{
+		return is(this, obj) ? (*this == *(Rectangle*)obj) : false;
+	}
+
 	bool Rectangle::Equals(const Rectangle obj) const
 	{
-		return ((X == obj.X) && (Y == obj.Y) && (Width == obj.Width) && (Height == obj.Height));
+		return (*this == obj);
 	}
 	
 	int Rectangle::GetHashCode()
 	{
 		return X ^ Y ^ Width ^ Height;
+	}
+
+	int Rectangle::GetType() const
+	{
+		// TODO: implement
 	}
 	
 	void Rectangle::Inflate(int horizontalAmount, int verticalAmount)
@@ -139,13 +140,13 @@ namespace XFX
 		Y += pt.Y;
 	}
 	
-	bool Rectangle::operator==(const Rectangle other) const
+	bool Rectangle::operator==(const Rectangle& other) const
 	{
-		return Equals(other);
+		return ((X == other.X) && (Y == other.Y) && (Width == other.Width) && (Height == other.Height));
 	}
 	
-	bool Rectangle::operator!=(const Rectangle other) const
+	bool Rectangle::operator!=(const Rectangle& other) const
 	{
-		return !Equals(other);
+		return !((X == other.X) && (Y == other.Y) && (Width == other.Width) && (Height == other.Height));
 	}
 }

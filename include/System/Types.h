@@ -16,17 +16,14 @@ namespace System
 	// Type definitions
 	//
 	/* SIGNED */
-	typedef signed char			sbyte, SByte;
-	typedef signed short		Int16;
-	typedef signed int			Int32;
-	typedef signed long long	Int64;
-	typedef signed int			*IntPtr;
+	typedef signed char			sbyte;
+	typedef signed int			IntPtr;
 	/* UNSIGNED */
 	typedef unsigned char 		byte;
-	typedef unsigned short		ushort, UInt16;
-	typedef unsigned int 		uint, UInt32;
-	typedef unsigned long long	ulong, UInt64;
-	typedef unsigned int		*UIntPtr;
+	typedef unsigned short		ushort;
+	typedef unsigned int 		uint;
+	typedef unsigned long long	ulong;
+	typedef unsigned int		UIntPtr;
 
 	/* OTHER */
 #define null NULL
@@ -42,8 +39,8 @@ namespace System
 
 // Aligning Data types
 //
-#define ALIGNED4 __attribute__ ((aligned (4)))
-#define ALIGNED8 __attribute__ ((aligned (8)))
-#define ALIGNED16 __attribute__ ((aligned (16)))
+#define ALIGNED4 __attribute__((aligned (4)))
+#define ALIGNED8 __attribute__((aligned (8)))
+#define ALIGNED16 __attribute__((aligned (16)))
 
 #endif //_SYSTEM_TYPES_

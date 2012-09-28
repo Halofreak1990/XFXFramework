@@ -27,7 +27,7 @@ LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib 
 LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc
 
-OBJS = Socket.o SocketAddress.o SocketAsyncEventArgs.o
+OBJS = CancelEventArgs.o Socket.o SocketAddress.o SocketAsyncEventArgs.o
 
 all: libSystem.a
 

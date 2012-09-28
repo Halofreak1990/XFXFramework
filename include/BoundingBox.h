@@ -18,7 +18,7 @@ namespace XFX
 	struct Ray;
 
 	// Defines an axis-aligned box-shaped 3D volume.
-	struct BoundingBox : public IEquatable<BoundingBox>, virtual Object
+	struct BoundingBox : IEquatable<BoundingBox>, Object
 	{
 	public:
 		Vector3 Max;
@@ -30,30 +30,32 @@ namespace XFX
 		BoundingBox();
 
 		ContainmentType_t Contains(const BoundingBox box) const;
-		void Contains(const BoundingBox box, out ContainmentType_t result) const;
+		void Contains(const BoundingBox& box, out ContainmentType_t& result) const;
 		ContainmentType_t Contains(const BoundingSphere sphere) const;
-		void Contains(const BoundingSphere sphere, out ContainmentType_t result) const;
+		void Contains(const BoundingSphere& sphere, out ContainmentType_t& result) const;
 		ContainmentType_t Contains(const Vector3 vector) const;
-		void Contains(const Vector3 vector, out ContainmentType_t result) const;
+		void Contains(const Vector3& vector, out ContainmentType_t& result) const;
 		static BoundingBox CreateFromPoints(const Vector3 points[], const int startIndex, const int length);
 		static BoundingBox CreateFromSphere(const BoundingSphere sphere);
-		static void CreateFromSphere(const BoundingSphere sphere, out BoundingBox result);
+		static void CreateFromSphere(const BoundingSphere& sphere, out BoundingBox& result);
 		static BoundingBox CreateMerged(const BoundingBox box1, const BoundingBox box2);
-		static void CreateMerged(const BoundingBox box1, const BoundingBox box2, out BoundingBox result);
+		static void CreateMerged(const BoundingBox& box1, const BoundingBox& box2, out BoundingBox& result);
+		bool Equals(const Object* obj) const;
 		bool Equals(const BoundingBox obj) const;
 		int GetHashCode() const;
+		int GetType() const;
 		bool Intersects(const BoundingBox box) const;
-		void Intersects(const BoundingBox box, out int result) const;
+		void Intersects(const BoundingBox& box, out bool& result) const;
 		bool Intersects(const BoundingSphere sphere) const;
-		void Intersects(const BoundingSphere sphere, out int result) const;
+		void Intersects(const BoundingSphere& sphere, out bool& result) const;
 		PlaneIntersectionType_t Intersects(const Plane plane) const;
-		void Intersects(const Plane plane, out PlaneIntersectionType_t result) const;
+		void Intersects(const Plane& plane, out PlaneIntersectionType_t& result) const;
 		float Intersects(const Ray ray) const;
-		void Intersects(const Ray ray, out float distance) const;
+		void Intersects(const Ray& ray, out float& distance) const;
 		const char* ToString() const;
 		
-		bool operator!=(const BoundingBox other) const;
-		bool operator==(const BoundingBox other) const;
+		bool operator!=(const BoundingBox& other) const;
+		bool operator==(const BoundingBox& other) const;
 	};
 }
 

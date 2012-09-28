@@ -8,8 +8,9 @@
 #define _XFX_GAMECOMPONENTCOLLECTION_
 
 #include "Interfaces.h"
-#include <System/Delegates.h>
+#include <System/Event.h>
 #include <System/Collections/Generic/List.h>
+#include <GameComponentCollectionEventArgs.h>
 
 using namespace System;
 using namespace System::Collections::Generic;
@@ -17,16 +18,16 @@ using namespace System::Collections::Generic;
 namespace XFX
 {
 	// A collection of game components.
-	class GameComponentCollection : virtual Object
+	class GameComponentCollection : public Object
 	{
 	private:
 		List<IGameComponent*> _components;
 
 	protected:
 		void ClearItems();
-		void InsertItem(int index, IGameComponent* item);
-		void RemoveItem(int index);
-		void SetItem(int index, IGameComponent* item);
+		void InsertItem(const int index, IGameComponent * const item);
+		void RemoveItem(const int index);
+		void SetItem(const int index, IGameComponent * const item);
 		
 	public:
 		int Count() const;
@@ -35,8 +36,10 @@ namespace XFX
 		virtual ~GameComponentCollection();
 		IGameComponent* operator[](const int index);
 
-		EventHandler ComponentAdded;
-		EventHandler ComponentRemoved;
+		int GetType() const;
+
+		Event<Object*, GameComponentCollectionEventArgs*> ComponentAdded;
+		Event<Object*, GameComponentCollectionEventArgs*> ComponentRemoved;
 	};
 }
 

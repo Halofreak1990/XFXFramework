@@ -283,6 +283,11 @@ namespace XFX
 		result = ContainmentType::Contains;
 	}
 
+	bool BoundingFrustum::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? this->Equals((*(BoundingFrustum*)obj)) : false;
+	}
+
 	bool BoundingFrustum::Equals(const BoundingFrustum other) const
 	{
 		return (matrix == other.matrix);
@@ -296,13 +301,19 @@ namespace XFX
 	void BoundingFrustum::GetCorners(Vector3 corners[])
 	{
 		sassert(corners != null, "corners cannot be null.");
-		
-		Array::Copy(cornerArray, 0, corners, 0, 8);
+
+		for (int i = 0; i < 8; i++)
+			corners[i] = cornerArray[i];
 	}
 
 	int BoundingFrustum::GetHashCode() const
 	{
 		return matrix.GetHashCode();
+	}
+
+	int BoundingFrustum::GetType() const
+	{
+		// TODO: implement
 	}
 
 	bool BoundingFrustum::Intersects(BoundingBox box)
@@ -315,6 +326,8 @@ namespace XFX
 	bool BoundingFrustum::Intersects(BoundingFrustum frustrum)
 	{
 		sassert(false, "function not implemented.");
+
+		return false;
 	}
 
 	bool BoundingFrustum::Intersects(BoundingSphere sphere)
@@ -394,8 +407,7 @@ namespace XFX
 
 	void BoundingFrustum::Intersects(Ray ray, out float result)
 	{
-		ContainmentType_t type;
-		Contains(ray.Position, type);
+		ContainmentType_t type = Contains(ray.Position);
 		if (type == ContainmentType::Contains)
 		{
 			result = 0.0f;
@@ -502,12 +514,12 @@ namespace XFX
 		cornerArray[6] = ComputeIntersection(planes[5], ray);
 	}
 
-	bool BoundingFrustum::operator !=(const BoundingFrustum right) const
+	bool BoundingFrustum::operator !=(const BoundingFrustum& right) const
 	{
 		return !Equals(right);
 	}
 
-	bool BoundingFrustum::operator ==(const BoundingFrustum right) const
+	bool BoundingFrustum::operator ==(const BoundingFrustum& right) const
 	{
 		return Equals(right);
 	}

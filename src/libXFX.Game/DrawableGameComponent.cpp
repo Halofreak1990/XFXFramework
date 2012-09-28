@@ -26,21 +26,19 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Color.h>
-#include <Graphics/DepthStencilBuffer.h>
 #include <Graphics/GraphicsDevice.h>
 #include <Game.h>
 
 namespace XFX
 {
-	GraphicsDevice* DrawableGameComponent::getGraphicsDevice()
+	GraphicsDevice* DrawableGameComponent::getGraphicsDevice() const
 	{
 		return _graphicsService->getGraphicsDevice();
 	}
 	
-	DrawableGameComponent::DrawableGameComponent(Game game)
-		: GameComponent(game)
+	DrawableGameComponent::DrawableGameComponent(Game * const game)
+		: GameComponent(game), _visible(true)
 	{
-	    _visible = true;
 	}
 	
 	void DrawableGameComponent::Dispose(bool disposing)
@@ -52,17 +50,17 @@ namespace XFX
 		GameComponent::Dispose();
 	}
 
-	int DrawableGameComponent::DrawOrder()
+	int DrawableGameComponent::getDrawOrder() const
 	{
 		return _drawOrder;
 	}
 
-	void DrawableGameComponent::DrawOrder(int value)
+	void DrawableGameComponent::setDrawOrder(const int value)
 	{
 		if (_drawOrder != value)
 		{
 			_drawOrder = value;  
-			OnDrawOrderChanged(this, EventArgs::Empty);
+			OnDrawOrderChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}  
 	}
 	
@@ -71,38 +69,36 @@ namespace XFX
 		LoadContent();
 	}
 
-	void DrawableGameComponent::OnDrawOrderChanged(Object* sender, EventArgs args)
+	void DrawableGameComponent::OnDrawOrderChanged(Object* sender, EventArgs* args)
 	{
-		if (DrawOrderChanged != null)
-			DrawOrderChanged(sender, args);
+		DrawOrderChanged(sender, args);
 	}
 
-	void DrawableGameComponent::OnVisibleChanged(Object* sender, EventArgs args)
+	void DrawableGameComponent::OnVisibleChanged(Object* sender, EventArgs* args)
 	{
-		if (VisibleChanged != null)
-			VisibleChanged(sender, args);
+		VisibleChanged(sender, args);
 	}
 	
 	void DrawableGameComponent::Update(GameTime gameTime) 
 	{
-		if(Enabled())
+		if(getEnabled())
 		{
 		}
 		
 		GameComponent::Update(gameTime);
 	}
 
-	bool DrawableGameComponent::Visible()
+	bool DrawableGameComponent::getVisible() const
 	{
 		return _visible;
 	}
 
-	void DrawableGameComponent::Visible(bool value)
+	void DrawableGameComponent::setVisible(const bool value)
 	{
 		if (_visible != value)
 		{
 			_visible = value;
-			OnVisibleChanged(this, EventArgs::Empty);
+			OnVisibleChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 	}
 }

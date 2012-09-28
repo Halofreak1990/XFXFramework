@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Net">
+      <UniqueIdentifier>{4672653e-cfa3-4260-9f96-4f758ca72318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Net\Sockets">
+      <UniqueIdentifier>{2fa0296d-6f7f-4811-b961-a67c7220f9e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ComponentModel">
+      <UniqueIdentifier>{3e233ccc-1de9-4a33-8172-83ac3b09ec52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ComponentModel">
+      <UniqueIdentifier>{a4f7a8a4-c329-4e60-befc-ce4e4201a1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SocketAddress.cpp">
+      <Filter>Source Files\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Source Files\Net\Sockets</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketAsyncEventArgs.cpp">
+      <Filter>Source Files\Net\Sockets</Filter>
+    </ClCompile>
+    <ClCompile Include="CancelEventArgs.cpp">
+      <Filter>Source Files\ComponentModel</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\System\ComponentModel\CancelEventArgs.h">
+      <Filter>Header Files\ComponentModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\EndPoint.h">
+      <Filter>Source Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\SocketAddress.h">
+      <Filter>Source Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\Sockets\Enums.h">
+      <Filter>Source Files\Net\Sockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\Sockets\Socket.h">
+      <Filter>Source Files\Net\Sockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\Sockets\SocketAsyncEventArgs.h">
+      <Filter>Source Files\Net\Sockets</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+</Project>

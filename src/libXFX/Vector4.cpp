@@ -216,14 +216,24 @@ namespace XFX
 		result.Z = vector1.Z / vector2.Z;
 	}
 
+	bool Vector4::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? (*this == *(Vector4*)obj) : false;
+	}
+
 	bool Vector4::Equals(const Vector4 other) const
 	{
-		return ((W == other.W) && (X == other.X) && (Y == other.Y) && (Z == other.Z));
+		return (*this == other);
 	}
 	
-	int Vector4::GetHashCode()
+	int Vector4::GetHashCode() const
 	{
 		return ((int)X ^ (int)Y ^ (int)Z ^ (int)W);
+	}
+
+	int Vector4::GetType() const
+	{
+		// TODO: implement
 	}
 	
 	Vector4 Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount) 
@@ -406,6 +416,11 @@ namespace XFX
 		result.W = vector1.W - vector2.W;
 	}
 
+	const char* Vector4::ToString() const
+	{
+		return String::Format("{X:%f Y:%f Z:%f W:%f}", X, Y, Z, W);
+	}
+
 	void Vector4::Transform(Vector4 sourceArray[], int sourceIndex, Quaternion rotation, Vector4 destinationArray[], int destinationIndex, int length)
 	{
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
@@ -549,7 +564,7 @@ namespace XFX
 	//
 	// Operators
 	//
-	const Vector4 Vector4::operator-(const Vector4 other)
+	Vector4 Vector4::operator-(const Vector4& other)
 	{
 		X -= other.X;
 		Y -= other.Y;
@@ -558,17 +573,17 @@ namespace XFX
 		return *this;
 	}
 	
-	const Vector4 Vector4::operator-()
+	Vector4 Vector4::operator-()
 	{
 		return Vector4(-X, -Y, -Z, -W);
 	}
 
-	bool Vector4::operator!=(const Vector4 other) const
+	bool Vector4::operator!=(const Vector4& other) const
 	{
-		return !Equals(other);
+		return ((X != other.X) || (Y != other.Y) || (Z != other.Z) || (W != other.W));
 	}
 
-	const Vector4 Vector4::operator*(const float scaleFactor)
+	Vector4 Vector4::operator*(const float scaleFactor)
 	{
 		W *= scaleFactor;
 		X *= scaleFactor;
@@ -577,7 +592,7 @@ namespace XFX
 		return *this;
 	}
 
-	const Vector4 Vector4::operator*(const Vector4 other)
+	Vector4 Vector4::operator*(const Vector4& other)
 	{
 		W *= other.W;
 		X *= other.X;
@@ -586,7 +601,7 @@ namespace XFX
 		return *this;
 	}
 
-	const Vector4 Vector4::operator/(const float scaleFactor)
+	Vector4 Vector4::operator/(const float scaleFactor)
 	{
 		W /= scaleFactor;
 		X /= scaleFactor;
@@ -595,7 +610,7 @@ namespace XFX
 		return *this;
 	}
 
-	const Vector4 Vector4::operator/(const Vector4 other)
+	Vector4 Vector4::operator/(const Vector4& other)
 	{
 		W /= other.W;
 		X /= other.X;
@@ -604,7 +619,7 @@ namespace XFX
 		return *this;
 	}
 
-	const Vector4 Vector4::operator+(const Vector4 other)
+	Vector4 Vector4::operator+(const Vector4& other)
 	{
 		X += other.X;
 		Y += other.Y;
@@ -613,9 +628,8 @@ namespace XFX
 		return *this;
 	}
 
-	bool Vector4::operator==(const Vector4 other) const
+	bool Vector4::operator==(const Vector4& other) const
 	{
-		return Equals(other);
+		return ((X == other.X) && (Y == other.Y) && (Z == other.Z) && (W == other.W));
 	}
-
 }

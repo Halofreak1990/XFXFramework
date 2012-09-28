@@ -15,9 +15,7 @@ namespace XFX
 
 	namespace Net
 	{
-		/// <summary>
-		/// Provides common functionality for efficiently formatting outgoing network packets.
-		/// </summary>
+		// Provides common functionality for efficiently formatting outgoing network packets.
 		class PacketWriter : public BinaryWriter
 		{
 		public:

@@ -10,100 +10,289 @@
 
 #include "FrameworkResources.h"
 #include <System/Collections/Generic/Interfaces.h>
-
-using namespace System::Collections::Generic;
+#include <System/String.h>
+#include <string.h>
 
 #include <sassert.h>
 
+using namespace System::Collections::Generic;
+
 namespace System
 {
-	class Array
+	template <typename T>
+	class Array : public ICollection<T>, public IEnumerable<T>
 	{
+	private:
+		T* _array;
+		int _version;
+
+		inline void swap(T& a, T&b)
+		{
+			T temp = a;
+			a = b;
+			b = temp;
+		}
+
 	public:
-		template <class T>
-		static int BinarySearch(T array[], int index, int length, T value, IComparer<T>* comparer)
-		{
-			return -1;
-		}
+		const int Length;
 
-		template <class T>
-		static void Clear(T array[], int index, int length)
+		Array(const int size) : _array(new T[size]), _version(0), Length(size) { }
+		Array(const Array<T> &obj)
+			: _array(new T[obj.Length]), _version(obj._version), Length(obj.Length)
 		{
-			for(int i = index; i < (index + length); i++)
+			for (int i = 0; i < Length; i++)
 			{
-				array[i] = null;
+				_array[i] = obj._array[i];
 			}
 		}
 
-		template <class T>
-		static void Copy(T sourceArray[], int sourceIndex, T destinationArray[], int destinationIndex, int length)
+		~Array() { delete[] _array; }
+
+		void Clear()
 		{
-			sassert(sourceArray != null, "");
-
-			sassert(destinationArray != null, "");
-
-			sassert(sourceIndex >= 0, "");
-			
-			//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "sourceIndex must be 0 or greater");
-
-			sassert(destinationIndex >= 0, "");
-
-			//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "destinationIndex must be 0 or greater");
-
-			/*if((sourceIndex + length) > Length(sourceArray))
+			for (int i = 0; i < Length; i++)
 			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
-#endif
-				return;
-			}
-
-			if((destinationIndex + length) > Length(destinationArray))
-			{
-#if DEBUG
-				printf("ARGUMENT in function %s, at line %i in file %s\n", __FUNCTION__, __LINE__, __FILE__);
-#endif
-				return;
-			}*/
-
-			for (int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
-			{
-				destinationArray[j] = sourceArray[i];
+				_array[i] = null;
 			}
 		}
 
-		template <class T>
-		static int IndexOf(const T array[], const T value, const int startIndex, const int count)
+		bool Contains(const T item) const
 		{
-			for (int i = startIndex; i < count; i++)
+			return (IndexOf(item) != -1);
+		}
+
+		void CopyTo(T array[], const int index) const
+		{
+			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
+
+			for(int i = 0, j = index; i < Length; i++)
 			{
-				if (array[i] == value)
+				array[j] = _array[i];
+			}
+		}
+
+		IEnumerator<T>* GetEnumerator() const
+		{
+			return new ArrayEnumerator(this);
+		}
+
+		int IndexOf(const T item) const
+		{
+			for (int i = 0; i < Length; i++)
+			{
+				if (i == item)
 					return i;
 			}
 			return -1;
 		}
 
-		template <class T>
-		static void Reverse(T array[], int index, int length)
+		void Reverse()
 		{
-			sassert(array != null, "");
+			Reverse(0, Length);
+		}
 
-			//if ((Length(array) - index) < length)
-			
-			//printf("ARGUMENT in function %s, at line %i in file %s: %s\n", __FUNCTION__, __LINE__, __FILE__, "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+		void Reverse(const int startIndex, const int count)
+		{
+			sassert((startIndex + count) < Length, "");
 
-			int num = index;
-        	int num2 = (index + length) - 1;
+			int num = startIndex;
+    		int num2 = (startIndex + count) - 1;
 			while (num < num2)
 			{
-				T obj2 = array[num];
-				array[num] = array[num2];
-				array[num2] = obj2;
+				swap(_array[num], _array[num2]);
 				num++;
-        		num2--;
+				num2--;
+			}
+
+			_version++;
+		}
+
+		T& operator[](const int index)
+		{
+			return _array[index];
+		}
+
+	private:
+		class ArrayEnumerator : public IEnumerator<T>
+		{
+		private:
+			Array<T>* _array;
+			int _position;
+			int _version;
+
+		public:
+			ArrayEnumerator(Array<T> * const parent) : _array(parent), _position(0), _version(_array->_version) { }
+			~ArrayEnumerator() { }
+
+			T& Current() const
+			{
+				sassert(_version == _array->_version, "");
+
+				return _array[_position];
+			}
+
+			bool MoveNext()
+			{
+				sassert(_version == _array->_version, "");
+
+				return (_position < _array->Length);
+			}
+
+			void Reset()
+			{
+				sassert(_version == _array->_version, "");
+
+				_position = -1;
+			}
+		};
+	};
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	template <typename T>
+	class Array<T *> : public ICollection<T *>, public IEnumerable<T *>
+	{
+	private:
+		T** _array;
+		int _version;
+
+		inline void swap(T * a, T * b)
+		{
+			T* temp = a;
+			a = b;
+			b = temp;
+		}
+
+	public:
+		const int Length;
+
+		Array(const int size) : _array(new T*[size]), _version(0), Length(size) { }
+		Array(const Array<T *> &obj)
+			: _array(new T*[obj.Length]), _version(obj._version), Length(obj.Length)
+		{
+			for (int i = 0; i < Length; i++)
+			{
+				_array[i] = obj._array[i];
 			}
 		}
+
+		~Array() { delete _array; }
+
+		void Clear()
+		{
+			for (int i = 0; i < Length; i++)
+			{
+				_array[i] = null;
+			}
+		}
+
+		bool Contains(const T* item) const
+		{
+			return (IndexOf(item) != -1);
+		}
+
+		void CopyTo(T* array[], const int index) const
+		{
+			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
+
+			for(int i = 0, j = index; i < Length; i++)
+			{
+				array[j] = _array[i];
+			}
+		}
+
+		IEnumerator<T *>* GetEnumerator() const
+		{
+			return new ArrayEnumerator(this);
+		}
+
+		int IndexOf(const T* item) const
+		{
+			for(int i = 0; i < Length; i++)
+			{
+				if (_array[i] == item)
+					return i;
+			}
+			return -1;
+		}
+
+		void Reverse()
+		{
+			Reverse(0, Length);
+		}
+
+		void Reverse(const int startIndex, const int count)
+		{
+			sassert((startIndex + count) < Length, "");
+
+			int num = startIndex;
+    		int num2 = (startIndex + count) - 1;
+			while (num < num2)
+			{
+				swap(_array[num], _array[num2]);
+				num++;
+				num2--;
+			}
+
+			_version++;
+		}
+
+		T& operator[](const int index)
+		{
+			return _array[index];
+		}
+
+	private:
+		class ArrayEnumerator : public IEnumerator<T *>
+		{
+		private:
+			Array<T *>* _array;
+			int _position;
+			int _version;
+
+		public:
+			ArrayEnumerator(Array<T> * const parent) : _array(parent), _position(0), _version(parent->_version) { }
+			~ArrayEnumerator() { }
+
+			T& Current() const
+			{
+				sassert(_version == _array->_version, "");
+
+				return *_array[_position];
+			}
+
+			bool MoveNext()
+			{
+				sassert(_version == _array->_version, "");
+
+				return _position < _array->Length;
+			}
+
+			void Reset()
+			{
+				sassert(_version == _array->_version, "");
+
+				_position = -1;
+			}
+		};
 	};
+
+	/*template <typename T>
+	void Array::Reverse(T array[], const int index, const int length)
+	{
+		sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
+
+		int num = index;
+    	int num2 = (index + length) - 1;
+		while (num < num2)
+		{
+			T obj2 = array[num];
+			array[num] = array[num2];
+			array[num2] = obj2;
+			num++;
+    		num2--;
+		}
+	}*/
 }
 
 #endif //_SYSTEM_ARRAY_

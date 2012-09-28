@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{379FFCFD-88FA-46D6-A686-CAE8F58652FC}</ProjectGuid>
+    <RootNamespace>libXFX</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile all 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile rebuild 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\bin\make -f makefile clean 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeCleanCommandLine>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ENABLE_XBOX; DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog>
+      <Path>BuildLog.htm</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BoundingFrustum.cpp" />
+    <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="MathHelper.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vector4.cpp" />
+    <ClCompile Include="SoundEffect.cpp" />
+    <ClCompile Include="ContentManager.cpp" />
+    <ClCompile Include="ContentReader.cpp" />
+    <ClCompile Include="BasicEffect.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="DisplayMode.cpp" />
+    <ClCompile Include="DisplayModeCollection.cpp" />
+    <ClCompile Include="GraphicsAdapter.cpp" />
+    <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="GraphicsResource.cpp" />
+    <ClCompile Include="pbKit.c" />
+    <ClCompile Include="PresentationParameters.cpp" />
+    <ClCompile Include="RenderTarget2D.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteBatch.cpp" />
+    <ClCompile Include="SpriteFont.cpp" />
+    <ClCompile Include="StateBlock.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TextureCollection.cpp" />
+    <ClCompile Include="VertexDeclaration.cpp" />
+    <ClCompile Include="VertexElement.cpp" />
+    <ClCompile Include="VertexPositionColor.cpp" />
+    <ClCompile Include="VertexPositionNormalTexture.cpp" />
+    <ClCompile Include="VertexPositionTexture.cpp" />
+    <ClCompile Include="Viewport.cpp" />
+    <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="VideoPlayer.cpp" />
+    <ClCompile Include="StorageContainer.cpp" />
+    <ClCompile Include="StorageDevice.cpp" />
+    <ClCompile Include="StorageDeviceNotConnectedException.cpp" />
+    <ClCompile Include="Guide.cpp" />
+    <ClCompile Include="StorageDeviceAsyncResult.cpp" />
+    <ClCompile Include="PacketReader.cpp" />
+    <ClCompile Include="PacketWriter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\BoundingBox.h" />
+    <ClInclude Include="..\..\include\BoundingFrustum.h" />
+    <ClInclude Include="..\..\include\BoundingSphere.h" />
+    <ClInclude Include="..\..\include\Enums.h" />
+    <ClInclude Include="..\..\include\Graphics\BlendState.h" />
+    <ClInclude Include="..\..\include\Graphics\DepthStencilState.h" />
+    <ClInclude Include="..\..\include\Graphics\DirectionalLight.h" />
+    <ClInclude Include="..\..\include\Graphics\EffectParameter.h" />
+    <ClInclude Include="..\..\include\Graphics\IndexBuffer.h" />
+    <ClInclude Include="..\..\include\Graphics\IVertexType.h" />
+    <ClInclude Include="..\..\include\Graphics\RasterizerState.h" />
+    <ClInclude Include="..\..\include\Graphics\SamplerState.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexBuffer.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexDeclaration.h" />
+    <ClInclude Include="..\..\include\MathHelper.h" />
+    <ClInclude Include="..\..\include\Matrix.h" />
+    <ClInclude Include="..\..\include\Plane.h" />
+    <ClInclude Include="..\..\include\Point.h" />
+    <ClInclude Include="..\..\include\Quaternion.h" />
+    <ClInclude Include="..\..\include\Ray.h" />
+    <ClInclude Include="..\..\include\Rectangle.h" />
+    <ClInclude Include="..\..\include\Vector2.h" />
+    <ClInclude Include="..\..\include\Vector3.h" />
+    <ClInclude Include="..\..\include\Vector4.h" />
+    <ClInclude Include="..\..\include\XFX.h" />
+    <ClInclude Include="..\..\include\Audio.h" />
+    <ClInclude Include="..\..\include\Audio\AudioEmitter.h" />
+    <ClInclude Include="..\..\include\Audio\AudioListener.h" />
+    <ClInclude Include="..\..\include\Audio\Enums.h" />
+    <ClInclude Include="..\..\include\Audio\SoundEffect.h" />
+    <ClInclude Include="..\..\include\Audio\SoundEffectInstance.h" />
+    <ClInclude Include="..\..\include\Content.h" />
+    <ClInclude Include="..\..\include\Content\ContentManager.h" />
+    <ClInclude Include="..\..\include\Content\ContentReader.h" />
+    <ClInclude Include="..\..\include\Content\ContentTypeReader.h" />
+    <ClInclude Include="..\..\include\Graphics\BasicEffect.h" />
+    <ClInclude Include="..\..\include\Graphics\Color.h" />
+    <ClInclude Include="..\..\include\Graphics\DisplayMode.h" />
+    <ClInclude Include="..\..\include\Graphics\DisplayModeCollection.h" />
+    <ClInclude Include="..\..\include\Graphics\Effect.h" />
+    <ClInclude Include="..\..\include\Graphics\Enums.h" />
+    <ClInclude Include="..\..\include\Graphics.h" />
+    <ClInclude Include="..\..\include\Graphics\GraphicsAdapter.h" />
+    <ClInclude Include="..\..\include\Graphics\GraphicsDevice.h" />
+    <ClInclude Include="..\..\include\Graphics\GraphicsResource.h" />
+    <ClInclude Include="..\..\include\Graphics\IGraphicsDeviceService.h" />
+    <ClInclude Include="..\..\include\Graphics\PresentationParameters.h" />
+    <ClInclude Include="..\..\include\Graphics\RenderTarget2D.h" />
+    <ClInclude Include="..\..\include\Graphics\Sprite.h" />
+    <ClInclude Include="..\..\include\Graphics\SpriteBatch.h" />
+    <ClInclude Include="..\..\include\Graphics\SpriteFont.h" />
+    <ClInclude Include="..\..\include\Graphics\StateBlock.h" />
+    <ClInclude Include="..\..\include\Graphics\Texture.h" />
+    <ClInclude Include="..\..\include\Graphics\Texture2D.h" />
+    <ClInclude Include="..\..\include\Graphics\TextureCollection.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexElement.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexPositionColor.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexPositionNormalTexture.h" />
+    <ClInclude Include="..\..\include\Graphics\VertexPositionTexture.h" />
+    <ClInclude Include="..\..\include\Graphics\Viewport.h" />
+    <ClInclude Include="..\..\include\Graphics\PackedVector\IPackedVector.h" />
+    <ClInclude Include="..\..\include\Input\Enums.h" />
+    <ClInclude Include="..\..\include\Input\GamePad.h" />
+    <ClInclude Include="..\..\include\Input\GamePadButtons.h" />
+    <ClInclude Include="..\..\include\Input\GamePadState.h" />
+    <ClInclude Include="..\..\include\Input.h" />
+    <ClInclude Include="..\..\include\Input\Keyboard.h" />
+    <ClInclude Include="..\..\include\Input\Mouse.h" />
+    <ClInclude Include="..\..\include\Media\Enums.h" />
+    <ClInclude Include="..\..\include\Media.h" />
+    <ClInclude Include="..\..\include\Media\Video.h" />
+    <ClInclude Include="..\..\include\Media\VideoPlayer.h" />
+    <ClInclude Include="..\..\include\Storage.h" />
+    <ClInclude Include="..\..\include\Storage\StorageContainer.h" />
+    <ClInclude Include="..\..\include\Storage\StorageDevice.h" />
+    <ClInclude Include="..\..\include\Storage\StorageDeviceNotConnectedException.h" />
+    <ClInclude Include="..\..\include\GamerServices\Enums.h" />
+    <ClInclude Include="..\..\include\GamerServices.h" />
+    <ClInclude Include="..\..\include\GamerServices\Guide.h" />
+    <ClInclude Include="..\..\include\GamerServices\StorageDeviceAsyncResult.h" />
+    <ClInclude Include="..\..\include\Net\Enums.h" />
+    <ClInclude Include="..\..\include\Net\NetworkException.h" />
+    <ClInclude Include="..\..\include\Net\PacketReader.h" />
+    <ClInclude Include="..\..\include\Net\PacketWriter.h" />
+    <ClInclude Include="BlendState.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,15 +1,40 @@
+// Copyright (C) 2010-2012, XFX Team
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+// 
+//     * Redistributions of source code must retain the above copyright 
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright 
+//       notice, this list of conditions and the following disclaimer in the 
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of the copyright holder nor the names of any 
+//       contributors may be used to endorse or promote products derived from 
+//       this software without specific prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+// POSSIBILITY OF SUCH DAMAGE.
+
+#include <System/FrameworkResources.h>
 #include <System/IO/Path.h>
 #include <System/String.h>
+
 #include <stdlib.h>
 #include <string.h>
 #include <hal/fileio.h>
 #include <xboxkrnl/xboxkrnl.h>
 
 #include <sassert.h>
-
-#if DEBUG
-#include <stdio.h>
-#endif
 
 #define NT_STATUS_OBJECT_NAME_NOT_FOUND long(0xC0000000 | 0x0034)
 #define NT_STATUS_VOLUME_DISMOUNTED     long(0xC0000000 | 0x026E)
@@ -52,48 +77,39 @@ namespace System
 			dirEqualsVolume = (DirectorySeparatorChar == VolumeSeparatorChar);
 		}
 
-		char* Path::ChangeExtension(char* path, char* extension)
+		String Path::ChangeExtension(const String& path, const String& extension)
 		{
-			char* oldname = GetFileNameWithoutExtension(path);
-			char* tmp[] = { oldname, extension};
-			XRenameFile(path, String::Concat(tmp));
-			return String::Concat(tmp);
+			String oldName = GetFileNameWithoutExtension(path);
+			String result = String::Empty;
+
+			if (String::IsNullOrEmpty(extension))
+				result = oldName;
+			else
+				result = oldName + extension;
+
+			XRenameFile(
+				const_cast<char*>(path.ToString()),
+				const_cast<char*>(result.ToString())
+				);
+			return result;
 		}
 
-		char* Path::Combine(char* path1, char* path2)
+		String Path::Combine(const String& path1, const String& path2)
 		{
-			//sassert(path1 != null, "path1 cannot be null.");
-
-			if (path1 == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path1");
-#endif
-				return path2;
-			}
-
-			if (path2 == null)
-			{
-#if DEBUG
-				printf("ARGUMENT_NULL in function %s, at line %i in file %s, argument \"%s\"\n", __FUNCTION__, __LINE__, __FILE__, "path2");
-#endif
-				return path1;
-			}
-
-			if ((sizeof(path1)/sizeof(char)) == 0)
+			if (path1.Length == 0)
 				return path2;
 
-			if ((sizeof(path2)/sizeof(char)) == 0)
+			if (path2.Length == 0)
 				return path1;
 
 			if (IsPathRooted(path2))
 				return path2;
 
-			char p1end = path1[(sizeof(path2)/sizeof(char)) - 1];
+			char p1end = path1[path1.Length - 1];
 			if (p1end != DirectorySeparatorChar && p1end != AltDirectorySeparatorChar && p1end != VolumeSeparatorChar)
-				return strcat(strcat(path1, (const char*)DirectorySeparatorChar), path2);
+				return path1 + &DirectorySeparatorChar + path2;
 
-			return strcat(path1, path2);
+			return (path1 + path2);
 		}
 
 		void Path::GetDrive(const char* szPartition, out char* cDriveLetter)
@@ -122,6 +138,11 @@ namespace System
 			*cDriveLetter = 0;
 		}
 
+		String Path::GetFileNameWithoutExtension(const String& path)
+		{
+			return String(path.SubString(0, path.Length - path.IndexOf('.')));
+		}
+
 		char *Path::GetInvalidFileNameChars()
 		{
 			// return a new array as we do not want anyone to be able to change the values
@@ -142,22 +163,25 @@ namespace System
 			return invChars;
 		}
 
-		bool Path::IsPathRooted(char* path)
+		void CheckInvalidPathChars(const String& path)
 		{
-			if (path == null || (sizeof(path)/sizeof(char)) == 0)
-				return false;
-
-			/* FIXME: check for InvalidPathChars in path
-			if (path.IndexOfAny (InvalidPathChars) != -1)
+			for (int i = 0; i < path.Length; i++)
 			{
-#if DEBUG
-				throw new ArgumentException ("Illegal characters in path.");
-#endif
-			}*/
+				int num2 = path[i];
+				sassert(!(((num2 == 0x22) || (num2 == 60)) || (((num2 == 0x3e) || (num2 == 0x7c)) || (num2 == 0x20))), "Path contains invalid characters.");
+			}
+		}
 
-			char c = path [0];
-			return (c == DirectorySeparatorChar || c == AltDirectorySeparatorChar ||
-				(!dirEqualsVolume && (sizeof(path)/sizeof(char)) > 1 && path[1] == VolumeSeparatorChar));
+		bool Path::IsPathRooted(const String& path)
+		{
+			CheckInvalidPathChars(path);
+			if (((path.Length >= 1) && ((path[0] == DirectorySeparatorChar) || (path[0] == AltDirectorySeparatorChar))) ||
+				((path.Length >= 2) && (path[1] == VolumeSeparatorChar)))
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

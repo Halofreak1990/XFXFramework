@@ -35,11 +35,11 @@ namespace System
 	const TimeSpan TimeSpan::Zero = TimeSpan(0L);
 	const TimeSpan TimeSpan::MaxValue = TimeSpan(0x7fffffffffffffffLL);
 	const TimeSpan TimeSpan::MinValue = TimeSpan(-9223372036854775808LL);
-	const Int64 TimeSpan::TicksPerMillisecond = 10000L;
-	const Int64 TimeSpan::TicksPerSecond = 10000000L;
-	const Int64 TimeSpan::TicksPerMinute = 600000000L;
-	const Int64 TimeSpan::TicksPerHour = 36000000000LL;
-	const Int64 TimeSpan::TicksPerDay = 864000000000LL;
+	const long long TimeSpan::TicksPerMillisecond = 10000L;
+	const long long TimeSpan::TicksPerSecond = 10000000L;
+	const long long TimeSpan::TicksPerMinute = 600000000L;
+	const long long TimeSpan::TicksPerHour = 36000000000LL;
+	const long long TimeSpan::TicksPerDay = 864000000000LL;
 
 	TimeSpan::TimeSpan()
 	{
@@ -61,7 +61,7 @@ namespace System
 		CalculateTicks(days, hours, minutes, seconds, milliseconds, true, _ticks);
 	}
 	
-	TimeSpan::TimeSpan(Int64 ticks)
+	TimeSpan::TimeSpan(long long ticks)
 	{
 		_ticks = ticks;
 	}
@@ -96,7 +96,7 @@ namespace System
 		return (int) (_ticks % TicksPerMinute / TicksPerSecond);
 	}
 
-	Int64 TimeSpan::Ticks() const
+	long long TimeSpan::Ticks() const
 	{
 		return _ticks;
 	}
@@ -128,7 +128,7 @@ namespace System
 
 	TimeSpan TimeSpan::Add(const TimeSpan ts)
 	{
-		Int64 temp;
+		long long temp;
 		temp = _ticks + ts._ticks;
 
 		//! Check for overflow
@@ -159,7 +159,7 @@ namespace System
 
 	bool TimeSpan::Equals(const TimeSpan t1, const TimeSpan t2)
 	{
-		return (t1._ticks == t2._ticks);
+		return t1.Equals(t2);
 	}
 
 	TimeSpan TimeSpan::FromDays(double value)
@@ -187,7 +187,7 @@ namespace System
 		return Interval(value, 0x3e8);
 	}
 
-	TimeSpan TimeSpan::FromTicks(Int64 value)
+	TimeSpan TimeSpan::FromTicks(long long value)
 	{
 		return TimeSpan(value);
 	}
@@ -195,6 +195,11 @@ namespace System
 	int TimeSpan::GetHashCode() const
 	{
 		return (((int)_ticks) ^ ((int)(_ticks >> 0x20)));
+	}
+
+	int TimeSpan::GetType() const
+	{
+		//! TODO: implement
 	}
 
 	TimeSpan TimeSpan::Negate()
@@ -206,7 +211,7 @@ namespace System
 
 	TimeSpan TimeSpan::Subtract(const TimeSpan ts)
 	{
-		Int64 ticks = _ticks - ts._ticks;
+		long long ticks = _ticks - ts._ticks;
 
 		sassert(!(((_ticks >> 0x3f) != (ts._ticks >> 0x3f)) && ((_ticks >> 0x3f) != (ticks >> 0x3f))), "TimeSpan too long.");
 
@@ -215,7 +220,7 @@ namespace System
 
 	const char* TimeSpan::ToString() const
 	{
-		return String::Format("{{Ticks: %l}}", _ticks);
+		return String::Format("Ticks: %l", _ticks);
 	}
 
 	TimeSpan TimeSpan::operator +(const TimeSpan other)
@@ -269,7 +274,7 @@ namespace System
 		// so big hours/minutes values can overflow at some point and change expected values
 		int hrssec = (hours * 3600); // break point at (Int32.MaxValue - 596523)
 		int minsec = (minutes * 60);
-		Int64 t = ((Int64)(hrssec + minsec + seconds) * 1000L + (Int64)milliseconds);
+		long long t = ((long long)(hrssec + minsec + seconds) * 1000L + (long long)milliseconds);
 		t *= 10000;
 
 		result = 0;
@@ -279,9 +284,9 @@ namespace System
 		// "legal" (i.e. temporary) (e.g. if other parameters are negative) or 
 		// illegal (e.g. sign change).
 		if (days > 0) {
-			Int64 td = TicksPerDay * days;
+			long long td = TicksPerDay * days;
 			if (t < 0) {
-				Int64 ticks = t;
+				long long ticks = t;
 				t += td;
 				// positive days -> total ticks should be lower
 				overflow = (ticks > t);
@@ -293,14 +298,14 @@ namespace System
 			}
 		}
 		else if (days < 0) {
-			Int64 td = TicksPerDay * days;
+			long long td = TicksPerDay * days;
 			if (t <= 0) {
 				t += td;
 				// negative + negative != positive result
 				overflow = (t > 0);
 			}
 			else {
-				Int64 ticks = t;
+				long long ticks = t;
 				t += td;
 				// negative days -> total ticks should be lower
 				overflow = (t > ticks);
@@ -325,6 +330,6 @@ namespace System
 
 		sassert(!((num2 > 922337203685477LL) || (num2 < -922337203685477LL)), "TimeSpan too long.");
 
-		return TimeSpan(((Int64) num2) * 0x2710L);
+		return TimeSpan(((long long)num2) * 0x2710L);
 	}
 }

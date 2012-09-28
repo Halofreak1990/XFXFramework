@@ -31,26 +31,28 @@
 namespace XFX
 {
 	BoundingSphere::BoundingSphere(const Vector3 center, const float radius)
+		: Center(center), Radius(radius)
 	{
-		Center = center;
-		Radius = radius;
 	}
 	
 	BoundingSphere::BoundingSphere(const BoundingSphere &obj)
+		: Center(obj.Center), Radius(obj.Radius)
 	{
-		Center = obj.Center;
-		Radius = obj.Radius;
 	}
 	
 	BoundingSphere::BoundingSphere()
+		: Center(Vector3::Zero), Radius(0)
 	{
-		Center = Vector3::Zero;
-		Radius = 0.0f;
+	}
+
+	bool BoundingSphere::Equals(const Object* obj) const
+	{
+		return is(this, obj) ? this->Equals((*(BoundingSphere*)obj)) : false;
 	}
 
 	bool BoundingSphere::Equals(const BoundingSphere other) const
 	{
-		return ((Center == other.Center) && (Radius == other.Radius));
+		return (*this == other);
 	}
 
 	int BoundingSphere::GetHashCode() const
@@ -63,13 +65,13 @@ namespace XFX
 		return String::Format("{{Center:%s Radius:%f}}", Center.ToString(), Radius);
 	}
 	
-	int BoundingSphere::operator!=(const BoundingSphere other) const
+	bool BoundingSphere::operator!=(const BoundingSphere& other) const
 	{
-		return !Equals(other);
+		return !((Center == other.Center) && (Radius == other.Radius));
 	}
 	
-	int BoundingSphere::operator==(const BoundingSphere other) const
+	bool BoundingSphere::operator==(const BoundingSphere& other) const
 	{
-		return Equals(other);
+		return ((Center == other.Center) && (Radius == other.Radius));
 	}
 }

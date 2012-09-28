@@ -32,12 +32,12 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		float DisplayMode::AspectRatio() const
+		float DisplayMode::getAspectRatio() const
 		{
 			return Width / Height;
 		}
 		
-		Rectangle DisplayMode::TitleSafeArea() const
+		Rectangle DisplayMode::getTitleSafeArea() const
 		{			
 			/*
 				Based on my own findings on a PAL SD TV set, this roughly equates to a resolution of 600 * 450
@@ -50,31 +50,33 @@ namespace XFX
 		}
 		
 		DisplayMode::DisplayMode()
+			: Height(0), Format(SurfaceFormat::Color), RefreshRate(60), Width(0)
 		{
-			Width = 0;
-			Height = 0;
-			Format = SurfaceFormat::Unknown;
-			RefreshRate = 50;
 		}
 		
-		bool DisplayMode::Equals(const DisplayMode other) const
+		bool DisplayMode::Equals(const Object* obj) const
 		{
-			return ((Width == other.Width) && (Height == other.Height) && (Format == other.Format));
+			return is(this, obj) ? (*this == *(DisplayMode*)obj) : false;
 		}
 		
 		int DisplayMode::GetHashCode() const
 		{
-			return (int)AspectRatio() ^ Width ^ Height ^ TitleSafeArea().GetHashCode() ^ Format ^ RefreshRate;
+			return (int)getAspectRatio() ^ Width ^ Height ^ getTitleSafeArea().GetHashCode() ^ Format ^ RefreshRate;
+		}
+
+		int DisplayMode::GetType() const
+		{
+			// TODO: implement
 		}
 		
-		bool DisplayMode::operator!=(const DisplayMode other) const
+		bool DisplayMode::operator!=(const DisplayMode& other) const
 		{
-			return !Equals(other);
+			return ((Width != other.Width) || (Height != other.Height) || (Format != other.Format) || (RefreshRate != other.RefreshRate));
 		}
 		
-		bool DisplayMode::operator==(const DisplayMode other) const
+		bool DisplayMode::operator==(const DisplayMode& other) const
 		{
-			return Equals(other);
+			return ((Width == other.Width) && (Height == other.Height) && (Format == other.Format) && (RefreshRate == other.RefreshRate));
 		}
 	}
 }

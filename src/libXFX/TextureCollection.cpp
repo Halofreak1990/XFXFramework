@@ -51,10 +51,14 @@ namespace XFX
 		{
 			Dispose(false);
 		}
+
+		int TextureCollection::GetType() const
+		{
+		}
 		//
 		// Operators
 		//
-		Texture* TextureCollection::operator [](int index)
+		Texture* TextureCollection::operator [](const int index)
 		{
 			return textures[index];
 		}

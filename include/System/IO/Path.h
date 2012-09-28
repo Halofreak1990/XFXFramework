@@ -7,16 +7,15 @@
 #ifndef _SYSTEM_IO_PATH_
 #define _SYSTEM_IO_PATH_
 
+#include <System/String.h>
 #include <System/Types.h>
 
 namespace System
 {
 	namespace IO
 	{
-		/// <summary>
-		/// Performs operations on char* instances that contain file or directory path information. These
-		/// operations are performed in a cross-platform manner.
-		/// </summary>
+		// Performs operations on String instances that contain file or directory path information.
+		// These operations are performed in a cross-platform manner.
 		class Path
 		{
 		private:
@@ -34,19 +33,19 @@ namespace System
 			static const char PathSeparator;
 			static const char VolumeSeparatorChar;
 
-			static char* ChangeExtension(char* path, char* extension);
-			static char* Combine(char* path1, char* path2) __attribute__((nonnull (1, 2)));;
-			static char* GetDirectoryName(char* path);
-			static char* GetExtension(char* path);
+			static String ChangeExtension(const String& path, const String& extension);
+			static String Combine(const String& path1, const String& path2);
+			static String GetDirectoryName(char* path);
+			static String GetExtension(const String& path);
 			static char* GetFileName(char* path);
-			static char* GetFileNameWithoutExtension(char* path);
-			static char* GetFullPath(char* path);
+			static String GetFileNameWithoutExtension(const String& path);
+			static char* GetFullPath(const String& path);
 			static char *GetInvalidPathChars();
 			static char* GetPathRoot(char* path);
 			static char* GetTempFileName();
 			static char* GetTempPath();
-			static bool HasExtension(char* path);
-			static bool IsPathRooted(char* path);
+			static bool HasExtension(const String& path);
+			static bool IsPathRooted(const String& path);
 		};
 	}
 }

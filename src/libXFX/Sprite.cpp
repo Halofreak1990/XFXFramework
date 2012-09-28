@@ -99,6 +99,10 @@ namespace XFX
 			return layerDepth;
 		}
 
+		int Sprite::GetType() const
+		{
+		}
+
 		bool Sprite::operator !=(const Sprite& right) const
 		{
 			// TODO: either remove the Sprite class entirely, or compare the Texture2D instances

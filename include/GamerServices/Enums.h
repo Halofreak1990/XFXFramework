@@ -11,6 +11,7 @@ namespace XFX
 {
 	namespace GamerServices
 	{
+		// Indicates how sensitive this gamer prefers controller input to be.
 		struct ControllerSensitivity
 		{
 			enum type
@@ -21,6 +22,7 @@ namespace XFX
 			};
 		};
 
+		// Indicates how difficult this gamer likes things to be.
 		struct GameDifficulty
 		{
 			enum type
@@ -31,6 +33,7 @@ namespace XFX
 			};
 		};
 
+		// This style of social gaming preferred by this Xbox Live member.
 		struct GamerZone
 		{
 			enum type
@@ -43,6 +46,7 @@ namespace XFX
 			};
 		};
 
+		// Defines the different icons for a message box.
 		struct MessageBoxIcon
 		{
 			enum type
@@ -54,6 +58,7 @@ namespace XFX
 			};
 		};
 
+		// Determines where notifications appear on the screen.
 		struct NotificationPosition
 		{
 			enum type
@@ -70,6 +75,7 @@ namespace XFX
 			};
 		};
 		
+		// Indicates which camera angle this gamer prefers to use in racing games.
 		struct RacingCameraAngle
 		{
 			enum type
