@@ -6,6 +6,8 @@
 
 namespace System
 {
+	class String;
+
 	// Represents a double precision floating point value.
 	struct Double : IComparable<Double>, IEquatable<Double>, Object
 	{
@@ -27,12 +29,13 @@ namespace System
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		static double Parse(char* str);
 		const char* ToString() const;
 		static const char* ToString(const double value);
+		static bool TryParse(const String& str, out double* result);
 
-		bool operator !=(const Double right) const;
-		bool operator ==(const Double right) const;
+		operator double() const;
+		bool operator !=(const Double& right) const;
+		bool operator ==(const Double& right) const;
 	};
 }
 

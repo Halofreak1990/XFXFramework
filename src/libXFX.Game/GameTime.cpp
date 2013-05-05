@@ -29,7 +29,7 @@
 
 namespace XFX
 {
-	bool GameTime::IsRunningSlowly()
+	bool GameTime::IsRunningSlowly() const
 	{
 		return _isRunningSlowly;
 	}

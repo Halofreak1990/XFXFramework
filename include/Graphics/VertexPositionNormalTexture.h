@@ -25,8 +25,8 @@ namespace XFX
 			static const VertexElement vertexArray[];
 
 		public:
-			Vector3 Normal;
 			Vector3 Position;
+			Vector3 Normal;
 			Vector2 TextureCoordinate;
 			VertexDeclaration getVertexDeclaration() const;
 			

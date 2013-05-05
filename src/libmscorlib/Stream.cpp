@@ -30,6 +30,8 @@
 #include <System/FrameworkResources.h>
 #include <System/String.h>
 
+#include <xboxkrnl/xboxkrnl.h>
+
 #include <sassert.h>
 
 namespace System
@@ -52,6 +54,11 @@ namespace System
 			return false;
 		}
 
+		IAsyncResult* Stream::BeginRead(byte buffer[], int offset, int count, AsyncCallback callback, Object* state)
+		{
+			// TODO: implement using ReadFileEx
+		}
+
 		void Stream::Close()
 		{
 			Dispose(true);
@@ -65,11 +72,13 @@ namespace System
 		void Stream::EndWrite(IAsyncResult* asyncResult)
 		{
 			sassert(asyncResult, String::Format("asyncResult: %s", FrameworkResources::ArgumentNull_Generic));
+
+			// TODO: implement
 		}
 
 		int Stream::GetType() const
 		{
-			//! TODO: implement
+			// TODO: implement
 		}
 
 		int Stream::ReadByte()

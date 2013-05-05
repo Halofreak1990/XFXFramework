@@ -30,7 +30,7 @@
 
 namespace System
 {
-	bool Object::Equals(const Object* obj) const
+	bool Object::Equals(Object const * const obj) const
 	{
 		return is(this, obj);
 	}
@@ -42,7 +42,7 @@ namespace System
 
 	int Object::GetHashCode() const
 	{
-		//! TODO: implement
+		return (int)this;
 	}
 
 	int Object::GetType() const
@@ -60,9 +60,11 @@ namespace System
 		return "Object";
 	}
 
-	// returns whether the type of obj1 matches that of obj2
 	bool is(Object const * const obj1, Object const * const obj2)
 	{
+		if ((obj1 == NULL) && (obj2 == NULL))
+			return true;
+
 		if ((obj1 != NULL) && (obj2 != NULL))
 		{
 			return (obj1->GetType() == obj2->GetType());

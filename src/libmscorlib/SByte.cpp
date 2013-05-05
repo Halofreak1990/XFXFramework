@@ -35,6 +35,11 @@ namespace System
 	const sbyte SByte::MaxValue = 127;
 	const sbyte SByte::MinValue = -128;
 
+	SByte::SByte()
+		: value(0)
+	{
+	}
+
 	SByte::SByte(const SByte &obj)
 		: value(obj.value)
 	{
@@ -54,9 +59,9 @@ namespace System
 		return 0;
 	}
 
-	bool SByte::Equals(const Object* obj) const
+	bool SByte::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals((*(SByte*)obj)) : false;
+		return is(obj, this) ? *this == *(SByte *)obj : false;
 	}
 
 	bool SByte::Equals(const SByte other) const
@@ -84,21 +89,26 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool SByte::TryParse(const String& str, out sbyte result)
+	bool SByte::TryParse(const String& str, out sbyte* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		sbyte retval = (sbyte)strtol(str.ToString(), &end, 10);
+		sbyte retval = (sbyte)strtol(str, &end, 10);
 
 		if (end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
+	}
+
+	SByte::operator sbyte() const
+	{
+		return value;
 	}
 
 	bool SByte::operator ==(const SByte& right) const
@@ -106,8 +116,18 @@ namespace System
 		return (value == right.value);
 	}
 
+	bool SByte::operator ==(const sbyte& right) const
+	{
+		return (value == right);
+	}
+
 	bool SByte::operator !=(const SByte& right) const
 	{
 		return (value != right.value);
+	}
+
+	bool SByte::operator !=(const sbyte& right) const
+	{
+		return (value != right);
 	}
 }

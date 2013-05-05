@@ -35,6 +35,11 @@ namespace System
 	const ushort UInt16::MaxValue = 0xFFFF;
 	const ushort UInt16::MinValue = 0;
 
+	UInt16::UInt16()
+		: value(0)
+	{
+	}
+
 	UInt16::UInt16(const UInt16 &obj)
 		: value(obj.value)
 	{
@@ -54,9 +59,9 @@ namespace System
 		return 0;
 	}
 
-	bool UInt16::Equals(const Object *obj) const
+	bool UInt16::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals((*(UInt16*)obj)) : false;
+		return is(obj, this) ? *this == *(UInt16 *)obj : false;
 	}
 
 	bool UInt16::Equals(const UInt16 other) const
@@ -84,21 +89,26 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool TryParse(const String& str, out ushort result)
+	bool UInt16::TryParse(const String& str, out ushort* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		ushort retval = (ushort)strtoul(str.ToString(), &end, 10);
+		ushort retval = (ushort)strtoul(str, &end, 10);
 
 		if (end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
+	}
+
+	UInt16::operator ushort() const
+	{
+		return value;
 	}
 
 	bool UInt16::operator ==(const UInt16& right) const
@@ -106,8 +116,18 @@ namespace System
 		return (value == right.value);
 	}
 
+	/*bool UInt16::operator ==(const ushort& right) const
+	{
+		return (value == right);
+	}*/
+
 	bool UInt16::operator !=(const UInt16& right) const
 	{
 		return (value != right.value);
 	}
+
+	/*bool UInt16::operator !=(const ushort& right) const
+	{
+		return (value != right);
+	}*/
 }

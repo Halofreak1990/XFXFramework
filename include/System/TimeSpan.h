@@ -52,6 +52,7 @@ namespace System
 		TimeSpan Add(const TimeSpan ts);
 		static int Compare(const TimeSpan t1, const TimeSpan t2);
 		int CompareTo(const TimeSpan ts) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const TimeSpan obj) const;
 		static bool Equals(const TimeSpan t1, const TimeSpan t2);
 		static TimeSpan FromDays(double value);
@@ -67,14 +68,14 @@ namespace System
 		TimeSpan Subtract(const TimeSpan ts);
 		const char* ToString() const; //! TODO
 
-		TimeSpan operator+(const TimeSpan other);
-		bool operator==(const TimeSpan other) const;
-		bool operator >(const TimeSpan other) const;
-		bool operator>=(const TimeSpan other) const;
-		bool operator!=(const TimeSpan other) const;
-		bool operator <(const TimeSpan other) const;
-		bool operator<=(const TimeSpan other) const;
-		TimeSpan operator -(const TimeSpan other);
+		TimeSpan operator +(const TimeSpan& other);
+		bool operator==(const TimeSpan& other) const;
+		bool operator >(const TimeSpan& other) const;
+		bool operator>=(const TimeSpan& other) const;
+		bool operator!=(const TimeSpan& other) const;
+		bool operator <(const TimeSpan& other) const;
+		bool operator<=(const TimeSpan& other) const;
+		TimeSpan operator -(const TimeSpan& other);
 		TimeSpan operator -();
 	};
 }

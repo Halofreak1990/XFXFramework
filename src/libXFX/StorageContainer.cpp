@@ -28,10 +28,12 @@
 extern "C"
 {
 #include <xboxkrnl/xboxkrnl.h>
+}
+
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-}
 
 #include <Storage/StorageContainer.h>
 #include <Storage/StorageDevice.h>
@@ -64,26 +66,28 @@ namespace XFX
 
 		void GetDrive(const char* szPartition, char* cDriveLetter)
 		{
-		  int part_str_len = strlen(szPartition);
-		  int part_num;
+			size_t part_str_len = strlen(szPartition);
+			int part_num;
 
-		  if (part_str_len < 19)
-		  {
+			if (part_str_len < 19)
+			{
 			*cDriveLetter = 0;
 			return;
-		  }
+			}
 
-		  part_num = atoi(szPartition + 19);
-		  if (part_num >= EXTEND_PARTITION_BEGIN)
-		  {
+			part_num = atoi(szPartition + 19);
+			if (part_num >= EXTEND_PARTITION_BEGIN)
+			{
 			*cDriveLetter = extendPartitionMapping[part_num-EXTEND_PARTITION_BEGIN];
 			return;
-		  }
-		  for (unsigned int i=0; i < NUM_OF_DRIVES; i++)
-			if (strnicmp(driveMapping[i].szDevice, szPartition, strlen(driveMapping[i].szDevice)) == 0)
+			}
+			for (unsigned int i = 0; i < NUM_OF_DRIVES; i++)
 			{
-			  *cDriveLetter = driveMapping[i].cDriveLetter;
-			  return;
+				if (strnicmp(driveMapping[i].szDevice, szPartition, strlen(driveMapping[i].szDevice)) == 0)
+				{
+					*cDriveLetter = driveMapping[i].cDriveLetter;
+					return;
+				}
 			}
 		  *cDriveLetter = 0;
 		}
@@ -154,7 +158,18 @@ namespace XFX
 
 		const char* StorageContainer::TitleName() const
 		{
-			//! TODO: Read the Title field from the XBE header
+			FILE* file = fopen(XeImageFileName->Buffer, "rb");
+			fseek(file, 0x118, SEEK_SET);
+			uint32_t CertAddr = 0;
+			fread(&CertAddr, 4, 1, file);
+
+			fseek(file, CertAddr - 0x10000, SEEK_SET);
+			char* titleName = (char*)malloc(0x50);
+			fread(titleName, 0x50, 1, file);
+
+			fclose(file);
+
+			return titleName;
 		}
 	}
 }

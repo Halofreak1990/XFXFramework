@@ -34,14 +34,19 @@ namespace System
 	const char* Boolean::TrueString = "True";
 	const char* Boolean::FalseString = "False";
 
-	Boolean::Boolean(const Boolean &obj)
+	Boolean::Boolean()
+		: value(false)
 	{
-		value = obj.value;
+	}
+
+	Boolean::Boolean(const Boolean &obj)
+		: value(obj.value)
+	{
 	}
 
 	Boolean::Boolean(const bool &obj)
+		: value(obj)
 	{
-		value = obj;
 	}
 
 	int Boolean::CompareTo(const Boolean other) const
@@ -51,6 +56,11 @@ namespace System
 		if (value < other.value)
 			return -1;
 		return 0;
+	}
+
+	bool Boolean::Equals(Object const * const obj) const
+	{
+		return is(this, obj) ? *this == *(Boolean *)obj : false;
 	}
 
 	bool Boolean::Equals(const Boolean other) const
@@ -86,12 +96,17 @@ namespace System
 		return "false";
 	}
 
-	bool Boolean::operator !=(const Boolean right) const
+	Boolean::operator bool() const
+	{
+		return value;
+	}
+
+	bool Boolean::operator !=(const Boolean& right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Boolean::operator ==(const Boolean right) const
+	bool Boolean::operator ==(const Boolean& right) const
 	{
 		return (value == right.value);
 	}

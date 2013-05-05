@@ -472,6 +472,9 @@
     <ClInclude Include="..\..\include\Graphics\DepthStencilState.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Audio\AudioCategory.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

@@ -22,7 +22,10 @@ namespace XFX
 	// Defines a vector with four components.
 	struct Vector4 : IEquatable<Vector4>, Object
 	{
-		float W, X, Y, Z;
+		float X;
+		float Y;
+		float Z;
+		float W;
 		static const Vector4 One;
 		static const Vector4 UnitW;
 		static const Vector4 UnitX;

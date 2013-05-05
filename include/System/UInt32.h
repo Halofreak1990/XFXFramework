@@ -19,16 +19,18 @@ namespace System
 		UInt32(const uint &obj);
 
 		int CompareTo(const UInt32 other) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt32 other) const;
 		int GetHashCode() const;
 		int GetType() const;
 		const char* ToString() const;
 		static const char* ToString(const uint value);
-		static bool TryParse(const String& str, out uint result);
+		static bool TryParse(const char* str, out uint* result);
 
 		bool operator==(const UInt32& right) const;
+		bool operator==(const uint& right) const;
 		bool operator!=(const UInt32& right) const;
+		bool operator!=(const uint& right) const;
 	};
 }
 

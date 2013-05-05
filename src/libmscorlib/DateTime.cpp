@@ -25,8 +25,6 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <stdio.h>
-
 #include <System/DateTime.h>
 #include <System/Math.h>
 #include <System/String.h>
@@ -84,9 +82,7 @@ namespace System
 
 	void DateTime::InvalidTickValue(long long ticks)
 	{
-#if DEBUG
-		//throw ArgumentOutOfRangeException("ticks", String::Format("Value %d is outside the valid range [0,%d].", ticks, MAX_VALUE_TICKS));
-#endif
+		sassert(false, String::Format("Value %d is outside the valid range [0,%d].", ticks, MAX_VALUE_TICKS));
 	}
 
 	DateTime DateTime::Add(double value, int scale)
@@ -105,6 +101,9 @@ namespace System
 
 	DateTime::DateTime(int year, int month, int day)
 	{
+		sassert(!(year < 1 || year > 9999 || month < 1 || month >12  ||
+			day < 1 || day > DaysInMonth(year, month)), "Parameters describe an unrepresentable DateTime.");
+
 		DateTime(year, month, day, 0, 0, 0, 0);
 	}
 

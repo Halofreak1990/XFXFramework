@@ -92,8 +92,8 @@ namespace System
 
 		bool DirectoryInfo::operator !=(const DirectoryInfo& right) const
 		{
-			return !((strncmp(current, right.current, strlen(current)) == 0) &&
-				(strncmp(parent, right.parent, strlen(parent)) == 0));
+			return ((strncmp(current, right.current, strlen(current)) != 0) ||
+				(strncmp(parent, right.parent, strlen(parent)) != 0));
 		}
 
 		bool DirectoryInfo::operator ==(const DirectoryInfo& right) const

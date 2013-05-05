@@ -22,7 +22,7 @@ namespace System
 	namespace IO
 	{
 		// Provides a generic view of a sequence of bytes.
-		class Stream : public IDisposable, public virtual Object
+		class Stream : public IDisposable, public Object
 		{
 		private:
 			int _asyncActiveCount;

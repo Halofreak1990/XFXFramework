@@ -53,6 +53,13 @@ namespace System
 					}
 				}
 
+				void swap(T* x, T* y)
+				{
+					T temp = *x;
+					*x = *y;
+					*y = temp;
+				}
+
 			public:	
 				// Gets the number of elements actually contained in the List<>.
 				int Count() const
@@ -294,6 +301,42 @@ namespace System
 					_version++;
 				}
 
+				void Sort(int index, int count, IComparer<T>* comparer)
+				{
+					sassert(comparer != null, String::Format("comparer; %s", FrameworkResources::ArgumentNull_Generic));
+
+					sassert(index >= 0, String::Format("index; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+					sassert(index + count < _actualSize, "");
+
+					int k = (index + count) / 2;
+					swap(&_items[index], &_items[k]);
+					T key = _items[index];
+					int i = index + 1;
+					int j = count;
+					while (i <= j)
+					{
+						while ((i <= count) && (comparer->Compare(_items[i], key) <= 0))
+							i++;
+						while ((j >= index) && (comparer->Compare(_items[j], key) > 0))
+							j--;
+						if (i < j)
+							swap(&_items[i], &_items[j]);
+					}
+					// swap two elements
+					swap(&_items[index], &_items[j]);
+					// recursively sort the lesser list
+					Sort(index, j-1, comparer);
+					Sort(j+1, count, comparer);
+				}
+
+				void Sort(IComparer<T>* comparer)
+				{
+					sassert(comparer != null, String::Format("comparer; %s", FrameworkResources::ArgumentNull_Generic));
+
+					Sort(0, _actualSize, comparer);
+				}
+
 				T* ToArray() const
 				{
 					T* destinationArray = new T[_size];
@@ -323,7 +366,7 @@ namespace System
 					return _items[index];
 				}
 
-				const List<T>& operator =(const List<T> other)
+				const List<T>& operator =(const List<T>& other)
 				{
 					delete[] _items;
 					_actualSize = other._actualSize;

@@ -39,9 +39,9 @@ namespace System
 		static String Concat(String str1, String str2, String str3, String str4);
 		bool Contains(char* value) const;
 		bool EndsWith(const String value) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const String obj) const;
-		bool Equals(const String str1, const String str2);
+		bool Equals(const String& str1, const String& str2);
 		static const char* Format(const char* format, ...);
 		int GetHashCode() const;
 		int GetType() const;
@@ -51,7 +51,7 @@ namespace System
 		int IndexOfAny(char anyOf[], int charCount) const;
 		int IndexOfAny(char anyOf[], int charCount, int startIndex) const;
 		int IndexOfAny(char anyOf[], int charCount, int startIndex, int count) const;
-		static bool IsNullOrEmpty(String value);
+		static bool IsNullOrEmpty(const String& value);
 		static bool IsNullOrEmpty(const char* value);
 		static String Join(String separator, String value[]);
 		static String Join(String separator, String value[], int startIndex, int count);
@@ -73,11 +73,12 @@ namespace System
 		char* ToCharArray(int startIndex, int length) const;
 		char* ToCharArray() const;
 		String ToLower() const;
-		static const char* ToLower(char* str);
+		static const char* ToLower(const char* str);
 		const char* ToString() const;
 		String ToUpper() const;
-		static const char* ToUpper(char* str);
+		static const char* ToUpper(const char* str);
 
+		operator const char*() const;
 		bool operator!=(const String& right) const;
 		bool operator!=(const char* right) const;
 		bool operator==(const String& right) const;
@@ -87,7 +88,7 @@ namespace System
 		String operator+=(const String& right);
 		String operator+=(const char* right);
 		String operator+(const String& right) const;
-		char operator [](const int index) const;
+		const char operator [](const int index) const;
 	};
 
 	typedef String string;

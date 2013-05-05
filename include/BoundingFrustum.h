@@ -79,7 +79,7 @@ namespace XFX
 		void Intersects(BoundingSphere sphere, out bool result);
 		void Intersects(Plane plane, out PlaneIntersectionType_t result);
 		void Intersects(Ray ray, out float result);
-		char* ToString() const;
+		const char* ToString() const;
 
 		bool operator==(const BoundingFrustum& other) const;
 		bool operator!=(const BoundingFrustum& other) const;

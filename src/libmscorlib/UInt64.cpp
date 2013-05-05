@@ -29,7 +29,7 @@ namespace System
 
 	bool UInt64::Equals(const Object* obj) const
 	{
-		return is(obj, this) ? (*this == *(UInt64*)obj) : false;
+		return is(obj, this) ? (*this == *(UInt64 *)obj) : false;
 	}
 
 	bool UInt64::Equals(const UInt64 other) const
@@ -57,21 +57,26 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool UInt64::TryParse(const String& str, out ulong result)
+	bool UInt64::TryParse(const String& str, out ulong* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		ulong retval = strtoull(str.ToString(), &end, 10);
+		ulong retval = strtoull(str, &end, 10);
 
 		if (end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
+	}
+
+	UInt64::operator ulong() const
+	{
+		return value;
 	}
 
 	bool UInt64::operator==(const UInt64& right) const
@@ -79,8 +84,18 @@ namespace System
 		return (value == right.value);
 	}
 
+	/*bool UInt64::operator==(const ulong& right) const
+	{
+		return (value == right);
+	}*/
+
 	bool UInt64::operator!=(const UInt64& right) const
 	{
 		return (value != right.value);
 	}
+
+	/*bool UInt64::operator!=(const ulong& right) const
+	{
+		return (value != right);
+	}*/
 }

@@ -96,7 +96,7 @@ namespace XFX
 
 		int Viewport::GetHashCode() const
 		{
-			return ((int)getAspectRatio() + Height + MaxDepth + MinDepth + Width + X + Y);
+			return ((int)getAspectRatio() + Height + (int)MaxDepth + (int)MinDepth + Width + X + Y);
 		}
 
 		int Viewport::GetType() const

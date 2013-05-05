@@ -36,6 +36,11 @@ namespace System
 	const short Int16::MaxValue = 0x7FFF;
 	const short Int16::MinValue = 0x8000;
 
+	Int16::Int16()
+		: value(0)
+	{
+	}
+
 	Int16::Int16(const Int16 &obj)
 		: value(obj.value)
 	{
@@ -55,9 +60,9 @@ namespace System
 		return 0;
 	}
 
-	bool Int16::Equals(const Object* obj) const
+	bool Int16::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals((*(Int16*)obj)) : false;
+		return is(obj, this) ? *this == *(Int16 *)obj : false;
 	}
 
 	bool Int16::Equals(const Int16 other) const
@@ -80,35 +85,50 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	const char* Int16::ToString(const short value) const
+	const char* Int16::ToString(const short value)
 	{
 		return String::Format("%i", value);
 	}
 
-	bool Int16::TryParse(const String& str, out short result)
+	bool Int16::TryParse(const String& str, out short* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		short retval = (short)strtol(str.ToString(), &end, 10);
+		short retval = (short)strtol(str, &end, 10);
 
 		if (end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
 	}
 
-	bool Int16::operator==(const Int16 right) const
+	Int16::operator short() const
+	{
+		return value;
+	}
+
+	bool Int16::operator==(const Int16& right) const
 	{
 		return (value == right.value);
 	}
 
-	bool Int16::operator!=(const Int16 right) const
+	bool Int16::operator==(const short& right) const
+	{
+		return (value == right);
+	}
+
+	bool Int16::operator!=(const Int16& right) const
 	{
 		return (value != right.value);
+	}
+
+	bool Int16::operator!=(const short& right) const
+	{
+		return (value != right);
 	}
 }

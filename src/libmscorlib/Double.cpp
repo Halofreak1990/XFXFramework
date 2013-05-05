@@ -26,9 +26,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Double.h>
+#include <System/FrameworkResources.h>
 #include <System/String.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <sassert.h>
 
 unsigned long long rawNaND = 0x7ff8000000000000ULL;
 unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
@@ -77,28 +80,32 @@ namespace System
 		return 14;
 	}
 
-	double Double::Parse(char *str)
+	bool Double::TryParse(const String& str, out double* result)
 	{
-		double retval;
+		sassert(!String::IsNullOrEmpty(str), String::Format("str; %s", FrameworkResources::ArgumentNull_Generic));
+
+		sassert(result, String::Format("result; %s", FrameworkResources::ArgumentNull_Generic));
+
+		*result = 0;
 		char sign = 0;
-		char *sp = str;
+		char *sp = const_cast<char*>(str.ToString());
 
 		if (*sp == '+' || *sp == '-')
-        sign = *sp++;
+			sign = *sp++;
 
 		if (stricmp(sp, "inf") == 0)
 		{
 			if (!sign || sign == '+')
-				retval = PositiveInfinity;
+				*result = PositiveInfinity;
 			else
-				retval = NegativeInfinity;
+				*result = NegativeInfinity;
 		}
 		else if (stricmp(sp, "nan") == 0)
-			retval = NaN;
+			*result = NaN;
 		else /* valid number */
-			retval = atof(sp);
+			*result = atof(sp);
 
-		return retval;
+		return true;
 	}
 
 	const char* Double::ToString() const
@@ -111,12 +118,17 @@ namespace System
 		return String::Format("%d", value);
 	}
 
-	bool Double::operator !=(const Double right) const
+	Double::operator double() const
+	{
+		return value;
+	}
+
+	bool Double::operator !=(const Double& right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Double::operator ==(const Double right) const
+	bool Double::operator ==(const Double& right) const
 	{
 		return (value == right.value);
 	}

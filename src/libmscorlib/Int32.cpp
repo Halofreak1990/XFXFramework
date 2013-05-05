@@ -32,6 +32,11 @@
 
 namespace System
 {
+	Int32::Int32()
+		: value(0)
+	{
+	}
+
 	Int32::Int32(const Int32 &obj)
 		: value(obj.value)
 	{
@@ -49,6 +54,14 @@ namespace System
 		if (value < other.value)
 			return -1;
 		return 0;
+	}
+
+	bool Int32::Equals(Object const * const obj) const
+	{
+		if (!obj)
+			return false;
+
+		return is(obj, this) ? *this == *(Int32 *)obj : false;
 	}
 
 	bool Int32::Equals(const Int32 other) const
@@ -76,31 +89,36 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool Int32::TryParse(const String& str, out int result)
+	bool Int32::TryParse(const String& str, out int* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 		
-		int  res = strtoul(str.ToString(), &end, 10);
+		int  res = strtoul(str, &end, 10);
 
 		if (*end)
 		{
 			return false;
 		}
 		
-		result = (byte)res;
+		*result = res;
 		return true;
 	}
 
-	bool Int32::operator !=(const Int32 right) const
+	Int32::operator int() const
+	{
+		return value;
+	}
+
+	bool Int32::operator !=(const Int32& right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Int32::operator ==(const Int32 right) const
+	bool Int32::operator ==(const Int32& right) const
 	{
 		return (value == right.value);
 	}

@@ -25,32 +25,40 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <sassert.h>
+
+#include <System/FrameworkResources.h>
 #include <System/Single.h>
 #include <System/String.h>
 #include <stdlib.h>
 #include <string.h>
 
-unsigned int rawNaNF = 0x7ff80000UL;
-unsigned int rawPosInfF = 0x7ff00000UL;
-unsigned int rawNegInfF = 0xfff00000UL;
-
 namespace System
 {
+	unsigned int rawNaNF = 0x7ff80000UL;
+	unsigned int rawPosInfF = 0x7ff00000UL;
+	unsigned int rawNegInfF = 0xfff00000UL;
+
 	const float Single::Epsilon = 1.4013e-045f;
 	const float Single::MaxValue = 3.40282e+038f;
 	const float Single::MinValue = -3.40282e+038f;
-	const float Single::NaN = *( float* )&rawNaNF;
-	const float Single::PositiveInfinity = *( float* )&rawPosInfF;
-	const float Single::NegativeInfinity = *( float* )&rawNegInfF;
+	const float Single::NaN = *(float*)&rawNaNF;
+	const float Single::PositiveInfinity = *(float*)&rawPosInfF;
+	const float Single::NegativeInfinity = *(float*)&rawNegInfF;
+
+	Single::Single()
+		: value(0.0f)
+	{
+	}
 
 	Single::Single(const Single &obj)
+		: value(obj.value)
 	{
-		value = obj.value;
 	}
 
 	Single::Single(const float &obj)
+		: value(obj)
 	{
-		value = obj;
 	}
 
 	int Single::CompareTo(const Single other) const
@@ -60,6 +68,11 @@ namespace System
 		if (value < other.value)
 			return -1;
 		return 0;
+	}
+
+	bool Single::Equals(Object const * const obj) const
+	{
+		return is(obj, this) ? *this == *(Single *)obj : false;
 	}
 
 	bool Single::Equals(const Single other) const
@@ -77,11 +90,16 @@ namespace System
 		return 13;
 	}
 
-	float Single::Parse(char *str)
+	bool Single::TryParse(const String& str, out float* result)
 	{
-		float retval;
+		if (String::IsNullOrEmpty(str))
+			return false;
+
+		sassert(result, String::Format("result; %s", FrameworkResources::ArgumentNull_Generic));
+
+		*result = 0;
 		char sign = 0;
-		char *sp = str;
+		char *sp = const_cast<char*>(str.ToString());
 
 		if (*sp == '+' || *sp == '-')
         sign = *sp++;
@@ -89,16 +107,16 @@ namespace System
 		if (stricmp(sp, "inf") == 0)
 		{
 			if (!sign || sign == '+')
-				retval = PositiveInfinity;
+				*result = PositiveInfinity;
 			else
-				retval = NegativeInfinity;
+				*result = NegativeInfinity;
 		}
 		else if (stricmp(sp, "nan") == 0)
-			retval = NaN;
+			*result = NaN;
 		else /* valid number */
-			retval = (float)atof(sp);
+			*result = (float)atof(sp);
 
-		return retval;
+		return true;
 	}
 
 	const char* Single::ToString() const
@@ -106,22 +124,32 @@ namespace System
 		return String::Format("%f", value);
 	}
 
-	bool Single::operator !=(const float right) const
+	const char* Single::ToString(const float value)
 	{
-		return (value != right);
+		return String::Format("%f", value);
 	}
 
-	bool Single::operator !=(const Single right) const
+	Single::operator float() const
+	{
+		return value;
+	}
+
+	/*bool Single::operator !=(const float& right) const
+	{
+		return (value != right);
+	}*/
+
+	bool Single::operator !=(const Single& right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Single::operator ==(const float right) const
+	/*bool Single::operator ==(const float& right) const
 	{
 		return (value == right);
-	}
+	}*/
 
-	bool Single::operator ==(const Single right) const
+	bool Single::operator ==(const Single& right) const
 	{
 		return (value == right.value);
 	}

@@ -195,6 +195,7 @@ namespace XFX
 
 	int BoundingBox::GetType() const
 	{
+		// TODO: implement
 	}
 	
 	bool BoundingBox::Intersects(const BoundingBox box) const
@@ -262,7 +263,7 @@ namespace XFX
 
 	const char* BoundingBox::ToString() const
 	{
-		return String::Format("{{Min:%s Max:%s}}", Min.ToString(), Max.ToString());
+		return String::Format("{Min:%s Max:%s}", Min.ToString(), Max.ToString());
 	}
 	
 	bool BoundingBox::operator!=(const BoundingBox& other) const

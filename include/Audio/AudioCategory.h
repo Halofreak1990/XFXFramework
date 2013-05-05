@@ -1,19 +1,24 @@
-#ifndef XFRAMEWORK_AUDIOCATEGORY_H
-#define XFRAMEWORK_AUDIOCATEGORY_H
+#ifndef XFX_AUDIO_AUDIOCATEGORY_H
+#define XFX_AUDIO_AUDIOCATEGORY_H
 
-namespace XFramework::Audio
+#include <System/String.h>
+
+namespace XFX
 {
-	struct AudioCategory
+	namespace Audio
 	{
-		char* Name;
+		struct AudioCategory : Object
+		{
+			String Name;
 
-		void Pause();
-		int operator!=(AudioCategory &other);
-		int operator==(AudioCategory &other);
-		void Resume();
-		void SetVolume(float volume);
-		void Stop();
-	};
+			void Pause();
+			bool operator!=(const AudioCategory &other) const;
+			bool operator==(const AudioCategory &other) const;
+			void Resume();
+			void SetVolume(float volume);
+			void Stop();
+		};
+	}
 }
 
-#endif //XFRAMEWORK_AUDIOCATEGORY_H
+#endif //XFX_AUDIO_AUDIOCATEGORY_H

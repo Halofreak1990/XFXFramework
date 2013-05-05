@@ -24,6 +24,7 @@ namespace XFX
 		{
 		private:
 			unsigned int _packedValue;
+
 			unsigned int RGBAtoARGB(unsigned int value);
 			Color(unsigned int packedValue);
 			static unsigned int InitializeFromVector4(const Vector4 vector);
@@ -195,6 +196,7 @@ namespace XFX
 			
 			bool operator!=(const Color& other) const;
 			bool operator==(const Color& other) const;
+			Color operator *(const float scale) const;
 		};
 	}
 }

@@ -1,8 +1,8 @@
 /********************************************************
- *	AudioEmitter.h										*
+ *	AudioEmitter.h  									*
  *														*
  *	XFX::Audio::AudioEmitter definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved 		*
  ********************************************************/
 #ifndef _XFX_AUDIO_AUDIOEMITTER_
 #define _XFX_AUDIO_AUDIOEMITTER_

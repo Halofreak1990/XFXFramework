@@ -8,6 +8,11 @@ namespace System
 	const long long Int64::MaxValue = 0x7FFFFFFFFFFFFFFFLL;
 	const long long Int64::MinValue = 0x8FFFFFFFFFFFFFFFLL;
 
+	Int64::Int64()
+		: value(0)
+	{
+	}
+
 	Int64::Int64(const Int64 &obj)
 		: value(obj.value)
 	{
@@ -27,9 +32,12 @@ namespace System
 		return 0;
 	}
 
-	bool Int64::Equals(const Object* obj) const
+	bool Int64::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals((*(Int64*)obj)) : false;
+		if (!obj)
+			return false;
+
+		return is(obj, this) ? *this == *(Int64 *)obj : false;
 	}
 
 	bool Int64::Equals(const Int64 other) const
@@ -57,29 +65,34 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool Int64::TryParse(const String& str, out long long result)
+	bool Int64::TryParse(const String& str, out long long* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		long long retval = strtoll(str.ToString(), &end, 10);
+		long long retval = strtoll(str, &end, 10);
 
 		if (end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
 	}
 
-	bool Int64::operator==(const Int64 right) const
+	Int64::operator long long() const
+	{
+		return value;
+	}
+
+	bool Int64::operator==(const Int64& right) const
 	{
 		return (value == right.value);
 	}
 
-	bool Int64::operator!=(const Int64 right) const
+	bool Int64::operator!=(const Int64& right) const
 	{
 		return (value != right.value);
 	}

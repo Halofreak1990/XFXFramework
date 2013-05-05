@@ -1225,12 +1225,12 @@ namespace XFX
 		result.M44 = matrix.M44;  
 	}
     
-    Matrix Matrix::operator+(const Matrix other)
+    Matrix Matrix::operator+(const Matrix& other)
     {
 		return Add(*this, other);
     }
 
-	Matrix Matrix::operator /(const Matrix other)
+	Matrix Matrix::operator /(const Matrix& other)
 	{
 		return Divide(*this, other);
 	}
@@ -1242,21 +1242,21 @@ namespace XFX
 
 	bool Matrix::operator==(const Matrix& other) const
 	{
-		return ((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
-				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
-				(M31 == other.M31) & (M32 == other.M32) & (M33 == other.M33) & (M34 == other.M34) &
-				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
+		return ((M11 == other.M11) && (M12 == other.M12) && (M13 == other.M13) && (M14 == other.M14) &&
+				(M21 == other.M21) && (M22 == other.M22) && (M23 == other.M23) && (M24 == other.M24) &&
+				(M31 == other.M31) && (M32 == other.M32) && (M33 == other.M33) && (M34 == other.M34) &&
+				(M41 == other.M41) && (M42 == other.M42) && (M43 == other.M43) && (M44 == other.M44));
 	}
 	
 	bool Matrix::operator!=(const Matrix& other) const
 	{
-		return !((M11 == other.M11) & (M12 == other.M12) & (M13 == other.M13) & (M14 == other.M14) &
-				(M21 == other.M21) & (M22 == other.M22) & (M23 == other.M23) & (M24 == other.M24) &
-				(M31 == other.M31) & (M32 == other.M32) & (M33 == other.M33) & (M34 == other.M34) &
-				(M41 == other.M41) & (M42 == other.M42) & (M43 == other.M43) & (M44 == other.M44));
+		return ((M11 != other.M11) || (M12 != other.M12) || (M13 != other.M13) || (M14 != other.M14) ||
+				(M21 != other.M21) || (M22 != other.M22) || (M23 != other.M23) || (M24 != other.M24) ||
+				(M31 != other.M31) || (M32 != other.M32) || (M33 != other.M33) || (M34 != other.M34) ||
+				(M41 != other.M41) || (M42 != other.M42) || (M43 != other.M43) || (M44 != other.M44));
 	}
 
-	Matrix Matrix::operator *(const Matrix other)
+	Matrix Matrix::operator *(const Matrix& other)
 	{
 		return Multiply(*this, other);
 	}
@@ -1266,7 +1266,7 @@ namespace XFX
 		return Multiply(*this, scaleFactor);
 	}
 
-	Matrix Matrix::operator -(const Matrix other)
+	Matrix Matrix::operator -(const Matrix& other)
 	{
 		return Subtract(*this, other);
 	}

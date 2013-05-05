@@ -27,18 +27,19 @@ namespace System
 
 		Version Clone() const;
 		int CompareTo(const Version value) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Version obj) const;
 		int GetHashCode() const;
 		int GetType() const;
 		const char* ToString() const;
 		const char* ToString(const int fieldCount) const;
 
-		bool operator !=(const Version other) const;
-		bool operator  <(const Version other) const;
-		bool operator <=(const Version other) const;
-		bool operator ==(const Version other) const;
-		bool operator  >(const Version other) const;
-		bool operator >=(const Version other) const;
+		bool operator !=(const Version& other) const;
+		bool operator  <(const Version& other) const;
+		bool operator <=(const Version& other) const;
+		bool operator ==(const Version& other) const;
+		bool operator  >(const Version& other) const;
+		bool operator >=(const Version& other) const;
 	};
 }
 

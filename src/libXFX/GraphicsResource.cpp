@@ -65,5 +65,10 @@ namespace XFX
 
 			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
+
+		int GraphicsResource::GetType() const
+		{
+			// TODO: implement
+		}
 	}
 }

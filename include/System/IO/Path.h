@@ -25,7 +25,7 @@ namespace System
 			Path();
 
 			static void GetDrive(const char* szPartition, out char* cDriveLetter);
-			static char *Path::GetInvalidFileNameChars();
+			static char *GetInvalidFileNameChars();
 
 		public:
 			static const char AltDirectorySeparatorChar;

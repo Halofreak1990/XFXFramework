@@ -17,9 +17,7 @@ namespace System
 	public:
 		static const EventArgs* Empty;
 
-		EventArgs()
-		{
-		}
+		EventArgs();
 		virtual ~EventArgs() { }
 
 		int GetType() const;

@@ -1,9 +1,9 @@
-/********************************************************
- *	Single.h											*
- *														*
- *	XFX Single structure definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Single.h																 *
+ *																			 *
+ *	XFX Single structure definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_SINGLE_
 #define _SYSTEM_SINGLE_
 
@@ -12,8 +12,10 @@
 
 namespace System
 {
+	class String;
+
 	// Represents a single precision floating point value.
-	struct Single : public IComparable<Single>, public IEquatable<Single>, virtual Object
+	struct Single : IComparable<Single>, IEquatable<Single>, Object
 	{
 	private:
 		float value;
@@ -26,20 +28,24 @@ namespace System
 		static const float NegativeInfinity;
 		static const float PositiveInfinity;
 
+		Single();
 		Single(const Single &obj);
 		Single(const float &obj);
 
 		int CompareTo(const Single other) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		static float Parse(char* str);
 		const char* ToString() const;
+		static const char* ToString(const float value);
+		static bool TryParse(const String& str, out float* result);
 
-		bool operator !=(const float right) const;
-		bool operator !=(const Single right) const;
-		bool operator ==(const float right) const;
-		bool operator ==(const Single right) const;
+		operator float() const;
+		//bool operator !=(const float& right) const;
+		bool operator !=(const Single& right) const;
+		//bool operator ==(const float& right) const;
+		bool operator ==(const Single& right) const;
 	};
 }
 

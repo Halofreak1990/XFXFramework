@@ -34,9 +34,9 @@ namespace System
 	const byte Byte::MaxValue = 255;
 	const byte Byte::MinValue = 0;
 
-	byte Byte::getValue() const
+	Byte::Byte()
+		: value(0)
 	{
-		return value;
 	}
 
 	Byte::Byte(const Byte &obj)
@@ -78,31 +78,36 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool Byte::TryParse(const String& str, out byte result)
+	bool Byte::TryParse(const String& str, out byte* result)
 	{
-		result = 0;
+		*result = 0;
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		uint res = strtoul(str.ToString(), &end, 10);
+		uint res = strtoul(str, &end, 10);
 
 		if (*end)
 		{
 			return false;
 		}
 		
-		result = (byte)res;
+		*result = (byte)res;
 		return true;
 	}
 
-	bool Byte::operator !=(const Byte right) const
+	Byte::operator byte() const
+	{
+		return value;
+	}
+
+	bool Byte::operator !=(const Byte& right) const
 	{
 		return (value != right.value);
 	}
 
-	bool Byte::operator ==(const Byte right) const
+	bool Byte::operator ==(const Byte& right) const
 	{
 		return (value == right.value);
 	}

@@ -54,38 +54,28 @@ namespace XFX
 	const Vector3 Vector3::Zero = Vector3(0, 0, 0);
 	
 	Vector3::Vector3(float value)
+		: X(value), Y(value), Z(value)
 	{
-		X = value;
-		Y = value;
-		Z = value;
 	}
 	
 	Vector3::Vector3(float x, float y, float z)
+		: X(x), Y(y), Z(z)
 	{
-		X = x;
-		Y = y;
-		Z = z;
 	}
 	
 	Vector3::Vector3(Vector2 value, float z)
+		: X(value.X), Y(value.Y), Z(z)
 	{
-		X = value.X;
-		Y = value.Y;
-		Z = z;
 	}
 
 	Vector3::Vector3(const Vector3 &obj)
+		: X(obj.X), Y(obj.Y), Z(obj.Z)
 	{
-		X = obj.X;
-		Y = obj.Y;
-		Z = obj.Z;
 	}
 
 	Vector3::Vector3()
+		: X(0), Y(0), Z(0)
 	{
-		X = 0;
-		Y = 0;
-		Z = 0;
 	}
 
 	Vector3 Vector3::Add(Vector3 value1, Vector3 value2)
@@ -470,7 +460,7 @@ namespace XFX
 
 	const char* Vector3::ToString() const
 	{
-		return String::Format("{{X:%f Y:%f Z:%f}}", X, Y, Z);
+		return String::Format("{X:%f Y:%f Z:%f}", X, Y, Z);
 	}
 	
 	Vector3 Vector3::Transform(Vector3 position, Matrix matrix)

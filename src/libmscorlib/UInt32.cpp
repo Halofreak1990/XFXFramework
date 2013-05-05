@@ -27,9 +27,9 @@ namespace System
 		return 0;
 	}
 
-	bool UInt32::Equals(const Object* obj) const
+	bool UInt32::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? (*this == *(UInt32*)obj) : false;
+		return is(this, obj) ? *this == *(UInt32*)obj : false;
 	}
 
 	bool UInt32::Equals(const UInt32 other) const
@@ -57,20 +57,20 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	bool UInt32::TryParse(const String& str, out uint result)
+	bool UInt32::TryParse(const char* str, out uint* result)
 	{
+		*result = 0;
 		char* end = NULL;
-		result = 0;
 
 		if (String::IsNullOrEmpty(str))
 			return false;
 
-		uint retval = strtoul(str.ToString(), &end, 10);
+		uint retval = strtoul(str, &end, 10);
 
 		if (*end)
 			return false;
 
-		result = retval;
+		*result = retval;
 		return true;
 	}
 
@@ -79,8 +79,18 @@ namespace System
 		return (value == right.value);
 	}
 
+	bool UInt32::operator==(const uint& right) const
+	{
+		return (value == right);
+	}
+
 	bool UInt32::operator!=(const UInt32& right) const
 	{
 		return (value != right.value);
+	}
+
+	bool UInt32::operator!=(const uint& right) const
+	{
+		return (value != right);
 	}
 }

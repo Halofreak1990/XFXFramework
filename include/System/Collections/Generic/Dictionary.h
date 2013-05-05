@@ -467,6 +467,58 @@ namespace System
 			}
 
 			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			int Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::Count() const
+			{
+				return _dictionary->Count();
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::Add(const UValue& item)
+			{
+				sassert(false, "Adding values directly to the Dictionary::Valuecollection is not supported.");
+
+				return;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::Clear()
+			{
+				sassert(false, "Directly clearing the Dictionary::ValueCollection is not supported.");
+
+				return;
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			bool Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::Contains(const UValue& item) const
+			{
+				return _dictionary->ContainsValue(item);
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			void Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::CopyTo(UValue array[], const int arrayIndex) const
+			{
+				sassert(array != NULL, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
+
+				sassert(arrayIndex >= 0, String::Format("arrayIndex; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
+
+				// TODO: implement
+			}
+
+			template <class TKey, class TValue>
+			template <class UKey, class UValue>
+			bool Dictionary<TKey, TValue>::ValueCollection<UKey, UValue>::Remove(const UValue& item)
+			{
+				sassert(false, "Removing values directly from the Dictionary::ValueCollection is not supported.");
+
+				return false;
+			}
+
+			template <class TKey, class TValue>
 			void Dictionary<TKey, TValue>::Clear()
 			{
 				for (int i = 0; i < _size; i++)

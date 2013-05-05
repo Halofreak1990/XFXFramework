@@ -17,10 +17,11 @@ namespace System
 	namespace IO
 	{
 		// Exposes a Stream around a file, supporting both synchronous and asynchronous read and write operations.
-		class FileStream : public Stream, public virtual Object
+		class FileStream : public Stream
 		{
 		private:
-			int handle;
+			void* handle;
+			//int handle;
 			byte* _buffer;
 			FileAccess_t _access;
 			bool canSeek;
@@ -55,7 +56,12 @@ namespace System
 			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync);
 			virtual ~FileStream();
 
+			virtual IAsyncResult* BeginRead(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
+			virtual IAsyncResult* BeginWrite(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
+			virtual int EndRead(IAsyncResult* asyncResult);
+			virtual void EndWrite(IAsyncResult* asyncResult);
 			void Flush();
+			int GetType() const;
 			int Read(byte array[], const int offset, const int count);
 			int ReadByte();
 			long long Seek(const long long offset, const SeekOrigin_t origin);

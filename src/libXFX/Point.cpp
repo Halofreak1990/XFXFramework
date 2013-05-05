@@ -30,7 +30,7 @@
 
 namespace XFX
 {
-	const Point Point::Zero = Point(0, 0);
+	const Point Point::Zero = Point();
 	
 	Point::Point(int x, int y)
 		: X(x), Y(y)
@@ -47,9 +47,9 @@ namespace XFX
 	{
 	}
 
-	bool Point::Equals(const Object* obj) const
+	bool Point::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? this->Equals((*(Point*)obj)) : false;
+		return is(this, obj) ? *this == *(Point*)obj : false;
 	}
 
 	bool Point::Equals(const Point other) const
@@ -79,6 +79,6 @@ namespace XFX
 
 	bool Point::operator!=(const Point& right) const
 	{
-		return !((X == right.X) && (Y == right.Y));
+		return ((X != right.X) || (Y != right.Y));
 	}
 }

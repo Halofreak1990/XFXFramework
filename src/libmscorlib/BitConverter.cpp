@@ -59,6 +59,8 @@ namespace System
 	{
 		sassert(src != null, String::Format("src; %s", FrameworkResources::ArgumentNull_Generic));
 
+		sassert(dst != null, String::Format("dst; %s", FrameworkResources::ArgumentNull_Generic));
+
 		/*if (start_index < 0 || (start_index > Array::Length(src) - 1))
 		{
 #if DEBUG
@@ -101,14 +103,14 @@ namespace System
 		{
 			byte *data = new byte[8];
 			byte *p = (byte*)&value;
-			data [0] = p [4];
-			data [1] = p [5];
-			data [2] = p [6];
-			data [3] = p [7];
-			data [4] = p [0];
-			data [5] = p [1];
-			data [6] = p [2];
-			data [7] = p [3];
+			data[0] = p[4];
+			data[1] = p[5];
+			data[2] = p[6];
+			data[3] = p[7];
+			data[4] = p[0];
+			data[5] = p[1];
+			data[6] = p[2];
+			data[7] = p[3];
 			return data;
 		}
 		else

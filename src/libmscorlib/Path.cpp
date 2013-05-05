@@ -36,37 +36,38 @@
 
 #include <sassert.h>
 
-#define NT_STATUS_OBJECT_NAME_NOT_FOUND long(0xC0000000 | 0x0034)
-#define NT_STATUS_VOLUME_DISMOUNTED     long(0xC0000000 | 0x026E)
-
-typedef struct
-{
-  char cDriveLetter;
-  char* szDevice;
-  int iPartition;
-}
-stDriveMapping;
-
-stDriveMapping driveMapping[] =
-{
-    { 'C', "Harddisk0\\Partition2", 2},
-    { 'D', "Cdrom0", -1},
-    { 'E', "Harddisk0\\Partition1", 1},
-    { 'X', "Harddisk0\\Partition3", 3},
-    { 'Y', "Harddisk0\\Partition4", 4},
-    { 'Z', "Harddisk0\\Partition5", 5},
-};
-char extendPartitionMapping[] = 
-{ 
-      'F','G','R','S','V','W','A','B'
-};
-
-#define NUM_OF_DRIVES (sizeof(driveMapping) / sizeof(driveMapping[0]))
-
 namespace System
 {
 	namespace IO
 	{
+#define NT_STATUS_OBJECT_NAME_NOT_FOUND long(0xC0000000 | 0x0034)
+#define NT_STATUS_VOLUME_DISMOUNTED     long(0xC0000000 | 0x026E)
+
+		typedef struct
+		{
+		  char cDriveLetter;
+		  char* szDevice;
+		  int iPartition;
+		}
+		stDriveMapping;
+
+		stDriveMapping driveMapping[] =
+		{
+			{ 'C', "Harddisk0\\Partition2", 2},
+			{ 'D', "Cdrom0", -1},
+			{ 'E', "Harddisk0\\Partition1", 1},
+			{ 'X', "Harddisk0\\Partition3", 3},
+			{ 'Y', "Harddisk0\\Partition4", 4},
+			{ 'Z', "Harddisk0\\Partition5", 5},
+		};
+		char extendPartitionMapping[] = 
+		{ 
+			  'F','G','R','S','V','W','A','B'
+		};
+
+#define NUM_OF_DRIVES (sizeof(driveMapping) / sizeof(driveMapping[0]))
+
+
 		const char Path::PathSeparator = '\\';
 		const char Path::DirectorySeparatorChar = '\\';
 

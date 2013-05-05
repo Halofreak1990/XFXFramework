@@ -25,7 +25,7 @@ namespace XFX
 		Point(const Point &obj);
 		Point();
 		
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Point other) const;
 		int GetHashCode() const;
 		int GetType() const;

@@ -161,10 +161,10 @@ namespace XFX
 			switch(this->p_cachedParameters->DepthStencilFormat)
 			{
 				// TODO: verify
-				case DepthFormat::Depth16: { format = 0x03; depth = 0xffff00; } break;
-				case DepthFormat::Depth24: { format = 0x03; depth = 0xffffff00; } break;
-				case DepthFormat::Depth24Stencil8: { format = 0x03; depth = 0xffffff00; } break;
-				case DepthFormat::None: break;
+			case DepthFormat::Depth16: { format = 0x03; depth = 0xffff00; } break;
+			case DepthFormat::Depth24: { format = 0x03; depth = 0xffffff00; } break;
+			case DepthFormat::Depth24Stencil8: { format = 0x03; depth = 0xffffff00; } break;
+			case DepthFormat::None: break;
 			}
 			
 			p = pb_begin();

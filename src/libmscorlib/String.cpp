@@ -42,7 +42,7 @@ namespace System
 	String::String()
 		: Length(0)
 	{
-		internalString = null;
+		internalString = "";
 	}
 
 	String::String(char c, int count)
@@ -128,9 +128,9 @@ namespace System
 		return result;
 	}
 
-	bool String::Equals(const Object* obj) const
+	bool String::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals(*(String*)obj) : false;
+		return is(obj, this) ? *this == *(String *)obj : false;
 	}
 
 	bool String::Equals(const String obj) const
@@ -138,7 +138,7 @@ namespace System
 		return (Compare(internalString, obj.internalString) == 0);
 	}
 
-	bool String::Equals(const String str1, const String str2)
+	bool String::Equals(const String& str1, const String& str2)
 	{
 		return (Compare(str1.internalString, str2.internalString) == 0);
 	}
@@ -198,9 +198,6 @@ namespace System
 
 	int String::IndexOf(char value, int startIndex, int count) const
 	{
-		if((startIndex + count) > Length)
-			return -1;
-
 		for(int i = startIndex; i < startIndex+count; i++)
 		{
 			if(internalString[i] == value)
@@ -238,7 +235,7 @@ namespace System
 		return (value == NULL || strlen(value) == 0);
 	}
 
-	bool String::IsNullOrEmpty(String value)
+	bool String::IsNullOrEmpty(const String& value)
 	{
 		return (value == NULL || value.Length == 0);
 	}
@@ -379,7 +376,7 @@ namespace System
 		return result;
 	}
 
-	const char* String::ToLower(char* str)
+	const char* String::ToLower(const char* str)
 	{
 		size_t strLen = strlen(str);
 		char* tmp = (char*)malloc(strLen + 1);
@@ -407,7 +404,7 @@ namespace System
 		return result;
 	}
 
-	const char* String::ToUpper(char* str)
+	const char* String::ToUpper(const char* str)
 	{
 		size_t strLen = strlen(str);
 		char* tmp = (char*)malloc(strLen + 1);
@@ -416,6 +413,11 @@ namespace System
 
 		tmp[strLen] = '\0';
 		return tmp;
+	}
+
+	String::operator const char *() const
+	{
+		return internalString;
 	}
 
 	bool String::operator!=(const String& right) const
@@ -429,7 +431,7 @@ namespace System
 
 	bool String::operator!=(const char* right) const
 	{
-		if (Length == strlen(right))
+		if (Length == (int)strlen(right))
 		{
 			return (strncmp(internalString, right, Length) != 0);
 		}
@@ -447,7 +449,7 @@ namespace System
 
 	bool String::operator==(const char* right) const
 	{
-		if (Length == strlen(right))
+		if (Length == (int)strlen(right))
 		{
 			return (strncmp(internalString, right, Length) == 0);
 		}
@@ -506,7 +508,7 @@ namespace System
 		return result;
 	}
 	
-	char String::operator [](const int index) const
+	const char String::operator [](const int index) const
 	{
 		sassert(index > 0 && index < Length, "index out of range.");
 

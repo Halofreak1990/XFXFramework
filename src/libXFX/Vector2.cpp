@@ -327,7 +327,7 @@ namespace XFX
 
 	const char* Vector2::ToString() const
 	{
-		return String::Format("{{X:%f Y:%f}}", X, Y);
+		return String::Format("{X:%f Y:%f}", X, Y);
 	}
 	
 	Vector2 Vector2::Transform(const Vector2 position, const Matrix matrix)

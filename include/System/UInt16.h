@@ -17,6 +17,7 @@ namespace System
 		static const ushort MaxValue;
 		static const ushort MinValue;
 
+		UInt16();
 		UInt16(const UInt16 &obj);
 		UInt16(const ushort &obj);
 
@@ -27,10 +28,13 @@ namespace System
 		int GetType() const;
 		const char* ToString() const;
 		static const char* ToString(const ushort value);
-		static bool TryParse(const String& str, out ushort& result);
+		static bool TryParse(const String& str, out ushort* result);
 
+		operator ushort() const;
 		bool operator==(const UInt16& right) const;
+		bool operator==(const ushort& right) const;
 		bool operator!=(const UInt16& right) const;
+		bool operator!=(const ushort& right) const;
 	};
 }
 

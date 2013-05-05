@@ -66,6 +66,11 @@ namespace System
 		return 0;
 	}
 
+	bool Version::Equals(Object const * const obj) const
+	{
+		return is(obj, this) ? *this == *(Version*)obj : false;
+	}
+
 	bool Version::Equals(const Version obj) const
 	{
 		return ((Build == obj.Build) && (Major == obj.Major) &&
@@ -79,6 +84,7 @@ namespace System
 
 	int Version::GetType() const
 	{
+		// TODO: implement
 	}
 
 	const char* Version::ToString() const
@@ -111,35 +117,37 @@ namespace System
 		}
 	}
 
-	bool Version::operator !=(const Version other) const
+	bool Version::operator !=(const Version& other) const
 	{
-		return !Equals(other);
+		return ((Build != other.Build) || (Major != other.Major) ||
+				(Minor != other.Minor) || (Revision != other.Revision));
 	}
 
-	bool Version::operator <(const Version other) const
+	bool Version::operator <(const Version& other) const
 	{
 		return ((Build < other.Build) && (Major < other.Major) &&
 				(Minor < other.Minor) && (Revision < other.Revision));
 	}
 
-	bool Version::operator <=(const Version other) const
+	bool Version::operator <=(const Version& other) const
 	{
 		return ((Build <= other.Build) && (Major <= other.Major) &&
 				(Minor <= other.Minor) && (Revision <= other.Revision));
 	}
 
-	bool Version::operator ==(const Version other) const
+	bool Version::operator ==(const Version& other) const
 	{
-		return Equals(other);
+		return ((Build == other.Build) && (Major == other.Major) &&
+				(Minor == other.Minor) && (Revision == other.Revision));
 	}
 
-	bool Version::operator >(const Version other) const
+	bool Version::operator >(const Version& other) const
 	{
 		return ((Build > other.Build) && (Major > other.Major) &&
 				(Minor > other.Minor) && (Revision > other.Revision));
 	}
 
-	bool Version::operator >=(const Version other) const
+	bool Version::operator >=(const Version& other) const
 	{
 		return ((Build >= other.Build) && (Major >= other.Major) &&
 				(Minor >= other.Minor) && (Revision >= other.Revision));

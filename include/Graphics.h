@@ -10,11 +10,15 @@
 //
 //Data Types
 //
-#include "Graphics/BasicDirectionalLight.h"
+#include "Graphics/BasicEffect.h"
+#include "Graphics/BlendState.h"
 #include "Graphics/Color.h"
-#include "Graphics/DepthStencilBuffer.h"
+#include "Graphics/DepthStencilState.h"
+#include "Graphics/DirectionalLight.h"
 #include "Graphics/DisplayMode.h"
 #include "Graphics/DisplayModeCollection.h"
+#include "Graphics/Effect.h"
+#include "Graphics/EffectParameter.h"
 #include "Graphics/GraphicsAdapter.h"
 #include "Graphics/GraphicsDevice.h"
 #include "Graphics/GraphicsResource.h"
@@ -26,8 +30,6 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Texture2D.h"
 #include "Graphics/TextureCollection.h"
-#include "Graphics/TextureCreationParameters.h"
-#include "Graphics/TextureInformation.h"
 #include "Graphics/VertexElement.h"
 #include "Graphics/VertexPositionColor.h"
 #include "Graphics/VertexPositionNormalTexture.h"

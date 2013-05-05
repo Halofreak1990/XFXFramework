@@ -48,51 +48,33 @@ namespace XFX
 	const Vector4 Vector4::Zero = Vector4(0,0,0,0);
 
 	Vector4::Vector4(float value)
+		: X(value), Y(value), Z(value), W(value)
 	{
-		W = value;
-		X = value;
-		Y = value;
-		Z = value;
 	}
 
 	Vector4::Vector4(float x, float y, float z, float w)
+		: X(x), Y(y), Z(z), W(w)
 	{
-		W = w;
-		X = x;
-		Y = y;
-		Z = z;
 	}
 
 	Vector4::Vector4(Vector2 value, float z, float w)
+		: X(value.X), Y(value.Y), Z(z), W(w)
 	{
-		W = w;
-		X = value.X;
-		Y = value.Y;
-		Z = z;
 	}
 
 	Vector4::Vector4(Vector3 value, float w)
+		: X(value.X), Y(value.Y), Z(value.Z), W(w)
 	{
-		W = w;
-		X = value.X;
-		Y = value.Y;
-		Z = value.Z;
 	}
 	
 	Vector4::Vector4(const Vector4 &obj)
+		: X(obj.X), Y(obj.Y), Z(obj.Z), W(obj.W)
 	{
-		W = obj.W;
-		X = obj.X;
-		Y = obj.Y;
-		Z = obj.Z;
 	}
 	
 	Vector4::Vector4()
+		: X(0), Y(0), Z(0), W(0)
 	{
-		W = 0;
-		X = 0;
-		Y = 0;
-		Z = 0;
 	}
 
 	Vector4 Vector4::Add(Vector4 vector1, Vector4 vector2)

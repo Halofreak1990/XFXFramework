@@ -1,0 +1,486 @@
+﻿Build started 17-1-2013 16:36:05.
+     1>Project "C:\Users\Tom\Dropbox\XFX\src\libSystem.Windows\libSystem.Windows.vcxproj" on node 2 (rebuild target(s)).
+     1>CoreClean:
+         make clean 2>&1 | sed -e 's/\(\w\+\):\([0-9]\+\):/\1(\2):/'
+         rm -f *.o *.exe *.dll *.xbe *.cxbe *.lib *.a
+       Rebuild:
+         make rebuild 2>&1 | sed -e 's/\(\w\+\):\([0-9]\+\):/\1(\2):/'
+         rm -f *.o *.exe *.dll *.xbe *.cxbe *.lib *.a
+         g++ -c Border.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Border.h:4,
+                          from Border.cpp(28):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Border.h:4,
+                          from Border.cpp(28):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Border.h:4,
+                          from Border.cpp(28):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Border.cpp: In memberfunctie ævirtual int System::Windows::Controls::Border::GetType() constÆ:
+         Border.cpp(50):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Brush.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         Brush.cpp: In memberfunctie ævirtual int System::Windows::Media::Brush::GetType() constÆ:
+         Brush.cpp(20):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c ButtonBase.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ButtonBase.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ButtonBase.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ButtonBase.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c ClosingEventArgs.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         ClosingEventArgs.cpp: In memberfunctie ævirtual int System::ComponentModel::ClosingEventArgs::GetType() constÆ:
+         ClosingEventArgs.cpp(40):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Color.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         Color.cpp: In memberfunctie ævirtual int System::Windows::Media::Color::GetType() constÆ:
+         Color.cpp(57):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c ContentControl.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ContentControl.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ContentControl.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ContentControl.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ContentControl.cpp: In memberfunctie ævirtual int System::Windows::Controls::ContentControl::GetType() constÆ:
+         ContentControl.cpp(23):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Control.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from Control.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from Control.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from Control.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Control.cpp: In memberfunctie ævirtual int System::Windows::Controls::Control::GetType() constÆ:
+         Control.cpp(67):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c CornerRadius.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         CornerRadius.cpp: In memberfunctie ævirtual int System::Windows::CornerRadius::GetType() constÆ:
+         CornerRadius.cpp(76):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c FrameworkElement.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from FrameworkElement.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from FrameworkElement.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from FrameworkElement.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         FrameworkElement.cpp: In memberfunctie ævirtual System::Windows::Size System::Windows::FrameworkElement::ArrangeOverride(System::Windows::Size)Æ:
+         FrameworkElement.cpp(22):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         FrameworkElement.cpp: In memberfunctie ævirtual int System::Windows::FrameworkElement::GetType() constÆ:
+         FrameworkElement.cpp(26):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         FrameworkElement.cpp: In memberfunctie ævirtual System::Windows::Size System::Windows::FrameworkElement::MeasureOverride(System::Windows::Size)Æ:
+         FrameworkElement.cpp(30):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Grid.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/Grid.h:3,
+                          from Grid.cpp(2):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/Grid.h:3,
+                          from Grid.cpp(2):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/Grid.h:3,
+                          from Grid.cpp(2):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Grid.cpp: In memberfunctie ævirtual System::Windows::Size System::Windows::Controls::Grid::ArrangeOverride(System::Windows::Size)Æ:
+         Grid.cpp(18):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Grid.cpp: In memberfunctie ævirtual System::Windows::Size System::Windows::Controls::Grid::MeasureOverride(System::Windows::Size)Æ:
+         Grid.cpp(22):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Grid.cpp: In memberfunctie ævirtual int System::Windows::Controls::Grid::GetType() constÆ:
+         Grid.cpp(58):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c MessageBox.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         MessageBox.cpp: In static member function æstatic System::Windows::MessageBoxResult_t System::Windows::MessageBox::Show(const System::String&, const System::String&, System::Windows::MessageBoxButton_t)Æ:
+         MessageBox.cpp(16):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Panel.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from Panel.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from Panel.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from Panel.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Panel.cpp: In memberfunctie ævirtual int System::Windows::Controls::Panel::GetType() constÆ:
+         Panel.cpp(26):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Point.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         Point.cpp: In memberfunctie ævirtual int System::Windows::Point::GetType() constÆ:
+         Point.cpp(41):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c RangeBase.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/RangeBase.h:3,
+                          from RangeBase.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/RangeBase.h:3,
+                          from RangeBase.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/RangeBase.h:3,
+                          from RangeBase.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Size.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         Size.cpp: In memberfunctie ævirtual int System::Windows::Size::GetType() constÆ:
+         Size.cpp(48):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c SolidColorBrush.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         SolidColorBrush.cpp: In memberfunctie ævirtual int System::Windows::Media::SolidColorBrush::GetType() constÆ:
+         SolidColorBrush.cpp(22):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c StackPanel.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/StackPanel.h:4,
+                          from StackPanel.cpp(30):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/StackPanel.h:4,
+                          from StackPanel.cpp(30):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Panel.h:3,
+                          from ../../include/System/Windows/Controls/StackPanel.h:4,
+                          from StackPanel.cpp(30):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         StackPanel.cpp: In memberfunctie ævirtual System::Windows::Size System::Windows::Controls::StackPanel::MeasureOverride(System::Windows::Size)Æ:
+         StackPanel.cpp(73):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c SystemColors.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         g++ -c TextBlock.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/TextBlock.h:4,
+                          from TextBlock.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/TextBlock.h:4,
+                          from TextBlock.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/TextBlock.h:4,
+                          from TextBlock.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c TextBox.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/TextBox.h:3,
+                          from TextBox.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/TextBox.h:3,
+                          from TextBox.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/TextBox.h:3,
+                          from TextBox.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         TextBox.cpp: In memberfunctie ævirtual int System::Windows::Controls::TextBox::GetType() constÆ:
+         TextBox.cpp(34):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Thickness.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         Thickness.cpp: In memberfunctie ævirtual int System::Windows::Thickness::GetType() constÆ:
+         Thickness.cpp(46):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Thumb.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/Thumb.h:3,
+                          from Thumb.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/Thumb.h:3,
+                          from Thumb.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/Thumb.h:3,
+                          from Thumb.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Thumb.cpp: In memberfunctie ævirtual int System::Windows::Controls::Primitives::Thumb::GetType() constÆ:
+         Thumb.cpp(23):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c ToggleButton.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/ToggleButton.h:3,
+                          from ToggleButton.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/ToggleButton.h:3,
+                          from ToggleButton.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Controls/Control.h:3,
+                          from ../../include/System/Windows/Controls/ContentControl.h:4,
+                          from ../../include/System/Windows/Controls/Primitives/ButtonBase.h:3,
+                          from ../../include/System/Windows/Controls/Primitives/ToggleButton.h:3,
+                          from ToggleButton.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ToggleButton.cpp: In memberfunctie ævirtual int System::Windows::Controls::Primitives::ToggleButton::GetType() constÆ:
+         ToggleButton.cpp(23):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c UIElement.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from UIElement.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(15):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from UIElement.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from UIElement.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         UIElement.cpp: In memberfunctie ævirtual int System::Windows::UIElement::GetType() constÆ:
+         UIElement.cpp(14):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         g++ -c Window.cpp -c -O2 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i386 -mmmx -msse -mfpmath=sse -DENABLE_XBOX -DDEBUG -I/openxdk/i386-pc-xbox/include -I/openxdk/include -I/openxdk/include/SDL -I../../include
+         In file included from ../../include/System/Event.h(4):0,
+                          from ../../include/System/Windows/Window.h:3,
+                          from Window.cpp(1):
+         ../../include/System/Collections/Generic/List.h: In memberfunctie æint System::Collections::Generic::List<T>::GetType() constÆ:
+         ../../include/System/Collections/Generic/List.h(193):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Collections/Generic/Dictionary.h(14):0,
+                          from ../../include/System/Windows/DependencyObject.h:3,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Window.h:8,
+                          from Window.cpp(1):
+         ../../include/System/Collections/Generic/KeyValuePair.h: In memberfunctie æint System::Collections::Generic::KeyValuePair<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/KeyValuePair.h(38):5: let op: no return statement in function returning non-void [-Wreturn-type]
+         In file included from ../../include/System/Windows/DependencyObject.h(3):0,
+                          from ../../include/System/Windows/UIElement.h:3,
+                          from ../../include/System/Windows/FrameworkElement.h:4,
+                          from ../../include/System/Windows/Window.h:8,
+                          from Window.cpp(1):
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æint System::Collections::Generic::Dictionary<TKey, TValue>::GetType() constÆ:
+         ../../include/System/Collections/Generic/Dictionary.h(359):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         ../../include/System/Collections/Generic/Dictionary.h: In memberfunctie æbool System::Collections::Generic::Dictionary<TKey, TValue>::DictionaryEnumerator::MoveNext()Æ:
+         ../../include/System/Collections/Generic/Dictionary.h(618):4: let op: no return statement in function returning non-void [-Wreturn-type]
+         Window.cpp: In memberfunctie ævirtual int System::Windows::Window::GetType() constÆ:
+         Window.cpp(47):3: let op: no return statement in function returning non-void [-Wreturn-type]
+         ar rcu libSystem.Windows.a Border.o Brush.o ButtonBase.o ClosingEventArgs.o Color.o ContentControl.o Control.o CornerRadius.o FrameworkElement.o Grid.o MessageBox.o Panel.o Point.o RangeBase.o Size.o SolidColorBrush.o StackPanel.o SystemColors.o TextBlock.o TextBox.o Thickness.o Thumb.o ToggleButton.o UIElement.o Window.o
+         ranlib libSystem.Windows.a
+     1>Done Building Project "C:\Users\Tom\Dropbox\XFX\src\libSystem.Windows\libSystem.Windows.vcxproj" (rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:07.60

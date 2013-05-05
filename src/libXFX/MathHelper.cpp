@@ -44,8 +44,8 @@ namespace XFX
 
 	float MathHelper::CatmullRom(const float value1, const float value2, const float value3, const float value4, const float amount)
 	{
-	    float squared = amount * amount; 
-        float cubed = amount * squared; 
+		float squared = amount * amount; 
+		float cubed = amount * squared; 
 
 		return 0.5f * ((((2.0f * value2) + ((-value1 + value3) * amount)) +  
                          (((((2.0f * value1) - (5.0f * value2)) + (4.0f * value3)) - value4) * squared)) +  
@@ -56,7 +56,7 @@ namespace XFX
 	{
 		float x = value;
 		x = (x > max) ? max : x; 
-        x = (x < min) ? min : x;
+		x = (x < min) ? min : x;
 		return x;
 	}
 
@@ -68,11 +68,11 @@ namespace XFX
 	float MathHelper::Hermite(const float value1, const float tangent1, const float value2, const float tangent2, const float amount)
 	{
 		float squared = amount * amount; 
-        float cubed = amount * squared;
+		float cubed = amount * squared;
 		float part1 = ((2.0f * cubed) - (3.0f * squared)) + 1.0f; 
-        float part2 = (-2.0f * cubed) + (3.0f * squared); 
-        float part3 = (cubed - (2.0f * squared)) + amount; 
-        float part4 = cubed - squared; 
+		float part2 = (-2.0f * cubed) + (3.0f * squared); 
+		float part3 = (cubed - (2.0f * squared)) + amount; 
+		float part4 = cubed - squared; 
 
 		return (((value1 * part1) + (value2 * part2)) + (tangent1 * part3)) + (tangent2 * part4);
 	}
@@ -95,7 +95,7 @@ namespace XFX
 	float MathHelper::SmoothStep(const float value1, const float value2, const float amount)
 	{
 		float temp = Clamp(amount, 0.0f, 1.0f);
-        temp = (temp * temp) * (3.0f - (2.0f * temp)); 
+		temp = (temp * temp) * (3.0f - (2.0f * temp)); 
 		return value1 + ((value2 - value1) * temp);
 	}
 	

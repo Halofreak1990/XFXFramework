@@ -21,16 +21,19 @@ namespace System
 		UInt64(const ulong &obj);
 
 		int CompareTo(const UInt64 other) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt64 other) const;
 		int GetHashCode() const;
 		int GetType() const;
 		const char* ToString() const;
 		static const char* ToString(const ulong value);
-		static bool TryParse(const String& str, out ulong value);
+		static bool TryParse(const String& str, out ulong* value);
 
+		operator ulong() const;
 		bool operator==(const UInt64& right) const;
+		//bool operator==(const ulong& right) const;
 		bool operator!=(const UInt64& right) const;
+		//bool operator!=(const ulong& right) const;
 	};
 }
 

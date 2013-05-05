@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ComponentModel">
+      <UniqueIdentifier>{c27f7f17-e8c5-4d32-b61c-62d0b7477e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{519c6dac-df09-4c3e-988b-85243cb0038d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\Media">
+      <UniqueIdentifier>{f6d66b2c-e5ef-48c5-8c97-9de87785fccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\Controls">
+      <UniqueIdentifier>{4dff160e-6e69-4968-b6dd-b0a0e77063c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\Controls\Primitives">
+      <UniqueIdentifier>{57b1fa9b-dc26-43fe-8676-743ff828b830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\Input">
+      <UniqueIdentifier>{9a3911ad-bb20-494f-a194-8342db82c2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ComponentModel">
+      <UniqueIdentifier>{91e866a4-2d60-40a2-893b-cb0e9becb469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{d2871825-9156-4163-bebf-f20b068ea447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\Media">
+      <UniqueIdentifier>{7d6a0976-a755-42fd-b32a-aa069c4a768a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\Input">
+      <UniqueIdentifier>{5bfb2be8-71bb-4912-9d11-f47beadf3438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\Controls">
+      <UniqueIdentifier>{5bfa815c-3457-47a8-9e09-53a6e7f41d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\Controls\Primitives">
+      <UniqueIdentifier>{5ab985f5-6807-4ddd-8e16-a5e2d2e8e8f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ClosingEventArgs.cpp">
+      <Filter>Source Files\ComponentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="CornerRadius.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="DependencyObject.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameworkElement.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="GridLength.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBox.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Size.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemColors.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Thickness.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="UIElement.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Brush.cpp">
+      <Filter>Source Files\Windows\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Windows\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidColorBrush.cpp">
+      <Filter>Source Files\Windows\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="Border.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Canvas.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Control.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="StackPanel.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBlock.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonBase.cpp">
+      <Filter>Source Files\Windows\Controls\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="RangeBase.cpp">
+      <Filter>Source Files\Windows\Controls\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Thumb.cpp">
+      <Filter>Source Files\Windows\Controls\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleButton.cpp">
+      <Filter>Source Files\Windows\Controls\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentControl.cpp">
+      <Filter>Source Files\Windows\Controls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\System\ComponentModel\ClosingEventArgs.h">
+      <Filter>Header Files\ComponentModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\CornerRadius.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\DependencyObject.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Enums.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\FrameworkElement.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\GridLength.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="memutil.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\MessageBox.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Point.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\PresentationFrameworkCollection.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Rect.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\RoutedEventArgs.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\RoutedPropertyChangedEventArgs.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Size.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\SystemColors.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Thickness.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\UIElement.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Window.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Media\Brush.h">
+      <Filter>Header Files\Windows\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Media\Color.h">
+      <Filter>Header Files\Windows\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Media\SolidColorBrush.h">
+      <Filter>Header Files\Windows\Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Input\Enums.h">
+      <Filter>Header Files\Windows\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Input\KeyEventArgs.h">
+      <Filter>Header Files\Windows\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Input\MouseEventArgs.h">
+      <Filter>Header Files\Windows\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Border.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Button.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Canvas.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\ColumnDefinition.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\ContentControl.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Control.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Enums.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Grid.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Image.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\INavigate.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Panel.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\RowDefinition.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\StackPanel.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextBlock.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextBox.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextChangedEventArgs.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\UIElementCollection.h">
+      <Filter>Header Files\Windows\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\ButtonBase.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragCompletedEventArgs.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragDeltaEventArgs.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragStartedEventArgs.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\Popup.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\RangeBase.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\Thumb.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\ToggleButton.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\RepeatButton.h">
+      <Filter>Header Files\Windows\Controls\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\Input\MouseButtonEventArgs.h">
+      <Filter>Header Files\Windows\Input</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+</Project>

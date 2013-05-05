@@ -6,8 +6,7 @@
 # The ENABLE_XBOX definition is there because of intentions to eventually
 # support Linux as well
 #
-PREFIX = /usr/local/openxdk
-XFX_PREFIX = /usr/local/XFX
+PREFIX = /openxdk
 
 CC = gcc
 CCAS = gcc
@@ -17,10 +16,10 @@ RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG
-CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 CCAS_FLAGS = -g -O2
-CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-builtin -fno-rtti -fno-exceptions -mno-cygwin -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
-INCLUDE  = -I$(PREFIX)/i386-pc-xbox/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL -I$(XFX_PREFIX)/include
+CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-builtin -fno-rtti -fno-exceptions -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+INCLUDE  = -I$(PREFIX)/i386-pc-xbox/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL -I../../include
 
 CLINK = -nostdlib -fno-rtti -fno-exceptions
 ALIGN = -Wl,--file-alignment,0x20 -Wl,--section-alignment,0x20 
@@ -29,7 +28,7 @@ ENTRYPOINT = -Wl,--entry,_WinMainCRTStartup
 STRIP = -Wl,--strip-all
 LD_FLAGS = $(CLINK) $(ALIGN) $(SHARED) $(ENTRYPOINT) $(STRIP)
 LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib -L$(XFX_PREFIX)/lib
-LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lstdc++
+LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lgcc -lstdc++
 
 OBJS = BoundingBox.o BoundingFrustum.o BoundingSphere.o MathHelper.o Matrix.o Plane.o Point.o Quaternion.o Ray.o Rectangle.o Vector2.o Vector3.o Vector4.o
 AUDIO_OBJS = SoundEffect.o

@@ -24,6 +24,7 @@ namespace System
 		virtual ~Object() { }
 	};
 
+	// returns whether the type of obj1 matches that of obj2
 	bool is(Object const * const obj1, Object const * const obj2);
 }
 

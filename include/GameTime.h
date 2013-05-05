@@ -1,9 +1,9 @@
-/********************************************************
- *	GameTime.h											*
- *														*
- *	XFX GameTime definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GameTime.h																 *
+ *																			 *
+ *	XFX GameTime definition file											 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GAMETIME_
 #define _XFX_GAMETIME_
 
@@ -18,12 +18,12 @@ namespace XFX
 	{
 	private:
 		TimeSpan _elapsedGameTime; 
-     	bool _isRunningSlowly; 
-     	TimeSpan _totalGameTime; 
+		bool _isRunningSlowly; 
+		TimeSpan _totalGameTime; 
 	
 	public:
 		TimeSpan getElapsedGameTime() const;
-		bool IsRunningSlowly();
+		bool IsRunningSlowly() const;
 		TimeSpan getTotalGameTime() const;
 	
 		GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime);

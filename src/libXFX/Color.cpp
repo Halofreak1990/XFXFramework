@@ -309,5 +309,10 @@ namespace XFX
         { 
             return (_packedValue == other._packedValue);
         }
+
+		Color Color::operator*(const float scale) const
+		{
+			return Color(ToVector4() * scale);
+		}
 	}
 }

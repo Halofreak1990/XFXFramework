@@ -199,9 +199,9 @@ namespace System
 		{
 		}
 
-		bool StringBuilder::Equals(const Object* obj) const
+		bool StringBuilder::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals((*(StringBuilder*)obj)) : false;
+			return is(obj, this) ? *this == *(StringBuilder*)obj : false;
 		}
 
 		bool StringBuilder::Equals(const StringBuilder& other) const
@@ -211,6 +211,7 @@ namespace System
 
 		int StringBuilder::GetType() const
 		{
+			// TODO; implement
 		}
 
 		StringBuilder& StringBuilder::Remove(const int startIndex, const int length)

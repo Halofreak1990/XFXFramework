@@ -34,5 +34,19 @@ namespace XFX
 		BlendState::BlendState()
 		{
 		}
+
+		BlendState::~BlendState()
+		{
+			Dispose(false);
+		}
+
+		void BlendState::Dispose(bool disposing)
+		{
+		}
+
+		int BlendState::GetType() const
+		{
+			// TODO: implement
+		}
 	}
 }

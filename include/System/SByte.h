@@ -14,19 +14,23 @@ namespace System
 		static const sbyte MaxValue;
 		static const sbyte MinValue;
 
+		SByte();
 		SByte(const SByte &obj);
 		SByte(const sbyte &obj);
 
 		int CompareTo(const SByte other) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const SByte other) const;
 		int GetHashCode() const;
 		int GetType() const;
 		const char* ToString() const;
 		static const char* ToString(const sbyte value);
-		static bool TryParse(const String& str, out sbyte value);
+		static bool TryParse(const String& str, out sbyte* value);
 
+		operator sbyte() const;
 		bool operator==(const SByte& right) const;
+		bool operator==(const sbyte& right) const;
 		bool operator!=(const SByte& right) const;
+		bool operator!=(const sbyte& right) const;
 	};
 }

@@ -16,22 +16,25 @@ namespace System
 	public:
 		static const short MaxValue;
 		static const short MinValue;
-		short getValue();
 
+		Int16();
 		Int16(const Int16 &obj);
 		Int16(const short &obj);
 
 		int CompareTo(const Int16 other) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Int16 other) const;
 		int GetHashCode() const;
 		int GetType() const;
 		const char* ToString() const;
-		static const char* ToString(const short value) const;
-		static bool TryParse(const String& str, out short result);
+		static const char* ToString(const short value);
+		static bool TryParse(const String& str, out short* result);
 
-		bool operator==(const Int16 right) const;
-		bool operator!=(const Int16 right) const;
+		operator short() const;
+		bool operator==(const Int16& right) const;
+		//bool operator==(const short& right) const;
+		bool operator!=(const Int16& right) const;
+		//bool operator!=(const short& right) const;
 	};
 }
 

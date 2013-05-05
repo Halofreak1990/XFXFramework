@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4A050C55-9479-4AE9-8B7A-62A6B89739BD}</ProjectGuid>
+    <RootNamespace>libSystemWindows</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">make all 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">make rebuild 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">make clean 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeCleanCommandLine>
+    <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libSystem.Windows.a</NMakeOutput>
+    <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ENABLE_XBOX; DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
+    <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
+    <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog>
+      <Path>BuildLog.htm</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ClosingEventArgs.cpp" />
+    <ClCompile Include="ContentControl.cpp" />
+    <ClCompile Include="CornerRadius.cpp" />
+    <ClCompile Include="DependencyObject.cpp" />
+    <ClCompile Include="FrameworkElement.cpp" />
+    <ClCompile Include="GridLength.cpp" />
+    <ClCompile Include="MessageBox.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Size.cpp" />
+    <ClCompile Include="SystemColors.cpp" />
+    <ClCompile Include="Thickness.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Brush.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="SolidColorBrush.cpp" />
+    <ClCompile Include="Border.cpp" />
+    <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Panel.cpp" />
+    <ClCompile Include="StackPanel.cpp" />
+    <ClCompile Include="TextBlock.cpp" />
+    <ClCompile Include="TextBox.cpp" />
+    <ClCompile Include="ButtonBase.cpp" />
+    <ClCompile Include="RangeBase.cpp" />
+    <ClCompile Include="Thumb.cpp" />
+    <ClCompile Include="ToggleButton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\System\ComponentModel\ClosingEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\RepeatButton.h" />
+    <ClInclude Include="..\..\include\System\Windows\CornerRadius.h" />
+    <ClInclude Include="..\..\include\System\Windows\DependencyObject.h" />
+    <ClInclude Include="..\..\include\System\Windows\Enums.h" />
+    <ClInclude Include="..\..\include\System\Windows\FrameworkElement.h" />
+    <ClInclude Include="..\..\include\System\Windows\GridLength.h" />
+    <ClInclude Include="..\..\include\System\Windows\Input\MouseButtonEventArgs.h" />
+    <ClInclude Include="memutil.h" />
+    <ClInclude Include="..\..\include\System\Windows\MessageBox.h" />
+    <ClInclude Include="..\..\include\System\Windows\Point.h" />
+    <ClInclude Include="..\..\include\System\Windows\PresentationFrameworkCollection.h" />
+    <ClInclude Include="..\..\include\System\Windows\Rect.h" />
+    <ClInclude Include="..\..\include\System\Windows\RoutedEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\RoutedPropertyChangedEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Size.h" />
+    <ClInclude Include="..\..\include\System\Windows\SystemColors.h" />
+    <ClInclude Include="..\..\include\System\Windows\Thickness.h" />
+    <ClInclude Include="..\..\include\System\Windows\UIElement.h" />
+    <ClInclude Include="..\..\include\System\Windows\Window.h" />
+    <ClInclude Include="..\..\include\System\Windows\Media\Brush.h" />
+    <ClInclude Include="..\..\include\System\Windows\Media\Color.h" />
+    <ClInclude Include="..\..\include\System\Windows\Media\SolidColorBrush.h" />
+    <ClInclude Include="..\..\include\System\Windows\Input\Enums.h" />
+    <ClInclude Include="..\..\include\System\Windows\Input\KeyEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Input\MouseEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Border.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Button.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Canvas.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\ColumnDefinition.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\ContentControl.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Control.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Enums.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Grid.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Image.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\INavigate.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Panel.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\RowDefinition.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\StackPanel.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextBlock.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextBox.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\TextChangedEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\UIElementCollection.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\ButtonBase.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragCompletedEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragDeltaEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\DragStartedEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\Popup.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\RangeBase.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\Thumb.h" />
+    <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\ToggleButton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="makefile" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -152,6 +152,11 @@ namespace System
 		return Compare(*this, ts);
 	}
 
+	bool TimeSpan::Equals(Object const * const obj) const
+	{
+		return is(obj, this) ? *this == *(TimeSpan*)obj : false;
+	}
+
 	bool TimeSpan::Equals(const TimeSpan obj) const
 	{
 		return (_ticks == obj._ticks);
@@ -223,42 +228,42 @@ namespace System
 		return String::Format("Ticks: %l", _ticks);
 	}
 
-	TimeSpan TimeSpan::operator +(const TimeSpan other)
+	TimeSpan TimeSpan::operator +(const TimeSpan& other)
 	{
 		return Add(other);
 	}
 
-	bool TimeSpan::operator==(const TimeSpan other) const
+	bool TimeSpan::operator==(const TimeSpan& other) const
 	{
 		return Equals(other);
 	}
 
-	bool TimeSpan::operator >(const TimeSpan other) const
+	bool TimeSpan::operator >(const TimeSpan& other) const
 	{
 		return _ticks > other._ticks;
 	}
 
-	bool TimeSpan::operator >=(const TimeSpan other) const
+	bool TimeSpan::operator >=(const TimeSpan& other) const
 	{
 		return _ticks >= other._ticks;
 	}
 	
-	bool TimeSpan::operator!=(const TimeSpan other) const
+	bool TimeSpan::operator!=(const TimeSpan& other) const
 	{
 		return !Equals(other);
 	}
 
-	bool TimeSpan::operator <(const TimeSpan other) const
+	bool TimeSpan::operator <(const TimeSpan& other) const
 	{
 		return _ticks < other._ticks;
 	}
 
-	bool TimeSpan::operator <=(const TimeSpan other) const
+	bool TimeSpan::operator <=(const TimeSpan& other) const
 	{
 		return _ticks <= other._ticks;
 	}
 
-	TimeSpan TimeSpan::operator -(const TimeSpan other)
+	TimeSpan TimeSpan::operator -(const TimeSpan& other)
 	{
 		return Subtract(other);
 	}

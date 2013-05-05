@@ -50,7 +50,7 @@ namespace System
 			StringBuilder& AppendLine(const String& value);
 			void CopyTo(const int sourceIndex, char destination[], const int destinationIndex, const int count);
 			int EnsureCapacity(const int capacity);
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const StringBuilder& other) const;
 			int GetType() const;
 			StringBuilder& Insert(const int index, const bool value);

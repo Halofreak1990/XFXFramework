@@ -8,11 +8,12 @@
 #define _SYSTEM_BYTE_
 
 #include "Interfaces.h"
-#include "String.h"
 #include "Object.h"
 
 namespace System
 {
+	class String;
+
 	// Represents an 8-bit unsigned integer.
 	struct Byte : IComparable<Byte>, IEquatable<Byte>, Object
 	{
@@ -23,8 +24,7 @@ namespace System
 		static const byte MaxValue;
 		static const byte MinValue;
 
-		byte getValue() const;
-
+		Byte();
 		Byte(const Byte &obj);
 		Byte(const byte &obj);
 
@@ -32,11 +32,12 @@ namespace System
 		bool Equals(const Byte other) const;
 		int GetType() const;
 		const char* ToString() const;
-		static const char* ToString(byte value);
-		static bool TryParse(const String& str, out byte result);
+		static const char* ToString(const byte value);
+		static bool TryParse(const String& str, out byte* result);
 
-		bool operator!=(const Byte right) const;
-		bool operator==(const Byte right) const;
+		operator byte() const;
+		bool operator!=(const Byte& right) const;
+		bool operator==(const Byte& right) const;
 	};
 }
 
