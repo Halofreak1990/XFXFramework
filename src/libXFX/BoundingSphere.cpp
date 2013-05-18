@@ -47,7 +47,7 @@ namespace XFX
 
 	bool BoundingSphere::Equals(const Object* obj) const
 	{
-		return is(this, obj) ? this->Equals((*(BoundingSphere*)obj)) : false;
+		return is(this, obj) ? *this == *(BoundingSphere *)obj : false;
 	}
 
 	bool BoundingSphere::Equals(const BoundingSphere other) const
@@ -62,12 +62,12 @@ namespace XFX
 
 	const char* BoundingSphere::ToString() const
 	{
-		return String::Format("{{Center:%s Radius:%f}}", Center.ToString(), Radius);
+		return String::Format("{Center:%s Radius:%f}", Center.ToString(), Radius);
 	}
 	
 	bool BoundingSphere::operator!=(const BoundingSphere& other) const
 	{
-		return !((Center == other.Center) && (Radius == other.Radius));
+		return ((Center != other.Center) || (Radius != other.Radius));
 	}
 	
 	bool BoundingSphere::operator==(const BoundingSphere& other) const

@@ -1,7 +1,15 @@
+/*****************************************************************************
+ *	AudioCategory.h 														 *
+ *																			 *
+ *	XFX AudioCategory definition file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef XFX_AUDIO_AUDIOCATEGORY_H
 #define XFX_AUDIO_AUDIOCATEGORY_H
 
 #include <System/String.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -11,14 +19,16 @@ namespace XFX
 		{
 			String Name;
 
+			int GetType() const;
 			void Pause();
-			bool operator!=(const AudioCategory &other) const;
-			bool operator==(const AudioCategory &other) const;
 			void Resume();
 			void SetVolume(float volume);
 			void Stop();
+
+			bool operator!=(const AudioCategory& other) const;
+			bool operator==(const AudioCategory& other) const;
 		};
 	}
 }
 
-#endif //XFX_AUDIO_AUDIOCATEGORY_H
+#endif // XFX_AUDIO_AUDIOCATEGORY_H

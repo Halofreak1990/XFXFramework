@@ -952,7 +952,7 @@ namespace XFX
     
 	bool Matrix::Equals(const Object* obj) const
 	{
-		return is(this, obj) ? this->Equals((*(Matrix*)obj)) : false;
+		return is(this, obj) ? *this == *(Matrix*)obj : false;
 	}
 
     bool Matrix::Equals(const Matrix other) const
@@ -1190,10 +1190,10 @@ namespace XFX
 
 	const char* Matrix::ToString() const
 	{
-		return String::Format("{{{M11:%f M12:%f M13:%f M14:%f}}\
-								{{M21:%f M22:%f M23:%f M24:%f}}\
-								{{M31:%f M32:%f M33:%f M34:%f}}\
-								{{M41:%f M42:%f M43:%f M44:%f}}}",
+		return String::Format("{{M11:%f M12:%f M13:%f M14:%f}\
+								{M21:%f M22:%f M23:%f M24:%f}\
+								{M31:%f M32:%f M33:%f M34:%f}\
+								{M41:%f M42:%f M43:%f M44:%f}}",
 			M11, M12, M13, M14, M21, M22, M23, M24,
 			M31, M32, M33, M34, M41, M42, M43, M44);
 	}
@@ -1205,7 +1205,7 @@ namespace XFX
 		return ret;  
 	}
 
-	void Matrix::Transpose(Matrix matrix, Matrix result)
+	void Matrix::Transpose(Matrix matrix, out Matrix result)
 	{
 		result.M11 = matrix.M11;
 		result.M12 = matrix.M21;

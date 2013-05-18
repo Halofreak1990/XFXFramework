@@ -49,7 +49,7 @@ namespace XFX
 
 	bool Point::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? *this == *(Point*)obj : false;
+		return is(this, obj) ? *this == *(Point *)obj : false;
 	}
 
 	bool Point::Equals(const Point other) const

@@ -1,9 +1,9 @@
-/********************************************************
- *	DisplayModeCollection.h								*
- *														*
- *	XFX DisplayModeCollection definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	DisplayModeCollection.h													 *
+ *																			 *
+ *	XFX DisplayModeCollection definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_DISPLAYMODECOLLECTION_
 #define _XFX_GRAPHICS_DISPLAYMODECOLLECTION_
 
@@ -19,7 +19,7 @@ namespace XFX
 	namespace Graphics
 	{
 		// Manipulates a collection of DisplayMode structures.
-		struct DisplayModeCollection
+		struct DisplayModeCollection : Object
 		{
 		private:
 			int adapterOrdinal;
@@ -30,9 +30,10 @@ namespace XFX
 		public:
 			DisplayModeCollection();
 
-			bool Equals(Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			IEnumerator<DisplayMode>* GetEnumerator();
 			int GetHashCode() const;
+			int GetType() const;
 
 			bool operator!=(const DisplayModeCollection& other) const;
 			bool operator==(const DisplayModeCollection& other) const;

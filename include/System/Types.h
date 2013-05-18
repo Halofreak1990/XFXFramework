@@ -1,9 +1,9 @@
-/********************************************************
- *	Types.h												*
- *														*
- *	Defines types for the entire XFX Framework			*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Types.h																	 *
+ *																			 *
+ *	Defines types for the entire XFX Framework								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_TYPES_
 #define _SYSTEM_TYPES_
 
@@ -37,10 +37,22 @@ namespace System
 //
 #define out
 
+#if _MSC_VER
+#define __attribute__(x)
+#endif
+
 // Aligning Data types
 //
 #define ALIGNED4 __attribute__((aligned (4)))
 #define ALIGNED8 __attribute__((aligned (8)))
 #define ALIGNED16 __attribute__((aligned (16)))
+
+#if _MSC_VER
+#define FORMAT(...) __attribute__((format(__VA_ARGS__)))
+#define NONNULL(...) __attribute__((nonnull(__VA_ARGS__)))
+#else
+#define FORMAT(x...) __attribute__((format(x)))
+#define NONNULL(x...) __attribute__((nonnull(x)))
+#endif
 
 #endif //_SYSTEM_TYPES_

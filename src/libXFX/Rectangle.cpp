@@ -77,7 +77,7 @@ namespace XFX
 		return ((pt.X >= X) && (pt.Y >=Y) && (pt.X <= Right()) && (pt.Y <= Bottom()));
 	}
 	
-	void Rectangle::Contains(Point pt, out int result)
+	void Rectangle::Contains(Point pt, out bool& result)
 	{
 		result = ((pt.X >= X) && (pt.Y >=Y) && (pt.X <= Right()) && (pt.Y <= Bottom()));
 	}
@@ -87,14 +87,14 @@ namespace XFX
 		return ((other.X >= X) && (other.Y >= Y) && (other.Bottom() <= Bottom()) && (other.Right() <= Right()));
 	}
 	
-	void Rectangle::Contains(Rectangle other, out int result)
+	void Rectangle::Contains(Rectangle other, out bool& result)
 	{
 		result = ((other.X >= X) && (other.Y >= Y) && (other.Bottom() <= Bottom()) && (other.Right() <= Right()));
 	}
 	
-	bool Rectangle::Equals(const Object *obj) const
+	bool Rectangle::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? (*this == *(Rectangle*)obj) : false;
+		return is(this, obj) ? *this == *(Rectangle *)obj : false;
 	}
 
 	bool Rectangle::Equals(const Rectangle obj) const
@@ -102,7 +102,7 @@ namespace XFX
 		return (*this == obj);
 	}
 	
-	int Rectangle::GetHashCode()
+	int Rectangle::GetHashCode() const
 	{
 		return X ^ Y ^ Width ^ Height;
 	}
@@ -123,7 +123,7 @@ namespace XFX
 		return ((Contains(other.Left(), other.Top())) || (Contains(other.Left(), other.Bottom())) || (Contains(other.Right(), other.Top())) || (Contains(other.Right(),other.Bottom())));
 	}
 	
-	void Rectangle::Intersects(Rectangle other, out int result)
+	void Rectangle::Intersects(Rectangle other, out bool& result)
 	{
 		result = Intersects(other);
 	}
@@ -147,6 +147,6 @@ namespace XFX
 	
 	bool Rectangle::operator!=(const Rectangle& other) const
 	{
-		return !((X == other.X) && (Y == other.Y) && (Width == other.Width) && (Height == other.Height));
+		return ((X != other.X) || (Y != other.Y) || (Width != other.Width) || (Height != other.Height));
 	}
 }

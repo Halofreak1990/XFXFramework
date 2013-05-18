@@ -1,9 +1,9 @@
-/********************************************************
- *	BoundingBox.h										*
- *														*
- *	XFX BoundingBox definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	BoundingBox.h															 *
+ *																			 *
+ *	XFX BoundingBox definition file											 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_BOUNDINGBOX_
 #define _XFX_BOUNDINGBOX_
 
@@ -29,29 +29,29 @@ namespace XFX
 		BoundingBox(const BoundingBox &obj);
 		BoundingBox();
 
-		ContainmentType_t Contains(const BoundingBox box) const;
-		void Contains(const BoundingBox& box, out ContainmentType_t& result) const;
-		ContainmentType_t Contains(const BoundingSphere sphere) const;
-		void Contains(const BoundingSphere& sphere, out ContainmentType_t& result) const;
-		ContainmentType_t Contains(const Vector3 vector) const;
-		void Contains(const Vector3& vector, out ContainmentType_t& result) const;
-		static BoundingBox CreateFromPoints(const Vector3 points[], const int startIndex, const int length);
-		static BoundingBox CreateFromSphere(const BoundingSphere sphere);
-		static void CreateFromSphere(const BoundingSphere& sphere, out BoundingBox& result);
-		static BoundingBox CreateMerged(const BoundingBox box1, const BoundingBox box2);
-		static void CreateMerged(const BoundingBox& box1, const BoundingBox& box2, out BoundingBox& result);
-		bool Equals(const Object* obj) const;
+		ContainmentType_t Contains(BoundingBox box) const;
+		void Contains(BoundingBox box, out ContainmentType_t& result) const;
+		ContainmentType_t Contains(BoundingSphere sphere) const;
+		void Contains(BoundingSphere sphere, out ContainmentType_t& result) const;
+		ContainmentType_t Contains(Vector3 vector) const;
+		void Contains(Vector3 vector, out ContainmentType_t& result) const;
+		static BoundingBox CreateFromPoints(Vector3 points[], int startIndex, int length);
+		static BoundingBox CreateFromSphere(BoundingSphere sphere);
+		static void CreateFromSphere(BoundingSphere sphere, out BoundingBox& result);
+		static BoundingBox CreateMerged(BoundingBox box1, BoundingBox box2);
+		static void CreateMerged(BoundingBox box1, BoundingBox box2, out BoundingBox& result);
+		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingBox obj) const;
 		int GetHashCode() const;
 		int GetType() const;
-		bool Intersects(const BoundingBox box) const;
-		void Intersects(const BoundingBox& box, out bool& result) const;
-		bool Intersects(const BoundingSphere sphere) const;
-		void Intersects(const BoundingSphere& sphere, out bool& result) const;
-		PlaneIntersectionType_t Intersects(const Plane plane) const;
-		void Intersects(const Plane& plane, out PlaneIntersectionType_t& result) const;
-		float Intersects(const Ray ray) const;
-		void Intersects(const Ray& ray, out float& distance) const;
+		bool Intersects(BoundingBox box) const;
+		void Intersects(BoundingBox box, out bool& result) const;
+		bool Intersects(BoundingSphere sphere) const;
+		void Intersects(BoundingSphere sphere, out bool& result) const;
+		PlaneIntersectionType_t Intersects(Plane plane) const;
+		void Intersects(Plane plane, out PlaneIntersectionType_t& result) const;
+		float Intersects(Ray ray) const;
+		void Intersects(Ray ray, out float& distance) const;
 		const char* ToString() const;
 		
 		bool operator!=(const BoundingBox& other) const;

@@ -1,9 +1,9 @@
-/********************************************************
- *	DisplayMode.h										*
- *														*
- *	XFX DisplayMode structure definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	DisplayMode.h															 *
+ *																			 *
+ *	XFX DisplayMode structure definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_DISPLAYMODE_
 #define _XFX_GRAPHICS_DISPLAYMODE_
 
@@ -29,7 +29,7 @@ namespace XFX
 			int Width;
 				
 			DisplayMode();
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
 			

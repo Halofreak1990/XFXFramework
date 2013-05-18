@@ -1,9 +1,9 @@
-/********************************************************
- *	BitConverter.h										*
- *														*
- *	XFX BitConverter definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	BitConverter.h															 *
+ *																			 *
+ *	XFX BitConverter definition file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_BITCONVERTER_
 #define _SYSTEM_BITCONVERTER_
 
@@ -15,7 +15,7 @@ namespace System
 	class BitConverter
 	{
 	private:
-		static byte* GetBytes(byte *ptr, int count) __attribute__((nonnull(1)));
+		static byte* GetBytes(byte *ptr, int count) NONNULL(1);
 		static bool AmIBigOrLittleEndian();
 		static bool SwappedWordsInDouble();
 
@@ -34,16 +34,16 @@ namespace System
 		static byte* GetBytes(ushort value);
 		static byte* GetBytes(uint value);
 		static byte* GetBytes(ulong value);
-		static bool ToBoolean(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static char ToChar(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static double ToDouble(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static short ToInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static int ToInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static long long ToInt64(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static float ToSingle(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static ushort ToUInt16(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static uint ToUInt32(byte value[], int startIndex) __attribute__((nonnull(1)));
-		static ulong ToUInt64(byte value[], int startIndex) __attribute__((nonnull(1)));
+		static bool ToBoolean(byte value[], int startIndex) NONNULL(1);
+		static char ToChar(byte value[], int startIndex) NONNULL(1);
+		static double ToDouble(byte value[], int startIndex) NONNULL(1);
+		static short ToInt16(byte value[], int startIndex) NONNULL(1);
+		static int ToInt32(byte value[], int startIndex) NONNULL(1);
+		static long long ToInt64(byte value[], int startIndex) NONNULL(1);
+		static float ToSingle(byte value[], int startIndex) NONNULL(1);
+		static ushort ToUInt16(byte value[], int startIndex) NONNULL(1);
+		static uint ToUInt32(byte value[], int startIndex) NONNULL(1);
+		static ulong ToUInt64(byte value[], int startIndex) NONNULL(1);
 	};
 }
 

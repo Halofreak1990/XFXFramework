@@ -1,10 +1,10 @@
-/********************************************************
- *	Array.h												*
- *														*
- *	XFX Array class definition file						*
- *	Contains array helper methods						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Array.h																	 *
+ *																			 *
+ *	XFX Array class definition file											 *
+ *	Contains array helper methods											 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_ARRAY_
 #define _SYSTEM_ARRAY_
 
@@ -48,12 +48,15 @@ namespace System
 
 		~Array() { delete[] _array; }
 
+		template <typename U>
+		static void Clear(U array[], int startIndex, int count)
+		{
+			memset(&array[startIndex], 0, sizeof(U) * count);
+		}
+
 		void Clear()
 		{
-			for (int i = 0; i < Length; i++)
-			{
-				_array[i] = null;
-			}
+			Clear(_array, 0, Length);
 		}
 
 		bool Contains(const T item) const
@@ -180,10 +183,7 @@ namespace System
 
 		void Clear()
 		{
-			for (int i = 0; i < Length; i++)
-			{
-				_array[i] = null;
-			}
+			memset(_array, 0, sizeof(T *) * Length);
 		}
 
 		bool Contains(const T* item) const

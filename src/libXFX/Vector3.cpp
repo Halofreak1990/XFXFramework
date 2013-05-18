@@ -83,7 +83,7 @@ namespace XFX
 		return Vector3(value1.X + value2.X, value1.Y + value2.Y, value1.Z + value2.Z);
 	}
 
-	void Vector3::Add(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Add(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = value1.X + value2.X;
 		result.Y = value1.Y + value2.Y;
@@ -99,7 +99,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::Baricentric(Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2, out Vector3 result)
+	void Vector3::Baricentric(Vector3 value1, Vector3 value2, Vector3 value3, float amount1, float amount2, out Vector3& result)
 	{
 		result.X = MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2);
 		result.Z = MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2);
@@ -115,7 +115,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::CatmullRom(Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount, out Vector3 result)
+	void Vector3::CatmullRom(Vector3 value1, Vector3 value2, Vector3 value3, Vector3 value4, float amount, out Vector3& result)
 	{
 		result.X = MathHelper::CatmullRom(value1.X, value2.X, value3.X, value4.X, amount);
 		result.Y = MathHelper::CatmullRom(value1.Y, value2.Y, value3.Y, value4.Y, amount);
@@ -131,7 +131,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::Clamp(Vector3 value1, Vector3 min, Vector3 max, out Vector3 result)
+	void Vector3::Clamp(Vector3 value1, Vector3 min, Vector3 max, out Vector3& result)
 	{
 		result.X = MathHelper::Clamp(value1.X, min.X, max.X);
 		result.Y = MathHelper::Clamp(value1.Y, min.Y, max.Y);
@@ -147,7 +147,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::Cross(Vector3 vector1, Vector3 vector2, out Vector3 result)
+	void Vector3::Cross(Vector3 vector1, Vector3 vector2, out Vector3& result)
 	{
 		result.X = vector1.Y * vector2.Z - vector1.Z * vector2.Y;
 		result.Y = vector1.Z * vector2.X - vector1.X * vector2.Z;
@@ -163,7 +163,7 @@ namespace XFX
 		return Math::Sqrt((x*x) + (y*y) + (z*z));
 	}
 	
-	void Vector3::Distance(Vector3 value1, Vector3 value2, out float result)
+	void Vector3::Distance(Vector3 value1, Vector3 value2, out float& result)
 	{
 		float x = value1.X - value2.X;
         float y = value1.Y - value2.Y;
@@ -181,7 +181,7 @@ namespace XFX
         return (x*x) + (y*y) + (z*z);
 	}
 	
-	void Vector3::DistanceSquared(Vector3 value1, Vector3 value2, out float result)
+	void Vector3::DistanceSquared(Vector3 value1, Vector3 value2, out float& result)
 	{
 		float x = value1.X - value2.X;
         float y = value1.Y - value2.Y;
@@ -195,7 +195,7 @@ namespace XFX
 		return Vector3(value1.X / value2, value1.Y / value2, value1.Z / value2);
 	}
 	
-	void Vector3::Divide(Vector3 value1, float value2, out Vector3 result)
+	void Vector3::Divide(Vector3 value1, float value2, out Vector3& result)
 	{
 		result.X = value1.X / value2;
 		result.Y = value1.Y / value2;
@@ -211,7 +211,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::Divide(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Divide(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = value1.X / value2.X;
 		result.Y = value1.Y / value2.Y;
@@ -223,14 +223,14 @@ namespace XFX
 		return (value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z);
 	}
 	
-	void Vector3::Dot(Vector3 value1, Vector3 value2, out float result)
+	void Vector3::Dot(Vector3 value1, Vector3 value2, out float& result)
 	{
 		result = (value1.X * value2.X + value1.Y * value2.Y + value1.Z * value2.Z);
 	}
 
-	bool Vector3::Equals(const Object* obj) const
+	bool Vector3::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? (*this == *(Vector3*)obj) : false;
+		return is(this, obj) ? *this == *(Vector3*)obj : false;
 	}
 
 	bool Vector3::Equals(const Vector3 other) const
@@ -251,13 +251,11 @@ namespace XFX
 	Vector3 Vector3::Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount)
 	{
 		Vector3 result;
-		result.X = MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
-		result.Y = MathHelper::Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount);
-		result.Z = MathHelper::Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
+		Hermite(value1, tangent1, value2, tangent2, amount, result);
 		return result;
 	}
 	
-	void Vector3::Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount, out Vector3 result)
+	void Vector3::Hermite(Vector3 value1, Vector3 tangent1, Vector3 value2, Vector3 tangent2, float amount, out Vector3& result)
 	{
 		result.X = MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
 		result.Y = MathHelper::Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount);
@@ -277,13 +275,11 @@ namespace XFX
 	Vector3 Vector3::Lerp(Vector3 value1, Vector3 value2, float amount)
 	{
 		Vector3 result;
-		result.X = MathHelper::Lerp(value1.X, value2.X, amount);
-		result.Y = MathHelper::Lerp(value1.Y, value2.Y, amount);
-		result.Z = MathHelper::Lerp(value1.Z, value2.Z, amount);
+		Lerp(value1, value2, amount, result);
 		return result;
 	}
 	
-	void Vector3::Lerp(Vector3 value1, Vector3 value2, float amount, out Vector3 result)
+	void Vector3::Lerp(Vector3 value1, Vector3 value2, float amount, out Vector3& result)
 	{
 		result.X = MathHelper::Lerp(value1.X, value2.X, amount);
 		result.Y = MathHelper::Lerp(value1.Y, value2.Y, amount);
@@ -293,13 +289,11 @@ namespace XFX
 	Vector3 Vector3::Max(Vector3 value1, Vector3 value2)
 	{
 		Vector3 result;
-		result.X = (value1.X > value2.X) ? value1.X : value2.X;
-		result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
-		result.Z = (value1.Z > value2.Z) ? value1.Z : value2.Z;
+		Max(value1, value2, result);
 		return result;
 	}
 	
-	void Vector3::Max(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Max(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = (value1.X > value2.X) ? value1.X : value2.X;
 		result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
@@ -309,13 +303,11 @@ namespace XFX
 	Vector3 Vector3::Min(Vector3 value1, Vector3 value2)
 	{
 		Vector3 result;
-		result.X = (value1.X < value2.X) ? value1.X : value2.X;
-		result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
-		result.Z = (value1.Z < value2.Z) ? value1.Z : value2.Z;
+		Min(value1, value2, result);
 		return result;
 	}
 	
-	void Vector3::Min(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Min(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = (value1.X < value2.X) ? value1.X : value2.X;
 		result.Y = (value1.Y < value2.Y) ? value1.Y : value2.Y;
@@ -325,13 +317,11 @@ namespace XFX
 	Vector3 Vector3::Multiply(Vector3 value1, float scaleFactor)
 	{
 		Vector3 result;
-		result.X = value1.X * scaleFactor;
-		result.Y = value1.Y * scaleFactor;
-		result.Z = value1.Z * scaleFactor;
+		Multiply(value1, scaleFactor, result);
 		return result;
 	}
 	
-	void Vector3::Multiply(Vector3 value1, float scaleFactor, out Vector3 result)
+	void Vector3::Multiply(Vector3 value1, float scaleFactor, out Vector3& result)
 	{
 		result.X = value1.X * scaleFactor;
 		result.Y = value1.Y * scaleFactor;
@@ -341,13 +331,11 @@ namespace XFX
 	Vector3 Vector3::Multiply(Vector3 value1, Vector3 value2)
 	{
 		Vector3 result;
-		result.X = value1.X * value2.X;
-		result.Y = value1.Y * value2.Y;
-		result.Z = value1.Z * value2.Z;
+		Multiply(value1, value2, result);
 		return result;
 	}
 	
-	void Vector3::Multiply(Vector3 value1, Vector3 value2, out Vector3 result)
+	void Vector3::Multiply(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = value1.X * value2.X;
 		result.Y = value1.Y * value2.Y;
@@ -357,13 +345,11 @@ namespace XFX
 	Vector3 Vector3::Negate(Vector3 value)
 	{
 		Vector3 result;
-		result.X = -value.X;
-		result.Y = -value.Y;
-		result.Z = -value.Z;
+		Negate(value, result);
 		return result;
 	}
 	
-	void Vector3::Negate(Vector3 value, out Vector3 result)
+	void Vector3::Negate(Vector3 value, out Vector3& result)
 	{
 		result.X = -value.X;
 		result.Y = -value.Y;
@@ -394,7 +380,7 @@ namespace XFX
         return result;
 	}
 	
-	void Vector3::Normalize(Vector3 value, out Vector3 result)
+	void Vector3::Normalize(Vector3 value, out Vector3& result)
 	{
 		float length = value.Length(); 
         if(length == 0) 
@@ -408,16 +394,11 @@ namespace XFX
 	Vector3 Vector3::Reflect(Vector3 vector, Vector3 normal)
 	{
 		Vector3 result; 
-        float dot = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z); 
-  
-        result.X = vector.X - ((2.0f * dot) * normal.X); 
-        result.Y = vector.Y - ((2.0f * dot) * normal.Y); 
-        result.Z = vector.Z - ((2.0f * dot) * normal.Z); 
-  
+        Reflect(vector, normal, result);
         return result; 
 	}
 	
-	void Vector3::Reflect(Vector3 vector, Vector3 normal, out Vector3 result)
+	void Vector3::Reflect(Vector3 vector, Vector3 normal, out Vector3& result)
 	{
 		float dot = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z); 
   
@@ -429,13 +410,11 @@ namespace XFX
     Vector3 Vector3::SmoothStep(Vector3 value1, Vector3 value2, float amount)
     {
 	    Vector3 result;
-	    result.X = MathHelper::SmoothStep(value1.X, value2.X, amount);
-	    result.Y = MathHelper::SmoothStep(value1.Y, value2.Y, amount);
-	    result.Z = MathHelper::SmoothStep(value1.Z, value2.Z, amount);
+	    SmoothStep(value1, value2, amount, result);
 	    return result;
     }
     
-    void Vector3::SmoothStep(Vector3 value1, Vector3 value2, float amount, out Vector3 result)
+    void Vector3::SmoothStep(Vector3 value1, Vector3 value2, float amount, out Vector3& result)
     {
 	    result.X = MathHelper::SmoothStep(value1.X, value2.X, amount);
 	    result.Y = MathHelper::SmoothStep(value1.Y, value2.Y, amount);
@@ -445,13 +424,11 @@ namespace XFX
     Vector3 Vector3::Subtract(Vector3 value1, Vector3 value2)
     {
 	    Vector3 result;
-	    result.X = value1.X - value2.X;
-	    result.Y = value1.Y - value2.Y;
-	    result.Z = value1.Z - value2.Z;
+	    Subtract(value1, value2, result);
 	    return result;
     }
     
-    void Vector3::Subtract(Vector3 value1, Vector3 value2, out Vector3 result)
+    void Vector3::Subtract(Vector3 value1, Vector3 value2, out Vector3& result)
 	{
 		result.X = value1.X - value2.X;
 	    result.Y = value1.Y - value2.Y;
@@ -465,17 +442,12 @@ namespace XFX
 	
 	Vector3 Vector3::Transform(Vector3 position, Matrix matrix)
 	{
-		Vector4 vector; 
-  
-        vector.X = (((vector.X * matrix.M11) + (vector.Y * matrix.M21)) + (vector.Z * matrix.M31)) + matrix.M41; 
-        vector.Y = (((vector.X * matrix.M12) + (vector.Y * matrix.M22)) + (vector.Z * matrix.M32)) + matrix.M42; 
-        vector.Z = (((vector.X * matrix.M13) + (vector.Y * matrix.M23)) + (vector.Z * matrix.M33)) + matrix.M43; 
-        vector.W = 1 / ((((vector.X * matrix.M14) + (vector.Y * matrix.M24)) + (vector.Z * matrix.M34)) + matrix.M44); 
-  
-        return Vector3( vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W ); 
+		Vector3 result;
+		Transform(position, matrix, result);
+		return result;
 	}
 	
-	void Vector3::Transform(Vector3 position, Matrix matrix, out Vector3 result)
+	void Vector3::Transform(Vector3 position, Matrix matrix, out Vector3& result)
 	{
 		Vector4 vector; 
   
@@ -496,7 +468,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Vector3::Transform(Vector3 position, Quaternion rotation, out Vector3 result)
+	void Vector3::Transform(Vector3 position, Quaternion rotation, out Vector3& result)
 	{
 		Vector3 xyz = Vector3(rotation.X,rotation.Y, rotation.Z), temp, temp2;
 		Cross(xyz, position, temp);
@@ -538,7 +510,7 @@ namespace XFX
         return result; 
 	}
 	
-	void Vector3::TransformNormal(Vector3 normal, Matrix matrix, out Vector3 result)
+	void Vector3::TransformNormal(Vector3 normal, Matrix matrix, out Vector3& result)
 	{
 		result.X = ((normal.X * matrix.M11) + (normal.Y * matrix.M21)) + (normal.Z * matrix.M31); 
         result.Y = ((normal.X * matrix.M12) + (normal.Y * matrix.M22)) + (normal.Z * matrix.M32); 
@@ -557,7 +529,7 @@ namespace XFX
 		}
 	}
 	
-	Vector3 Vector3::operator+(Vector3 other)
+	Vector3 Vector3::operator+(const Vector3& other)
 	{
 		Vector3 result;
 		result.X = X + other.X;
@@ -566,7 +538,7 @@ namespace XFX
 		return result;
 	}
 	
-	Vector3 Vector3::operator/(float divider)
+	Vector3 Vector3::operator/(const float divider)
 	{
 		Vector3 result;
 		result.X = X / divider;
@@ -575,7 +547,7 @@ namespace XFX
 		return result;
 	}
 	
-	Vector3 Vector3::operator/(Vector3 other)
+	Vector3 Vector3::operator/(const Vector3& other)
 	{
 		Vector3 result;
 		result.X = X / other.X;
@@ -584,17 +556,17 @@ namespace XFX
 		return result;
 	}
 	
-	bool Vector3::operator==(const Vector3 other) const
+	bool Vector3::operator==(const Vector3& other) const
 	{
 		return Equals(other);
 	}
 	
-	bool Vector3::operator!=(const Vector3 other) const
+	bool Vector3::operator!=(const Vector3& other) const
 	{
 		return !Equals(other);
 	}
 	
-	Vector3 Vector3::operator*(float scaleFactor)
+	Vector3 Vector3::operator*(const float scaleFactor)
 	{
 		Vector3 result;
 		result.X = X * scaleFactor;
@@ -603,7 +575,7 @@ namespace XFX
 		return result;
 	}
 	
-	Vector3 Vector3::operator*(Vector3 other)
+	Vector3 Vector3::operator*(const Vector3& other)
 	{
 		Vector3 result;
 		result.X = X * other.X;
@@ -612,7 +584,7 @@ namespace XFX
 		return result;
 	}
 	
-	Vector3 Vector3::operator-(Vector3 other)
+	Vector3 Vector3::operator-(const Vector3& other)
 	{
 		return Vector3(X -= other.X, Y -= other.Y, Z -= other.Z);
 	}

@@ -88,7 +88,7 @@ namespace XFX
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
 	}
 	
-	void Plane::Dot(const Vector4 value, out float result) const
+	void Plane::Dot(const Vector4 value, out float& result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
 	}
@@ -98,7 +98,7 @@ namespace XFX
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
 	}
 	
-	void Plane::DotCoordinate(const Vector3 value, out float result) const
+	void Plane::DotCoordinate(const Vector3 value, out float& result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
 	}
@@ -108,14 +108,14 @@ namespace XFX
 		return (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z); 
 	}
 	
-	void Plane::DotNormal(const Vector3 value, out float result) const
+	void Plane::DotNormal(const Vector3 value, out float& result) const
 	{
 		result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z); 
 	}
 
-	bool Plane::Equals(const Object* obj) const
+	bool Plane::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? this->Equals((*(Plane*)obj)) : false;
+		return is(this, obj) ? *this == *(Plane *)obj : false;
 	}
 	
 	bool Plane::Equals(const Plane obj) const
@@ -135,29 +135,12 @@ namespace XFX
 	
 	PlaneIntersectionType_t Plane::Intersects(const BoundingBox boundingbox) const
 	{
-		Vector3 min; 
-        Vector3 max; 
-        max.X = (Normal.X >= 0.0f) ? boundingbox.Min.X : boundingbox.Max.X; 
-        max.Y = (Normal.Y >= 0.0f) ? boundingbox.Min.Y : boundingbox.Max.Y; 
-        max.Z = (Normal.Z >= 0.0f) ? boundingbox.Min.Z : boundingbox.Max.Z; 
-        min.X = (Normal.X >= 0.0f) ? boundingbox.Max.X : boundingbox.Min.X; 
-        min.Y = (Normal.Y >= 0.0f) ? boundingbox.Max.Y : boundingbox.Min.Y; 
-        min.Z = (Normal.Z >= 0.0f) ? boundingbox.Max.Z : boundingbox.Min.Z; 
-  
-        float dot = (Normal.X * max.X) + (Normal.Y * max.Y) + (Normal.Z * max.Z); 
-  
-        if(dot + D > 0.0f) 
-   			return PlaneIntersectionType::Front; 
-  
-        dot = (Normal.X * min.X) + (Normal.Y * min.Y) + (Normal.Z * min.Z); 
-  
-        if(dot + D < 0.0f) 
-   			return PlaneIntersectionType::Back; 
-  
-        return PlaneIntersectionType::Intersecting; 
+		PlaneIntersectionType_t result;
+		Intersects(boundingbox, result);
+		return result;
 	}
 	
-	void Plane::Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t result) const
+	void Plane::Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t& result) const
 	{
 		Vector3 min; 
         Vector3 max; 
@@ -183,18 +166,12 @@ namespace XFX
 	
 	PlaneIntersectionType_t Plane::Intersects(const BoundingSphere sphere) const
 	{
-		float dot = (sphere.Center.X * Normal.X) + (sphere.Center.Y * Normal.Y) + (sphere.Center.Z * Normal.Z) + D; 
-
-        if(dot > sphere.Radius) 
-   			return PlaneIntersectionType::Front; 
-  
-        if(dot < -sphere.Radius) 
-   			return PlaneIntersectionType::Back; 
-  
-        return PlaneIntersectionType::Intersecting; 
+		PlaneIntersectionType_t result;
+		Intersects(sphere, result);
+        return result;
 	}
 	
-	void Plane::Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t result) const
+	void Plane::Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t& result) const
 	{
 		float dot = (sphere.Center.X * Normal.X) + (sphere.Center.Y * Normal.Y) + (sphere.Center.Z * Normal.Z) + D; 
 
@@ -224,7 +201,7 @@ namespace XFX
         return Plane(plane.Normal.X * magnitude, plane.Normal.Y * magnitude, plane.Normal.Z * magnitude, plane.D * magnitude); 
     }
      
-    void Plane::Normalize(const Plane plane, out Plane result)
+    void Plane::Normalize(const Plane plane, out Plane& result)
     {
 	    result = Normalize(plane);
     }
@@ -237,21 +214,11 @@ namespace XFX
 	Plane Plane::Transform(Plane plane, Matrix matrix)
 	{
 		Plane result; 
-        float x = plane.Normal.X; 
-        float y = plane.Normal.Y; 
-        float z = plane.Normal.Z; 
-        float d = plane.D; 
-  
-        matrix = Matrix::Invert(matrix);
-        result.Normal.X = (((x * matrix.M11) + (y * matrix.M12)) + (z * matrix.M13)) + (d * matrix.M14); 
-        result.Normal.Y = (((x * matrix.M21) + (y * matrix.M22)) + (z * matrix.M23)) + (d * matrix.M24); 
-        result.Normal.Z = (((x * matrix.M31) + (y * matrix.M32)) + (z * matrix.M33)) + (d * matrix.M34); 
-        result.D = (((x * matrix.M41) + (y * matrix.M42)) + (z * matrix.M43)) + (d * matrix.M44); 
-  
+		Transform(plane, matrix, result);
         return result; 
 	}
 	
-	void Plane::Transform(Plane plane, Matrix matrix, out Plane result)
+	void Plane::Transform(Plane plane, Matrix matrix, out Plane& result)
 	{
 		float x = plane.Normal.X; 
         float y = plane.Normal.Y; 
@@ -267,32 +234,12 @@ namespace XFX
 	
 	Plane Plane::Transform(Plane plane, Quaternion quaternion)
 	{
-		Plane result; 
-        float x2 = quaternion.X + quaternion.X; 
-        float y2 = quaternion.Y + quaternion.Y; 
-        float z2 = quaternion.Z + quaternion.Z; 
-        float wx = quaternion.W * x2; 
-        float wy = quaternion.W * y2; 
-        float wz = quaternion.W * z2; 
-        float xx = quaternion.X * x2; 
-        float xy = quaternion.X * y2; 
-        float xz = quaternion.X * z2; 
-        float yy = quaternion.Y * y2; 
-        float yz = quaternion.Y * z2; 
-        float zz = quaternion.Z * z2; 
-  
-        float x = plane.Normal.X; 
-        float y = plane.Normal.Y; 
-        float z = plane.Normal.Z; 
-  
-        result.Normal.X = ((x * ((1.0f - yy) - zz)) + (y * (xy - wz))) + (z * (xz + wy)); 
-        result.Normal.Y = ((x * (xy + wz)) + (y * ((1.0f - xx) - zz))) + (z * (yz - wx)); 
-        result.Normal.Z = ((x * (xz - wy)) + (y * (yz + wx))) + (z * ((1.0f - xx) - yy)); 
-        result.D = plane.D; 
+		Plane result;
+		Transform(plane, quaternion, result);
         return result;
 	}
 	
-	void Plane::Transform(Plane plane, Quaternion quaternion, out Plane result)
+	void Plane::Transform(Plane plane, Quaternion quaternion, out Plane& result)
 	{
 		float x2 = quaternion.X + quaternion.X; 
         float y2 = quaternion.Y + quaternion.Y; 
@@ -324,6 +271,6 @@ namespace XFX
 	
 	bool Plane::operator!=(const Plane& other) const
 	{
-		return !((D == other.D) && (Normal == other.Normal));
+		return ((D != other.D) || (Normal != other.Normal));
 	}
 }

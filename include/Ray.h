@@ -1,9 +1,9 @@
-/********************************************************
- *	Ray.h												*
- *														*
- *	XFX Ray definition file								*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Ray.h																	 *
+ *																			 *
+ *	XFX Ray definition file													 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_RAY_
 #define _XFX_RAY_
 
@@ -29,16 +29,16 @@ namespace XFX
 		Ray(const Ray &obj);
 		Ray();
 		
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Ray other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		float Intersects(const BoundingBox boundingbox) const;
-		void Intersects(const BoundingBox boundingbox, out float result) const;
-		float Intersects(const BoundingSphere sphere) const;
-		void Intersects(const BoundingSphere sphere, out float result) const;
-		float Intersects(const Plane plane) const;
-		void Intersects(const Plane plane, out float result) const;
+		float Intersects(BoundingBox boundingbox) const;
+		void Intersects(BoundingBox boundingbox, out float& result) const;
+		float Intersects(BoundingSphere sphere) const;
+		void Intersects(BoundingSphere sphere, out float& result) const;
+		float Intersects(Plane plane) const;
+		void Intersects(Plane plane, out float& result) const;
 		const char* ToString() const;
 		
 		bool operator==(const Ray& right) const;

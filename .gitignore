@@ -46,6 +46,7 @@ local.properties
 [Rr]elease/
 *_i.c
 *_p.c
+[Bb]uildlog.htm
 *.ilk
 *.meta
 *.o

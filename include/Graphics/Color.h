@@ -1,9 +1,9 @@
-/********************************************************
- *	Color.h												*
- *														*
- *	XFX Color definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Color.h																	 *
+ *																			 *
+ *	XFX Color definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_COLOR_
 #define _XFX_GRAPHICS_COLOR_
 
@@ -23,9 +23,9 @@ namespace XFX
 		struct Color : IEquatable<Color>, Object
 		{
 		private:
-			unsigned int _packedValue;
+			uint _packedValue;
 
-			unsigned int RGBAtoARGB(unsigned int value);
+			unsigned int RGBAtoARGB(uint value);
 			Color(unsigned int packedValue);
 			static unsigned int InitializeFromVector4(const Vector4 vector);
 			static unsigned int InitializeFromVector3(const Vector3 vector);
@@ -185,7 +185,7 @@ namespace XFX
 			Color(const byte r, const byte g, const byte b, const byte a);
 			Color(const Color &obj);
 			
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const Color other) const;
 			int GetHashCode() const;
 			int GetType() const;

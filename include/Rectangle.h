@@ -1,9 +1,9 @@
-/********************************************************
- *	Rectangle.h											*
- *														*
- *	XFX Rectangle definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Rectangle.h																 *
+ *																			 *
+ *	XFX Rectangle definition file											 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_RECTANGLE_
 #define _XFX_RECTANGLE_
 
@@ -35,19 +35,19 @@ namespace XFX
 		
 		bool Contains(int x, int y);
 		bool Contains(Point pt);
-		void Contains(Point pt, out int result);
+		void Contains(Point pt, out bool& result);
 		bool Contains(Rectangle other);
-		void Contains(Rectangle other, out int result);
-		bool Equals(const Object* obj) const;
+		void Contains(Rectangle other, out bool& result);
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Rectangle obj) const;
-		int GetHashCode();
+		int GetHashCode() const;
 		int GetType() const;
 		void Inflate(int horizontalAmount, int verticalAmount);
 		bool Intersects(Rectangle other);
-		void Intersects(Rectangle other, out int result);
+		void Intersects(Rectangle other, out bool& result);
 		void Offset(int x, int y);
 		void Offset(Point pt);
-		char* ToString();
+		const char* ToString();
 		
 		bool operator==(const Rectangle& other) const;
 		bool operator!=(const Rectangle& other) const;

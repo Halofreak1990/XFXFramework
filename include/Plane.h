@@ -1,9 +1,9 @@
-/********************************************************
- *	Plane.h												*
- *														*
- *	XFX Plane definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Plane.h																	 *
+ *																			 *
+ *	XFX Plane definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_PLANE_
 #define _XFX_PLANE_
 
@@ -35,27 +35,27 @@ namespace XFX
 		Plane();
 
 		float Dot(const Vector4 value) const;
-		void Dot(const Vector4 value, out float result) const;
+		void Dot(const Vector4 value, out float& result) const;
 		float DotCoordinate(const Vector3 value) const;
-		void DotCoordinate(const Vector3 value, out float result) const;
+		void DotCoordinate(const Vector3 value, out float& result) const;
 		float DotNormal(const Vector3 value) const;
-		void DotNormal(const Vector3 value, out float result) const;
-		bool Equals(const Object* obj) const;
+		void DotNormal(const Vector3 value, out float& result) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Plane obj) const;
 		int GetHashCode() const;
 		int GetType() const;
 		PlaneIntersectionType_t Intersects(const BoundingBox boundingbox) const;
-		void Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t result) const;
+		void Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t& result) const;
 		PlaneIntersectionType_t Intersects(const BoundingSphere sphere) const;
-		void Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t result) const;
+		void Intersects(const BoundingSphere sphere, out PlaneIntersectionType_t& result) const;
 		void Normalize();
 		static Plane Normalize(const Plane plane);
-		static void Normalize(const Plane plane, out Plane result);
+		static void Normalize(const Plane plane, out Plane& result);
 		const char* ToString() const;
 		static Plane Transform(const Plane plane, const Matrix matrix);
-		static void Transform(const Plane plane, const Matrix matrix, out Plane result);
+		static void Transform(const Plane plane, const Matrix matrix, out Plane& result);
 		static Plane Transform(const Plane plane, const Quaternion quaternion);
-		static void Transform(const Plane plane, const Quaternion quaternion, out Plane result);
+		static void Transform(const Plane plane, const Quaternion quaternion, out Plane& result);
 		
 		bool operator==(const Plane& other) const;
 		bool operator!=(const Plane& other) const;

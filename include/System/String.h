@@ -1,15 +1,16 @@
-/********************************************************
- *	String.h											*
- *														*
- *	XFX String definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	String.h																 *
+ *																			 *
+ *	XFX String definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_STRING_
 #define _SYSTEM_STRING_
 
 #include "Enums.h"
 #include "Interfaces.h"
 #include "Object.h"
+#include "Types.h"
 
 namespace System
 {
@@ -42,7 +43,7 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const String obj) const;
 		bool Equals(const String& str1, const String& str2);
-		static const char* Format(const char* format, ...);
+		static const char* Format(const char* format, ...) FORMAT(printf, 1, 2);
 		int GetHashCode() const;
 		int GetType() const;
 		int IndexOf(char value) const;

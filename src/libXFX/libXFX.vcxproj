@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Audio\AudioCategory.h" />
+    <ClInclude Include="..\..\include\Audio\AudioEngine.h" />
     <ClInclude Include="..\..\include\BoundingBox.h" />
     <ClInclude Include="..\..\include\BoundingFrustum.h" />
     <ClInclude Include="..\..\include\BoundingSphere.h" />
