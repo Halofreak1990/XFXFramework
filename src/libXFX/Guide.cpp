@@ -59,6 +59,11 @@ namespace XFX
 
 		IAsyncResult* Guide::BeginShowMessageBox(const PlayerIndex_t player, String& title, String& text, IEnumerable<String>* buttons, const int focusButton, const MessageBoxIcon_t icon, AsyncCallback callback, Object* state)
 		{
+			if (String::IsNullOrEmpty(title))
+				title = String::Empty;
+
+			sassert(buttons != NULL, String::Format("buttons: %s", FrameworkResources::ArgumentNull_Generic));
+
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
@@ -103,7 +108,7 @@ namespace XFX
 		{
 			StorageDeviceAsyncResult* result = (StorageDeviceAsyncResult*)asyncResult;
 
-			sassert(result, String::Format("result; %s", FrameworkResources::ArgumentNull_Generic));
+			sassert(result, String::Format("asyncResult; %s", FrameworkResources::ArgumentNull_Generic));
 
 			return StorageDevice(0, (PlayerIndex_t)result->playerIndex);
 		}

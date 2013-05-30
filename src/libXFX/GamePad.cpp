@@ -121,9 +121,9 @@ namespace XFX
 		{
 		}
 
-		bool GamePadState::Equals(const Object* obj) const
+		bool GamePadState::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals(*(GamePadState*)obj) : false;
+			return is(obj, this) ? *this == *(GamePadState *)obj : false;
 		}
 
 		bool GamePadState::Equals(const GamePadState obj) const
@@ -138,6 +138,7 @@ namespace XFX
 
 		int GamePadState::GetType() const
 		{
+			// TODO: implement
 		}
 
 		bool GamePadState::IsButtonDown(const Buttons_t button) const
@@ -203,7 +204,7 @@ namespace XFX
 
 		const char* GamePadState::ToString() const
 		{
-			return String::Format("{{IsConnected:%b}}", IsConnected);
+			return String::Format("{IsConnected:%b}", IsConnected);
 		}
 
 		bool GamePadState::operator ==(const GamePadState& right) const
@@ -248,9 +249,9 @@ namespace XFX
 		{
 		}
 
-		bool GamePadButtons::Equals(const Object* obj) const
+		bool GamePadButtons::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals(*(GamePadButtons*)obj) : false;
+			return is(obj, this) ? *this == *(GamePadButtons *)obj : false;
 		}
 
 		bool GamePadButtons::Equals(const GamePadButtons other) const
@@ -266,6 +267,7 @@ namespace XFX
 
 		int GamePadButtons::GetType() const
 		{
+			// TODO: implement
 		}
 
 		const char* GamePadButtons::ToString() const
@@ -316,7 +318,7 @@ namespace XFX
 				str = "None";
 			}
 
-			return String::Format("{{Buttons:%s}}", str.ToString());
+			return String::Format("{Buttons:%s}", str.ToString());
 		}
 
 		bool GamePadButtons::operator!=(const GamePadButtons& other) const
@@ -350,9 +352,9 @@ namespace XFX
 		{
 		}
 
-		bool GamePadDPad::Equals(const Object* obj) const
+		bool GamePadDPad::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals(*(GamePadDPad*)obj) : false;
+			return is(obj, this) ? *this == *(GamePadDPad *)obj : false;
 		}
 
 		bool GamePadDPad::Equals(const GamePadDPad obj) const
@@ -367,6 +369,7 @@ namespace XFX
 
 		int GamePadDPad::GetType() const
 		{
+			// TODO: implement
 		}
 
 		const char* GamePadDPad::ToString() const
@@ -393,7 +396,7 @@ namespace XFX
 				str = "None";
 			}
 
-			return String::Format("{{DPad:%s}}", str.ToString());
+			return String::Format("{DPad:%s}", str.ToString());
 		}
 
 		bool GamePadDPad::operator !=(const GamePadDPad& right) const
@@ -423,9 +426,9 @@ namespace XFX
 		{
 		}
 
-		bool GamePadThumbSticks::Equals(const Object* obj) const
+		bool GamePadThumbSticks::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals(*(GamePadThumbSticks*)obj) : false;
+			return is(obj, this) ? *this == *(GamePadThumbSticks *)obj : false;
 		}
 
 		bool GamePadThumbSticks::Equals(const GamePadThumbSticks obj) const
@@ -440,11 +443,12 @@ namespace XFX
 
 		int GamePadThumbSticks::GetType() const
 		{
+			// TODO: implement
 		}
 
 		const char* GamePadThumbSticks::ToString() const
 		{
-			return String::Format("{{Left:%s Right%s}}", Left.ToString(), Right.ToString());
+			return String::Format("{Left:%s Right%s}", Left.ToString(), Right.ToString());
 		}
 
 		bool GamePadThumbSticks::operator!=(const GamePadThumbSticks& other) const
@@ -472,9 +476,9 @@ namespace XFX
 		{
 		}
 
-		bool GamePadTriggers::Equals(const Object* obj) const
+		bool GamePadTriggers::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? this->Equals(*(GamePadTriggers*)obj) : false;
+			return is(obj, this) ? *this == *(GamePadTriggers *)obj : false;
 		}
 
 		bool GamePadTriggers::Equals(const GamePadTriggers obj) const
@@ -489,11 +493,12 @@ namespace XFX
 
 		int GamePadTriggers::GetType() const
 		{
+			// TODO: implement
 		}
 
 		const char* GamePadTriggers::ToString() const
 		{
-			return String::Format("{{Left:%f Right:%f}}", Left, Right);
+			return String::Format("{Left:%f Right:%f}", Left, Right);
 		}
 
 		bool GamePadTriggers::operator!=(const GamePadTriggers& other) const

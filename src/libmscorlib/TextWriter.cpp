@@ -34,13 +34,13 @@ namespace System
 		const char* TextWriter::InitialNewLine = "\r\n";
 		TextWriter::TextWriter()
 		{
-			CoreNewLine = new char[] { '\r', '\n' };
+			CoreNewLine = { '\r', '\n' };
 			InternalFormatProvider = null;
 		}
 
-		TextWriter::TextWriter(IFormatProvider* provider)
+		TextWriter::TextWriter(IFormatProvider * const provider)
 		{
-			CoreNewLine = new char[] { '\r', '\n' };
+			CoreNewLine = { '\r', '\n' };
 			InternalFormatProvider = provider;
 		}
 
@@ -61,7 +61,6 @@ namespace System
 			{
 				Write(buffer, 0, Array::Length(buffer));
 			}
-
 		}
 	}
 }

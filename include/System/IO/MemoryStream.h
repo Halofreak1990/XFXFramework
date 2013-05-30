@@ -9,7 +9,7 @@ namespace System
 	namespace IO
 	{
 		// Creates a stream whose backing store is memory.
-		class MemoryStream : public Stream, public virtual Object
+		class MemoryStream : public Stream
 		{
 		private:
 			byte* _buffer;
@@ -48,6 +48,7 @@ namespace System
 
 			void Flush();
 			virtual byte* GetBuffer();
+			int GetType() const;
 			int Read(byte buffer[], int offset, int count);
 			int ReadByte();
 			long long Seek(long long offset, SeekOrigin_t loc);

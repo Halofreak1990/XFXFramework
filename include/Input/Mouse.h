@@ -27,8 +27,8 @@ namespace XFX
 			ButtonState_t XButton2;
 			int Y;
 			
-			bool operator!=(const MouseState other);
-			bool operator==(const MouseState other);
+			bool operator!=(const MouseState& other) const;
+			bool operator==(const MouseState& other) const;
 		};
 		
 		// Allows retrieval of position and button clicks from a mouse input device.

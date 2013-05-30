@@ -25,6 +25,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/IO/MemoryStream.h>
 #include <Net/PacketReader.h>
 #include <Matrix.h>
 #include <Quaternion.h>
@@ -41,23 +42,23 @@ namespace XFX
 			return (int)BaseStream()->Length();
 		}
 
-		int PacketReader::Position()
+		int PacketReader::getPosition()
 		{
 			return (int)BaseStream()->Position;
 		}
 
-		int PacketReader::Position(int newValue)
+		void PacketReader::setPosition(int newValue)
 		{
 			BaseStream()->Position = newValue;
 		}
 
 		PacketReader::PacketReader()
-			: BinaryReader(MemoryStream(0))
+			: BinaryReader(new MemoryStream(0))
 		{
 		}
 
 		PacketReader::PacketReader(int capacity)
-			: BinaryReader(MemoryStream(capacity))
+			: BinaryReader(new MemoryStream(capacity))
 		{
 		}
 
@@ -85,39 +86,39 @@ namespace XFX
 
 		Quaternion PacketReader::ReadQuaternion()
 		{
-			Quaternion quaternion;
-			quaternion.X = ReadSingle();
-			quaternion.Y = ReadSingle();
-			quaternion.Z = ReadSingle();
-			quaternion.W = ReadSingle();
-			return quaternion;
+			return Quaternion(
+				ReadSingle(),
+				ReadSingle(),
+				ReadSingle(),
+				ReadSingle()
+			);
 		}
 
 		Vector2 PacketReader::ReadVector2()
 		{
-			Vector2 vector2;
-			vector2.X = ReadSingle();
-			vector2.Y = ReadSingle();
-			return vector2;
+			return Vector2(
+				ReadSingle(),
+				ReadSingle()
+			);
 		}
 
 		Vector3 PacketReader::ReadVector3()
 		{
-			Vector3 vector3;
-			vector3.X = ReadSingle();
-			vector3.Y = ReadSingle();
-			vector3.Z = ReadSingle();
-			return vector3;
+			return Vector3(
+				ReadSingle(),
+				ReadSingle(),
+				ReadSingle()
+			);
 		}
 
 		Vector4 PacketReader::ReadVector4()
 		{
-			Vector4 vector4;
-			vector4.X = ReadSingle();
-			vector4.Y = ReadSingle();
-			vector4.Z = ReadSingle();
-			vector4.W = ReadSingle();
-			return vector4;
+			return Vector4(
+				ReadSingle(),
+				ReadSingle(),
+				ReadSingle(),
+				ReadSingle()
+			);
 		}
 	}
 }

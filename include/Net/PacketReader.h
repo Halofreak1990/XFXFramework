@@ -16,12 +16,12 @@ namespace XFX
 	namespace Net
 	{
 		// Provides common functionality for efficiently reading incoming network packets.
-		class PacketReader : public BinaryReader, public virtual Object
+		class PacketReader : public BinaryReader, public Object
 		{
 		public:
 			int Length();
-			int Position();
-			void Position(int newValue);
+			int getPosition();
+			void setPosition(int newValue);
 
 			PacketReader();
 			PacketReader(int capacity);
@@ -30,7 +30,7 @@ namespace XFX
 			Quaternion ReadQuaternion();
 			Vector2 ReadVector2();
 			Vector3 ReadVector3();
-			Vector4 ReadVEctor4();
+			Vector4 ReadVector4();
 		};
 	}
 }

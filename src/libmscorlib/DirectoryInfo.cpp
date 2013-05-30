@@ -81,7 +81,7 @@ namespace System
 
 		DirectoryInfo* DirectoryInfo::GetDirectories(const String& searchPattern)
 		{
-			sassert(searchPattern != null, String::Format("searchPattern; %s", FrameworkResources::ArgumentNull_Generic));
+			sassert(!String::IsNullOrEmpty(searchPattern), String::Format("searchPattern; %s", FrameworkResources::ArgumentNull_Generic));
 
 			List<DirectoryInfo> infos = List<DirectoryInfo>();
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, Halofreak_1990
+// Copyright (C) 2010-2012, XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -41,17 +41,17 @@ namespace XFX
 	{
 		XKEYBOARD_STROKE Stroke;
 
-		//It's a waste of memory to create a new KeyboardState each time the input states are updated.
-		//Therefore, we create a static one and update it each time an update is requested.
+		// It's a waste of memory to create a new KeyboardState each time the input states are updated.
+		// Therefore, we create a static one and update it each time an update is requested.
 		static KeyboardState result;
 		
-		//Initializes the KeyboardState class
+		// Initializes the KeyboardState class
 		KeyboardState::KeyboardState()
 		{
 			KeyboardState(null);
 		}
 		
-		//Initializes the KeyboardState class with the specified keys pressed
+		// Initializes the KeyboardState class with the specified keys pressed
 		KeyboardState::KeyboardState(Keys_t keys[])
 		{
 			if (keys == null)
@@ -70,7 +70,7 @@ namespace XFX
 			return (Keys_t*)pressedKeys;
 		}
 		
-		//Returns whether the specified key is currently pressed
+		// Returns whether the specified key is currently pressed
 		bool KeyboardState::IsKeyDown(Keys_t key)
 		{
 			if(XInputGetKeystroke(&Stroke) == 0)
@@ -85,7 +85,7 @@ namespace XFX
 			return -1;
 		}
 		
-		//Returns whether the specified key is NOT pressed
+		// Returns whether the specified key is NOT pressed
 		bool KeyboardState::IsKeyUp(Keys_t key)
 		{
 			if(XInputGetKeystroke(&Stroke) == 0)
@@ -96,11 +96,11 @@ namespace XFX
 				}	
 				return false;	
 			}
-			//The keyboard was not connected...bail out.
+			// The keyboard was not connected...bail out.
 			return -1;
 		}
 		
-		//Gets the state of the keyboard
+		// Gets the state of the keyboard
 		KeyboardState Keyboard::GetState()
 		{
 			return result;

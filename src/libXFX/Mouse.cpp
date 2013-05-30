@@ -44,14 +44,14 @@ namespace XFX
 		static MouseState result;
 		
 		/* MouseState Operators */
-		bool MouseState::operator!=(const MouseState other)
+		bool MouseState::operator!=(const MouseState& other) const
 		{
 			return !((LeftButton == other.LeftButton) && (MiddleButton == other.MiddleButton) &&
 				(RightButton == other.RightButton) && (X == other.X) && (XButton1 == other.XButton1) &&
 				(XButton2 == other.XButton2) && (Y == other.Y));
 		}
 		
-		bool MouseState::operator==(const MouseState other)
+		bool MouseState::operator==(const MouseState& other) const
 		{
 			return ((LeftButton == other.LeftButton) && (MiddleButton == other.MiddleButton) &&
 				(RightButton == other.RightButton) && (X == other.X) && (XButton1 == other.XButton1) &&
@@ -61,10 +61,10 @@ namespace XFX
 		
 		MouseState Mouse::GetState()
 		{
-			result.X +=XMOUSE_current.x;
-			result.Y +=XMOUSE_current.y;
-			XMOUSE_current.x=0;
-			XMOUSE_current.y=0;
+			result.X += XMOUSE_current.x;
+			result.Y += XMOUSE_current.y;
+			XMOUSE_current.x = 0;
+			XMOUSE_current.y = 0;
 			
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_1))
 				result.LeftButton = ButtonState::Pressed;

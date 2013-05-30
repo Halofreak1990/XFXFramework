@@ -24,7 +24,7 @@ namespace System
 			char CoreNewLine[];
 
 			TextWriter();
-			TextWriter(const IFormatProvider* provider);
+			TextWriter(IFormatProvider * const provider);
 			TextWriter(const TextWriter &obj);
 
 			virtual void Dispose(bool disposing);

@@ -70,7 +70,7 @@ namespace XFX
 		{
 		}
 
-		void VideoPlayer::Play(Video* video)
+		void VideoPlayer::Play(Video * const video)
 		{
 		}
 
