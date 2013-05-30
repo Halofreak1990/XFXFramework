@@ -35,9 +35,9 @@ namespace System
 		return is(this, obj);
 	}
 
-	bool Object::Equals(const Object* objA, const Object* objB)
+	bool Object::Equals(Object const * const objA, Object const * const objB)
 	{
-		return ((objA == objB) || ((objA) && (objB) && objA->Equals(objB)) || (!objA) && (!objB));
+		return ((objA == objB) || ((objA) && (objB) && objA->Equals(objB)) || ((!objA) && (!objB)));
 	}
 
 	int Object::GetHashCode() const
@@ -69,5 +69,7 @@ namespace System
 		{
 			return (obj1->GetType() == obj2->GetType());
 		}
+
+		return false;
 	}
 }

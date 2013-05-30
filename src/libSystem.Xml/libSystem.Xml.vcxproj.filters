@@ -45,6 +45,21 @@
     <ClInclude Include="..\..\include\System\Xml\Interfaces.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\XmlNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\XPath\Interfaces.h">
+      <Filter>Header Files\XPath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\XPath\Enums.h">
+      <Filter>Header Files\XPath</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\Schema\Interfaces.h">
+      <Filter>Header Files\Schema</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Xml\Schema\Enums.h">
+      <Filter>Header Files\Schema</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

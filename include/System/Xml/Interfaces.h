@@ -2,7 +2,7 @@
 #define _SYSTEM_XML_INTERFACES_
 
 #include <System/Collections/Generic/Interfaces.h>
-#include <System/Types.h>
+#include <System/String.h>
 #include <System/Xml/Enums.h>
 
 using namespace System::Collections::Generic;
@@ -17,7 +17,9 @@ namespace System
 		interface IHasXmlNode
 		{
 		public:
-			virtual XmlNode GetNode()=0;
+			virtual XmlNode* GetNode()=0;
+
+			virtual ~IHasXmlNode() { }
 		};
 
 		// Provides an interface to enable a class to return line and position information.
@@ -28,6 +30,8 @@ namespace System
 
 			virtual int LineNumber();
 			virtual int LinePosition();
+
+			virtual ~IXmlLineInfo() { }
 		};
 
 		// Provides read-only access to a set of prefix and namespace mappings.
@@ -35,8 +39,10 @@ namespace System
 		{
 		public:
 			virtual IDictionary<String, String>* GetNamespacesInScope(const XmlNamespaceScope_t scope) const=0;
-			virtual String LookupNamespace(const String prefix) const=0;
-			virtual String LookupPrefix(const String namespaceName) const=0;
+			virtual String LookupNamespace(const String& prefix) const=0;
+			virtual String LookupPrefix(const String& namespaceName) const=0;
+
+			virtual ~IXmlNamespaceResolver() { }
 		};
 	}
 }

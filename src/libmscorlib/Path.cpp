@@ -46,7 +46,7 @@ namespace System
 		typedef struct
 		{
 		  char cDriveLetter;
-		  char* szDevice;
+		  const char* szDevice;
 		  int iPartition;
 		}
 		stDriveMapping;

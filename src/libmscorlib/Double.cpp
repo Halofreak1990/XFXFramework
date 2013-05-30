@@ -110,12 +110,12 @@ namespace System
 
 	const char* Double::ToString() const
 	{
-		return String::Format("%d", value);
+		return String::Format("%g", value);
 	}
 
 	const char* Double::ToString(const double value)
 	{
-		return String::Format("%d", value);
+		return String::Format("%g", value);
 	}
 
 	Double::operator double() const

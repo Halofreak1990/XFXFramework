@@ -49,12 +49,12 @@ namespace System
 
 	const char* UInt64::ToString() const
 	{
-		return String::Format("%i", value);
+		return String::Format("%ull", value);
 	}
 
 	const char* UInt64::ToString(const ulong value)
 	{
-		return String::Format("%i", value);
+		return String::Format("%ull", value);
 	}
 
 	bool UInt64::TryParse(const String& str, out ulong* result)

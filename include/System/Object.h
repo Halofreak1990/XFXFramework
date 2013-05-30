@@ -1,9 +1,9 @@
-/********************************************************
- *	Object.h											*
- *														*
- *	XFX Object definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Object.h																 *
+ *																			 *
+ *	XFX Object definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_OBJECT_
 #define _SYSTEM_OBJECT_
 
@@ -15,7 +15,7 @@ namespace System
 	{
 	public:
 		virtual bool Equals(Object const * const obj) const;
-		static bool Equals(const Object* objA, const Object* objB);
+		static bool Equals(Object const * const objA, Object const * const objB);
 		virtual int GetHashCode() const;
 		virtual int GetType() const =0;
 		static bool ReferenceEquals(const Object& objA, const Object& objB);

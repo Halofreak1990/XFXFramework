@@ -72,6 +72,11 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\System\Xml\Enums.h" />
     <ClInclude Include="..\..\include\System\Xml\Interfaces.h" />
+    <ClInclude Include="..\..\include\System\Xml\Schema\Enums.h" />
+    <ClInclude Include="..\..\include\System\Xml\Schema\Interfaces.h" />
+    <ClInclude Include="..\..\include\System\Xml\XmlNode.h" />
+    <ClInclude Include="..\..\include\System\Xml\XPath\Enums.h" />
+    <ClInclude Include="..\..\include\System\Xml\XPath\Interfaces.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

@@ -34,9 +34,6 @@ namespace System
 
 	bool Int64::Equals(Object const * const obj) const
 	{
-		if (!obj)
-			return false;
-
 		return is(obj, this) ? *this == *(Int64 *)obj : false;
 	}
 
@@ -57,12 +54,12 @@ namespace System
 
 	const char* Int64::ToString() const
 	{
-		return String::Format("%i", value);
+		return String::Format("%lld", value);
 	}
 
 	const char* Int64::ToString(const long long value)
 	{
-		return String::Format("%i", value);
+		return String::Format("%lld", value);
 	}
 
 	bool Int64::TryParse(const String& str, out long long* result)

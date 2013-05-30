@@ -225,7 +225,7 @@ namespace System
 
 	const char* TimeSpan::ToString() const
 	{
-		return String::Format("Ticks: %l", _ticks);
+		return String::Format("Ticks: %ll", _ticks);
 	}
 
 	TimeSpan TimeSpan::operator +(const TimeSpan& other)

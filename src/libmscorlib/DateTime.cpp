@@ -82,7 +82,7 @@ namespace System
 
 	void DateTime::InvalidTickValue(long long ticks)
 	{
-		sassert(false, String::Format("Value %d is outside the valid range [0,%d].", ticks, MAX_VALUE_TICKS));
+		sassert(false, String::Format("Value %ll is outside the valid range [0,%ll].", ticks, MAX_VALUE_TICKS));
 	}
 
 	DateTime DateTime::Add(double value, int scale)
