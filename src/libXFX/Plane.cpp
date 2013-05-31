@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -208,7 +208,7 @@ namespace XFX
 
 	const char* Plane::ToString() const
 	{
-		return String::Format("{Normal:%s D:%f}", Normal.ToString(), D);
+		return String::Format("{Normal:%s D:%g}", Normal.ToString(), D);
 	}
 	
 	Plane Plane::Transform(Plane plane, Matrix matrix)

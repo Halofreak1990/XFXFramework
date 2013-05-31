@@ -80,7 +80,7 @@ namespace System
 		static int Compare(const DateTime t1, const DateTime t2);
 		int CompareTo(const DateTime value) const;
 		static int DaysInMonth(int year, int month);
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const DateTime obj) const;
 		bool static Equals(const DateTime t1, const DateTime t2);
 		static DateTime FromFileTime(long long fileTime);

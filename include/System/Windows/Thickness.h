@@ -26,7 +26,7 @@ namespace System
 			Thickness(const Thickness &obj);
 
 			// Compares this System::Windows::Thickness structure to the specified System::Object for equality.
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			// Compares this System::Windows::Thickness structure to another System::Windows::Thickness structure for equality.
 			bool Equals(const Thickness other) const;
 			// Returns the hash code of the structure.

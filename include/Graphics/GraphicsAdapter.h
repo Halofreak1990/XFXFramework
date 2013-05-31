@@ -42,7 +42,7 @@ namespace XFX
 			virtual ~GraphicsAdapter();
 
 			void Dispose();
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const GraphicsAdapter obj) const;
 			int GetHashCode() const;
 			int GetType() const;

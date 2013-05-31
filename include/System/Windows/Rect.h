@@ -30,7 +30,7 @@ namespace System
 			Rect(const Rect &obj);
 
 			bool Contains(const Point point) const;
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const Rect other) const;
 			int GetHashCode() const;
 			int GetType() const;

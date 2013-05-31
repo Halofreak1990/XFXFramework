@@ -34,7 +34,7 @@ namespace XFX
 			void Apply();
 			void Capture();
 			void Dispose();
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
 			const char* ToString() const;

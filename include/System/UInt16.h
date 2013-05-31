@@ -22,7 +22,7 @@ namespace System
 		UInt16(const ushort &obj);
 
 		int CompareTo(const UInt16 other) const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt16 other) const;
 		int GetHashCode() const;
 		int GetType() const;

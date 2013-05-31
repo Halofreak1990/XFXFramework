@@ -21,7 +21,7 @@ namespace System
 			Size(const int Width, const int Height);
 			Size(const Size &obj);
 
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const Size other) const;
 			int GetHashCode() const;
 			int GetType() const;

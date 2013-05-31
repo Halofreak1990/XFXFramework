@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -235,7 +235,7 @@ namespace System
 		return days[month];
 	}
 
-	bool DateTime::Equals(const Object* obj) const
+	bool DateTime::Equals(Object const * const obj) const
 	{
 		return is(obj, this) ? this->Equals((*(DateTime*)obj)) : false;
 	}

@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -71,5 +71,14 @@ namespace System
 		}
 
 		return false;
+	}
+
+	template <typename T, typename U>
+	U * as(T * const source)
+	{
+		int typeCode = source->GetType(); // make sure source is an Object
+		int destTypeCode = U destType().GetType(); // same hee, but now for U
+
+		return (typeCode == destTypeCode) ? (U *)source : NULL;
 	}
 }

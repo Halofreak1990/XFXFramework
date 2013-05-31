@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -44,7 +44,7 @@ namespace XFX
 		{
 		}
 
-		bool VertexElement::Equals(const Object* obj) const
+		bool VertexElement::Equals(Object const * const obj) const
 		{
 			return is(obj, this) ? (*this == *(VertexElement*)obj) : false;
 		}

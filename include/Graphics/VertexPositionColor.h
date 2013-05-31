@@ -33,7 +33,7 @@ namespace XFX
 			VertexPositionColor();
 			VertexPositionColor(const Vector3 position, const XFX::Graphics::Color color);
 
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
 			const char* ToString() const;

@@ -33,7 +33,7 @@ namespace XFX
 			VertexPositionNormalTexture();
 			VertexPositionNormalTexture(const Vector3 position, const Vector3 normal, const Vector2 textureCoordinate);
 			
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
 			const char* ToString() const;

@@ -60,7 +60,7 @@ namespace System
 					(point.Y >= Y) && (point.Y <= getBottom()));
 		}
 
-		bool Rect::Equals(const Object* obj) const
+		bool Rect::Equals(Object const * const obj) const
 		{
 			return is(obj, this) ? this->Equals(*(Rect*)obj) : false;
 		}

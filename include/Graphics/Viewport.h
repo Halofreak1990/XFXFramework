@@ -41,7 +41,7 @@ namespace XFX
 			Viewport(const int x, const int y, const int width, const int height);
 			Viewport(const Rectangle bounds);
 			
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const Viewport obj) const;
 			int GetHashCode() const;
 			int GetType() const;

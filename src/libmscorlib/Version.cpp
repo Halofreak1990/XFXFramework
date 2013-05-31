@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -68,7 +68,7 @@ namespace System
 
 	bool Version::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? *this == *(Version*)obj : false;
+		return is(obj, this) ? *this == *(Version *)obj : false;
 	}
 
 	bool Version::Equals(const Version obj) const

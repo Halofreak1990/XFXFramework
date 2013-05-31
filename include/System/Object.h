@@ -26,6 +26,15 @@ namespace System
 
 	// returns whether the type of obj1 matches that of obj2
 	bool is(Object const * const obj1, Object const * const obj2);
+
+	// syntax: as<[target type]>([source instance])
+	template <typename T, typename U>
+	U * as(T * const source);
+
+	template<class T, class B> struct Derived_from {
+		static void constraints(T* p) { B* pb = p; }
+		Derived_from() { void(*p)(T*) = constraints; }
+	};
 }
 
 #endif //_SYSTEM_OBJECT_

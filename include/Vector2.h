@@ -47,7 +47,7 @@ namespace XFX
 		static void		Divide(const Vector2& value1, const Vector2& value2, out Vector2& result);
 		static float	Dot(const Vector2 value1, const Vector2 value2);
 		static void		Dot(const Vector2& value1, const Vector2& value2, out float& result);
-		bool			Equals(const Object* obj) const;
+		bool			Equals(Object const * const obj) const;
 		bool			Equals(const Vector2 other) const;
 		int				GetHashCode() const;
 		int				GetType() const;

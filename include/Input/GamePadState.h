@@ -26,7 +26,7 @@ namespace XFX
 			GamePadState();
 			GamePadState(const GamePadState &obj);
 
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadState obj) const;
 			int GetHashCode() const;
 			int GetType() const;

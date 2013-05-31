@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, Halofreak_1990
+// Copyright (C) Halofreak_1990
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 

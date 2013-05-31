@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -283,7 +283,7 @@ namespace XFX
 		result = ContainmentType::Contains;
 	}
 
-	bool BoundingFrustum::Equals(const Object* obj) const
+	bool BoundingFrustum::Equals(Object const * const obj) const
 	{
 		return is(this, obj) ? this->Equals((*(BoundingFrustum*)obj)) : false;
 	}

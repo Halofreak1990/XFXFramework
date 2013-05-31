@@ -28,7 +28,7 @@ namespace System
 			GridLength(const int value, const GridUnitType_t unitType);
 			GridLength(const GridLength &obj);
 
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			bool Equals(const GridLength other) const;
 			int GetHashCode() const;
 			int GetType() const;

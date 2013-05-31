@@ -41,7 +41,7 @@ namespace System
 				byte G() const;
 				byte R() const;
 
-				bool Equals(const Object* obj) const;
+				bool Equals(Object const * const obj) const;
 				bool Equals(const Color other) const;
 				static Color FromARGB(byte alpha, byte red, byte green, byte blue);
 				int GetHashCode() const;

@@ -64,7 +64,7 @@ namespace XFX
 		void Contains(BoundingBox box, out ContainmentType_t result);
 		void Contains(BoundingSphere sphere, out ContainmentType_t result);
 		void Contains(Vector3 point, out ContainmentType_t result);
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingFrustum other) const;
 		Vector3* GetCorners();
 		void GetCorners(Vector3 corners[]);

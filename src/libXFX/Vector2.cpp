@@ -1,4 +1,4 @@
-// Copyright (C) 2010-2012, XFX Team
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 
@@ -151,7 +151,7 @@ namespace XFX
 		result = (value1.X * value2.X + value1.Y * value2.Y);
 	}
 
-	bool Vector2::Equals(const Object* obj) const
+	bool Vector2::Equals(Object const * const obj) const
 	{
 		return is(this, obj) ? (*this == *(Vector2*)obj) : false;
 	}

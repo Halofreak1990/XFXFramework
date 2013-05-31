@@ -25,7 +25,7 @@ namespace XFX
 		GraphicsDeviceInformation();
 	
 		GraphicsDeviceInformation Clone() const;
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		int GetType() const;
 	};
 }

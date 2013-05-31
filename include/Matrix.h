@@ -109,7 +109,7 @@ namespace XFX
 		static void Divide(Matrix matrix1, Matrix matrix2, out Matrix result);
 		static Matrix Divide(Matrix matrix1, float divider);
 		static void Divide(Matrix matrix1, float divider, out Matrix result);
-		bool Equals(const Object* obj) const;
+		bool Equals(Object const * const obj) const;
 		bool Equals(const Matrix other) const;
 		int GetHashCode() const;
 		int GetType() const;

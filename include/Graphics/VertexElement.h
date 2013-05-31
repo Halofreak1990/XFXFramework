@@ -28,7 +28,7 @@ namespace XFX
 			VertexElement(const int offset, const VertexElementFormat_t elementFormat, const VertexElementUsage_t elementUsage, const int usageIndex);
 			VertexElement(const VertexElement &obj);
 		
-			bool Equals(const Object* obj) const;
+			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
 			const char* ToString() const;
