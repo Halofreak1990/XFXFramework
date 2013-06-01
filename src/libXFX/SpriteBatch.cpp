@@ -125,21 +125,21 @@ namespace XFX
 			Draw(texture, destination, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
 		}
          
-		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color)
+		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Nullable<Rectangle> sourceRectangle, const Color color)
 		{
 			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
 		}
         
-		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color)
+		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color)
 		{
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width, texture->Height);
 			Draw(texture, destination, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f); 	
 		}
 
-		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
 		{
 			Sprite sprite = Sprite(texture, 
-				sourceRectangle != Rectangle::Empty ? sourceRectangle : Rectangle(0, 0, texture->Width, texture->Height), 
+				sourceRectangle.HasValue() ? sourceRectangle : Rectangle(0, 0, texture->Width, texture->Height), 
 				destinationRectangle, 
 				color, 
 				rotation, 
@@ -153,14 +153,14 @@ namespace XFX
 				Flush(); 
 		}
 
-		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
 		{ 
 			int width;
 			int height;
-			if (sourceRectangle != Rectangle::Empty)
+			if (sourceRectangle.HasValue())
 			{
-				width = (int)(sourceRectangle.Width * scale.X);
-				height = (int)(sourceRectangle.Height * scale.Y);
+				width = (int)(sourceRectangle.getValue().Width * scale.X);
+				height = (int)(sourceRectangle.getValue().Height * scale.Y);
 			}
 			else
 			{
@@ -171,14 +171,14 @@ namespace XFX
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
 		}
         
-		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Rectangle sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
+		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
 		{
 			int width;
 			int height;
-			if (sourceRectangle != Rectangle::Empty)
+			if (sourceRectangle.HasValue())
 			{
-				width = (int)(sourceRectangle.Width * scale);
-				height = (int)(sourceRectangle.Height * scale);
+				width = (int)(sourceRectangle.getValue().Width * scale);
+				height = (int)(sourceRectangle.getValue().Height * scale);
 			}
 			else
 			{

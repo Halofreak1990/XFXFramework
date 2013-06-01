@@ -30,6 +30,22 @@ namespace System
 		T getValue() const { return *data; }
 
 		operator T() const { return *data; }
+
+		Nullable<T>& operator =(const T * newVal)
+		{
+			data = newVal;
+			return *this;
+		}
+
+		Nullable<T>& operator =(const Nullable<T>& right)
+		{
+			if (right == *this)
+				goto end;
+
+			*data = *right.data;
+		end:
+			return *this;
+		}
 	};
 
 	template <typename T>
