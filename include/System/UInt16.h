@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	UInt16.h																 *
+ *																			 *
+ *	XFX System::UInt16 definition file  									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_UINT16_
 #define _SYSTEM_UINT16_
 
@@ -26,15 +32,13 @@ namespace System
 		bool Equals(const UInt16 other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const ushort value);
+		const String& ToString() const;
+		static const String& ToString(const ushort value);
 		static bool TryParse(const String& str, out ushort* result);
 
 		operator ushort() const;
 		bool operator==(const UInt16& right) const;
-		bool operator==(const ushort& right) const;
 		bool operator!=(const UInt16& right) const;
-		bool operator!=(const ushort& right) const;
 	};
 }
 

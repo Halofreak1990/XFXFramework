@@ -1,19 +1,18 @@
-/********************************************************
- *	BasicEffect.h										*
- *														*
- *	XFX::Graphics::BasicEffect definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	BasicEffect.h															 *
+ *																			 *
+ *	XFX::Graphics::BasicEffect definition file  							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_BASICEFFECT_
 #define _XFX_GRAPHICS_BASICEFFECT_
 
 #include <Graphics/Effect.h>
+#include <Matrix.h>
+#include <Vector3.h>
 
 namespace XFX
 {
-	struct Matrix;
-	struct Vector3;
-
 	namespace Graphics
 	{
 		class DirectionalLight;

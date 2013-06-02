@@ -2,7 +2,7 @@
  *	EventArgs.h											*
  *														*
  *	XFX EventArgs class definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_EVENTARGS_
 #define _SYSTEM_EVENTARGS_

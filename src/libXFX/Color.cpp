@@ -285,7 +285,7 @@ namespace XFX
             return ((uint)255 << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
         }
 
-		const char* Color::ToString() const
+		const String& Color::ToString() const
 		{
 			return String::Format("{R:%i G:%i B:%i A:%i}", R(), G(), B(), A());
 		}

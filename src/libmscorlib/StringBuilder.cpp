@@ -252,20 +252,14 @@ namespace System
 			return *this;
 		}
 
-		const char* StringBuilder::ToString() const
+		const String& StringBuilder::ToString() const
 		{
-			char* result = (char*)malloc(strEnd + 1);
-			strncpy(result, stringBuffer, strEnd);
-			result[strEnd] = '\0';
-			return result;
+			return String(stringBuffer, 0, strEnd);
 		}
 
-		const char* StringBuilder::ToString(const int startIndex, const int length)
+		const String& StringBuilder::ToString(const int startIndex, const int length)
 		{
-			char* result = (char*)malloc(length + 1);
-			strncpy(result, &stringBuffer[startIndex], length);
-			result[length] = '\0';
-			return result;
+			return String(stringBuffer, startIndex, length);
 		}
 
 		bool StringBuilder::operator ==(const StringBuilder& right) const

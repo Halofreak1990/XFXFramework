@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_MEDIA_COLOR_
+#define _SYSTEM_WINDOWS_MEDIA_COLOR_
 
 #include <System/Interfaces.h>
 
@@ -46,7 +47,7 @@ namespace System
 				static Color FromARGB(byte alpha, byte red, byte green, byte blue);
 				int GetHashCode() const;
 				int GetType() const;
-				const char* ToString() const;
+				const String& ToString() const;
 
 				bool operator==(const Color& right) const;
 				bool operator!=(const Color& right) const;
@@ -54,3 +55,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_MEDIA_COLOR_

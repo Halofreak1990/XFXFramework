@@ -2,7 +2,7 @@
  *	Stream.h											*
  *														*
  *	XFX Stream definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_IO_STREAM_
 #define _SYSTEM_IO_STREAM_

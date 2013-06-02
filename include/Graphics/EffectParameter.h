@@ -2,7 +2,7 @@
  *	EffectParameter.h									*
  *														*
  *	XFX::Graphics::EffectParameter definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_EFFECTPARAMETER_
 #define _XFX_GRAPHICS_EFFECTPARAMETER_

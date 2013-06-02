@@ -2,7 +2,7 @@
  *	Game.h												*
  *														*
  *	XFX Game class definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GAME_
 #define _XFX_GAME_
@@ -59,9 +59,9 @@ namespace XFX
 		void Finalize();
 		virtual void LoadContent();
 		virtual void Initialize();
-		virtual void OnActivated(Object* sender, EventArgs* args);
-		virtual void OnDeactivated(Object* sender, EventArgs* args);
-		virtual void OnExiting(Object* sender, EventArgs* args);
+		virtual void OnActivated(Object * const sender, EventArgs * const args);
+		virtual void OnDeactivated(Object * const sender, EventArgs * const args);
+		virtual void OnExiting(Object * const sender, EventArgs * const args);
 		virtual void UnloadContent();
 		virtual void Update(GameTime gameTime);
 
@@ -106,8 +106,8 @@ namespace XFX
 		virtual void Dispose(bool disposing);
 		virtual ~GameComponent();
 
-		virtual void OnEnabledChanged(Object* sender, EventArgs* args);
-		virtual void OnUpdateOrderChanged(Object* sender, EventArgs* args);
+		virtual void OnEnabledChanged(Object * const sender, EventArgs * const args);
+		virtual void OnUpdateOrderChanged(Object * const sender, EventArgs * const args);
 		
 	public:
 		bool getEnabled() const;
@@ -139,8 +139,8 @@ namespace XFX
     protected:
     	void Dispose(bool disposing);
     	virtual void LoadContent();
-		virtual void OnDrawOrderChanged(Object* sender, EventArgs* args);
-		virtual void OnVisibleChanged(Object* sender, EventArgs* args);
+		virtual void OnDrawOrderChanged(Object * const sender, EventArgs * const args);
+		virtual void OnVisibleChanged(Object * const sender, EventArgs * const args);
     	virtual void UnloadContent();
     
     public:

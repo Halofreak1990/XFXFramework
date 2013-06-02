@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Double.h																 *
+ *																			 *
+ *	XFX System::Double definition file  									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_DOUBLE_
 #define _SYSTEM_DOUBLE_
 
@@ -29,8 +35,8 @@ namespace System
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const double value);
+		const String& ToString() const;
+		static const String& ToString(const double value);
 		static bool TryParse(const String& str, out double* result);
 
 		operator double() const;

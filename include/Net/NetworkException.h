@@ -2,7 +2,7 @@
  *	NetworkException.h									*
  *														*
  *	XFX NetworkException definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_NET_NETWORKEXCEPTION_
 #define _XFX_NET_NETWORKEXCEPTION_

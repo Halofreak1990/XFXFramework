@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_TEXTBLOCK_
+#define _SYSTEM_WINDOWS_CONTROLS_TEXTBLOCK_
 
 #include <System/String.h>
 #include <System/Windows/FrameworkElement.h>
@@ -25,8 +26,10 @@ namespace System
 				~TextBlock();
 
 				int GetType() const;
-				const char* ToString() const;
+				const String& ToString() const;
 			};
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_TEXTBLOCK_

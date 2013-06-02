@@ -2,7 +2,7 @@
  *	Enums.h												*
  *														*
  *	XFX::Audio enumerations definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_AUDIO_ENUMS_
 #define _XFX_AUDIO_ENUMS_
@@ -31,8 +31,22 @@ namespace XFX
 			};
 		};
 
+		struct SoundState
+		{
+			enum type
+			{
+				// The SoundEffectInstance is playing.
+				Playing,
+				// The SoundEffectInstance is paused.
+				Paused,
+				// The SoundEffectInstance is stopped.
+				Stopped
+			};
+		};
+
 		typedef AudioChannels::type		AudioChannels_t;	// Defines the number of audio channels in the audio data.
 		typedef AudioStopOptions::type	AudioStopOptions_t;	// Controls how Cue objects should stop when Cue::Stop is called.
+		typedef SoundState::type		SoundState_t;		// Current state (playing, paused, or stopped) of a SoundEffectInstance.
 	}
 }
 

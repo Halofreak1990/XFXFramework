@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	UInt64.h																 *
+ *																			 *
+ *	XFX System::UInt64 definition file  									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_UINT64_
 #define _SYSTEM_UINT64_
 
@@ -25,8 +31,8 @@ namespace System
 		bool Equals(const UInt64 other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const ulong value);
+		const String& ToString() const;
+		static const String& ToString(const ulong value);
 		static bool TryParse(const String& str, out ulong* value);
 
 		operator ulong() const;

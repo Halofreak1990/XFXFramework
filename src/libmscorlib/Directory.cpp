@@ -43,14 +43,11 @@ namespace System
 	{
 		DirectoryInfo Directory::CreateDirectory(const String& path)
 		{
-			char* tmp = const_cast<char*>(path.ToString());
 			sassert(path != null, FrameworkResources::ArgumentNull_Path);
 
-			sassert(!File::Exists(path), String::Format("Cannot create %s because a file with the same name already exists.\n", tmp));
+			sassert(!File::Exists(path), String::Format("Cannot create %s because a file with the same name already exists.\n", (const char *)path.ToString()));
 
-			XCreateDirectory(tmp);
-
-			free(tmp);
+			XCreateDirectory((char *)((const char *)path.ToString()));
 
 			return DirectoryInfo(path);
 		}

@@ -210,6 +210,60 @@ namespace System
 					Integer = 40,
 					// An item such as a node or atomic value.
 					Item = 1,
+					// A W3C XML Schema xs:language type.
+					Language = 33,
+					// A W3C XML Schema xs:long type.
+					Long = 43,
+					// A W3C XML Schema xs:Name type.
+					Name = 35,
+					// This value supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+					Namespace = 6,
+					// A W3C XML Schema xs:NCName type.
+					NCName = 36,
+					// A W3C XML Schema xs:negativeInteger type.
+					NegativeInteger = 42,
+					// A W3C XML Schema xs:NMTOKEN type.
+					NmToken = 34,
+					// This value supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+					Node = 2,
+					// No type information.
+					None = 0,
+					// A W3C XML Schema xs:nonNegativeInteger type.
+					NonNegativeInteger = 47,
+					// A W3C XML Schema xs:nonPositiveInteger type.
+					NonPositiveInteger = 41,
+					// A W3C XML Schema xs:normalizedString type.
+					NormalizedString = 31,
+					// A W3C XML Schema xs:NOTATION type.
+					Notation = 30,
+					// A W3C XML Schema xs:positiveInteger type.
+					PositiveInteger = 52,
+					// This value supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+					ProcessingInstruction = 7,
+					// A W3C XML Schema xs:QName type.
+					QName = 29,
+					// A W3C XML Schema xs:short type.
+					Short = 45,
+					// A W3C XML Schema xs:string type.
+					String = 12,
+					// This value supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+					Text = 9,
+					// A W3C XML Schema xs:time type.
+					Time = 19,
+					// A W3C XML Schema xs:token type.
+					Token = 32,
+					// A W3C XML Schema xs:unsignedByte type.
+					UnsignedByte = 51,
+					// A W3C XML Schema xs:unsignedInt type.
+					UnsignedInt = 49,
+					// A W3C XML Schema xs:unsignedLong type.
+					UnsignedLong = 48,
+					// A W3C XML Schema xs:unsignedShort type.
+					UnsignedShort = 50,
+					// An untyped atomic value.
+					UntypedAtomic = 11,
+					// This value supports the .NET Framework infrastructure and is not intended to be used directly from your code.
+					YearMonthDuration = 53
 				};
 			};
 

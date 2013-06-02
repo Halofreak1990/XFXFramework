@@ -65,7 +65,7 @@ namespace System
 
 			ret = XCreateFile(
 				&sourceHandle,
-				const_cast<char*>(sourceFileName.ToString()),
+				const_cast<char*>((const char *)sourceFileName.ToString()),
 				GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL
 				);
 
@@ -78,7 +78,7 @@ namespace System
 
 				XCreateFile(
 					&destHandle,
-					const_cast<char*>(destFileName.ToString()),
+					const_cast<char*>((const char *)destFileName.ToString()),
 					GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL
 					);
 
@@ -104,7 +104,7 @@ namespace System
 
 		void File::Delete(const String& path)
 		{
-			XDeleteFile(const_cast<char*>(path.ToString()));
+			XDeleteFile(const_cast<char*>((const char *)path.ToString()));
 		}
 
 		bool File::Exists(const String& path)

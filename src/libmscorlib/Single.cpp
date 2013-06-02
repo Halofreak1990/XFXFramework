@@ -99,7 +99,7 @@ namespace System
 
 		*result = 0;
 		char sign = 0;
-		char *sp = const_cast<char*>(str.ToString());
+		char *sp = const_cast<char*>((const char *)str.ToString());
 
 		if (*sp == '+' || *sp == '-')
         sign = *sp++;
@@ -119,12 +119,12 @@ namespace System
 		return true;
 	}
 
-	const char* Single::ToString() const
+	const String& Single::ToString() const
 	{
 		return String::Format("%f", value);
 	}
 
-	const char* Single::ToString(const float value)
+	const String& Single::ToString(const float value)
 	{
 		return String::Format("%f", value);
 	}

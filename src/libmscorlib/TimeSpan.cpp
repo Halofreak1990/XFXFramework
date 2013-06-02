@@ -223,7 +223,7 @@ namespace System
 		return TimeSpan(ticks);
 	}
 
-	const char* TimeSpan::ToString() const
+	const String& TimeSpan::ToString() const
 	{
 		return String::Format("Ticks: %ll", _ticks);
 	}

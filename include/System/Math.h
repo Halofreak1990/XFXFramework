@@ -2,7 +2,7 @@
  *	Math.h												*
  *														*
  *	XFX Math definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_MATH_
 #define _SYSTEM_MATH_

@@ -1,12 +1,13 @@
-/********************************************************
- *	VertexPositionTexture.h								*
- *														*
- *	XFX VertexPositionTexture definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	VertexPositionTexture.h 												 *
+ *																			 *
+ *	XFX::Graphics::VertexPositionTexture definition file					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONTEXTURE_
 #define _XFX_GRAPHICS_VERTEXPOSITIONTEXTURE_
 
+#include "IVertexType.h"
 #include "VertexDeclaration.h"
 
 namespace XFX
@@ -17,7 +18,7 @@ namespace XFX
 	namespace Graphics
 	{
 		// Describes a custom vertex format structure that contains position and one set of texture coordinates.
-		struct VertexPositionTexture : Object
+		struct VertexPositionTexture : IVertexType, Object
 		{
 		private:
 			static const VertexElement vertexArray[];
@@ -33,7 +34,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 		
 			bool operator!=(const VertexPositionTexture& other) const;
 			bool operator==(const VertexPositionTexture& other) const;

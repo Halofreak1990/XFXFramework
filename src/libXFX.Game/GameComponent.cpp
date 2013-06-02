@@ -39,7 +39,7 @@ namespace XFX
 		if(_enabled != value)
 		{
 			_enabled = value;
-			OnEnabledChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
+			OnEnabledChanged(this, const_cast<EventArgs * const>(EventArgs::Empty));
 		}
 	}
 
@@ -58,7 +58,7 @@ namespace XFX
 		if(_updateOrder != value)
 		{
 			_updateOrder = value;
-			OnUpdateOrderChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
+			OnUpdateOrderChanged(this, const_cast<EventArgs * const>(EventArgs::Empty));
 		}
 	}
 
@@ -91,12 +91,12 @@ namespace XFX
 	{
 	}
 
-	void GameComponent::OnEnabledChanged(Object* sender, EventArgs* args)
+	void GameComponent::OnEnabledChanged(Object * const sender, EventArgs * const args)
 	{
 		EnabledChanged(sender, args);
 	}
 
-	void GameComponent::OnUpdateOrderChanged(Object* sender, EventArgs* args)
+	void GameComponent::OnUpdateOrderChanged(Object * const sender, EventArgs * const args)
 	{
 		UpdateOrderChanged(sender, args);
 	}

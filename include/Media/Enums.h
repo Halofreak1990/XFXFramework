@@ -2,7 +2,7 @@
  *	Enums.h												*
  *														*
  *	XFX::Media enumeration definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_MEDIA_ENUMS_H_
 #define _XFX_MEDIA_ENUMS_H_

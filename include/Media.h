@@ -2,7 +2,7 @@
  *	Media.h												*
  *														*
  *	XFX::Media namespace include file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_MEDIA_
 #define _XFX_MEDIA_

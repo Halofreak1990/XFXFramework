@@ -47,7 +47,7 @@ namespace System
 			// TODO: implement
 		}
 
-		const char* Size::ToString() const
+		const String& Size::ToString() const
 		{
 			return String::Format("{Width:%i Height:%i}", Width, Height);
 		}

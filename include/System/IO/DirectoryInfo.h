@@ -1,13 +1,13 @@
-/********************************************************
- *	DirectoryInfo.h										*
- *														*
- *	XFX DirectoryInfo definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	DirectoryInfo.h															 *
+ *																			 *
+ *	XFX System::IO::DirectoryInfo definition file							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_IO_DIRECTORYINFO_
 #define _SYSTEM_IO_DIRECTORYINFO_
 
-#include "../Types.h"
+#include <System/Types.h>
 #include "FileSystemInfo.h"
 
 namespace System
@@ -17,17 +17,17 @@ namespace System
 		class Directory;
 
 		// Exposes instance methods for creating, moving, and enumerating through directories and subdirectories. This class cannot be inherited.
-		class DirectoryInfo : public FileSystemInfo, public virtual Object
+		class DirectoryInfo : public FileSystemInfo
 		{
 		private:
 			friend class Directory;
 
-			char* current;
-			char* parent;
+			String current;
+			String parent;
 
 		public:
 			bool Exists() const;
-			const char* Name() const;
+			String getName() const;
 			DirectoryInfo Parent();
 			DirectoryInfo Root();
 
@@ -49,7 +49,7 @@ namespace System
 			FileSystemInfo* GetFileSystemInfos(const String& searchPattern);
 			int GetType() const;
 			void MoveTo(const String& destDirName);
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator !=(const DirectoryInfo& right) const;
 			bool operator ==(const DirectoryInfo& right) const;

@@ -52,7 +52,7 @@ namespace XFX
 		void Intersects(Plane plane, out PlaneIntersectionType_t& result) const;
 		float Intersects(Ray ray) const;
 		void Intersects(Ray ray, out float& distance) const;
-		const char* ToString() const;
+		const String& ToString() const;
 		
 		bool operator!=(const BoundingBox& other) const;
 		bool operator==(const BoundingBox& other) const;

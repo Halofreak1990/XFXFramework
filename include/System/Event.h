@@ -89,7 +89,7 @@ namespace System
 		}
 	};
 
-	typedef Event<Object*, EventArgs*>	EventHandler;
+	typedef Event<Object * const, EventArgs * const>	EventHandler;
 }
 
 #endif

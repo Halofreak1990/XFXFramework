@@ -46,11 +46,9 @@ local.properties
 [Rr]elease/
 *_i.c
 *_p.c
-[Bb]uild[Ll]og.htm
-<<<<<<< Updated upstream
-=======
+[Bb]uild[Ll]og.*
 *.a
->>>>>>> Stashed changes
+
 *.ilk
 *.meta
 *.o

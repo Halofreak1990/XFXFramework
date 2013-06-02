@@ -2,7 +2,7 @@
  *	StorageContainer.h									*
  *														*
  *	XFX StorageContainer definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_STORAGE_STORAGECONTAINER_
 #define _XFX_STORAGE_STORAGECONTAINER_

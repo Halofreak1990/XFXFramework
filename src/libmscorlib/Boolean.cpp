@@ -60,7 +60,7 @@ namespace System
 
 	bool Boolean::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? *this == *(Boolean *)obj : false;
+		return (obj != null && is(this, obj)) ? *this == *(Boolean *)obj : false;
 	}
 
 	bool Boolean::Equals(const Boolean other) const
@@ -82,14 +82,14 @@ namespace System
 		return -1;
 	}
 
-	const char* Boolean::ToString() const
+	const String& Boolean::ToString() const
 	{
 		if (value)
 			return "true";
 		return "false";
 	}
 
-	const char* Boolean::ToString(bool value)
+	const String& Boolean::ToString(bool value)
 	{
 		if (value)
 			return "true";

@@ -2,7 +2,7 @@
  *	GameServiceContainer.h								*
  *														*
  *	XFX GameServiceContainer definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GAMESERVICECONTAINER_
 #define _XFX_GAMESERVICECONTAINER_

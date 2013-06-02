@@ -2,7 +2,7 @@
  *	Interfaces.h										*
  *														*
  *	XFX Generic Interfaces definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_
 #define _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_

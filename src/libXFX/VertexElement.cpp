@@ -59,7 +59,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* VertexElement::ToString() const
+		const String& VertexElement::ToString() const
 		{
 			// TODO: implement
 		}

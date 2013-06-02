@@ -79,12 +79,12 @@ namespace System
 		return 9;
 	}
 
-	const char* Int32::ToString() const
+	const String& Int32::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* Int32::ToString(const int value)
+	const String& Int32::ToString(const int value)
 	{
 		return String::Format("%i", value);
 	}

@@ -82,9 +82,9 @@ namespace System
 			Visibility = Visibility::Visible;
 		}
 
-		const char* Window::ToString() const
+		const String& Window::ToString() const
 		{
-			return Title.ToString();
+			return Title;
 		}
 	}
 }

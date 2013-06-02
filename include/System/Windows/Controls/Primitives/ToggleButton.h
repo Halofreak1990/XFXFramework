@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_TOGGLEBUTTON_
+#define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_TOGGLEBUTTON_
 
 #include <System/Windows/Controls/Primitives/ButtonBase.h>
 #include <System/Nullable.h>
@@ -27,7 +28,7 @@ namespace System
 					virtual ~ToggleButton();
 
 					int GetType() const;
-					const char* ToString() const;
+					const String& ToString() const;
 
 					bool operator==(const ToggleButton& right) const;
 					bool operator!=(const ToggleButton& right) const;
@@ -40,3 +41,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_TOGGLEBUTTON_

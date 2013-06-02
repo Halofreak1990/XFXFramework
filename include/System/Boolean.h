@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Boolean.h																 *
+ *																			 *
+ *	XFX System::Boolean definition file 									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_BOOLEAN_
 #define _SYSTEM_BOOLEAN_
 
@@ -26,8 +32,8 @@ namespace System
 		bool Equals(const Boolean other) const;
 		int GetType() const;
 		static bool Parse(const String& str);
-		const char* ToString() const;
-		static const char* ToString(bool value);
+		const String& ToString() const;
+		static const String& ToString(bool value);
 
 		operator bool() const;
 		bool operator!=(const Boolean& right) const;
@@ -35,4 +41,4 @@ namespace System
 	};
 }
 
-#endif //_BOOLEAN_
+#endif //_SYSTEM_BOOLEAN_

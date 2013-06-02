@@ -2,7 +2,7 @@
  *	GraphicsDeviceInformation.h							*
  *														*
  *	XFX GraphicsDeviceInformation definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _GRAPHICSDEVICEINFORMATION_
 #define _GRAPHICSDEVICEINFORMATION_

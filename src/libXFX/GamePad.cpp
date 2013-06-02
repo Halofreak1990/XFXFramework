@@ -202,7 +202,7 @@ namespace XFX
 			return !IsButtonDown(button);
 		}
 
-		const char* GamePadState::ToString() const
+		const String& GamePadState::ToString() const
 		{
 			return String::Format("{IsConnected:%b}", IsConnected);
 		}
@@ -270,7 +270,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* GamePadButtons::ToString() const
+		const String& GamePadButtons::ToString() const
 		{
 			String str = "";
 			if (A == ButtonState::Pressed)
@@ -318,7 +318,7 @@ namespace XFX
 				str = "None";
 			}
 
-			return String::Format("{Buttons:%s}", str.ToString());
+			return "{Buttons:" + str + "}";
 		}
 
 		bool GamePadButtons::operator!=(const GamePadButtons& other) const
@@ -372,7 +372,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* GamePadDPad::ToString() const
+		const String& GamePadDPad::ToString() const
 		{
 			String str = "";
 			if (Up == ButtonState::Pressed)
@@ -396,7 +396,7 @@ namespace XFX
 				str = "None";
 			}
 
-			return String::Format("{DPad:%s}", str.ToString());
+			return "{DPad:" + str + "}";
 		}
 
 		bool GamePadDPad::operator !=(const GamePadDPad& right) const
@@ -446,9 +446,9 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* GamePadThumbSticks::ToString() const
+		const String& GamePadThumbSticks::ToString() const
 		{
-			return String::Format("{Left:%s Right%s}", Left.ToString(), Right.ToString());
+			return String::Format("{Left:%s Right%s}", (const char *)Left.ToString(), (const char *)Right.ToString());
 		}
 
 		bool GamePadThumbSticks::operator!=(const GamePadThumbSticks& other) const
@@ -496,7 +496,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* GamePadTriggers::ToString() const
+		const String& GamePadTriggers::ToString() const
 		{
 			return String::Format("{Left:%f Right:%f}", Left, Right);
 		}

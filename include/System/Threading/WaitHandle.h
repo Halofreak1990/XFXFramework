@@ -2,7 +2,7 @@
  *	WaitHandle.h										*
  *														*
  *	XFX WaitHandle definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_THREADING_WAITHANDLE_
 #define _SYSTEM_THREADING_WAITHANDLE_

@@ -1,9 +1,9 @@
-/********************************************************
- *	OperatingSystem.h									*
- *														*
- *	XFX OperatingSystem definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	OperatingSystem.h														 *
+ *																			 *
+ *	XFX System::OperatingSystem definition file 							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_OPERATINGSYSTEM_
 #define _SYSTEM_OPERATINGSYSTEM_
 
@@ -30,7 +30,7 @@ namespace System
 		bool Equals(const OperatingSystem other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
+		const String& ToString() const;
 
 		bool operator !=(const OperatingSystem& right) const;
 		bool operator ==(const OperatingSystem& right) const;

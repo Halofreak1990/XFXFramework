@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	UInt32.h																 *
+ *																			 *
+ *	XFX System::UInt32 definition file  									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_UINT32_
 #define _SYSTEM_UINT32_
 
@@ -23,8 +29,8 @@ namespace System
 		bool Equals(const UInt32 other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const uint value);
+		const String& ToString() const;
+		static const String& ToString(const uint value);
 		static bool TryParse(const char* str, out uint* result);
 
 		bool operator==(const UInt32& right) const;

@@ -1,9 +1,9 @@
-/********************************************************
- *	List.h												*
- *														*
- *	XFX Generic List definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	List.h																	 *
+ *																			 *
+ *	XFX Generic List definition file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_LIST_
 #define _SYSTEM_COLLECTIONS_GENERIC_LIST_
 
@@ -347,7 +347,7 @@ namespace System
 					return destinationArray;
 				}
 
-				const char* ToString() const
+				const String& ToString() const
 				{
 					return "List<T>";
 				}

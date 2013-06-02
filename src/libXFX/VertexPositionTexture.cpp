@@ -70,9 +70,9 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const char* VertexPositionTexture::ToString() const
+		const String& VertexPositionTexture::ToString() const
 		{
-			return String::Format("{Position:%s TextureCoordinate:%s}", Position.ToString(), TextureCoordinate.ToString());
+			return String::Format("{Position:%s TextureCoordinate:%s}", (const char *)Position.ToString(), (const char *)TextureCoordinate.ToString());
 		}
 		
 		bool VertexPositionTexture::operator!=(const VertexPositionTexture& other) const

@@ -79,12 +79,12 @@ namespace System
 		return 5;
 	}
 
-	const char* SByte::ToString() const
+	const String& SByte::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* SByte::ToString(const sbyte value)
+	const String& SByte::ToString(const sbyte value)
 	{
 		return String::Format("%i", value);
 	}
@@ -116,18 +116,8 @@ namespace System
 		return (value == right.value);
 	}
 
-	bool SByte::operator ==(const sbyte& right) const
-	{
-		return (value == right);
-	}
-
 	bool SByte::operator !=(const SByte& right) const
 	{
 		return (value != right.value);
-	}
-
-	bool SByte::operator !=(const sbyte& right) const
-	{
-		return (value != right);
 	}
 }

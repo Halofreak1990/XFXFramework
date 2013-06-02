@@ -2,7 +2,7 @@
  *	Dictionary.h										*
  *														*
  *	XFX Generic Dictionary class definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_
 #define _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_

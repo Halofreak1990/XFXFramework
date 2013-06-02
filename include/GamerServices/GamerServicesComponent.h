@@ -2,7 +2,7 @@
  *	GamerServicesComponent.h							*
  *														*
  *	XFX GamerServicesComponent class definition file	*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GAMERSERVICES_GAMERSERVICESCOMPONENT_
 #define _XFX_GAMERSERVICES_GAMERSERVICESCOMPONENT_

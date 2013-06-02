@@ -1,9 +1,9 @@
-/********************************************************
- *	Version.h											*
- *														*
- *	XFX Version definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Version.h																 *
+ *																			 *
+ *	XFX Version definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_VERSION_
 #define _SYSTEM_VERSION_
 
@@ -31,8 +31,8 @@ namespace System
 		bool Equals(const Version obj) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		const char* ToString(const int fieldCount) const;
+		const String& ToString() const;
+		const String& ToString(const int fieldCount) const;
 
 		bool operator !=(const Version& other) const;
 		bool operator  <(const Version& other) const;

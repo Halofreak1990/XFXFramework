@@ -2,7 +2,7 @@
  *	Directory.h											*
  *														*
  *	XFX Directory class definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_IO_DIRECTORY_
 #define _SYSTEM_IO_DIRECTORY_

@@ -2,7 +2,7 @@
  *	Enums.h												*
  *														*
  *	System::Threading enumerations definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_THREADING_ENUMS_
 #define _SYSTEM_THREADING_ENUMS_

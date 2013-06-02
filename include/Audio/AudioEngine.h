@@ -8,6 +8,7 @@
 #define XFX_AUDIO_AUDIOENGINE_H
 
 #include <System/String.h>
+#include <System/TimeSpan.h>
 
 using namespace System;
 
@@ -27,7 +28,7 @@ namespace XFX
 
 			AudioEngine(); //Initialize the audio engine for direct wav play.
 			AudioEngine(String& settingsFile); //Initialize the audio engine for XACT
-			AudioEngine(String& settingsFile, TimeSpan lookAheadTime, char* rendererId);
+			AudioEngine(String& settingsFile, TimeSpan lookAheadTime, String& rendererId);
 				
 			void Dispose();
 			AudioCategory GetCategory(String& name);

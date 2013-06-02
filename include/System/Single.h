@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Single.h																 *
  *																			 *
- *	XFX Single structure definition file									 *
+ *	XFX System::Single structure definition file							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_SINGLE_
@@ -37,14 +37,12 @@ namespace System
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const float value);
+		const String& ToString() const;
+		static const String& ToString(const float value);
 		static bool TryParse(const String& str, out float* result);
 
 		operator float() const;
-		//bool operator !=(const float& right) const;
 		bool operator !=(const Single& right) const;
-		//bool operator ==(const float& right) const;
 		bool operator ==(const Single& right) const;
 	};
 }

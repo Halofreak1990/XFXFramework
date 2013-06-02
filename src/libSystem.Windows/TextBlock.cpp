@@ -17,9 +17,9 @@ namespace System
 				delete Foreground;
 			}
 
-			const char* TextBlock::ToString() const
+			const String& TextBlock::ToString() const
 			{
-				return Text.ToString();
+				return Text;
 			}
 		}
 	}

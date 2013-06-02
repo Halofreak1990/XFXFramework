@@ -1,9 +1,9 @@
-/********************************************************
- *	GamePadButtons.h									*
- *														*
- *	XFX GamePadButtons definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GamePadButtons.h														 *
+ *																			 *
+ *	XFX::Input::GamePadButtons definition file  							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_GAMEPADBUTTONS_
 #define _XFX_INPUT_GAMEPADBUTTONS_
 
@@ -39,7 +39,7 @@ namespace XFX
 			bool Equals(const GamePadButtons obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator !=(const GamePadButtons& right) const;
 			bool operator ==(const GamePadButtons& right) const;
@@ -66,7 +66,7 @@ namespace XFX
 			bool Equals(const GamePadDPad obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 			
 			bool operator!=(const GamePadDPad& right) const;
 			bool operator==(const GamePadDPad& right) const;
@@ -91,7 +91,7 @@ namespace XFX
 			bool Equals(const GamePadThumbSticks obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator!=(const GamePadThumbSticks& right) const;
 			bool operator==(const GamePadThumbSticks& right) const;
@@ -116,7 +116,7 @@ namespace XFX
 			bool Equals(const GamePadTriggers obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator!=(const GamePadTriggers& right) const;
 			bool operator==(const GamePadTriggers& right) const;

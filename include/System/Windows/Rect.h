@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_RECT_
+#define _SYSTEM_WINDOWS_RECT_
 
 #include <System/Interfaces.h>
 
@@ -35,9 +36,14 @@ namespace System
 			int GetHashCode() const;
 			int GetType() const;
 			void Intersect(const Rect rect);
-			const char* ToString() const;
+			const String& ToString() const;
 			void Union(const Point point);
 			void Union(const Rect rect);
+
+			bool operator!=(const Rect& right) const;
+			bool operator==(const Rect& right) const;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_RECT_

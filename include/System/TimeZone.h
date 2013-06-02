@@ -2,7 +2,7 @@
  *	TimeZone.h											*
  *														*
  *	TimeZone definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_TIMEZONE_
 #define _SYSTEM_TIMEZONE_

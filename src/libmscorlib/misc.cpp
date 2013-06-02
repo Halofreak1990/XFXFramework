@@ -124,11 +124,6 @@ void *memcpy(void *dest, const void *src, size_t count)
 	return retval;
 }
 
-void *malloc(size_t size)
-{
-	return (void*)MmAllocateContiguousMemory(size);
-}
-
 void *memset(void *s, char c, size_t count)
 {
 	int d0, d1;

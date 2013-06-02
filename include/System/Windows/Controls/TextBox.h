@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_TEXTBOX_
+#define _SYSTEM_WINDOWS_CONTROLS_TEXTBOX_
 
 #include <System/Windows/Controls/Control.h>
 #include <System/String.h>
@@ -28,8 +29,10 @@ namespace System
 				int GetType() const;
 				void Select(const int start, const int length);
 				void SelectAll();
-				const char* ToString() const;
+				const String& ToString() const;
 			};
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_TEXTBOX_

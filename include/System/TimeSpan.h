@@ -1,9 +1,9 @@
-/********************************************************
- *	TimeSpan.h											*
- *														*
- *	XFX TimeSpan definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	TimeSpan.h																 *
+ *																			 *
+ *	XFX System::TimeSpan definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_TIMESPAN_
 #define _SYSTEM_TIMESPAN_
 
@@ -66,7 +66,7 @@ namespace System
 		TimeSpan Negate();
 		TimeSpan Parse(const String& s); //! TODO
 		TimeSpan Subtract(const TimeSpan ts);
-		const char* ToString() const; //! TODO
+		const String& ToString() const; //! TODO
 
 		TimeSpan operator +(const TimeSpan& other);
 		bool operator==(const TimeSpan& other) const;
@@ -80,4 +80,4 @@ namespace System
 	};
 }
 
-#endif //_TIMESPAN_
+#endif //_SYSTEM_TIMESPAN_

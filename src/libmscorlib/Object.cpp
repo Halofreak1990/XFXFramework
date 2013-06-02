@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Object.h>
+#include <System/String.h>
 #include <string.h>
 
 namespace System
@@ -55,7 +56,7 @@ namespace System
 		return (&objA == &objB);
 	}
 
-	const char* Object::ToString() const
+	const String& Object::ToString() const
 	{
 		return "Object";
 	}
@@ -76,8 +77,9 @@ namespace System
 	template <typename T, typename U>
 	U * as(T * const source)
 	{
+		U destType();
 		int typeCode = source->GetType(); // make sure source is an Object
-		int destTypeCode = U destType().GetType(); // same hee, but now for U
+		int destTypeCode = destType.GetType(); // same here, but now for U
 
 		return (typeCode == destTypeCode) ? (U *)source : NULL;
 	}

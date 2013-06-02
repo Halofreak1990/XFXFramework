@@ -2,7 +2,7 @@
  *	ContentReader.h										*
  *														*
  *	XFX ContentReader class definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_CONTENT_CONTENTREADER_
 #define _XFX_CONTENT_CONTENTREADER_

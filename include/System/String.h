@@ -75,7 +75,7 @@ namespace System
 		char* ToCharArray() const;
 		String ToLower() const;
 		static const char* ToLower(const char* str);
-		const char* ToString() const;
+		const String& ToString() const;
 		String ToUpper() const;
 		static const char* ToUpper(const char* str);
 
@@ -91,6 +91,11 @@ namespace System
 		String operator+(const String& right) const;
 		const char operator [](const int index) const;
 	};
+
+	inline const String& operator +(const char * left, const String& right)
+	{
+		return String(left) + right;
+	}
 
 	typedef String string;
 }

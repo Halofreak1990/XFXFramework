@@ -1,14 +1,13 @@
 /*****************************************************************************
  *	Color.h																	 *
  *																			 *
- *	XFX Color definition file												 *
+ *	XFX::Graphics::Color definition file									 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_COLOR_
 #define _XFX_GRAPHICS_COLOR_
 
 #include <System/Interfaces.h>
-#include <System/Types.h>
 
 using namespace System;
 
@@ -190,7 +189,7 @@ namespace XFX
 			int GetHashCode() const;
 			int GetType() const;
 			unsigned int PackedValue() const;
-			const char* ToString() const;
+			const String& ToString() const;
 			Vector4 ToVector4() const;
 			Vector3 ToVector3() const;
 			

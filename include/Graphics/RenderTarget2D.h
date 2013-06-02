@@ -1,9 +1,9 @@
-/********************************************************
- *	RenderTarget2D.h									*
- *														*
- *	XFX RenderTarget2D definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	RenderTarget2D.h														 *
+ *																			 *
+ *	XFX::Graphics::RenderTarget2D definition file							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_RENDERTARGET2D_
 #define _XFX_GRAPHICS_RENDERTARGET2D_
 

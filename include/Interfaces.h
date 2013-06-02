@@ -2,7 +2,7 @@
  *	Interfaces.h										*
  *														*
  *	XFX interfaces definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_INTERFACES_
 #define _XFX_INTERFACES_

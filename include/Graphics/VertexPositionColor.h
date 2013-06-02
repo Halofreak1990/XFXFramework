@@ -1,9 +1,9 @@
-/********************************************************
- *	VertexPositionColor.h								*
- *														*
- *	XFX VertexPositionColor definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	VertexPositionColor.h													 *
+ *																			 *
+ *	XFX::Graphics::VertexPositionColor definition file  					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONCOLOR_
 #define _XFX_GRAPHICS_VERTEXPOSITIONCOLOR_
 
@@ -36,7 +36,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator!=(const VertexPositionColor& other) const;
 			bool operator==(const VertexPositionColor& other) const;

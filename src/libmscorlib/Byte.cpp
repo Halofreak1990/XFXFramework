@@ -68,12 +68,12 @@ namespace System
 		return 6;
 	}
 
-	const char* Byte::ToString() const
+	const String& Byte::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* Byte::ToString(byte value)
+	const String& Byte::ToString(byte value)
 	{
 		return String::Format("%i", value);
 	}

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_SIZE_
+#define _SYSTEM_WINDOWS_SIZE_
 
 #include <System/Object.h>
 #include <System/Interfaces.h>
@@ -25,10 +26,12 @@ namespace System
 			bool Equals(const Size other) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator ==(const Size& right) const;
 			bool operator !=(const Size& right) const;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_SIZE_

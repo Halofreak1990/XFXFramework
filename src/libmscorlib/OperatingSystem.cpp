@@ -59,7 +59,7 @@ namespace System
 	{
 	}
 
-	const char* OperatingSystem::ToString() const
+	const String& OperatingSystem::ToString() const
 	{
 		return "";
 	}

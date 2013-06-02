@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_RANGEBASE_
+#define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_RANGEBASE_
 
 #include <System/Windows/Controls/Control.h>
 #include <System/Windows/RoutedPropertyChangedEventArgs.h>
@@ -39,9 +40,9 @@ namespace System
 					virtual ~RangeBase();
 
 					int GetType() const;
-					const char* ToString() const;
+					const String& ToString() const;
 
-					Event<Object*, RoutedPropertyChangedEventArgs<int>* > ValueChanged;
+					Event<Object * const, RoutedPropertyChangedEventArgs<int> * const> ValueChanged;
 
 					bool operator ==(const RangeBase& right) const;
 					bool operator !=(const RangeBase& right) const;
@@ -50,3 +51,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_RANGEBASE_

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_ROUTEDEVENTARGS_
+#define _SYSTEM_WINDOWS_ROUTEDEVENTARGS_
 
 #include <System/Event.h>
 
@@ -14,7 +15,7 @@ namespace System
 
 			friend class FrameworkElement;
 
-			RoutedEventArgs(Object* originalSource) : _originalSource(originalSource) { }
+			RoutedEventArgs(Object * const originalSource) : _originalSource(originalSource) { }
 
 		public:
 			Object* getOriginalSource() const { return _originalSource; }
@@ -23,6 +24,8 @@ namespace System
 			virtual ~RoutedEventArgs() { }
 		};
 
-		typedef Event<Object*, RoutedEventArgs*> RoutedEventHandler;
+		typedef Event<Object * const, RoutedEventArgs * const> RoutedEventHandler;
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_ROUTEDEVENTARGS_

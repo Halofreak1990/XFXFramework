@@ -42,7 +42,9 @@ namespace System
 	String::String()
 		: Length(0)
 	{
-		internalString = "";
+		internalString = (char *)malloc(1);
+
+		internalString[0] = '\0';
 	}
 
 	String::String(char c, int count)
@@ -71,13 +73,20 @@ namespace System
 		// allocate storage
 		internalString = (char*)malloc(obj.Length + 1);
 		// copy the source string
-		strncpy(obj.internalString, internalString, obj.Length);
+		strncpy(internalString, obj.internalString, obj.Length);
+
+		internalString[Length] = '\0';
 	}
 
 	String::String(const char* obj)
 		: Length(strlen(obj))
 	{
-		internalString = (char*)obj;
+		// allocate storage
+		internalString = (char*)malloc(Length + 1);
+		// copy the source string
+		strncpy(internalString, obj, Length);
+
+		internalString[Length] = '\0';
 	}
 
 	String::~String()
@@ -135,12 +144,12 @@ namespace System
 
 	bool String::Equals(const String obj) const
 	{
-		return (Compare(internalString, obj.internalString) == 0);
+		return *this == obj;
 	}
 
 	bool String::Equals(const String& str1, const String& str2)
 	{
-		return (Compare(str1.internalString, str2.internalString) == 0);
+		return str1 == str2;
 	}
 
 	const char* String::Format(const char* format, ...)
@@ -198,7 +207,7 @@ namespace System
 
 	int String::IndexOf(char value, int startIndex, int count) const
 	{
-		for(int i = startIndex; i < startIndex+count; i++)
+		for(int i = startIndex; i < startIndex + count; i++)
 		{
 			if(internalString[i] == value)
 				return i;
@@ -208,12 +217,12 @@ namespace System
 
 	int String::IndexOfAny(char anyOf[], int charCount) const
 	{
-		return IndexOfAny(anyOf, 0, Length);
+		return IndexOfAny(anyOf, charCount, 0, Length);
 	}
 
 	int String::IndexOfAny(char anyOf[], int charCount, int startIndex) const
 	{
-		return IndexOfAny(anyOf, 0, Length - startIndex);
+		return IndexOfAny(anyOf, charCount, startIndex, Length - startIndex);
 	}
 
 	int String::IndexOfAny(char anyOf[], int charCount, int startIndex, int count) const
@@ -264,8 +273,7 @@ namespace System
 
 	String String::PadRight(int totalWidth)
 	{
-		int diff = totalWidth - Length;
-		return PadRight(diff, ' ');
+		return PadRight(totalWidth, ' ');
 	}
 
 	String String::PadRight(int totalWidth, char paddingChar)
@@ -335,20 +343,12 @@ namespace System
 	
 	String String::SubString(int startIndex, int length) const
 	{
-		char* newString = (char*)malloc(length + 1); // allocate space for the SubString and accompanying null-terminator.
-		
-		strncpy(newString, internalString + startIndex, length); // copy length chars, starting at startIndex, to newString
-
-		newString[length] = '\0'; // null-terminate the resulting string
-		
-		String result = String(newString); // copy the newly created substring to a new String instance
-		free(newString); // free the temporary buffer
-		return result; // return the result
+		return String(internalString, startIndex, length);
 	}
 
 	char* String::ToCharArray(const int startIndex, const int length) const
 	{
-		sassert((startIndex + length) < Length, "startIndex + length exceeds the length of this String");
+		sassert((startIndex + length) < Length, "startIndex + length exceeds the length of this String instance.");
 
 		char* tmp = (char*)malloc(length);
 		
@@ -366,14 +366,12 @@ namespace System
 
 	String String::ToLower() const
 	{
-		char* tmp = (char*)malloc(Length+1);
-		for (int i = 0; i < Length; i++)
-			tmp[i] = tolower(internalString[i]);
+		String newString = String(*this);
 
-		tmp[Length] = '\0';
-		String result = tmp;
-		free(tmp);
-		return result;
+		for (int i = 0; i < Length; i++)
+			newString.internalString[i] = tolower(internalString[i]);
+
+		return newString;
 	}
 
 	const char* String::ToLower(const char* str)
@@ -387,21 +385,19 @@ namespace System
 		return tmp;
 	}
 	
-	const char* String::ToString() const
+	const String& String::ToString() const
 	{
-		return internalString;
+		return *this;
 	}
 
 	String String::ToUpper() const
 	{
-		char* tmp = (char*)malloc(Length+1);
-		for (int i = 0; i < Length; i++)
-			tmp[i] = toupper(internalString[i]);
+		String newString = String(*this);
 
-		tmp[Length] = '\0';
-		String result = tmp;
-		free(tmp);
-		return result;
+		for (int i = 0; i < Length; i++)
+			newString.internalString[i] = toupper(internalString[i]);
+
+		return newString;
 	}
 
 	const char* String::ToUpper(const char* str)

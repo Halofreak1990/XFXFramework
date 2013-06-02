@@ -2,7 +2,7 @@
  *	Interfaces.h										*
  *														*
  *	System namespace interfaces definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_INTERFACES_
 #define _SYSTEM_INTERFACES_

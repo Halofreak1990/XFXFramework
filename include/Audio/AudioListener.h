@@ -2,7 +2,7 @@
  *	AudioListener.h										*
  *														*
  *	XFX::Audio::AudioListener definition file			*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_AUDIO_AUDIOLISTENER_
 #define _XFX_AUDIO_AUDIOLISTENER_
@@ -24,9 +24,9 @@ namespace XFX
 			Vector3 Up;
 			Vector3 Velocity;
 
-			AudioListener();
+			AudioListener() { }
 
-			int GetType() const;
+			inline int GetType() const { }
 		};
 	}
 }

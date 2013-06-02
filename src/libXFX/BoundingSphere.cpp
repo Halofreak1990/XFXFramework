@@ -60,9 +60,9 @@ namespace XFX
 		return Center.GetHashCode() + (int)Radius;
 	}
 
-	const char* BoundingSphere::ToString() const
+	const String& BoundingSphere::ToString() const
 	{
-		return String::Format("{Center:%s Radius:%f}", Center.ToString(), Radius);
+		return String::Format("{Center:%s Radius:%f}", (const char *)Center.ToString(), Radius);
 	}
 	
 	bool BoundingSphere::operator!=(const BoundingSphere& other) const

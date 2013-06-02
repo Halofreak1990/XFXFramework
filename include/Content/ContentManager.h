@@ -2,7 +2,7 @@
  *	ContentManager.h									*
  *														*
  *	XFX ContentManager definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_CONTENT_CONTENTMANAGER_
 #define _XFX_CONTENT_CONTENTMANAGER_

@@ -89,8 +89,8 @@ namespace System
 				result = oldName + extension;
 
 			XRenameFile(
-				const_cast<char*>(path.ToString()),
-				const_cast<char*>(result.ToString())
+				const_cast<char*>((const char *)path.ToString()),
+				const_cast<char*>((const char *)result.ToString())
 				);
 			return result;
 		}

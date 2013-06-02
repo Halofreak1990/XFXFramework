@@ -1,9 +1,9 @@
-/********************************************************
- *	GamePadState.h										*
- *														*
- *	XFX GamePadState definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GamePadState.h															 *
+ *																			 *
+ *	XFX::Input::GamePadState definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_GAMEPADSTATE_
 #define _XFX_INPUT_GAMEPADSTATE_
 
@@ -32,12 +32,12 @@ namespace XFX
 			int GetType() const;
 			bool IsButtonDown(const Buttons_t button) const;
 			bool IsButtonUp(const Buttons_t button) const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator==(const GamePadState& right) const;
 			bool operator!=(const GamePadState& right) const;
 
-			inline GamePadState operator =(const GamePadState right)
+			inline GamePadState operator =(const GamePadState& right)
 			{
 				return (*this == right) ? *this : GamePadState(right);
 			}

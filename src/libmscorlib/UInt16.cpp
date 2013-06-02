@@ -61,7 +61,7 @@ namespace System
 
 	bool UInt16::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? *this == *(UInt16 *)obj : false;
+		return (obj != null && is(obj, this)) ? *this == *(UInt16 *)obj : false;
 	}
 
 	bool UInt16::Equals(const UInt16 other) const
@@ -79,12 +79,12 @@ namespace System
 		return 8;
 	}
 
-	const char* UInt16::ToString() const
+	const String& UInt16::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* UInt16::ToString(const ushort value)
+	const String& UInt16::ToString(const ushort value)
 	{
 		return String::Format("%i", value);
 	}

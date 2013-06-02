@@ -2,7 +2,7 @@
  *	Enums.h												*
  *														*
  *	XFX enumeration definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_ENUMS_
 #define _XFX_ENUMS_

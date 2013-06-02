@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	BlendState.h															 *
+ *																			 *
+ *	XFX::Graphics::BlendState definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_BLENDSTATE_
 #define _XFX_GRAPHICS_BLENDSTATE_
 

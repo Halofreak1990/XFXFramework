@@ -2,7 +2,7 @@
  *	GameComponentCollectionEventArgs.h					*
  *														*
  *	XFX GameComponentCollectionEventArgs definition		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GAMECOMPONENTCOLLECTIONEVENTARGS_
 #define _XFX_GAMECOMPONENTCOLLECTIONEVENTARGS_

@@ -2,7 +2,7 @@
  *	RasterizerState.h									*
  *														*
  *	XFX::Graphics::RasterizerState definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_RASTERIZERSTATE_
 #define _XFX_GRAPHICS_RASTERIZERSTATE_

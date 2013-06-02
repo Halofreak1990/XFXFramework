@@ -1,3 +1,6 @@
+#ifndef _SYSTEM_WINDOWS_POINT_
+#define _SYSTEM_WINDOWS_POINT_
+
 #include <System/Interfaces.h>
 
 namespace System
@@ -19,10 +22,12 @@ namespace System
 			bool Equals(const Point other) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator==(const Point& right) const;
 			bool operator!=(const Point& right) const;
 		};
 	}
 }
+
+#endif // _SYSTEM_WINDOWS_POINT_

@@ -88,7 +88,7 @@ namespace System
 
 		*result = 0;
 		char sign = 0;
-		char *sp = const_cast<char*>(str.ToString());
+		char *sp = const_cast<char*>((const char *)str.ToString());
 
 		if (*sp == '+' || *sp == '-')
 			sign = *sp++;
@@ -108,12 +108,12 @@ namespace System
 		return true;
 	}
 
-	const char* Double::ToString() const
+	const String& Double::ToString() const
 	{
 		return String::Format("%g", value);
 	}
 
-	const char* Double::ToString(const double value)
+	const String& Double::ToString(const double value)
 	{
 		return String::Format("%g", value);
 	}

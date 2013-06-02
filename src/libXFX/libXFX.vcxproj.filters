@@ -215,6 +215,9 @@
     <ClCompile Include="Effect.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="SoundEffectInstance.cpp">
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\BoundingBox.h">
@@ -477,6 +480,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Audio\AudioEngine.h">
       <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\AlphaTestEffect.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

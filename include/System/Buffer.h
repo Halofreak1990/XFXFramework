@@ -2,7 +2,7 @@
  *	Buffer.h											*
  *														*
  *	XFX Buffer class definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_BUFFER_
 #define _SYSTEM_BUFFER_

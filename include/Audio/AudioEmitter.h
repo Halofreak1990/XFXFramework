@@ -23,9 +23,9 @@ namespace XFX
 			Vector3 Up;
 			Vector3 Velocity;
 
-			AudioEmitter();	
+			AudioEmitter() { }
 
-			int GetType() const;
+			inline int GetType() const { }
 		};
 	}
 }

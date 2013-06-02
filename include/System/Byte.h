@@ -1,9 +1,9 @@
-/********************************************************
- *	Byte.h												*
- *														*
- *	XFX Byte structure definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Byte.h																	 *
+ *																			 *
+ *	XFX System::Byte structure definition file  							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_BYTE_
 #define _SYSTEM_BYTE_
 
@@ -31,8 +31,8 @@ namespace System
 		int CompareTo(const Byte other) const;
 		bool Equals(const Byte other) const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const byte value);
+		const String& ToString() const;
+		static const String& ToString(const byte value);
 		static bool TryParse(const String& str, out byte* result);
 
 		operator byte() const;

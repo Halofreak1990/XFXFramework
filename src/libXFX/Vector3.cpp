@@ -435,7 +435,7 @@ namespace XFX
 	    result.Z = value1.Z - value2.Z;
 	}
 
-	const char* Vector3::ToString() const
+	const String& Vector3::ToString() const
 	{
 		return String::Format("{X:%f Y:%f Z:%f}", X, Y, Z);
 	}

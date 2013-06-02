@@ -2,7 +2,7 @@
  *	VideoPlayer.h										*
  *														*
  *	XFX VideoPlayer file								*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_MEDIA_VIDEOPLAYER_
 #define _XFX_MEDIA_VIDEOPLAYER_

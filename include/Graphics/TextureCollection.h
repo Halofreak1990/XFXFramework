@@ -2,7 +2,7 @@
  *	TextureCollection.h									*
  *														*
  *	XFX TextureCollection definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_TEXTURECOLLECTION_
 #define _XFX_GRAPHICS_TEXTURECOLLECTION_

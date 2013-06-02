@@ -31,26 +31,26 @@ namespace System
 
 			int Grid::GetColumn(FrameworkElement const * const element)
 			{
-				Int32* columnValue = (Int32*)element->GetValue(Grid::ColumnProperty);
-				return (columnValue) ? columnValue->getValue() : 0;
+				Int32* columnValue = (Int32 *)element->GetValue(Grid::ColumnProperty);
+				return (columnValue) ? (int)(*columnValue) : 0;
 			}
 
 			int Grid::GetColumnSpan(FrameworkElement const * const element)
 			{
 				Int32* columnSpanValue = (Int32*)element->GetValue(Grid::ColumnSpanProperty);
-				return (columnSpanValue) ? columnSpanValue->getValue() : 0;
+				return (columnSpanValue) ? (int)(*columnSpanValue) : 0;
 			}
 
 			int Grid::GetRow(FrameworkElement const * const element)
 			{
 				Int32* rowValue = (Int32*)element->GetValue(Grid::RowProperty);
-				return (rowValue) ? rowValue->getValue() : 0;
+				return (rowValue) ? (int)(*rowValue) : 0;
 			}
 
 			int Grid::GetRowSpan(FrameworkElement const * const element)
 			{
 				Int32* rowSpanValue = (Int32*)element->GetValue(Grid::RowSpanProperty);
-				return (rowSpanValue) ? rowSpanValue->getValue() : 0;
+				return (rowSpanValue) ? (int)(*rowSpanValue) : 0;
 			}
 
 			int Grid::GetType() const

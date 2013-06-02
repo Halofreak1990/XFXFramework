@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Int64.h 																 *
+ *																			 *
+ *	XFX System::Int64 definition file	 									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_INT64_
 #define _SYSTEM_INT64_
 
@@ -26,8 +32,8 @@ namespace System
 		bool Equals(const Int64 other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const long long value);
+		const String& ToString() const;
+		static const String& ToString(const long long value);
 		static bool TryParse(const String& str, out long long* result);
 
 		operator long long() const;

@@ -2,7 +2,7 @@
  *	Sprite.h											*
  *														*
  *	XFX Sprite definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_SPRITE_
 #define _XFX_GRAPHICS_SPRITE_

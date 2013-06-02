@@ -2,7 +2,7 @@
  *	StorageDeviceNotConnectedException.h				*
  *														*
  *	XFX StorageDeviceNotConnectedException definition	*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_STORAGE_STORAGEDEVICENOTCONNECTEDEXCEPTION_
 #define _XFX_STORAGE_STORAGEDEVICENOTCONNECTEDEXCEPTION_

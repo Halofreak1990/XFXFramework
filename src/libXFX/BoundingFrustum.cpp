@@ -228,7 +228,7 @@ namespace XFX
 		return ContainmentType::Contains;
 	}
 
-	void BoundingFrustum::Contains(BoundingBox box, out ContainmentType_t result)
+	void BoundingFrustum::Contains(BoundingBox box, out ContainmentType_t& result)
 	{
 		bool flag = false;
 		for (int i = 0; i < 6; i++)
@@ -247,7 +247,7 @@ namespace XFX
 		result = flag ? ContainmentType::Intersects : ContainmentType::Contains;
 	}
 
-	void BoundingFrustum::Contains(BoundingSphere sphere, out ContainmentType_t result)
+	void BoundingFrustum::Contains(BoundingSphere sphere, out ContainmentType_t& result)
 	{
 		Vector3 center = sphere.Center;
         float radius = sphere.Radius;
@@ -269,7 +269,7 @@ namespace XFX
 		result = (num2 == 6) ? ContainmentType::Contains : ContainmentType::Intersects;
 	}
 
-	void BoundingFrustum::Contains(Vector3 point, out ContainmentType_t result)
+	void BoundingFrustum::Contains(Vector3 point, out ContainmentType_t& result)
 	{
 		for (int i = 0; i < 6; i++)
         {
@@ -285,7 +285,7 @@ namespace XFX
 
 	bool BoundingFrustum::Equals(Object const * const obj) const
 	{
-		return is(this, obj) ? this->Equals((*(BoundingFrustum*)obj)) : false;
+		return (obj != null && is(this, obj)) ? this->Equals(*(BoundingFrustum *)obj) : false;
 	}
 
 	bool BoundingFrustum::Equals(const BoundingFrustum other) const
@@ -371,17 +371,17 @@ namespace XFX
 		return result;
 	}
 
-	void BoundingFrustum::Intersects(BoundingBox box, out bool result)
+	void BoundingFrustum::Intersects(BoundingBox box, out bool& result)
 	{
 		sassert(false, "function not implemented.");
 	}
 
-	void BoundingFrustum::Intersects(BoundingSphere sphere, out bool result)
+	void BoundingFrustum::Intersects(BoundingSphere sphere, out bool& result)
 	{
 		sassert(false, "function not implemented.");
 	}
 
-	void BoundingFrustum::Intersects(Plane plane, out PlaneIntersectionType_t result)
+	void BoundingFrustum::Intersects(Plane plane, out PlaneIntersectionType_t& result)
 	{
 		int num = 0;
 		for (int i = 0; i < 8; i++)
@@ -405,7 +405,7 @@ namespace XFX
 		result = (num == 1) ? PlaneIntersectionType::Front : PlaneIntersectionType::Back;
 	}
 
-	void BoundingFrustum::Intersects(Ray ray, out float result)
+	void BoundingFrustum::Intersects(Ray ray, out float& result)
 	{
 		ContainmentType_t type = Contains(ray.Position);
 		if (type == ContainmentType::Contains)

@@ -61,7 +61,7 @@ namespace System
 
 	void Console::Write(const String& value)
 	{
-		debugPrint(const_cast<char*>(value.ToString()));
+		debugPrint((char *)((const char *)value.ToString()));
 	}
 
 	void Console::WriteLine()

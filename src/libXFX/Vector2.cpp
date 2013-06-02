@@ -325,7 +325,7 @@ namespace XFX
 		result.Y = value1.Y - value2.Y;
 	}
 
-	const char* Vector2::ToString() const
+	const String& Vector2::ToString() const
 	{
 		return String::Format("{X:%f Y:%f}", X, Y);
 	}

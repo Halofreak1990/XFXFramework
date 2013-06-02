@@ -2,7 +2,7 @@
  *	VertexElement.h										*
  *														*
  *	XFX VertexElement definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXELEMENT_
 #define _XFX_GRAPHICS_VERTEXELEMENT_
@@ -31,7 +31,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 		
 			bool operator!=(const VertexElement& other) const;
 			bool operator==(const VertexElement& other) const;

@@ -74,12 +74,12 @@ namespace System
 		return 10;
 	}
 
-	const char* UInt32::ToString() const
+	const String& UInt32::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* UInt32::ToString(const uint value)
+	const String& UInt32::ToString(const uint value)
 	{
 		return String::Format("%i", value);
 	}

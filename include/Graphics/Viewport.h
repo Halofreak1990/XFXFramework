@@ -1,9 +1,9 @@
-/********************************************************
- *	Viewport.h											*
- *														*
- *	XFX Viewport definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Viewport.h																 *
+ *																			 *
+ *	XFX::Graphics::Viewport definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VIEWPORT_
 #define _XFX_GRAPHICS_VIEWPORT_
 
@@ -46,7 +46,7 @@ namespace XFX
 			int GetHashCode() const;
 			int GetType() const;
 			Vector3 Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
-			const char* ToString() const;
+			const String& ToString() const;
 			Vector3 Unproject(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
 
 			bool operator !=(const Viewport& right) const;

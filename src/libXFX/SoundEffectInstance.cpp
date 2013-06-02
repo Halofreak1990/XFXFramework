@@ -25,57 +25,102 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/VertexPositionColor.h>
-#include <System/String.h>
+#include <Audio/SoundEffectInstance.h>
+#include <Audio/AudioEmitter.h>
+#include <Audio/AudioListener.h>
+#include <Audio/SoundEffect.h>
 
 namespace XFX
 {
-	namespace Graphics
+	namespace Audio
 	{
-		const VertexElement vertexArray[] =
-		{
-			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
-			VertexElement(12, VertexElementFormat::Color, VertexElementUsage::Color, 0)
-		};
-
-		VertexDeclaration VertexPositionColor::getVertexDeclaration() const
-		{
-			return VertexDeclaration(vertexArray, 2);
-		}
-
-		VertexPositionColor::VertexPositionColor()
-			: Position(Vector3::Zero), Color(Color::Black)
+		bool SoundEffectInstance::IsDisposed() const
 		{
 		}
 
-		VertexPositionColor::VertexPositionColor(const Vector3 position, const XFX::Graphics::Color color)
-			: Position(position), Color(color)
+		bool SoundEffectInstance::IsLooped() const
 		{
 		}
 
-		bool VertexPositionColor::Equals(Object const * const obj) const
+		void SoundEffectInstance::IsLooped(bool value)
 		{
-			return is(this, obj) ? (*this == *(VertexPositionColor*)obj) : false;
 		}
 
-		int VertexPositionColor::GetHashCode() const
+		float SoundEffectInstance::getPan() const
 		{
-			return Position.GetHashCode() ^ this->Color.GetHashCode();
 		}
 
-		const String& VertexPositionColor::ToString() const
+		void SoundEffectInstance::setPan(float value)
 		{
-			return String::Format("{Position:%s Color:%s}", (const char *)Position.ToString(), (const char *)Color.ToString());
 		}
 
-		bool VertexPositionColor::operator !=(const VertexPositionColor& other) const
+		float SoundEffectInstance::getPitch() const
 		{
-			return (this->Color != other.Color || Position != other.Position);
 		}
 
-		bool VertexPositionColor::operator ==(const VertexPositionColor& other) const
+		void SoundEffectInstance::setPitch(float value)
 		{
-			return (this->Color == other.Color && Position == other.Position);
+		}
+
+		SoundState_t SoundEffectInstance::getState() const
+		{
+		}
+
+		float SoundEffectInstance::getVolume() const
+		{
+		}
+
+		void SoundEffectInstance::setVolume(float value)
+		{
+		}
+
+		SoundEffectInstance::SoundEffectInstance(SoundEffect* parent)
+		{
+		}
+
+		SoundEffectInstance::~SoundEffectInstance()
+		{
+		}
+
+		void SoundEffectInstance::Apply3D(AudioListener listener, AudioEmitter emitter)
+		{
+		}
+
+		void SoundEffectInstance::Apply3D(AudioListener listeners[], AudioEmitter emitter)
+		{
+		}
+
+		void SoundEffectInstance::Dispose()
+		{
+			Dispose(true);
+		}
+
+		void SoundEffectInstance::Dispose(bool disposing)
+		{
+		}
+
+		int SoundEffectInstance::GetType() const
+		{
+		}
+
+		void SoundEffectInstance::Pause()
+		{
+		}
+
+		void SoundEffectInstance::Play()
+		{
+		}
+
+		void SoundEffectInstance::Resume()
+		{
+		}
+
+		void SoundEffectInstance::Stop()
+		{
+		}
+
+		void SoundEffectInstance::Stop(bool immediate)
+		{
 		}
 	}
 }

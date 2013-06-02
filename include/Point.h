@@ -1,14 +1,13 @@
-/********************************************************
- *	Point.h												*
- *														*
- *	XFX Point definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Point.h																	 *
+ *																			 *
+ *	XFX Point definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_POINT_
 #define _XFX_POINT_
 
 #include <System/Interfaces.h>
-#include <System/Object.h>
 
 using namespace System;
 
@@ -29,7 +28,7 @@ namespace XFX
 		bool Equals(const Point other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
+		const String& ToString() const;
 
 		bool operator==(const Point& right) const;
 		bool operator!=(const Point& right) const;

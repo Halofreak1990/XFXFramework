@@ -45,7 +45,7 @@ namespace System
 			// TODO: implement
 		}
 
-		const char* Thickness::ToString() const
+		const String& Thickness::ToString() const
 		{
 			return String::Format("{Left:%i Right:%i Top:%i Bottom:%i}", Left, Right, Top, Bottom);
 		}

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_GRIDLENGTH_
+#define _SYSTEM_WINDOWS_GRIDLENGTH_
 
 #include <System/Interfaces.h>
 
@@ -32,10 +33,12 @@ namespace System
 			bool Equals(const GridLength other) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator==(const GridLength& right) const;
 			bool operator!=(const GridLength& right) const;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_GRIDLENGTH_

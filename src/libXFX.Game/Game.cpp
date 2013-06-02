@@ -114,7 +114,7 @@ namespace XFX
 		{
 			for (int i = 0; i < components.Count(); i++)
 			{
-				IDisposable* disposable = (IDisposable*)components[i];
+				IDisposable* disposable = (IDisposable *)components[i];
 				if (disposable)
 					disposable->Dispose();
 			}
@@ -122,7 +122,7 @@ namespace XFX
 
 		disposed = true;
 
-		Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
+		Disposed(this, const_cast<EventArgs * const>(EventArgs::Empty));
 	}
 
 	void Game::Draw(GameTime gameTime)
@@ -164,7 +164,7 @@ namespace XFX
 
 	void Game::Initialize()
 	{
-		graphicsService = (IGraphicsDeviceService*)services.GetService("IGraphicsDeviceService");
+		graphicsService = (IGraphicsDeviceService *)services.GetService("IGraphicsDeviceService");
 
 		for (int i = 0; i < components.Count(); i++)
 		{
@@ -180,17 +180,17 @@ namespace XFX
 	{
 	}
 
-	void Game::OnActivated(Object* sender, EventArgs* args)
+	void Game::OnActivated(Object * const sender, EventArgs * const args)
 	{
 		Activated(sender, args);
 	}
 
-	void Game::OnDeactivated(Object* sender, EventArgs* args)
+	void Game::OnDeactivated(Object * const sender, EventArgs * const args)
 	{
 		Deactivated(sender, args);
 	}
 	
-	void Game::OnExiting(Object* sender, EventArgs* args)
+	void Game::OnExiting(Object * const sender, EventArgs * const args)
 	{
 		Exiting(sender, args);
 	}

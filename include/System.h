@@ -2,7 +2,7 @@
  *	System.h											*
  *														*
  *	XFX System namespace include file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_
 #define _SYSTEM_

@@ -2,7 +2,7 @@
  *	Video.h												*
  *														*
  *	XFX Video definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_MEDIA_VIDEO_H_
 #define _XFX_MEDIA_VIDEO_H_

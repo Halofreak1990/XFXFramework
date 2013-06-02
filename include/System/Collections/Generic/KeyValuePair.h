@@ -2,7 +2,7 @@
  *	KeyValuePair.h										*
  *														*
  *	XFX KeyValuePair definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_KEYVALUEPAIR_
 #define _SYSTEM_COLLECTIONS_GENERIC_KEYVALUEPAIR_

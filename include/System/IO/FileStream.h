@@ -2,7 +2,7 @@
  *	FileStream.h										*
  *														*
  *	XFX FileStream definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_IO_FILESTREAM_
 #define _SYSTEM_IO_FILESTREAM_

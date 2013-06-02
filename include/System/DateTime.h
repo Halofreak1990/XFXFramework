@@ -1,9 +1,9 @@
-/********************************************************
- *	DateTime.h											*
- *														*
- *	XFX DateTime definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	DateTime.h																 *
+ *																			 *
+ *	XFX System::DateTime definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_DATETIME_
 #define _SYSTEM_DATETIME_
 
@@ -88,33 +88,33 @@ namespace System
 		static DateTime FromOADate(double d);
 		String *GetDateTimeFormats();
 		String *GetDateTimeFormats(char format);
-		String *GetDateTimeFormats(char format, IFormatProvider* formatProvider);
-		String *GetDateTimeFormats(IFormatProvider* formatProvider);
+		String *GetDateTimeFormats(char format, IFormatProvider * const formatProvider);
+		String *GetDateTimeFormats(IFormatProvider * const formatProvider);
 		int GetHashCode() const;
 		int GetType() const;
 		bool IsDaylighSavingTime();
 		static bool IsLeapYear(int year);
-		static DateTime Parse(String s);
-		static DateTime Parse(String s, IFormatProvider* formatProvider);
-		static DateTime Parse(String s, IFormatProvider* formatProvider, DateTimeStyles_t styles);
-		static DateTime ParseExact(String s, String format, IFormatProvider* formatProvider);
-		static DateTime ParseExact(String s, String format, IFormatProvider* formatProvider, DateTimeStyles_t style);
-		static DateTime ParseExact(String s, String formats[], IFormatProvider* formatProvider, DateTimeStyles_t style);
+		static DateTime Parse(String& s);
+		static DateTime Parse(String& s, IFormatProvider * const formatProvider);
+		static DateTime Parse(String& s, IFormatProvider * const formatProvider, DateTimeStyles_t styles);
+		static DateTime ParseExact(String& s, String& format, IFormatProvider * const formatProvider);
+		static DateTime ParseExact(String& s, String& format, IFormatProvider * const formatProvider, DateTimeStyles_t style);
+		static DateTime ParseExact(String& s, String formats[], IFormatProvider * const formatProvider, DateTimeStyles_t style);
 		static DateTime ParseExact(DateTime value, DateTimeKind kind);
 		TimeSpan Subtract(const DateTime value);
 		DateTime Subtract(const TimeSpan value);
 		long long ToFileTime();
 		long long ToFileTimeUtc();
 		DateTime ToLocalTime();
-		const char* ToLongDateString();
-		const char* ToLongTimeString();
+		String& ToLongDateString();
+		String& ToLongTimeString();
 		double ToOADate();
-		const char* ToShortDateString();
-		const char* ToShortTimeString();
-		const char* ToString() const;
-		const char* ToString(IFormatProvider* provider);
-		const char* ToString(const String& format);
-		const char* ToString(const String& format, IFormatProvider* provider);
+		String& ToShortDateString();
+		String& ToShortTimeString();
+		const String& ToString() const;
+		String& ToString(IFormatProvider * const provider);
+		String& ToString(const String& format);
+		String& ToString(const String& format, IFormatProvider * const provider);
 		DateTime ToUniversalTime();
 
 		DateTime operator +(const TimeSpan other);
@@ -129,4 +129,4 @@ namespace System
 	};
 }
 
-#endif //_DATETIME_
+#endif //_SYSTEM_DATETIME_

@@ -45,7 +45,7 @@ namespace XFX
 		}
 		
 		Texture2D::Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height)
-			: textureData(new uint[width*height]), Height(height), Width(width)
+			: textureData(new uint[width * height]), Height(height), Width(width)
 		{
 			textureId = -1;
 			this->graphicsDevice = graphicsDevice;
@@ -54,7 +54,7 @@ namespace XFX
 		}
 
 		Texture2D::Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height, bool mipmap, const SurfaceFormat_t format)
-			: textureData(new uint[width*height]), Height(height), Width(width)
+			: textureData(new uint[width * height]), Height(height), Width(width)
 		{
 			// TODO: see if there are more supported surfaceformats (likely)
 			sassert(format == SurfaceFormat::Color, "Invalid surface format. Valid SurfaceFormats are: Color");
@@ -131,17 +131,16 @@ namespace XFX
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 		}
  		
- 		void Texture2D::SetData(uint data[], const int startIndex, const int elementCount, const SetDataOptions_t options) 
+ 		void Texture2D::SetData(uint data[], const int startIndex, const int elementCount) 
  		{ 
 			sassert(data != null, FrameworkResources::ArgumentNull_Buffer);
 
 			sassert(elementCount <= Width * Height, "elementCount is larger than the texture size");
 
-			uint dataMask;
+			uint dataMask = 0;
 			switch(_surfaceFormat)
 			{
 			case SurfaceFormat::Color:
-				dataMask = 0;
 				break;
 				// TODO: see if there are more values
 			default:

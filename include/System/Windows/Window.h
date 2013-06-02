@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_WINDOW_
+#define _SYSTEM_WINDOWS_WINDOW_
 
 #include <System/Event.h>
 #include <System/String.h>
@@ -32,7 +33,7 @@ namespace System
 			WindowState_t WindowState;
 			WindowStyle_t WindowStyle;
 
-			Event<Object*, ClosingEventArgs*> Closing;
+			Event<Object * const, ClosingEventArgs * const> Closing;
 
 			Window();
 			~Window();
@@ -43,7 +44,9 @@ namespace System
 			void Hide();
 			void Render();
 			void Show();
-			const char* ToString() const;
+			const String& ToString() const;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_WINDOW_

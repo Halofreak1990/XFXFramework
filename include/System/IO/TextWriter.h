@@ -2,7 +2,7 @@
  *	TextWriter.h										*
  *														*
  *	XFX TextWriter definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_IO_TEXTWRITER_
 #define _SYSTEM_IO_TEXTWRITER_

@@ -156,7 +156,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Matrix::Add(Matrix matrix1, Matrix matrix2, out Matrix result)
+	void Matrix::Add(Matrix matrix1, Matrix matrix2, out Matrix& result)
 	{
 		result.M11 = matrix1.M11 + matrix2.M11;
 		result.M12 = matrix1.M12 + matrix2.M12;
@@ -183,7 +183,7 @@ namespace XFX
 		return result; 
 	}
 	
-	void Matrix::CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 cameraUpVector, Vector3* cameraForwardVector, out Matrix result)
+	void Matrix::CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 cameraUpVector, Vector3* cameraForwardVector, out Matrix& result)
 	{
 		Vector3 vector;
         Vector3 vector2;
@@ -228,7 +228,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3* cameraForwardVector, Vector3* objectForwardVector, out Matrix result)
+	void Matrix::CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3* cameraForwardVector, Vector3* objectForwardVector, out Matrix& result)
 	{
 		float num = 0.0f;
         Vector3 vector;
@@ -302,7 +302,7 @@ namespace XFX
  		return result;
 	}
 	
-	void Matrix::CreateFromAxisAngle(Vector3 axis, float angle, out Matrix result) 
+	void Matrix::CreateFromAxisAngle(Vector3 axis, float angle, out Matrix& result) 
 	{ 
  		if(axis.LengthSquared() != 1.0f) 
 			axis.Normalize(); 
@@ -344,7 +344,7 @@ namespace XFX
 		return result;
 	}
 	
-	void Matrix::CreateFromQuaternion(Quaternion rotation, out Matrix result) 
+	void Matrix::CreateFromQuaternion(Quaternion rotation, out Matrix& result) 
 	{ 
 		float xx = rotation.X * rotation.X; 
 		float yy = rotation.Y * rotation.Y; 
@@ -381,7 +381,7 @@ namespace XFX
         return result; 
 	}
 
-	void Matrix::CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix result) 
+	void Matrix::CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix& result) 
 	{ 
         Quaternion quaternion; 
         Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll, quaternion); 
@@ -395,7 +395,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector, out Matrix result)
+	void Matrix::CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector, out Matrix& result)
 	{
 		Vector3 xaxis, yaxis, zaxis;
 		Vector3::Subtract(cameraPosition, cameraTarget, zaxis);
@@ -428,7 +428,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane, out Matrix result)
+	void Matrix::CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane, out Matrix& result)
 	{
 		float halfWidth = width * 0.5f;
 		float halfHeight = height * 0.5f;
@@ -442,7 +442,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix result)
+	void Matrix::CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix& result)
 	{
 		float zRange = 1.0f / (zFarPlane - zNearPlane);
 		result = Matrix::Identity;
@@ -463,7 +463,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreatePerspective(float width, float height, float zNearPlane, float zFarPlane, out Matrix result)
+	void Matrix::CreatePerspective(float width, float height, float zNearPlane, float zFarPlane, out Matrix& result)
 	{
 		float halfWidth = width * 0.5f;
 		float halfHeight = height * 0.5f;
@@ -477,7 +477,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
+	void Matrix::CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance, out Matrix& result)
 	{
 		float yScale = (float)(1.0 / Math::Tan(fieldOfView * 0.5f));
 		float xScale = yScale / aspectRatio;
@@ -493,7 +493,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
+	void Matrix::CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix& result)
 	{
 		sassert(nearPlaneDistance > 0.0f, "You should specify a positive value for nearPlaneDistance.");
 
@@ -513,7 +513,7 @@ namespace XFX
 		result.M41 = result.M42 = result.M44 = 0.0f;
 	}
 	
-	void Matrix::CreateReflection(Plane value, out Matrix result) 
+	void Matrix::CreateReflection(Plane value, out Matrix& result) 
     { 
 		value.Normalize(); 
     	float x = value.Normal.X; 
@@ -569,7 +569,7 @@ namespace XFX
     	return result; 
     } 
 	
-	void Matrix::CreateRotationX(float radians, out Matrix result) 
+	void Matrix::CreateRotationX(float radians, out Matrix& result) 
     { 
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
@@ -598,7 +598,7 @@ namespace XFX
     	return result; 
     }
     
-    void Matrix::CreateRotationY(float radians, out Matrix result) 
+    void Matrix::CreateRotationY(float radians, out Matrix& result) 
     { 
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
@@ -627,7 +627,7 @@ namespace XFX
     	return result; 
     }
     
-    void Matrix::CreateRotationZ(float radians, out Matrix result) 
+    void Matrix::CreateRotationZ(float radians, out Matrix& result) 
     { 
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
@@ -656,7 +656,7 @@ namespace XFX
 		return result; 
     }
     
-    void Matrix::CreateScale(float scale, out Matrix result)
+    void Matrix::CreateScale(float scale, out Matrix& result)
     {
 	    float num = scale;
         result.M11 = num;
@@ -684,7 +684,7 @@ namespace XFX
 		return result;
     } 
     
-    void Matrix::CreateScale(float xScale, float yScale, float zScale, out Matrix result) 
+    void Matrix::CreateScale(float xScale, float yScale, float zScale, out Matrix& result) 
     { 
     	float num3 = xScale;
         float num2 = yScale;
@@ -714,7 +714,7 @@ namespace XFX
     	return result; 
     }
     
-    void Matrix::CreateScale(Vector3 scales, out Matrix result) 
+    void Matrix::CreateScale(Vector3 scales, out Matrix& result) 
     { 
     	float x = scales.X;
         float y = scales.Y;
@@ -744,7 +744,7 @@ namespace XFX
     	return result; 
     }  
     
-    void Matrix::CreateShadow(Vector3 lightDirection, Plane plane, out Matrix result)
+    void Matrix::CreateShadow(Vector3 lightDirection, Plane plane, out Matrix& result)
     {
 	    plane.Normalize(); 
     	float dot = ((plane.Normal.X * lightDirection.X) + (plane.Normal.Y * lightDirection.Y)) + (plane.Normal.Z * lightDirection.Z); 
@@ -777,7 +777,7 @@ namespace XFX
 	    return result;
     }
     
-    void Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix result) 
+    void Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix& result) 
     { 
     	result.M11 = 1.0f;
         result.M12 = 0.0f;
@@ -804,7 +804,7 @@ namespace XFX
     	return result;
     }
     
-    void Matrix::CreateTranslation(Vector3 position, out Matrix result) 
+    void Matrix::CreateTranslation(Vector3 position, out Matrix& result) 
     { 
     	result.M11 = 1.0f;
         result.M12 = 0.0f;
@@ -838,7 +838,7 @@ namespace XFX
  		return ret; 
 	}
 
-	void Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up, out Matrix result) 
+	void Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up, out Matrix& result) 
 	{ 
 		Vector3 vector = Vector3::Normalize(position - forward);
 		Vector3 vector2 = Vector3::Normalize(Vector3::Cross(up, vector));
@@ -861,7 +861,7 @@ namespace XFX
 		result.M34 = -Vector3::Dot(vector, position);
 	}
 
-	int Matrix::Decompose(Vector3 scale, Quaternion rotation, Vector3 translation)
+	int Matrix::Decompose(out Vector3& scale, out Quaternion& rotation, out Vector3& translation)
 	{
 		translation.X = M41;
 		translation.Y = M42;
@@ -916,13 +916,13 @@ namespace XFX
 	    return result;
     }
 
-    void Matrix::Divide(Matrix matrix1, Matrix matrix2, out Matrix result) 
+    void Matrix::Divide(Matrix matrix1, Matrix matrix2, out Matrix& result) 
     { 
     	Matrix inverse = Matrix::Invert(matrix2); 
         Matrix::Multiply(matrix1, inverse, result); 
     }
     
-    void Matrix::Divide(Matrix matrix1, float divider, out Matrix result)
+    void Matrix::Divide(Matrix matrix1, float divider, out Matrix& result)
     {
 	    float num = 1 / divider;
 		result.M11 = matrix1.M11 * num;
@@ -971,7 +971,7 @@ namespace XFX
 		// TODO: implement
 	}
     
-    void Matrix::Invert(Matrix matrix, out Matrix result) 
+    void Matrix::Invert(Matrix matrix, out Matrix& result) 
     {       
     	float num5 = matrix.M11;
 		float num4 = matrix.M12;
@@ -1036,7 +1036,7 @@ namespace XFX
 		return matrix;
 	}
 	
-	void Matrix::Lerp(Matrix matrix1, Matrix matrix2, float amount, out Matrix result)
+	void Matrix::Lerp(Matrix matrix1, Matrix matrix2, float amount, out Matrix& result)
 	{
 		result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
 		result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
@@ -1070,7 +1070,7 @@ namespace XFX
 	    return result;
     }
 	
-	void Matrix::Multiply(Matrix matrix1, Matrix matrix2, out Matrix result) 
+	void Matrix::Multiply(Matrix matrix1, Matrix matrix2, out Matrix& result) 
     { 
     	float num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
 		float num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
@@ -1113,7 +1113,7 @@ namespace XFX
 		return result;
     }
     
-    void Matrix::Multiply(Matrix matrix1, float scaleFactor, out Matrix result) 
+    void Matrix::Multiply(Matrix matrix1, float scaleFactor, out Matrix& result) 
     { 
     	float num = scaleFactor;
 		result.M11 = matrix1.M11 * num;
@@ -1141,7 +1141,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::Negate(Matrix matrix, out Matrix result)
+	void Matrix::Negate(Matrix matrix, out Matrix& result)
 	{
 		result.M11 = -matrix.M11;
 		result.M12 = -matrix.M12;
@@ -1168,7 +1168,7 @@ namespace XFX
 		return result;
 	}
 
-	void Matrix::Subtract(Matrix matrix1, Matrix matrix2, out Matrix result)
+	void Matrix::Subtract(Matrix matrix1, Matrix matrix2, out Matrix& result)
 	{
 		result.M11 = matrix1.M11 - matrix2.M11;
 		result.M12 = matrix1.M12 - matrix2.M12;
@@ -1188,7 +1188,7 @@ namespace XFX
 		result.M44 = matrix1.M44 - matrix2.M44; 
 	}
 
-	const char* Matrix::ToString() const
+	const String& Matrix::ToString() const
 	{
 		return String::Format("{{M11:%f M12:%f M13:%f M14:%f}\
 								{M21:%f M22:%f M23:%f M24:%f}\
@@ -1205,7 +1205,7 @@ namespace XFX
 		return ret;  
 	}
 
-	void Matrix::Transpose(Matrix matrix, out Matrix result)
+	void Matrix::Transpose(Matrix matrix, out Matrix& result)
 	{
 		result.M11 = matrix.M11;
 		result.M12 = matrix.M21;

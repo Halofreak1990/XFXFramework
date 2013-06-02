@@ -2,7 +2,7 @@
  *	Mouse.h												*
  *														*
  *	XFX Mouse definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_INPUT_MOUSE_
 #define _XFX_INPUT_MOUSE_

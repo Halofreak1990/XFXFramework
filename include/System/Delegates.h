@@ -2,7 +2,7 @@
  *	Delegates.h											*
  *														*
  *	Defines delegates within the System namespace		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_DELEGATES_
 #define _SYSTEM_DELEGATES_

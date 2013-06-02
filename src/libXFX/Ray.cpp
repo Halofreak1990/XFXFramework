@@ -252,9 +252,9 @@ namespace XFX
 		distance = Intersects(plane);
 	}
 
-	const char* Ray::ToString() const
+	const String& Ray::ToString() const
 	{
-		return String::Format("{Position:%s Direction:%s}", Position.ToString(), Direction.ToString());
+		return "{Position:"+ Position.ToString() + " Direction:" + Direction.ToString() + "}";
 	}
 
 	bool Ray::operator==(const Ray& right) const

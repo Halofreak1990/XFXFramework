@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CORNERRADIUS_
+#define _SYSTEM_WINDOWS_CORNERRADIUS_
 
 #include <System/Interfaces.h>
 
@@ -24,10 +25,12 @@ namespace System
 			bool Equals(const CornerRadius other) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator==(const CornerRadius& right) const;
 			bool operator!=(const CornerRadius& right) const;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CORNERRADIUS_

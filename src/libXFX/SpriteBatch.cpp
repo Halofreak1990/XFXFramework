@@ -139,7 +139,7 @@ namespace XFX
 		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth)
 		{
 			Sprite sprite = Sprite(texture, 
-				sourceRectangle.HasValue() ? sourceRectangle : Rectangle(0, 0, texture->Width, texture->Height), 
+				sourceRectangle.HasValue() ? sourceRectangle.getValue() : Rectangle(0, 0, texture->Width, texture->Height), 
 				destinationRectangle, 
 				color, 
 				rotation, 

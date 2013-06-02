@@ -1,9 +1,9 @@
-/********************************************************
- *	VertexPositionNormalTexture.h						*
- *														*
- *	XFX VertexPositionNormalTexture definition file		*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	VertexPositionNormalTexture.h											 *
+ *																			 *
+ *	XFX::Graphics::VertexPositionNormalTexture definition file  			 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_
 #define _XFX_GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_
 
@@ -36,7 +36,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 		
 			bool operator!=(const VertexPositionNormalTexture& other) const;
 			bool operator==(const VertexPositionNormalTexture& other) const;

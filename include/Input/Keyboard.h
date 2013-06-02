@@ -2,7 +2,7 @@
  *	Keyboard.h											*
  *														*
  *	XFX Keyboard definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_INPUT_KEYBOARD_
 #define _XFX_INPUT_KEYBOARD_

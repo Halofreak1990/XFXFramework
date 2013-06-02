@@ -2,7 +2,7 @@
  *	SpriteFont.h										*
  *														*
  *	XFX SpriteFont definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_SPRITEFONT_
 #define _XFX_GRAPHICS_SPRITEFONT_

@@ -1,9 +1,9 @@
-/********************************************************
- *	BoundingFrustum.h									*
- *														*
- *	XFX BoundingFrustum definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	BoundingFrustum.h														 *
+ *																			 *
+ *	XFX BoundingFrustum definition file 									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_BOUNDINGFRUSTRUM_
 #define _XFX_BOUNDINGFRUSTRUM_
 
@@ -40,7 +40,7 @@ namespace XFX
 		static Vector3 ComputeIntersection(Plane plane, Ray ray);
 		static Ray ComputeIntersectionLine(Plane p1, Plane p2);
 		void SetMatrix(Matrix value);
-		void SupportMapping(Vector3 v, out Vector3 result);
+		void SupportMapping(Vector3 v, out Vector3& result);
 
 	public:
 		Plane Bottom();
@@ -61,9 +61,9 @@ namespace XFX
 		ContainmentType_t Contains(BoundingFrustum frustrum);
 		ContainmentType_t Contains(BoundingSphere sphere);
 		ContainmentType_t Contains(Vector3 point);
-		void Contains(BoundingBox box, out ContainmentType_t result);
-		void Contains(BoundingSphere sphere, out ContainmentType_t result);
-		void Contains(Vector3 point, out ContainmentType_t result);
+		void Contains(BoundingBox box, out ContainmentType_t& result);
+		void Contains(BoundingSphere sphere, out ContainmentType_t& result);
+		void Contains(Vector3 point, out ContainmentType_t& result);
 		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingFrustum other) const;
 		Vector3* GetCorners();
@@ -75,11 +75,11 @@ namespace XFX
 		bool Intersects(BoundingSphere sphere);
 		PlaneIntersectionType_t Intersects(Plane plane);
 		float Intersects(Ray ray);
-		void Intersects(BoundingBox box, out bool result);
-		void Intersects(BoundingSphere sphere, out bool result);
-		void Intersects(Plane plane, out PlaneIntersectionType_t result);
-		void Intersects(Ray ray, out float result);
-		const char* ToString() const;
+		void Intersects(BoundingBox box, out bool& result);
+		void Intersects(BoundingSphere sphere, out bool& result);
+		void Intersects(Plane plane, out PlaneIntersectionType_t& result);
+		void Intersects(Ray ray, out float& result);
+		const String& ToString() const;
 
 		bool operator==(const BoundingFrustum& other) const;
 		bool operator!=(const BoundingFrustum& other) const;

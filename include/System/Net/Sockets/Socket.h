@@ -3,7 +3,7 @@
  *														*
  *	XFX Socket class definition file					*
  *	Based on Windows Phone Socket class.				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_NET_SOCKET_
 #define _SYSTEM_NET_SOCKET_

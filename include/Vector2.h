@@ -1,14 +1,13 @@
-/********************************************************
- *	Vector2.h											*
- *														*
- *	XFX Vector2 definition file							*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Vector2.h																 *
+ *																			 *
+ *	XFX Vector2 definition file												 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_VECTOR2_
 #define _XFX_VECTOR2_
 
 #include <System/Interfaces.h>
-#include <System/Object.h>
 
 using namespace System;
 
@@ -76,7 +75,7 @@ namespace XFX
 		static void		SmoothStep(const Vector2& value1, const Vector2& value2, const float amount, out Vector2& result);
 		static Vector2	Subtract(const Vector2 value1, const Vector2 value2);
 		static void		Subtract(const Vector2& value1, const Vector2& value2, out Vector2& result);
-		const char*		ToString() const;
+		const String&	ToString() const;
 		static Vector2	Transform(const Vector2 position, const Matrix matrix);
 		static void		Transform(const Vector2& position, const Matrix& matrix, out Vector2& result);
 		static Vector2	Transform(const Vector2 position, const Quaternion rotation);

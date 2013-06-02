@@ -31,7 +31,7 @@ LD_DIRS = -L$(PREFIX)/i386-pc-xbox/lib -L$(PREFIX)/lib -L$(XFX_PREFIX)/lib
 LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -lc -lhal -lxboxkrnl -lhal -lopenxdk -lc -lgcc -lstdc++
 
 OBJS = BoundingBox.o BoundingFrustum.o BoundingSphere.o MathHelper.o Matrix.o Plane.o Point.o Quaternion.o Ray.o Rectangle.o Vector2.o Vector3.o Vector4.o
-AUDIO_OBJS = SoundEffect.o
+AUDIO_OBJS = SoundEffect.o SoundEffectInstance.o
 CONTENT_OBJS = ContentManager.o ContentReader.o
 GAMERSERVICES_OBJS = Guide.o StorageDeviceAsyncResult.o
 GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o

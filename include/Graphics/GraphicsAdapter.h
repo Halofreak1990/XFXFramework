@@ -2,7 +2,7 @@
  *	GraphicsAdapter.h									*
  *														*
  *	XFX GraphicsAdapter definition file					*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GRAPHICS_GRAPHICSADAPTER_
 #define _XFX_GRAPHICS_GRAPHICSADAPTER_

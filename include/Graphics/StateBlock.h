@@ -1,9 +1,9 @@
-/********************************************************
- *	StateBlock.h										*
- *														*
- *	XFX StateBlock definition file						*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	StateBlock.h															 *
+ *																			 *
+ *	XFX::Graphics::StateBlock definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_STATEBLOCK_
 #define _XFX_GRAPHICS_STATEBLOCK_
 
@@ -27,7 +27,7 @@ namespace XFX
 		public:
 			EventHandler Disposing;
 
-			StateBlock(GraphicsDevice* graphiceDevice);
+			StateBlock(GraphicsDevice * const graphiceDevice);
 			StateBlock(const StateBlock &obj);
 			virtual ~StateBlock() { delete device; }
 
@@ -37,7 +37,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			int GetType() const;
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator!=(const StateBlock& right) const;
 			bool operator==(const StateBlock& right) const;

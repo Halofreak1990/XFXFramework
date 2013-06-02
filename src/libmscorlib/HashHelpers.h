@@ -2,7 +2,7 @@
  *	HashHelpers.h										*
  *														*
  *	XFX HashHelpers class definition file				*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _SYSTEM_COLLECTIONS_HASHHELPERS_
 #define _SYSTEM_COLLECTIONS_HASHHELPERS_

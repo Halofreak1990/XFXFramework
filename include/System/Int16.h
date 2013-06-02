@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Int16.h																	 *
+ *																			 *
+ *	XFX System::Int16 definition file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_INT16_
 #define _SYSTEM_INT16_
 
@@ -26,15 +32,13 @@ namespace System
 		bool Equals(const Int16 other) const;
 		int GetHashCode() const;
 		int GetType() const;
-		const char* ToString() const;
-		static const char* ToString(const short value);
+		const String& ToString() const;
+		static String& ToString(const short value);
 		static bool TryParse(const String& str, out short* result);
 
 		operator short() const;
 		bool operator==(const Int16& right) const;
-		//bool operator==(const short& right) const;
 		bool operator!=(const Int16& right) const;
-		//bool operator!=(const short& right) const;
 	};
 }
 

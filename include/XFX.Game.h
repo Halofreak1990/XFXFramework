@@ -2,7 +2,7 @@
  *	XFX.Game.h											*
  *														*
  *	XFX namespace include file for libXFX.Game.a		*
- *	Copyright © XFX Team. All Rights Reserved			*
+ *	Copyright (c) XFX Team. All Rights Reserved			*
  ********************************************************/
 #ifndef _XFX_GAME_H
 #define _XFX_GAME_H

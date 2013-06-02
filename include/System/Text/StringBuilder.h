@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	StringBuilder.h 														 *
+ *																			 *
+ *	XFX System::Text::StringBuilder definition file 						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_TEXT_STRINGBUILDER_
 #define _SYSTEM_TEXT_STRINGBUILDER_
 
@@ -20,6 +26,8 @@ namespace System
 			int maxCapacity;
 
 		public:
+			int getLength() const;
+
 			StringBuilder();
 			StringBuilder(const int capacity);
 			StringBuilder(const int capacity, const int maxCapacity);
@@ -37,7 +45,7 @@ namespace System
 			StringBuilder& Append(const short value);
 			StringBuilder& Append(const int value);
 			StringBuilder& Append(const long long value);
-			StringBuilder& Append(const Object* value);
+			StringBuilder& Append(Object const * const value);
 			StringBuilder& Append(const sbyte value);
 			StringBuilder& Append(const float value);
 			StringBuilder& Append(const String& value);
@@ -62,7 +70,7 @@ namespace System
 			StringBuilder& Insert(const int index, const short value);
 			StringBuilder& Insert(const int index, const int value);
 			StringBuilder& Insert(const int index, const long long value);
-			StringBuilder& Insert(const int index, const Object* value);
+			StringBuilder& Insert(const int index, Object const * const value);
 			StringBuilder& Insert(const int index, const sbyte value);
 			StringBuilder& Insert(const int index, const float value);
 			StringBuilder& Insert(const int index, const String& value);
@@ -75,8 +83,8 @@ namespace System
 			StringBuilder& Replace(const char oldChar, const char newChar, const int startIndex, const int count);
 			StringBuilder& Replace(const String& oldValue, const String& newValue);
 			StringBuilder& Replace(const String& oldValue, const String& newValue, const int startIndex, const int count);
-			const char* ToString() const;
-			const char* ToString(const int startIndex, const int length);
+			const String& ToString() const;
+			const String& ToString(const int startIndex, const int length);
 
 			bool operator==(const StringBuilder& right) const;
 			bool operator!=(const StringBuilder& right) const;

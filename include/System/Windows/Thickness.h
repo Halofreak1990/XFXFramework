@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_THICKNESS_
+#define _SYSTEM_WINDOWS_THICKNESS_
 
 #include <System/Interfaces.h>
 
@@ -34,10 +35,12 @@ namespace System
 			// Returns the TypeCode for this object as an integer.
 			int GetType() const;
 			// Returns the string representation of the System::Windows::Thickness structure.
-			const char* ToString() const;
+			const String& ToString() const;
 
 			bool operator ==(const Thickness& right) const;
 			bool operator !=(const Thickness& right) const;
 		};
 	}
 }
+
+#endif

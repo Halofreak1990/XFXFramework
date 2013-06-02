@@ -87,12 +87,12 @@ namespace System
 		// TODO: implement
 	}
 
-	const char* Version::ToString() const
+	const String& Version::ToString() const
 	{
 		return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 	}
 
-	const char* Version::ToString(int fieldCount) const
+	const String& Version::ToString(int fieldCount) const
 	{
 		switch(fieldCount)
 		{

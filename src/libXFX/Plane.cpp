@@ -206,9 +206,9 @@ namespace XFX
 	    result = Normalize(plane);
     }
 
-	const char* Plane::ToString() const
+	const String& Plane::ToString() const
 	{
-		return String::Format("{Normal:%s D:%g}", Normal.ToString(), D);
+		return String::Format("{Normal:%s D:%g}", (const char*)Normal.ToString(), D);
 	}
 	
 	Plane Plane::Transform(Plane plane, Matrix matrix)

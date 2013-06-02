@@ -56,7 +56,7 @@ namespace System
 
 	bool UInt64::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? (*this == *(UInt64 *)obj) : false;
+		return (obj != null && is(obj, this)) ? (*this == *(UInt64 *)obj) : false;
 	}
 
 	bool UInt64::Equals(const UInt64 other) const
@@ -74,12 +74,12 @@ namespace System
 		return 12;
 	}
 
-	const char* UInt64::ToString() const
+	const String& UInt64::ToString() const
 	{
 		return String::Format("%ull", value);
 	}
 
-	const char* UInt64::ToString(const ulong value)
+	const String& UInt64::ToString(const ulong value)
 	{
 		return String::Format("%ull", value);
 	}

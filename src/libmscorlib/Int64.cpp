@@ -52,12 +52,12 @@ namespace System
 		return 11;
 	}
 
-	const char* Int64::ToString() const
+	const String& Int64::ToString() const
 	{
 		return String::Format("%lld", value);
 	}
 
-	const char* Int64::ToString(const long long value)
+	const String& Int64::ToString(const long long value)
 	{
 		return String::Format("%lld", value);
 	}
