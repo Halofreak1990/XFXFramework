@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	DependencyObject.h														 *
+ *																			 *
+ *	System::Windows::DependencyObject definition file						 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_DEPENDENCYOBJECT_
+#define _SYSTEM_WINDOWS_DEPENDENCYOBJECT_
 
 #include <System/Collections/Generic/Dictionary.h>
 
@@ -12,7 +19,7 @@ namespace System
 		class DependencyObject
 		{
 		private:
-			Dictionary<String, Object*> dependencyProperties;
+			Dictionary<String, Object *> dependencyProperties;
 
 		protected:
 			DependencyObject();
@@ -25,3 +32,5 @@ namespace System
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_DEPENDENCYOBJECT_

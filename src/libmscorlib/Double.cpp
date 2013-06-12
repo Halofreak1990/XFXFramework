@@ -33,18 +33,18 @@
 
 #include <sassert.h>
 
-unsigned long long rawNaND = 0x7ff8000000000000ULL;
-unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
-unsigned long long rawNegInfD = 0xfff0000000000000ULL;
-
 namespace System
 {
+	unsigned long long rawNaND = 0x7ff8000000000000ULL;
+	unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
+	unsigned long long rawNegInfD = 0xfff0000000000000ULL;
+
 	const double Double::Epsilon =  4.94066e-324;
 	const double Double::MaxValue = 1.79769e+308;
 	const double Double::MinValue = -1.79769e+308;
-	const double Double::NaN = *(double*)&rawNaND;
-	const double Double::PositiveInfinity = *(double*)&rawPosInfD;
-	const double Double::NegativeInfinity = *(double*)&rawNegInfD;
+	const double Double::NaN = *(double *)&rawNaND;
+	const double Double::PositiveInfinity = *(double *)&rawPosInfD;
+	const double Double::NegativeInfinity = *(double *)&rawNegInfD;
 
 	Double::Double(const Double &obj)
 		: value(obj.value)

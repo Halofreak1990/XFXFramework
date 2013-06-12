@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
+#define _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
 
 #include <System/Windows/Thickness.h>
 #include <System/Windows/UIElement.h>
@@ -34,3 +35,5 @@ namespace System
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_FRAMEWORKELEMENT_

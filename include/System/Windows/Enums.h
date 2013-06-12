@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_ENUMS_
+#define _SYSTEM_WINDOWS_ENUMS_
 
 namespace System
 {
@@ -115,7 +116,7 @@ namespace System
 			};
 		};
 
-		// // Describes the kind of value that a GridLength object is holding.
+		// Describes the kind of value that a GridLength object is holding.
 		typedef GridUnitType::type			GridUnitType_t;
 		// 
 		typedef HorizontalAlignment::type	HorizontalAlignment_t;
@@ -133,3 +134,5 @@ namespace System
 		typedef WindowStyle::type			WindowStyle_t;
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_ENUMS_

@@ -237,7 +237,7 @@ namespace System
 
 	bool DateTime::Equals(Object const * const obj) const
 	{
-		return is(obj, this) ? this->Equals((*(DateTime*)obj)) : false;
+		return is(obj, this) ? this->Equals(*(DateTime *)obj) : false;
 	}
 
 	bool DateTime::Equals(const DateTime obj) const

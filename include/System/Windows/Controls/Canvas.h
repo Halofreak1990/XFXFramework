@@ -1,3 +1,6 @@
+#ifndef _SYSTEM_WINDOWS_CONTROLS_CANVAS_
+#define _SYSTEM_WINDOWS_CONTROLS_CANVAS_
+
 #include <System/Windows/Controls/Panel.h>
 
 namespace System
@@ -34,3 +37,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_CANVAS_

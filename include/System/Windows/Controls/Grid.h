@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_GRID_
+#define _SYSTEM_WINDOWS_CONTROLS_GRID_
 
 #include <System/Windows/Controls/Panel.h>
 #include <System/Windows/Controls/ColumnDefinition.h>
@@ -46,3 +47,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_GRID_

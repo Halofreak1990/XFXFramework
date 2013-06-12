@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_BORDER_
+#define _SYSTEM_WINDOWS_CONTROLS_BORDER_
 
 #include <System/Windows/CornerRadius.h>
 #include <System/Windows/FrameworkElement.h>
@@ -12,7 +13,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Draws a border, background, or both around another object.
+			/**
+			 * Draws a border, background, or both around another object.
+			 */
 			class Border : public FrameworkElement
 			{
 			public:
@@ -31,3 +34,5 @@ namespace System
 		}
 	}
 }
+
+#endif _SYSTEM_WINDOWS_CONTROLS_BORDER_

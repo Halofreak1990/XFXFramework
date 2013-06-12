@@ -107,10 +107,12 @@
     <ClInclude Include="..\..\include\System\Windows\Controls\Primitives\RepeatButton.h" />
     <ClInclude Include="..\..\include\System\Windows\CornerRadius.h" />
     <ClInclude Include="..\..\include\System\Windows\DependencyObject.h" />
+    <ClInclude Include="..\..\include\System\Windows\DependencyProperty.h" />
     <ClInclude Include="..\..\include\System\Windows\Enums.h" />
     <ClInclude Include="..\..\include\System\Windows\FrameworkElement.h" />
     <ClInclude Include="..\..\include\System\Windows\GridLength.h" />
     <ClInclude Include="..\..\include\System\Windows\Input\MouseButtonEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Windows\PropertyMetaData.h" />
     <ClInclude Include="memutil.h" />
     <ClInclude Include="..\..\include\System\Windows\MessageBox.h" />
     <ClInclude Include="..\..\include\System\Windows\Point.h" />

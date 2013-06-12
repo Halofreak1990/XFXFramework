@@ -37,9 +37,7 @@ namespace System
 
 		operator ulong() const;
 		bool operator==(const UInt64& right) const;
-		//bool operator==(const ulong& right) const;
 		bool operator!=(const UInt64& right) const;
-		//bool operator!=(const ulong& right) const;
 	};
 }
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_CONTENTCONTROL_
+#define _SYSTEM_WINDOWS_CONTROLS_CONTENTCONTROL_
 
 #include <System/String.h>
 #include <System/Windows/Controls/Control.h>
@@ -30,3 +31,5 @@ namespace System
 		}
 	}
 }
+
+#endif

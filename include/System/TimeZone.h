@@ -1,9 +1,9 @@
-/********************************************************
- *	TimeZone.h											*
- *														*
- *	TimeZone definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	TimeZone.h																 *
+ *																			 *
+ *	System::TimeZone definition file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_TIMEZONE_
 #define _SYSTEM_TIMEZONE_
 
@@ -14,9 +14,9 @@ using namespace System::Globalization;
 
 namespace System
 {
-	class DateTime;
+	struct DateTime;
 	class String;
-	class TimeSpan;
+	struct TimeSpan;
 
 	// Represents a time zone.
 	class TimeZone : public Object

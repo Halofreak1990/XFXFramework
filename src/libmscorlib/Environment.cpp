@@ -70,7 +70,7 @@ namespace System
 
 	OperatingSystem Environment::OSVersion()
 	{
-		return OperatingSystem(PlatformID::Xbox, Version(XboxKrnlVersion->VersionMajor,XboxKrnlVersion->VersionMinor, XboxKrnlVersion->Build));
+		return OperatingSystem(PlatformID::Xbox, Version(XboxKrnlVersion->VersionMajor, XboxKrnlVersion->VersionMinor, XboxKrnlVersion->Build));
 	}
 
 	int Environment::ProcessorCount()

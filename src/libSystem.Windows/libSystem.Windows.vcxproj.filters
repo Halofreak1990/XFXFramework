@@ -293,6 +293,12 @@
     <ClInclude Include="..\..\include\System\Windows\Input\MouseButtonEventArgs.h">
       <Filter>Header Files\Windows\Input</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\DependencyProperty.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Windows\PropertyMetaData.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

@@ -10,10 +10,10 @@ extern "C" {
 #undef sassert
 
 #ifdef NDEBUG           /* required by ANSI standard */
-#define sassert(e,s)  	((void)0)
+#define sassert(e,msg) 	((void)0)
 #else
 //! Causes a blue screen of death if e is not true with the msg "msg" displayed
-#define sassert(e,msg)       ((e) ? (void)0 : __sassert(__FILE__, __LINE__, #e, msg))
+#define sassert(e,msg) 	((e) ? (void)0 : __sassert(__FILE__, __LINE__, #e, msg))
 
 #endif /* NDEBUG */
 

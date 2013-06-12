@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	PresentationFrameworkCollection.h										 *
+ *																			 *
+ *	System::Windows::PresentationFrameworkCollection definition file		 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_PRESENTATIONFRAMEWORKCOLLECTION_
+#define _SYSTEM_WINDOWS_PRESENTATIONFRAMEWORKCOLLECTION_
 
 #include <System/Collections/Generic/List.h>
 #include <sassert.h>
@@ -10,7 +17,7 @@ namespace System
 	namespace Windows
 	{
 		template <typename T>
-		class PresentationFrameworkCollection : public IList<T>
+		class PresentationFrameworkCollection : public IList<T>, public Object
 		{
 		private:
 			List<T> _items;
@@ -26,6 +33,7 @@ namespace System
 			void Clear();
 			bool Contains(const T& item) const;
 			void CopyTo(T array[], const int index) const;
+			int GetType() const;
 			int IndexOf(const T& item) const;
 			void Insert(const int index, const T& item);
 			bool Remove(const T& item);
@@ -109,3 +117,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_PRESENTATIONFRAMEWORKCOLLECTION_

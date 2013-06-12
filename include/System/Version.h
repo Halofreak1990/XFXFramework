@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Version.h																 *
  *																			 *
- *	XFX Version definition file												 *
+ *	XFX System::Version definition file 									 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_VERSION_

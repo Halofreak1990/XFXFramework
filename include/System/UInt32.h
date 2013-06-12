@@ -33,10 +33,9 @@ namespace System
 		static const String& ToString(const uint value);
 		static bool TryParse(const char* str, out uint* result);
 
+		operator uint() const;
 		bool operator==(const UInt32& right) const;
-		bool operator==(const uint& right) const;
 		bool operator!=(const UInt32& right) const;
-		bool operator!=(const uint& right) const;
 	};
 }
 

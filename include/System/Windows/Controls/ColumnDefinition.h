@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SYSTEM_WINDOWS_CONTROLS_COLUMNDEFINITION_
+#define _SYSTEM_WINDOWS_CONTROLS_COLUMNDEFINITION_
 
 #include <System/Windows/GridLength.h>
 #include <System/Windows/PresentationFrameworkCollection.h>
@@ -9,7 +10,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Defines row-specific properties that apply to System::Windows::Controls::Grid elements.
+			/**
+			 * Defines row-specific properties that apply to System::Windows::Controls::Grid elements.
+			 */
 			class ColumnDefinition
 			{
 			public:
@@ -31,3 +34,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_COLUMNDEFINITION_
