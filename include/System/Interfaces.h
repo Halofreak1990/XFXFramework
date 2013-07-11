@@ -15,7 +15,9 @@ namespace System
 {
 	class String;
 
-	// Represents the status of an asynchronous operation. 
+	/**
+	 * Represents the status of an asynchronous operation. 
+	 */
 	interface IAsyncResult
 	{
 	public:
@@ -27,7 +29,9 @@ namespace System
 		virtual ~IAsyncResult() { }
 	};
 
-	// Defines a generalized comparison method that a value type or class implements to create a type-specific comparison method for ordering instances.
+	/**
+	 * Defines a generalized comparison method that a value type or class implements to create a type-specific comparison method for ordering instances.
+	 */
 	template <class T>
 	interface IComparable
 	{
@@ -37,7 +41,9 @@ namespace System
 		virtual ~IComparable() { }
 	};
 
-	// Defines a method to release allocated resources.
+	/**
+	 * Defines a method to release allocated resources.
+	 */
 	interface IDisposable
 	{
 	public:
@@ -46,7 +52,9 @@ namespace System
 		virtual ~IDisposable() { }
 	};
 
-	// Defines a generalized method that a value type or class implements to create a type-specific method for determining equality of instances.
+	/**
+	 * Defines a generalized method that a value type or class implements to create a type-specific method for determining equality of instances.
+	 */
 	template<class T>
 	interface IEquatable
 	{
@@ -56,7 +64,9 @@ namespace System
 		virtual ~IEquatable() { }
 	};
 
-	// Provides a mechanism for retrieving an object to control formatting.
+	/**
+	 * Provides a mechanism for retrieving an object to control formatting.
+	 */
 	interface IFormatProvider
 	{
 	public:
@@ -65,7 +75,9 @@ namespace System
 		virtual ~IFormatProvider() { }
 	};
 
-	// Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.
+	/**
+	 * Defines a mechanism for retrieving a service object; that is, an object that provides custom support to other objects.
+	 */
 	interface IServiceProvider
 	{
 	public:

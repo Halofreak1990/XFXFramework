@@ -32,6 +32,9 @@ namespace XFX
 	namespace Graphics
 	{
 		Effect::Effect(Effect const * const cloneSource)
+			: _parameters(cloneSource->_parameters),
+			  _techniques(cloneSource->_techniques),
+			  CurrentTechnique(cloneSource->CurrentTechnique)
 		{
 		}
 

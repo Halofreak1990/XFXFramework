@@ -74,12 +74,12 @@ namespace System
 		return 12;
 	}
 
-	const String& UInt64::ToString() const
+	const String UInt64::ToString() const
 	{
 		return String::Format("%ull", value);
 	}
 
-	const String& UInt64::ToString(const ulong value)
+	const String UInt64::ToString(const ulong value)
 	{
 		return String::Format("%ull", value);
 	}

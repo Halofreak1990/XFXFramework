@@ -111,7 +111,7 @@ namespace System
 		double ToOADate();
 		String& ToShortDateString();
 		String& ToShortTimeString();
-		const String& ToString() const;
+		const String ToString() const;
 		String& ToString(IFormatProvider * const provider);
 		String& ToString(const String& format);
 		String& ToString(const String& format, IFormatProvider * const provider);

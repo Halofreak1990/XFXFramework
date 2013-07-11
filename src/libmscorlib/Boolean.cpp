@@ -82,18 +82,18 @@ namespace System
 		return -1;
 	}
 
-	const String& Boolean::ToString() const
+	const String Boolean::ToString() const
 	{
 		if (value)
-			return "true";
-		return "false";
+			return TrueString;
+		return FalseString;
 	}
 
 	const String& Boolean::ToString(bool value)
 	{
 		if (value)
-			return "true";
-		return "false";
+			return TrueString;
+		return FalseString;
 	}
 
 	Boolean::operator bool() const

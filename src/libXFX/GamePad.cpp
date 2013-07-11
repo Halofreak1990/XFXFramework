@@ -133,7 +133,7 @@ namespace XFX
 
 		int GamePadState::GetHashCode() const
 		{
-			return (Buttons.GetHashCode() + DPad.GetHashCode() ^ ThumbSticks.GetHashCode() ^ Triggers.GetHashCode());
+			return (((Buttons.GetHashCode() + DPad.GetHashCode()) ^ ThumbSticks.GetHashCode()) ^ Triggers.GetHashCode());
 		}
 
 		int GamePadState::GetType()
@@ -202,7 +202,7 @@ namespace XFX
 			return !IsButtonDown(button);
 		}
 
-		const String& GamePadState::ToString() const
+		const String GamePadState::ToString() const
 		{
 			return String::Format("{IsConnected:%b}", IsConnected);
 		}
@@ -270,7 +270,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const String& GamePadButtons::ToString() const
+		const String GamePadButtons::ToString() const
 		{
 			String str = "";
 			if (A == ButtonState::Pressed)
@@ -372,7 +372,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const String& GamePadDPad::ToString() const
+		const String GamePadDPad::ToString() const
 		{
 			String str = "";
 			if (Up == ButtonState::Pressed)
@@ -446,7 +446,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const String& GamePadThumbSticks::ToString() const
+		const String GamePadThumbSticks::ToString() const
 		{
 			return String::Format("{Left:%s Right%s}", (const char *)Left.ToString(), (const char *)Right.ToString());
 		}
@@ -496,7 +496,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const String& GamePadTriggers::ToString() const
+		const String GamePadTriggers::ToString() const
 		{
 			return String::Format("{Left:%f Right:%f}", Left, Right);
 		}

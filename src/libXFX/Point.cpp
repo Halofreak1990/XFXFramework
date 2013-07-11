@@ -67,7 +67,7 @@ namespace XFX
 		// TODO: implement
 	}
 
-	const String& Point::ToString() const
+	const String Point::ToString() const
 	{
 		return String::Format("{X:%i Y:%i}", X, Y);
 	}

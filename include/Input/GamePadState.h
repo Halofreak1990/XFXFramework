@@ -32,7 +32,7 @@ namespace XFX
 			static int GetType();
 			bool IsButtonDown(const Buttons_t button) const;
 			bool IsButtonUp(const Buttons_t button) const;
-			const String& ToString() const;
+			const String ToString() const;
 
 			bool operator==(const GamePadState& right) const;
 			bool operator!=(const GamePadState& right) const;

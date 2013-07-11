@@ -51,7 +51,7 @@ namespace XFX
 		void	Normalize();
 		static Plane Normalize(const Plane plane);
 		static void Normalize(const Plane plane, out Plane& result);
-		const String& ToString() const;
+		const String ToString() const;
 		static Plane Transform(const Plane plane, const Matrix matrix);
 		static void Transform(const Plane plane, const Matrix matrix, out Plane& result);
 		static Plane Transform(const Plane plane, const Quaternion quaternion);

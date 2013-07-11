@@ -35,7 +35,7 @@ namespace System
 			// Returns the TypeCode for this object as an integer.
 			static int GetType();
 			// Returns the string representation of the System::Windows::Thickness structure.
-			const String& ToString() const;
+			const String ToString() const;
 
 			bool operator ==(const Thickness& right) const;
 			bool operator !=(const Thickness& right) const;

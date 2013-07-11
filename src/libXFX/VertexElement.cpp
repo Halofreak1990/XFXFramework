@@ -46,7 +46,7 @@ namespace XFX
 
 		bool VertexElement::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? (*this == *(VertexElement*)obj) : false;
+			return is(obj, this) ? (*this == *(VertexElement *)obj) : false;
 		}
 		
 		int VertexElement::GetHashCode() const
@@ -59,7 +59,7 @@ namespace XFX
 			// TODO: implement
 		}
 
-		const String& VertexElement::ToString() const
+		const String VertexElement::ToString() const
 		{
 			// TODO: implement
 		}

@@ -1188,7 +1188,7 @@ namespace XFX
 		result.M44 = matrix1.M44 - matrix2.M44; 
 	}
 
-	const String& Matrix::ToString() const
+	const String Matrix::ToString() const
 	{
 		return String::Format("{{M11:%f M12:%f M13:%f M14:%f}\
 								{M21:%f M22:%f M23:%f M24:%f}\

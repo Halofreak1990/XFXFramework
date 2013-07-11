@@ -83,7 +83,7 @@ namespace XFX
 		static void SmoothStep(Vector4 value1, Vector4 value2, float amount, out Vector4& result);
 		static Vector4 Subtract(Vector4 value1, Vector4 value2);
 		static void Subtract(Vector4 value1, Vector4 value2, out Vector4& result);
-		const String& ToString() const;
+		const String ToString() const;
 		static void Transform(Vector4 sourceArray[], Quaternion rotation, Vector4 destinationArray[]);
 		static void Transform(Vector4 sourceArray[], int sourceIndex, Quaternion rotation, Vector4 destinationArray[], int destinationIndex, int length);
 		static void Transform(Vector4 sourceArray[], Matrix matrix, Vector4 destinationArray[]);

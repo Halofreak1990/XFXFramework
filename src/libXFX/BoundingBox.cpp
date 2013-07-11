@@ -261,7 +261,7 @@ namespace XFX
 		ray.Intersects(*this, distance);
 	}
 
-	const String& BoundingBox::ToString() const
+	const String BoundingBox::ToString() const
 	{
 		return "{Min:"+ Min.ToString() + " Max:" + Max.ToString() + "}";
 	}

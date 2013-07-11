@@ -189,7 +189,7 @@ namespace XFX
 			int GetHashCode() const;
 			static int GetType();
 			unsigned int PackedValue() const;
-			const String& ToString() const;
+			const String ToString() const;
 			Vector4 ToVector4() const;
 			Vector3 ToVector3() const;
 			

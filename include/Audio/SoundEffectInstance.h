@@ -23,7 +23,9 @@ namespace XFX
 		private:
 			friend class SoundEffect;
 
+			float _pan;
 			SoundEffect* _parent;
+			float _volume;
 
 			SoundEffectInstance(SoundEffect* parent);
 
@@ -48,7 +50,7 @@ namespace XFX
 			void Dispose();
 			static int GetType();
 			void Pause();
-			void Play();
+			virtual void Play();
 			void Resume();
 			void Stop();
 			void Stop(bool immediate);

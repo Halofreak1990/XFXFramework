@@ -347,7 +347,7 @@ namespace System
 					return destinationArray;
 				}
 
-				const String& ToString() const
+				const String ToString() const
 				{
 					return "List<T>";
 				}

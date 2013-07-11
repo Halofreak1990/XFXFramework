@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Array.h																	 *
  *																			 *
- *	XFX Array class definition file											 *
+ *	XFX generic Array class definition file 								 *
  *	Contains array helper methods											 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/

@@ -68,7 +68,7 @@ namespace System
 		return 6;
 	}
 
-	const String& Byte::ToString() const
+	const String Byte::ToString() const
 	{
 		return String::Format("%i", value);
 	}

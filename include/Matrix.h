@@ -124,7 +124,7 @@ namespace XFX
 		static void Negate(Matrix matrix, out Matrix& result);
 		static Matrix Subtract(Matrix matrix1, Matrix matrix2);
 		static void Subtract(Matrix matrix1, Matrix matrix2, out Matrix& result);
-		const String& ToString() const;
+		const String ToString() const;
 		static Matrix Transform(Matrix value, Quaternion rotation);
 		static void Transform(Matrix value, Quaternion rotation, out Matrix& result);
 		static Matrix Transpose(Matrix matrix);

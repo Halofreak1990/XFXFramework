@@ -17,7 +17,7 @@ namespace System
 				delete Foreground;
 			}
 
-			const String& TextBlock::ToString() const
+			const String TextBlock::ToString() const
 			{
 				return Text;
 			}

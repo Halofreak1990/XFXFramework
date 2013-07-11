@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Point.h																	 *
  *																			 *
- *	XFX Point definition file												 *
+ *	XFX::Point structure definition file									 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_POINT_
@@ -13,7 +13,9 @@ using namespace System;
 
 namespace XFX
 {
-	// Defines a point in 2D space.
+	/**
+	 * Defines a point in 2D space.
+	 */
 	struct Point : IEquatable<Point>, Object
 	{
 		int X;
@@ -28,7 +30,7 @@ namespace XFX
 		bool Equals(const Point other) const;
 		int GetHashCode() const;
 		static int GetType();
-		const String& ToString() const;
+		const String ToString() const;
 
 		bool operator==(const Point& right) const;
 		bool operator!=(const Point& right) const;

@@ -11,15 +11,22 @@
 #include <Matrix.h>
 #include <Vector3.h>
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics
 	{
 		class Texture2D;
 
-		// Contains a configurable effect that supports alpha testing.
+		/**
+		 * Contains a configurable effect that supports alpha testing.
+		 */
 		class AlphaTestEffect : public Effect
 		{
+		private:
+			byte effectCode[];
+
 		protected:
 			AlphaTestEffect(AlphaTestEffect const * const cloneSource);
 
@@ -43,6 +50,7 @@ namespace XFX
 			AlphaTestEffect(GraphicsDevice * const device);
 
 			Effect* Clone() const;
+			int GetType() const;
 		};
 	}
 }

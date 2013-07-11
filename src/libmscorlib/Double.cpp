@@ -93,14 +93,14 @@ namespace System
 		if (*sp == '+' || *sp == '-')
 			sign = *sp++;
 
-		if (stricmp(sp, "inf") == 0)
+		if (strcasecmp(sp, "inf") == 0)
 		{
 			if (!sign || sign == '+')
 				*result = PositiveInfinity;
 			else
 				*result = NegativeInfinity;
 		}
-		else if (stricmp(sp, "nan") == 0)
+		else if (strcasecmp(sp, "nan") == 0)
 			*result = NaN;
 		else /* valid number */
 			*result = atof(sp);
@@ -108,12 +108,12 @@ namespace System
 		return true;
 	}
 
-	const String& Double::ToString() const
+	const String Double::ToString() const
 	{
 		return String::Format("%g", value);
 	}
 
-	const String& Double::ToString(const double value)
+	const String Double::ToString(const double value)
 	{
 		return String::Format("%g", value);
 	}

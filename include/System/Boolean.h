@@ -32,7 +32,7 @@ namespace System
 		bool Equals(const Boolean other) const;
 		static int GetType();
 		static bool Parse(const String& str);
-		const String& ToString() const;
+		const String ToString() const;
 		static const String& ToString(bool value);
 
 		operator bool() const;

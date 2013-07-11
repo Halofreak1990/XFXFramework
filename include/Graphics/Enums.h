@@ -1,9 +1,9 @@
-/********************************************************
- *	Enums.h												*
- *														*
- *	XFX::Graphics enumeration definition file			*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Enums.h																	 *
+ *																			 *
+ *	XFX::Graphics enumeration definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_ENUMS_
 #define _XFX_GRAPHICS_ENUMS_
 
@@ -11,106 +11,211 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Defines color blending factors.
+		/**
+		 * Defines color blending factors.
+		 */
 		struct Blend
 		{
 			enum type
 			{
-				// Each component of the color is multiplied by (1, 1, 1, 1).
+				/**
+				 * Each component of the color is multiplied by (1, 1, 1, 1).
+				 */
 				One = 0,
-				// Each component of the color is multiplied by (0, 0, 0, 0).
+				/** Each component of the color is multiplied by (0, 0, 0, 0).
+				 *
+				 */
 				Zero = 1,
-				// Each component of the color is multiplied by the source color. This can be represented as (Rs, Gs, Bs, As), where R, G, B, and A respectively stand for the red, green, blue, and alpha source values.
+				/**
+				 * Each component of the color is multiplied by the source color. This can be represented as (Rs, Gs, Bs, As), where R, G, B, and A respectively stand for the red, green, blue, and alpha source values.
+				 */
 				SourceColor = 2,
-				// Each component of the color is multiplied by the inverse of the source color. This can be represented as (1 ? Rs, 1 ? Gs, 1 ? Bs, 1 ? As) where R, G, B, and A respectively stand for the red, green, blue, and alpha destination values.
+				/**
+				 * Each component of the color is multiplied by the inverse of the source color. This can be represented as (1 ? Rs, 1 ? Gs, 1 ? Bs, 1 ? As) where R, G, B, and A respectively stand for the red, green, blue, and alpha destination values.
+				 */
 				InversourceColor = 3,
-				// Each component of the color is multiplied by the alpha value of the source. This can be represented as (As, As, As, As), where As is the alpha source value.
+				/**
+				 * Each component of the color is multiplied by the alpha value of the source. This can be represented as (As, As, As, As), where As is the alpha source value.
+				 */
 				SourceAlpha = 4,
-				// Each component of the color is multiplied by the inverse of the alpha value of the source. This can be represented as (1 ? As, 1 ? As, 1 ? As, 1 ? As), where As is the alpha destination value.
+				/**
+				 * Each component of the color is multiplied by the inverse of the alpha value of the source. This can be represented as (1 ? As, 1 ? As, 1 ? As, 1 ? As), where As is the alpha destination value.
+				 */
 				InverseSourceAlpha = 5,
-				// Each component color is multiplied by the destination color. This can be represented as (Rd, Gd, Bd, Ad), where R, G, B, and A respectively stand for red, green, blue, and alpha destination values.
+				/**
+				 * Each component color is multiplied by the destination color. This can be represented as (Rd, Gd, Bd, Ad), where R, G, B, and A respectively stand for red, green, blue, and alpha destination values.
+				 */
 				DestinationColor = 6,
-				// Each component of the color is multiplied by the inverse of the destination color. This can be represented as (1 ? Rd, 1 ? Gd, 1 ? Bd, 1 ? Ad), where Rd, Gd, Bd, and Ad respectively stand for the red, green, blue, and alpha destination values.
+				/**
+				 * Each component of the color is multiplied by the inverse of the destination color. This can be represented as (1 ? Rd, 1 ? Gd, 1 ? Bd, 1 ? Ad), where Rd, Gd, Bd, and Ad respectively stand for the red, green, blue, and alpha destination values.
+				 */
 				InverseDestinationColor = 7,
-				// Each component of the color is multiplied by the alpha value of the destination. This can be represented as (Ad, Ad, Ad, Ad), where Ad is the destination alpha value.
+				/**
+				 * Each component of the color is multiplied by the alpha value of the destination. This can be represented as (Ad, Ad, Ad, Ad), where Ad is the destination alpha value.
+				 */
 				DestinationAlpha = 8,
-				// Each component of the color is multiplied by the inverse of the alpha value of the destination. This can be represented as (1 ? Ad, 1 ? Ad, 1 ? Ad, 1 ? Ad), where Ad is the alpha destination value.
+				/**
+				 * Each component of the color is multiplied by the inverse of the alpha value of the destination. This can be represented as (1 ? Ad, 1 ? Ad, 1 ? Ad, 1 ? Ad), where Ad is the alpha destination value.
+				 */
 				InverseDestinationAlpha = 9,
-				// Each component of the color is multiplied by a constant set in BlendFactor.
+				/**
+				 * Each component of the color is multiplied by a constant set in BlendFactor.
+				 */
 				BlendFactor = 10,
-				// Each component of the color is multiplied by the inverse of a constant set in BlendFactor.
+				/**
+				 * Each component of the color is multiplied by the inverse of a constant set in BlendFactor.
+				 */
 				InverseBlendFactor = 11,
-				// Each component of the color is multiplied by either the alpha of the source color, or the inverse of the alpha of the source color, whichever is greater. This can be represented as (f, f, f, 1), where f = min(A, 1 ? Ad).
+				/**
+				 * Each component of the color is multiplied by either the alpha of the source color, or the inverse of the alpha of the source color, whichever is greater. This can be represented as (f, f, f, 1), where f = min(A, 1 ? Ad).
+				 */
 				SourceAlphaSaturation = 12
 			};
 		};
 
-		// Defines how to combine a source color with the destination color already on the render target for color blending.
+		/**
+		 * Defines how to combine a source color with the destination color already on the render target for color blending.
+		 */
 		struct BlendFunction
 		{
 			enum type
 			{
-				// The result is the destination added to the source. Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
+				/**
+				 * The result is the destination added to the source. Result = (Source Color * Source Blend) + (Destination Color * Destination Blend)
+				 */
 				Add,
-				// The result is the destination subtracted from the source. Result = (Source Color * Source Blend) ? (Destination Color * Destination Blend)
+				/**
+				 * The result is the destination subtracted from the source. Result = (Source Color * Source Blend) ? (Destination Color * Destination Blend)
+				 */
          		Subtract,
-				// The result is the source subtracted from the destination. Result = (Destination Color * Destination Blend) ? (Source Color * Source Blend)
+				/**
+				 * The result is the source subtracted from the destination. Result = (Destination Color * Destination Blend) ? (Source Color * Source Blend)
+				 */
          		ReverseSubtract,
-				// The result is the minimum of the source and destination. Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+				/**
+				 * The result is the minimum of the source and destination. Result = min( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+				 */
          		Min,
-				// The result is the maximum of the source and destination. Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+				/**
+				 * The result is the maximum of the source and destination. Result = max( (Source Color * Source Blend), (Destination Color * Destination Blend) )
+				 */
          		Max
 			};
 		};
 
-		// Specifies Special Usage of the buffer contents.
+		/**
+		 * Specifies Special Usage of the buffer contents.
+		 */
 		struct BufferUsage
 		{
 			enum type
 			{
+				/**
+				 * None.
+				 */
 				None = 0,
 				Points = 0x40,
+				/**
+				 * Indicates that the application only writes to the vertex buffer. If specified, the driver chooses the best memory location for efficient writing and rendering. Attempts to read from a write-only vertex buffer fail.
+				 */
 				WriteOnly = 8
 			};
 		};
 
-		// Specifies the buffer to use when calling GraphicsDevice.Clear.
+		/**
+		 * Specifies the buffer to use when calling GraphicsDevice::Clear.
+		 */
 		struct ClearOptions
 		{
 			enum type
 			{
+				/**
+				 * A depth buffer.
+				 */
 				Depth = 2,
+				/**
+				 * A stencil buffer.
+				 */
 				Stencil = 4,
+				/**
+				 * A render target.
+				 */
 				Target = 1
 			};
 		};
 
-		// Defines the color channels that can be chosen for a per-channel write to a render target color buffer.
+		/**
+		 * Defines the color channels that can be chosen for a per-channel write to a render target color buffer.
+		 */
 		struct ColorWriteChannels
 		{
 			enum type
 			{
+				/**
+				 * All buffer channels.
+				 */
 				All = 15,
+				/**
+				 * Alpha channel of a buffer.
+				 */
 				Alpha = 8,
+				/**
+				 * Blue channel of a buffer.
+				 */
 				Blue = 4,
+				/**
+				 * Green channel of a buffer.
+				 */
 				Green = 2,
+				/**
+				 * No channel selected.
+				 */
 				None = 0,
+				/**
+				 * Red channel of a buffer.
+				 */
 				Red = 1
 			};
 		};
 
-		// Defines comparison functions that can be chosen for alpha, stencil, or depth-buffer tests.
+		/**
+		 * Defines comparison functions that can be chosen for alpha, stencil, or depth-buffer tests.
+		 */
 		struct CompareFunction
 		{
 			enum type
      		{
+				/**
+				 * Always fail the test.
+				 */
         		Never = 1,
+				/**
+				 * Accept the new pixel if its value is less than the value of the current pixel.
+				 */
          		Less = 2,
+				/**
+				 * Accept the new pixel if its value is equal to the value of the current pixel.
+				 */
          		Equal = 3,
+				/**
+				 * Accept the new pixel if its value is less than or equal to the value of the current pixel.
+				 */
          		LessEqual = 4,
+				/**
+				 * Accept the new pixel if its value is greater than the value of the current pixel.
+				 */
          		Greater = 5,
+				/**
+				 * Accept the new pixel if its value does not equal the value of the current pixel.
+				 */
          		NotEqual = 6,
+				/**
+				 * Accept the new pixel if its value is greater than or equal to the value of the current pixel.
+				 */
          		GreaterEqual = 7,
+				/**
+				 * Always pass the test.
+				 */
          		Always = 8
      		};
 		};
@@ -289,18 +394,6 @@ namespace XFX
 			};
 		};
 
-		// Defines the data type of a shader register.
-		struct ShaderRegisterSet
-		{
-			enum type
-			{
-				Boolean = 0,	//Boolean value.
-				Float = 2,		//4D floating-point number.
-				Int4 = 1,		//4D integer number.
-				Sampler = 3		//The register contains 4D sampler data.
-			};
-		};
-
 		// Defines sprite rotation options.
 		struct SpriteEffects
 		{
@@ -470,7 +563,6 @@ namespace XFX
 		typedef PrimitiveType::type			PrimitiveType_t;
 		typedef RenderTargetUsage::type		RenderTargetUsage_t;
 		typedef SetDataOptions::type		SetDataOptions_t;
-		typedef ShaderRegisterSet::type		ShaderRegisterSet_t;
 		typedef SpriteEffects::type			SpriteEffects_t;
 		typedef SpriteSortMode::type		SpriteSortMode_t;
 		typedef StencilOperation::type		StencilOperation_t;

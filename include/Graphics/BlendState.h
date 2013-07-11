@@ -19,6 +19,7 @@ namespace XFX
 		class BlendState : public GraphicsResource
 		{
 		private:
+			static const char * const isBoundErrorString;
 			BlendFunction_t alphaBlendFunction;
 			Blend_t alphaDestinationBlend;
 			Blend_t alphaSourceBlend;

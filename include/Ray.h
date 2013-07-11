@@ -38,7 +38,7 @@ namespace XFX
 		void Intersects(BoundingSphere sphere, out float& result) const;
 		float Intersects(Plane plane) const;
 		void Intersects(Plane plane, out float& result) const;
-		const String& ToString() const;
+		const String ToString() const;
 		
 		bool operator==(const Ray& right) const;
 		bool operator!=(const Ray& right) const;

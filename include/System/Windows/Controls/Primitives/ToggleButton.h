@@ -28,7 +28,7 @@ namespace System
 					virtual ~ToggleButton();
 
 					static int GetType();
-					const String& ToString() const;
+					const String ToString() const;
 
 					bool operator==(const ToggleButton& right) const;
 					bool operator!=(const ToggleButton& right) const;

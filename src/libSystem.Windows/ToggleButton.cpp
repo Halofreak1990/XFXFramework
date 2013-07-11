@@ -47,7 +47,7 @@ namespace System
 					}
 				}
 
-				const String& ToggleButton::ToString() const
+				const String ToggleButton::ToString() const
 				{
 					return String::Format("{ToggleButton Content:%s IsChecked:%s}", (Content) ? (const char *)Content->ToString() : "", (IsChecked != null) ? (const char *)Boolean::ToString(IsChecked.getValue()) : "null");
 				}

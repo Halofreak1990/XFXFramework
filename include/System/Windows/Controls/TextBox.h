@@ -29,7 +29,7 @@ namespace System
 				static int GetType();
 				void Select(const int start, const int length);
 				void SelectAll();
-				const String& ToString() const;
+				const String ToString() const;
 			};
 		}
 	}

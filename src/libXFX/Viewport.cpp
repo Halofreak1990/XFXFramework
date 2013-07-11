@@ -134,7 +134,7 @@ namespace XFX
 			return position;
 		}
 
-		const String& Viewport::ToString() const
+		const String Viewport::ToString() const
 		{
 			return String::Format("{X:%i Y:%i Width:%i Height:%i MinDepth:%f MaxDepth:%f}", X, Y, Width, Height, MinDepth, MaxDepth);
 		}

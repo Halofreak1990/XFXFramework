@@ -27,10 +27,14 @@
 
 #include <Graphics/BlendState.h>
 
+#include <sassert.h>
+
 namespace XFX
 {
 	namespace Graphics
 	{
+		const char * const BlendState::isBoundErrorString = "";
+
 		BlendState::BlendState()
 		{
 		}
@@ -38,6 +42,32 @@ namespace XFX
 		BlendState::~BlendState()
 		{
 			Dispose(false);
+		}
+
+		BlendFunction_t BlendState::getAlphaBlendFunction() const
+		{
+			return alphaBlendFunction;
+		}
+
+		void BlendState::setAlphaBlendFunction(BlendFunction_t value)
+		{
+			sassert(!isBound, isBoundErrorString);
+
+			alphaBlendFunction = value;
+			// TODO: verify
+		}
+
+		int BlendState::getMultiSampleMask() const
+		{
+			return multiSampleMask;
+		}
+
+		void BlendState::setMultiSampleMask(int value)
+		{
+			sassert(!isBound, isBoundErrorString);
+
+			multiSampleMask = value;
+			// TODO: verify
 		}
 
 		void BlendState::Dispose(bool disposing)

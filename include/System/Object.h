@@ -21,7 +21,7 @@ namespace System
 		virtual int GetHashCode() const;
 		static int GetType();
 		static bool ReferenceEquals(const Object& objA, const Object& objB);
-		virtual const String& ToString() const;
+		virtual const String ToString() const;
 
 		virtual ~Object() { }
 	};

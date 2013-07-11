@@ -56,7 +56,7 @@ namespace System
 			{
 			}
 
-			const String& Color::ToString() const
+			const String Color::ToString() const
 			{
 				return String::Format("#%08X", packedValue);
 			}

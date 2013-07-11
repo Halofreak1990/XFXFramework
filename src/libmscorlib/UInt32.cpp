@@ -106,18 +106,8 @@ namespace System
 		return (value == right.value);
 	}
 
-	bool UInt32::operator==(const uint& right) const
-	{
-		return (value == right);
-	}
-
 	bool UInt32::operator!=(const UInt32& right) const
 	{
 		return (value != right.value);
-	}
-
-	bool UInt32::operator!=(const uint& right) const
-	{
-		return (value != right);
 	}
 }

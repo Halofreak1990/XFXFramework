@@ -40,7 +40,7 @@ namespace System
 					virtual ~RangeBase();
 
 					static int GetType();
-					const String& ToString() const;
+					const String ToString() const;
 
 					Event<Object * const, RoutedPropertyChangedEventArgs<int> * const> ValueChanged;
 

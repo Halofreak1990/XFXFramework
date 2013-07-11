@@ -99,6 +99,11 @@ namespace XFX
 			// The keyboard was not connected...bail out.
 			return -1;
 		}
+
+		const KeyState_t KeyboardState::operator[](const Keys_t key) const
+		{
+			// TODO: implement
+		}
 		
 		// Gets the state of the keyboard
 		KeyboardState Keyboard::GetState()

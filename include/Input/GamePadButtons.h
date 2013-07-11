@@ -39,7 +39,7 @@ namespace XFX
 			bool Equals(const GamePadButtons obj) const;
 			int GetHashCode() const;
 			static int GetType();
-			const String& ToString() const;
+			const String ToString() const;
 
 			bool operator !=(const GamePadButtons& right) const;
 			bool operator ==(const GamePadButtons& right) const;
@@ -65,8 +65,13 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadDPad obj) const;
 			int GetHashCode() const;
+<<<<<<< HEAD
 			static int GetType();
 			const String& ToString() const;
+=======
+			int GetType() const;
+			const String ToString() const;
+>>>>>>> Fixed Object::ToString
 			
 			bool operator!=(const GamePadDPad& right) const;
 			bool operator==(const GamePadDPad& right) const;
@@ -90,8 +95,13 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadThumbSticks obj) const;
 			int GetHashCode() const;
+<<<<<<< HEAD
 			static int GetType();
 			const String& ToString() const;
+=======
+			int GetType() const;
+			const String ToString() const;
+>>>>>>> Fixed Object::ToString
 
 			bool operator!=(const GamePadThumbSticks& right) const;
 			bool operator==(const GamePadThumbSticks& right) const;
@@ -115,8 +125,13 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadTriggers obj) const;
 			int GetHashCode() const;
+<<<<<<< HEAD
 			static int GetType();
 			const String& ToString() const;
+=======
+			int GetType() const;
+			const String ToString() const;
+>>>>>>> Fixed Object::ToString
 
 			bool operator!=(const GamePadTriggers& right) const;
 			bool operator==(const GamePadTriggers& right) const;

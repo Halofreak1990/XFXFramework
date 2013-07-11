@@ -31,8 +31,8 @@ namespace System
 		int CompareTo(const Byte other) const;
 		bool Equals(const Byte other) const;
 		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const byte value);
+		const String ToString() const;
+		static const String ToString(const byte value);
 		static bool TryParse(const String& str, out byte* result);
 
 		operator byte() const;

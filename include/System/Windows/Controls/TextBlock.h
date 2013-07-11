@@ -26,7 +26,7 @@ namespace System
 				~TextBlock();
 
 				static int GetType();
-				const String& ToString() const;
+				const String ToString() const;
 			};
 		}
 	}

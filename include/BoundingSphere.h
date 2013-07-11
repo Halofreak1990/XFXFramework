@@ -28,7 +28,7 @@ namespace XFX
 		bool Equals(const BoundingSphere other) const;
 		int GetHashCode() const;
 		static int GetType();
-		const String& ToString() const;
+		const String ToString() const;
 		
 		bool operator==(const BoundingSphere& other) const;
 		bool operator!=(const BoundingSphere& other) const;

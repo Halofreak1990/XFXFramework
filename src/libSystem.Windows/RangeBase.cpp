@@ -60,7 +60,7 @@ namespace System
 					ValueChanged(this, new RoutedPropertyChangedEventArgs<int>(oldValue, newValue));
 				}
 
-				const String& RangeBase::ToString() const
+				const String RangeBase::ToString() const
 				{
 					return String::Format("{RangeBase Minimum:%i Maximum:%i Value:%i}", minimum, maximum, value);
 				}

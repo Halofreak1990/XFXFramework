@@ -68,6 +68,7 @@ namespace XFX
 
 		float SoundEffectInstance::getVolume() const
 		{
+			return _volume;
 		}
 
 		void SoundEffectInstance::setVolume(float value)
@@ -75,7 +76,9 @@ namespace XFX
 		}
 
 		SoundEffectInstance::SoundEffectInstance(SoundEffect* parent)
+			: _parent(parent), _volume(parent->volume)
 		{
+			_parent->referenceCount++;
 		}
 
 		SoundEffectInstance::~SoundEffectInstance()
@@ -97,6 +100,10 @@ namespace XFX
 
 		void SoundEffectInstance::Dispose(bool disposing)
 		{
+			if (disposing)
+			{
+				
+			}
 		}
 
 		int SoundEffectInstance::GetType()

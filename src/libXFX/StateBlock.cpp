@@ -72,7 +72,7 @@ namespace XFX
 		{
 		}
 
-		const String& StateBlock::ToString() const
+		const String StateBlock::ToString() const
 		{
 		}
 

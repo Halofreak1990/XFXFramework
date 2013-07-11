@@ -2,23 +2,19 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-#
-# The ENABLE_XBOX definition is there because of intentions to eventually
-# support Linux as well
-#
 PREFIX = /openxdk
 
-CC = gcc
-CCAS = gcc
-CPP  = g++
-AR = ar rcu
-RANLIB = ranlib
+CC = xbox-gcc
+CCAS = xbox-gcc
+CPP  = xbox-g++
+AR = xbox-ar rcu
+RANLIB = xbox-ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG
-CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -march=i686 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 CCAS_FLAGS = -g -O2
-CPP_FLAGS = -c -O2 -Wall -nostdlib -fno-builtin -fno-rtti -fno-exceptions -march=i386 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+CPP_FLAGS = -c -O2 -std=c++03 -Wall -nostdlib -fno-builtin -fno-rtti -fno-exceptions -march=i686 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 INCLUDE  = -I$(PREFIX)/i386-pc-xbox/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL -I../../include
 
 CLINK = -nostdlib -fno-rtti -fno-exceptions

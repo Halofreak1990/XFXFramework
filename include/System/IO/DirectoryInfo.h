@@ -49,7 +49,7 @@ namespace System
 			FileSystemInfo* GetFileSystemInfos(const String& searchPattern);
 			static int GetType();
 			void MoveTo(const String& destDirName);
-			const String& ToString() const;
+			const String ToString() const;
 
 			bool operator !=(const DirectoryInfo& right) const;
 			bool operator ==(const DirectoryInfo& right) const;

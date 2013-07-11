@@ -63,9 +63,9 @@ namespace XFX
 			return Position.GetHashCode() ^ this->Color.GetHashCode();
 		}
 
-		const String& VertexPositionColor::ToString() const
+		const String VertexPositionColor::ToString() const
 		{
-			return String::Format("{Position:%s Color:%s}", (const char *)Position.ToString(), (const char *)Color.ToString());
+			return "{Position:" + Position.ToString() + " Color:" + Color.ToString() + "}";
 		}
 
 		bool VertexPositionColor::operator !=(const VertexPositionColor& other) const

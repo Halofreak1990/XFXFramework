@@ -9,6 +9,8 @@
 
 #include <System/Object.h>
 
+using namespace System;
+
 namespace XFX
 {
 	namespace Graphics

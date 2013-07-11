@@ -66,7 +66,7 @@ namespace System
 		TimeSpan Negate();
 		TimeSpan Parse(const String& s); //! TODO
 		TimeSpan Subtract(const TimeSpan ts);
-		const String& ToString() const; //! TODO
+		const String ToString() const; //! TODO
 
 		TimeSpan operator +(const TimeSpan& other);
 		bool operator==(const TimeSpan& other) const;

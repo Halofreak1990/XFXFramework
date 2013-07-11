@@ -37,8 +37,8 @@ namespace System
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
 		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const float value);
+		const String ToString() const;
+		static const String ToString(const float value);
 		static bool TryParse(const String& str, out float* result);
 
 		operator float() const;

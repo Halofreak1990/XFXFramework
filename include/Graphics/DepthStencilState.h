@@ -13,7 +13,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Contains depth-stencil state for the device.
+		/**
+		 * Contains depth-stencil state for the device.
+		 */
 		class DepthStencilState : public GraphicsResource
 		{
 		private:

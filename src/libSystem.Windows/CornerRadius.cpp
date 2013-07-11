@@ -75,7 +75,7 @@ namespace System
 			// TODO: implement
 		}
 
-		const String& CornerRadius::ToString() const
+		const String CornerRadius::ToString() const
 		{
 			return String::Format("{BottomLeft:%i BottomRight:%i TopLeft:%i TopRight:%i}", BottomLeft, BottomRight, TopLeft, TopRight);
 		}

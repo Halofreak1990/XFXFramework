@@ -28,15 +28,71 @@
 #include <Audio/SoundEffect.h>
 #include <Audio/SoundEffectInstance.h>
 
+#include <System/Single.h>
+
+#include <sassert.h>
+
 namespace XFX
 {
 	namespace Audio
 	{
+		float SoundEffect::masterVolume = 1.0f;
+
+		float SoundEffect::getDistanceScale()
+		{
+			return distanceScale;
+		}
+
+		void SoundEffect::setDistanceScale(float value)
+		{
+			sassert(value >= 0, "");
+
+			value = (value <= Single::MinValue) ? Single::MinValue : value;
+
+			// TODO: set in hardware
+		}
+
+		float SoundEffect::getDopplerScale()
+		{
+			return dopplerScale;
+		}
+
+		void SoundEffect::setDopplerScale(float value)
+		{
+			sassert(value >= 0, "");
+		
+			dopplerScale = value;
+
+			// TODO: set in hardware
+		}
+
+		TimeSpan SoundEffect::getDuration() const
+		{
+			return duration;
+		}
+
+		bool SoundEffect::IsDisposed() const
+		{
+			return isDisposed;
+		}
+
+		float SoundEffect::getMasterVolume()
+		{
+			return masterVolume;
+		}
+
+		void SoundEffect::setMasterVolume(float value)
+		{
+			masterVolume = value;
+		}
+
 		SoundEffect::SoundEffect(byte buffer[], int sampleRate, AudioChannels_t numChannels)
+			: volume(masterVolume)
 		{
 		}
 
 		SoundEffect::SoundEffect(const SoundEffect &obj)
+			: duration(obj.duration), volume(obj.volume)
 		{
 		}
 
@@ -47,6 +103,7 @@ namespace XFX
 
 		SoundEffectInstance* SoundEffect::CreateInstance()
 		{
+			return new SoundEffectInstance(this);
 		}
 
 		void SoundEffect::Dispose()
@@ -60,15 +117,25 @@ namespace XFX
 
 		SoundEffect* SoundEffect::FromStream(Stream * const stream)
 		{
+			
+		}
+
+		int SoundEffect::GetType() const
+		{
 		}
 
 		bool SoundEffect::Play()
 		{
+			SoundEffectInstance(this).Play();
 		}
 
 		bool SoundEffect::Play(float volume, float pitch, float pan)
 		{
 			SoundEffectInstance sei(this);
+			sei.setPan(pan);
+			sei.setPitch(pitch);
+			sei.setVolume(volume);
+			sei.Play();
 		}
 	}
 }

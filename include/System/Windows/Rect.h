@@ -36,7 +36,7 @@ namespace System
 			int GetHashCode() const;
 			static int GetType();
 			void Intersect(const Rect rect);
-			const String& ToString() const;
+			const String ToString() const;
 			void Union(const Point point);
 			void Union(const Rect rect);
 

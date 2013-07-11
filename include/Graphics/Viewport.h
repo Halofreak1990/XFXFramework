@@ -46,7 +46,7 @@ namespace XFX
 			int GetHashCode() const;
 			static int GetType();
 			Vector3 Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
-			const String& ToString() const;
+			const String ToString() const;
 			Vector3 Unproject(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
 
 			bool operator !=(const Viewport& right) const;

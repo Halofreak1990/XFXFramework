@@ -33,7 +33,7 @@ namespace System
 			bool Equals(const GridLength other) const;
 			int GetHashCode() const;
 			static int GetType();
-			const String& ToString() const;
+			const String ToString() const;
 
 			bool operator==(const GridLength& right) const;
 			bool operator!=(const GridLength& right) const;

@@ -44,7 +44,7 @@ namespace System
 				Select(0, _text.Length);
 			}
 
-			const String& TextBox::ToString() const
+			const String TextBox::ToString() const
 			{
 				return _text;
 			}

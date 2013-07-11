@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Calendar.h  															 *
+ *																			 *
+ *	System::Globalization::Calendar definition file 						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_GLOBALIZATION_CALENDAR_
 #define _SYSTEM_GLOBALIZATION_CALENDAR_
 

@@ -392,7 +392,7 @@ namespace XFX
 		result.W = vector1.W - vector2.W;
 	}
 
-	const String& Vector4::ToString() const
+	const String Vector4::ToString() const
 	{
 		return String::Format("{X:%f Y:%f Z:%f W:%f}", X, Y, Z, W);
 	}

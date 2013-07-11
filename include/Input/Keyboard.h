@@ -24,6 +24,14 @@ namespace XFX
 			bool IsKeyDown(Keys_t key);
 			bool IsKeyUp(Keys_t key);
 
+			/**
+			 * Returns the state of a particular key.
+			 *
+			 * @param key
+			 * Enumerated value representing the key to query.
+			 */
+			const KeyState_t operator[](const Keys_t key) const;
+
 		private:
 			Keys_t* pressedKeys;
 		};

@@ -32,8 +32,8 @@ namespace System
 		bool Equals(const Int32 other) const;
 		int GetHashCode() const;
 		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const int value);
+		const String ToString() const;
+		static const String ToString(const int value);
 		static bool TryParse(const String& str, out int* result);
 
 		operator int() const;

@@ -335,7 +335,7 @@ namespace XFX
 
 				p = pb_begin();
 				pb_push1(p, NV20_TCL_PRIMITIVE_3D_BEGIN_END, QUADS); p+=2;
-				pb_push(p++, 0x40000000 | NV20_TCL_PRIMITIVE_3D_VERTEX_DATA, 16);
+				pb_push(p++, (0x40000000 | NV20_TCL_PRIMITIVE_3D_VERTEX_DATA), 16);
 
 				*((float *)(p++)) = 0.0f;
 				*((float *)(p++)) = 0.0f;
