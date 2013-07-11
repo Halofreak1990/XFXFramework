@@ -19,7 +19,7 @@ namespace XFX
 			void GetData(int offsetInBytes, T data[], int startIndex, int elementCount, int vertexStride);
 			template <typename T>
 			void GetData(T data[], int startIndex, int elementCount);
-			int GetType() const;
+			static int GetType();
 			template <typename T>
 			void SetData(int offsetInBytes, T data[], int startIndex, int elementCount, int vertexStride);
 			template <typename T>

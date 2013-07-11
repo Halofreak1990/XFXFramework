@@ -40,7 +40,7 @@ namespace System
 			return (Left + Right + Top + Bottom);
 		}
 
-		int Thickness::GetType() const
+		int Thickness::GetType()
 		{
 			// TODO: implement
 		}

@@ -202,7 +202,7 @@ namespace System
 		return (((int)_ticks) ^ ((int)(_ticks >> 0x20)));
 	}
 
-	int TimeSpan::GetType() const
+	int TimeSpan::GetType()
 	{
 		//! TODO: implement
 	}

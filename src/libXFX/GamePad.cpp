@@ -136,7 +136,7 @@ namespace XFX
 			return (Buttons.GetHashCode() + DPad.GetHashCode() ^ ThumbSticks.GetHashCode() ^ Triggers.GetHashCode());
 		}
 
-		int GamePadState::GetType() const
+		int GamePadState::GetType()
 		{
 			// TODO: implement
 		}
@@ -265,7 +265,7 @@ namespace XFX
 				Start + White + X + Y);
 		}
 
-		int GamePadButtons::GetType() const
+		int GamePadButtons::GetType()
 		{
 			// TODO: implement
 		}
@@ -367,7 +367,7 @@ namespace XFX
 			return Down + Left + Right + Up;
 		}
 
-		int GamePadDPad::GetType() const
+		int GamePadDPad::GetType()
 		{
 			// TODO: implement
 		}
@@ -441,7 +441,7 @@ namespace XFX
 			return Left.GetHashCode() ^ Right.GetHashCode();
 		}
 
-		int GamePadThumbSticks::GetType() const
+		int GamePadThumbSticks::GetType()
 		{
 			// TODO: implement
 		}
@@ -491,7 +491,7 @@ namespace XFX
 			return (int)Left ^ (int)Right;
 		}
 
-		int GamePadTriggers::GetType() const
+		int GamePadTriggers::GetType()
 		{
 			// TODO: implement
 		}

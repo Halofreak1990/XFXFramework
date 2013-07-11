@@ -180,7 +180,7 @@ namespace System
 		return h;
 	}
 
-	int String::GetType() const
+	int String::GetType()
 	{
 		return 18;
 	}

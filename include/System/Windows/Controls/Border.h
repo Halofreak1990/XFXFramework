@@ -29,7 +29,7 @@ namespace System
 				System::Windows::CornerRadius CornerRadius;
 				Thickness Padding;
 
-				int GetType() const;
+				static int GetType();
 			};
 		}
 	}

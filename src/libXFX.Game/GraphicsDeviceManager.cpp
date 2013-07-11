@@ -140,7 +140,7 @@ namespace XFX
 		graphicsDevice->Present();
 	}
 
-	int GraphicsDeviceManager::GetType() const
+	int GraphicsDeviceManager::GetType()
 	{
 	}
 

@@ -65,7 +65,7 @@ namespace XFX
 			return Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
 
-		int VertexPositionTexture::GetType() const
+		int VertexPositionTexture::GetType()
 		{
 			// TODO: implement
 		}

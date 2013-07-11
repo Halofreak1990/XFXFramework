@@ -70,7 +70,7 @@ namespace System
 			return (((TopLeft ^ TopRight) ^ BottomLeft) ^ BottomRight);
 		}
 
-		int CornerRadius::GetType() const
+		int CornerRadius::GetType()
 		{
 			// TODO: implement
 		}

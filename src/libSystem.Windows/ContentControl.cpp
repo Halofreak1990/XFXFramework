@@ -18,7 +18,7 @@ namespace System
 			{
 			}
 
-			int ContentControl::GetType() const
+			int ContentControl::GetType()
 			{
 			}
 

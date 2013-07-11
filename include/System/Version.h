@@ -30,7 +30,7 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Version obj) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		const String& ToString() const;
 		const String& ToString(const int fieldCount) const;
 

@@ -75,7 +75,7 @@ namespace System
 		return (int)value;
 	}
 
-	int Double::GetType() const
+	int Double::GetType()
 	{
 		return 14;
 	}

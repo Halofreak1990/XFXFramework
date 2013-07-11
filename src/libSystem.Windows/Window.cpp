@@ -41,7 +41,7 @@ namespace System
 			return wnd;
 		}
 
-		int Window::GetType() const
+		int Window::GetType()
 		{
 			// TODO: implement
 		}
@@ -82,7 +82,7 @@ namespace System
 			Visibility = Visibility::Visible;
 		}
 
-		const String& Window::ToString() const
+		const String Window::ToString() const
 		{
 			return Title;
 		}

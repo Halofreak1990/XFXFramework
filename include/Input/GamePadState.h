@@ -29,7 +29,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadState obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			bool IsButtonDown(const Buttons_t button) const;
 			bool IsButtonUp(const Buttons_t button) const;
 			const String& ToString() const;

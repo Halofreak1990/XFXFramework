@@ -56,7 +56,7 @@ namespace XFX
 			static SoundEffect* FromStream(Stream * const stream);
 			static TimeSpan GetSampleDuration(int sizeInBytes, int sampleRate, AudioChannels_t channels);
 			static int GetSampleSizeInBytes(TimeSpan duration, int sampleRate, AudioChannels_t channels);
-			int GetType() const;
+			static int GetType();
 			bool Play();
 			bool Play(const float volume, const float pitch, const float pan);
 		};

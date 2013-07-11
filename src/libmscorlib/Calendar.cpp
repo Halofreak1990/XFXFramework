@@ -67,7 +67,7 @@ namespace System
 			return result;
 		}
 
-		int Calendar::GetType() const
+		int Calendar::GetType()
 		{
 			//! TODO: implement
 		}

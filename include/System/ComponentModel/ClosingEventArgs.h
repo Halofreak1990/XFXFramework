@@ -13,7 +13,7 @@ namespace System
 			ClosingEventArgs();
 			bool IsCancelable;
 
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

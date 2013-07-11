@@ -52,7 +52,7 @@ namespace XFX
 			Dispose(false);
 		}
 
-		int TextureCollection::GetType() const
+		int TextureCollection::GetType()
 		{
 		}
 		//

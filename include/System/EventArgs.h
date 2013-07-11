@@ -20,7 +20,7 @@ namespace System
 		EventArgs();
 		virtual ~EventArgs() { }
 
-		int GetType() const;
+		static int GetType();
 	};
 }
 

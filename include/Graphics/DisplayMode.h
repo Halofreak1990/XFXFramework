@@ -31,7 +31,7 @@ namespace XFX
 			DisplayMode();
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			
 			bool operator!=(const DisplayMode& other) const;
 			bool operator==(const DisplayMode& other) const;

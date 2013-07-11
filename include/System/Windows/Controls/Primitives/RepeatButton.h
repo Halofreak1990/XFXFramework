@@ -31,7 +31,7 @@ namespace System
 
 					RepeatButton();
 
-					int GetType() const;
+					static int GetType();
 
 				};
 			}

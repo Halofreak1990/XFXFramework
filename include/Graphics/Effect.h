@@ -26,7 +26,7 @@ namespace XFX
 			Effect(GraphicsDevice * const graphicsDevice, byte effectCode[]);
 
 			virtual Effect* Clone() const;
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

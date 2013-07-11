@@ -33,7 +33,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			IEnumerator<DisplayMode>* GetEnumerator();
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 
 			bool operator!=(const DisplayModeCollection& other) const;
 			bool operator==(const DisplayModeCollection& other) const;

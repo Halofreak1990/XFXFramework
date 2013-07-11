@@ -74,7 +74,7 @@ namespace System
 		{
 		}
 
-		int Rect::GetType() const
+		int Rect::GetType()
 		{
 		}
 

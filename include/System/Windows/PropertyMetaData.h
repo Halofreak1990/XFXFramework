@@ -11,23 +11,32 @@ namespace System
 {
 	namespace Windows
 	{
+		/**
+		 * Defines certain behavior aspects of a dependency property, including conditions it was registered with.
+		 */
 		template <typename T>
 		class PropertyMetaData
 		{
 		public:
+			/**
+			 * Gets the default value for the dependency property.
+			 */
+			T const DefaultValue;
+
+			/**
+			 * Creates a new instance of the PropertyMetaData class using a property default value.
+			 *
+			 * @param defaultValue
+			 * A default value for the property where this System::Windows::PropertyMetadata is applied.
+			 */
 			PropertyMetaData(T defaultValue);
-			~PropertyMetaData();
 		};
 
 		///////////////////////////////////////////////////////////////////////
 
 		template <typename T>
-		PropertyMetaData<T>::PropertyMetaData(T const defautValue)
-		{
-		}
-
-		template <typename T>
-		PropertyMetaData<T>::~PropertyMetaData()
+		PropertyMetaData<T>::PropertyMetaData(T const defaultValue)
+			: DefaultValue(defaultValue)
 		{
 		}
 	}

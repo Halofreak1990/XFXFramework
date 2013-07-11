@@ -57,7 +57,7 @@ namespace XFX
 
 			Effect* Clone() const;
 			void EnableDefaultLighting();
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

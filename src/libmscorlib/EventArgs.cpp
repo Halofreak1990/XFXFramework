@@ -35,7 +35,7 @@ namespace System
 	{
 	}
 
-	int EventArgs::GetType() const
+	int EventArgs::GetType()
 	{
 		//! TODO: implement
 	}

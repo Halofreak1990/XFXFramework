@@ -46,7 +46,7 @@ namespace XFX
 
 			EventHandler ContentLost;
 			
-			int GetType() const;
+			static int GetType();
 
 			bool operator ==(const RenderTarget2D& right) const;
 			bool operator !=(const RenderTarget2D& right) const;

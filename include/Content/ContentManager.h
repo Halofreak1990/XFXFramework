@@ -44,7 +44,7 @@ namespace XFX
 			virtual ~ContentManager();
 		
 			void Dispose();
-			int GetType() const;
+			static int GetType();
 			template <class T>
 			T Load(const String& assetName); //! usage: T Load<T>(assetName); where T is the preferred type, i.e. Texture2D*
 			virtual void Unload();

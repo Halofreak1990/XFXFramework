@@ -228,7 +228,7 @@ namespace XFX
 			inBeginEndPair = false;
 		}
 
-		int SpriteBatch::GetType() const
+		int SpriteBatch::GetType()
 		{
 			// TODO: implement
 		}

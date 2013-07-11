@@ -34,7 +34,7 @@ namespace XFX
 			~Texture();
 			
 			void GenerateMipMaps(const TextureFilter_t filterType);
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

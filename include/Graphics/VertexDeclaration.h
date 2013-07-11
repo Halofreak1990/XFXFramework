@@ -27,7 +27,7 @@ namespace XFX
 			VertexDeclaration(const VertexDeclaration &obj);
 			~VertexDeclaration();
 
-			int GetType() const;
+			static int GetType();
 			VertexElement* GetVertexElements() const;
 		};
 	}

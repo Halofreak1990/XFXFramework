@@ -36,7 +36,7 @@ namespace XFX
 		{
 		}
 
-		int GamerServicesComponent::GetType() const
+		int GamerServicesComponent::GetType()
 		{
 		}
 

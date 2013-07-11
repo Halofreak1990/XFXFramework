@@ -42,7 +42,7 @@ namespace System
 			return Width ^ Height;
 		}
 
-		int Size::GetType() const
+		int Size::GetType()
 		{
 			// TODO: implement
 		}

@@ -19,7 +19,7 @@ namespace System
 
 				virtual ~Brush();
 
-				int GetType() const;
+				static int GetType();
 			};
 		}
 	}

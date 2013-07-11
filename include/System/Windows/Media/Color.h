@@ -46,7 +46,7 @@ namespace System
 				bool Equals(const Color other) const;
 				static Color FromARGB(byte alpha, byte red, byte green, byte blue);
 				int GetHashCode() const;
-				int GetType() const;
+				static int GetType();
 				const String& ToString() const;
 
 				bool operator==(const Color& right) const;

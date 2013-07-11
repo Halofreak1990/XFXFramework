@@ -50,7 +50,7 @@ namespace XFX
 			BlendState();
 			~BlendState();
 
-			int GetType() const;
+			static int GetType();
 
 			bool operator==(const BlendState& right) const;
 			bool operator!=(const BlendState& right) const;

@@ -30,7 +30,7 @@ namespace XFX
 		GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime, const bool isRunningSlowly);
 		GameTime();
 
-		int GetType() const;
+		static int GetType();
 	};
 }
 

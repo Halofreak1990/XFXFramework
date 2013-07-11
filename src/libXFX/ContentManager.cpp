@@ -94,7 +94,7 @@ namespace XFX
 			Dispose(true);
 		}
 
-		int ContentManager::GetType() const
+		int ContentManager::GetType()
 		{
 		}
 		

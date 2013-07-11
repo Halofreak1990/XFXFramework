@@ -47,7 +47,7 @@ namespace XFX
 		return _components.Count();
 	}
 
-	int GameComponentCollection::GetType() const
+	int GameComponentCollection::GetType()
 	{
 	}
 
@@ -82,7 +82,7 @@ namespace XFX
 		return _gameComponent;
 	}
 
-	int GameComponentCollectionEventArgs::GetType() const
+	int GameComponentCollectionEventArgs::GetType()
 	{
 	}
 

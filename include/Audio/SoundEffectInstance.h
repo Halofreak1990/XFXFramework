@@ -46,7 +46,7 @@ namespace XFX
 			void Apply3D(AudioListener listener, AudioEmitter emitter);
 			void Apply3D(AudioListener listeners[], AudioEmitter emitter);
 			void Dispose();
-			int GetType() const;
+			static int GetType();
 			void Pause();
 			void Play();
 			void Resume();

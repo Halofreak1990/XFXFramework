@@ -31,7 +31,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Ray other) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		float Intersects(BoundingBox boundingbox) const;
 		void Intersects(BoundingBox boundingbox, out float& result) const;
 		float Intersects(BoundingSphere sphere) const;

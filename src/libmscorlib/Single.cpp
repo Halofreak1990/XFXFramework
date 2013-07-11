@@ -85,7 +85,7 @@ namespace System
 		return (int)value;
 	}
 
-	int Single::GetType() const
+	int Single::GetType()
 	{
 		return 13;
 	}

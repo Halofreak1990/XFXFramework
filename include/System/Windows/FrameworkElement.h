@@ -1,6 +1,13 @@
+/*****************************************************************************
+ *	FrameworkElement.h														 *
+ *																			 *
+ *	System::Windows::FrameworkElement definition file						 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
 #define _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
 
+#include <System/Int32.h>
 #include <System/Windows/Thickness.h>
 #include <System/Windows/UIElement.h>
 
@@ -22,16 +29,23 @@ namespace System
 
 		public:
 			int Height;
+			static const DependencyProperty<Int32> HeightProperty;
 			HorizontalAlignment_t HorizontalAlignment;
+			static const DependencyProperty<HorizontalAlignment_t> HorizontalAlignmentProperty;
 			// Gets or sets the outer margin of a System::Windows::FrameworkElement.
-			Thickness Margin;
+			Thickness getMargin() const;
+			void setMargin(const Thickness value);
+			static const DependencyProperty<Thickness> MarginProperty;
 			DependencyObject* Parent;
 			VerticalAlignment_t VerticalAlignment;
-			int Width;
+			static const DependencyProperty<VerticalAlignment_t> VerticalAlignmentProperty;
+			int getWidth() const;
+			void setWidth(const int value);
+			static const DependencyProperty<Int32> WidthProperty;
 
 			virtual ~FrameworkElement();
 
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

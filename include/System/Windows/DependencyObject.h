@@ -15,7 +15,9 @@ namespace System
 {
 	namespace Windows
 	{
-		// Represents an object that participates in the dependency property system.
+		/**
+		 * Represents an object that participates in the dependency property system.
+		 */
 		class DependencyObject
 		{
 		private:
@@ -25,10 +27,40 @@ namespace System
 			DependencyObject();
 
 		public:
-			void ClearValue(const String& property);
-			// Returns the Object stored in the property, or NULL if the property did not exist.
-			Object* GetValue(const String& property) const;
-			void SetValue(const String& property, Object* value);
+			template <typename T>
+			void ClearValue(DependencyProperty<T> p)
+			{
+				Derived_from<T, Object *>();
+
+				if (dependencyProperties.ContainsKey(p.Name)
+				{
+					// Because wrapper classes and other types may be passed in-place,
+					// we explicitly destroy them as to prevent memory leaks.
+					dependencyProperties[p]->~Object();
+				
+					// with the Object destroyed, we can now safely remove the entry.
+					dependencyProperties.Remove(p);
+				}
+			}
+
+			template <typename T>
+			T GetValue(DependencyProperty<T> p) const
+			{
+				Derived_from<T, Object *>();
+
+				return dependencyProperties[p.Name];
+			}
+
+			template <typename T>
+			void SetValue(DependencyProperty<T> p, T value)
+			{
+				Derived_from<T, Object *>();
+
+				if (!dependencyProperties.ContainsKey(p.Name))
+					dependencyProperties.Add(p.Name, value);
+				else
+					dependencyProperties[p] = value;
+			}
 		};
 	}
 }

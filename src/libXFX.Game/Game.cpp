@@ -158,7 +158,7 @@ namespace XFX
 		XReboot();
 	}
 
-	int Game::GetType() const
+	int Game::GetType()
 	{
 	}
 

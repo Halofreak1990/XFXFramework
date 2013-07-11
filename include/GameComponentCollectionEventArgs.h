@@ -24,7 +24,7 @@ namespace XFX
 		GameComponentCollectionEventArgs(IGameComponent* gameComponent);
 		virtual ~GameComponentCollectionEventArgs() { }
 
-		int GetType() const;
+		static int GetType();
 	};
 }
 

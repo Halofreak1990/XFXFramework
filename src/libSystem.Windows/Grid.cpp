@@ -53,7 +53,7 @@ namespace System
 				return (rowSpanValue) ? (int)(*rowSpanValue) : 0;
 			}
 
-			int Grid::GetType() const
+			int Grid::GetType()
 			{
 			}
 

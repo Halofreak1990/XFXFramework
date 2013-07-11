@@ -21,7 +21,7 @@ namespace System
 				}
 			}
 
-			int Panel::GetType() const
+			int Panel::GetType()
 			{
 			}
 

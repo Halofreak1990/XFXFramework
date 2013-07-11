@@ -41,7 +41,7 @@ namespace System
 		{
 		}
 
-		int CancelEventArgs::GetType() const
+		int CancelEventArgs::GetType()
 		{
 		}
 	}

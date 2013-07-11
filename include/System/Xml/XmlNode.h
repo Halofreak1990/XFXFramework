@@ -55,7 +55,7 @@ namespace System
 			XPathNavigator* CreateNavigator();
 			virtual String GetNamespaceOfPrefix(const String& prefix);
 			virtual String GetPrefixOfNamespace(const String& namespaceURI);
-			int GetType() const;
+			static int GetType();
 			virtual XmlNode* InsertAfter(XmlNode* newChild, XmlNode* refChild);
 			virtual XmlNode* InsertBefore(XmlNode* newChild, XmlNode* refChild);
 			virtual void Normalize();

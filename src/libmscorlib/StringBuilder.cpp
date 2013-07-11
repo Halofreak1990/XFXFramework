@@ -209,7 +209,7 @@ namespace System
 			return (*this == other);
 		}
 
-		int StringBuilder::GetType() const
+		int StringBuilder::GetType()
 		{
 			// TODO; implement
 		}

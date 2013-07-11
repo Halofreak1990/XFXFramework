@@ -63,7 +63,7 @@ namespace System
 		return (value == other.value);
 	}
 
-	int Byte::GetType() const
+	int Byte::GetType()
 	{
 		return 6;
 	}

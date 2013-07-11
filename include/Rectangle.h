@@ -41,7 +41,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Rectangle obj) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		void Inflate(int horizontalAmount, int verticalAmount);
 		bool Intersects(Rectangle other);
 		void Intersects(Rectangle other, out bool& result);

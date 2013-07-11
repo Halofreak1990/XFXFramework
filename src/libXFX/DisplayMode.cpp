@@ -64,7 +64,7 @@ namespace XFX
 			return (int)getAspectRatio() ^ Width ^ Height ^ getTitleSafeArea().GetHashCode() ^ Format ^ RefreshRate;
 		}
 
-		int DisplayMode::GetType() const
+		int DisplayMode::GetType()
 		{
 			// TODO: implement
 		}

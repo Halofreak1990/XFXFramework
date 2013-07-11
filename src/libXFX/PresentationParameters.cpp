@@ -65,7 +65,7 @@ namespace XFX
 			return is(this, obj) ? (*this == *(PresentationParameters*)obj) : false;
 		}
 
-		int PresentationParameters::GetType() const
+		int PresentationParameters::GetType()
 		{
 			// TODO: implement
 		}

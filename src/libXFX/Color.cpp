@@ -258,7 +258,7 @@ namespace XFX
 			return (int)_packedValue;
 		}
 
-		int Color::GetType() const
+		int Color::GetType()
 		{
 			// TODO: implement
 		}

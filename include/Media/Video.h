@@ -25,7 +25,7 @@ namespace XFX
 			VideoSoundtrackType_t getVideoSoundtrackType();
 			int getWidth();
 
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

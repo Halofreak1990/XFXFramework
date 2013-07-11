@@ -19,7 +19,7 @@ namespace System
 		virtual bool Equals(Object const * const obj) const;
 		static bool Equals(Object const * const objA, Object const * const objB);
 		virtual int GetHashCode() const;
-		virtual int GetType() const =0;
+		static int GetType();
 		static bool ReferenceEquals(const Object& objA, const Object& objB);
 		virtual const String& ToString() const;
 

@@ -293,7 +293,7 @@ namespace System
 		return (int)encoded;
 	}
 
-	int DateTime::GetType() const
+	int DateTime::GetType()
 	{
 		return 16;
 	}
@@ -371,6 +371,18 @@ namespace System
 				result = OAMaxValue - 0.00000001;
 		}
 		return result;
+	}
+
+	DateTime DateTime::UtcNow()
+	{
+		LARGE_INTEGER systemTime;
+		TIME_FIELDS time;
+
+		KeQuerySystemTime(&systemTime);
+
+		RtlTimeToTimeFields(&systemTime, &time);
+
+		return DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
 	}
 
 	DateTime DateTime::operator +(TimeSpan other)

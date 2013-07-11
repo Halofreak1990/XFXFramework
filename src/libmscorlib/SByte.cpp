@@ -74,7 +74,7 @@ namespace System
 		return value;
 	}
 
-	int SByte::GetType() const
+	int SByte::GetType()
 	{
 		return 5;
 	}

@@ -209,7 +209,7 @@ namespace XFX
 		return ((int)X ^ (int)Y ^ (int)Z ^ (int)W);
 	}
 
-	int Vector4::GetType() const
+	int Vector4::GetType()
 	{
 		// TODO: implement
 	}

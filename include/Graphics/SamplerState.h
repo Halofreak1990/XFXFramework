@@ -49,7 +49,7 @@ namespace XFX
 			SamplerState();
 			~SamplerState();
 
-			int GetType() const;
+			static int GetType();
 
 			bool operator==(const SamplerState& right) const;
 			bool operator!=(const SamplerState& right) const;

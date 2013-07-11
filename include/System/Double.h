@@ -34,7 +34,7 @@ namespace System
 		int CompareTo(const Double other) const;
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		const String& ToString() const;
 		static const String& ToString(const double value);
 		static bool TryParse(const String& str, out double* result);

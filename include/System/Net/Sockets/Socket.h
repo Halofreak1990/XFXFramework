@@ -58,7 +58,7 @@ namespace System
 				void Dispose();
 				void EndConnect(IAsyncResult* asyncResult);
 				void EndDisconnect(IAsyncResult* asyncResult);
-				int GetType() const;
+				static int GetType();
 				bool ReceiveAsync(SocketAsyncEventArgs e);
 				bool ReceiveFromAsync(SocketAsyncEventArgs e);
 				bool SendAsync(SocketAsyncEventArgs e);

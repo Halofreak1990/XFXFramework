@@ -86,7 +86,7 @@ namespace XFX
 
 		void Dispose();
 		void Exit();
-		int GetType() const;
+		static int GetType();
 		void ResetElapsedTime();
 		virtual void Run();
 		void SuppressDraw();
@@ -123,7 +123,7 @@ namespace XFX
 		GameComponent(Game * const game);
 		
 		virtual void Dispose();
-		int GetType() const;
+		static int GetType();
 		virtual void Initialize();
 		virtual void Update(GameTime gameTime);
 	};
@@ -155,7 +155,7 @@ namespace XFX
     
 		DrawableGameComponent(Game * const game);
 		virtual void Draw(GameTime gameTime);
-		int GetType() const;
+		static int GetType();
 		void Initialize();
 		virtual void Update(GameTime gameTime);
 	};

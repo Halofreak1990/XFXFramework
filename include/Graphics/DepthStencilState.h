@@ -40,7 +40,7 @@ namespace XFX
 			DepthStencilState();
 			~DepthStencilState();
 
-			int GetType() const;
+			static int GetType();
 
 			bool operator==(const DepthStencilState& right) const;
 			bool operator!=(const DepthStencilState& right) const;

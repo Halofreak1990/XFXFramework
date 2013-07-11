@@ -45,7 +45,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GraphicsAdapter obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			bool QueryBackBufferFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const;
 			bool QueryRenderTargetFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const;
 			

@@ -35,7 +35,7 @@ namespace System
 				int GetColumnSpan(FrameworkElement const * const element);
 				int GetRow(FrameworkElement const * const element);
 				int GetRowSpan(FrameworkElement const * const element);
-				int GetType() const;
+				static int GetType();
 				static void SetColumn(FrameworkElement * const element, const int column);
 				static void SetColumnSpan(FrameworkElement * const element, const int columnSpan);
 				static void SetRow(FrameworkElement * const element, const int row);

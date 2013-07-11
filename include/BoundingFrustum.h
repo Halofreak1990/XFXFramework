@@ -69,7 +69,7 @@ namespace XFX
 		Vector3* GetCorners();
 		void GetCorners(Vector3 corners[]);
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		bool Intersects(BoundingBox box);
 		bool Intersects(BoundingFrustum frustrum);
 		bool Intersects(BoundingSphere sphere);

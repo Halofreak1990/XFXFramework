@@ -35,7 +35,7 @@ namespace System
 			return X + Y;
 		}
 
-		int Point::GetType() const
+		int Point::GetType()
 		{
 			// TODO: implement
 		}

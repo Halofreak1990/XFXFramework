@@ -18,7 +18,7 @@ namespace System
 				{
 				}
 
-				int ToggleButton::GetType() const
+				int ToggleButton::GetType()
 				{
 				}
 

@@ -34,7 +34,7 @@ namespace System
 				return ((Int32*)element.GetValue(Canvas::ZIndexProperty))->getValue();
 			}
 
-			int Canvas::GetType() const
+			int Canvas::GetType()
 			{
 			}
 

@@ -16,13 +16,24 @@ namespace System
 {
 	namespace Windows
 	{
+		/**
+		 * 
+		 */
 		template <typename T>
 		class DependencyProperty
 		{
 		private:
 			static Dictionary<int, Dictionary<String&, Object *> > _registeredProperties;
 
+			DependencyProperty(const String& propertyName, const int type, T defaultValue)
+				: DefaultValue(defaultValue), Name(propertyName)
+			{
+			}
+
 		public:
+			const T DefaultValue;
+			const String Name;
+
 			static DependencyProperty<T> Register(const String& propertyName, const int type);
 			static DependencyProperty<T> Register(const String& propertyName, const int type, PropertyMetaData<T> const * propertyMetaData);
 		};
@@ -32,12 +43,20 @@ namespace System
 		template <typename T>
 		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const int type)
 		{
-			Register(propertyName, type, new PropertyMetaData<T>(null));
+			Derived_from<T, Object *>():
+
+			return Register(propertyName, type, new PropertyMetaData<T>(null));
 		}
 
 		template <typename T>
 		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const int type, PropertyMetaData<T> const * propertyMetaData)
 		{
+			Derived_from<T, Object *>():
+
+			_registeredProperties.Add(type, Dictionary<String&, Object *>());
+			_registeredProperties[type].Add(propertyName, propertyMetaData->DefaultValue);
+
+			return DependencyProperty<T>(propertyName, type, propertyMetaData->DefaultValue);
 		}
 	}
 }

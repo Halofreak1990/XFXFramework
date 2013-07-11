@@ -29,7 +29,7 @@ namespace System
 				_text = value;
 			}
 
-			int TextBox::GetType() const
+			int TextBox::GetType()
 			{
 			}
 

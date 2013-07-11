@@ -26,7 +26,7 @@ namespace System
 				static int GetLeft(const UIElement& element);
 				static int GetTop(const UIElement& element);
 				static int GetZIndex(const UIElement& element);
-				int GetType() const;
+				static int GetType();
 				static void SetLeft(const UIElement& element, const int left);
 				static void SetTop(const UIElement& element, const int top);
 				static void SetZIndex(const UIElement& element, const int zIndex);

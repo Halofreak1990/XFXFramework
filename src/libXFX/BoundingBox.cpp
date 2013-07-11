@@ -193,7 +193,7 @@ namespace XFX
 		return Min.GetHashCode() + Max.GetHashCode();
 	}
 
-	int BoundingBox::GetType() const
+	int BoundingBox::GetType()
 	{
 		// TODO: implement
 	}

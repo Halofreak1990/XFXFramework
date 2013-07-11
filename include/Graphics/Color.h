@@ -187,7 +187,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Color other) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			unsigned int PackedValue() const;
 			const String& ToString() const;
 			Vector4 ToVector4() const;

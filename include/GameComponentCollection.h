@@ -36,7 +36,7 @@ namespace XFX
 		virtual ~GameComponentCollection();
 		IGameComponent* operator[](const int index);
 
-		int GetType() const;
+		static int GetType();
 
 		Event<Object*, GameComponentCollectionEventArgs*> ComponentAdded;
 		Event<Object*, GameComponentCollectionEventArgs*> ComponentRemoved;

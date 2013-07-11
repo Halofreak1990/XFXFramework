@@ -33,7 +33,7 @@ namespace System
 			// Returns the hash code of the structure.
 			int GetHashCode() const;
 			// Returns the TypeCode for this object as an integer.
-			int GetType() const;
+			static int GetType();
 			// Returns the string representation of the System::Windows::Thickness structure.
 			const String& ToString() const;
 

@@ -44,7 +44,7 @@ namespace XFX
 		{
 		}
 
-		int BlendState::GetType() const
+		int BlendState::GetType()
 		{
 			// TODO: implement
 		}

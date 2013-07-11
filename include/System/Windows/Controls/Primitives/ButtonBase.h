@@ -38,7 +38,7 @@ namespace System
 
 					virtual ~ButtonBase();
 
-					int GetType() const;
+					static int GetType();
 					
 					RoutedEventHandler Click;
 

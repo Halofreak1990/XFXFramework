@@ -33,7 +33,7 @@ namespace XFX
 			
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 		
 			bool operator!=(const VertexPositionTexture& other) const;

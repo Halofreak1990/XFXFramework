@@ -38,7 +38,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadButtons obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 
 			bool operator !=(const GamePadButtons& right) const;
@@ -65,7 +65,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadDPad obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 			
 			bool operator!=(const GamePadDPad& right) const;
@@ -90,7 +90,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadThumbSticks obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 
 			bool operator!=(const GamePadThumbSticks& right) const;
@@ -115,7 +115,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadTriggers obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 
 			bool operator!=(const GamePadTriggers& right) const;

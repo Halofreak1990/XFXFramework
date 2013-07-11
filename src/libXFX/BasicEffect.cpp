@@ -82,7 +82,7 @@ namespace XFX
 			LightingEnabled = true;
 		}
 
-		int BasicEffect::GetType() const
+		int BasicEffect::GetType()
 		{
 			// TODO: implement
 		}

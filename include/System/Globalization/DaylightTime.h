@@ -20,7 +20,7 @@ namespace System
 			DaylightTime(const DaylightTime &obj);
 
 			bool Equals(const DaylightTime other) const;
-			int GetType() const;
+			static int GetType();
 
 			bool operator !=(const DaylightTime& right) const;
 			bool operator ==(const DaylightTime& right) const;

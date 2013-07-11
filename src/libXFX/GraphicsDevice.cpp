@@ -251,7 +251,7 @@ namespace XFX
 			}
 		}
 
-		int GraphicsDevice::GetType() const
+		int GraphicsDevice::GetType()
 		{
 		}
 

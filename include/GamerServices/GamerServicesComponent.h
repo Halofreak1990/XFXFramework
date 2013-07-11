@@ -19,7 +19,7 @@ namespace XFX
 		public:
 			GamerServicesComponent(Game * const game);
 	
-			int GetType() const;
+			static int GetType();
 			void Initialize();
 			void Update(GameTime gameTime);
 		};

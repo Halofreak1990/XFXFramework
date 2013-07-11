@@ -128,7 +128,7 @@ namespace XFX
 		return Normal.GetHashCode() ^ (int)D;
 	}
 
-	int Plane::GetType() const
+	int Plane::GetType()
 	{
 		// TODO: implement
 	}

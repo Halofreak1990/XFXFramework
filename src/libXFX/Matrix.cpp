@@ -966,7 +966,7 @@ namespace XFX
 			(int)M31 ^ (int)M32 ^ (int)M33 ^ (int)M34 ^ (int)M41 ^ (int)M42 ^ (int)M43 ^ (int)M44);
 	}
 
-	int Matrix::GetType() const
+	int Matrix::GetType()
 	{
 		// TODO: implement
 	}

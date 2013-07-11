@@ -35,7 +35,7 @@ namespace System
 		{
 		}
 
-		int ClosingEventArgs::GetType() const
+		int ClosingEventArgs::GetType()
 		{
 		}
 	}

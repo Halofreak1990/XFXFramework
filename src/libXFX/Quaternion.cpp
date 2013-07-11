@@ -364,7 +364,7 @@ namespace XFX
 		return ((((int)X + (int)Y) + (int)Z) + (int)W);
 	}
 
-	int Quaternion::GetType() const
+	int Quaternion::GetType()
 	{
 		// TODO: implement
 	}

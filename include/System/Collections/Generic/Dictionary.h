@@ -117,7 +117,7 @@ namespace System
 				bool ContainsKey(const TKey& key) const;
 				bool ContainsValue(const TValue& value) const;
 				IEnumerator<KeyValuePair<TKey, TValue> >* GetEnumerator();
-				int GetType() const;
+				static int GetType();
 				bool Remove(const TKey& key);
 				bool TryGetValue(const TKey& key, out TValue value) const;
 
@@ -353,7 +353,7 @@ namespace System
 			}
 
 			template <class TKey, class TValue>
-			int Dictionary<TKey, TValue>::GetType() const
+			int Dictionary<TKey, TValue>::GetType()
 			{
 				// TODO: implement
 			}

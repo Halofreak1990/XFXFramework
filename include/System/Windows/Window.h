@@ -14,7 +14,7 @@ namespace System
 {
 	namespace Windows
 	{
-		class Window : public Object
+		class Window : public DependencyObject
 		{
 		private:
 			static const Size MaxSize;
@@ -40,11 +40,11 @@ namespace System
 
 			void Close();
 			static Window* Create(const int left, const int top, const String& title);
-			int GetType() const;
+			static int GetType();
 			void Hide();
 			void Render();
 			void Show();
-			const String& ToString() const;
+			const String ToString() const;
 		};
 	}
 }

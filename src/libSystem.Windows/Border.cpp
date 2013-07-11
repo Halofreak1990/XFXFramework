@@ -45,7 +45,7 @@ namespace System
 				delete Child;
 			}
 
-			int Border::GetType() const
+			int Border::GetType()
 			{
 			}
 		}

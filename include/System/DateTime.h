@@ -91,7 +91,7 @@ namespace System
 		String *GetDateTimeFormats(char format, IFormatProvider * const formatProvider);
 		String *GetDateTimeFormats(IFormatProvider * const formatProvider);
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		bool IsDaylighSavingTime();
 		static bool IsLeapYear(int year);
 		static DateTime Parse(String& s);

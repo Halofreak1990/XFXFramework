@@ -36,7 +36,7 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		const String& ToString() const;
 		static const String& ToString(const float value);
 		static bool TryParse(const String& str, out float* result);

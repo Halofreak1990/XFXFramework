@@ -54,7 +54,7 @@ namespace XFX
 			return (Offset ^ UsageIndex);
 		}
 
-		int VertexElement::GetType() const
+		int VertexElement::GetType()
 		{
 			// TODO: implement
 		}

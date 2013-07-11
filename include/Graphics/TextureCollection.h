@@ -34,7 +34,7 @@ namespace XFX
 			virtual ~TextureCollection();
 
 			void Dispose();
-			int GetType() const;
+			static int GetType();
 
 			Texture* operator[](const int index);
 		};

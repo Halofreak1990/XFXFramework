@@ -18,7 +18,7 @@ namespace System
 				SolidColorBrush();
 				SolidColorBrush(const System::Windows::Media::Color color);
 
-				int GetType() const;
+				static int GetType();
 			};
 		}
 	}

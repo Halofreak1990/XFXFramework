@@ -99,7 +99,7 @@ namespace XFX
 			return ((int)getAspectRatio() + Height + (int)MaxDepth + (int)MinDepth + Width + X + Y);
 		}
 
-		int Viewport::GetType() const
+		int Viewport::GetType()
 		{
 		}
 

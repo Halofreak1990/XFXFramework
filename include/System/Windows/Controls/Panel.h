@@ -25,7 +25,7 @@ namespace System
 
 				virtual ~Panel();
 
-				int GetType() const;
+				static int GetType();
 
 				bool operator==(const Panel& right) const;
 				bool operator!=(const Panel& right) const;

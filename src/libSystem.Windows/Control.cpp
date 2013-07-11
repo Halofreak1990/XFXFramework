@@ -62,7 +62,7 @@ namespace System
 				return true;
 			}
 
-			int Control::GetType() const
+			int Control::GetType()
 			{
 			}
 

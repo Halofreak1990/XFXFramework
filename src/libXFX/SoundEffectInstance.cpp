@@ -99,7 +99,7 @@ namespace XFX
 		{
 		}
 
-		int SoundEffectInstance::GetType() const
+		int SoundEffectInstance::GetType()
 		{
 		}
 

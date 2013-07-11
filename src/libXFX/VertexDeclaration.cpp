@@ -78,7 +78,7 @@ namespace XFX
 			}
 		}
 
-		int VertexDeclaration::GetType() const
+		int VertexDeclaration::GetType()
 		{
 			// TODO: implement
 		}

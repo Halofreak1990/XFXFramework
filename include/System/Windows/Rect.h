@@ -34,7 +34,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Rect other) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			void Intersect(const Rect rect);
 			const String& ToString() const;
 			void Union(const Point point);

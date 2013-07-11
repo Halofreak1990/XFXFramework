@@ -68,7 +68,7 @@ namespace XFX
 		{
 		}
 
-		int StateBlock::GetType() const
+		int StateBlock::GetType()
 		{
 		}
 

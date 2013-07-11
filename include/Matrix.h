@@ -111,7 +111,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Matrix other) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		static Matrix Invert(Matrix matrix);
 		static void Invert(Matrix matrix, out Matrix& result);
 		static Matrix Lerp(Matrix value1, Matrix value2, float amount);

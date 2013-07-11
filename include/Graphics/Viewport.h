@@ -44,7 +44,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Viewport obj) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			Vector3 Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
 			const String& ToString() const;
 			Vector3 Unproject(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;

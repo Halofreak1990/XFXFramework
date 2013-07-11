@@ -311,7 +311,7 @@ namespace XFX
 		return matrix.GetHashCode();
 	}
 
-	int BoundingFrustum::GetType() const
+	int BoundingFrustum::GetType()
 	{
 		// TODO: implement
 	}

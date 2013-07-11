@@ -26,7 +26,7 @@ namespace System
 
 				TextBox();
 
-				int GetType() const;
+				static int GetType();
 				void Select(const int start, const int length);
 				void SelectAll();
 				const String& ToString() const;

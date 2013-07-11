@@ -107,7 +107,7 @@ namespace XFX
 		return X ^ Y ^ Width ^ Height;
 	}
 
-	int Rectangle::GetType() const
+	int Rectangle::GetType()
 	{
 		// TODO: implement
 	}

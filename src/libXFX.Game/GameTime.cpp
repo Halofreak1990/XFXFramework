@@ -58,7 +58,7 @@ namespace XFX
 	{
 	}
 
-	int GameTime::GetType() const
+	int GameTime::GetType()
 	{
 	}
 }

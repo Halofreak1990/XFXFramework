@@ -60,7 +60,7 @@ namespace System
 			int EnsureCapacity(const int capacity);
 			bool Equals(Object const * const obj) const;
 			bool Equals(const StringBuilder& other) const;
-			int GetType() const;
+			static int GetType();
 			StringBuilder& Insert(const int index, const bool value);
 			StringBuilder& Insert(const int index, const byte value);
 			StringBuilder& Insert(const int index, const char value);

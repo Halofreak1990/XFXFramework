@@ -63,7 +63,7 @@ namespace XFX
 		{
 		}
 
-		int RenderTarget2D::GetType() const
+		int RenderTarget2D::GetType()
 		{
 		}
 

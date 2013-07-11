@@ -51,7 +51,7 @@ namespace System
 			virtual int EndRead(IAsyncResult* asyncResult);
 			virtual void EndWrite(IAsyncResult* asyncResult);
 			virtual void Flush();
-			int GetType() const;
+			static int GetType();
 			virtual int Read(byte buffer[], int offset, int count);
 			virtual int ReadByte();
 			virtual long long Seek(long long offset, SeekOrigin_t origin);

@@ -166,7 +166,7 @@ namespace XFX
 		return (int)X ^ (int)Y;
 	}
 
-	int Vector2::GetType() const
+	int Vector2::GetType()
 	{
 		// TODO: implement
 	}

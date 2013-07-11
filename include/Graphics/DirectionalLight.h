@@ -28,7 +28,7 @@ namespace XFX
 
 			DirectionalLight(EffectParameter * const directionParameter, EffectParameter * const diffuseColorParameter, EffectParameter * const specularColorParameter, DirectionalLight const * const cloneSource);
 
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

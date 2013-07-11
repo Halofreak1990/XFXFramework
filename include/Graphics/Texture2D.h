@@ -50,7 +50,7 @@ namespace XFX
 			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream);
 			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream, int width, int height, bool zoom);
  			void GetData(uint data[], const int startIndex, const int elementCount) const;
-			int GetType() const;
+			static int GetType();
 			void SaveAsJpeg(Stream * const stream, int width, int height);
 			void SaveAsPng(Stream * const stream, int width, int height);
  			void SetData(uint data[], const int startIndex, const int elementCount);

@@ -67,9 +67,9 @@ namespace System
 				&sourceHandle,
 				const_cast<char*>((const char *)sourceFileName.ToString()),
 				GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL
-				);
+			);
 
-			if(ret == 0)
+			if (ret == 0)
 			{
 				XGetFileSize(sourceHandle, &length);
 				buffer = MmAllocateContiguousMemory((int)length);
@@ -80,7 +80,7 @@ namespace System
 					&destHandle,
 					const_cast<char*>((const char *)destFileName.ToString()),
 					GENERIC_WRITE, FILE_SHARE_WRITE, CREATE_NEW, FILE_ATTRIBUTE_NORMAL
-					);
+				);
 
 				XWriteFile(destHandle, buffer, length, NULL);
 				XCloseHandle(destHandle);

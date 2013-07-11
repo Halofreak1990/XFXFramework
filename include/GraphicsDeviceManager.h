@@ -74,7 +74,7 @@ namespace XFX
 		bool BeginDraw();
 		void Dispose();
 		void EndDraw();
-		int GetType() const;
+		static int GetType();
 		void ToggleFullscreen();
 	};
 }

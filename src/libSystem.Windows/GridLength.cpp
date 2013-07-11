@@ -67,7 +67,7 @@ namespace System
 			return value + gridUnitType;
 		}
 
-		int GridLength::GetType() const
+		int GridLength::GetType()
 		{
 		}
 

@@ -21,7 +21,7 @@ namespace System
 
 				bool Equals(const T x, const T y) const;
 				int GetHashCode(const T obj) const;
-				int GetType() const;
+				static int GetType();
 			};
 		}
 	}

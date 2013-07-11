@@ -42,7 +42,7 @@ namespace XFX
 			GraphicsResource();
 
 			void Dispose();
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

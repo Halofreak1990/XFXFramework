@@ -48,7 +48,7 @@ namespace System
 
 			void Flush();
 			virtual byte* GetBuffer();
-			int GetType() const;
+			static int GetType();
 			int Read(byte buffer[], int offset, int count);
 			int ReadByte();
 			long long Seek(long long offset, SeekOrigin_t loc);

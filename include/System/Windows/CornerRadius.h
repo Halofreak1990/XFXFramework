@@ -24,7 +24,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const CornerRadius other) const;
 			int GetHashCode() const;
-			int GetType() const;
+			static int GetType();
 			const String& ToString() const;
 
 			bool operator==(const CornerRadius& right) const;

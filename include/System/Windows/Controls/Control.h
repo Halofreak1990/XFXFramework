@@ -41,7 +41,7 @@ namespace System
 
 				bool ApplyTemplate();
 				bool Focus();
-				int GetType() const;
+				static int GetType();
 
 				bool operator ==(const Control& right) const;
 				bool operator !=(const Control& right) const;

@@ -46,7 +46,7 @@ namespace System
 		return (int)this;
 	}
 
-	int Object::GetType() const
+	int Object::GetType()
 	{
 		return 1;
 	}
@@ -77,9 +77,8 @@ namespace System
 	template <typename T, typename U>
 	U * as(T * const source)
 	{
-		U destType();
-		int typeCode = source->GetType(); // make sure source is an Object
-		int destTypeCode = destType.GetType(); // same here, but now for U
+		int typeCode = T::GetType(); // make sure source is an Object
+		int destTypeCode = U::GetType(); // same here, but now for U
 
 		return (typeCode == destTypeCode) ? (U *)source : NULL;
 	}

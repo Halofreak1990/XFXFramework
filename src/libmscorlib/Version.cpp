@@ -82,7 +82,7 @@ namespace System
 		return (Build ^ Major ^ Minor ^ Revision);
 	}
 
-	int Version::GetType() const
+	int Version::GetType()
 	{
 		// TODO: implement
 	}

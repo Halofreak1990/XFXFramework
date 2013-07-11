@@ -135,7 +135,7 @@ namespace XFX
 		//	br->Close();
 		//}
 
-		int Texture::GetType() const
+		int Texture::GetType()
 		{
 		}
 	}

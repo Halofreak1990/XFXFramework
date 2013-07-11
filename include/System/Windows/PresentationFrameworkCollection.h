@@ -33,7 +33,7 @@ namespace System
 			void Clear();
 			bool Contains(const T& item) const;
 			void CopyTo(T array[], const int index) const;
-			int GetType() const;
+			static int GetType();
 			int IndexOf(const T& item) const;
 			void Insert(const int index, const T& item);
 			bool Remove(const T& item);

@@ -18,7 +18,7 @@ namespace System
 			DateTime AddMilliseconds(DateTime time, double milliseconds);
 			DateTime AddMinutes(DateTime time, int minutes);
 			DateTime AddMonths(DateTime time, int months);
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

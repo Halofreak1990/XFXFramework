@@ -49,7 +49,7 @@ namespace XFX
 			RasterizerState();
 			~RasterizerState();
 
-			int GetType() const;
+			static int GetType();
 
 			bool operator==(const RasterizerState& right) const;
 			bool operator!=(const RasterizerState& right) const;

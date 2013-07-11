@@ -37,7 +37,7 @@ namespace XFX
 			PresentationParameters* Clone() const;
 			bool Equals(Object const * const obj) const;
 			bool Equals(const PresentationParameters other) const;
-			int GetType() const;
+			static int GetType();
 			
 			bool operator!=(const PresentationParameters& other) const;
 			bool operator==(const PresentationParameters& other) const;

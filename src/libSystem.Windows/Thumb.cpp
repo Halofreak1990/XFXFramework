@@ -18,7 +18,7 @@ namespace System
 					DragCompleted(this, new DragCompletedEventArgs(0, 0, true));
 				}
 
-				int Thumb::GetType() const
+				int Thumb::GetType()
 				{
 				}
 

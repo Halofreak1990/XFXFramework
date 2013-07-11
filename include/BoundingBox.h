@@ -43,7 +43,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingBox obj) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		bool Intersects(BoundingBox box) const;
 		void Intersects(BoundingBox box, out bool& result) const;
 		bool Intersects(BoundingSphere sphere) const;

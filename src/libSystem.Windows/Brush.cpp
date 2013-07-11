@@ -14,7 +14,7 @@ namespace System
 			{
 			}
 
-			int Brush::GetType() const
+			int Brush::GetType()
 			{
 				// TODO: implement
 			}

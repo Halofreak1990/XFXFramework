@@ -29,7 +29,7 @@ namespace System
 		OperatingSystem Clone() const;
 		bool Equals(const OperatingSystem other) const;
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		const String& ToString() const;
 
 		bool operator !=(const OperatingSystem& right) const;

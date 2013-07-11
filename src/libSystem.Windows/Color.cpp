@@ -52,7 +52,7 @@ namespace System
 				return (int)packedValue;
 			}
 
-			int Color::GetType() const
+			int Color::GetType()
 			{
 			}
 

@@ -45,7 +45,7 @@ namespace System
 		bool Equals(const String& str1, const String& str2);
 		static const char* Format(const char* format, ...) FORMAT(printf, 1, 2);
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		int IndexOf(char value) const;
 		int IndexOf(char value, int startIndex) const;
 		int IndexOf(char value, int startIndex, int count) const;

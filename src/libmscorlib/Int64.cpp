@@ -47,7 +47,7 @@ namespace System
 		return (int)value;
 	}
 
-	int Int64::GetType() const
+	int Int64::GetType()
 	{
 		return 11;
 	}

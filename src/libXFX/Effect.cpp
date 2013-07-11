@@ -47,7 +47,7 @@ namespace XFX
 			return new Effect(this);
 		}
 
-		int Effect::GetType() const
+		int Effect::GetType()
 		{
 		}
 	}

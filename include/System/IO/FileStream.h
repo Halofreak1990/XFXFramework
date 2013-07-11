@@ -61,7 +61,7 @@ namespace System
 			virtual int EndRead(IAsyncResult* asyncResult);
 			virtual void EndWrite(IAsyncResult* asyncResult);
 			void Flush();
-			int GetType() const;
+			static int GetType();
 			int Read(byte array[], const int offset, const int count);
 			int ReadByte();
 			long long Seek(const long long offset, const SeekOrigin_t origin);

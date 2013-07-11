@@ -16,7 +16,7 @@ namespace System
 			CancelEventArgs();
 			CancelEventArgs(const bool value);
 
-			int GetType() const;
+			static int GetType();
 		};
 	}
 }

@@ -55,7 +55,7 @@ namespace System
 		return (int)Platform + Version.GetHashCode();
 	}
 
-	int OperatingSystem::GetType() const
+	int OperatingSystem::GetType()
 	{
 	}
 

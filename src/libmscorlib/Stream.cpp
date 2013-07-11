@@ -76,7 +76,7 @@ namespace System
 			// TODO: implement
 		}
 
-		int Stream::GetType() const
+		int Stream::GetType()
 		{
 			// TODO: implement
 		}

@@ -99,7 +99,7 @@ namespace XFX
 			return layerDepth;
 		}
 
-		int Sprite::GetType() const
+		int Sprite::GetType()
 		{
 		}
 

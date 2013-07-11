@@ -40,7 +40,7 @@ namespace XFX
 			bool IsConnected() const;
 			long long TotalSpace() const;
 			
-			int GetType() const;
+			static int GetType();
 			StorageContainer* OpenContainer(const char* titleName);
 		};
 	}

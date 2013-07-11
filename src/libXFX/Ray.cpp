@@ -68,7 +68,7 @@ namespace XFX
 		return (Direction.GetHashCode() ^ Position.GetHashCode());
 	}
 
-	int Ray::GetType() const
+	int Ray::GetType()
 	{
 		// TODO: implement
 	}

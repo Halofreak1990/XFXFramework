@@ -37,7 +37,7 @@ namespace System
 				SocketAsyncEventArgs();
 
 				void Dispose();
-				int GetType() const;
+				static int GetType();
 				void SetBuffer(const int offset, const int count);
 				void SetBuffer(byte buffer[], const int offset, const int count);
 			};

@@ -30,7 +30,7 @@ namespace System
 					Thumb();
 
 					void CancelDrag();
-					int GetType() const;
+					static int GetType();
 
 					bool operator ==(const Thumb& right) const;
 					bool operator !=(const Thumb& right) const;

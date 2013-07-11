@@ -69,7 +69,7 @@ namespace System
 		return (int)value;
 	}
 
-	int UInt32::GetType() const
+	int UInt32::GetType()
 	{
 		return 10;
 	}

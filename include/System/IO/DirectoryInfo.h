@@ -47,7 +47,7 @@ namespace System
 			DirectoryInfo* GetDirectories(const String& searchPattern);
 			FileSystemInfo* GetFileSystemInfos();
 			FileSystemInfo* GetFileSystemInfos(const String& searchPattern);
-			int GetType() const;
+			static int GetType();
 			void MoveTo(const String& destDirName);
 			const String& ToString() const;
 

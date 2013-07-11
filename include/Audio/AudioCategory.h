@@ -19,7 +19,7 @@ namespace XFX
 		{
 			String Name;
 
-			int GetType() const;
+			static int GetType();
 			void Pause();
 			void Resume();
 			void SetVolume(float volume);

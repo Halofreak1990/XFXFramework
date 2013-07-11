@@ -74,7 +74,7 @@ namespace System
 		return value;
 	}
 
-	int Int32::GetType() const
+	int Int32::GetType()
 	{
 		return 9;
 	}

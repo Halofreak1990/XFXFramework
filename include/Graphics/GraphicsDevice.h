@@ -84,7 +84,7 @@ namespace XFX
 			void DrawUserPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount, VertexDeclaration vertexDeclaration);
 			template <typename T>
 			void GetBackBufferData(T data[], const int startIndex, const int elementCount);
-			int GetType() const;
+			static int GetType();
 			void Present();
 			void Reset();
 			void Reset(PresentationParameters * const presentationParameters);

@@ -74,7 +74,7 @@ namespace System
 		return value;
 	}
 
-	int UInt16::GetType() const
+	int UInt16::GetType()
 	{
 		return 8;
 	}

@@ -87,7 +87,7 @@ namespace XFX
 			_isDisposed = true;
 		}
 
-		int Texture2D::GetType() const
+		int Texture2D::GetType()
 		{
 			// TODO: implement
 		}

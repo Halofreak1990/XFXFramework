@@ -20,7 +20,7 @@ namespace System
 				Button();
 				~Button();
 
-				int GetType() const;
+				static int GetType();
 
 				bool operator ==(const Button& right) const;
 				bool operator !=(const Button& right) const;

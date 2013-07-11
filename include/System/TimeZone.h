@@ -30,7 +30,7 @@ namespace System
 		String StandardName();
 
 		DaylightTime GetDaylightChanges(int year);
-		int GetType() const;
+		static int GetType();
 		TimeSpan GetUtcOffset(DateTime time);
 		bool IsDaylightSavingTime(DateTime time);
 		static bool IsDaylightSavingTime(DateTime time, DaylightTime daylightTimes);

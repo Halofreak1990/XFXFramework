@@ -1,6 +1,14 @@
-#pragma once
+/*****************************************************************************
+ *	UIElement.h																 *
+ *																			 *
+ *	System::Windows::UIElement definition file								 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_UIELEMENT_
+#define _SYSTEM_WINDOWS_UIELEMENT_
 
 #include <System/Windows/DependencyObject.h>
+#include <System/Windows/DependencyProperty.h>
 #include <System/Windows/Enums.h>
 #include <System/Windows/Rect.h>
 #include <System/Windows/Input/KeyEventArgs.h>
@@ -23,13 +31,16 @@ namespace System
 		public:
 			Size getRenderSize() const;
 			byte Opacity;
+			static const DependencyProperty<byte> OpacityProperty;
 			// Gets or sets the visibility of a System::Windows::UIElement. A System::Windows::UIElement that is not visible does not render and does not communicate its desired size to layout.
-			Visibility_t Visibility;
+			Visibility_t getVisibility() const;
+			void setVisibility(const Visibility_t value);
+			static const DependencyProperty<Visibility_t> VisibilityProperty;
 			
 			virtual ~UIElement();
 
 			void Arrange(const Rect finalRect);
-			int GetType() const;
+			static int GetType();
 			void InvalidateArrange();
 			void InvalidateMeasure();
 			void Measure(const Size availableSize);
@@ -45,10 +56,12 @@ namespace System
 			RoutedEventHandler	LostFocus;
 			MouseEventHandler	MouseEnter;
 			MouseEventHandler	MouseLeave;
-			Event<Object*, EventArgs> MouseLeftButtonDown;
-			Event<Object*, EventArgs> MouseLeftButtonUp;
+			EventHandler		MouseLeftButtonDown;
+			EventHandler		MouseLeftButtonUp;
 			MouseEventHandler	MouseMove;
-			Event<Object*, EventArgs> MouseWheel;
+			EventHandler		MouseWheel;
 		};
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_UIELEMENT_

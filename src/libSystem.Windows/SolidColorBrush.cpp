@@ -16,7 +16,7 @@ namespace System
 			{
 			}
 
-			int SolidColorBrush::GetType() const
+			int SolidColorBrush::GetType()
 			{
 				// TODO: implement
 			}

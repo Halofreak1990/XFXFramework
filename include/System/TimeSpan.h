@@ -62,7 +62,7 @@ namespace System
 		static TimeSpan FromSeconds(double value);
 		static TimeSpan FromTicks(long long value);
 		int GetHashCode() const;
-		int GetType() const;
+		static int GetType();
 		TimeSpan Negate();
 		TimeSpan Parse(const String& s); //! TODO
 		TimeSpan Subtract(const TimeSpan ts);

@@ -68,7 +68,7 @@ namespace System
 		return (*this == other);
 	}
 
-	int Boolean::GetType() const
+	int Boolean::GetType()
 	{
 		return 3;
 	}
