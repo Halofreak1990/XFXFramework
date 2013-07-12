@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	Button.h																 *
+ *																			 *
+ *	System::Windows::Controls::Button definition file						 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_CONTROLS_CONTROL_
+#define _SYSTEM_WINDOWS_CONTROLS_CONTROL_
 
 #include <System/Windows/Controls/Primitives/ButtonBase.h>
 
@@ -10,7 +17,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Represents a button control.
+			/**
+			 * Represents a button control.
+			 */
 			class Button : public ButtonBase
 			{
 			protected:
@@ -20,7 +29,7 @@ namespace System
 				Button();
 				~Button();
 
-				static int GetType();
+				static const Type& GetType();
 
 				bool operator ==(const Button& right) const;
 				bool operator !=(const Button& right) const;
@@ -28,3 +37,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_CONTROL_

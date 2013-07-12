@@ -1,9 +1,9 @@
-/********************************************************
- *	TextureCollection.h									*
- *														*
- *	XFX TextureCollection definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	TextureCollection.h 													 *
+ *																			 *
+ *	XFX::Graphics::TextureCollection class definition file					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_TEXTURECOLLECTION_
 #define _XFX_GRAPHICS_TEXTURECOLLECTION_
 
@@ -19,7 +19,9 @@ namespace XFX
 	{
 		class Texture2D;
 
-		// Represents a collection of Texture objects.
+		/**
+		 * Represents a collection of Texture objects.
+		 */
 		class TextureCollection : public Object
 		{
 		private:
@@ -34,7 +36,7 @@ namespace XFX
 			virtual ~TextureCollection();
 
 			void Dispose();
-			static int GetType();
+			static const Type& GetType();
 
 			Texture* operator[](const int index);
 		};

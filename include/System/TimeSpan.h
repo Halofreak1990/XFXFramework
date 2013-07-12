@@ -11,7 +11,9 @@
 
 namespace System
 {
-	// Represents a time interval.
+	/**
+	 * Represents a time interval.
+	 */
 	struct TimeSpan : IComparable<TimeSpan>, IEquatable<TimeSpan>, Object
 	{
 	private:
@@ -62,11 +64,11 @@ namespace System
 		static TimeSpan FromSeconds(double value);
 		static TimeSpan FromTicks(long long value);
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		TimeSpan Negate();
-		TimeSpan Parse(const String& s); //! TODO
+		TimeSpan Parse(const String& s);
 		TimeSpan Subtract(const TimeSpan ts);
-		const String ToString() const; //! TODO
+		const String ToString() const;
 
 		TimeSpan operator +(const TimeSpan& other);
 		bool operator==(const TimeSpan& other) const;

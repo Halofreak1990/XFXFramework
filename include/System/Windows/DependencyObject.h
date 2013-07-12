@@ -18,7 +18,7 @@ namespace System
 		/**
 		 * Represents an object that participates in the dependency property system.
 		 */
-		class DependencyObject
+		class DependencyObject : public Object
 		{
 		private:
 			Dictionary<String, Object *> dependencyProperties;
@@ -42,6 +42,8 @@ namespace System
 					dependencyProperties.Remove(p);
 				}
 			}
+
+			static const Type& GetType();
 
 			template <typename T>
 			T GetValue(DependencyProperty<T> p) const

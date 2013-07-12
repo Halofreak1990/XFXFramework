@@ -1,9 +1,9 @@
-/********************************************************
- *	Dictionary.h										*
- *														*
- *	XFX Generic Dictionary class definition file		*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Dictionary.h															 *
+ *																			 *
+ *	XFX System::Collections::Generic::Dictionary class definition file  	 *
+ *	Copyright (c) XFX Team. All Rights Reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_
 #define _SYSTEM_COLLECTIONS_GENERIC_DICTIONARY_
 
@@ -22,7 +22,9 @@ namespace System
 	{
 		namespace Generic
 		{
-			// Represents a collection of keys and values.
+			/**
+			 * Represents a collection of keys and values.
+			 */
 			template <class TKey, class TValue>
 			class Dictionary : public IDictionary<TKey, TValue>, public ICollection<KeyValuePair<TKey, TValue> >, public IEnumerable<KeyValuePair<TKey, TValue> >, public Object
 			{
@@ -58,7 +60,9 @@ namespace System
 				void Resize();
 
 			public:
-				// Represents the collection of keys in a Dictionary<,>. 
+				/**
+				 * Represents the collection of keys in a Dictionary<,>.
+				 */
 				template <class UKey, class UValue>
 				class KeyCollection : public ICollection<UKey>
 				{
@@ -78,7 +82,9 @@ namespace System
 					bool Remove(const UKey& item);
 				};
 
-				// Represents the collection of values in a Dictionary<,>.
+				/**
+				 * Represents the collection of values in a Dictionary<,>.
+				 */
 				template <class UKey, class UValue>
 				class ValueCollection : public ICollection<UValue>
 				{
@@ -117,7 +123,7 @@ namespace System
 				bool ContainsKey(const TKey& key) const;
 				bool ContainsValue(const TValue& value) const;
 				IEnumerator<KeyValuePair<TKey, TValue> >* GetEnumerator();
-				static int GetType();
+				static const Type& GetType();
 				bool Remove(const TKey& key);
 				bool TryGetValue(const TKey& key, out TValue value) const;
 
@@ -353,9 +359,11 @@ namespace System
 			}
 
 			template <class TKey, class TValue>
-			int Dictionary<TKey, TValue>::GetType()
+			const Type& Dictionary<TKey, TValue>::GetType()
 			{
-				// TODO: implement
+				static const Type DictionaryTypeInfo("Dictionary", "System::Collections::Generic::Dictionary", TypeCode::Object, true);
+				
+				return DictionaryTypeInfo;
 			}
 
 			//template <class TKey, class TValue>

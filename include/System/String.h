@@ -14,7 +14,9 @@
 
 namespace System
 {
-	// Represents text as a series of ASCII characters.
+	/**
+	 * Represents text as a series of ASCII characters.
+	 */
 	class String : public IComparable<String>, public IEquatable<String>, public Object
 	{
 	private:
@@ -45,7 +47,7 @@ namespace System
 		bool Equals(const String& str1, const String& str2);
 		static const char* Format(const char* format, ...) FORMAT(printf, 1, 2);
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		int IndexOf(char value) const;
 		int IndexOf(char value, int startIndex) const;
 		int IndexOf(char value, int startIndex, int count) const;

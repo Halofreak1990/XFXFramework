@@ -27,10 +27,13 @@
 
 #include <System/Object.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <string.h>
 
 namespace System
 {
+	const Type ObjectTypeInfo("Object", "System::Object");
+
 	bool Object::Equals(Object const * const obj) const
 	{
 		return is(this, obj);
@@ -46,9 +49,9 @@ namespace System
 		return (int)this;
 	}
 
-	int Object::GetType()
+	Type Object::GetType()
 	{
-		return 1;
+		return ObjectTypeInfo;
 	}
 
 	bool Object::ReferenceEquals(const Object& objA, const Object& objB)

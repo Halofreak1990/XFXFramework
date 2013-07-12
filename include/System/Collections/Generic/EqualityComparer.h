@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	EqualityComparer.h 														 *
+ *																			 *
+ *	XFX System::Collections::Generic::EqualityComparer class definition file *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_EQUALITYCOMPARER_
 #define _SYSTEM_COLLECTIONS_GENERIC_EQUALITYCOMPARER_
 
@@ -21,7 +27,7 @@ namespace System
 
 				bool Equals(const T x, const T y) const;
 				int GetHashCode(const T obj) const;
-				static int GetType();
+				static const Type& GetType();
 			};
 		}
 	}

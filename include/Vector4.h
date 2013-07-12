@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Vector4.h																 *
  *																			 *
- *	XFX Vector4 definition file												 *
+ *	XFX::Vector4 structure definition file  								 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_VECTOR4_
@@ -19,7 +19,9 @@ namespace XFX
 	struct Vector2;
 	struct Vector3;
 	
-	// Defines a vector with four components.
+	/**
+	 * Defines a vector with four components.
+	 */
 	struct Vector4 : IEquatable<Vector4>, Object
 	{
 		float X;
@@ -59,7 +61,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Vector4 other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		static Vector4 Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount);
 		static void Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4& result);
 		float Length();
@@ -114,4 +116,3 @@ namespace XFX
 }
 
 #endif //_XFX_VECTOR4_
-

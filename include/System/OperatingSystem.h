@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	OperatingSystem.h														 *
  *																			 *
- *	XFX System::OperatingSystem definition file 							 *
+ *	XFX System::OperatingSystem class definition file						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_OPERATINGSYSTEM_
@@ -13,7 +13,9 @@
 
 namespace System
 {
-	// Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.
+	/**
+	 * Represents information about an operating system, such as the version and platform identifier. This class cannot be inherited.
+	 */
 	class OperatingSystem : public Object
 	{
 	private:
@@ -29,8 +31,8 @@ namespace System
 		OperatingSystem Clone() const;
 		bool Equals(const OperatingSystem other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
+		static const Type& GetType();
+		const String ToString() const;
 
 		bool operator !=(const OperatingSystem& right) const;
 		bool operator ==(const OperatingSystem& right) const;

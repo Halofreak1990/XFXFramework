@@ -9,7 +9,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Defines an area within which you can explicitly position child objects by using coordinates that are relative to the area.
+			/**
+			 * Defines an area within which you can explicitly position child objects by using coordinates that are relative to the area.
+			 */
 			class Canvas : public Panel
 			{
 			protected:
@@ -17,16 +19,16 @@ namespace System
 				Size MeasureOverride(const Size constraint);
 
 			public:
-				static const String LeftProperty;
-				static const String TopProperty;
-				static const String ZIndexProperty;
+				static const DependencyProperty<int> LeftProperty;
+				static const DependencyProperty<int> TopProperty;
+				static const DependencyProperty<int> ZIndexProperty;
 
 				Canvas();
 
 				static int GetLeft(const UIElement& element);
 				static int GetTop(const UIElement& element);
 				static int GetZIndex(const UIElement& element);
-				static int GetType();
+				static const Type& GetType();
 				static void SetLeft(const UIElement& element, const int left);
 				static void SetTop(const UIElement& element, const int top);
 				static void SetZIndex(const UIElement& element, const int zIndex);

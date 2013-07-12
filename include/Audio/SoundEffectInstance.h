@@ -1,9 +1,9 @@
-/********************************************************
- *	SoundEffectInstance.h								*
- *														*
- *	XFX::Audio::SoundEffectInstance definition file		*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	SoundEffectInstance.h													 *
+ *																			 *
+ *	XFX::Audio::SoundEffectInstance class definition file					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #include <System/Interfaces.h>
 #include "Enums.h"
 
@@ -17,7 +17,9 @@ namespace XFX
 		class AudioEmitter;
 		class SoundEffect;
 
-		// Provides a single playing, paused, or stopped instance of a SoundEffect sound.
+		/**
+		 * Provides a single playing, paused, or stopped instance of a SoundEffect sound.
+		 */
 		class SoundEffectInstance : public IDisposable, public Object
 		{
 		private:
@@ -48,7 +50,7 @@ namespace XFX
 			void Apply3D(AudioListener listener, AudioEmitter emitter);
 			void Apply3D(AudioListener listeners[], AudioEmitter emitter);
 			void Dispose();
-			static int GetType();
+			static const Type& GetType();
 			void Pause();
 			virtual void Play();
 			void Resume();

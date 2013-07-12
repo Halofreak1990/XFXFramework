@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	CornerRadius.h  														 *
+ *																			 *
+ *	System::Windows::CornerRadius definition file							 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CORNERRADIUS_
 #define _SYSTEM_WINDOWS_CORNERRADIUS_
 
@@ -7,7 +13,9 @@ namespace System
 {
 	namespace Windows
 	{
-		// Describes the characteristics of a rounded corner, such as can be applied to a System::Windows::Controls::Border.
+		/**
+		 * Describes the characteristics of a rounded corner, such as can be applied to a System::Windows::Controls::Border.
+		 */
 		struct CornerRadius : IEquatable<CornerRadius>, Object
 		{
 		public:
@@ -24,7 +32,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const CornerRadius other) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 
 			bool operator==(const CornerRadius& right) const;

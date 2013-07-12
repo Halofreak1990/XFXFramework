@@ -1,9 +1,9 @@
-/********************************************************
- *	GraphicsDeviceManager.h								*
- *														*
- *	XFX GraphicsDeviceManager definition file			*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GraphicsDeviceManager.h													 *
+ *																			 *
+ *	XFX GraphicsDeviceManager class definition file 						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICSDEVICEMANAGER_
 #define _XFX_GRAPHICSDEVICEMANAGER_
 
@@ -21,7 +21,9 @@ namespace XFX
 {
 	class Game;
 
-	// Handles the configuration and management of the graphics device.
+	/**
+	 * Handles the configuration and management of the graphics device.
+	 */
 	class GraphicsDeviceManager : public IGraphicsDeviceService, public IDisposable, public IGraphicsDeviceManager
 	{
 	private:
@@ -74,7 +76,7 @@ namespace XFX
 		bool BeginDraw();
 		void Dispose();
 		void EndDraw();
-		static int GetType();
+		static const Type& GetType();
 		void ToggleFullscreen();
 	};
 }

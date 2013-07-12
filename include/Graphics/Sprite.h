@@ -1,9 +1,9 @@
-/********************************************************
- *	Sprite.h											*
- *														*
- *	XFX Sprite definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Sprite.h																 *
+ *																			 *
+ *	XFX::Graphics::Sprite class definition file 							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_SPRITE_
 #define _XFX_GRAPHICS_SPRITE_
 
@@ -19,7 +19,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Internal helper class to aid drawing via the SpriteBatch.
+		/**
+		 * Internal helper class to aid drawing via the SpriteBatch.
+		 */
 		class Sprite : public Object
 		{
 		private:
@@ -46,7 +48,7 @@ namespace XFX
 			Sprite(Texture2D* texture, const Rectangle sourceRectangle, const Rectangle destinationRectangle, const Color color, const float rotation, const Vector2 origin, const SpriteEffects_t effects, const float layerDepth);
 			Sprite(const Sprite &obj);
 
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator !=(const Sprite& right) const;
 			bool operator ==(const Sprite& right) const;

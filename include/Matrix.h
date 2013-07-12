@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Matrix.h																 *
  *																			 *
- *	XFX Matrix definition file												 *
+ *	XFX::Matrix definition file												 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_MATRIX_
@@ -17,7 +17,9 @@ namespace XFX
 	struct Quaternion;
 	struct Vector3;
 	
-	// Defines a Matrix.
+	/**
+	 * Defines a Matrix.
+	 */
 	struct Matrix : IEquatable<Matrix>, Object
 	{
 		float M11;
@@ -111,7 +113,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Matrix other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		static Matrix Invert(Matrix matrix);
 		static void Invert(Matrix matrix, out Matrix& result);
 		static Matrix Lerp(Matrix value1, Matrix value2, float amount);

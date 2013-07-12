@@ -11,7 +11,9 @@
 
 namespace System
 {
-	// Represents the version number for a common language runtime assembly.
+	/**
+	 * Represents the version number for a common language runtime assembly.
+	 */
 	class Version : public IComparable<Version>, public IEquatable<Version>, public Object
 	{
 	public:
@@ -30,9 +32,9 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Version obj) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		const String& ToString(const int fieldCount) const;
+		static const Type& GetType();
+		const String ToString() const;
+		const String ToString(const int fieldCount) const;
 
 		bool operator !=(const Version& other) const;
 		bool operator  <(const Version& other) const;

@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Viewport.h																 *
  *																			 *
- *	XFX::Graphics::Viewport definition file									 *
+ *	XFX::Graphics::Viewport structure definition file						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VIEWPORT_
@@ -19,7 +19,9 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		// Defines the window dimensions of a render-target surface onto which a 3D volume projects.
+		/**
+		 * Defines the window dimensions of a render-target surface onto which a 3D volume projects.
+		 */
 		struct Viewport : Object
 		{
 		private:
@@ -44,7 +46,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Viewport obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			Vector3 Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;
 			const String ToString() const;
 			Vector3 Unproject(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const;

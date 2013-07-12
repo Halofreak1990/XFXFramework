@@ -29,7 +29,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Point other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 
 		bool operator==(const Point& right) const;

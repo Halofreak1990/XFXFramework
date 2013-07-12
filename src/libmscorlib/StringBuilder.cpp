@@ -29,6 +29,8 @@
 #include <System/FrameworkResources.h>
 #include <System/Text/StringBuilder.h>
 #include <System/String.h>
+#include <System/Type.h>
+
 #include <sassert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,6 +42,8 @@ namespace System
 {
 	namespace Text
 	{
+		const Type StringBuilderTypeInfo("StringBuilder", "System::Text::StringBuilder", TypeCode::Object);
+
 		StringBuilder::StringBuilder()
 		{
 		}
@@ -209,9 +213,9 @@ namespace System
 			return (*this == other);
 		}
 
-		int StringBuilder::GetType()
+		const Type& StringBuilder::GetType()
 		{
-			// TODO; implement
+			return StringBuilderTypeInfo;
 		}
 
 		StringBuilder& StringBuilder::Remove(const int startIndex, const int length)
@@ -252,12 +256,12 @@ namespace System
 			return *this;
 		}
 
-		const String& StringBuilder::ToString() const
+		const String StringBuilder::ToString() const
 		{
 			return String(stringBuffer, 0, strEnd);
 		}
 
-		const String& StringBuilder::ToString(const int startIndex, const int length)
+		const String StringBuilder::ToString(const int startIndex, const int length)
 		{
 			return String(stringBuffer, startIndex, length);
 		}

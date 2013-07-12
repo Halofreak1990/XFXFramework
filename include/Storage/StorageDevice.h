@@ -1,9 +1,9 @@
-/********************************************************
- *	StorageDevice.h										*
- *														*
- *	XFX StorageDevice definition file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	StorageDevice.h 														 *
+ *																			 *
+ *	XFX::Storage::StorageDevice class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_STORAGE_STORAGEDEVICE_
 #define _XFX_STORAGE_STORAGEDEVICE_
 
@@ -23,7 +23,9 @@ namespace XFX
 	{
 		class StorageContainer;
 		
-		// Represents a storage device for user data, such as a memory unit or hard drive.
+		/**
+		 * Represents a storage device for user data, such as a memory unit or hard drive.
+		 */
 		class StorageDevice : public Object
 		{
 		private:
@@ -40,8 +42,8 @@ namespace XFX
 			bool IsConnected() const;
 			long long TotalSpace() const;
 			
-			static int GetType();
-			StorageContainer* OpenContainer(const char* titleName);
+			static const Type& GetType();
+			StorageContainer* OpenContainer(const String& titleName);
 		};
 	}
 }

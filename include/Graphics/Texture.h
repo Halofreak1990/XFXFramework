@@ -1,9 +1,9 @@
-/********************************************************
- *	Texture.h											*
- *														*
- *	XFX Texture definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Texture.h																 *
+ *																			 *
+ *	XFX::Graphics::Texture class definition file							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_TEXTURE_
 #define _XFX_GRAPHICS_TEXTURE_
 
@@ -15,7 +15,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Represents a texture resource.
+		/**
+		 * Represents a texture resource.
+		 */
 		class Texture : public GraphicsResource
 		{
 		private:
@@ -34,7 +36,7 @@ namespace XFX
 			~Texture();
 			
 			void GenerateMipMaps(const TextureFilter_t filterType);
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

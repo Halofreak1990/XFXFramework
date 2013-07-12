@@ -10,6 +10,7 @@
 namespace System
 {
 	class String;
+	class Type;
 
 	// Supports all classes in the .NET Framework class hierarchy and provides low-level services to derived classes.
 	// This is the ultimate base class of all classes in the .NET Framework; it is the root of the type hierarchy.
@@ -19,7 +20,7 @@ namespace System
 		virtual bool Equals(Object const * const obj) const;
 		static bool Equals(Object const * const objA, Object const * const objB);
 		virtual int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		static bool ReferenceEquals(const Object& objA, const Object& objB);
 		virtual const String ToString() const;
 

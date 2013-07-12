@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Quaternion.h															 *
  *																			 *
- *	XFX Quaternion definition file											 *
+ *	XFX::Quaternion definition file 										 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_QUATERNION_
@@ -44,7 +44,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Quaternion obj) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		static Quaternion Inverse(Quaternion quaternion);
 		static void Inverse(Quaternion quaternion, out Quaternion& result);
 		float Length();

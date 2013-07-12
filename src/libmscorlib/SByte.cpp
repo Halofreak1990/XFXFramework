@@ -27,6 +27,7 @@
 
 #include <System/SByte.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
@@ -34,6 +35,8 @@ namespace System
 {
 	const sbyte SByte::MaxValue = 127;
 	const sbyte SByte::MinValue = -128;
+
+	const Type SByteTypeInfo("SByte", "System::SByte", TypeCode::SByte);
 
 	SByte::SByte()
 		: value(0)
@@ -74,17 +77,17 @@ namespace System
 		return value;
 	}
 
-	int SByte::GetType()
+	const Type& SByte::GetType()
 	{
-		return 5;
+		return SByteTypeInfo;
 	}
 
-	const String& SByte::ToString() const
+	const String SByte::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const String& SByte::ToString(const sbyte value)
+	const String SByte::ToString(const sbyte value)
 	{
 		return String::Format("%i", value);
 	}

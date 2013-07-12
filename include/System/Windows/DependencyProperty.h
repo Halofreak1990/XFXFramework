@@ -17,7 +17,7 @@ namespace System
 	namespace Windows
 	{
 		/**
-		 * 
+		 * Represents a dependency property that is registered with the dependency property system. Dependency properties provide support for value expressions, data binding, animation, and property change notification.
 		 */
 		template <typename T>
 		class DependencyProperty
@@ -25,7 +25,7 @@ namespace System
 		private:
 			static Dictionary<int, Dictionary<String&, Object *> > _registeredProperties;
 
-			DependencyProperty(const String& propertyName, const int type, T defaultValue)
+			DependencyProperty(const String& propertyName, const Type& type, T defaultValue)
 				: DefaultValue(defaultValue), Name(propertyName)
 			{
 			}
@@ -34,14 +34,41 @@ namespace System
 			const T DefaultValue;
 			const String Name;
 
-			static DependencyProperty<T> Register(const String& propertyName, const int type);
-			static DependencyProperty<T> Register(const String& propertyName, const int type, PropertyMetaData<T> const * propertyMetaData);
+			/**
+			 * Registers a dependency property with the specified property name and owner type.
+			 *
+			 * @param propertyName
+			 * The name of the dependency property to register.
+			 *
+			 * @param type
+			 * The owner type that is registering the dependency property.
+			 *
+			 * @return
+			 * A dependency property identifier that should be used to set the value of a public static readonly field in your class. The identifier is then used both by your own code and any third-party user code to reference the dependency property later, for operations such as setting its value programmatically, or attaching a System::Windows::Data::Binding in code.
+			 */
+			static DependencyProperty<T> Register(const String& propertyName, const Type& type);
+			/**
+			 * Registers a dependency property with the specified property name, owner type, and property metadata for the property.
+			 *
+			 @param propertyName
+			 * The name of the dependency property to register.
+			 *
+			 * @param type
+			 * The owner type that is registering the dependency property.
+			 *
+			 * @param
+			 * A PropertyMetadata instance. This can contain a System::Windows::PropertyChangedCallback implementation reference.
+			 *
+			 @return
+			 * A dependency property identifier that should be used to set the value of a public static readonly field in your class. The identifier is then used both by your own code and any third-party user code to reference the dependency property later, for operations such as setting its value programmatically, or attaching a System::Windows::Data::Binding in code.
+			 */
+			static DependencyProperty<T> Register(const String& propertyName, const Type& type, PropertyMetadata<T> const * propertyMetadata);
 		};
 
 		///////////////////////////////////////////////////////////////////////
 
 		template <typename T>
-		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const int type)
+		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const Type& type)
 		{
 			Derived_from<T, Object *>():
 
@@ -49,7 +76,7 @@ namespace System
 		}
 
 		template <typename T>
-		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const int type, PropertyMetaData<T> const * propertyMetaData)
+		DependencyProperty<T> DependencyProperty<T>::Register(const String& propertyName, const Type& type, PropertyMetadata<T> const * propertyMetaData)
 		{
 			Derived_from<T, Object *>():
 

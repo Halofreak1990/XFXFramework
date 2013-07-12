@@ -31,6 +31,7 @@
 #include <System/String.h>
 #include <System/TimeSpan.h>
 #include <System/TimeZone.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -41,7 +42,7 @@ namespace System
 	// memory usage from 16 to 8 bytes.
 	//
 	const long long DateTime::TicksMask = 0x3fffffffffffffffLL;
-	const long long DateTime::KindMask = ((long long)0xc000000000000000LL);
+	const long long DateTime::KindMask = ((long long)0xC000000000000000LL);
 	const int DateTime::KindShift = 62;
 	//
 	// w32 file time starts counting from 1/1/1601 00:00 GMT
@@ -52,8 +53,7 @@ namespace System
 	// -- Microsoft .NET has this value.
 	const long long DateTime::MAX_VALUE_TICKS = 3155378975999999999LL;
 	//
-	// The UnixEpoch, it begins on Jan 1, 1970 at 0:0:0, expressed
-	// in Ticks
+	// The UnixEpoch. It begins on Jan 1, 1970 at 0:0:0, expressed in Ticks
 	//
 	const long long DateTime::UnixEpoch = 621355968000000000LL;
 
@@ -64,6 +64,8 @@ namespace System
 
 	int daysmonth[] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };	
 	int daysmonthleap[] = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	const Type DateTimeTypeInfo("DateTime", "System::DateTime", TypeCode::DateTime);
 
 	int DateTime::AbsoluteDays(int year, int month, int day)
 	{
@@ -293,9 +295,9 @@ namespace System
 		return (int)encoded;
 	}
 
-	int DateTime::GetType()
+	Type DateTime::GetType()
 	{
-		return 16;
+		return DateTimeTypeInfo;
 	}
 
 	bool DateTime::IsDaylighSavingTime()

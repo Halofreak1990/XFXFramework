@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Effect.h																 *
  *																			 *
- *	XFX::Graphics::Effect definition file									 *
+ *	XFX::Graphics::Effect class definition file 							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_EFFECT_
@@ -15,7 +15,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Used to set and query effects, and to choose techniques.
+		/**
+		 * Used to set and query effects, and to choose techniques.
+		 */
 		class Effect : public GraphicsResource
 		{
 		private:
@@ -69,7 +71,7 @@ namespace XFX
 			 * Copies data from an existing object to this object.
 			 */
 			virtual Effect* Clone() const;
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

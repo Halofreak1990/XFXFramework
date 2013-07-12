@@ -152,6 +152,9 @@
     <ClInclude Include="..\..\include\Graphics\SamplerState.h" />
     <ClInclude Include="..\..\include\Graphics\VertexBuffer.h" />
     <ClInclude Include="..\..\include\Graphics\VertexDeclaration.h" />
+    <ClInclude Include="..\..\include\Input\GamePadDPad.h" />
+    <ClInclude Include="..\..\include\Input\GamePadThumbSticks.h" />
+    <ClInclude Include="..\..\include\Input\GamePadTriggers.h" />
     <ClInclude Include="..\..\include\MathHelper.h" />
     <ClInclude Include="..\..\include\Matrix.h" />
     <ClInclude Include="..\..\include\Plane.h" />

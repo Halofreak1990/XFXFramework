@@ -14,7 +14,9 @@ namespace System
 {
 	class String;
 
-	// Represents an 8-bit unsigned integer.
+	/**
+	 * Represents an 8-bit unsigned integer.
+	 */
 	struct Byte : IComparable<Byte>, IEquatable<Byte>, Object
 	{
 	private:
@@ -30,7 +32,7 @@ namespace System
 
 		int CompareTo(const Byte other) const;
 		bool Equals(const Byte other) const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 		static const String ToString(const byte value);
 		static bool TryParse(const String& str, out byte* result);

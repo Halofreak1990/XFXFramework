@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	TimeZone.h																 *
  *																			 *
- *	System::TimeZone definition file										 *
+ *	XFX System::TimeZone definition file									 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_TIMEZONE_
@@ -18,7 +18,9 @@ namespace System
 	class String;
 	struct TimeSpan;
 
-	// Represents a time zone.
+	/**
+	 * Represents a time zone.
+	 */
 	class TimeZone : public Object
 	{
 	protected:
@@ -30,7 +32,7 @@ namespace System
 		String StandardName();
 
 		DaylightTime GetDaylightChanges(int year);
-		static int GetType();
+		static const Type& GetType();
 		TimeSpan GetUtcOffset(DateTime time);
 		bool IsDaylightSavingTime(DateTime time);
 		static bool IsDaylightSavingTime(DateTime time, DaylightTime daylightTimes);

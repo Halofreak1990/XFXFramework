@@ -28,6 +28,7 @@
 
 #include <System/Int16.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
@@ -35,6 +36,8 @@ namespace System
 {
 	const short Int16::MaxValue = 0x7FFF;
 	const short Int16::MinValue = 0x8000;
+
+	const Type Int16TypeInfo("Int16", "System::Int16", TypeCode::Int16);
 
 	Int16::Int16()
 		: value(0)
@@ -75,17 +78,17 @@ namespace System
 		return value;
 	}
 
-	int Int16::GetType()
+	Type Int16::GetType()
 	{
-		return 7;
+		return Int16TypeInfo;
 	}
 
-	const char* Int16::ToString() const
+	const String Int16::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const char* Int16::ToString(const short value)
+	const String Int16::ToString(const short value)
 	{
 		return String::Format("%i", value);
 	}
@@ -117,18 +120,8 @@ namespace System
 		return (value == right.value);
 	}
 
-	bool Int16::operator==(const short& right) const
-	{
-		return (value == right);
-	}
-
 	bool Int16::operator!=(const Int16& right) const
 	{
 		return (value != right.value);
-	}
-
-	bool Int16::operator!=(const short& right) const
-	{
-		return (value != right);
 	}
 }

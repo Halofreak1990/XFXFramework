@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	DirectionalLight.h														 *
  *																			 *
- *	XFX::Graphics::DirectionalLight definition file 						 *
+ *	XFX::Graphics::DirectionalLight class definition file					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_DIRECTIONALLIGHT_
@@ -17,7 +17,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Creates a DirectionalLight object.
+		/**
+		 * Creates a DirectionalLight object.
+		 */
 		class DirectionalLight : public Object
 		{
 		public:
@@ -28,7 +30,7 @@ namespace XFX
 
 			DirectionalLight(EffectParameter * const directionParameter, EffectParameter * const diffuseColorParameter, EffectParameter * const specularColorParameter, DirectionalLight const * const cloneSource);
 
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

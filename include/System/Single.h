@@ -14,7 +14,9 @@ namespace System
 {
 	class String;
 
-	// Represents a single precision floating point value.
+	/**
+	 * Represents a single precision floating point value.
+	 */
 	struct Single : IComparable<Single>, IEquatable<Single>, Object
 	{
 	private:
@@ -36,7 +38,7 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Single other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 		static const String ToString(const float value);
 		static bool TryParse(const String& str, out float* result);

@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Rectangle.h																 *
+ *																			 *
+ *	XFX::Graphics::VertexBuffer class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXBUFFER_
 #define _XFX_GRAPHICS_VERTEXBUFFER_
 
@@ -8,7 +14,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Represents a list of 3D vertices to be streamed to the graphics device.
+		/**
+		 * Represents a list of 3D vertices to be streamed to the graphics device.
+		 */
 		class VertexBuffer : public GraphicsResource
 		{
 		public:
@@ -19,7 +27,7 @@ namespace XFX
 			void GetData(int offsetInBytes, T data[], int startIndex, int elementCount, int vertexStride);
 			template <typename T>
 			void GetData(T data[], int startIndex, int elementCount);
-			static int GetType();
+			static const Type& GetType();
 			template <typename T>
 			void SetData(int offsetInBytes, T data[], int startIndex, int elementCount, int vertexStride);
 			template <typename T>

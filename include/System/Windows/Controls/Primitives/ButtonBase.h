@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	ButtonBase.h															 *
+ *																			 *
+ *	System::Windows::Controls::Primitives::ButtonBase definition file		 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_BUTTONBASE_
+#define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_BUTTONBASE_
 
 #include <System/Windows/Controls/ContentControl.h>
 #include <System/Windows/Input/KeyEventArgs.h>
@@ -14,7 +21,9 @@ namespace System
 		{
 			namespace Primitives
 			{
-				// Represents the base class for all button controls, such as System::Windows::Controls::Button, System::Windows::Controls::Primitives::RepeatButton, and System::Windows::Controls::HyperlinkButton.
+				/**
+				 * Represents the base class for all button controls, such as System::Windows::Controls::Button, System::Windows::Controls::Primitives::RepeatButton, and System::Windows::Controls::HyperlinkButton.
+				 */
 				class ButtonBase : public ContentControl
 				{
 				private:
@@ -24,12 +33,12 @@ namespace System
 					ButtonBase();
 
 					virtual void OnClick();
-					void OnGotFocus(RoutedEventArgs* e);
-					void OnKeyDown(KeyEventArgs* e);
-					void OnKeyUp(KeyEventArgs* e);
-					void OnMouseEnter(MouseEventArgs* e);
-					void OnMouseLeave(MouseEventArgs* e);
-					void OnMouseMove(MouseEventArgs* e);
+					void OnGotFocus(RoutedEventArgs * const e);
+					void OnKeyDown(KeyEventArgs * const e);
+					void OnKeyUp(KeyEventArgs * const e);
+					void OnMouseEnter(MouseEventArgs * const e);
+					void OnMouseLeave(MouseEventArgs * const e);
+					void OnMouseMove(MouseEventArgs * const e);
 
 					void UpdateVisualState(bool useTransitions);
 
@@ -38,7 +47,7 @@ namespace System
 
 					virtual ~ButtonBase();
 
-					static int GetType();
+					static const Type& GetType();
 					
 					RoutedEventHandler Click;
 
@@ -49,3 +58,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_BUTTONBASE_

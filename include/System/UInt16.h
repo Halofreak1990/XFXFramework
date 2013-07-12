@@ -13,7 +13,9 @@ namespace System
 {
 	class String;
 
-	// Represents an unsigned, 16-bit integer.
+	/**
+	 * Represents an unsigned, 16-bit integer.
+	 */
 	struct UInt16 : IComparable<UInt16>, IEquatable<UInt16>, Object
 	{
 	private:
@@ -31,9 +33,9 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt16 other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const ushort value);
+		static const Type& GetType();
+		const String ToString() const;
+		static const String ToString(const ushort value);
 		static bool TryParse(const String& str, out ushort* result);
 
 		operator ushort() const;

@@ -1,9 +1,9 @@
-/********************************************************
- *	SoundEffect.h										*
- *														*
- *	XFX::Audio::SoundEffect definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	SoundEffect.h															 *
+ *																			 *
+ *	XFX::Audio::SoundEffect class definition file							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_AUDIO_SOUNDEFFECT_
 #define _XFX_AUDIO_SOUNDEFFECT_
 
@@ -22,7 +22,9 @@ namespace XFX
 	{
 		class SoundEffectInstance;
 
-		// 
+		/**
+		 * 
+		 */
 		class SoundEffect : public IDisposable, public Object
 		{
 		private:
@@ -56,7 +58,7 @@ namespace XFX
 			static SoundEffect* FromStream(Stream * const stream);
 			static TimeSpan GetSampleDuration(int sizeInBytes, int sampleRate, AudioChannels_t channels);
 			static int GetSampleSizeInBytes(TimeSpan duration, int sampleRate, AudioChannels_t channels);
-			static int GetType();
+			static const Type& GetType();
 			bool Play();
 			bool Play(const float volume, const float pitch, const float pan);
 		};

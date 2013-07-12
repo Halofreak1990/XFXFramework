@@ -1,9 +1,9 @@
-/********************************************************
- *	Video.h												*
- *														*
- *	XFX Video definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Video.h																	 *
+ *																			 *
+ *	XFX::Media::Video class definition file 								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_MEDIA_VIDEO_H_
 #define _XFX_MEDIA_VIDEO_H_
 
@@ -15,7 +15,9 @@ namespace XFX
 {
 	namespace Media
 	{
-		// Represents a video.
+		/**
+		 * Represents a video.
+		 */
 		class Video : public Object
 		{
 		public:
@@ -25,7 +27,7 @@ namespace XFX
 			VideoSoundtrackType_t getVideoSoundtrackType();
 			int getWidth();
 
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

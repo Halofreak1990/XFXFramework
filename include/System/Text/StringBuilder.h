@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	StringBuilder.h 														 *
  *																			 *
- *	XFX System::Text::StringBuilder definition file 						 *
+ *	XFX System::Text::StringBuilder class definition file					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_TEXT_STRINGBUILDER_
@@ -16,7 +16,9 @@ namespace System
 
 	namespace Text
 	{
-		// Represents a mutable string of characters. This class cannot be inherited.
+		/**
+		 * Represents a mutable string of characters. This class cannot be inherited.
+		 */
 		class StringBuilder : public Object
 		{
 		private:
@@ -60,7 +62,8 @@ namespace System
 			int EnsureCapacity(const int capacity);
 			bool Equals(Object const * const obj) const;
 			bool Equals(const StringBuilder& other) const;
-			static int GetType();
+			static const Type& GetType();
+			int GetHashCode() const;
 			StringBuilder& Insert(const int index, const bool value);
 			StringBuilder& Insert(const int index, const byte value);
 			StringBuilder& Insert(const int index, const char value);
@@ -83,8 +86,8 @@ namespace System
 			StringBuilder& Replace(const char oldChar, const char newChar, const int startIndex, const int count);
 			StringBuilder& Replace(const String& oldValue, const String& newValue);
 			StringBuilder& Replace(const String& oldValue, const String& newValue, const int startIndex, const int count);
-			const String& ToString() const;
-			const String& ToString(const int startIndex, const int length);
+			const String ToString() const;
+			const String ToString(const int startIndex, const int length);
 
 			bool operator==(const StringBuilder& right) const;
 			bool operator!=(const StringBuilder& right) const;

@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	IndexBuffer.h															 *
+ *																			 *
+ *	XFX::Graphics::IndexBuffer class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_INDEXBUFFER_
 #define _XFX_GRAPHICS_INDEXBUFFER_
 
@@ -10,7 +16,9 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		// Describes the rendering order of the vertices in a vertex buffer.
+		/**
+		 * Describes the rendering order of the vertices in a vertex buffer.
+		 */
 		class IndexBuffer : public GraphicsResource
 		{
 		private:
@@ -31,7 +39,7 @@ namespace XFX
 			void GetData(int offsetInBytes, T data[], int startIndex, int elementCount);
 			template <typename T>
 			void GetData(T data[], int startIndex, int elementCount);
-			static int GetType();
+			static const Type& GetType();
 			template <typename T>
 			void SetData(int offsetInBytes, T data[], int startIndex, int elementCount);
 			template <typename T>

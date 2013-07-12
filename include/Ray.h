@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Ray.h																	 *
  *																			 *
- *	XFX Ray definition file													 *
+ *	XFX::Ray definition file												 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_RAY_
@@ -18,7 +18,9 @@ namespace XFX
 	struct Plane;
 	struct Vector3;
 	
-	// Defines a ray.
+	/**
+	 * Defines a ray.
+	 */
 	struct Ray : IEquatable<Ray>, Object
 	{
 		Vector3 Direction;
@@ -31,7 +33,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Ray other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		float Intersects(BoundingBox boundingbox) const;
 		void Intersects(BoundingBox boundingbox, out float& result) const;
 		float Intersects(BoundingSphere sphere) const;

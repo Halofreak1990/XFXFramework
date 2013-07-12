@@ -1,4 +1,4 @@
-// Copyright (C) Halofreak_1990
+// Copyright (C) XFX Team
 // All rights reserved.
 // 
 // Redistribution and use in source and binary forms, with or without 

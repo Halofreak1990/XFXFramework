@@ -1,9 +1,9 @@
-/********************************************************
- *	Game.h												*
- *														*
- *	XFX Game class definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Game.h  																 *
+ *																			 *
+ *	XFX Game class definition file  										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GAME_
 #define _XFX_GAME_
 
@@ -25,7 +25,9 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	// Provides basic graphics device initialization, game logic, and rendering code.
+	/**
+	 * Provides basic graphics device initialization, game logic, and rendering code.
+	 */
 	class Game : public IDisposable, public Object
 	{
 	private:
@@ -86,14 +88,16 @@ namespace XFX
 
 		void Dispose();
 		void Exit();
-		static int GetType();
+		static const Type& GetType();
 		void ResetElapsedTime();
 		virtual void Run();
 		void SuppressDraw();
 		void Tick();
 	};
 	
-	// Base class for all XNA Framework game components.
+	/**
+	 * Base class for all XNA Framework game components.
+	 */
 	class GameComponent : public IGameComponent, public IUpdateable, public IDisposable, public Object
 	{
 	private:
@@ -123,12 +127,14 @@ namespace XFX
 		GameComponent(Game * const game);
 		
 		virtual void Dispose();
-		static int GetType();
+		static const Type& GetType();
 		virtual void Initialize();
 		virtual void Update(GameTime gameTime);
 	};
 	
-	// A game component that is notified when it needs to draw itself.
+	/**
+	 * A game component that is notified when it needs to draw itself.
+	 */
 	class DrawableGameComponent : public GameComponent, public IDrawable
 	{
 	private:
@@ -155,7 +161,7 @@ namespace XFX
     
 		DrawableGameComponent(Game * const game);
 		virtual void Draw(GameTime gameTime);
-		static int GetType();
+		static const Type& GetType();
 		void Initialize();
 		virtual void Update(GameTime gameTime);
 	};

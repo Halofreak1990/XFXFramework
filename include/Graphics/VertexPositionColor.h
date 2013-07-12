@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	VertexPositionColor.h													 *
  *																			 *
- *	XFX::Graphics::VertexPositionColor definition file  					 *
+ *	XFX::Graphics::VertexPositionColor structure definition file			 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONCOLOR_
@@ -18,7 +18,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Describes a custom vertex format structure that contains position and color information.
+		/**
+		 * Describes a custom vertex format structure that contains position and color information.
+		 */
 		struct VertexPositionColor : IVertexType, Object
 		{
 		private:
@@ -35,7 +37,7 @@ namespace XFX
 
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 
 			bool operator!=(const VertexPositionColor& other) const;

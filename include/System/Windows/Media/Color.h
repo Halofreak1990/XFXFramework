@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Color.h 																 *
+ *																			 *
+ *	System::Windows::Media::Color definition file							 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_MEDIA_COLOR_
 #define _SYSTEM_WINDOWS_MEDIA_COLOR_
 
@@ -46,7 +52,7 @@ namespace System
 				bool Equals(const Color other) const;
 				static Color FromARGB(byte alpha, byte red, byte green, byte blue);
 				int GetHashCode() const;
-				static int GetType();
+				static const Type& GetType();
 				const String ToString() const;
 
 				bool operator==(const Color& right) const;

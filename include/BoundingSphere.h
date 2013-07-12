@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	BoundingSphere.h														 *
  *																			 *
- *	XFX BoundingSphere definition file										 *
+ *	XFX::BoundingSphere definition file										 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_BOUNDINGSPHERE_
@@ -14,7 +14,9 @@ using namespace System;
 
 namespace XFX
 {
-	// Defines a sphere.
+	/**
+	 * Defines a sphere.
+	 */
 	struct BoundingSphere : IEquatable<BoundingSphere>, Object
 	{
 		Vector3 Center;
@@ -27,7 +29,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingSphere other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 		
 		bool operator==(const BoundingSphere& other) const;

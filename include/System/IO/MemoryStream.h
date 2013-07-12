@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	MemoryStream.h  														 *
+ *																			 *
+ *	XFX System::IO::MemoryStream class definition file  					 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_IO_MEMORYSTREAM_
 #define _SYSTEM_IO_MEMORYSTREAM_
 
@@ -8,7 +14,9 @@ namespace System
 {
 	namespace IO
 	{
-		// Creates a stream whose backing store is memory.
+		/**
+		 * Creates a stream whose backing store is memory.
+		 */
 		class MemoryStream : public Stream
 		{
 		private:
@@ -48,7 +56,7 @@ namespace System
 
 			void Flush();
 			virtual byte* GetBuffer();
-			static int GetType();
+			static const Type& GetType();
 			int Read(byte buffer[], int offset, int count);
 			int ReadByte();
 			long long Seek(long long offset, SeekOrigin_t loc);

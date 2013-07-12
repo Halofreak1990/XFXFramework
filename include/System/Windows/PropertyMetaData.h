@@ -15,7 +15,7 @@ namespace System
 		 * Defines certain behavior aspects of a dependency property, including conditions it was registered with.
 		 */
 		template <typename T>
-		class PropertyMetaData
+		class PropertyMetadata
 		{
 		public:
 			/**
@@ -29,13 +29,13 @@ namespace System
 			 * @param defaultValue
 			 * A default value for the property where this System::Windows::PropertyMetadata is applied.
 			 */
-			PropertyMetaData(T defaultValue);
+			PropertyMetadata(T defaultValue);
 		};
 
 		///////////////////////////////////////////////////////////////////////
 
 		template <typename T>
-		PropertyMetaData<T>::PropertyMetaData(T const defaultValue)
+		PropertyMetadata<T>::PropertyMetadata(T const defaultValue)
 			: DefaultValue(defaultValue)
 		{
 		}

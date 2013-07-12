@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	AudioCategory.h 														 *
  *																			 *
- *	XFX AudioCategory definition file										 *
+ *	XFX XFX::Audio::AudioCategory definition file							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef XFX_AUDIO_AUDIOCATEGORY_H
@@ -19,7 +19,7 @@ namespace XFX
 		{
 			String Name;
 
-			static int GetType();
+			static const Type& GetType();
 			void Pause();
 			void Resume();
 			void SetVolume(float volume);

@@ -186,6 +186,9 @@
     <ClCompile Include="StringBuilder.cpp">
       <Filter>Source Files\Text</Filter>
     </ClCompile>
+    <ClCompile Include="Type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\System\Array.h">
@@ -388,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\System\Text\StringBuilder.h">
       <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Enums.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

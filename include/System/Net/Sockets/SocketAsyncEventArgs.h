@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	SocketAsyncEventArgs.h  												 *
+ *																			 *
+ *	System::Net::Sockets::SocketAsyncEventArgs definition file  			 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
 #define _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
 
@@ -37,7 +43,7 @@ namespace System
 				SocketAsyncEventArgs();
 
 				void Dispose();
-				static int GetType();
+				static const Type& GetType();
 				void SetBuffer(const int offset, const int count);
 				void SetBuffer(byte buffer[], const int offset, const int count);
 			};

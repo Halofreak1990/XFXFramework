@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	DaylightTime.h  														 *
+ *																			 *
+ *	XFX System::Globalization::DaylightTime class definition file			 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_GLOBALIZATION_DAYLIGHTTIME_
 #define _SYSTEM_GLOBALIZATION_DAYLIGHTTIME_
 
@@ -8,7 +14,9 @@ namespace System
 {
 	namespace Globalization
 	{
-		// Defines the period of daylight saving time.
+		/**
+		 * Defines the period of daylight saving time.
+		 */
 		class DaylightTime : public IEquatable<DaylightTime>, public Object
 		{
 		public:
@@ -20,7 +28,7 @@ namespace System
 			DaylightTime(const DaylightTime &obj);
 
 			bool Equals(const DaylightTime other) const;
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator !=(const DaylightTime& right) const;
 			bool operator ==(const DaylightTime& right) const;

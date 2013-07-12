@@ -1,9 +1,9 @@
-/********************************************************
- *	GraphicsResource.h									*
- *														*
- *	XFX GraphicsResource definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GraphicsResource.h  													 *
+ *																			 *
+ *	XFX GraphicsResource definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_GRAPHICSRESOURCE_
 #define _XFX_GRAPHICS_GRAPHICSRESOURCE_
 
@@ -19,7 +19,9 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		// Queries and prepares resources.
+		/**
+		 * Queries and prepares resources.
+		 */
 		class GraphicsResource : public IDisposable, public Object
 		{
 		private:
@@ -42,7 +44,7 @@ namespace XFX
 			GraphicsResource();
 
 			void Dispose();
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

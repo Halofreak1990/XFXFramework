@@ -94,6 +94,7 @@
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
     </ClCompile>
     <ClCompile Include="TimeSpan.cpp" />
+    <ClCompile Include="Type.cpp" />
     <ClCompile Include="UInt16.cpp" />
     <ClCompile Include="UInt32.cpp" />
     <ClCompile Include="UInt64.cpp" />
@@ -129,10 +130,12 @@
     <ClInclude Include="..\..\include\System\DateTime.h" />
     <ClInclude Include="..\..\include\System\Delegates.h" />
     <ClInclude Include="..\..\include\System\Double.h" />
+    <ClInclude Include="..\..\include\System\Enums.h" />
     <ClInclude Include="..\..\include\System\Environment.h" />
     <ClInclude Include="..\..\include\System\Event.h" />
     <ClInclude Include="..\..\include\System\EventArgs.h" />
     <ClInclude Include="..\..\include\System\FrameworkResources.h" />
+    <ClInclude Include="..\..\include\System\Type.h" />
     <ClInclude Include="HashHelpers.h" />
     <ClInclude Include="..\..\include\System\Int16.h" />
     <ClInclude Include="..\..\include\System\Int32.h" />

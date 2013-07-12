@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	SamplerState.h  														 *
+ *																			 *
+ *	XFX::Graphics::SamplerState class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_SAMPLERSTATE_
 #define _XFX_GRAPHICS_SAMPLERSTATE_
 
@@ -7,7 +13,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Contains sampler state, which determines how to sample texture data.
+		/**
+		 * Contains sampler state, which determines how to sample texture data.
+		 */
 		class SamplerState : GraphicsResource
 		{
 		private:
@@ -49,7 +57,7 @@ namespace XFX
 			SamplerState();
 			~SamplerState();
 
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator==(const SamplerState& right) const;
 			bool operator!=(const SamplerState& right) const;

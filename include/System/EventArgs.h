@@ -1,9 +1,9 @@
-/********************************************************
- *	EventArgs.h											*
- *														*
- *	XFX EventArgs class definition file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	EventArgs.h																 *
+ *																			 *
+ *	XFX EventArgs class definition file 									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_EVENTARGS_
 #define _SYSTEM_EVENTARGS_
 
@@ -11,7 +11,9 @@
 
 namespace System
 {
-	// EventArgs is the base class for classes containing event data.
+	/**
+	 * EventArgs is the base class for classes containing event data.
+	 */
 	class EventArgs : public Object
 	{
 	public:
@@ -20,7 +22,7 @@ namespace System
 		EventArgs();
 		virtual ~EventArgs() { }
 
-		static int GetType();
+		static const Type& GetType();
 	};
 }
 

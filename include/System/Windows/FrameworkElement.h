@@ -18,7 +18,9 @@ namespace System
 		class DependencyObject;
 		struct Size;
 
-		// Provides a framework of common APIs for objects that participate in layout.
+		/**
+		 * Provides a framework of common APIs for objects that participate in layout.
+		 */
 		class FrameworkElement : public UIElement
 		{
 		protected:
@@ -32,8 +34,13 @@ namespace System
 			static const DependencyProperty<Int32> HeightProperty;
 			HorizontalAlignment_t HorizontalAlignment;
 			static const DependencyProperty<HorizontalAlignment_t> HorizontalAlignmentProperty;
-			// Gets or sets the outer margin of a System::Windows::FrameworkElement.
+			/**
+			 * Gets the outer margin of a System::Windows::FrameworkElement.
+			 */
 			Thickness getMargin() const;
+			/**
+			 * Sets the outer margin of a System::Windows::FrameworkElement.
+			 */
 			void setMargin(const Thickness value);
 			static const DependencyProperty<Thickness> MarginProperty;
 			DependencyObject* Parent;
@@ -45,7 +52,7 @@ namespace System
 
 			virtual ~FrameworkElement();
 
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

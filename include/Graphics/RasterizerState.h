@@ -1,9 +1,9 @@
-/********************************************************
- *	RasterizerState.h									*
- *														*
- *	XFX::Graphics::RasterizerState definition file		*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	RasterizerState.h														 *
+ *																			 *
+ *	XFX::Graphics::RasterizerState class definition file					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_RASTERIZERSTATE_
 #define _XFX_GRAPHICS_RASTERIZERSTATE_
 
@@ -13,7 +13,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
+		/**
+		 * Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
+		 */
 		class RasterizerState : public GraphicsResource
 		{
 		private:
@@ -49,7 +51,7 @@ namespace XFX
 			RasterizerState();
 			~RasterizerState();
 
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator==(const RasterizerState& right) const;
 			bool operator!=(const RasterizerState& right) const;

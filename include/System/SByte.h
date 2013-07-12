@@ -13,7 +13,9 @@ namespace System
 {
 	class String;
 
-	// Represents a signed 8-bit integer.
+	/**
+	 * Represents a signed 8-bit integer.
+	 */
 	struct SByte : IComparable<SByte>, IEquatable<SByte>, Object
 	{
 	private:
@@ -31,16 +33,14 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const SByte other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const sbyte value);
+		static const Type& GetType();
+		const String ToString() const;
+		static const String ToString(const sbyte value);
 		static bool TryParse(const String& str, out sbyte* value);
 
 		operator sbyte() const;
 		bool operator==(const SByte& right) const;
-		//bool operator==(const sbyte& right) const;
 		bool operator!=(const SByte& right) const;
-		//bool operator!=(const sbyte& right) const;
 	};
 }
 

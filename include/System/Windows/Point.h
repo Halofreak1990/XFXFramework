@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Point.h 																 *
+ *																			 *
+ *	System::Windows::Point definition file  								 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_POINT_
 #define _SYSTEM_WINDOWS_POINT_
 
@@ -7,7 +13,9 @@ namespace System
 {
 	namespace Windows
 	{
-		// Represents an x- and y-coordinate pair in two-dimensional space. Can also represent a logical point for certain property usages.
+		/**
+		 * Represents an x- and y-coordinate pair in two-dimensional space. Can also represent a logical point for certain property usages.
+		 */
 		struct Point : IEquatable<Point>, Object
 		{
 		public:
@@ -21,7 +29,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Point other) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 
 			bool operator==(const Point& right) const;

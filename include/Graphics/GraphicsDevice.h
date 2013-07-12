@@ -1,9 +1,9 @@
-/********************************************************
- *	GraphicsDevice.h									*
- *														*
- *	XFX GraphicsDevice definition file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GraphicsDevice.h														 *
+ *																			 *
+ *	XFX::Graphics::GraphicsDevice class definition file 					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_GRAPHICSDEVICE_
 #define _XFX_GRAPHICS_GRAPHICSDEVICE_
 
@@ -28,7 +28,9 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		// Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
+		/**
+		 * Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and creates shaders.
+		 */
 		class GraphicsDevice : public IDisposable, public Object
 		{
 		private:
@@ -84,7 +86,7 @@ namespace XFX
 			void DrawUserPrimitives(const PrimitiveType_t primitiveType, T vertexData[], int vertexOffset, int primitiveCount, VertexDeclaration vertexDeclaration);
 			template <typename T>
 			void GetBackBufferData(T data[], const int startIndex, const int elementCount);
-			static int GetType();
+			static const Type& GetType();
 			void Present();
 			void Reset();
 			void Reset(PresentationParameters * const presentationParameters);

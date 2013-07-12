@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Color.h																	 *
  *																			 *
- *	XFX::Graphics::Color definition file									 *
+ *	XFX::Graphics::Color structure definition file  						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_COLOR_
@@ -18,7 +18,9 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		// Represents a color using Red, Green, Blue, and Alpha values.
+		/**
+		 * Represents a color using Red, Green, Blue, and Alpha values.
+		 */
 		struct Color : IEquatable<Color>, Object
 		{
 		private:
@@ -187,7 +189,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Color other) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			unsigned int PackedValue() const;
 			const String ToString() const;
 			Vector4 ToVector4() const;

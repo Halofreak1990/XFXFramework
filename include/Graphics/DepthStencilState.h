@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	DepthStencilState.h														 *
  *																			 *
- *	XFX::Graphics::DepthStencilState definition file						 *
+ *	XFX::Graphics::DepthStencilState class definition file  				 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_DEPTHSTENCILSTATE_
@@ -42,7 +42,7 @@ namespace XFX
 			DepthStencilState();
 			~DepthStencilState();
 
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator==(const DepthStencilState& right) const;
 			bool operator!=(const DepthStencilState& right) const;

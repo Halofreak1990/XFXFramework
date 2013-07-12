@@ -1,9 +1,9 @@
-/********************************************************
- *	Stream.h											*
- *														*
- *	XFX Stream definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Stream.h																 *
+ *																			 *
+ *	XFX System::IO::Stream class definition file							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_IO_STREAM_
 #define _SYSTEM_IO_STREAM_
 
@@ -21,7 +21,9 @@ namespace System
 
 	namespace IO
 	{
-		// Provides a generic view of a sequence of bytes.
+		/**
+		 * Provides a generic view of a sequence of bytes.
+		 */
 		class Stream : public IDisposable, public Object
 		{
 		private:
@@ -51,7 +53,7 @@ namespace System
 			virtual int EndRead(IAsyncResult* asyncResult);
 			virtual void EndWrite(IAsyncResult* asyncResult);
 			virtual void Flush();
-			static int GetType();
+			static const Type& GetType();
 			virtual int Read(byte buffer[], int offset, int count);
 			virtual int ReadByte();
 			virtual long long Seek(long long offset, SeekOrigin_t origin);

@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Vector3.h																 *
  *																			 *
- *	XFX Vector3 definition file												 *
+ *	XFX::Vector3 definition file											 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_VECTOR3_
@@ -17,7 +17,9 @@ namespace XFX
 	struct Quaternion;
 	struct Vector2;
 	
-	// Defines a vector with three components.
+	/**
+	 * Defines a vector with three components.
+	 */
 	struct Vector3 : IEquatable<Vector3>, Object
 	{
 		float X, Y, Z;
@@ -62,7 +64,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Vector3 other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		static Vector3 Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount);
 		static void Hermite(const Vector3 value1, const Vector3 tangent1, const Vector3 value2, const Vector3 tangent2, const float amount, out Vector3& result);
 		float Length() const;

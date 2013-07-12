@@ -1,14 +1,13 @@
-/********************************************************
- *	SpriteBatch.h										*
- *														*
- *	XFX SpriteBatch definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	SpriteBatch.h															 *
+ *																			 *
+ *	XFX::Graphics::SpriteBatch class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_SPRITEBATCH_
 #define _XFX_GRAPHICS_SPRITEBATCH_
 
 #include "BlendState.h"
-#include "DepthStencilState.h"
 #include "Effect.h"
 #include "Enums.h"
 #include <Matrix.h>
@@ -35,7 +34,9 @@ namespace XFX
 		class GraphicsDevice;
 		class SpriteFont;
 		
-		// Enables a group of sprites to be drawn using the same settings.
+		/**
+		 * Enables a group of sprites to be drawn using the same settings.
+		 */
 		class SpriteBatch : public IDisposable, public Object
 		{
 		private:
@@ -84,7 +85,7 @@ namespace XFX
 			void DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth);
 			void DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth);
 			void End();
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

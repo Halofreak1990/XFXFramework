@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	RenderTarget2D.h														 *
  *																			 *
- *	XFX::Graphics::RenderTarget2D definition file							 *
+ *	XFX::Graphics::RenderTarget2D class definition file 					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_RENDERTARGET2D_
@@ -18,7 +18,9 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		// Contains a 2D texture that can be used as a render target.
+		/**
+		 * Contains a 2D texture that can be used as a render target.
+		 */
 		class RenderTarget2D : public Texture2D
 		{
 		private:
@@ -46,7 +48,7 @@ namespace XFX
 
 			EventHandler ContentLost;
 			
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator ==(const RenderTarget2D& right) const;
 			bool operator !=(const RenderTarget2D& right) const;

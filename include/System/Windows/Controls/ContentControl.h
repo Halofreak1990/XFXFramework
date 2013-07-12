@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	ContentControl.h														 *
+ *																			 *
+ *	System::Windows::Controls::ContentControl definition file				 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_CONTENTCONTROL_
 #define _SYSTEM_WINDOWS_CONTROLS_CONTENTCONTROL_
 
@@ -10,7 +16,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Represents a control with a single piece of content. Controls such as Button, CheckBox, and ScrollViewer directly, or indirectly inherit from this class.
+			/**
+			 * Represents a control with a single piece of content. Controls such as Button, CheckBox, and ScrollViewer directly, or indirectly inherit from this class.
+			 */
 			class ContentControl : public Control
 			{
 			protected:
@@ -26,7 +34,7 @@ namespace System
 
 				ContentControl();
 
-				static int GetType();
+				static const Type& GetType();
 			};
 		}
 	}

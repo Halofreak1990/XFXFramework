@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Texture2D.h																 *
  *																			 *
- *	XFX::Graphics::Texture2D definition file								 *
+ *	XFX::Graphics::Texture2D class definition file  						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_TEXTURE2D_
@@ -22,7 +22,9 @@ namespace XFX
 	{
 		class GraphicsDevice;
 
-		// Represents a 2D grid of texels.
+		/**
+		 * Represents a 2D grid of texels.
+		 */
 		class Texture2D : public Texture
 		{
 		private:
@@ -50,7 +52,7 @@ namespace XFX
 			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream);
 			static Texture2D* FromStream(GraphicsDevice * const graphicsDevice, Stream * const stream, int width, int height, bool zoom);
  			void GetData(uint data[], const int startIndex, const int elementCount) const;
-			static int GetType();
+			static const Type& GetType();
 			void SaveAsJpeg(Stream * const stream, int width, int height);
 			void SaveAsPng(Stream * const stream, int width, int height);
  			void SetData(uint data[], const int startIndex, const int elementCount);

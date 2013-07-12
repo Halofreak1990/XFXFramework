@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	RangeBase.h 															 *
+ *																			 *
+ *	System::Windows::Controls::Primitives::RangeBase definition file		 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_RANGEBASE_
 #define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_RANGEBASE_
 
@@ -12,7 +18,9 @@ namespace System
 		{
 			namespace Primitives
 			{
-				// Represents an element that has a value within a specific range, such as the System::Windows::Controls::ProgressBar, System::Windows::Controls::Primitives::ScrollBar, and System::Windows::Controls::Slider controls.
+				/**
+				 * Represents an element that has a value within a specific range, such as the System::Windows::Controls::ProgressBar, System::Windows::Controls::Primitives::ScrollBar, and System::Windows::Controls::Slider controls.
+				 */
 				class RangeBase : public Control
 				{
 				private:
@@ -39,7 +47,7 @@ namespace System
 
 					virtual ~RangeBase();
 
-					static int GetType();
+					static const Type& GetType();
 					const String ToString() const;
 
 					Event<Object * const, RoutedPropertyChangedEventArgs<int> * const> ValueChanged;

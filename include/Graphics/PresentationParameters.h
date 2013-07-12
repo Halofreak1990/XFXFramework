@@ -1,9 +1,9 @@
-/********************************************************
- *	PresentationParameters.h							*
- *														*
- *	XFX PresentationParameters definition file			*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	PresentationParameters.h												 *
+ *																			 *
+ *	XFX::Graphics::PresentationParameters class definition file				 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_PRESENTATIONPARAMETERS_
 #define _XFX_GRAPHICS_PRESENTATIONPARAMETERS_
 
@@ -18,7 +18,9 @@ namespace XFX
 
 	namespace Graphics
 	{
-		// Contains presentation parameters.
+		/**
+		 * Contains presentation parameters.
+		 */
 		class PresentationParameters : public Object
 		{
 		public:
@@ -37,7 +39,7 @@ namespace XFX
 			PresentationParameters* Clone() const;
 			bool Equals(Object const * const obj) const;
 			bool Equals(const PresentationParameters other) const;
-			static int GetType();
+			static const Type& GetType();
 			
 			bool operator!=(const PresentationParameters& other) const;
 			bool operator==(const PresentationParameters& other) const;

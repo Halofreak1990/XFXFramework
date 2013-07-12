@@ -1,9 +1,9 @@
-/********************************************************
- *	GameComponentCollectionEventArgs.h					*
- *														*
- *	XFX GameComponentCollectionEventArgs definition		*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GameComponentCollectionEventArgs.h  									 *
+ *																			 *
+ *	XFX GameComponentCollectionEventArgs definition 						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GAMECOMPONENTCOLLECTIONEVENTARGS_
 #define _XFX_GAMECOMPONENTCOLLECTIONEVENTARGS_
 
@@ -12,7 +12,9 @@
 
 namespace XFX
 {
-	// Arguments used with events from the GameComponentCollection.
+	/**
+	 * Arguments used with events from the GameComponentCollection.
+	 */
 	class GameComponentCollectionEventArgs : public EventArgs
 	{
 	private:
@@ -21,10 +23,10 @@ namespace XFX
 	public:
 		IGameComponent* getGameComponent() const;
 
-		GameComponentCollectionEventArgs(IGameComponent* gameComponent);
+		GameComponentCollectionEventArgs(IGameComponent * const gameComponent);
 		virtual ~GameComponentCollectionEventArgs() { }
 
-		static int GetType();
+		static const Type& GetType();
 	};
 }
 

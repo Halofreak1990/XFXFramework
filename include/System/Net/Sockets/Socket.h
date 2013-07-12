@@ -1,10 +1,10 @@
-/********************************************************
- *	Socket.h											*
- *														*
- *	XFX Socket class definition file					*
- *	Based on Windows Phone Socket class.				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Socket.h																 *
+ *																			 *
+ *	System::Net::Socket class definition file								 *
+ *	Based on Windows Phone Socket class.									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKET_
 #define _SYSTEM_NET_SOCKET_
 
@@ -25,7 +25,7 @@ namespace System
 		{
 			class SocketAsyncEventArgs;
 
-			class Socket : public IDisposable, public virtual Object
+			class Socket : public IDisposable, public Object
 			{
 			private:
 				AddressFamily_t addressFamily;
@@ -56,9 +56,9 @@ namespace System
 				static bool ConnectAsync(SocketType_t socketType, ProtocolType_t protocolType, SocketAsyncEventArgs e);
 				bool ConnectAsync(SocketAsyncEventArgs e);
 				void Dispose();
-				void EndConnect(IAsyncResult* asyncResult);
-				void EndDisconnect(IAsyncResult* asyncResult);
-				static int GetType();
+				void EndConnect(IAsyncResult * asyncResult);
+				void EndDisconnect(IAsyncResult * asyncResult);
+				static const Type& GetType();
 				bool ReceiveAsync(SocketAsyncEventArgs e);
 				bool ReceiveFromAsync(SocketAsyncEventArgs e);
 				bool SendAsync(SocketAsyncEventArgs e);

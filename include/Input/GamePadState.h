@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	GamePadState.h															 *
  *																			 *
- *	XFX::Input::GamePadState definition file								 *
+ *	XFX::Input::GamePadState structure definition file  					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_INPUT_GAMEPADSTATE_
@@ -13,7 +13,9 @@ namespace XFX
 {
 	namespace Input
 	{
-		// Represents specific information about the state of an Xbox Controller, including the current state of buttons and sticks.
+		/**
+		 * Represents specific information about the state of an Xbox Controller, including the current state of buttons and sticks.
+		 */
 		struct GamePadState : Object
 		{
 			GamePadButtons Buttons;
@@ -29,7 +31,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GamePadState obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			bool IsButtonDown(const Buttons_t button) const;
 			bool IsButtonUp(const Buttons_t button) const;
 			const String ToString() const;

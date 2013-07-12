@@ -1,9 +1,9 @@
-/********************************************************
- *	GraphicsDeviceInformation.h							*
- *														*
- *	XFX GraphicsDeviceInformation definition file		*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GraphicsDeviceInformation.h												 *
+ *																			 *
+ *	XFX GraphicsDeviceInformation class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _GRAPHICSDEVICEINFORMATION_
 #define _GRAPHICSDEVICEINFORMATION_
 
@@ -15,7 +15,9 @@ using namespace XFX::Graphics;
 
 namespace XFX
 {
-	// Holds the settings for creating a graphics device.
+	/**
+	 * Holds the settings for creating a graphics device.
+	 */
 	class GraphicsDeviceInformation : public Object
 	{
 	public:
@@ -26,7 +28,7 @@ namespace XFX
 	
 		GraphicsDeviceInformation Clone() const;
 		bool Equals(Object const * const obj) const;
-		static int GetType();
+		static const Type& GetType();
 	};
 }
 

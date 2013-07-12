@@ -11,7 +11,9 @@
 
 namespace System
 {
-	// Represents an unsigned, 32-bit integer.
+	/**
+	 * Represents an unsigned, 32-bit integer.
+	 */
 	struct UInt32 : IComparable<UInt32>, IEquatable<UInt32>, Object
 	{
 	private:
@@ -28,9 +30,9 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt32 other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const uint value);
+		static const Type& GetType();
+		const String ToString() const;
+		static const String ToString(const uint value);
 		static bool TryParse(const char* str, out uint* result);
 
 		operator uint() const;

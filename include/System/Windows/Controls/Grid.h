@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Grid.h  																 *
+ *																			 *
+ *	System::Windows::Controls::Grid definition file  						 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_GRID_
 #define _SYSTEM_WINDOWS_CONTROLS_GRID_
 
@@ -11,7 +17,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Defines a flexible grid area that consists of columns and rows.
+			/**
+			 * Defines a flexible grid area that consists of columns and rows.
+			 */
 			class Grid : public Panel
 			{
 			protected:
@@ -19,10 +27,10 @@ namespace System
 				Size MeasureOverride(const Size constraint);
 
 			public:
-				static const String ColumnProperty;
-				static const String ColumnSpanProperty;
-				static const String RowProperty;
-				static const String RowSpanProperty;
+				static const DependencyProperty<int> ColumnProperty;
+				static const DependencyProperty<int> ColumnSpanProperty;
+				static const DependencyProperty<int> RowProperty;
+				static const DependencyProperty<int> RowSpanProperty;
 
 				ColumnDefinitionCollection ColumnDefinitions;
 				RowDefinitionCollection RowDefinitions;
@@ -35,7 +43,7 @@ namespace System
 				int GetColumnSpan(FrameworkElement const * const element);
 				int GetRow(FrameworkElement const * const element);
 				int GetRowSpan(FrameworkElement const * const element);
-				static int GetType();
+				static const Type& GetType();
 				static void SetColumn(FrameworkElement * const element, const int column);
 				static void SetColumnSpan(FrameworkElement * const element, const int columnSpan);
 				static void SetRow(FrameworkElement * const element, const int row);

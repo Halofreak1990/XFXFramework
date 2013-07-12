@@ -1,9 +1,9 @@
-/********************************************************
- *	ContentManager.h									*
- *														*
- *	XFX ContentManager definition file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	ContentManager.h														 *
+ *																			 *
+ *	XFX::Content::ContentManager class definition file  					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_CONTENT_CONTENTMANAGER_
 #define _XFX_CONTENT_CONTENTMANAGER_
 
@@ -21,7 +21,9 @@ namespace XFX
 {
 	namespace Content
 	{		
-		// The ContentManager is the run-time component which loads managed objects from the binary files produced by the design time content pipeline. It also manages the lifespan of the loaded objects, disposing the content manager will also dispose any assets which are themselves System.IDisposable.
+		/**
+		 * The ContentManager is the run-time component which loads managed objects from the binary files produced by the design time content pipeline. It also manages the lifespan of the loaded objects, disposing the content manager will also dispose any assets which are themselves System.IDisposable.
+		 */
 		class ContentManager : public IDisposable, public Object
 		{
 		private:
@@ -34,7 +36,7 @@ namespace XFX
 			virtual void Dispose(bool disposing);
 			virtual Stream* OpenStream(const String& assetName);
 			template <class T>
-			T ReadAsset(const String& assetName); //! usage: T ReadAsset<T>(assetName); where T is the preferred type, i.e. Texture2D*
+			T* ReadAsset(const String& assetName); //! usage: T ReadAsset<T>(assetName); where T is the preferred type, i.e. Texture2D*
 			
 		public:
 			String RootDirectory;
@@ -44,9 +46,9 @@ namespace XFX
 			virtual ~ContentManager();
 		
 			void Dispose();
-			static int GetType();
+			static const Type& GetType();
 			template <class T>
-			T Load(const String& assetName); //! usage: T Load<T>(assetName); where T is the preferred type, i.e. Texture2D*
+			T* Load(const String& assetName); //! usage: T Load<T>(assetName); where T is the preferred type, i.e. Texture2D*
 			virtual void Unload();
 		};
 	}

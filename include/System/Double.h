@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Double.h																 *
  *																			 *
- *	XFX System::Double definition file  									 *
+ *	XFX System::Double structure definition file							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_DOUBLE_
@@ -14,7 +14,9 @@ namespace System
 {
 	class String;
 
-	// Represents a double precision floating point value.
+	/**
+	 * Represents a double precision floating point value.
+	 */
 	struct Double : IComparable<Double>, IEquatable<Double>, Object
 	{
 	private:
@@ -34,7 +36,7 @@ namespace System
 		int CompareTo(const Double other) const;
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 		static const String ToString(const double value);
 		static bool TryParse(const String& str, out double* result);

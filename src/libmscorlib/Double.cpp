@@ -28,6 +28,8 @@
 #include <System/Double.h>
 #include <System/FrameworkResources.h>
 #include <System/String.h>
+#include <System/Type.h>
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -45,6 +47,8 @@ namespace System
 	const double Double::NaN = *(double *)&rawNaND;
 	const double Double::PositiveInfinity = *(double *)&rawPosInfD;
 	const double Double::NegativeInfinity = *(double *)&rawNegInfD;
+
+	const Type DoubleTypeInfo("Double", "System::Double", TypeCode::Double);
 
 	Double::Double(const Double &obj)
 		: value(obj.value)
@@ -75,9 +79,9 @@ namespace System
 		return (int)value;
 	}
 
-	int Double::GetType()
+	Type Double::GetType()
 	{
-		return 14;
+		return DoubleTypeInfo;
 	}
 
 	bool Double::TryParse(const String& str, out double* result)

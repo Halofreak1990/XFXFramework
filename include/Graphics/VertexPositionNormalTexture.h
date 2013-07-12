@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	VertexPositionNormalTexture.h											 *
  *																			 *
- *	XFX::Graphics::VertexPositionNormalTexture definition file  			 *
+ *	XFX::Graphics::VertexPositionNormalTexture structure definition file	 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXPOSITIONNORMALTEXTURE_
@@ -18,7 +18,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Describes a custom vertex format structure that contains position, normal data, and one set of texture coordinates.
+		/**
+		 * Describes a custom vertex format structure that contains position, normal data, and one set of texture coordinates.
+		 */
 		struct VertexPositionNormalTexture : IVertexType, Object
 		{
 		private:
@@ -35,7 +37,7 @@ namespace XFX
 			
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 		
 			bool operator!=(const VertexPositionNormalTexture& other) const;

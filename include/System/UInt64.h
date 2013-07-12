@@ -13,7 +13,9 @@ namespace System
 {
 	class String;
 
-	// Represents an unsigned, 64-bit integer.
+	/**
+	 * Represents an unsigned, 64-bit integer.
+	 */
 	struct UInt64 : IComparable<UInt64>, IEquatable<UInt64>, Object
 	{
 	private:
@@ -30,9 +32,9 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const UInt64 other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		static const String& ToString(const ulong value);
+		static const Type& GetType();
+		const String ToString() const;
+		static const String ToString(const ulong value);
 		static bool TryParse(const String& str, out ulong* value);
 
 		operator ulong() const;

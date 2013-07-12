@@ -28,6 +28,7 @@
 #include <System/Array.h>
 #include <System/Math.h>
 #include <System/Single.h>
+#include <System/Type.h>
 #include <BoundingBox.h>
 #include <BoundingSphere.h>
 #include <BoundingFrustum.h>
@@ -40,6 +41,8 @@ using namespace System;
 
 namespace XFX
 {
+	const Type BoundingFrustumTypeInfo("BoundingFrustum", "XFX::BoundingFrustum", TypeCode::Object);
+
 	BoundingFrustum::BoundingFrustum()
 	{
 		planes[0] = Plane();
@@ -311,9 +314,9 @@ namespace XFX
 		return matrix.GetHashCode();
 	}
 
-	int BoundingFrustum::GetType()
+	const Type& BoundingFrustum::GetType()
 	{
-		// TODO: implement
+		return BoundingFrustumTypeInfo;
 	}
 
 	bool BoundingFrustum::Intersects(BoundingBox box)

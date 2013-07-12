@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Border.h																 *
+ *																			 *
+ *	System::Windows::Controls::Border definition file						 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_BORDER_
 #define _SYSTEM_WINDOWS_CONTROLS_BORDER_
 
@@ -29,10 +35,10 @@ namespace System
 				System::Windows::CornerRadius CornerRadius;
 				Thickness Padding;
 
-				static int GetType();
+				static const Type& GetType();
 			};
 		}
 	}
 }
 
-#endif _SYSTEM_WINDOWS_CONTROLS_BORDER_
+#endif //_SYSTEM_WINDOWS_CONTROLS_BORDER_

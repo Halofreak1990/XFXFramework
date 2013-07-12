@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Rect.h  																 *
+ *																			 *
+ *	XFX System::Windows::Rect structure definition file 					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_RECT_
 #define _SYSTEM_WINDOWS_RECT_
 
@@ -10,7 +16,9 @@ namespace System
 		struct Point;
 		struct Size;
 
-		// Describes the width, height, and point origin of a rectangle.
+		/**
+		 * Describes the width, height, and point origin of a rectangle.
+		 */
 		struct Rect : IEquatable<Rect>, Object
 		{
 		public:
@@ -34,7 +42,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Rect other) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			void Intersect(const Rect rect);
 			const String ToString() const;
 			void Union(const Point point);

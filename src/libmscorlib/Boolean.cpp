@@ -27,12 +27,15 @@
 
 #include <System/Boolean.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <string.h>
 
 namespace System
 {
 	const char* Boolean::TrueString = "True";
 	const char* Boolean::FalseString = "False";
+
+	const Type BooleanTypeInfo("Boolean", "System::Boolean", TypeCode::Boolean);
 
 	Boolean::Boolean()
 		: value(false)
@@ -60,7 +63,7 @@ namespace System
 
 	bool Boolean::Equals(Object const * const obj) const
 	{
-		return (obj != null && is(this, obj)) ? *this == *(Boolean *)obj : false;
+		return is(this, obj) ? *this == *(Boolean *)obj : false;
 	}
 
 	bool Boolean::Equals(const Boolean other) const
@@ -68,9 +71,9 @@ namespace System
 		return (*this == other);
 	}
 
-	int Boolean::GetType()
+	Type Boolean::GetType()
 	{
-		return 3;
+		return BooleanTypeInfo;
 	}
 
 	bool Boolean::Parse(const String& str)
@@ -84,16 +87,12 @@ namespace System
 
 	const String Boolean::ToString() const
 	{
-		if (value)
-			return TrueString;
-		return FalseString;
+		return (value) ? TrueString : FalseString;
 	}
 
-	const String& Boolean::ToString(bool value)
+	const String Boolean::ToString(bool value)
 	{
-		if (value)
-			return TrueString;
-		return FalseString;
+		return (value) ? TrueString : FalseString;
 	}
 
 	Boolean::operator bool() const

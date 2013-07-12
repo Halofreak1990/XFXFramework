@@ -1,8 +1,8 @@
 /*****************************************************************************
  *	DateTime.h																 *
  *																			 *
- *	XFX System::DateTime definition file									 *
- *	Copyright (c) XFX Team. All Rights Reserved								 *
+ *	XFX System::DateTime structure definition file  						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_DATETIME_
 #define _SYSTEM_DATETIME_
@@ -20,7 +20,9 @@ namespace System
 	class String;
 	struct TimeSpan;
 
-	// Represents an instant in time, typically expressed as a date and time of day.
+	/**
+	 * Represents an instant in time, typically expressed as a date and time of day.
+	 */
 	struct DateTime : IComparable<DateTime>, IEquatable<DateTime>, Object
 	{
 	private:
@@ -91,7 +93,7 @@ namespace System
 		String *GetDateTimeFormats(char format, IFormatProvider * const formatProvider);
 		String *GetDateTimeFormats(IFormatProvider * const formatProvider);
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		bool IsDaylighSavingTime();
 		static bool IsLeapYear(int year);
 		static DateTime Parse(String& s);
@@ -106,15 +108,15 @@ namespace System
 		long long ToFileTime();
 		long long ToFileTimeUtc();
 		DateTime ToLocalTime();
-		String& ToLongDateString();
-		String& ToLongTimeString();
+		String ToLongDateString();
+		String ToLongTimeString();
 		double ToOADate();
-		String& ToShortDateString();
-		String& ToShortTimeString();
+		String ToShortDateString();
+		String ToShortTimeString();
 		const String ToString() const;
-		String& ToString(IFormatProvider * const provider);
-		String& ToString(const String& format);
-		String& ToString(const String& format, IFormatProvider * const provider);
+		String ToString(IFormatProvider * const provider);
+		String ToString(const String& format);
+		String ToString(const String& format, IFormatProvider * const provider);
 		DateTime ToUniversalTime();
 
 		DateTime operator +(const TimeSpan other);

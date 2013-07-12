@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	BlendState.h															 *
  *																			 *
- *	XFX::Graphics::BlendState definition file								 *
+ *	XFX::Graphics::BlendState class definition file 						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_BLENDSTATE_
@@ -15,7 +15,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Contains blend state for the device.
+		/**
+		 * Contains blend state for the device.
+		 */
 		class BlendState : public GraphicsResource
 		{
 		private:
@@ -51,7 +53,7 @@ namespace XFX
 			BlendState();
 			~BlendState();
 
-			static int GetType();
+			static const Type& GetType();
 
 			bool operator==(const BlendState& right) const;
 			bool operator!=(const BlendState& right) const;

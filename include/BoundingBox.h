@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	BoundingBox.h															 *
  *																			 *
- *	XFX BoundingBox definition file											 *
+ *	XFX::BoundingBox structure definition file  							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_BOUNDINGBOX_
@@ -17,7 +17,9 @@ namespace XFX
 	struct Plane;
 	struct Ray;
 
-	// Defines an axis-aligned box-shaped 3D volume.
+	/**
+	 * Defines an axis-aligned box-shaped 3D volume.
+	 */
 	struct BoundingBox : IEquatable<BoundingBox>, Object
 	{
 	public:
@@ -43,7 +45,7 @@ namespace XFX
 		bool Equals(Object const * const obj) const;
 		bool Equals(const BoundingBox obj) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		bool Intersects(BoundingBox box) const;
 		void Intersects(BoundingBox box, out bool& result) const;
 		bool Intersects(BoundingSphere sphere) const;

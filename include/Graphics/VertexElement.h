@@ -1,9 +1,9 @@
-/********************************************************
- *	VertexElement.h										*
- *														*
- *	XFX VertexElement definition file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	VertexElement.h 														 *
+ *																			 *
+ *	XFX::Graphics::VertexElement structure definition file  				 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXELEMENT_
 #define _XFX_GRAPHICS_VERTEXELEMENT_
 
@@ -17,7 +17,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// Defines input vertex data to the pipeline.
+		/**
+		 * Defines input vertex data to the pipeline.
+		 */
 		struct VertexElement : Object
 		{
 			int Offset;
@@ -30,7 +32,7 @@ namespace XFX
 		
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 		
 			bool operator!=(const VertexElement& other) const;

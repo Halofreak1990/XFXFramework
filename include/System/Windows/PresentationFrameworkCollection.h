@@ -33,7 +33,7 @@ namespace System
 			void Clear();
 			bool Contains(const T& item) const;
 			void CopyTo(T array[], const int index) const;
-			static int GetType();
+			static const Type& GetType();
 			int IndexOf(const T& item) const;
 			void Insert(const int index, const T& item);
 			bool Remove(const T& item);
@@ -78,6 +78,14 @@ namespace System
 		void PresentationFrameworkCollection<T>::CopyTo(T array[], const int index) const
 		{
 			_items.CopyTo(array, index);
+		}
+
+		template <typename T>
+		const Type PresentationFrameworkCollection<T>::GetType()
+		{
+			static const Type PresentationFrameworkCollectionTypeInfo("PresentationFrameworkCollection", "System::Windows::PresentationFrameworkCollection", TypeCode::Object, true);
+
+			return PresentationFrameworkCollectionTypeInfo;
 		}
 
 		template <typename T>

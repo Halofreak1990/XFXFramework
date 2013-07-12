@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	GridLength.h															 *
+ *																			 *
+ *	System::Windows::GridLength definition file 							 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_GRIDLENGTH_
 #define _SYSTEM_WINDOWS_GRIDLENGTH_
 
@@ -9,7 +15,9 @@ namespace System
 {
 	namespace Windows
 	{
-		// Represents the length of elements that explicitly support Star unit types.
+		/**
+		 * Represents the length of elements that explicitly support Star unit types.
+		 */
 		struct GridLength : IEquatable<GridLength>, Object
 		{
 		private:
@@ -32,7 +40,7 @@ namespace System
 			bool Equals(Object const * const obj) const;
 			bool Equals(const GridLength other) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 
 			bool operator==(const GridLength& right) const;

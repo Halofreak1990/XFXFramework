@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Calendar.h  															 *
  *																			 *
- *	System::Globalization::Calendar definition file 						 *
+ *	XFX System::Globalization::Calendar class definition file				 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_GLOBALIZATION_CALENDAR_
@@ -15,7 +15,9 @@ namespace System
 
 	namespace Globalization
 	{
-		// Represents time in divisions, such as weeks, months, and years.
+		/**
+		 * Represents time in divisions, such as weeks, months, and years.
+		 */
 		class Calendar : public Object
 		{
 		public:
@@ -24,7 +26,7 @@ namespace System
 			DateTime AddMilliseconds(DateTime time, double milliseconds);
 			DateTime AddMinutes(DateTime time, int minutes);
 			DateTime AddMonths(DateTime time, int months);
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	TextBlock.h																 *
+ *																			 *
+ *	System::Windows::Controls::TextBlock definition file  					 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_TEXTBLOCK_
 #define _SYSTEM_WINDOWS_CONTROLS_TEXTBLOCK_
 
@@ -14,7 +20,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Provides a lightweight control for displaying small amounts of text.
+			/**
+			 * Provides a lightweight control for displaying small amounts of text.
+			 */
 			class TextBlock : public FrameworkElement
 			{
 			public:
@@ -25,7 +33,7 @@ namespace System
 				TextBlock();
 				~TextBlock();
 
-				static int GetType();
+				static const Type& GetType();
 				const String ToString() const;
 			};
 		}

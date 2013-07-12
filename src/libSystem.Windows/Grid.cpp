@@ -1,6 +1,34 @@
+// Copyright (C) XFX Team
+// All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without 
+// modification, are permitted provided that the following conditions are met:
+// 
+//     * Redistributions of source code must retain the above copyright 
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above copyright 
+//       notice, this list of conditions and the following disclaimer in the 
+//       documentation and/or other materials provided with the distribution.
+//     * Neither the name of the copyright holder nor the names of any 
+//       contributors may be used to endorse or promote products derived from 
+//       this software without specific prior written permission.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+// POSSIBILITY OF SUCH DAMAGE.
+
 #include <System/Int32.h>
 #include <System/Windows/Controls/Grid.h>
 #include <System/Windows/Size.h>
+#include <System/Type.h>
 
 namespace System
 {
@@ -8,10 +36,12 @@ namespace System
 	{
 		namespace Controls
 		{
-			const String Grid::ColumnProperty = "Column";
-			const String Grid::ColumnSpanProperty = "ColumnSpan";
-			const String Grid::RowProperty = "Row";
-			const String Grid::RowSpanProperty = "RowSpan";
+			const DependencyProperty<int> Grid::ColumnProperty = DependencyProperty<int>::Register("Column", Grid::GetType());
+			const DependencyProperty<int> Grid::ColumnSpanProperty = DependencyProperty<int>::Register("ColumnSpan", Grid::GetType());
+			const DependencyProperty<int> Grid::RowProperty = DependencyProperty<int>::Register("Row", Grid::GetType());
+			const DependencyProperty<int> Grid::RowSpanProperty = DependencyProperty<int>::Register("RowSpan", Grid::GetType());
+
+			const Type GridTypeInfo("Grid", "System:Windows::Controls::Grid", TypeCode::Object);
 
 			Size Grid::ArrangeOverride(const Size arrangeSize)
 			{
@@ -31,30 +61,27 @@ namespace System
 
 			int Grid::GetColumn(FrameworkElement const * const element)
 			{
-				Int32* columnValue = (Int32 *)element->GetValue(Grid::ColumnProperty);
-				return (columnValue) ? (int)(*columnValue) : 0;
+				return element->GetValue(Grid::ColumnProperty);
 			}
 
 			int Grid::GetColumnSpan(FrameworkElement const * const element)
 			{
-				Int32* columnSpanValue = (Int32*)element->GetValue(Grid::ColumnSpanProperty);
-				return (columnSpanValue) ? (int)(*columnSpanValue) : 0;
+				return element->GetValue(Grid::ColumnSpanProperty);
 			}
 
 			int Grid::GetRow(FrameworkElement const * const element)
 			{
-				Int32* rowValue = (Int32*)element->GetValue(Grid::RowProperty);
-				return (rowValue) ? (int)(*rowValue) : 0;
+				return element->GetValue(Grid::RowProperty);
 			}
 
 			int Grid::GetRowSpan(FrameworkElement const * const element)
 			{
-				Int32* rowSpanValue = (Int32*)element->GetValue(Grid::RowSpanProperty);
-				return (rowSpanValue) ? (int)(*rowSpanValue) : 0;
+				return element->GetValue(Grid::RowSpanProperty);
 			}
 
-			int Grid::GetType()
+			const Type& Grid::GetType()
 			{
+				return GridTypeInfo;
 			}
 
 			void Grid::SetColumn(FrameworkElement * const element, const int column)
@@ -62,7 +89,7 @@ namespace System
 				if (!element)
 					return;
 
-				element->SetValue(Grid::ColumnProperty, new Int32(column));
+				element->SetValue(Grid::ColumnProperty, column);
 			}
 
 			void Grid::SetColumnSpan(FrameworkElement * const element, const int columnSpan)
@@ -70,7 +97,7 @@ namespace System
 				if (!element)
 					return;
 
-				element->SetValue(Grid::ColumnSpanProperty, new Int32(columnSpan));
+				element->SetValue(Grid::ColumnSpanProperty, columnSpan);
 			}
 
 			void Grid::SetRow(FrameworkElement * const element, const int row)
@@ -78,7 +105,7 @@ namespace System
 				if (!element)
 					return;
 
-				element->SetValue(Grid::RowProperty, new Int32(row));
+				element->SetValue(Grid::RowProperty, row);
 			}
 
 			void Grid::SetRowSpan(FrameworkElement * const element, const int rowSpan)
@@ -86,7 +113,7 @@ namespace System
 				if (!element)
 					return;
 
-				element->SetValue(Grid::RowSpanProperty, new Int32(rowSpan));
+				element->SetValue(Grid::RowSpanProperty, rowSpan);
 			}
 
 			bool Grid::operator ==(const Grid &right) const

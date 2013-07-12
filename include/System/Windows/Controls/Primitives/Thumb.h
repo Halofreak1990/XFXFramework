@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	Thumb.h 																 *
+ *																			 *
+ *	System::Windows::Controls::Primitives::Thumb definition file			 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_THUMB_
+#define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_THUMB_
 
 #include <System/Windows/Controls/Control.h>
 #include <System/Windows/Controls/Enums.h>
@@ -14,15 +21,17 @@ namespace System
 		{
 			namespace Primitives
 			{
-				// Represents a control that can be dragged by the user.
+				/**
+				 * Represents a control that can be dragged by the user.
+				 */
 				class Thumb : public Control
 				{
 				protected:
-					void OnGotFocus(RoutedEventArgs* e);
-					void OnLostFocus(RoutedEventArgs* e);
-					void OnMouseEnter(MouseEventArgs* e);
-					void OnMouseLeave(MouseEventArgs* e);
-					void OnMouseMove(MouseEventArgs* e);
+					void OnGotFocus(RoutedEventArgs * const e);
+					void OnLostFocus(RoutedEventArgs * const e);
+					void OnMouseEnter(MouseEventArgs * const e);
+					void OnMouseLeave(MouseEventArgs * const e);
+					void OnMouseMove(MouseEventArgs * const e);
 
 				public:
 					ClickMode_t ClickMode;
@@ -30,7 +39,7 @@ namespace System
 					Thumb();
 
 					void CancelDrag();
-					static int GetType();
+					static const Type& GetType();
 
 					bool operator ==(const Thumb& right) const;
 					bool operator !=(const Thumb& right) const;
@@ -41,3 +50,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_THUMB_

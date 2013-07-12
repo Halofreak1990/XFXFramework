@@ -1,9 +1,9 @@
-/********************************************************
- *	GameComponentCollection.h							*
- *														*
- *	XFX GameComponentCollection definition file			*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GameComponentCollection.h												 *
+ *																			 *
+ *	XFX GameComponentCollection definition file 							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GAMECOMPONENTCOLLECTION_
 #define _XFX_GAMECOMPONENTCOLLECTION_
 
@@ -17,7 +17,9 @@ using namespace System::Collections::Generic;
 
 namespace XFX
 {
-	// A collection of game components.
+	/**
+	 * A collection of game components.
+	 */
 	class GameComponentCollection : public Object
 	{
 	private:
@@ -36,10 +38,10 @@ namespace XFX
 		virtual ~GameComponentCollection();
 		IGameComponent* operator[](const int index);
 
-		static int GetType();
+		static const Type& GetType();
 
-		Event<Object*, GameComponentCollectionEventArgs*> ComponentAdded;
-		Event<Object*, GameComponentCollectionEventArgs*> ComponentRemoved;
+		Event<Object * const, GameComponentCollectionEventArgs * const> ComponentAdded;
+		Event<Object * const, GameComponentCollectionEventArgs * const> ComponentRemoved;
 	};
 }
 

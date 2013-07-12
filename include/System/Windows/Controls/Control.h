@@ -1,4 +1,11 @@
-#pragma once
+/*****************************************************************************
+ *	Control.h																 *
+ *																			 *
+ *	System::Windows::Controls::Panel definition file	 					 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
+#ifndef _SYSTEM_WINDOWS_CONTROLS_CONTROL_
+#define _SYSTEM_WINDOWS_CONTROLS_CONTROL_
 
 #include <System/Windows/FrameworkElement.h>
 #include <System/Windows/Media/Brush.h>
@@ -11,7 +18,9 @@ namespace System
 	{
 		namespace Controls
 		{
-			// Represents the base class for UI elements that use a System::Windows::Controls::ControlTemplate to define their appearance.
+			/**
+			 * Represents the base class for UI elements that use a System::Windows::Controls::ControlTemplate to define their appearance.
+			 */
 			class Control : public FrameworkElement
 			{
 			protected:
@@ -41,7 +50,7 @@ namespace System
 
 				bool ApplyTemplate();
 				bool Focus();
-				static int GetType();
+				static const Type& GetType();
 
 				bool operator ==(const Control& right) const;
 				bool operator !=(const Control& right) const;
@@ -49,3 +58,5 @@ namespace System
 		}
 	}
 }
+
+#endif //_SYSTEM_WINDOWS_CONTROLS_CONTROL_

@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	CancelEventArgs.h														 *
+ *																			 *
+ *	System::ComponentModel::CancelEventArgs definition file 				 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_COMPONENTMODEL_CANCELEVENTARGS_
 #define _SYSTEM_COMPONENTMODEL_CANCELEVENTARGS_
 
@@ -7,7 +13,9 @@ namespace System
 {
 	namespace ComponentModel
 	{
-		// Provides data for a cancelable event.
+		/**
+		 * Provides data for a cancelable event.
+		 */
 		class CancelEventArgs : public EventArgs
 		{
 		public:
@@ -16,7 +24,7 @@ namespace System
 			CancelEventArgs();
 			CancelEventArgs(const bool value);
 
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

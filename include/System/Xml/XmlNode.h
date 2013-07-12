@@ -1,3 +1,11 @@
+/*****************************************************************************
+ *	XmlNode.h																 *
+ *																			 *
+ *	System::Xml::XmlNode definition file									 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
+#ifndef _SYSTEM_XML_XMLNODE_
+#define _SYSTEM_XML_XMLNODE_
 
 #include <System/String.h>
 #include <System/Xml/Enums.h>
@@ -18,7 +26,9 @@ namespace System
 
 	namespace Xml
 	{
-		// Represents a single node in the XML document.
+		/**
+		 * Represents a single node in the XML document.
+		 */
 		class XmlNode : public IXPathNavigable, public Object
 		{
 		public:
@@ -55,7 +65,7 @@ namespace System
 			XPathNavigator* CreateNavigator();
 			virtual String GetNamespaceOfPrefix(const String& prefix);
 			virtual String GetPrefixOfNamespace(const String& namespaceURI);
-			static int GetType();
+			static const Type& GetType();
 			virtual XmlNode* InsertAfter(XmlNode* newChild, XmlNode* refChild);
 			virtual XmlNode* InsertBefore(XmlNode* newChild, XmlNode* refChild);
 			virtual void Normalize();
@@ -73,3 +83,5 @@ namespace System
 		};
 	}
 }
+
+#endif //_SYSTEM_XML_XMLNODE_

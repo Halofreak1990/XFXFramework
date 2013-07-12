@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Window.h																 *
+ *																			 *
+ *	System::Windows::Window definition file 								 *
+ *	Copyright (c) XFX Team. All rights reserved								 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_WINDOW_
 #define _SYSTEM_WINDOWS_WINDOW_
 
@@ -40,7 +46,7 @@ namespace System
 
 			void Close();
 			static Window* Create(const int left, const int top, const String& title);
-			static int GetType();
+			static const Type& GetType();
 			void Hide();
 			void Render();
 			void Show();

@@ -27,11 +27,17 @@
 
 #include <System/Int32.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
 namespace System
 {
+	const int Int32::MaxValue = 0x7FFFFFFF;
+	const int Int32::MinValue = 0x80000000;
+
+	const Type Int32TypeInfo("Int32", "System::Int32", TypeCode::Int32);
+
 	Int32::Int32()
 		: value(0)
 	{
@@ -58,9 +64,6 @@ namespace System
 
 	bool Int32::Equals(Object const * const obj) const
 	{
-		if (!obj)
-			return false;
-
 		return is(obj, this) ? *this == *(Int32 *)obj : false;
 	}
 
@@ -74,17 +77,17 @@ namespace System
 		return value;
 	}
 
-	int Int32::GetType()
+	const Type& Int32::GetType()
 	{
-		return 9;
+		return Int32TypeInfo;
 	}
 
-	const String& Int32::ToString() const
+	const String Int32::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const String& Int32::ToString(const int value)
+	const String Int32::ToString(const int value)
 	{
 		return String::Format("%i", value);
 	}

@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Int32.h																	 *
  *																			 *
- *	XFX System::Int32 definition file  										 *
+ *	XFX System::Int32 structure definition file 							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_INT32_
@@ -13,7 +13,9 @@ namespace System
 {
 	class String;
 
-	// Represents a signed, 32-bit integer.
+	/**
+	 * Represents a signed, 32-bit integer.
+	 */
 	struct Int32 : IComparable<Int32>, IEquatable<Int32>, Object
 	{
 	private:
@@ -31,7 +33,7 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Int32 other) const;
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		const String ToString() const;
 		static const String ToString(const int value);
 		static bool TryParse(const String& str, out int* result);

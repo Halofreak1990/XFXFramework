@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	ToggleButton.h															 *
+ *																			 *
+ *	System::Windows::Controls::Primitives::ToggleButton definition file 	 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_TOGGLEBUTTON_
 #define _SYSTEM_WINDOWS_CONTROLS_PRIMITIVES_TOGGLEBUTTON_
 
@@ -12,7 +18,9 @@ namespace System
 		{
 			namespace Primitives
 			{
-				// Base class for controls that can switch states, such as System::Windows::Controls::CheckBox and System::Windows::Controls::RadioButton.
+				/**
+				 * Base class for controls that can switch states, such as System::Windows::Controls::CheckBox and System::Windows::Controls::RadioButton.
+				 */
 				class ToggleButton : public ButtonBase
 				{
 				protected:
@@ -27,7 +35,7 @@ namespace System
 					ToggleButton();
 					virtual ~ToggleButton();
 
-					static int GetType();
+					static const Type& GetType();
 					const String ToString() const;
 
 					bool operator==(const ToggleButton& right) const;

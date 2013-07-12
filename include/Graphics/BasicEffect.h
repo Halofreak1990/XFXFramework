@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	BasicEffect.h															 *
  *																			 *
- *	XFX::Graphics::BasicEffect definition file  							 *
+ *	XFX::Graphics::BasicEffect class definition file						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_BASICEFFECT_
@@ -19,7 +19,9 @@ namespace XFX
 		class GraphicsDevice;
 		class Texture2D;
 
-		// Contains a basic rendering effect.
+		/**
+		 * Contains a basic rendering effect.
+		 */
 		class BasicEffect : public Effect
 		{
 		private:
@@ -57,7 +59,7 @@ namespace XFX
 
 			Effect* Clone() const;
 			void EnableDefaultLighting();
-			static int GetType();
+			static const Type& GetType();
 		};
 	}
 }

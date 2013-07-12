@@ -36,7 +36,7 @@ namespace XFX
 			void Dispose();
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			const String ToString() const;
 
 			bool operator!=(const StateBlock& right) const;

@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	GameTime.h																 *
  *																			 *
- *	XFX GameTime definition file											 *
+ *	XFX GameTime class definition file										 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GAMETIME_
@@ -13,7 +13,9 @@ using namespace System;
 
 namespace XFX
 {
-	// Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed- step (game time) games.
+	/**
+	 * Snapshot of the game timing state expressed in values that can be used by variable-step (real time) or fixed- step (game time) games.
+	 */
 	class GameTime : public Object
 	{
 	private:
@@ -30,7 +32,7 @@ namespace XFX
 		GameTime(const TimeSpan totalGameTime, const TimeSpan elapsedGameTime, const bool isRunningSlowly);
 		GameTime();
 
-		static int GetType();
+		static const Type& GetType();
 	};
 }
 

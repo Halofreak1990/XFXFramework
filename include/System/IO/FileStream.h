@@ -1,9 +1,9 @@
-/********************************************************
- *	FileStream.h										*
- *														*
- *	XFX FileStream definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	FileStream.h															 *
+ *																			 *
+ *	XFX System::IO::FileStream class definition file						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_IO_FILESTREAM_
 #define _SYSTEM_IO_FILESTREAM_
 
@@ -16,7 +16,9 @@ namespace System
 {
 	namespace IO
 	{
-		// Exposes a Stream around a file, supporting both synchronous and asynchronous read and write operations.
+		/**
+		 * Exposes a Stream around a file, supporting both synchronous and asynchronous read and write operations.
+		 */
 		class FileStream : public Stream
 		{
 		private:
@@ -61,7 +63,7 @@ namespace System
 			virtual int EndRead(IAsyncResult* asyncResult);
 			virtual void EndWrite(IAsyncResult* asyncResult);
 			void Flush();
-			static int GetType();
+			static const Type& GetType();
 			int Read(byte array[], const int offset, const int count);
 			int ReadByte();
 			long long Seek(const long long offset, const SeekOrigin_t origin);

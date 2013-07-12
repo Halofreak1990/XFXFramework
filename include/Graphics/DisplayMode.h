@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	DisplayMode.h															 *
  *																			 *
- *	XFX DisplayMode structure definition file								 *
+ *	XFX::Graphics::DisplayMode structure definition file					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_DISPLAYMODE_
@@ -18,7 +18,9 @@ namespace XFX
 	
 	namespace Graphics
 	{
-		// Describes the display mode.
+		/**
+		 * Describes the display mode.
+		 */
 		struct DisplayMode : Object
 		{
 			float getAspectRatio() const;
@@ -29,9 +31,10 @@ namespace XFX
 			int Width;
 				
 			DisplayMode();
+
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
-			static int GetType();
+			static const Type& GetType();
 			
 			bool operator!=(const DisplayMode& other) const;
 			bool operator==(const DisplayMode& other) const;

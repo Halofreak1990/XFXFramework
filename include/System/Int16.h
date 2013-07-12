@@ -31,9 +31,9 @@ namespace System
 		bool Equals(Object const * const obj) const;
 		bool Equals(const Int16 other) const;
 		int GetHashCode() const;
-		static int GetType();
-		const String& ToString() const;
-		static String& ToString(const short value);
+		static Type GetType();
+		const String ToString() const;
+		static String ToString(const short value);
 		static bool TryParse(const String& str, out short* result);
 
 		operator short() const;

@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Rectangle.h																 *
+ *																			 *
+ *	XFX::Graphics::VertexDeclaration class definition file  				 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GRAPHICS_VERTEXDECLARATION_
 #define _XFX_GRAPHICS_VERTEXDECLARATION_
 
@@ -8,7 +14,9 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		// A vertex declaration, which defines per-vertex data.
+		/**
+		 * A vertex declaration, which defines per-vertex data.
+		 */
 		class VertexDeclaration : public GraphicsResource
 		{
 		private:
@@ -27,7 +35,7 @@ namespace XFX
 			VertexDeclaration(const VertexDeclaration &obj);
 			~VertexDeclaration();
 
-			static int GetType();
+			static const Type& GetType();
 			VertexElement* GetVertexElements() const;
 		};
 	}

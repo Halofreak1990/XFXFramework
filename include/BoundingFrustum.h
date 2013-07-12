@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	BoundingFrustum.h														 *
  *																			 *
- *	XFX BoundingFrustum definition file 									 *
+ *	XFX::BoundingFrustum class definition file  							 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_BOUNDINGFRUSTRUM_
@@ -22,7 +22,9 @@ namespace XFX
 	struct Ray;
 	struct Vector3;
 
-	// Defines a frustum and helps determine whether forms intersect with it.
+	/**
+	 * Defines a frustum and helps determine whether shapes intersect with it.
+	 */
 	class BoundingFrustum : public IEquatable<BoundingFrustum>, public Object
 	{
 	private:
@@ -69,7 +71,7 @@ namespace XFX
 		Vector3* GetCorners();
 		void GetCorners(Vector3 corners[]);
 		int GetHashCode() const;
-		static int GetType();
+		static const Type& GetType();
 		bool Intersects(BoundingBox box);
 		bool Intersects(BoundingFrustum frustrum);
 		bool Intersects(BoundingSphere sphere);
