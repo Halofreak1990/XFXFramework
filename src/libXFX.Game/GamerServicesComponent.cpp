@@ -26,18 +26,22 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GamerServices/GamerServicesComponent.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace GamerServices
 	{
+		const Type GamerServicesComponentTypeInfo("GamerServicesComponent", "XFX::GamerServicesComponent", TypeCode::Object);
+
 		GamerServicesComponent::GamerServicesComponent(Game * const game)
 			: GameComponent(game)
 		{
 		}
 
-		int GamerServicesComponent::GetType()
+		const Type& GamerServicesComponent::GetType()
 		{
+			return GamerServicesComponentTypeInfo;
 		}
 
 		void GamerServicesComponent::Initialize()

@@ -39,6 +39,7 @@ extern "C"
 #include <Game.h>
 #include <System/Collections/Generic/List.h>
 #include <Graphics/GraphicsDevice.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -47,6 +48,8 @@ namespace XFX
 	const long long Game::DefaultTargetElapsedTicks = 10000000L / 60L;
 	const TimeSpan Game::maximumElapsedTime = TimeSpan::FromMilliseconds(500.0);
 	
+	const Type GameTypeInfo("Game", "XFX::Game", TypeCode::Object);
+
 	bool Game::IsActive()
 	{
 		return isActive;
@@ -145,7 +148,9 @@ namespace XFX
 	void Game::EndDraw()
 	{
 		if(graphicsManager)
+		{
 			graphicsManager->EndDraw();
+		}
 	}
 
 	void Game::EndRun()
@@ -158,8 +163,9 @@ namespace XFX
 		XReboot();
 	}
 
-	int Game::GetType()
+	const Type& Game::GetType()
 	{
+		return GameTypeInfo;
 	}
 
 	void Game::Initialize()

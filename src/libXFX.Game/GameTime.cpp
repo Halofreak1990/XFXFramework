@@ -26,9 +26,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GameTime.h>
+#include <System/Type.h>
 
 namespace XFX
 {
+	const Type GameTimeTypeInfo("GameTime", "XFX::GameTime", TypeCode::Object);
+
 	bool GameTime::IsRunningSlowly() const
 	{
 		return _isRunningSlowly;
@@ -58,7 +61,8 @@ namespace XFX
 	{
 	}
 
-	int GameTime::GetType()
+	const Type& GameTime::GetType()
 	{
+		return GameTimeTypeInfo;
 	}
 }

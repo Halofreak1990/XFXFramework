@@ -79,7 +79,7 @@ namespace System
 		return (int)value;
 	}
 
-	Type Double::GetType()
+	const Type& Double::GetType()
 	{
 		return DoubleTypeInfo;
 	}

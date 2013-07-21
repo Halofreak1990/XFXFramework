@@ -31,7 +31,7 @@ namespace System
 
 		public:
 			int Height;
-			static const DependencyProperty<Int32> HeightProperty;
+			static const DependencyProperty<int> HeightProperty;
 			HorizontalAlignment_t HorizontalAlignment;
 			static const DependencyProperty<HorizontalAlignment_t> HorizontalAlignmentProperty;
 			/**
@@ -48,7 +48,7 @@ namespace System
 			static const DependencyProperty<VerticalAlignment_t> VerticalAlignmentProperty;
 			int getWidth() const;
 			void setWidth(const int value);
-			static const DependencyProperty<Int32> WidthProperty;
+			static const DependencyProperty<int> WidthProperty;
 
 			virtual ~FrameworkElement();
 

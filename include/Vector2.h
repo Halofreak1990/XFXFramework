@@ -49,7 +49,7 @@ namespace XFX
 		bool			Equals(Object const * const obj) const;
 		bool			Equals(const Vector2 other) const;
 		int				GetHashCode() const;
-		int				GetType() const;
+		static int		GetType();
 		static Vector2	Hermite(const Vector2 value1, const Vector2 tangent1, const Vector2 value2, const Vector2 tangent2, const float amount);
 		static void		Hermite(const Vector2& value1, const Vector2& tangent1, const Vector2& value2, const Vector2& tangent2, const float amount, out Vector2& result);
 		float			Length() const;

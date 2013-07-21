@@ -27,12 +27,15 @@
 
 #include <System/Byte.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <stdlib.h>
 
 namespace System
 {
 	const byte Byte::MaxValue = 255;
 	const byte Byte::MinValue = 0;
+
+	const Type ByteTypeInfo("Byte", "System::Byte", TypeCode::Byte);
 
 	Byte::Byte()
 		: value(0)
@@ -63,9 +66,9 @@ namespace System
 		return (value == other.value);
 	}
 
-	int Byte::GetType()
+	const Type& Byte::GetType()
 	{
-		return 6;
+		return ByteTypeInfo;
 	}
 
 	const String Byte::ToString() const
@@ -73,7 +76,7 @@ namespace System
 		return String::Format("%i", value);
 	}
 
-	const String& Byte::ToString(byte value)
+	const String Byte::ToString(byte value)
 	{
 		return String::Format("%i", value);
 	}

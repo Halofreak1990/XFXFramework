@@ -28,7 +28,9 @@
 #include <Audio/SoundEffect.h>
 #include <Audio/SoundEffectInstance.h>
 
+#include <System/FrameworkResources.h>
 #include <System/Single.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -37,6 +39,8 @@ namespace XFX
 	namespace Audio
 	{
 		float SoundEffect::masterVolume = 1.0f;
+
+		const Type SoundEffectTypeInfo("SoundEffect", "XFX::Audio::SoundEffect", TypeCode::Object);
 
 		float SoundEffect::getDistanceScale()
 		{
@@ -59,7 +63,7 @@ namespace XFX
 
 		void SoundEffect::setDopplerScale(float value)
 		{
-			sassert(value >= 0, "");
+			sassert(value >= 0, String::Format("value; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 		
 			dopplerScale = value;
 
@@ -113,6 +117,12 @@ namespace XFX
 
 		void SoundEffect::Dispose(bool disposing)
 		{
+			if (!isDisposed)
+			{
+				if (disposing)
+				{
+				}
+			}
 		}
 
 		SoundEffect* SoundEffect::FromStream(Stream * const stream)
@@ -120,8 +130,9 @@ namespace XFX
 			
 		}
 
-		int SoundEffect::GetType() const
+		const Type& SoundEffect::GetType()
 		{
+			return SoundEffectTypeInfo;
 		}
 
 		bool SoundEffect::Play()

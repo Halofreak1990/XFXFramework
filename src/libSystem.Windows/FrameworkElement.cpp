@@ -28,17 +28,21 @@
 #include <System/Windows/FrameworkElement.h>
 #include <System/Windows/Size.h>
 
+#include <System/Type.h>
+
 namespace System
 {
 	namespace Windows
 	{
-		const DependencyProperty<Int32> FrameworkElement::HeightProperty = DependencyProperty<Int32>::Register("Height", FrameworkElement::GetType());
+		const DependencyProperty<int> FrameworkElement::HeightProperty = DependencyProperty<int>::Register("Height", FrameworkElement::GetType());
 
 		const DependencyProperty<Thickness> FrameworkElement::MarginProperty = DependencyProperty<Thickness>::Register("Margin", FrameworkElement::GetType());
 
 		const DependencyProperty<VerticalAlignment_t> FrameworkElement::VerticalAlignmentProperty = DependencyProperty<VerticalAlignment_t>::Register("VerticalAlignment", FrameworkElement::GetType());
 
-		const DependencyProperty<Int32> FrameworkElement::WidthProperty = DependencyProperty<Int32>::Register("Width", FrameworkElement::GetType());
+		const DependencyProperty<int> FrameworkElement::WidthProperty = DependencyProperty<int>::Register("Width", FrameworkElement::GetType());
+
+		const Type FrameworkElementTypeInfo("FrameworkElement", "System::Windows::FrameworkElement", TypeCode::Object);
 
 		Thickness FrameworkElement::getMargin() const
 		{
@@ -78,8 +82,9 @@ namespace System
 		{
 		}
 
-		int FrameworkElement::GetType()
+		const Type& FrameworkElement::GetType()
 		{
+			return FrameworkElementTypeInfo;
 		}
 
 		Size FrameworkElement::MeasureOverride(const Size finalSize)

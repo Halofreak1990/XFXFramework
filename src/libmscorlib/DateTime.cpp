@@ -33,6 +33,8 @@
 #include <System/TimeZone.h>
 #include <System/Type.h>
 
+#include <xboxkrnl/xboxkrnl.h>
+
 #include <sassert.h>
 
 namespace System
@@ -295,7 +297,7 @@ namespace System
 		return (int)encoded;
 	}
 
-	Type DateTime::GetType()
+	const Type& DateTime::GetType()
 	{
 		return DateTimeTypeInfo;
 	}

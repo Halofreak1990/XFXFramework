@@ -28,6 +28,7 @@
 #include <GraphicsDeviceManager.h>
 #include <Game.h>
 #include <System/Event.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -44,6 +45,8 @@ namespace XFX
 	const int GraphicsDeviceManager::DefaultBackBufferHeight = 480;
 	SurfaceFormat_t GraphicsDeviceManager::ValidAdapterFormats[] = { SurfaceFormat::Bgr565 }; // TODO figure out which ones are really supported
 	SurfaceFormat_t GraphicsDeviceManager::ValidBackBufferFormats[] = { SurfaceFormat::Bgr565, SurfaceFormat::Bgra5551, SurfaceFormat::Color }; // idem
+
+	const Type GraphicsDeviceManagerTypeInfo("GraphicsDeviceManager", "XFX::GraphicsDeviceManager", TypeCode::Object);
 
 	GraphicsDeviceManager::GraphicsDeviceManager(Game * const game)
 		: _game(game), backBufferFormat(SurfaceFormat::Color), backBufferHeight(DefaultBackBufferHeight), backBufferWidth(DefaultBackBufferWidth)
@@ -140,8 +143,9 @@ namespace XFX
 		graphicsDevice->Present();
 	}
 
-	int GraphicsDeviceManager::GetType()
+	const Type& GraphicsDeviceManager::GetType()
 	{
+		return GraphicsDeviceManagerTypeInfo;
 	}
 
 	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs* args)

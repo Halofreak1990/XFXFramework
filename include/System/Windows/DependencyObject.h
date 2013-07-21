@@ -8,6 +8,7 @@
 #define _SYSTEM_WINDOWS_DEPENDENCYOBJECT_
 
 #include <System/Collections/Generic/Dictionary.h>
+#include "DependencyProperty.h"
 
 using namespace System::Collections::Generic;
 
@@ -30,9 +31,7 @@ namespace System
 			template <typename T>
 			void ClearValue(DependencyProperty<T> p)
 			{
-				Derived_from<T, Object *>();
-
-				if (dependencyProperties.ContainsKey(p.Name)
+				if (dependencyProperties.ContainsKey(p.Name))
 				{
 					// Because wrapper classes and other types may be passed in-place,
 					// we explicitly destroy them as to prevent memory leaks.
@@ -48,20 +47,16 @@ namespace System
 			template <typename T>
 			T GetValue(DependencyProperty<T> p) const
 			{
-				Derived_from<T, Object *>();
-
 				return dependencyProperties[p.Name];
 			}
 
 			template <typename T>
 			void SetValue(DependencyProperty<T> p, T value)
 			{
-				Derived_from<T, Object *>();
-
 				if (!dependencyProperties.ContainsKey(p.Name))
 					dependencyProperties.Add(p.Name, value);
 				else
-					dependencyProperties[p] = value;
+					dependencyProperties[p.Name] = value;
 			}
 		};
 	}

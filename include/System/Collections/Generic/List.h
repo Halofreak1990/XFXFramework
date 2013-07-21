@@ -86,10 +86,7 @@ namespace System
 							T* destinationArray = new T[value];
 							if (_size > 0)
 							{
-								for(int i = 0; i < _size; i++)
-								{
-									destinationArray[i] = _items[i];
-								}
+								memcpy(destinationArray, _items, _size * sizeof(T));
 							}
 							delete[] _items;
 							_items = destinationArray;
@@ -129,10 +126,7 @@ namespace System
 				{
 					_items = new T[obj._actualSize];
 
-					for (int i = 0; i < obj._size; i++)
-					{
-						_items[i] = obj._items[i];
-					}
+					memcpy(_items, obj._items, obj._size * sizeof(T));
 				}
 
 				~List()
@@ -140,7 +134,9 @@ namespace System
 					delete[] _items;
 				}
 
-				// Adds an element to the end of the list
+				/**
+				 * Adds an element to the end of the list
+				 */
  				void Add(const T& item)
 				{
 					if (_size == _actualSize)
@@ -151,7 +147,9 @@ namespace System
 					_version++;
 				}
 
-				//Removes all elements from the list
+				/**
+				 * Removes all elements from the list
+				 */
  				void Clear()
 				{
 					if (_size > 0)
@@ -181,15 +179,13 @@ namespace System
 				{
 					sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
-					for (int i = 0, j = arrayIndex; i < _size; i++, j++)
-					{
-						array[j] = _items[i];
-					}
+					memcpy(array, &_items[arrayIndex], _size * sizeof(T))
 				}
 
-				int GetType() const
+				static const Type& GetType()
 				{
-					//! TODO: implement
+					static Type ListTypeInfo("List", "System::Collections::Generic::List", TypeCode::Object, true);
+					return ListTypeInfo;
 				}
 
 				// Searches for the specified object and returns the zero-based index of the first occurrence within the entire List<>.
@@ -206,7 +202,7 @@ namespace System
 				// Inserts an element into the List<> at the specified index.
 				void Insert(const int index, const T& item)
 				{
-					sassert(index < _size, "Index must be within the bounds of the List.");
+					sassert(index >= 0 && index < _size, "Index must be within the bounds of the List.");
 
 					if (_size == _actualSize)
 					{
@@ -214,10 +210,7 @@ namespace System
 					}
 					if (index < _size)
 					{
-						for (int i = index, j = index + 1; i < _size - index; i++, j++)
-						{
-							_items[j] = _items[i];
-						}
+						memcpy(&_items[index + 1], &_items[index], (_size - index) * sizeof(T));
 					}
 					_items[index] = T(item);
 					_size++;
@@ -239,10 +232,7 @@ namespace System
 				// Removes the element at the specified index of the List<>.
 				void RemoveAt(const int index)
 				{
-					for (int i = index + 1, j = index; i < _size - index; i++, j++)
-					{
-						_items[j] = _items[i];
-					}
+					memcpy(&_items[index], &_items[index + 1], (size - index) * sizeof(T)):
 
 					_size--;
 					_version++;
@@ -262,15 +252,11 @@ namespace System
 						_size -= count;
 						if (index < _size)
 						{
-							for (int i = index + count, j = index; i < _size - index; i++, j++)
-							{
-								_items[j] = _items[i];
-							}
+							memcpy(&_items[index], &_items[index + count], (_size - index) * sizeof(T));
 						}
-						for (int i = _size; i < count; i++)
-						{
-							_items[i] = T();
-						}
+
+						memset(&_items[_size], 0, count * sizeof(T));
+
 						_version++;
 					}
 				}
@@ -341,8 +327,7 @@ namespace System
 				{
 					T* destinationArray = new T[_size];
 
-					for (int i = 0; i < _size; i++)
-						destinationArray[i] = _items[i];
+					memcpy(destinationArray, _items, _size * sizeof(T));
 
 					return destinationArray;
 				}
@@ -373,10 +358,7 @@ namespace System
 					_size = other._size;
 					_items = new T[other._actualSize];
 
-					for (int i = 0; i < other._size; i++)
-					{
-						_items[i] = other._items[i];
-					}
+					memcpy(_items, other._items, other._size * sizeof(T));
 
 					_version = other._version;
 					return *this;

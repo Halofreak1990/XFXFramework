@@ -26,9 +26,13 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <GameComponentCollection.h>
+#include <System/Type.h>
 
 namespace XFX
 {
+	const Type GameComponentCollectionTypeInfo("GameComponentCollection", "XFX::GameComponentCollection", TypeCode::Object);
+	const Type GameComponentCollectionEventArgsTypeInfo("GameComponentCollectionEventArgs", "XFX::GameComponentCollectionEventArgs", TypeCode::Object);
+
 	GameComponentCollection::GameComponentCollection()
 	{
 	}
@@ -47,8 +51,9 @@ namespace XFX
 		return _components.Count();
 	}
 
-	int GameComponentCollection::GetType()
+	const Type& GameComponentCollection::GetType()
 	{
+		return GameComponentCollectionTypeInfo;
 	}
 
 	void GameComponentCollection::InsertItem(int index, IGameComponent* item)
@@ -82,8 +87,9 @@ namespace XFX
 		return _gameComponent;
 	}
 
-	int GameComponentCollectionEventArgs::GetType()
+	const Type& GameComponentCollectionEventArgs::GetType()
 	{
+		return GameComponentCollectionEventArgsTypeInfo;
 	}
 
 	IGameComponent* GameComponentCollection::operator[](const int index)

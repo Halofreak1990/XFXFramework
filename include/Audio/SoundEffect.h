@@ -30,8 +30,11 @@ namespace XFX
 		private:
 			static float distanceScale;
 			static float dopplerScale;
+			TimeSpan duration;
+			bool isDisposed;
 			static float masterVolume;
 			static float speedOfSound;
+			float volume;
 
 			void Dispose(bool disposing);
 
