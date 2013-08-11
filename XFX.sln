@@ -18,6 +18,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem", "src\libSystem\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Windows", "src\libSystem.Windows\libSystem.Windows.vcxproj", "{4A050C55-9479-4AE9-8B7A-62A6B89739BD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xnbbuild", "src\xnbbuild\xnbbuild.vcxproj", "{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -48,6 +50,10 @@ Global
 		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Debug|Win32.Build.0 = Debug|Win32
 		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Release|Win32.ActiveCfg = Release|Win32
 		{4A050C55-9479-4AE9-8B7A-62A6B89739BD}.Release|Win32.Build.0 = Release|Win32
+		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Debug|Win32.Build.0 = Debug|Win32
+		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Release|Win32.ActiveCfg = Release|Win32
+		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

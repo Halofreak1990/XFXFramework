@@ -25,6 +25,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Header Files\Diagnostics">
+      <UniqueIdentifier>{e5bf276b-a008-4dca-8230-a7bca29e8acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics">
+      <UniqueIdentifier>{7ce6f2df-e8a4-4775-a038-97daadab1d8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Net">
+      <UniqueIdentifier>{56a599bf-d3a8-4e93-adb5-09b5ae4c5544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Net\Sockets">
+      <UniqueIdentifier>{0b37cc7b-fbd5-4d60-8e8d-99f0bde53754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SocketAddress.cpp">
@@ -39,25 +51,31 @@
     <ClCompile Include="CancelEventArgs.cpp">
       <Filter>Source Files\ComponentModel</Filter>
     </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\System\ComponentModel\CancelEventArgs.h">
       <Filter>Header Files\ComponentModel</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\System\Diagnostics\Debug.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\System\Net\EndPoint.h">
-      <Filter>Source Files\Net</Filter>
+      <Filter>Header Files\Net</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\System\Net\SocketAddress.h">
-      <Filter>Source Files\Net</Filter>
+      <Filter>Header Files\Net</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\System\Net\Sockets\Enums.h">
-      <Filter>Source Files\Net\Sockets</Filter>
+      <Filter>Header Files\Net\Sockets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\System\Net\Sockets\Socket.h">
-      <Filter>Source Files\Net\Sockets</Filter>
+      <Filter>Header Files\Net\Sockets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\System\Net\Sockets\SocketAsyncEventArgs.h">
-      <Filter>Source Files\Net\Sockets</Filter>
+      <Filter>Header Files\Net\Sockets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

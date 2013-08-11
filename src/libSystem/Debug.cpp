@@ -25,76 +25,59 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Environment.h>
-#include <System/OperatingSystem.h>
+#include <System/Diagnostics/Debug.h>
 #include <System/String.h>
-#include <System/Version.h>
 
-extern "C" {
 #if ENABLE_XBOX
 #include <xboxkrnl/xboxkrnl.h>
 #else
+// TODO: include Linux' debug header
 #endif
-}
 
 namespace System
 {
-	const char* Environment::GetFolderPath(const SpecialFolder_t folder)
+	namespace Diagnostics
 	{
-#if ENABLE_XBOX
-		switch(folder)
+		void Debug::Assert(bool condition)
 		{
-		case SpecialFolder::ApplicationData:
-			return ""; //! hmmm. What to do here?
-		case SpecialFolder::Favorites:
-			return ""; //! XBOX doesn't have a Favorites folder.
-		case SpecialFolder::Personal:
-			return ""; //! XBOX doesn't do personal folders, since it lacks user accounts.
-		case SpecialFolder::Programs:
-			return "E:\\Apps"; //! Most modded XBOXes have this as their 'programs' directory.
-		case SpecialFolder::StartMenu:
-			return ""; //! XBOX doesn't have a Start Menu.
-		case SpecialFolder::Startup:
-			return ""; //! XBOX doesn't have a Startup folder.
-		default:
-			return "";
+#if DEBUG
+			if (condition)
+			{
+#endif
+				return;
+#if DEBUG
+			}
+
+			// TODO: implement
+#endif
 		}
-#else
-		switch (folder)
+
+		void Debug::Assert(bool condition, const String& message)
 		{
-		case SpecialFolder::Personal:
-			return "~";
+#if DEBUG
+			if (condition)
+			{
+#endif
+				return;
+#if DEBUG
+			}
+
+			// TODO: implement
+#endif
 		}
-#endif
-	}
 
-#if ENABLE_XBOX
-	const char* Environment::NewLine = "\r\n";
+		void Debug::WriteLine(const String& format, ...)
+		{
+#if !DEBUG
+			return;
 #else
-#endif
+			if (String::IsNullOrEmpty(format))
+			{
+				return;
+			}
 
-	OperatingSystem Environment::OSVersion()
-	{
-#if ENABLE_XBOX
-		return OperatingSystem(PlatformID::Xbox, Version(XboxKrnlVersion->VersionMajor, XboxKrnlVersion->VersionMinor, XboxKrnlVersion->Build));
-#else
-		return OperatingSystem(PlatformID::Linux, Version());
+			// TODO: implement
 #endif
-	}
-
-	int Environment::ProcessorCount()
-	{
-#if ENABLE_XBOX
-		return 1;
-#else
-#endif
-	}
-
-	int Environment::TickCount()
-	{
-#if ENABLE_XBOX
-		return KeTickCount;
-#else
-#endif
+		}
 	}
 }

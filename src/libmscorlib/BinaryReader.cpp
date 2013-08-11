@@ -28,6 +28,7 @@
 #include <System/Array.h>
 #include <System/FrameworkResources.h>
 #include <System/IO/BinaryReader.h>
+#include <System/IO/FileStream.h>
 #include <System/String.h>
 #include <System/IO/MemoryStream.h>
 
@@ -43,13 +44,18 @@ namespace System
 			return m_stream;
 		}
 
-		BinaryReader::BinaryReader(Stream* input)
+		BinaryReader::BinaryReader(Stream * const input)
 		{
 			sassert(input->CanRead(), FrameworkResources::NotSupported_UnreadableStream);
 
 			m_disposed = false;
 			m_stream = input;
 			m_buffer = new byte[32];
+		}
+
+		BinaryReader::BinaryReader(FILE * const file)
+			: m_stream(new FileStream(file))
+		{
 		}
 
 		BinaryReader::~BinaryReader()
@@ -281,6 +287,23 @@ namespace System
 			//sassert(!((Array::Length(buffer) - index) < count), FrameworkResources::Argument_InvalidOffLen);
 
 			return InternalReadChars(buffer, index, count);
+		}
+
+		int BinaryReader::Read7BitEncodedInt()
+		{
+			uint result = 0;
+			uint bitsRead = 0;
+			uint value;
+
+			do
+			{
+				value = ReadByte();
+				result |= (value & 0x7f) << bitsRead;
+				bitsRead += 7;
+			}
+			while (value & 0x80);
+
+			return result;
 		}
 
 		bool BinaryReader::ReadBoolean()

@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	List.h																	 *
+ *	List.h  																 *
  *																			 *
  *	XFX Generic List definition file										 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
@@ -107,7 +107,7 @@ namespace System
 				}
 
 				// Initializes a new instance of the List<> class that is empty and has the default initial capacity.
- 				List()
+				List()
 					: _size(0), _actualSize(defaultCapacity), _version(0)
 				{
 					_items = new T[_actualSize];
@@ -137,7 +137,7 @@ namespace System
 				/**
 				 * Adds an element to the end of the list
 				 */
- 				void Add(const T& item)
+				void Add(const T& item)
 				{
 					if (_size == _actualSize)
 					{
@@ -150,7 +150,7 @@ namespace System
 				/**
 				 * Removes all elements from the list
 				 */
- 				void Clear()
+				void Clear()
 				{
 					if (_size > 0)
 					{
@@ -179,7 +179,7 @@ namespace System
 				{
 					sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
-					memcpy(array, &_items[arrayIndex], _size * sizeof(T))
+					memcpy(&array[arrayIndex], _items, _size * sizeof(T))
 				}
 
 				static const Type& GetType()
@@ -275,14 +275,14 @@ namespace System
 					sassert(!((_size - index) < count), "Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
 
 					int num = index;
-    				int num2 = (index + count) - 1;
+					int num2 = (index + count) - 1;
 					while (num < num2)
 					{
 						T obj2 = _items[num];
 						_items[num] = _items[num2];
 						_items[num2] = obj2;
 						num++;
-    					num2--;
+						num2--;
 					}
 					_version++;
 				}

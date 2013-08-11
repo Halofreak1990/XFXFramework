@@ -12,6 +12,8 @@
 #include "Enums.h"
 #include "Stream.h"
 
+#include <stdio.h>
+
 namespace System
 {
 	namespace IO
@@ -22,6 +24,7 @@ namespace System
 		class FileStream : public Stream
 		{
 		private:
+			FILE* _file;
 			void* handle;
 			//int handle;
 			byte* _buffer;
@@ -51,6 +54,7 @@ namespace System
 			void setPosition(long long newPosition);
 
 			FileStream();
+			FileStream(FILE * const file);
 			FileStream(const String& path, const FileMode_t mode);
 			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access);
 			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share);
@@ -58,10 +62,10 @@ namespace System
 			FileStream(const String& path, const FileMode_t mode, const FileAccess_t access, const FileShare_t share, const int bufferSize, const bool useAsync);
 			virtual ~FileStream();
 
-			virtual IAsyncResult* BeginRead(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
-			virtual IAsyncResult* BeginWrite(byte buffer[], int offset, int count, AsyncCallback callback, Object* state);
-			virtual int EndRead(IAsyncResult* asyncResult);
-			virtual void EndWrite(IAsyncResult* asyncResult);
+			virtual IAsyncResult* BeginRead(byte buffer[], int offset, int count, AsyncCallback callback, Object * const state);
+			virtual IAsyncResult* BeginWrite(byte buffer[], int offset, int count, AsyncCallback callback, Object * const state);
+			virtual int EndRead(IAsyncResult * const asyncResult);
+			virtual void EndWrite(IAsyncResult * const asyncResult);
 			void Flush();
 			static const Type& GetType();
 			int Read(byte array[], const int offset, const int count);

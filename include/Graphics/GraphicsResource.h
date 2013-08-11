@@ -25,7 +25,7 @@ namespace XFX
 		class GraphicsResource : public IDisposable, public Object
 		{
 		private:
-			bool isDisposed;   
+			bool isDisposed;
 		
 		protected:
 			GraphicsDevice* graphicsDevice;

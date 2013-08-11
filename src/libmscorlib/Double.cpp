@@ -37,9 +37,9 @@
 
 namespace System
 {
-	unsigned long long rawNaND = 0x7ff8000000000000ULL;
-	unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
-	unsigned long long rawNegInfD = 0xfff0000000000000ULL;
+	static unsigned long long rawNaND = 0x7ff8000000000000ULL;
+	static unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
+	static unsigned long long rawNegInfD = 0xfff0000000000000ULL;
 
 	const double Double::Epsilon =  4.94066e-324;
 	const double Double::MaxValue = 1.79769e+308;

@@ -72,6 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketAsyncEventArgs.cpp" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\System\ComponentModel\CancelEventArgs.h" />
+    <ClInclude Include="..\..\include\System\Diagnostics\Debug.h" />
     <ClInclude Include="..\..\include\System\Net\EndPoint.h" />
     <ClInclude Include="..\..\include\System\Net\SocketAddress.h" />
     <ClInclude Include="..\..\include\System\Net\Sockets\Enums.h" />

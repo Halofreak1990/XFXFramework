@@ -32,6 +32,7 @@
 #include <System/FrameworkResources.h>
 
 #include <sassert.h>
+#include <System/Type.h>
 
 using namespace XFX;
 
@@ -39,11 +40,13 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		static const Type Texture2DTypeInfo("Texture2D", "XFX::Graphics::Texture2D", TypeCode::Object);
+
 		SurfaceFormat_t Texture2D::Format() const
 		{
 			return _surfaceFormat;
 		}
-		
+
 		Texture2D::Texture2D(GraphicsDevice * const graphicsDevice, const int width, const int height)
 			: textureData(new uint[width * height]), Height(height), Width(width)
 		{
@@ -63,7 +66,7 @@ namespace XFX
 			this->graphicsDevice->getTextures().textures.Add(this);
 			_surfaceFormat = format;
 		}
-		
+
 		void Texture2D::Dispose(bool disposing)
 		{
 			if(!_isDisposed)
@@ -75,9 +78,7 @@ namespace XFX
 				catch(Exception)
 				{
 					
-				}
-				if(device.Textures().textures.Contains(this))
-					device.Textures().textures.Remove(this);*/
+				}*/
 
 				delete[] textureData;
 
@@ -87,9 +88,9 @@ namespace XFX
 			_isDisposed = true;
 		}
 
-		int Texture2D::GetType()
+		const Type& Texture2D::GetType()
 		{
-			// TODO: implement
+			return Texture2DTypeInfo;
 		}
 
 		void Texture2D::GetData(uint data[], const int startIndex, const int elementCount) const
@@ -115,24 +116,24 @@ namespace XFX
 				data[i] = (textureData[j] & valueMask);
 			}
 		}
-		
+
 		void Texture2D::Load(byte buffer[])
 		{
-			/*imageId = Il::ilGenImage(); 
-            Il::ilBindImage(imageId); 
-            Il::ilLoadL(Il::IL_JPG, buffer, buffer.Length); 
-                          
-            int[] texture = int[1]; 
-            glGenTextures(1, texture); 
-            textureId = texture[0]; 
-            glBindTexture(GL_TEXTURE_2D, textureId);                       
-            glTexImage2D(GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Il::ilGetData());                   
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
+			/*imageId = Il::ilGenImage();
+			Il::ilBindImage(imageId);
+			Il::ilLoadL(Il::IL_JPG, buffer, buffer.Length);
+
+			int[] texture = int[1];
+			glGenTextures(1, texture);
+			textureId = texture[0];
+			glBindTexture(GL_TEXTURE_2D, textureId);
+			glTexImage2D(GL_TEXTURE_2D, 0, Il::ilGetInteger(Il::IL_IMAGE_BYTES_PER_PIXEL), _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, Il::ilGetData());
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);*/
 		}
- 		
- 		void Texture2D::SetData(uint data[], const int startIndex, const int elementCount) 
- 		{ 
+
+		void Texture2D::SetData(uint data[], const int startIndex, const int elementCount) 
+		{
 			sassert(data != null, FrameworkResources::ArgumentNull_Buffer);
 
 			sassert(elementCount <= Width * Height, "elementCount is larger than the texture size");
@@ -151,7 +152,7 @@ namespace XFX
 			{
 				textureData[i] = (data[j] | dataMask);
 			}
- 		}
+		}
 
 		bool Texture2D::operator ==(const Texture2D& right) const
 		{

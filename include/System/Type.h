@@ -1,8 +1,8 @@
 /*****************************************************************************
  *	DependencyProperty.h													 *
  *																			 *
- *	System::Windows::DependencyProperty definition file						 *
- *	Copyright (c) XFX Team. All rights reserved								 *
+ *	System::Windows::DependencyProperty definition file 					 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_TYPE_
 #define _SYSTEM_TYPE_
@@ -38,7 +38,7 @@ namespace System
 		Type(const String& name, const String& fullName, const TypeCode_t typeCode, const bool hasGenericParameters = false);
 
 		/**
-		 *	Determines if the underlying system type of the current System::Type is the same as the underlying system type of the specified System::Object.
+		 * Determines if the underlying system type of the current System::Type is the same as the underlying system type of the specified System::Object.
 		 *
 		 * @param obj
 		 * The System::Object whose underlying system type is to be compared with the underlying system type of the current System::Type.

@@ -43,7 +43,7 @@
     <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">make -f makefile clean 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeCleanCommandLine>
     <NMakeOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ENABLE_XBOX; DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;$(SolutionDir)include</NMakeIncludeSearchPath>
     <NMakeForcedIncludes Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedIncludes)</NMakeForcedIncludes>
     <NMakeAssemblySearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeAssemblySearchPath)</NMakeAssemblySearchPath>
     <NMakeForcedUsingAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeForcedUsingAssemblies)</NMakeForcedUsingAssemblies>
@@ -52,6 +52,9 @@
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <BuildLog>
@@ -79,12 +82,15 @@
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelReader.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SoundEffectInstance.cpp" />
+    <ClCompile Include="Texture2DReader.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
@@ -148,6 +154,14 @@
     <ClInclude Include="..\..\include\Graphics\EffectTechniqueCollection.h" />
     <ClInclude Include="..\..\include\Graphics\IndexBuffer.h" />
     <ClInclude Include="..\..\include\Graphics\IVertexType.h" />
+    <ClInclude Include="..\..\include\Graphics\Model.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelBone.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelBoneCollection.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelEffectCollection.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelMesh.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelMeshCollection.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelMeshPart.h" />
+    <ClInclude Include="..\..\include\Graphics\ModelMeshPartCollection.h" />
     <ClInclude Include="..\..\include\Graphics\RasterizerState.h" />
     <ClInclude Include="..\..\include\Graphics\SamplerState.h" />
     <ClInclude Include="..\..\include\Graphics\VertexBuffer.h" />
@@ -226,6 +240,9 @@
     <ClInclude Include="..\..\include\Net\PacketReader.h" />
     <ClInclude Include="..\..\include\Net\PacketWriter.h" />
     <ClInclude Include="BlendState.cpp" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="ModelReader.h" />
+    <ClInclude Include="Texture2DReader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

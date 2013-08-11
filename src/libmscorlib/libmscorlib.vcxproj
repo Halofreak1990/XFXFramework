@@ -126,6 +126,7 @@
     <ClInclude Include="..\..\include\System\Boolean.h" />
     <ClInclude Include="..\..\include\System\Buffer.h" />
     <ClInclude Include="..\..\include\System\Byte.h" />
+    <ClInclude Include="..\..\include\System\Collections\ObjectModel\ReadOnlyCollection.h" />
     <ClInclude Include="..\..\include\System\Console.h" />
     <ClInclude Include="..\..\include\System\DateTime.h" />
     <ClInclude Include="..\..\include\System\Delegates.h" />

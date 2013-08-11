@@ -1,10 +1,10 @@
-/******************************************************************************/
-/*																              */
-/* File: misc.cpp                                                             */
-/* Author: bkenwright@xbdev.net                                               */
-/* Desc: Misc functions, making our usb/gamepad code lib independent          */
-/*                                                                            */
-/******************************************************************************/
+/*****************************************************************************
+ *																			 *
+ * File: misc.cpp															 *
+ * Author: bkenwright@xbdev.net 											 *
+ * Desc: Misc functions, making our usb/gamepad code lib independent		 *
+ *																			 *
+ *****************************************************************************/
 
 #include <System/misc.h>
 #include <xboxkrnl/xboxkrnl.h>

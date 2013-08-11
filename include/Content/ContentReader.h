@@ -1,9 +1,9 @@
-/********************************************************
- *	ContentReader.h										*
- *														*
- *	XFX ContentReader class definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	ContentReader.h 														 *
+ *																			 *
+ *	XFX ContentReader class definition file 								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_CONTENT_CONTENTREADER_
 #define _XFX_CONTENT_CONTENTREADER_
 
@@ -28,8 +28,10 @@ namespace XFX
 		template <typename T>
 		class ContentTypeReader;
 
-		// A worker object that implements most of ContentManager.Load. A new ContentReader is constructed for each asset loaded.
-		class ContentReader : public BinaryReader, public Object
+		/**
+		 * A worker object that implements most of ContentManager.Load. A new ContentReader is constructed for each asset loaded.
+		 */
+		class ContentReader : public BinaryReader
 		{
 		private:
 			ContentManager* contentManager;
@@ -40,8 +42,10 @@ namespace XFX
 			static Stream* PrepareStream(Stream * const stream, const String& assetName);
 
 		public:
-			String getAssetName() const;
+			const String getAssetName() const;
 			ContentManager* getContentManager() const;
+			GraphicsDevice* getGraphicsDevice() const;
+			int getVersion() const;
 
 			ContentReader(ContentManager * const manager, Stream * const stream, GraphicsDevice * const graphicsDevice);
 			ContentReader(ContentManager * const manager, Stream * const input, const String& assetName);

@@ -25,76 +25,48 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Environment.h>
-#include <System/OperatingSystem.h>
-#include <System/String.h>
-#include <System/Version.h>
+#include "ModelReader.h"
 
-extern "C" {
-#if ENABLE_XBOX
-#include <xboxkrnl/xboxkrnl.h>
-#else
-#endif
-}
+#include <Content/ContentReader.h>
 
-namespace System
+#include <System/Diagnostics/Debug.h>
+
+using namespace System::Diagnostics;
+
+namespace XFX
 {
-	const char* Environment::GetFolderPath(const SpecialFolder_t folder)
+	namespace Content
 	{
-#if ENABLE_XBOX
-		switch(folder)
+		Model* ModelReader::Read(ContentReader * const reader, Model* existingInstance)
 		{
-		case SpecialFolder::ApplicationData:
-			return ""; //! hmmm. What to do here?
-		case SpecialFolder::Favorites:
-			return ""; //! XBOX doesn't have a Favorites folder.
-		case SpecialFolder::Personal:
-			return ""; //! XBOX doesn't do personal folders, since it lacks user accounts.
-		case SpecialFolder::Programs:
-			return "E:\\Apps"; //! Most modded XBOXes have this as their 'programs' directory.
-		case SpecialFolder::StartMenu:
-			return ""; //! XBOX doesn't have a Start Menu.
-		case SpecialFolder::Startup:
-			return ""; //! XBOX doesn't have a Startup folder.
-		default:
-			return "";
+			Model* model = NULL;
+
+			if (existingInstance == NULL)
+			{
+				
+			}
+			else
+			{
+				model = existingInstance;
+
+				// TODO: clean up the old model data
+			}
+
+			uint boneCount = reader->ReadUInt32();
+
+			for (uint i = 0; i < boneCount; i++)
+			{
+				ModelBone bone;
+
+				bone.Transform = reader->ReadMatrix();
+
+				model->bones.Add(bone);
+			}
+
+			for (uint i = 0; i < boneCount; i++)
+			{
+
+			}
 		}
-#else
-		switch (folder)
-		{
-		case SpecialFolder::Personal:
-			return "~";
-		}
-#endif
-	}
-
-#if ENABLE_XBOX
-	const char* Environment::NewLine = "\r\n";
-#else
-#endif
-
-	OperatingSystem Environment::OSVersion()
-	{
-#if ENABLE_XBOX
-		return OperatingSystem(PlatformID::Xbox, Version(XboxKrnlVersion->VersionMajor, XboxKrnlVersion->VersionMinor, XboxKrnlVersion->Build));
-#else
-		return OperatingSystem(PlatformID::Linux, Version());
-#endif
-	}
-
-	int Environment::ProcessorCount()
-	{
-#if ENABLE_XBOX
-		return 1;
-#else
-#endif
-	}
-
-	int Environment::TickCount()
-	{
-#if ENABLE_XBOX
-		return KeTickCount;
-#else
-#endif
 	}
 }

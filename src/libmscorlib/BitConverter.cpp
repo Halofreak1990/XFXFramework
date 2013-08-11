@@ -30,6 +30,7 @@
 #include <System/String.h>
 
 #include <sassert.h>
+#include <string.h>
 
 namespace System
 {
@@ -79,10 +80,7 @@ namespace System
 	{
 		byte *ret = new byte[count];
 
-		for (int i = 0; i < count; i++)
-		{
-			ret[i] = ptr[i];
-		}
+		memcpy(ret, ptr, count);
 
 		return ret;
 	}
@@ -162,7 +160,9 @@ namespace System
 		}*/
 
 		if (value[startIndex] != 0)
+		{
 			return true;
+		}
 			
 		return false;
 	}

@@ -4,6 +4,8 @@
 #include <System/Interfaces.h>
 #include "Stream.h"
 
+#include <stdio.h>
+
 namespace System
 {
 	class String;
@@ -33,11 +35,13 @@ namespace System
 		protected:
 			virtual void Dispose(bool disposing);
 			virtual void FillBuffer(int numBytes);
+			int Read7BitEncodedInt();
 
 		public:
 			virtual Stream* BaseStream();
 
-			BinaryReader(Stream* input);
+			BinaryReader(FILE * const file);
+			BinaryReader(Stream * const input);
 			virtual ~BinaryReader();
 
 			virtual void Close();

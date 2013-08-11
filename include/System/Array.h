@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	Array.h																	 *
+ *	Array.h 																 *
  *																			 *
  *	XFX generic Array class definition file 								 *
  *	Contains array helper methods											 *
@@ -99,7 +99,7 @@ namespace System
 			sassert((startIndex + count) < Length, "");
 
 			int num = startIndex;
-    		int num2 = (startIndex + count) - 1;
+			int num2 = (startIndex + count) - 1;
 			while (num < num2)
 			{
 				swap(_array[num], _array[num2]);
@@ -226,7 +226,7 @@ namespace System
 			sassert((startIndex + count) < Length, "");
 
 			int num = startIndex;
-    		int num2 = (startIndex + count) - 1;
+			int num2 = (startIndex + count) - 1;
 			while (num < num2)
 			{
 				swap(_array[num], _array[num2]);
@@ -283,14 +283,14 @@ namespace System
 		sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
 		int num = index;
-    	int num2 = (index + length) - 1;
+		int num2 = (index + length) - 1;
 		while (num < num2)
 		{
 			T obj2 = array[num];
 			array[num] = array[num2];
 			array[num2] = obj2;
 			num++;
-    		num2--;
+			num2--;
 		}
 	}*/
 }

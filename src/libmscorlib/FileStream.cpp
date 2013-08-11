@@ -57,7 +57,7 @@ namespace System
 
 		long long FileStream::Length()
 		{
-			sassert(handle != NULL, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != NULL || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
 			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
@@ -68,8 +68,20 @@ namespace System
 			//	return -1;
 			//}
 
+			if (_file != null)
+			{
+				size_t curPos = ftell(_file);
+				fseek(_file, 0, SEEK_END);
+				length = ftell(_file);
+				fseek(_file, curPos, SEEK_SET);
+			}
+			else
+			{
+
+			}
+
 			if ((_writePos > 0) && ((_pos + _writePos) > length))
-	        {
+			{
 				length = _writePos + _pos;
 			}
 			return length;
@@ -88,7 +100,7 @@ namespace System
 		{
 			sassert(canSeek, FrameworkResources::NotSupported_UnseekableStream);
 
-			if(newPosition < 0)
+			if (newPosition < 0)
 			{
 				//printf("ARGUMENT_OUT_OF_RANGE in function %s, at line %i in file %s, argument \"%s\": %s\n", __FUNCTION__, __LINE__, __FILE__, "newPosition", "Attempt to set the position to a negative value.");
 				return;
@@ -98,11 +110,17 @@ namespace System
 		}
 
 		FileStream::FileStream()
+			: handle(NULL), _file(NULL)
 		{
-			handle = NULL;
+		}
+
+		FileStream::FileStream(FILE * const file)
+			: handle(NULL), _file(file)
+		{
 		}
 
 		FileStream::FileStream(const String& path, const FileMode_t mode)
+			: handle(NULL), _file(NULL)
 		{
 			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 
@@ -166,11 +184,16 @@ namespace System
 				// Invalidate the handle
 				handle = null;
 			}
+			if (_file != null)
+			{
+				fclose(_file);
+				_file = null;
+			}
 		}
 
 		void FileStream::Flush()
 		{
-			sassert(handle != null, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != null || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
 			if (_writePos > 0)
 			{
@@ -181,7 +204,7 @@ namespace System
 				FlushRead();
 			}
 			_readPos = 0;
-		    _readLen = 0;
+			_readLen = 0;
 		}
 
 		void FileStream::FlushWrite(bool calledFromFinalizer)
@@ -192,7 +215,7 @@ namespace System
 
 		int FileStream::Read(byte array[], const int offset, const int count)
 		{
-			sassert(handle != null, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != null || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
 			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -209,7 +232,15 @@ namespace System
 			sassert(!(offset > (len - count)), "Reading would overrun buffer.");
 
 			uint bytesRead;
-			//XReadFile(handle, &array[offset], count, &bytesRead);
+
+			if (_file != null)
+			{
+				bytesRead = fread(&array[offset], 1, count, _file);
+			}
+			else
+			{
+				//XReadFile(handle, &array[offset], count, &bytesRead);
+			}
 			return bytesRead;
 		}
 
@@ -234,7 +265,7 @@ namespace System
 			IO_STATUS_BLOCK				ioStatusBlock;
 			NTSTATUS					status;
 			uint						filesize;
-						
+
 			// Calculate the target pointer
 			switch (origin)
 			{
@@ -244,13 +275,17 @@ namespace System
 			case SeekOrigin::Current:    // From the current position
 				status = NtQueryInformationFile(handle, &ioStatusBlock, &positionInfo, sizeof(positionInfo), FilePositionInformation);
 				if (!NT_SUCCESS(status))
+				{
 					return RtlNtStatusToDosError(status);
+				}
 				targetPointer.QuadPart = positionInfo.CurrentByteOffset.QuadPart + offset;
 				break;
 			case SeekOrigin::End:       // From the end of the file
 				//status = XGetFileSize(handle, &filesize);
 				if (!NT_SUCCESS(status))
+				{
 					return RtlNtStatusToDosError(status);
+				}
 				targetPointer.QuadPart -= offset;
 				break;
 			}
@@ -262,7 +297,9 @@ namespace System
 			// Set the new position
 			status = NtSetInformationFile(handle, &ioStatusBlock, &positionInfo, sizeof(positionInfo), FilePositionInformation);
 			if (!NT_SUCCESS(status))
+			{
 				return RtlNtStatusToDosError(status);
+			}
 			else
 			{
 				return targetPointer.QuadPart;
@@ -275,28 +312,44 @@ namespace System
 
 			sassert(CanWrite(), FrameworkResources::NotSupported_UnwritableStream);
 
-			sassert(handle != null, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != null || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
 			sassert(value >= 0, String::Format("value; %s", FrameworkResources::ArgumentOutOfRange_NeedNonNegNum));
 
 			Flush();
 
 			if (getPosition() > value)
+			{
 				setPosition(value);
+			}
 		}
 
 		void FileStream::Write(byte array[], const int offset, const int count)
 		{
-			sassert(handle != null, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != null || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
-			//XWriteFile(handle, &array[offset], count, null);
+			if (_file != null)
+			{
+				fwrite(&array[offset], sizeof(byte), count, _file);
+			}
+			else
+			{
+				//XWriteFile(handle, &array[offset], count, null);
+			}
 		}
 
 		void FileStream::WriteByte(byte value)
 		{
-			sassert(handle != null, FrameworkResources::ObjectDisposed_FileClosed);
+			sassert(handle != null || _file != null, FrameworkResources::ObjectDisposed_FileClosed);
 
-			//XWriteFile(handle, &value, 1, null);
+			if (_file != null)
+			{
+				fwrite(&value, 1, 1, _file);
+			}
+			else
+			{
+				//XWriteFile(handle, &value, 1, null);
+			}
 		}
 	}
 }

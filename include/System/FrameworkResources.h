@@ -16,6 +16,7 @@ namespace System
 		static const char* ArgumentNull_FileName;
 		static const char* ArgumentNull_Generic;
 		static const char* ArgumentNull_Path;
+		static const char* ArgumentOutOfRange_Index;
 		static const char* ArgumentOutOfRange_NeedNonNegNum;
 		static const char* ArgumentOutOfRange_NeedPosNum;
 		static const char* ArgumentOutOfRange_NegativeCapacity;

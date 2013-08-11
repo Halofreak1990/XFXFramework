@@ -25,7 +25,7 @@ namespace XFX
 			int _levelCount;
 			
 		protected:
-			virtual void Dispose(bool disposing);
+			void Dispose(bool disposing);
 		
 		public:
 			SurfaceFormat_t getFormat() const;

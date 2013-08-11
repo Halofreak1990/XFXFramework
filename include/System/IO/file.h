@@ -31,7 +31,7 @@ namespace System
 #if ENABLE_XBOX
 			static int FileAttributeInfo(const String& path, PXBOX_FIND_DATA data, bool tryagain, bool returnErrorOnNotFound);
 #else
-			static int FileAttributeInfo(char* path, <unknown> data, bool tryagain, bool returnErrorOnNotFound);
+			static int FileAttributeInfo(const String& path, <unknown> data, bool tryagain, bool returnErrorOnNotFound);
 #endif
 
 		public:

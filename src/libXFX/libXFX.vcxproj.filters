@@ -60,6 +60,12 @@
     <Filter Include="Header Files\Net">
       <UniqueIdentifier>{c6888ccb-ccfe-447e-877d-1ee15a7bae48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Content\ContentReaders">
+      <UniqueIdentifier>{6660d5ba-e9f3-4326-8e2e-074328719d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Content\ContentReaders">
+      <UniqueIdentifier>{dfe18763-6837-43b8-a2f6-65708ca1a24e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundingBox.cpp">
@@ -219,6 +225,15 @@
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="AlphaTestEffect.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2DReader.cpp">
+      <Filter>Source Files\Content\ContentReaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelReader.cpp">
+      <Filter>Source Files\Content\ContentReaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -519,6 +534,39 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Input\GamePadTriggers.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2DReader.h">
+      <Filter>Header Files\Content\ContentReaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Source Files\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelReader.h">
+      <Filter>Header Files\Content\ContentReaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\Model.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelBone.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelBoneCollection.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelMesh.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelMeshCollection.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelEffectCollection.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelMeshPart.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Graphics\ModelMeshPartCollection.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

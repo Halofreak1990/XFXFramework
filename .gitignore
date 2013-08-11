@@ -46,7 +46,7 @@ local.properties
 [Rr]elease/
 *_i.c
 *_p.c
-[Bb]uild[Ll]og.*
+[Bb]uild[Ll]og.htm
 *.a
 
 *.ilk
