@@ -32,12 +32,15 @@
 #include <System/Math.h>
 #include <System/Single.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <Vector3.h>
 
 using namespace System;
 
 namespace XFX
 {
+	const Type RayTypeInfo("Ray", "XFX::Ray", TypeCode::Object);
+
 	Ray::Ray(Vector3 direction, Vector3 position)
 		: Direction(direction), Position(position)
 	{
@@ -68,9 +71,9 @@ namespace XFX
 		return (Direction.GetHashCode() ^ Position.GetHashCode());
 	}
 
-	int Ray::GetType()
+	const Type& Ray::GetType()
 	{
-		// TODO: implement
+		return RayTypeInfo;
 	}
 
 	float Ray::Intersects(BoundingBox boundingbox) const
@@ -78,102 +81,102 @@ namespace XFX
 		float distance;
 		float d = 0.0f; 
 		float MAXValue = Single::MaxValue; 
-  
+
 		if (Math::Abs(Direction.X) < 0.0000001) 
-        { 
-       		if (Position.X < boundingbox.Min.X || Position.X > boundingbox.Max.X) 
-       		{ 
-      			distance = 0.0f;
-      			return distance; 
-       		} 
-        } 
-        else 
-        { 
-       		float inv = 1.0f / Direction.X; 
-       		float MIN = (boundingbox.Min.X - Position.X) * inv; 
-       		float MAX = (boundingbox.Max.X - Position.X) * inv; 
-  
-       		if (MIN > MAX) 
-       		{ 
-      			float temp = MIN; 
-      			MIN = MAX; 
-      			MAX = temp; 
-       		} 
-  
-       		d = Math::Max(MIN, d); 
-       		MAXValue = Math::Min(MAX, MAXValue); 
-  
-       		if (d > MAXValue) 
-       		{ 
-      			distance = 0.0f;
-      			return distance;
-       		} 
-        } 
-  
-        if (Math::Abs(Direction.Y) < 0.0000001) 
-        { 
-       		if (Position.Y < boundingbox.Min.Y || Position.Y > boundingbox.Max.Y) 
-       		{ 
-      			distance = 0.0f;
-      			return distance;
-       		} 
-        } 
-        else 
-        { 
-       		float inv = 1.0f / Direction.Y; 
-       		float MIN = (boundingbox.Min.Y - Position.Y) * inv; 
-       		float MAX = (boundingbox.Max.Y - Position.Y) * inv; 
-  
-       		if (MIN > MAX) 
-       		{ 
-      			float temp = MIN; 
-      			MIN = MAX; 
-      			MAX = temp; 
-       		} 
-  
-       		d = Math::Max(MIN, d); 
-       		MAXValue = Math::Min(MAX, MAXValue); 
-  
-       		if (d > MAXValue)
-       		{ 
-      			distance = 0.0f;
-      			return distance;
-       		} 
-       	} 
-  
-        if (Math::Abs(Direction.Z) < 0.0000001)
-        { 
-       		if (Position.Z < boundingbox.Min.Z || Position.Z > boundingbox.Max.Z) 
-       		{ 
-      			distance = 0.0f;
-      			return distance;
-       		} 
-       	} 
-        else 
-        { 
-       		float inv = 1.0f / Direction.Z; 
-       		float MIN = (boundingbox.Min.Z - Position.Z) * inv; 
-       		float MAX = (boundingbox.Max.Z - Position.Z) * inv; 
-  
-       		if (MIN > MAX)
-       		{
-      			float temp = MIN; 
-      			MIN = MAX; 
-      			MAX = temp; 
-       		} 
-  
-       		d = Math::Max(MIN, d);
-       		MAXValue = Math::Min(MAX, MAXValue);
-  
-       		if (d > MAXValue)
-       		{
-      			distance = 0.0f; 
-      			return distance;
-			} 
-        }
-  
-        distance = d; 
-        return distance;
+		{
+			if (Position.X < boundingbox.Min.X || Position.X > boundingbox.Max.X)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+		}
+		else
+		{
+			float inv = 1.0f / Direction.X;
+			float MIN = (boundingbox.Min.X - Position.X) * inv;
+			float MAX = (boundingbox.Max.X - Position.X) * inv;
+
+			if (MIN > MAX)
+			{
+				float temp = MIN;
+				MIN = MAX;
+				MAX = temp;
+			}
+
+			d = Math::Max(MIN, d);
+			MAXValue = Math::Min(MAX, MAXValue);
+
+			if (d > MAXValue)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+		}
+
+		if (Math::Abs(Direction.Y) < 0.0000001)
+		{
+			if (Position.Y < boundingbox.Min.Y || Position.Y > boundingbox.Max.Y)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+		}
+		else
+		{
+			float inv = 1.0f / Direction.Y;
+			float MIN = (boundingbox.Min.Y - Position.Y) * inv;
+			float MAX = (boundingbox.Max.Y - Position.Y) * inv;
+
+			if (MIN > MAX)
+			{
+				float temp = MIN;
+				MIN = MAX;
+				MAX = temp;
+			}
+
+			d = Math::Max(MIN, d);
+			MAXValue = Math::Min(MAX, MAXValue);
+
+			if (d > MAXValue)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+		}
+
+		if (Math::Abs(Direction.Z) < 0.0000001)
+		{
+			if (Position.Z < boundingbox.Min.Z || Position.Z > boundingbox.Max.Z)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+		}
+		else
+		{
+			float inv = 1.0f / Direction.Z; 
+			float MIN = (boundingbox.Min.Z - Position.Z) * inv; 
+			float MAX = (boundingbox.Max.Z - Position.Z) * inv; 
+
+			if (MIN > MAX)
+			{
+				float temp = MIN; 
+				MIN = MAX; 
+				MAX = temp; 
+			}
+
+			d = Math::Max(MIN, d);
+			MAXValue = Math::Min(MAX, MAXValue);
+
+			if (d > MAXValue)
+			{
+				distance = 0.0f; 
+				return distance;
+			}
+		}
+
+		distance = d;
+		return distance;
 	}
 	
 	void Ray::Intersects(BoundingBox boundingbox, out float& distance) const
@@ -184,34 +187,34 @@ namespace XFX
 	float Ray::Intersects(BoundingSphere sphere) const
 	{
 		float distance;
-		float x = sphere.Center.X - Position.X; 
-        float y = sphere.Center.Y - Position.Y; 
-        float z = sphere.Center.Z - Position.Z; 
-        float pyth = (x * x) + (y * y) + (z * z); 
-        float rr = sphere.Radius * sphere.Radius; 
-  
-        if (pyth <= rr)
-        { 
-       		distance = 0.0f; 
-       		return distance; 
-        } 
-  
-        float dot = (x * Direction.X) + (y * Direction.Y) + (z * Direction.Z); 
-        if (dot < 0.0f)
-        { 
-       		distance = 0.0f; 
-       		return distance; 
-        } 
-  
-        float temp = pyth - (dot * dot); 
-        if (temp > rr)
-        { 
-       		distance = 0.0f; 
-       		return distance; 
-        } 
-  
-        distance = dot - Math::Sqrt(rr - temp); 
-        return distance; 
+		float x = sphere.Center.X - Position.X;
+		float y = sphere.Center.Y - Position.Y;
+		float z = sphere.Center.Z - Position.Z;
+		float pyth = (x * x) + (y * y) + (z * z);
+		float rr = sphere.Radius * sphere.Radius;
+
+		if (pyth <= rr)
+		{
+			distance = 0.0f;
+			return distance;
+		}
+
+		float dot = (x * Direction.X) + (y * Direction.Y) + (z * Direction.Z);
+		if (dot < 0.0f)
+		{
+			distance = 0.0f;
+			return distance;
+		}
+
+		float temp = pyth - (dot * dot);
+		if (temp > rr)
+		{
+			distance = 0.0f;
+			return distance;
+		}
+
+		distance = dot - Math::Sqrt(rr - temp);
+		return distance;
 	}
 	
 	void Ray::Intersects(BoundingSphere sphere, out float& distance) const
@@ -221,30 +224,30 @@ namespace XFX
 
 	float Ray::Intersects(Plane plane) const
 	{
-		float dotDirection = (plane.Normal.X * Direction.X) + (plane.Normal.Y * Direction.Y) + (plane.Normal.Z * Direction.Z); 
+		float dotDirection = (plane.Normal.X * Direction.X) + (plane.Normal.Y * Direction.Y) + (plane.Normal.Z * Direction.Z);
 		float distance;
-  
-        if (Math::Abs(dotDirection) < 0.000001f)
-        { 
-       		distance = 0.0f; 
-       		return distance; 
-        } 
-  
-        float dotPosition = (plane.Normal.X * Position.X) + (plane.Normal.Y * Position.Y) + (plane.Normal.Z * Position.Z); 
-        float num = (-plane.D - dotPosition) / dotDirection; 
-  
-        if (num < 0.0f)
-        {
-       		if (num < -0.000001f)
-       		{
-      			distance = 0.0f; 
-      			return distance; 
-       		}
-       		num = 0.0f; 
-        }
-  
-        distance = num; 
-        return distance;
+
+		if (Math::Abs(dotDirection) < 0.000001f)
+		{
+			distance = 0.0f;
+			return distance;
+		}
+
+		float dotPosition = (plane.Normal.X * Position.X) + (plane.Normal.Y * Position.Y) + (plane.Normal.Z * Position.Z);
+		float num = (-plane.D - dotPosition) / dotDirection;
+
+		if (num < 0.0f)
+		{
+			if (num < -0.000001f)
+			{
+				distance = 0.0f;
+				return distance;
+			}
+			num = 0.0f;
+		}
+
+		distance = num;
+		return distance;
 	}
 	
 	void Ray::Intersects(Plane plane, out float& distance) const

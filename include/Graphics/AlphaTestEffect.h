@@ -25,7 +25,7 @@ namespace XFX
 		class AlphaTestEffect : public Effect
 		{
 		private:
-			byte effectCode[];
+			static byte effectCode[];
 
 		protected:
 			AlphaTestEffect(AlphaTestEffect const * const cloneSource);
@@ -50,7 +50,7 @@ namespace XFX
 			AlphaTestEffect(GraphicsDevice * const device);
 
 			Effect* Clone() const;
-			int GetType() const;
+			static const Type& GetType();
 		};
 	}
 }

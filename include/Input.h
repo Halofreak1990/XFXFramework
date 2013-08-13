@@ -1,9 +1,9 @@
-/********************************************************
- *	Input.h												*
- *														*
- *	XFX::Input namespace include file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Input.h 																 *
+ *																			 *
+ *	XFX::Input namespace include file										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_
 #define _XFX_INPUT_
 

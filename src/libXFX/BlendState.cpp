@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/BlendState.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -33,7 +34,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		const char * const BlendState::isBoundErrorString = "";
+		const String BlendState::isBoundErrorString = "";
+		const Type BlendStateTypeInfo("BlendState", "XFX::Graphics::BlendState", TypeCode::Object);
 
 		BlendState::BlendState()
 		{
@@ -74,9 +76,9 @@ namespace XFX
 		{
 		}
 
-		int BlendState::GetType()
+		const Type& BlendState::GetType()
 		{
-			// TODO: implement
+			return BlendStateTypeInfo;
 		}
 	}
 }

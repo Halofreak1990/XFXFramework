@@ -179,7 +179,7 @@ namespace System
 				{
 					sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
-					memcpy(&array[arrayIndex], _items, _size * sizeof(T))
+					memcpy(&array[arrayIndex], _items, _size * sizeof(T));
 				}
 
 				static const Type& GetType()
@@ -320,7 +320,7 @@ namespace System
 				{
 					sassert(comparer != null, String::Format("comparer; %s", FrameworkResources::ArgumentNull_Generic));
 
-					Sort(0, _actualSize, comparer);
+					Sort(0, _size, comparer);
 				}
 
 				T* ToArray() const
@@ -353,6 +353,11 @@ namespace System
 
 				const List<T>& operator =(const List<T>& other)
 				{
+					if (other == *this)
+					{
+						return *this;
+					}
+
 					delete[] _items;
 					_actualSize = other._actualSize;
 					_size = other._size;

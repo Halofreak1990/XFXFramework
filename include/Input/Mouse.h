@@ -1,9 +1,9 @@
-/********************************************************
- *	Mouse.h												*
- *														*
- *	XFX Mouse definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Mouse.h 																 *
+ *																			 *
+ *	XFX::Input::Mouse class definition file 								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_MOUSE_
 #define _XFX_INPUT_MOUSE_
 
@@ -16,7 +16,9 @@ namespace XFX
 {
 	namespace Input
 	{
-		// Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
+		/**
+		 * Represents the state of a mouse input device, including mouse cursor position and buttons pressed.
+		 */
 		struct MouseState
 		{
 			ButtonState_t LeftButton;
@@ -26,12 +28,14 @@ namespace XFX
 			ButtonState_t XButton1;
 			ButtonState_t XButton2;
 			int Y;
-			
+
 			bool operator!=(const MouseState& other) const;
 			bool operator==(const MouseState& other) const;
 		};
-		
-		// Allows retrieval of position and button clicks from a mouse input device.
+
+		/**
+		 * Allows retrieval of position and button clicks from a mouse input device.
+		 */
 		class Mouse
 		{
 		private:

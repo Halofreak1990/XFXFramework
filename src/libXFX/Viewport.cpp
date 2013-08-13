@@ -25,23 +25,26 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/Viewport.h>
-#include <System/String.h>
 #include <Matrix.h>
 #include <Rectangle.h>
+#include <System/String.h>
+#include <System/Type.h>
 #include <Vector3.h>
+#include <Graphics/Viewport.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type ViewportTypeInfo("Viewport", "XFX::Graphics::Viewport", TypeCode::Object);
+
 		float Viewport::getAspectRatio() const
 		{
 			if ((Height != 0) && (Width != 0))
-            {
-                return (((float)Width) / ((float)Height));
-            }
-            return 0.0f;
+			{
+				return (((float)Width) / ((float)Height));
+			}
+			return 0.0f;
 		}
 
 		Rectangle Viewport::getBounds() const
@@ -99,8 +102,9 @@ namespace XFX
 			return ((int)getAspectRatio() + Height + (int)MaxDepth + (int)MinDepth + Width + X + Y);
 		}
 
-		int Viewport::GetType()
+		const Type& Viewport::GetType()
 		{
+			return ViewportTypeInfo;
 		}
 
 		Vector3 Viewport::Project(const Vector3 source, const Matrix projection, const Matrix view, const Matrix world) const

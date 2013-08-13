@@ -1,15 +1,17 @@
-/********************************************************
- *	MathHelper.h										*
- *														*
- *	XFX MathHelper definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	MathHelper.h															 *
+ *																			 *
+ *	XFX::MathHelper class definition file									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_MATHHELPER_
 #define _XFX_MATHHELPER_
 
 namespace XFX
 {
-	// Contains commonly used precalculated values.
+	/**
+	 * Contains commonly used precalculated values.
+	 */
 	class MathHelper
 	{
 	private:

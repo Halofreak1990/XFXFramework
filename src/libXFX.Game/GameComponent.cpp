@@ -29,6 +29,8 @@
 
 namespace XFX
 {
+	const Type GameComponentTypeInfo("GameComponent", "XFX::GameComponent", TypeCode::Object);
+
 	bool GameComponent::getEnabled() const
 	{
 		return _enabled;
@@ -70,10 +72,10 @@ namespace XFX
 	void GameComponent::Dispose(bool disposing)
 	{
 		if (!_disposed)
-            {
-                _disposed = true;
-				Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
-            }
+		{
+			_disposed = true;
+			Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
+		}
 	}
 
 	GameComponent::GameComponent(Game * const game)
@@ -85,6 +87,11 @@ namespace XFX
 	GameComponent::~GameComponent()
 	{
 		Dispose(false);
+	}
+
+	const Type& GameComponent::GetType()
+	{
+		return GameComponentTypeInfo;
 	}
 	
 	void GameComponent::Initialize()

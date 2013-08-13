@@ -206,9 +206,6 @@
     <ClCompile Include="Guide.cpp">
       <Filter>Source Files\GamerServices</Filter>
     </ClCompile>
-    <ClCompile Include="StorageDeviceAsyncResult.cpp">
-      <Filter>Source Files\GamerServices</Filter>
-    </ClCompile>
     <ClCompile Include="PacketReader.cpp">
       <Filter>Source Files\Net</Filter>
     </ClCompile>
@@ -235,6 +232,12 @@
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Video.cpp">
+      <Filter>Source Files\Media</Filter>
+    </ClCompile>
+    <ClCompile Include="StorageDeviceAsyncResult.cpp">
+      <Filter>Source Files\Storage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -567,6 +570,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Graphics\ModelMeshPartCollection.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageDeviceAsyncResult.h">
+      <Filter>Source Files\Storage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

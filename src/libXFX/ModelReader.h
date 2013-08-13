@@ -18,6 +18,9 @@ namespace XFX
 	{
 		class ModelReader : public ContentTypeReader<Model>
 		{
+		private:
+			void ReadBoneReference(ContentReader * const input, uint boneCount);
+
 		public:
 			Model* Read(ContentReader * const input, Model* existingInstance);
 		};

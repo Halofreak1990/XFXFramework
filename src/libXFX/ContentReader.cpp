@@ -36,9 +36,9 @@ namespace XFX
 {
 	namespace Content
 	{
-		const short ContentReader::XnbVersion = 2;
+		const short ContentReader::XnbVersion = 5;
 
-		String ContentReader::getAssetName() const
+		const String ContentReader::getAssetName() const
 		{
 			return _assetName;
 		}

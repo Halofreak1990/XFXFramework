@@ -29,11 +29,14 @@
 #include <Vector3.h>
 #include <Graphics/BasicEffect.h>
 #include <Graphics/DirectionalLight.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type BasicEffectTypeInfo("BasicEffect", "XFX::Graphics::BasicEffect", TypeCode::Object);
+
 		DirectionalLight* BasicEffect::getDirectionalLight0() const
 		{
 		}
@@ -82,9 +85,9 @@ namespace XFX
 			LightingEnabled = true;
 		}
 
-		int BasicEffect::GetType()
+		const Type& BasicEffect::GetType()
 		{
-			// TODO: implement
+			return BasicEffectTypeInfo;
 		}
 
 		void BasicEffect::OnApply()

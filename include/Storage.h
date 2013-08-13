@@ -1,9 +1,9 @@
-/********************************************************
- *	Storage.h											*
- *														*
- *	XFX::Storage namespace include file					*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Storage.h																 *
+ *																			 *
+ *	XFX::Storage namespace include file 									 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_STORAGE_
 #define _XFX_STORAGE_
 

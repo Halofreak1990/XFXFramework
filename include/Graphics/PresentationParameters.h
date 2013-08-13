@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	PresentationParameters.h												 *
  *																			 *
- *	XFX::Graphics::PresentationParameters class definition file				 *
+ *	XFX::Graphics::PresentationParameters class definition file 			 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_GRAPHICS_PRESENTATIONPARAMETERS_
@@ -30,7 +30,7 @@ namespace XFX
 			Rectangle getBounds() const;
 			DepthFormat_t DepthStencilFormat;
 			bool IsFullScreen;
-     		int MultiSampleCount;
+			int MultiSampleCount;
 			PresentInterval_t PresentationInterval;
 			RenderTargetUsage_t RenderTargetUsage;
 
@@ -40,7 +40,7 @@ namespace XFX
 			bool Equals(Object const * const obj) const;
 			bool Equals(const PresentationParameters other) const;
 			static const Type& GetType();
-			
+
 			bool operator!=(const PresentationParameters& other) const;
 			bool operator==(const PresentationParameters& other) const;
 		};

@@ -1,9 +1,9 @@
-/********************************************************
- *	Keyboard.h											*
- *														*
- *	XFX Keyboard definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Keyboard.h  															 *
+ *																			 *
+ *	XFX::Input::Keyboard class definition file  							 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_KEYBOARD_
 #define _XFX_INPUT_KEYBOARD_
 
@@ -13,7 +13,9 @@ namespace XFX
 {
 	namespace Input
 	{
-		// Represents a state of keystrokes recorded by a keyboard input device.
+		/**
+		 * Represents a state of keystrokes recorded by a keyboard input device.
+		 */
 		struct KeyboardState
 		{
 			KeyboardState();
@@ -36,7 +38,9 @@ namespace XFX
 			Keys_t* pressedKeys;
 		};
 
-		// Allows retrieval of keystrokes from a keyboard input device.
+		/**
+		 * Allows retrieval of keystrokes from a keyboard input device.
+		 */
 		class Keyboard
 		{
 		private:

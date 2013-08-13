@@ -25,64 +25,38 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Media/VideoPlayer.h>
+#include <System/Type.h>
 #include <Media/Video.h>
 
 namespace XFX
 {
 	namespace Media
 	{
-		bool VideoPlayer::IsDisposed()
-		{
-			return isDisposed;
-		}
+		const Type VideoTypeInfo("Video", "XFX::Media::Video", TypeCode::Object);
 
-		TimeSpan VideoPlayer::getPlayPosition()
+		TimeSpan Video::getDuration()
 		{
 		}
 
-		MediaState_t VideoPlayer::getState()
+		float Video::getFramesPerSecond()
 		{
 		}
 
-		Video* VideoPlayer::getVideo()
-		{
-			return playingVideo;
-		}
-
-		VideoPlayer::VideoPlayer()
+		int Video::getHeight()
 		{
 		}
 
-		void VideoPlayer::Dispose()
-		{
-			Dispose(true);
-		}
-
-		void VideoPlayer::Dispose(bool disposing)
+		VideoSoundtrackType_t Video::getVideoSoundtrackType()
 		{
 		}
 
-		Texture2D* VideoPlayer::GetTexture()
-		{
-			// TODO: return current video frame
-		}
-
-		void VideoPlayer::Pause()
+		int Video::getWidth()
 		{
 		}
 
-		void VideoPlayer::Play(Video * const video)
+		const Type& Video::GetType()
 		{
-			sassert(video != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
-		}
-
-		void VideoPlayer::Resume()
-		{
-		}
-
-		void VideoPlayer::Stop()
-		{
+			return VideoTypeInfo;
 		}
 	}
 }

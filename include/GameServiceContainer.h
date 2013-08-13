@@ -20,15 +20,15 @@ namespace XFX
 	class GameServiceContainer : public IServiceProvider
 	{
 	private:
-		Dictionary<String, Object*> _services;
+		Dictionary<Type, Object*> _services;
 
 	public:
 		GameServiceContainer();
 		virtual ~GameServiceContainer() {}
 
-		void AddService(const String& serviceType, Object* provider);
-		Object* GetService(const String& ServiceType);
-		void RemoveService(const String& type);
+		void AddService(const Type& serviceType, Object* provider);
+		Object* GetService(const Type& ServiceType);
+		void RemoveService(const Type& type);
 	};
 }
 

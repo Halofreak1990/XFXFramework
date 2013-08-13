@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/String.h>
+#include <System/Type.h>
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Graphics/VertexPositionTexture.h>
@@ -34,6 +35,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		const Type VertexPositionTextureTypeInfo("VertexPositionTexture", "XFX::Graphics::VertexPositionTexture", TypeCode::Object);
+
 		const VertexElement VertexPositionTexture::vertexArray[] =
 		{
 			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
@@ -57,7 +60,7 @@ namespace XFX
 
 		bool VertexPositionTexture::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? (*this == *(VertexPositionTexture*)obj) : false;
+			return is(obj, this) ? (*this == *(VertexPositionTexture *)obj) : false;
 		}
 		
 		int VertexPositionTexture::GetHashCode() const
@@ -65,9 +68,9 @@ namespace XFX
 			return Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
 
-		int VertexPositionTexture::GetType()
+		const Type& VertexPositionTexture::GetType()
 		{
-			// TODO: implement
+			return VertexPositionTextureTypeInfo;
 		}
 
 		const String VertexPositionTexture::ToString() const

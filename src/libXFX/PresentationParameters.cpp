@@ -27,15 +27,17 @@
 
 #include <Rectangle.h>
 #include <Graphics/PresentationParameters.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type PresentationParametersTypeInfo("PresentationParameters", "XFX::Graphics::PresentationParameters", TypeCode::Object);
+
 		PresentationParameters::PresentationParameters()
-			: BackBufferFormat(SurfaceFormat::Color),
-			BackBufferHeight(0), BackBufferWidth(0),
-			IsFullScreen(true), MultiSampleCount(0),
+			: BackBufferFormat(SurfaceFormat::Color), BackBufferHeight(0),
+			BackBufferWidth(0), IsFullScreen(true), MultiSampleCount(0),
 			PresentationInterval(PresentInterval::Default),
 			RenderTargetUsage(RenderTargetUsage::DiscardContents)
 		{
@@ -45,10 +47,10 @@ namespace XFX
 		{
 			return Rectangle(0, 0, BackBufferWidth, BackBufferHeight);
 		}
-         
-        PresentationParameters* PresentationParameters::Clone() const
-        { 
-            PresentationParameters* clone = new PresentationParameters();
+
+		PresentationParameters* PresentationParameters::Clone() const
+		{
+			PresentationParameters* clone = new PresentationParameters();
 			clone->BackBufferFormat = this->BackBufferFormat;
 			clone->BackBufferHeight = this->BackBufferHeight;
 			clone->BackBufferWidth = this->BackBufferWidth;
@@ -58,37 +60,37 @@ namespace XFX
 			clone->PresentationInterval = this->PresentationInterval;
 			clone->RenderTargetUsage = this->RenderTargetUsage;
 			return clone;
-        }
+		}
 
 		bool PresentationParameters::Equals(Object const * const obj) const
 		{
 			return is(this, obj) ? (*this == *(PresentationParameters*)obj) : false;
 		}
 
-		int PresentationParameters::GetType()
+		const Type& PresentationParameters::GetType()
 		{
-			// TODO: implement
+			return PresentationParametersTypeInfo;
 		}
-        
-        bool PresentationParameters::operator!=(const PresentationParameters& other) const
-        {
-	        return ((other.BackBufferFormat != BackBufferFormat) ||
-            (other.BackBufferHeight != BackBufferHeight) ||
-            (other.BackBufferWidth != BackBufferWidth) ||
-            (other.IsFullScreen != IsFullScreen) ||
-            (other.MultiSampleCount != MultiSampleCount) ||
-            (other.PresentationInterval != this->PresentationInterval) ||
-            (other.RenderTargetUsage != this->RenderTargetUsage));
-        }
-        
+
+		bool PresentationParameters::operator!=(const PresentationParameters& other) const
+		{
+			return ((other.BackBufferFormat != BackBufferFormat) ||
+			(other.BackBufferHeight != BackBufferHeight) ||
+			(other.BackBufferWidth != BackBufferWidth) ||
+			(other.IsFullScreen != IsFullScreen) ||
+			(other.MultiSampleCount != MultiSampleCount) ||
+			(other.PresentationInterval != this->PresentationInterval) ||
+			(other.RenderTargetUsage != this->RenderTargetUsage));
+		}
+
 		bool PresentationParameters::operator==(const PresentationParameters& other) const
 		{
 			return ((other.BackBufferFormat == BackBufferFormat) &&
-            (other.BackBufferHeight == BackBufferHeight) &&
-            (other.BackBufferWidth == BackBufferWidth) &&
-            (other.IsFullScreen == IsFullScreen) &&
-            (other.MultiSampleCount == MultiSampleCount) &&
-            (other.PresentationInterval == this->PresentationInterval) &&
+			(other.BackBufferHeight == BackBufferHeight) &&
+			(other.BackBufferWidth == BackBufferWidth) &&
+			(other.IsFullScreen == IsFullScreen) &&
+			(other.MultiSampleCount == MultiSampleCount) &&
+			(other.PresentationInterval == this->PresentationInterval) &&
 			(other.RenderTargetUsage == this->RenderTargetUsage));
 		}
 	}

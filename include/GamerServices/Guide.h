@@ -1,9 +1,9 @@
-/********************************************************
- *	Guide.h												*
- *														*
- *	XFX Guide definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Guide.h 																 *
+ *																			 *
+ *	XFX::GamerServices::Guide class definition file 						 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_GAMERSERVICES_GUIDE_
 #define _XFX_GAMERSERVICES_GUIDE_
 
@@ -23,7 +23,9 @@ namespace XFX
 {
 	namespace GamerServices
 	{
-		// Provides access to the Guide user interface.
+		/**
+		 * Provides access to the Guide user interface.
+		 */
 		class Guide
 		{
 		private:

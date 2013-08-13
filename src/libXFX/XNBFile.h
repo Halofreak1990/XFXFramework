@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	XNBFile.h																 *
+ *																			 *
+ *	XNA Binary Resource file header definition  							 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
+ *****************************************************************************/
 #ifndef _XNBFILE_
 #define _XNBFILE_
 
@@ -9,6 +15,9 @@ namespace XFX
 {
 	namespace Content
 	{
+		/**
+		 * Represents the header of an *.xnb file
+		 */
 		struct XNBFile
 		{
 			byte FormatID1;

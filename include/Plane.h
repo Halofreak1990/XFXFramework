@@ -1,7 +1,7 @@
 /*****************************************************************************
- *	Plane.h																	 *
+ *	Plane.h 																 *
  *																			 *
- *	XFX Plane definition file												 *
+ *	XFX::Plane structure definition file									 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _XFX_PLANE_
@@ -21,7 +21,9 @@ namespace XFX
 	struct Quaternion;
 	struct Vector4;
 	
-	// Defines a plane.
+	/**
+	 * Defines a plane.
+	 */
 	struct Plane : IEquatable<Plane>, Object
 	{
 		float D;
@@ -42,8 +44,8 @@ namespace XFX
 		void	DotNormal(const Vector3 value, out float& result) const;
 		bool	Equals(Object const * const obj) const;
 		bool	Equals(const Plane obj) const;
-		int		GetHashCode() const;
-		int		GetType() const;
+		int 	GetHashCode() const;
+		static const Type& GetType();
 		PlaneIntersectionType_t Intersects(const BoundingBox boundingbox) const;
 		void	Intersects(const BoundingBox boundingbox, out PlaneIntersectionType_t& result) const;
 		PlaneIntersectionType_t Intersects(const BoundingSphere sphere) const;

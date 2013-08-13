@@ -1,9 +1,9 @@
-/********************************************************
- *	Enums.h												*
- *														*
- *	XFX::Input enumeration definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	XFX::Input enumeration definition file  								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_ENUMS_
 #define _XFX_INPUT_ENUMS_
 
@@ -11,7 +11,9 @@ namespace XFX
 {
 	namespace Input
 	{
-		// Enumerates input device buttons.
+		/**
+		 * Enumerates input device buttons.
+		 */
 		struct Buttons
 		{
 			enum type
@@ -135,8 +137,8 @@ namespace XFX
 		typedef ButtonState::type		ButtonState_t;
 		typedef GamePadDeadZone::type	GamePadDeadZone_t;
 		typedef GamePadType::type		GamePadType_t;
-		typedef Keys::type				Keys_t;
-		typedef KeyState::type			KeyState_t;
+		typedef Keys::type  			Keys_t;
+		typedef KeyState::type  		KeyState_t;
 	}
 }
 

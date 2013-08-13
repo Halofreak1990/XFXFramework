@@ -27,12 +27,15 @@ namespace XFX
 		 */
 		class SoundEffect : public IDisposable, public Object
 		{
+			friend class SoundEffectInstance;
+
 		private:
 			static float distanceScale;
 			static float dopplerScale;
 			TimeSpan duration;
 			bool isDisposed;
 			static float masterVolume;
+			int referenceCount;
 			static float speedOfSound;
 			float volume;
 

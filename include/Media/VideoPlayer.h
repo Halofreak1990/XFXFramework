@@ -8,8 +8,8 @@
 #define _XFX_MEDIA_VIDEOPLAYER_
 
 #include "Enums.h"
+#include <Graphics/Texture2D.h>
 #include <System/TimeSpan.h>
-#include "../Graphics/Texture2D.h"
 
 using namespace System;
 using namespace XFX::Graphics;
@@ -20,11 +20,15 @@ namespace XFX
 	{
 		class Video;
 
-		// Provides methods and properties to playback, pause, resume, and stop video. VideoPlayer also exposes repeat, volume, and play position information.
+		/**
+		 * Provides methods and properties to playback, pause, resume, and stop video. VideoPlayer also exposes repeat, volume, and play position information.
+		 */
 		class VideoPlayer
 		{
 		private:
 			bool isDisposed;
+			Video* playingVideo;
+
 			void Dispose(bool disposing);
 
 		protected:

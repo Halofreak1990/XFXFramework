@@ -1,24 +1,27 @@
-/********************************************************
- *	StreamAsyncResult.h									*
- *														*
- *	XFX StreamAsyncResult definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	StreamAsyncResult.h 													 *
+ *																			 *
+ *	System::IO::StreamAsyncResult class definition file 					 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_IO_STREAMASYNCRESULT_
 #define _SYSTEM_IO_STREAMASYNCRESULT_
 
-#include "../Interfaces.h"
-#include "../Object.h"
-#include "../Types.h"
-#include "../Threading/WaitHandle.h"
+#include <System/Interfaces.h>
+#include <System/Object.h>
+#include <System/Types.h>
+#include <System/Threading/WaitHandle.h>
 
 namespace System
 {
 	namespace IO
 	{
-		// 
-		class StreamAsyncResult : public IAsyncResult, public virtual Object
+		/**
+		 * 
+		 */
+		class StreamAsyncResult : public IAsyncResult, public Object
 		{
+		private:
 			Object* _state;
 			bool completed;
 			bool done;
@@ -34,8 +37,26 @@ namespace System
 			int NBytes();
 			bool Done;
 
+			/**
+			 * 
+			 *
+			 * @param state
+			 *
+			 */
 			StreamAsyncResult(Object* state);
+			/**
+			 * 
+			 *
+			 * @param obj
+			 * 
+			 */
 			StreamAsyncResult(const IAsyncResult &obj);
+			/**
+			 * 
+			 *
+			 * @param obj
+			 * 
+			 */
 			StreamAsyncResult(const StreamAsyncResult &obj);
 
 			//void SetComplete(Exception* e);

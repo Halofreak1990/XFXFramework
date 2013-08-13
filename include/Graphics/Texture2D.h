@@ -22,7 +22,7 @@ namespace XFX
 	{
 		class Texture2DReader;
 	}
-	
+
 	namespace Graphics
 	{
 		class GraphicsDevice;
@@ -40,12 +40,12 @@ namespace XFX
 			SurfaceFormat_t _surfaceFormat; // The colour format of the texture
 			int textureId; // The reference ID of the texture in OpenGL memory
 			uint* textureData;
-				
+
 			void Load(byte buffer[]);
-			
+
 		protected:
 			void Dispose(bool disposing);
-			
+
 		public:
 			Rectangle getBounds() const;
 			SurfaceFormat_t Format() const;

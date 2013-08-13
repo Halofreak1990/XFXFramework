@@ -1,9 +1,9 @@
-/********************************************************
- *	Interfaces.h										*
- *														*
- *	XFX Generic Interfaces definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Interfaces.h															 *
+ *																			 *
+ *	XFX Generic Interfaces definition file  								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_
 #define _SYSTEM_COLLECTIONS_GENERIC_INTERFACES_
 
@@ -16,7 +16,9 @@ namespace System
 	{
 		namespace Generic
 		{
-			// Defines methods to manipulate generic collections.
+			/**
+			 * Defines methods to manipulate generic collections.
+			 */
 			template <class T>
 			interface ICollection
 			{
@@ -33,7 +35,9 @@ namespace System
 				virtual ~ICollection() { }
 			};
 
-			// Defines a method that a type implements to compare two objects.
+			/**
+			 * Defines a method that a type implements to compare two objects.
+			 */
 			template <class T>
 			interface IComparer
 			{
@@ -43,7 +47,9 @@ namespace System
 				virtual ~IComparer() { }
 			};
 
-			// Represents a generic collection of key/value pairs.
+			/**
+			 * Represents a generic collection of key/value pairs.
+			 */
 			template <class TKey, class TValue>
 			interface IDictionary
 			{
@@ -59,7 +65,9 @@ namespace System
 				virtual ~IDictionary() { }
 			};
 
-			// Supports a simple iteration over a generic collection.
+			/**
+			 * Supports a simple iteration over a generic collection.
+			 */
 			template <class T>
 			interface IEnumerator
 			{
@@ -71,7 +79,9 @@ namespace System
 				virtual ~IEnumerator() { }
 			};
 
-			// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
+			/**
+			 * Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
+			 */
 			template <class T>
 			interface IEnumerable
 			{
@@ -81,7 +91,9 @@ namespace System
 				virtual ~IEnumerable() { }
 			};
 
-			// Defines methods to support the comparison of objects for equality.
+			/**
+			 * Defines methods to support the comparison of objects for equality.
+			 */
 			template <class T>
 			interface IEqualityComparer
 			{
@@ -92,7 +104,9 @@ namespace System
 				virtual ~IEqualityComparer() { }
 			};
 
-			// Represents a collection of objects that can be individually accessed by index.
+			/**
+			 * Represents a collection of objects that can be individually accessed by index.
+			 */
 			template <class T>
 			interface IList : public ICollection<T>
 			{

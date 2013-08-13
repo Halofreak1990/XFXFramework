@@ -14,6 +14,11 @@ namespace XFX
 {
 	struct Matrix;
 
+	namespace Content
+	{
+		class ModelReader;
+	}
+
 	namespace Graphics
 	{
 		/**

@@ -65,7 +65,41 @@ namespace XFX
 
 			for (uint i = 0; i < boneCount; i++)
 			{
+				ReadBoneReference(reader, boneCount);
 
+				// Read the child bone references.
+				uint childCount = reader->ReadUInt32();
+
+				if (childCount)
+				{
+					for (uint j = 0; j < childCount; j++)
+					{
+						ReadBoneReference(reader, boneCount);
+					}
+				}
+			}
+
+			// Read the mesh data.
+			uint meshCount = reader->ReadUInt32();
+
+			for (uint i = 0; i < meshCount; i++)
+			{
+
+			}
+		}
+
+		void ModelReader::ReadBoneReference(ContentReader * const reader, uint boneCount)
+		{
+			uint boneId;
+
+			// Read the bone ID, which may be encoded as either an 8 or 32 bit value.
+			if (boneCount < 255)
+			{
+				boneId = reader->ReadByte();
+			}
+			else
+			{
+				boneId = reader->ReadUInt32();
 			}
 		}
 	}

@@ -1,11 +1,11 @@
 /*****************************************************************************
- *	GraphicsDeviceInformation.h												 *
+ *	GraphicsDeviceInformation.h 											 *
  *																			 *
- *	XFX GraphicsDeviceInformation class definition file						 *
+ *	XFX GraphicsDeviceInformation class definition file 					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
-#ifndef _GRAPHICSDEVICEINFORMATION_
-#define _GRAPHICSDEVICEINFORMATION_
+#ifndef _XFX_GRAPHICSDEVICEINFORMATION_
+#define _XFX_GRAPHICSDEVICEINFORMATION_
 
 #include <Graphics/Enums.h>
 #include <Graphics/PresentationParameters.h>
@@ -32,4 +32,4 @@ namespace XFX
 	};
 }
 
-#endif //_GRAPHICSDEVICEINFORMATION_
+#endif //_XFX_GRAPHICSDEVICEINFORMATION_

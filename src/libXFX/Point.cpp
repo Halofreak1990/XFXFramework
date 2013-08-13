@@ -27,10 +27,12 @@
 
 #include "Point.h"
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	const Point Point::Zero = Point();
+	const Type PointTypeInfo("Point", "XFX::Point", TypeCode::Object);
 	
 	Point::Point(int x, int y)
 		: X(x), Y(y)
@@ -62,9 +64,9 @@ namespace XFX
 		return (X + Y);
 	}
 
-	int Point::GetType()
+	const Type& Point::GetType()
 	{
-		// TODO: implement
+		return PointTypeInfo;
 	}
 
 	const String Point::ToString() const

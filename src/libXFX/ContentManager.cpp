@@ -86,7 +86,7 @@ namespace XFX
 				}
 				// Dispose any unmanaged resources
 				disposed = true;
-			}  
+			}
 		}
 
 		void ContentManager::Dispose()
@@ -94,17 +94,24 @@ namespace XFX
 			Dispose(true);
 		}
 
-		int ContentManager::GetType()
+		const Type& ContentManager::GetType()
 		{
 		}
-		
+
 		template <class T>
 		T ContentManager::Load(const String& assetName)
-		{	
+		{
 			T dummyVal;
+			Object* obj2;
+
+			sassert(!disposed, "" + GetType().ToString());
+
+			sassert(!String::IsNullOrEmpty(assetName), String::Format("assetName; %s", FrameworkResources::ArgumentNull_Generic));
+
+			assetName = GetCleanPath(assetName);
 
 			/* TODO: port the C# code below to C++
-			 object obj2;
+			object obj2;
 			if (this.loadedAssets == null)
 			{
 				throw new ObjectDisposedException(this.ToString());
@@ -135,8 +142,8 @@ namespace XFX
 
 				return (T)obj2;
 			}*/
-			T local = this->ReadAsset<T>(assetName);
-			//this->loadedAssets.Add(assetName, local);
+			T local = ReadAsset<T>(assetName);
+			loadedAssets.Add(assetName, local);
 			return local;
 		}
 

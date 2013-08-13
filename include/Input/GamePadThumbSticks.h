@@ -8,7 +8,6 @@
 #define _XFX_INPUT_GAMEPADTHUMBSTICKS_
 
 #include "Enums.h"
-#include <System/Object.h>
 #include <Vector2.h>
 
 using namespace System;

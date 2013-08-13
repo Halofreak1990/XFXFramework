@@ -19,6 +19,9 @@ using namespace System::Collections::Generic;
 
 namespace System
 {
+	/**
+	 * 
+	 */
 	template <typename T>
 	class Array : public ICollection<T>, public IEnumerable<T>
 	{

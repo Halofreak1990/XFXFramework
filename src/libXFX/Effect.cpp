@@ -26,11 +26,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Effect.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type EffectTypeInfo("Effect", "XFX::Graphics::Effect", TypeCode::Object);
+
 		Effect::Effect(Effect const * const cloneSource)
 			: _parameters(cloneSource->_parameters),
 			  _techniques(cloneSource->_techniques),
@@ -50,8 +53,9 @@ namespace XFX
 			return new Effect(this);
 		}
 
-		int Effect::GetType()
+		const Type& Effect::GetType()
 		{
+			return EffectTypeInfo;
 		}
 	}
 }

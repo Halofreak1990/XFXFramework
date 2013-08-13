@@ -34,6 +34,8 @@ namespace XFX
 {
 	namespace Audio
 	{
+		const Type SoundEffectInstanceTypeInfo("SoundEffectInstance", "XFX::Audio::SoundEffectInstance", TypeCode::Object);
+
 		bool SoundEffectInstance::IsDisposed() const
 		{
 		}
@@ -75,7 +77,7 @@ namespace XFX
 		{
 		}
 
-		SoundEffectInstance::SoundEffectInstance(SoundEffect* parent)
+		SoundEffectInstance::SoundEffectInstance(SoundEffect * const parent)
 			: _parent(parent), _volume(parent->volume)
 		{
 			_parent->referenceCount++;
@@ -83,6 +85,7 @@ namespace XFX
 
 		SoundEffectInstance::~SoundEffectInstance()
 		{
+			_parent->referenceCount--;
 		}
 
 		void SoundEffectInstance::Apply3D(AudioListener listener, AudioEmitter emitter)
@@ -106,8 +109,9 @@ namespace XFX
 			}
 		}
 
-		int SoundEffectInstance::GetType()
+		const Type& SoundEffectInstance::GetType()
 		{
+			return SoundEffectInstanceTypeInfo;
 		}
 
 		void SoundEffectInstance::Pause()
@@ -124,6 +128,7 @@ namespace XFX
 
 		void SoundEffectInstance::Stop()
 		{
+			Stop(true);
 		}
 
 		void SoundEffectInstance::Stop(bool immediate)

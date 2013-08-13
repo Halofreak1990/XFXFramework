@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	Viewport.h																 *
+ *	Viewport.h  															 *
  *																			 *
  *	XFX::Graphics::Viewport structure definition file						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
@@ -16,7 +16,7 @@ namespace XFX
 	struct Matrix;
 	struct Rectangle;
 	struct Vector3;
-	
+
 	namespace Graphics
 	{
 		/**
@@ -42,7 +42,7 @@ namespace XFX
 			Viewport();
 			Viewport(const int x, const int y, const int width, const int height);
 			Viewport(const Rectangle bounds);
-			
+
 			bool Equals(Object const * const obj) const;
 			bool Equals(const Viewport obj) const;
 			int GetHashCode() const;

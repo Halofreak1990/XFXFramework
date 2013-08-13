@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	GamePadState.h															 *
+ *	GamePadState.h  														 *
  *																			 *
  *	XFX::Input::GamePadState structure definition file  					 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
@@ -8,6 +8,9 @@
 #define _XFX_INPUT_GAMEPADSTATE_
 
 #include "GamePadButtons.h"
+#include "GamePadDPad.h"
+#include "GamePadThumbSticks.h"
+#include "GamePadTriggers.h"
 
 namespace XFX
 {

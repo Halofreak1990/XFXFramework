@@ -31,15 +31,15 @@ namespace XFX
 			Vector3 Normal;
 			Vector2 TextureCoordinate;
 			VertexDeclaration getVertexDeclaration() const;
-			
+
 			VertexPositionNormalTexture();
 			VertexPositionNormalTexture(const Vector3 position, const Vector3 normal, const Vector2 textureCoordinate);
-			
+
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			static const Type& GetType();
 			const String ToString() const;
-		
+
 			bool operator!=(const VertexPositionNormalTexture& other) const;
 			bool operator==(const VertexPositionNormalTexture& other) const;
 		};

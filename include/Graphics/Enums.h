@@ -337,7 +337,9 @@ namespace XFX
 			};
 		};
 
-		// Defines the size of an element of an index buffer.
+		/**
+		 * Defines the size of an element of an index buffer.
+		 */
 		struct IndexElementSize
 		{
 			enum type
@@ -347,7 +349,9 @@ namespace XFX
 			};
 		};
 
-		// Defines flags that describe the relationship between the adapter refresh rate and the rate at which GraphicsDevice.Present operations are completed.
+		/**
+		 * Defines flags that describe the relationship between the adapter refresh rate and the rate at which GraphicsDevice.Present operations are completed.
+		 */
 		struct PresentInterval
 		{
 			enum type
@@ -359,7 +363,9 @@ namespace XFX
 			};
 		};
 
-		// Defines how data in a vertex stream is interpreted during a draw call.
+		/**
+		 * Defines how data in a vertex stream is interpreted during a draw call.
+		 */
 		struct PrimitiveType
 		{
 			enum type
@@ -372,7 +378,9 @@ namespace XFX
 			};
 		};
 
-		// Determines how render target data is used once a new render target is set.
+		/**
+		 * Determines how render target data is used once a new render target is set.
+		 */
 		struct RenderTargetUsage
 		{
 			enum type
@@ -383,7 +391,9 @@ namespace XFX
 			};
 		};
 
-		// Describes whether existing buffer data will be overwritten or discarded during a SetData operation.
+		/**
+		 * Describes whether existing buffer data will be overwritten or discarded during a SetData operation.
+		 */
 		struct SetDataOptions
 		{
 			enum type
@@ -394,18 +404,31 @@ namespace XFX
 			};
 		};
 
-		// Defines sprite rotation options.
+		/**
+		 * Defines sprite rotation options.
+		 */
 		struct SpriteEffects
 		{
 			enum type
 			{
-				FlipHorizontally = 1,	//Rotate 180 degrees about the Y axis before rendering.
-				FlipVertically = 0x100,	//Rotate 180 degrees about the X axis before rendering.
-				None = 0				//No rotations specified.
+				/**
+				 * Rotate 180 degrees about the Y axis before rendering.
+				 */
+				FlipHorizontally = 1,
+				/**
+				 * Rotate 180 degrees about the X axis before rendering.
+				 */
+				FlipVertically = 0x100,
+				/**
+				 * No rotations specified.
+				 */
+				None = 0
 			};
 		};
 
-		// Defines sprite sort-rendering options.
+		/**
+		 * Defines sprite sort-rendering options.
+		 */
 		struct SpriteSortMode
 		{
 			enum type
@@ -418,7 +441,9 @@ namespace XFX
 			};
 		};
 
-		// Defines stencil buffer operations.
+		/**
+		 * Defines stencil buffer operations.
+		 */
 		struct StencilOperation
 		{
 			enum type
@@ -434,7 +459,9 @@ namespace XFX
 			};
 		};
 
-		// Defines various types of surface formats.
+		/**
+		 * Defines various types of surface formats.
+		 */
 		struct SurfaceFormat
 		{
 			enum type
@@ -464,7 +491,9 @@ namespace XFX
 			};
 		};
 
-		// Defines constants that describe supported texture-addressing modes.
+		/**
+		 * Defines constants that describe supported texture-addressing modes.
+		 */
 		struct TextureAddressMode
 		{
 			enum type
@@ -475,33 +504,55 @@ namespace XFX
 			};
 		};
 
-		// Defines how a texture will be filtered as it is minified for each mipmap level.
+		/**
+		 * Defines how a texture will be filtered as it is minified for each mipmap level.
+		 */
 		struct TextureFilter
 		{
 			enum type
 			{
-				// Use linear filtering.
+				/**
+				 * Use linear filtering.
+				 */
 				Linear,
-				// Use point filtering.
+				/**
+				 * Use point filtering.
+				 */
 				Point,
-				// Use anisotropic filtering.
+				/**
+				 * Use anisotropic filtering.
+				 */
 				Anisotropic,
-				// Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
+				/**
+				 * Use linear filtering to shrink or expand, and point filtering between mipmap levels (mip).
+				 */
 				LinearMipPoint,
-				// Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
+				/**
+				 * Use point filtering to shrink (minify) or expand (magnify), and linear filtering between mipmap levels.
+				 */
 				PointMipLinear,
-				// Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
+				/**
+				 * Use linear filtering to shrink, point filtering to expand, and linear filtering between mipmap levels.
+				 */
 				MinLinearMagPointMipLinear,
-				// Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
+				/**
+				 * Use linear filtering to shrink, point filtering to expand, and point filtering between mipmap levels.
+				 */
 				MinLinearMagPointMipPoint,
-				// Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
+				/**
+				 * Use point filtering to shrink, linear filtering to expand, and linear filtering between mipmap levels.
+				 */
 				MinPointMagLinearMipLinear,
-				// Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
+				/**
+				 * Use point filtering to shrink, linear filtering to expand, and point filtering between mipmap levels.
+				 */
 				MinPointMagLinearMipPoint
 			};
 		};
 		
-		// Defines vertex element formats.
+		/**
+		 * Defines vertex element formats.
+		 */
 		struct VertexElementFormat
 		{
 			enum type
@@ -521,7 +572,9 @@ namespace XFX
 			};
 		};
 		
-		// Defines usage for vertex elements.
+		/**
+		 * Defines usage for vertex elements.
+		 */
 		struct VertexElementUsage
 		{
 			enum type
@@ -544,31 +597,31 @@ namespace XFX
 		
 		// Lots of typedefs, but there was no other way to make these typesafe enum hacks look good.
 
-		typedef Blend::type					Blend_t;
-		typedef BlendFunction::type			BlendFunction_t;
+		typedef Blend::type 				Blend_t;
+		typedef BlendFunction::type 		BlendFunction_t;
 		typedef BufferUsage::type			BufferUsage_t;
 		typedef ClearOptions::type			ClearOptions_t;
 		typedef ColorWriteChannels::type	ColorWriteChannels_t;
 		typedef CompareFunction::type		CompareFunction_t;
 		typedef CubeMapFace::type			CubeMapFace_t;
-		typedef CullMode::type				CullMode_t;
+		typedef CullMode::type  			CullMode_t;
 		typedef DepthFormat::type			DepthFormat_t;
 		typedef EffectParameterClass::type	EffectParameterClass_t;
 		typedef EffectParameterType::type	EffectParameterType_t;
-		typedef FillMode::type				FillMode_t;
+		typedef FillMode::type  			FillMode_t;
 		typedef GraphicsDeviceStatus::type	GraphicsDeviceStatus_t;
 		typedef ImageFileFormat::type		ImageFileFormat_t;
 		typedef IndexElementSize::type		IndexElementSize_t;
 		typedef PresentInterval::type		PresentInterval_t;
-		typedef PrimitiveType::type			PrimitiveType_t;
+		typedef PrimitiveType::type 		PrimitiveType_t;
 		typedef RenderTargetUsage::type		RenderTargetUsage_t;
 		typedef SetDataOptions::type		SetDataOptions_t;
-		typedef SpriteEffects::type			SpriteEffects_t;
+		typedef SpriteEffects::type 		SpriteEffects_t;
 		typedef SpriteSortMode::type		SpriteSortMode_t;
 		typedef StencilOperation::type		StencilOperation_t;
-		typedef SurfaceFormat::type			SurfaceFormat_t;
+		typedef SurfaceFormat::type 		SurfaceFormat_t;
 		typedef TextureAddressMode::type	TextureAddressMode_t;
-		typedef TextureFilter::type			TextureFilter_t;
+		typedef TextureFilter::type 		TextureFilter_t;
 		typedef VertexElementFormat::type	VertexElementFormat_t;		// Defines vertex element formats.
 		typedef VertexElementUsage::type	VertexElementUsage_t;		// Defines usage for vertex elements.
 	}

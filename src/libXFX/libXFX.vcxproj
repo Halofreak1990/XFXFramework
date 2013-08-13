@@ -119,6 +119,7 @@
     <ClCompile Include="VertexPositionColor.cpp" />
     <ClCompile Include="VertexPositionNormalTexture.cpp" />
     <ClCompile Include="VertexPositionTexture.cpp" />
+    <ClCompile Include="Video.cpp" />
     <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="GamePad.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="BlendState.cpp" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="ModelReader.h" />
+    <ClInclude Include="StorageDeviceAsyncResult.h" />
     <ClInclude Include="Texture2DReader.h" />
   </ItemGroup>
   <ItemGroup>

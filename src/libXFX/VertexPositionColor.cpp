@@ -32,7 +32,7 @@ namespace XFX
 {
 	namespace Graphics
 	{
-		const VertexElement vertexArray[] =
+		const VertexElement VertexPositionColor::vertexArray[] =
 		{
 			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
 			VertexElement(12, VertexElementFormat::Color, VertexElementUsage::Color, 0)

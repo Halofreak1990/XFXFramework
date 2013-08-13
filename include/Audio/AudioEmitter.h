@@ -8,7 +8,10 @@
 #define _XFX_AUDIO_AUDIOEMITTER_
 
 #include <System/Object.h>
+#include <System/Type.h>
 #include <Vector3.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -16,6 +19,9 @@ namespace XFX
 	{		
 		class AudioEmitter : public Object
 		{
+		private:
+			static const Type AudioEmitterTypeInfo;
+
 		public:
 			float DopplerScale;
 			Vector3 Forward;
@@ -25,8 +31,13 @@ namespace XFX
 
 			AudioEmitter() { }
 
-			inline int GetType() const { }
+			const Type& GetType()
+			{
+				return AudioEmitterTypeInfo;
+			}
 		};
+
+		const Type AudioEmitter::AudioEmitterTypeInfo = Type("AudioEmitter", "XFX::Audio::AudioEmitter", TypeCode::Object);
 	}
 }
 

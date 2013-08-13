@@ -81,7 +81,7 @@ namespace System
 	interface IServiceProvider
 	{
 	public:
-		virtual Object* GetService(const String& serviceType)=0;
+		virtual Object* GetService(const Type& serviceType)=0;
 
 		virtual ~IServiceProvider() { }
 	};

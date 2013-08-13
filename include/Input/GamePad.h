@@ -1,9 +1,9 @@
-/********************************************************
- *	GamePad.h											*
- *														*
- *	XFX GamePad definition file							*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	GamePad.h																 *
+ *																			 *
+ *	XFX::Input::GamePad class definition file								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_INPUT_GAMEPAD_
 #define _XFX_INPUT_GAMEPAD_
 
@@ -15,8 +15,10 @@ namespace XFX
 {
 	namespace Input
 	{
-		// Allows retrieval of user interaction with an XBOX Controller
-		// and setting of controller vibration motors.
+		/**
+		 * Allows retrieval of user interaction with an XBOX Controller
+		 * and setting of controller vibration motors.
+		 */
 		class GamePad
 		{
 		private:

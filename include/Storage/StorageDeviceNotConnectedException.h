@@ -15,13 +15,15 @@ namespace XFX
 {
 	namespace Storage
 	{
-		// The exception that is thrown when the requested StorageDevice is not connected
+		/**
+		 * The exception that is thrown when the requested StorageDevice is not connected
+		 */
 		class StorageDeviceNotConnectedException : public ExternalException
 		{
 		public:
 			StorageDeviceNotConnectedException();
-			StorageDeviceNotConnectedException(char* message);
-			StorageDeviceNotConnectedException(char* message, Exception* innerException);
+			StorageDeviceNotConnectedException(const String& message);
+			StorageDeviceNotConnectedException(const String& message, Exception * const innerException);
 		};
 	}
 }

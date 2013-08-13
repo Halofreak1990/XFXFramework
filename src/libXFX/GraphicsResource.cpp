@@ -26,11 +26,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/GraphicsResource.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type GraphicsResourceTypeInfo("GraphicsResource", "XFX::Graphics::GraphicsResource", TypeCode::Object);
+
 		GraphicsDevice* GraphicsResource::getGraphicsDevice()
 		{
 			return graphicsDevice;
@@ -58,17 +61,17 @@ namespace XFX
 		
 		void GraphicsResource::Dispose(bool disposing)
 		{
-			if(isDisposed) 
-            	return; 
-                          
-            isDisposed = true;
+			if(isDisposed)
+				return;
+
+			isDisposed = true;
 
 			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
 		}
 
-		int GraphicsResource::GetType()
+		const Type& GraphicsResource::GetType()
 		{
-			// TODO: implement
+			return GraphicsResourceTypeInfo;
 		}
 	}
 }

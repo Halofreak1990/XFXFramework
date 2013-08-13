@@ -29,7 +29,7 @@ namespace XFX
 			SoundEffect* _parent;
 			float _volume;
 
-			SoundEffectInstance(SoundEffect* parent);
+			SoundEffectInstance(SoundEffect * const parent);
 
 			virtual void Dispose(bool disposing);
 

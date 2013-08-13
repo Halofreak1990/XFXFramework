@@ -27,11 +27,18 @@
 
 #include <Graphics/AlphaTestEffect.h>
 #include <Graphics/Texture2D.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type AlphaTestEffectTypeInfo("AlphaTestEffect", "XFX::Graphics::AlphaTestEffect", TypeCode::Object);
+
+		byte AlphaTestEffect::effectCode[] = 
+		{
+		};
+
 		AlphaTestEffect::AlphaTestEffect(AlphaTestEffect const * const cloneSource)
 			: Effect(cloneSource),
 			Alpha(cloneSource->Alpha), AlphaFunction(cloneSource->AlphaFunction),
@@ -43,12 +50,12 @@ namespace XFX
 		{
 		}
 
-		void AlphaTestEffect::OnApply()
+		AlphaTestEffect::AlphaTestEffect(GraphicsDevice * const device)
+			: Effect(device, effectCode)
 		{
 		}
 
-		AlphaTestEffect::AlphaTestEffect(GraphicsDevice * const device)
-			: Effect(device, effectCode)
+		void AlphaTestEffect::OnApply()
 		{
 		}
 
@@ -57,8 +64,9 @@ namespace XFX
 			return new AlphaTestEffect(this);
 		}
 
-		int AlphaTestEffect::GetType() const
+		const Type& AlphaTestEffect::GetType()
 		{
+			return AlphaTestEffectTypeInfo;
 		}
 	}
 }

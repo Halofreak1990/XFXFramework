@@ -89,7 +89,7 @@ namespace XFX
 					return;
 				}
 			}
-		  *cDriveLetter = 0;
+			*cDriveLetter = 0;
 		}
 
 		StorageDevice* StorageContainer::getStorageDevice() const
@@ -141,7 +141,7 @@ namespace XFX
 			// copy the XeImageFileName to tmp, and strip the \default.xbe
 			//char *tmp = strncpy(tmp, XeImageFileName->Buffer, XeImageFileName->Length - 12);
 	
-			char* szTemp = (char*)malloc(256);
+			char* szTemp = (char *)malloc(256);
 			char cDriveLetter = 0;
 			char* szDest;
 

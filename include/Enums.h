@@ -1,14 +1,14 @@
-/********************************************************
- *	Enums.h												*
- *														*
- *	XFX enumeration definition file						*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	XFX enumeration definition file 										 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_ENUMS_
 #define _XFX_ENUMS_
 
 namespace XFX
-{ 
+{
 	// Describes how one bounding volume contains another.
 	struct ContainmentType
 	{
@@ -29,7 +29,7 @@ namespace XFX
 			Step
 		};
 	};
-	
+
 	// Defines how the value of a Curve will be determined for positions before the first point on the Curve or after the last point on the Curve.
 	struct CurveLoopType
 	{
@@ -42,7 +42,7 @@ namespace XFX
 			Oscillate
 		};
 	};
-	
+
 	// Specifies different tangent types to be calculated for CurveKey points in a Curve.
 	struct CurveTangent
 	{
@@ -53,7 +53,7 @@ namespace XFX
 			Smooth
 		};
 	};
-	
+
 	// Describes the intersection between a plane and a bounding volume.
 	struct PlaneIntersectionType
 	{
@@ -64,7 +64,7 @@ namespace XFX
 			Intersecting
 		};
 	};
-	
+
 	// Specifies the index of a player.
 	struct PlayerIndex
 	{

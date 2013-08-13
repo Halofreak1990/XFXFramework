@@ -46,37 +46,37 @@ namespace XFX
 			//TODO: Come up with a device description
 			return "";
 		}
-		
+
 		int GraphicsAdapter::DeviceId()
 		{
 			return 0x2a0;
 		}
-		
+
 		const char* GraphicsAdapter::DeviceName()
 		{
 			return "NV2A";
 		}
-		
+
 		const char* GraphicsAdapter::DriverDLL()
 		{
 			return "pbKit";
 		}
-		
+
 		float GraphicsAdapter::DriverVersion()
 		{
 			return 1.0;
 		}
-		
+
 		bool GraphicsAdapter::IsDefaultAdapter()
 		{
 			return true;
 		}
-		
+
 		int GraphicsAdapter::VendorId()
 		{
 			return 0x10DE;
 		}
-		
+
 		bool GraphicsAdapter::IsWideScreen()
 		{
 			//TODO: Get WideScreen setting from EEPROM
@@ -85,7 +85,6 @@ namespace XFX
 
 		bool GraphicsAdapter::QueryBackBufferFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const
 		{
-
 		}
 
 		bool GraphicsAdapter::QueryRenderTargetFormat(SurfaceFormat_t format, DepthFormat_t depthFormat, int multiSampleCount, out SurfaceFormat_t selectedFormat, out DepthFormat_t selectedDepthFormat, out int selectedMultiSampleCount) const

@@ -14,7 +14,7 @@ namespace XFX
 {
 	struct Vector2;
 	struct Vector3;
-	
+
 	namespace Graphics
 	{
 		/**
@@ -29,15 +29,15 @@ namespace XFX
 			Vector3 Position;
 			Vector2 TextureCoordinate;
 			VertexDeclaration getVertexDeclaration() const;
-			
+
 			VertexPositionTexture();
 			VertexPositionTexture(const Vector3 position, const Vector2 textureCoordinate);
-			
+
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			static const Type& GetType();
 			const String ToString() const;
-		
+
 			bool operator!=(const VertexPositionTexture& other) const;
 			bool operator==(const VertexPositionTexture& other) const;
 		};

@@ -27,10 +27,12 @@
 
 #include <Point.h>
 #include <Rectangle.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	const Rectangle Rectangle::Empty = Rectangle(0, 0, 0, 0);
+	const Type RectangleTypeInfo("Rectangle", "XFX::Rectangle", TypeCode::Object);
 	
 	Rectangle::Rectangle(const int x, const int y, const int width, const int height)
 		: Height(height), Width(width), X(x), Y(y)
@@ -107,9 +109,9 @@ namespace XFX
 		return X ^ Y ^ Width ^ Height;
 	}
 
-	int Rectangle::GetType()
+	const Type& Rectangle::GetType()
 	{
-		// TODO: implement
+		return RectangleTypeInfo;
 	}
 	
 	void Rectangle::Inflate(int horizontalAmount, int verticalAmount)

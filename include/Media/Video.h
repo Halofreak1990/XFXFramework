@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	Video.h																	 *
+ *	Video.h 																 *
  *																			 *
  *	XFX::Media::Video class definition file 								 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
@@ -7,9 +7,10 @@
 #ifndef _XFX_MEDIA_VIDEO_H_
 #define _XFX_MEDIA_VIDEO_H_
 
-#include <System/Types.h>
-#include <System/Object.h>
+#include <System/TimeSpan.h>
 #include "Enums.h"
+
+using namespace System;
 
 namespace XFX
 {

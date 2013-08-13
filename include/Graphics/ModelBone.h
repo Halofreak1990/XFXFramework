@@ -16,6 +16,11 @@ using namespace System::Collections::Generic;
 
 namespace XFX
 {
+	namespace Content
+	{
+		class ModelReader;
+	}
+
 	namespace Graphics
 	{
 		class ModelBoneCollection;
