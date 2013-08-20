@@ -51,7 +51,7 @@ namespace XFX
 			{
 			}
 
-			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
+			Disposing(this, EventArgs::Empty);
 		}
 
 		void StateBlock::Dispose()

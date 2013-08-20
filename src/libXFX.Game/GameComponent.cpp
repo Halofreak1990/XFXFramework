@@ -41,7 +41,7 @@ namespace XFX
 		if(_enabled != value)
 		{
 			_enabled = value;
-			OnEnabledChanged(this, const_cast<EventArgs * const>(EventArgs::Empty));
+			OnEnabledChanged(this, EventArgs::Empty);
 		}
 	}
 
@@ -60,7 +60,7 @@ namespace XFX
 		if(_updateOrder != value)
 		{
 			_updateOrder = value;
-			OnUpdateOrderChanged(this, const_cast<EventArgs * const>(EventArgs::Empty));
+			OnUpdateOrderChanged(this, EventArgs::Empty);
 		}
 	}
 
@@ -74,7 +74,7 @@ namespace XFX
 		if (!_disposed)
 		{
 			_disposed = true;
-			Disposed(this, const_cast<EventArgs*>(EventArgs::Empty));
+			Disposed(this, EventArgs::Empty);
 		}
 	}
 

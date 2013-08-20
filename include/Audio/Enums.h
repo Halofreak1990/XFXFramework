@@ -1,9 +1,9 @@
-/********************************************************
- *	Enums.h												*
- *														*
- *	XFX::Audio enumerations definition file				*
- *	Copyright (c) XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	XFX::Audio enumerations definition file 								 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _XFX_AUDIO_ENUMS_
 #define _XFX_AUDIO_ENUMS_
 

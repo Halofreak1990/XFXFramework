@@ -30,6 +30,7 @@ extern "C"
 #include <xboxkrnl/xboxkrnl.h>
 }
 
+#include <xmem.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,9 +45,9 @@ namespace XFX
 	{
 		typedef struct
 		{
-		  char cDriveLetter;
-		  char* szDevice;
-		  int iPartition;
+			char cDriveLetter;
+			char* szDevice;
+			int iPartition;
 		}
 		stDriveMapping;
 
@@ -71,15 +72,15 @@ namespace XFX
 
 			if (part_str_len < 19)
 			{
-			*cDriveLetter = 0;
-			return;
+				*cDriveLetter = 0;
+				return;
 			}
 
 			part_num = atoi(szPartition + 19);
 			if (part_num >= EXTEND_PARTITION_BEGIN)
 			{
-			*cDriveLetter = extendPartitionMapping[part_num-EXTEND_PARTITION_BEGIN];
-			return;
+				*cDriveLetter = extendPartitionMapping[part_num - EXTEND_PARTITION_BEGIN];
+				return;
 			}
 			for (unsigned int i = 0; i < NUM_OF_DRIVES; i++)
 			{
@@ -97,7 +98,7 @@ namespace XFX
 			return device;
 		}
 
-		bool StorageContainer::IsDisposed()
+		bool StorageContainer::IsDisposed() const
 		{
 			return isDisposed;
 		}
@@ -124,16 +125,16 @@ namespace XFX
 				isDisposed = true;
 
 				if (disposing)
-					Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
+					Disposing(this, EventArgs::Empty);
 			}
 		}
 
-		const char* StorageContainer::Path() const
+		const String StorageContainer::Path() const
 		{
 			// Calculate the path to this storage location
 		}
 
-		const char* StorageContainer::TitleLocation()
+		const String StorageContainer::TitleLocation()
 		{
 			// XBOX returns the XeImageFileName like \device\harddisk0\partition2\apps\default.xbe
 			// we need to map the partitions, and strip the \default.xbe from this string
@@ -141,7 +142,7 @@ namespace XFX
 			// copy the XeImageFileName to tmp, and strip the \default.xbe
 			//char *tmp = strncpy(tmp, XeImageFileName->Buffer, XeImageFileName->Length - 12);
 	
-			char* szTemp = (char *)malloc(256);
+			auto_ptr<char> szTemp(new char[256]);
 			char cDriveLetter = 0;
 			char* szDest;
 
@@ -153,18 +154,19 @@ namespace XFX
 			szTemp[XeImageFileName->Length - 29] = 0;
 
 			sprintf(szDest, "%c:\\%s", cDriveLetter, szTemp);
+
 			return szDest;
 		}
 
-		const char* StorageContainer::TitleName() const
+		const String StorageContainer::TitleName() const
 		{
 			FILE* file = fopen(XeImageFileName->Buffer, "rb");
-			fseek(file, 0x118, SEEK_SET);
+			auto_ptr<char> titleName(new char[0x50]);
 			uint32_t CertAddr = 0;
+			fseek(file, 0x118, SEEK_SET);
 			fread(&CertAddr, 4, 1, file);
 
 			fseek(file, CertAddr - 0x10000, SEEK_SET);
-			char* titleName = (char*)malloc(0x50);
 			fread(titleName, 0x50, 1, file);
 
 			fclose(file);

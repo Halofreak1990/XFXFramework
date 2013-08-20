@@ -39,10 +39,12 @@ namespace XFX
 
 		TimeSpan VideoPlayer::getPlayPosition()
 		{
+			// TODO: implement remainder
 		}
 
 		MediaState_t VideoPlayer::getState()
 		{
+			// TODO: implement remainder
 		}
 
 		Video* VideoPlayer::getVideo()
@@ -52,6 +54,7 @@ namespace XFX
 
 		VideoPlayer::VideoPlayer()
 		{
+			// TODO: implement remainder
 		}
 
 		void VideoPlayer::Dispose()
@@ -61,6 +64,7 @@ namespace XFX
 
 		void VideoPlayer::Dispose(bool disposing)
 		{
+			// TODO: implement remainder
 		}
 
 		Texture2D* VideoPlayer::GetTexture()
@@ -70,19 +74,24 @@ namespace XFX
 
 		void VideoPlayer::Pause()
 		{
+			// TODO: implement remainder
 		}
 
 		void VideoPlayer::Play(Video * const video)
 		{
 			sassert(video != null, String::Format("value; %s", FrameworkResources::ArgumentNull_Generic));
+
+			// TODO: implement remainder
 		}
 
 		void VideoPlayer::Resume()
 		{
+			// TODO: implement remainder
 		}
 
 		void VideoPlayer::Stop()
 		{
+			// TODO: implement remainder
 		}
 	}
 }

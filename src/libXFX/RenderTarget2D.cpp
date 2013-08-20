@@ -27,6 +27,8 @@
 
 #include <Graphics/RenderTarget2D.h>
 #include <Graphics/Texture2D.h>
+#include <System/Type.h>
+
 #include <sassert.h>
 
 #include "pbkit.h"
@@ -35,6 +37,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		const Type RenderTarget2DTypeInfo("RenderTarget2D", "XFX::Graphics::RenderTarget2D", TypeCode::Object);
+
 		int RenderTarget2D::bufferCount = 0;
 
 		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height)
@@ -44,18 +48,18 @@ namespace XFX
 		}
 
 		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat)
-			: Texture2D(graphicsDevice, width, height, mipmap, TextureUsage::None, preferredFormat)
+			: Texture2D(graphicsDevice, width, height, mipmap, preferredFormat)
 		{
 			//! TODO: implement
 		}
 
 		RenderTarget2D::RenderTarget2D(GraphicsDevice * const graphicsDevice, const int width, const int height, const bool mipmap, const SurfaceFormat_t preferredFormat, const DepthFormat_t preferredDepthFormat, const int multisampleCount, const RenderTargetUsage_t usage)
-			: Texture2D(graphicsDevice, width, height, mipmap, TextureUsage::None, preferredFormat)
+			: Texture2D(graphicsDevice, width, height, mipmap, preferredFormat)
 		{
 			//! TODO: implement
 		}
 
-		RenderTarget2D::~RenderTarget()
+		RenderTarget2D::~RenderTarget2D()
 		{
 		}
 
@@ -63,8 +67,9 @@ namespace XFX
 		{
 		}
 
-		int RenderTarget2D::GetType()
+		const Type& RenderTarget2D::GetType()
 		{
+			return RenderTarget2DTypeInfo;
 		}
 
 		void RenderTarget2D::raise_ContentLost(Object * const sender, EventArgs * const e)

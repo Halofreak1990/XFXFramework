@@ -123,7 +123,7 @@ namespace XFX
 
 		bool GraphicsAdapter::Equals(Object const * const obj) const
 		{
-			return is(this, obj) ? (*this == *(GraphicsAdapter*)obj) : false;
+			return is(this, obj) ? (*this == *(GraphicsAdapter *)obj) : false;
 		}
 
 		bool GraphicsAdapter::Equals(const GraphicsAdapter obj) const

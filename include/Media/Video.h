@@ -22,11 +22,11 @@ namespace XFX
 		class Video : public Object
 		{
 		public:
-			TimeSpan getDuration();
-			float getFramesPerSecond();
-			int getHeight();
-			VideoSoundtrackType_t getVideoSoundtrackType();
-			int getWidth();
+			TimeSpan getDuration() const;
+			float getFramesPerSecond() const;
+			int getHeight() const;
+			VideoSoundtrackType_t getVideoSoundtrackType() const;
+			int getWidth() const;
 
 			static const Type& GetType();
 		};

@@ -77,7 +77,7 @@ namespace XFX
 		{
 		}
 
-		SoundEffectInstance::SoundEffectInstance(SoundEffect * const parent)
+		SoundEffectInstance::SoundEffectInstance(SoundEffect * const parent, bool fireAndForget)
 			: _parent(parent), _volume(parent->volume)
 		{
 			_parent->referenceCount++;

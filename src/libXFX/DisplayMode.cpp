@@ -27,18 +27,21 @@
 
 #include <Rectangle.h>
 #include <Graphics/DisplayMode.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type DisplayModeTypeInfo("DisplayMode", "XFX::Graphics::DisplayMode", TypeCode::Object);
+
 		float DisplayMode::getAspectRatio() const
 		{
 			return Width / Height;
 		}
-		
+
 		Rectangle DisplayMode::getTitleSafeArea() const
-		{			
+		{
 			/*
 				Based on my own findings on a PAL SD TV set, this roughly equates to a resolution of 600 * 450
 				however, that's on a normal 4:3 TV, and not a Widescreen 0_o'
@@ -48,32 +51,32 @@ namespace XFX
 			*/
 			return Rectangle(20, 0, Width - 20, Height - 30);
 		}
-		
+
 		DisplayMode::DisplayMode()
 			: Height(0), Format(SurfaceFormat::Color), RefreshRate(60), Width(0)
 		{
 		}
-		
+
 		bool DisplayMode::Equals(Object const * const obj) const
 		{
-			return is(this, obj) ? (*this == *(DisplayMode*)obj) : false;
+			return is(this, obj) ? (*this == *(DisplayMode *)obj) : false;
 		}
-		
+
 		int DisplayMode::GetHashCode() const
 		{
 			return (int)getAspectRatio() ^ Width ^ Height ^ getTitleSafeArea().GetHashCode() ^ Format ^ RefreshRate;
 		}
 
-		int DisplayMode::GetType()
+		const Type& DisplayMode::GetType()
 		{
-			// TODO: implement
+			return DisplayModeTypeInfo;
 		}
-		
+
 		bool DisplayMode::operator!=(const DisplayMode& other) const
 		{
 			return ((Width != other.Width) || (Height != other.Height) || (Format != other.Format) || (RefreshRate != other.RefreshRate));
 		}
-		
+
 		bool DisplayMode::operator==(const DisplayMode& other) const
 		{
 			return ((Width == other.Width) && (Height == other.Height) && (Format == other.Format) && (RefreshRate == other.RefreshRate));

@@ -54,13 +54,13 @@ namespace XFX
 		SynchronizeWithVerticalRetrace = true;
 		preferredDepthStencilFormat = DepthFormat::Depth24;
 
-		sassert(game->getServices().GetService("IGraphicsDeviceManager") == null, "A graphics device manager is already registered. The graphics device manager cannot be changed once it is set.");
+		sassert(game->getServices().GetService(IGraphicsDeviceManager::GetType()) == null, "A graphics device manager is already registered. The graphics device manager cannot be changed once it is set.");
 
 #if DEBUG
 		debugPrint("Registering GraphicsDeviceManager\n");
 #endif
-        game->getServices().AddService("IGraphicsDeviceManager", this);
-		game->getServices().AddService("IGraphicsDeviceService", this);
+		game->getServices().AddService(IGraphicsDeviceManager::GetType(), this);
+		game->getServices().AddService(IGraphicsDeviceService::GetType(), this);
 	}
 
 	GraphicsDeviceManager::GraphicsDeviceManager(const GraphicsDeviceManager &obj)
@@ -96,10 +96,10 @@ namespace XFX
 	bool GraphicsDeviceManager::CanResetDevice(const GraphicsDeviceInformation newDeviceInfo)
 	{
 		/*if (graphicsDevice->getDeviceType() != newDeviceInfo.DeviceType_)
-        {
-            return false;
-        }*/
-        return true;
+		{
+			return false;
+		}*/
+		return true;
 	}
 
 	void GraphicsDeviceManager::CreateDevice()
@@ -121,7 +121,7 @@ namespace XFX
 		graphicsDevice->DeviceResetting += new EventHandler::T<GraphicsDeviceManager>(this, &GraphicsDeviceManager::OnDeviceResetting);
 		graphicsDevice->DeviceReset += new EventHandler::T<GraphicsDeviceManager>(this, &GraphicsDeviceManager::OnDeviceReset);
 
-		OnDeviceCreated(this, const_cast<EventArgs*>(EventArgs::Empty));
+		OnDeviceCreated(this, EventArgs::Empty);
 	}
 
 	void GraphicsDeviceManager::Dispose()
@@ -148,22 +148,22 @@ namespace XFX
 		return GraphicsDeviceManagerTypeInfo;
 	}
 
-	void GraphicsDeviceManager::OnDeviceCreated(Object* sender, EventArgs* args)
+	void GraphicsDeviceManager::OnDeviceCreated(Object * const sender, EventArgs * const args)
 	{
 		DeviceCreated(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceDisposing(Object* sender, EventArgs* args)
+	void GraphicsDeviceManager::OnDeviceDisposing(Object * const sender, EventArgs * const args)
 	{
 		DeviceDisposing(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceReset(Object* sender, EventArgs* args)
+	void GraphicsDeviceManager::OnDeviceReset(Object * const sender, EventArgs * const args)
 	{
 		DeviceReset(sender, args);
 	}
 
-	void GraphicsDeviceManager::OnDeviceResetting(Object* sender, EventArgs* args)
+	void GraphicsDeviceManager::OnDeviceResetting(Object * const sender, EventArgs * const args)
 	{
 		DeviceResetting(sender, args);
 	}

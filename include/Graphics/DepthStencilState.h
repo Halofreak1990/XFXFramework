@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	DepthStencilState.h														 *
+ *	DepthStencilState.h 													 *
  *																			 *
  *	XFX::Graphics::DepthStencilState class definition file  				 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *

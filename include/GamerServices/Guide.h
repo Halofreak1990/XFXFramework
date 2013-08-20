@@ -46,7 +46,7 @@ namespace XFX
 			static IAsyncResult* BeginShowStorageDeviceSelector(const PlayerIndex_t player, const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state);
 			static IAsyncResult* BeginShowStorageDeviceSelector(const PlayerIndex_t player, AsyncCallback callback, Object* state);
 			static void DelayNotifications(const TimeSpan timespan);
-			static const char* EndShowKeyboardInput(IAsyncResult* result);
+			static String EndShowKeyboardInput(IAsyncResult* result);
 			static int EndShowMessageBox(IAsyncResult* result);
 			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult* result);
 		};

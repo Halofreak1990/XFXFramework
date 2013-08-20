@@ -49,7 +49,6 @@ namespace XFX
 			static const RasterizerState CullNone;
 
 			RasterizerState();
-			~RasterizerState();
 
 			static const Type& GetType();
 

@@ -1,7 +1,7 @@
 /*****************************************************************************
- *	EventArgs.h																 *
+ *	EventArgs.h 															 *
  *																			 *
- *	XFX EventArgs class definition file 									 *
+ *	System::EventArgs class definition file 								 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_EVENTARGS_
@@ -17,7 +17,7 @@ namespace System
 	class EventArgs : public Object
 	{
 	public:
-		static const EventArgs* Empty;
+		static EventArgs * const Empty;
 
 		EventArgs();
 		virtual ~EventArgs() { }

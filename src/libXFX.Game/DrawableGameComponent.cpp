@@ -60,7 +60,7 @@ namespace XFX
 		if (_drawOrder != value)
 		{
 			_drawOrder = value;  
-			OnDrawOrderChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
+			OnDrawOrderChanged(this, EventArgs::Empty);
 		}  
 	}
 	
@@ -98,7 +98,7 @@ namespace XFX
 		if (_visible != value)
 		{
 			_visible = value;
-			OnVisibleChanged(this, const_cast<EventArgs*>(EventArgs::Empty));
+			OnVisibleChanged(this, EventArgs::Empty);
 		}
 	}
 }

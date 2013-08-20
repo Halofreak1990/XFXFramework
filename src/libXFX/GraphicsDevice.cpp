@@ -29,6 +29,7 @@
 #include <Graphics/GraphicsDevice.h>
 #include <System/FrameworkResources.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <Matrix.h>
 #include <Quaternion.h>
 #include <Rectangle.h>
@@ -50,12 +51,14 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		const Type GraphicsDeviceTypeInfo("GraphicsDevice", "XFX:Graphics::GraphicsDevice", TypeCode::Object);
+
 		PresentationParameters* GraphicsDevice::getPresentationParameters() const
 		{
 			return p_cachedParameters;
 		}
 
-		void GraphicsDevice::setPresentationParameters(PresentationParameters* presentationParameters)
+		void GraphicsDevice::setPresentationParameters(PresentationParameters * const presentationParameters)
 		{
 			viewport.X = 0;
 			viewport.Y = 0;
@@ -75,7 +78,7 @@ namespace XFX
 				//  TODO: find command *ALPHA_SIZE
 				//pb_push1(p, 0, 0);
 			}
-			
+
 			pb_end(p);
 
 			pb_set_viewport(viewport.X, viewport.Y, viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth);
@@ -100,7 +103,7 @@ namespace XFX
 			}
 		}
 
-		GraphicsDevice::GraphicsDevice(GraphicsAdapter * const  adapter, PresentationParameters * const presentationParameters)
+		GraphicsDevice::GraphicsDevice(GraphicsAdapter * const adapter, PresentationParameters * const presentationParameters)
 		{
 			//sassert(adapter != null, String::Format("adapter; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -112,14 +115,15 @@ namespace XFX
 
 			switch (err)
 			{
-			case 0: break; //no error
-			case -4:		
+			case 0:
+				break; //no error
+			case -4:	
 				debugPrint("IRQ3 already handled. Can't install GPU interrupt.\n");
 				debugPrint("You must apply the patch and compile OpenXDK again.\n");
 				debugPrint("Also be sure to call pb_init() before any other call.\n");
 				XSleep(2000);
 				return;
-			case -5:		
+			case -5:	
 				debugPrint("Unexpected PLL configuration. Report this issue please.\n");
 				XSleep(2000);
 				return;
@@ -133,31 +137,31 @@ namespace XFX
 
 			pb_reset();
 		}
-		
+
 		GraphicsDevice::~GraphicsDevice()
 		{
 			Dispose(false);
 			delete _adapter;
 			delete p_cachedParameters;
 		}
-		
+
 		void GraphicsDevice::Clear(const Color color)
 		{
 			// start of frame-- reset push buffer
 			pb_reset();
 
-			DWORD		*p;
-			DWORD		format;
-			DWORD		depth;
-			
-			int		x1,y1,x2,y2;
-			
+			DWORD	*p;
+			DWORD	format;
+			DWORD	depth;
+
+			int 	x1,y1,x2,y2;
+
 			//Set the coordinates for the rectangle to be cleared
 			x1 = 0;
 			y1 = 0;
 			x2 = x1 + this->p_cachedParameters->BackBufferWidth;
 			y2 = y1 + this->p_cachedParameters->BackBufferHeight;
-			
+
 			switch(this->p_cachedParameters->DepthStencilFormat)
 			{
 				// TODO: verify
@@ -172,7 +176,7 @@ namespace XFX
 			*(p++) = ((x2-1) << 16) | x1;
 			*(p++) = ((y2-1) << 16) | y1;
 			pb_push(p++, NV20_TCL_PRIMITIVE_3D_CLEAR_VALUE_DEPTH, 3);		//sets data used to fill in rectangle
-			*(p++) = depth;					//depth to clear
+			*(p++) = depth; 				//depth to clear
 			*(p++) = color.PackedValue();	//color
 			*(p++) = format;				//triggers the HW rectangle fill (only on D&S)
 			pb_end(p);
@@ -191,11 +195,11 @@ namespace XFX
 			// start of frame-- reset push buffer
 			pb_reset();
 
-			DWORD		*p;
-			DWORD		format;
-			
-			int		x1,y1,x2,y2;
-			
+			DWORD	*p;
+			DWORD	format;
+
+			int 	x1, y1, x2, y2;
+
 			//Set the coordinates for the rectangle to be cleared
 			x1 = 0;
 			y1 = 0;
@@ -251,31 +255,34 @@ namespace XFX
 			}
 		}
 
-		int GraphicsDevice::GetType()
+		const Type& GraphicsDevice::GetType()
 		{
+			return GraphicsDeviceTypeInfo;
 		}
 
 		void GraphicsDevice::Present()
 		{
 			while(pb_finished());
+
+			pb_reset();
 		}
 
-		void GraphicsDevice::raise_DeviceLost(Object* sender, EventArgs* e)
+		void GraphicsDevice::raise_DeviceLost(Object * const sender, EventArgs * const e)
 		{
 			DeviceLost(sender, e);
 		}
 
-		void GraphicsDevice::raise_DeviceReset(Object* sender, EventArgs* e)
+		void GraphicsDevice::raise_DeviceReset(Object * const sender, EventArgs * const e)
 		{
 			DeviceReset(sender, e);
 		}
 
-		void GraphicsDevice::raise_DeviceResetting(Object* sender, EventArgs* e)
+		void GraphicsDevice::raise_DeviceResetting(Object * const sender, EventArgs * const e)
 		{
 			DeviceResetting(sender, e);
 		}
 
-		void GraphicsDevice::raise_Disposing(Object* sender, EventArgs* e)
+		void GraphicsDevice::raise_Disposing(Object * const sender, EventArgs * const e)
 		{
 			Disposing(sender, e);
 		}
@@ -287,9 +294,9 @@ namespace XFX
 
 		void GraphicsDevice::Reset(PresentationParameters* presentationParameters)
 		{
-			raise_DeviceResetting(this, const_cast<EventArgs*>(EventArgs::Empty));
+			raise_DeviceResetting(this, EventArgs::Empty);
 			setPresentationParameters(presentationParameters);
-			raise_DeviceReset(this, const_cast<EventArgs*>(EventArgs::Empty));
+			raise_DeviceReset(this, EventArgs::Empty);
 		}
 
 		void GraphicsDevice::SetRenderTarget(RenderTarget2D * const renderTarget)

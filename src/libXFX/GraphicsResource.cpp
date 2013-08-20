@@ -66,7 +66,7 @@ namespace XFX
 
 			isDisposed = true;
 
-			Disposing(this, const_cast<EventArgs*>(EventArgs::Empty));
+			Disposing(this, EventArgs::Empty);
 		}
 
 		const Type& GraphicsResource::GetType()

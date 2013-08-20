@@ -15,6 +15,7 @@ namespace XFX
 	{
 		class AudioListener;
 		class AudioEmitter;
+		class DynamicSoundEffectInstance;
 		class SoundEffect;
 
 		/**
@@ -24,12 +25,14 @@ namespace XFX
 		{
 		private:
 			friend class SoundEffect;
+			friend class DynamicSoundEffectInstance;
 
 			float _pan;
 			SoundEffect* _parent;
 			float _volume;
 
-			SoundEffectInstance(SoundEffect * const parent);
+			SoundEffectInstance();
+			SoundEffectInstance(SoundEffect * const parent, bool fireAndForget);
 
 			virtual void Dispose(bool disposing);
 

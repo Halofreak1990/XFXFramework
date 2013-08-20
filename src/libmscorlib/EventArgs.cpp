@@ -26,17 +26,20 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/EventArgs.h>
+#include <System/Type.h>
 
 namespace System
 {
-	const EventArgs* EventArgs::Empty = new EventArgs();
+	EventArgs * const EventArgs::Empty = new EventArgs();
+
+	const Type EventArgsTypeInfo("EventArgs", "System::EventArgs", TypeCode::Object);
 
 	EventArgs::EventArgs()
 	{
 	}
 
-	int EventArgs::GetType()
+	const Type& EventArgs::GetType()
 	{
-		//! TODO: implement
+		return EventArgsTypeInfo;
 	}
 }

@@ -19,6 +19,9 @@
 #include "Audio/AudioEmitter.h"
 #include "Audio/AudioEngine.h"
 #include "Audio/AudioListener.h"
+#include "Audio/DynamicSoundEffectInstance.h"
+#include "Audio/SoundEffect.h"
+#include "Audio/SoundEffectInstance.h"
 
 //
 // Structs

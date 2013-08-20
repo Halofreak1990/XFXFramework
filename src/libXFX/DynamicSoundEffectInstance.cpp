@@ -25,64 +25,36 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Windows/Point.h>
-#include <System/String.h>
-#include <System/Type.h>
+#include <Audio/DynamicSoundEffectInstance.h>
 
-namespace System
+namespace XFX
 {
-	namespace Windows
+	namespace Audio
 	{
-		const Type PointTypeInfo("Point", "System::Windows::Point", TypeCode::Object);
-
-		Point::Point()
-			: X(0), Y(0)
+		DynamicSoundEffectInstance::DynamicSoundEffectInstance(int sampleRate, AudioChannels_t channels)
+			: channels(channels), sampleRate(sampleRate)
 		{
+			// TODO: implement remainder
 		}
 
-		Point::Point(const int x, const int y)
-			: X(x), Y(y)
+		void DynamicSoundEffectInstance::Dispose(bool disposing)
 		{
+			// TODO: implement remainder
 		}
 
-		Point::Point(const Point &obj)
-			: X(obj.X), Y(obj.Y)
+		void DynamicSoundEffectInstance::Play()
 		{
+			if (bufferQueue.Count() == 0)
+			{
+				BufferNeeded(this, EventArgs::Empty);
+			}
+
+			// TODO: implement remainder
 		}
 
-		bool Point::Equals(Object const * const obj) const
+		void DynamicSoundEffectInstance::SubmitBuffer(byte buffer[], int offset, int count)
 		{
-			return is(obj, this) ? *this == *(Point *)obj : false;
-		}
-
-		bool Point::Equals(const Point other) const
-		{
-			return (*this == other);
-		}
-
-		int Point::GetHashCode() const
-		{
-			return X + Y;
-		}
-
-		const Type& Point::GetType()
-		{
-			return PointTypeInfo;
-		}
-
-		const String Point::ToString() const
-		{
-			return String::Format("{X:%i Y:%i}", X, Y);
-		}
-
-		bool Point::operator ==(const Point& right) const
-		{
-			return ((X == right.X) && (Y == right.Y));
-		}
-
-		bool Point::operator !=(const Point& right) const
-		{
-			return ((X != right.X) || (Y != right.Y));
+			// TODO: implement remainder
 		}
 	}
 }

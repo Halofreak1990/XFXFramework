@@ -107,7 +107,7 @@ namespace XFX
 
 		SoundEffectInstance* SoundEffect::CreateInstance()
 		{
-			return new SoundEffectInstance(this);
+			return new SoundEffectInstance(this, false);
 		}
 
 		void SoundEffect::Dispose()
@@ -137,12 +137,12 @@ namespace XFX
 
 		bool SoundEffect::Play()
 		{
-			SoundEffectInstance(this).Play();
+			SoundEffectInstance(this, true).Play();
 		}
 
 		bool SoundEffect::Play(float volume, float pitch, float pan)
 		{
-			SoundEffectInstance sei(this);
+			SoundEffectInstance sei(this, true);
 			sei.setPan(pan);
 			sei.setPitch(pitch);
 			sei.setVolume(volume);

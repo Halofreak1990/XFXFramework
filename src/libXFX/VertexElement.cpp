@@ -27,20 +27,23 @@
 
 #include <Graphics/VertexElement.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type VertexElementTypeInfo("VertexElement", "XFX::Graphics::VertexElement", TypeCode::Object);
+
 		VertexElement::VertexElement(const int offset, const VertexElementFormat_t elementFormat, const VertexElementUsage_t elementUsage, const int usageIndex)
 			: Offset(offset), UsageIndex(usageIndex),
-			VertexElementFormat(elementFormat), VertexElementUsage(elementUsage)
+			  VertexElementFormat(elementFormat), VertexElementUsage(elementUsage)
 		{
 		}
 
 		VertexElement::VertexElement(const VertexElement &obj)
 			: Offset(obj.Offset), UsageIndex(obj.UsageIndex),
-			VertexElementFormat(obj.VertexElementFormat), VertexElementUsage(obj.VertexElementUsage)
+			  VertexElementFormat(obj.VertexElementFormat), VertexElementUsage(obj.VertexElementUsage)
 		{
 		}
 
@@ -54,9 +57,9 @@ namespace XFX
 			return (Offset ^ UsageIndex);
 		}
 
-		int VertexElement::GetType()
+		const Type& VertexElement::GetType()
 		{
-			// TODO: implement
+			return VertexElementTypeInfo;
 		}
 
 		const String VertexElement::ToString() const

@@ -44,6 +44,16 @@ namespace System
 
 		const Type FrameworkElementTypeInfo("FrameworkElement", "System::Windows::FrameworkElement", TypeCode::Object);
 
+		int FrameworkElement::getHeight() const
+		{
+			return GetValue(HeightProperty);
+		}
+
+		void FrameworkElement::setHeight(const int value)
+		{
+			SetValue(HeightProperty, value);
+		}
+
 		Thickness FrameworkElement::getMargin() const
 		{
 			return GetValue(MarginProperty);
@@ -65,11 +75,11 @@ namespace System
 		}
 
 		FrameworkElement::FrameworkElement()
-			: HorizontalAlignment(HorizontalAlignment::Stretch),
-			  VerticalAlignment(VerticalAlignment::Stretch)
 		{
 			SetValue(HeightProperty, Int32::MinValue);
+			SetValue(HorizontalAlignmentProperty, HorizontalAlignment::Stretch);
 			SetValue(MarginProperty, Thickness(0));
+			SetValue(VerticalAlignmentProperty, VerticalAlignment::Stretch);
 			SetValue(WidthProperty, Int32::MinValue);
 		}
 

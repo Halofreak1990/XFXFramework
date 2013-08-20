@@ -29,7 +29,7 @@
 extern "C"
 {
 #if DEBUG
-	#include <openxdk/debug.h>
+#include <openxdk/debug.h>
 #endif
 #include <hal/input.h>
 #include <hal/xbox.h>
@@ -54,7 +54,7 @@ namespace XFX
 	{
 		return isActive;
 	}
-	
+
 	Game::Game()
 	{
 		inRun = false;
@@ -98,7 +98,7 @@ namespace XFX
 	bool Game::BeginDraw()
 	{
 		if (IsFixedTimeStep && gameTime.IsRunningSlowly())
-            return false;
+			return false;
 
 		return graphicsManager->BeginDraw();
 	}
@@ -125,7 +125,7 @@ namespace XFX
 
 		disposed = true;
 
-		Disposed(this, const_cast<EventArgs * const>(EventArgs::Empty));
+		Disposed(this, EventArgs::Empty);
 	}
 
 	void Game::Draw(GameTime gameTime)
@@ -156,7 +156,7 @@ namespace XFX
 	void Game::EndRun()
 	{
 	}
-	
+
 	void Game::Exit()
 	{
 		XSleep(1000);
@@ -170,7 +170,7 @@ namespace XFX
 
 	void Game::Initialize()
 	{
-		graphicsService = (IGraphicsDeviceService *)services.GetService("IGraphicsDeviceService");
+		graphicsService = (IGraphicsDeviceService *)services.GetService(IGraphicsDeviceService::GetType());
 
 		for (int i = 0; i < components.Count(); i++)
 		{
@@ -208,7 +208,7 @@ namespace XFX
 		inRun = true;
 		BeginRun();
 			
-		graphicsManager = (IGraphicsDeviceManager*)((GraphicsDeviceManager*)services.GetService("IGraphicsDeviceManager"));
+		graphicsManager = (IGraphicsDeviceManager*)((GraphicsDeviceManager*)services.GetService(IGraphicsDeviceManager::GetType()));
 
 		if (graphicsManager != null)
 			graphicsManager->CreateDevice();
@@ -217,19 +217,19 @@ namespace XFX
 			debugPrint("graphicsManager is NULL.\n");
 #endif
 
-		Initialize(); 
-        
+		Initialize();
+
 		while(1)
 			Tick();
-        
-        EndRun();
+
+		EndRun();
 		inRun = false;
 	}
 	
 	void Game::Tick()
 	{
 		Update(gameTime);
-		
+
 		if(BeginDraw())
 		{
 			Draw(gameTime);

@@ -25,40 +25,22 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Storage/StorageContainer.h>
-#include <Storage/StorageDevice.h>
-#include <System/String.h>
-#include <System/Types.h>
-
-#include <sassert.h>
+#include <Graphics/DirectionalLight.h>
+#include <System/Type.h>
 
 namespace XFX
 {
-	namespace Storage
+	namespace Graphics
 	{
-		long long StorageDevice::FreeSpace() const
+		const Type DirectionalLightTypeInfo("DirectionalLight", "XFX::Graphics::DirectionalLight", TypeCode::Object);
+
+		DirectionalLight::DirectionalLight(EffectParameter * const directionParameter, EffectParameter * const diffuseColorParameter, EffectParameter * const specularColorParameter, DirectionalLight const * const cloneSource)
 		{
 		}
 
-		bool StorageDevice::IsConnected() const
+		const Type& DirectionalLight::GetType()
 		{
-		}
-
-		long long StorageDevice::TotalSpace() const
-		{
-		}
-
-		StorageDevice::StorageDevice(uint deviceIndex, PlayerIndex_t playerIndex)
-		{
-			_playerIndex = playerIndex;
-			_deviceIndex = deviceIndex;
-		}
-
-		StorageContainer* StorageDevice::OpenContainer(const String& titleName)
-		{
-			sassert(!String::IsNullOrEmpty(titleName), "titleName cannot be null.");
-
-			//return new StorageContainer(this, titleName, _deviceIndex, _playerIndex);
+			return DirectionalLightTypeInfo;
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*****************************************************************************
- *	Color.h																	 *
+ *	Color.h 																 *
  *																			 *
  *	XFX::Graphics::Color structure definition file  						 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *

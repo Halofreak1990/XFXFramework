@@ -1,14 +1,19 @@
 /*****************************************************************************
  *	DynamicSoundEffectInstance.h											 *
  *																			 *
- *	XFX::Audio::DynamicSoundEffectInstance definition file 					 *
+ *	XFX::Audio::DynamicSoundEffectInstance definition file  				 *
  *	Copyright (c) XFX Team. All Rights Reserved 							 *
  *****************************************************************************/
+#ifndef _XFX_AUDIO_DYNAMICSOUNDEFFECTINSTANCE_
+#define _XFX_AUDIO_DYNAMICSOUNDEFFECTINSTANCE_
+
 #include <Audio/SoundEffectInstance.h>
 #include <System/Event.h>
+#include <System/Collections/Generic/Queue.h>
 #include <System/TimeSpan.h>
 
 using namespace System;
+using namespace System::Collections::Generic;
 
 namespace XFX
 {
@@ -17,10 +22,12 @@ namespace XFX
 		/**
 		 * Provides properties, methods, and events for play back of the audio buffer.
 		 */
-		class DynamicSoundEffectInstance : SoundEffectInstance
+		class DynamicSoundEffectInstance : public SoundEffectInstance
 		{
 		private:
-
+			Queue<byte[]> bufferQueue;
+			AudioChannels_t channels;
+			int sampleRate;
 
 		protected:
 			void Dispose(bool disposing);
@@ -40,7 +47,7 @@ namespace XFX
 			 * @param channels
 			 * Number of channels in the audio data.
 			 * 
-			 * @throws System.ArgumentOutOfRangeException
+			 * @throws System::ArgumentOutOfRangeException
 			 * 
 			 */
 			DynamicSoundEffectInstance(int sampleRate, AudioChannels_t channels);
@@ -51,9 +58,9 @@ namespace XFX
 			 * @param sizeInBytes
 			 * Size, in bytes, of the audio data.
 			 * 
-			 * @throws System.ObjectDisposedException
+			 * @throws System::ObjectDisposedException
 			 * 
-			 * @throws System.ArgumentException
+			 * @throws System::ArgumentException
 			 * 
 			 */
 			TimeSpan GetSampleDuration(int sizeInBytes);
@@ -63,16 +70,16 @@ namespace XFX
 			 * @param duration
 			 * TimeSpan object that contains the duration of the audio sample.
 			 * 
-			 * @throws System.ObjectDisposedException
+			 * @throws System::ObjectDisposedException
 			 * 
-			 * @throws System.ArgumentOutOfException
+			 * @throws System::ArgumentOutOfException
 			 *  
 			 */
 			int GetSampleSizeInBytes(TimeSpan duration);
 			/**
 			 * Begins or resumes audio playback.
 			 * 
-			 * @throws System.ObjectDisposedException
+			 * @throws System::ObjectDisposedException
 			 */
 			void Play();
 			/**
@@ -87,12 +94,14 @@ namespace XFX
 			 * @param count
 			 * Amount, in bytes, of data sent.
 			 * 
-			 * @throws System.ObjectDisposedException
+			 * @throws System::ObjectDisposedException
 			 * 
-			 * @throws System.ArgumentException
+			 * @throws System::ArgumentException
 			 * 
 			 */
 			void SubmitBuffer(byte buffer[], int offset, int count);
 		};
 	}
 }
+
+#endif // _XFX_AUDIO_DYNAMICSOUNDEFFECTINSTANCE_

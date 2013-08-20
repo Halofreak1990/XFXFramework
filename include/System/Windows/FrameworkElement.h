@@ -1,8 +1,8 @@
 /*****************************************************************************
- *	FrameworkElement.h														 *
+ *	FrameworkElement.h  													 *
  *																			 *
  *	System::Windows::FrameworkElement definition file						 *
- *	Copyright (c) XFX Team. All rights reserved								 *
+ *	Copyright (c) XFX Team. All rights reserved 							 *
  *****************************************************************************/
 #ifndef _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
 #define _SYSTEM_WINDOWS_FRAMEWORKELEMENT_
@@ -30,7 +30,8 @@ namespace System
 			virtual Size MeasureOverride(const Size finalSize);
 
 		public:
-			int Height;
+			int getHeight() const;
+			void setHeight(const int value);
 			static const DependencyProperty<int> HeightProperty;
 			HorizontalAlignment_t HorizontalAlignment;
 			static const DependencyProperty<HorizontalAlignment_t> HorizontalAlignmentProperty;

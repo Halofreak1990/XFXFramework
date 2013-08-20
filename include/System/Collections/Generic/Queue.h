@@ -11,7 +11,9 @@ namespace System
 	{
 		namespace Generic
 		{
-			// Represents a first-in, first-out collection of objects.
+			/**
+			 * Represents a first-in, first-out collection of objects.
+			 */
 			template <typename T>
 			class Queue : public ICollection<T>, public IEnumerable<T>, public Object
 			{
@@ -27,7 +29,13 @@ namespace System
 				int _tail;
 				int _version;
 
+				void Add(const T& item) { }
+				bool Remove(const T& item) { return false; }
+
 			public:
+				int Count() const;
+				bool IsReadOnly() const;
+
 				Queue();
 				Queue(IEnumerable<T> * const collection);
 				Queue(const int capacity);
@@ -37,7 +45,7 @@ namespace System
 				void CopyTo(T array[], const int index) const;
 				T& Dequeue();
 				void Enqueue(const T& item);
-				IEnumerator<T>* GetEnumerator() const;
+				IEnumerator<T>* GetEnumerator();
 				int GetType() const;
 				T& Peek();
 				T* ToArray() const;
@@ -61,6 +69,18 @@ namespace System
 			};
 
 			////////////////////////////////////////////////////////////////////////////
+
+			template <typename T>
+			int Queue<T>::Count() const
+			{
+				return _size;
+			}
+
+			template <typename T>
+			bool Queue<T>::IsReadOnly() const
+			{
+				return false;
+			}
 
 			template <typename T>
 			Queue<T>::Queue()
