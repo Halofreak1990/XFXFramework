@@ -10,6 +10,7 @@
 #include <System/Collections/Generic/Interfaces.h>
 #include <System/Delegates.h>
 #include <System/Interfaces.h>
+#include <System/Nullable.h>
 #include <System/TimeSpan.h>
 #include <System/Types.h>
 #include <Storage/StorageDevice.h>
@@ -47,7 +48,7 @@ namespace XFX
 			static IAsyncResult* BeginShowStorageDeviceSelector(const PlayerIndex_t player, AsyncCallback callback, Object* state);
 			static void DelayNotifications(const TimeSpan timespan);
 			static String EndShowKeyboardInput(IAsyncResult* result);
-			static int EndShowMessageBox(IAsyncResult* result);
+			static Nullable<int> EndShowMessageBox(IAsyncResult* result);
 			static StorageDevice EndShowStorageDeviceSelector(IAsyncResult* result);
 		};
 	}

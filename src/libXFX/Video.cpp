@@ -34,24 +34,29 @@ namespace XFX
 	{
 		const Type VideoTypeInfo("Video", "XFX::Media::Video", TypeCode::Object);
 
-		TimeSpan Video::getDuration()
+		TimeSpan Video::getDuration() const
 		{
+			// TODO: implement
 		}
 
-		float Video::getFramesPerSecond()
+		float Video::getFramesPerSecond() const
 		{
+			// TODO: implement
 		}
 
-		int Video::getHeight()
+		int Video::getHeight() const
 		{
+			// TODO: implement
 		}
 
-		VideoSoundtrackType_t Video::getVideoSoundtrackType()
+		VideoSoundtrackType_t Video::getVideoSoundtrackType() const
 		{
+			// TODO: implement
 		}
 
-		int Video::getWidth()
+		int Video::getWidth() const
 		{
+			// TODO: implement
 		}
 
 		const Type& Video::GetType()

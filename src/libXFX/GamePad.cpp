@@ -34,6 +34,7 @@ extern "C"
 #include <Input/GamePad.h>
 #include <System/Array.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 using namespace System;
 
@@ -50,7 +51,12 @@ namespace XFX
 {
 	namespace Input
 	{
-		GamePadState g_State;
+		static GamePadState g_State;
+		const Type GamePadDPadTypeInfo("GamePadDPad", "XFX::Input::GamePadDPad", TypeCode::Object);
+		const Type GamePadButtonsTypeInfo("GamePadButtons", "XFX::Input::GamePadButtons", TypeCode::Object);
+		const Type GamePadStateTypeInfo("GamePadState", "XFX::Input::GamePadState", TypeCode::Object);
+		const Type GamePadThumbSticksTypeInfo("GamePadThumbSticks", "XFX::Input::GamePadThumbSticks", TypeCode::Object);
+		const Type GamePadTriggersTypeInfo("GamePadTriggers", "XFX::Input::GamePadTriggers", TypeCode::Object);
 
 		GamePadState GamePad::GetState(const PlayerIndex_t playerIndex)
 		{
@@ -73,7 +79,7 @@ namespace XFX
 				((g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_Y]) ? Buttons::Y : 0));
 				
 			g_State.Triggers = GamePadTriggers(g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_LEFT_TRIGGER],
-												g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_RIGHT_TRIGGER]);
+											   g_Pads[playerIndex].PressedButtons.ucAnalogButtons[XPAD_RIGHT_TRIGGER]);
 
 			//Update DPad
 			g_State.DPad = GamePadDPad(
@@ -136,9 +142,9 @@ namespace XFX
 			return (((Buttons.GetHashCode() + DPad.GetHashCode()) ^ ThumbSticks.GetHashCode()) ^ Triggers.GetHashCode());
 		}
 
-		int GamePadState::GetType()
+		const Type& GamePadState::GetType()
 		{
-			// TODO: implement
+			return GamePadStateTypeInfo;
 		}
 
 		bool GamePadState::IsButtonDown(const Buttons_t button) const
@@ -194,6 +200,7 @@ namespace XFX
 			case Buttons::Y:
 				return Buttons.Y == ButtonState::Pressed;
 			}
+
 			return false;
 		}
 
@@ -221,31 +228,31 @@ namespace XFX
 
 		GamePadButtons::GamePadButtons(const uint /* Buttons_t */ buttons)
 			: A((((buttons & Buttons::A) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			B((((buttons & Buttons::B) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			Back((((buttons & Buttons::Back) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			Black((((buttons & Buttons::Black) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			LeftStick((((buttons & Buttons::LeftStick) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			RightStick((((buttons & Buttons::RightStick) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			Start((((buttons & Buttons::Start) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			White((((buttons & Buttons::White) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			X((((buttons & Buttons::X) != 0) ? ButtonState::Pressed : ButtonState::Released)),
-			Y((((buttons & Buttons::Y) != 0) ? ButtonState::Pressed : ButtonState::Released))
+			  B((((buttons & Buttons::B) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  Back((((buttons & Buttons::Back) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  Black((((buttons & Buttons::Black) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  LeftStick((((buttons & Buttons::LeftStick) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  RightStick((((buttons & Buttons::RightStick) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  Start((((buttons & Buttons::Start) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  White((((buttons & Buttons::White) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  X((((buttons & Buttons::X) != 0) ? ButtonState::Pressed : ButtonState::Released)),
+			  Y((((buttons & Buttons::Y) != 0) ? ButtonState::Pressed : ButtonState::Released))
 		{
 		}
 
 		GamePadButtons::GamePadButtons()
 			: A(ButtonState::Released), B(ButtonState::Released),
-			Back(ButtonState::Released), Black(ButtonState::Released),
-			LeftStick(ButtonState::Released), RightStick(ButtonState::Released),
-			Start(ButtonState::Released), White(ButtonState::Released),
-			X(ButtonState::Released), Y(ButtonState::Released)
+			  Back(ButtonState::Released), Black(ButtonState::Released),
+			  LeftStick(ButtonState::Released), RightStick(ButtonState::Released),
+			  Start(ButtonState::Released), White(ButtonState::Released),
+			  X(ButtonState::Released), Y(ButtonState::Released)
 		{
 		}
 
 		GamePadButtons::GamePadButtons(const GamePadButtons &obj)
 			: A(obj.A), B(obj.B), Back(obj.Back), Black(obj.Black),
-			LeftStick(obj.LeftStick), RightStick(obj.RightStick),
-			Start(obj.Start), White(obj.White), X(obj.X), Y(obj.Y)
+			  LeftStick(obj.LeftStick), RightStick(obj.RightStick),
+			  Start(obj.Start), White(obj.White), X(obj.X), Y(obj.Y)
 		{
 		}
 
@@ -265,9 +272,9 @@ namespace XFX
 				Start + White + X + Y);
 		}
 
-		int GamePadButtons::GetType()
+		const Type& GamePadButtons::GetType()
 		{
-			// TODO: implement
+			return GamePadButtonsTypeInfo;
 		}
 
 		const String GamePadButtons::ToString() const
@@ -324,17 +331,17 @@ namespace XFX
 		bool GamePadButtons::operator!=(const GamePadButtons& other) const
 		{
 			return ((A != other.A) || (B != other.B) || (Back != other.Back) ||
-				(Black != other.Black) || (LeftStick != other.LeftStick) ||
-				(RightStick != other.RightStick) || (Start != other.Start) ||
-				(White != other.White) || (X != other.X) || (Y != other.Y));		
+					(Black != other.Black) || (LeftStick != other.LeftStick) ||
+					(RightStick != other.RightStick) || (Start != other.Start) ||
+					(White != other.White) || (X != other.X) || (Y != other.Y));		
 		}
 		
 		bool GamePadButtons::operator==(const GamePadButtons& other) const
 		{
 			return ((A == other.A) && (B == other.B) && (Back == other.Back) && 
-				(Black == other.Black) && (LeftStick == other.LeftStick) &&
-				(RightStick == other.RightStick) && (Start == other.Start) &&
-				(White == other.White) && (X == other.X) && (Y == other.Y));
+					(Black == other.Black) && (LeftStick == other.LeftStick) &&
+					(RightStick == other.RightStick) && (Start == other.Start) &&
+					(White == other.White) && (X == other.X) && (Y == other.Y));
 		}
 
 		GamePadDPad::GamePadDPad()
@@ -367,9 +374,9 @@ namespace XFX
 			return Down + Left + Right + Up;
 		}
 
-		int GamePadDPad::GetType()
+		const Type& GamePadDPad::GetType()
 		{
-			// TODO: implement
+			return GamePadDPadTypeInfo;
 		}
 
 		const String GamePadDPad::ToString() const
@@ -441,9 +448,9 @@ namespace XFX
 			return Left.GetHashCode() ^ Right.GetHashCode();
 		}
 
-		int GamePadThumbSticks::GetType()
+		const Type& GamePadThumbSticks::GetType()
 		{
-			// TODO: implement
+			return GamePadThumbSticksTypeInfo;
 		}
 
 		const String GamePadThumbSticks::ToString() const
@@ -491,9 +498,9 @@ namespace XFX
 			return (int)Left ^ (int)Right;
 		}
 
-		int GamePadTriggers::GetType()
+		const Type& GamePadTriggers::GetType()
 		{
-			// TODO: implement
+			return GamePadTriggersTypeInfo;
 		}
 
 		const String GamePadTriggers::ToString() const

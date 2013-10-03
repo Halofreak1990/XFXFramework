@@ -1,8 +1,8 @@
 /*****************************************************************************
  *	Keyboard.h  															 *
  *																			 *
- *	XFX::Input::Keyboard class definition file  							 *
- *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *	XFX::Input::Keyboard class definition file. 							 *
+ *	Copyright (c) XFX Team. All Rights Reserved.							 *
  *****************************************************************************/
 #ifndef _XFX_INPUT_KEYBOARD_
 #define _XFX_INPUT_KEYBOARD_

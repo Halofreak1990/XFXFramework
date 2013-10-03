@@ -47,27 +47,24 @@ namespace XFX
 		
 		// Initializes the KeyboardState class
 		KeyboardState::KeyboardState()
+			: pressedKeys(NULL)
 		{
-			KeyboardState(null);
 		}
 		
 		// Initializes the KeyboardState class with the specified keys pressed
 		KeyboardState::KeyboardState(Keys_t keys[])
+			: pressedKeys(keys)
 		{
-			if (keys == null)
-				pressedKeys = 0;
-			else
-				pressedKeys = keys;
 		}
 
 		KeyboardState::KeyboardState(const KeyboardState &obj)
+			: pressedKeys(obj.pressedKeys)
 		{
-			pressedKeys = obj.pressedKeys;
 		}
 		
 		Keys_t* KeyboardState::GetPressedKeys()
 		{
-			return (Keys_t*)pressedKeys;
+			return pressedKeys;
 		}
 		
 		// Returns whether the specified key is currently pressed
@@ -78,9 +75,11 @@ namespace XFX
 				if((Stroke.ucFlags & (byte)key) == 0)
 				{
 					return true;
-				}	
-				return false;	
+				}
+
+				return false;
 			}
+
 			//The keyboard was not connected...bail out.
 			return -1;
 		}
@@ -93,9 +92,11 @@ namespace XFX
 				if((Stroke.ucFlags & (byte)key) != 0)
 				{
 					return true;
-				}	
-				return false;	
+				}
+
+				return false;
 			}
+
 			// The keyboard was not connected...bail out.
 			return -1;
 		}

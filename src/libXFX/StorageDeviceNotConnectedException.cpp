@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Storage/StorageDeviceNotConnectedException.h>
+#include <System/String.h>
 
 namespace XFX
 {
@@ -36,12 +37,12 @@ namespace XFX
 		{
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message)
+		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(const String& message)
 			: ExternalException(message)
 		{
 		}
 
-		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(char* message, Exception* innerException)
+		StorageDeviceNotConnectedException::StorageDeviceNotConnectedException(const String& message, Exception * const innerException)
 			: ExternalException(message, innerException)
 		{
 		}

@@ -60,10 +60,12 @@ namespace XFX
 
 		ContentReader::~ContentReader()
 		{
+			// TODO: implement
 		}
 
 		Stream* ContentReader::PrepareStream(Stream * const, const String& assetName)
 		{
+			// TODO: implement
 		}
 
 		Matrix ContentReader::ReadMatrix()

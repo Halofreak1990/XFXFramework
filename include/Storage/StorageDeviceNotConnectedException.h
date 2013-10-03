@@ -9,6 +9,7 @@
 
 #include <System/Runtime/InteropServices/ExternalException.h>
 
+using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace XFX

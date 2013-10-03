@@ -125,7 +125,9 @@ namespace XFX
 				isDisposed = true;
 
 				if (disposing)
+				{
 					Disposing(this, EventArgs::Empty);
+				}
 			}
 		}
 

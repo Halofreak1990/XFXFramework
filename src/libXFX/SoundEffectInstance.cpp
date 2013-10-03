@@ -38,34 +38,42 @@ namespace XFX
 
 		bool SoundEffectInstance::IsDisposed() const
 		{
+			// TODO: implement
 		}
 
 		bool SoundEffectInstance::IsLooped() const
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::IsLooped(bool value)
 		{
+			// TODO: implement
 		}
 
 		float SoundEffectInstance::getPan() const
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::setPan(float value)
 		{
+			// TODO: implement
 		}
 
 		float SoundEffectInstance::getPitch() const
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::setPitch(float value)
 		{
+			// TODO: implement
 		}
 
 		SoundState_t SoundEffectInstance::getState() const
 		{
+			// TODO: implement
 		}
 
 		float SoundEffectInstance::getVolume() const
@@ -75,6 +83,7 @@ namespace XFX
 
 		void SoundEffectInstance::setVolume(float value)
 		{
+			// TODO: implement
 		}
 
 		SoundEffectInstance::SoundEffectInstance(SoundEffect * const parent, bool fireAndForget)
@@ -90,10 +99,12 @@ namespace XFX
 
 		void SoundEffectInstance::Apply3D(AudioListener listener, AudioEmitter emitter)
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::Apply3D(AudioListener listeners[], AudioEmitter emitter)
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::Dispose()
@@ -116,14 +127,17 @@ namespace XFX
 
 		void SoundEffectInstance::Pause()
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::Play()
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::Resume()
 		{
+			// TODO: implement
 		}
 
 		void SoundEffectInstance::Stop()
@@ -133,6 +147,7 @@ namespace XFX
 
 		void SoundEffectInstance::Stop(bool immediate)
 		{
+			// TODO: implement
 		}
 	}
 }

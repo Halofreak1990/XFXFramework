@@ -38,14 +38,17 @@ namespace XFX
 	{
 		long long StorageDevice::FreeSpace() const
 		{
+			// TODO: implement
 		}
 
 		bool StorageDevice::IsConnected() const
 		{
+			// TODO: implement
 		}
 
 		long long StorageDevice::TotalSpace() const
 		{
+			// TODO: implement
 		}
 
 		StorageDevice::StorageDevice(uint deviceIndex, PlayerIndex_t playerIndex)
@@ -58,6 +61,7 @@ namespace XFX
 		{
 			sassert(!String::IsNullOrEmpty(titleName), "titleName cannot be null.");
 
+			// TODO: implement
 			//return new StorageContainer(this, titleName, _deviceIndex, _playerIndex);
 		}
 	}

@@ -45,14 +45,21 @@ namespace XFX
 		IAsyncResult* Guide::BeginShowKeyboardInput(const PlayerIndex_t player, String& title, String& description, String& defaultText, AsyncCallback callback, Object* state)
 		{
 			if (String::IsNullOrEmpty(title))
+			{
 				title = String::Empty;
+			}
 
 			if (String::IsNullOrEmpty(description))
+			{
 				description = String::Empty;
+			}
 
 			if (String::IsNullOrEmpty(defaultText))
+			{
 				defaultText = String::Empty;
+			}
 
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
@@ -60,48 +67,56 @@ namespace XFX
 		IAsyncResult* Guide::BeginShowMessageBox(const PlayerIndex_t player, String& title, String& text, IEnumerable<String>* buttons, const int focusButton, const MessageBoxIcon_t icon, AsyncCallback callback, Object* state)
 		{
 			if (String::IsNullOrEmpty(title))
+			{
 				title = String::Empty;
+			}
 
 			sassert(buttons != NULL, String::Format("buttons: %s", FrameworkResources::ArgumentNull_Generic));
 
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
 		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state)
 		{
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
 		IAsyncResult* Guide::BeginShowStorageDeviceSelector(AsyncCallback callback, Object* state)
 		{
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
 		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const PlayerIndex_t player, const int sizeInBytes, const int directoryCount, AsyncCallback callback, Object* state)
 		{
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
 		IAsyncResult* Guide::BeginShowStorageDeviceSelector(const PlayerIndex_t player, AsyncCallback callback, Object* state)
 		{
+			// TODO: implement
 			// just return null to stop warning until this thing's coded
 			return null;
 		}
 
-		const char* Guide::EndShowKeyboardInput(IAsyncResult* result)
+		String Guide::EndShowKeyboardInput(IAsyncResult* result)
 		{
+			// TODO: implement
 			// just return an empty string to stop warning until this thing's coded
 			return "";
 		}
 
-		int Guide::EndShowMessageBox(IAsyncResult* result)
+		Nullable<int> Guide::EndShowMessageBox(IAsyncResult* result)
 		{
-			// Since C++ doesn't have a nullable type, we return -1, since it represents an invalid value anyways.
-			return -1;
+			// TODO: implement
+			return NULL;
 		}
 
 		StorageDevice Guide::EndShowStorageDeviceSelector(IAsyncResult* asyncResult)

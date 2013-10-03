@@ -12,10 +12,11 @@ namespace XFX
 
 		bool StorageDeviceAsyncResult::CompletedSynchronously()
 		{
+			// TODO: implement
 			return true;
 		}
 
-		StorageDeviceAsyncResult::StorageDeviceAsyncResult(Object* stateObject, int player)
+		StorageDeviceAsyncResult::StorageDeviceAsyncResult(Object * const stateObject, int player)
 		{
 			syncObject = stateObject;
 			playerIndex = player;
@@ -29,7 +30,7 @@ namespace XFX
 
 		StorageDeviceAsyncResult::StorageDeviceAsyncResult(IAsyncResult* &obj)
 		{
-			
+			// TODO: implement
 		}
 	}
 }

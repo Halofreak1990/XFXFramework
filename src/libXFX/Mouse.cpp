@@ -39,8 +39,8 @@ namespace XFX
 			extern struct xmouse_data XMOUSE_current;
 		}
 		
-		//It's a waste of memory to create a new MouseState each time the input states are updated.
-		//Therefore, we create a static one and update it each time an update is requested.
+		// It's a waste of memory to create a new MouseState each time the input states are updated.
+		// Therefore, we create a static one and update it each time an update is requested.
 		static MouseState result;
 		
 		/* MouseState Operators */
@@ -67,25 +67,49 @@ namespace XFX
 			XMOUSE_current.y = 0;
 			
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_1))
+			{
 				result.LeftButton = ButtonState::Pressed;
+			}
 			else
+			{
 				result.LeftButton = ButtonState::Released;
+			}
+
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_3))
+			{
 				result.MiddleButton = ButtonState::Pressed;
+			}
 			else
+			{
 				result.MiddleButton = ButtonState::Released;
+			}
+
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_2))
+			{
 				result.RightButton = ButtonState::Pressed;
+			}
 			else
+			{
 				result.RightButton = ButtonState::Released;
+			}
+
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_4))
+			{
 				result.XButton1 = ButtonState::Pressed;
+			}
 			else
+			{
 				result.XButton1 = ButtonState::Released;
+			}
+
 			if((XMOUSE_current.buttons & XMOUSE_BUTTON_5))
+			{
 				result.XButton2 = ButtonState::Pressed;
+			}
 			else
+			{
 				result.XButton2 = ButtonState::Released;
+			}
 			
 			return result;
 		}
@@ -94,6 +118,8 @@ namespace XFX
 		{
 			result.X = x;
 			result.Y = y;
+
+			// TODO: update 'hardware' cursor
 		}
 	}
 }

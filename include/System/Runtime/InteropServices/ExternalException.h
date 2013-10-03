@@ -1,9 +1,9 @@
-/********************************************************
- *	ExternalException.h									*
- *														*
- *	XFX ExternalException definition					*
- *	Copyright © XFX Team. All Rights Reserved			*
- ********************************************************/
+/*****************************************************************************
+ *	ExternalException.h 													 *
+ *																			 *
+ *	System::Runtime::InteropServices::ExternalException definition file.	 *
+ *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_RUNTIME_INTEROPSERVICES_ExternalException_
 #define _SYSTEM_RUNTIME_INTEROPSERVICES_ExternalException_
 
@@ -15,15 +15,15 @@ namespace System
 	{
 		namespace InteropServices
 		{
-			/// <summary>
-			/// The base exception type for all COM interop exceptions and structured exception handling (SEH) exceptions.
-			/// </summary>
+			/**
+			 * The base exception type for all COM interop exceptions and structured exception handling (SEH) exceptions.
+			 */
 			class ExternalException : public SystemException
 			{
 			public:
 				ExternalException();
-				ExternalException(char* message);
-				ExternalException(char* message, Exception* inner);
+				ExternalException(const String& message);
+				ExternalException(const String& message, Exception * const inner);
 			};
 		}
 	}
