@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Debug.h 																 *
+ *																			 *
+ *	System::Diagnostics::Debug class definition file.						 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_DIAGNOSTICS_DEBUG_
 #define _SYSTEM_DIAGNOSTICS_DEBUG_
 

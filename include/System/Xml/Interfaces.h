@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	System::Xml Interfaces definition file. 								 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_XML_INTERFACES_
 #define _SYSTEM_XML_INTERFACES_
 
@@ -13,7 +19,9 @@ namespace System
 	{
 		class XmlNode;
 
-		// Enables a class to return an System::Xml::XmlNode from the current context or position.
+		/**
+		 * Enables a class to return an System::Xml::XmlNode from the current context or position.
+		 */
 		interface IHasXmlNode
 		{
 		public:
@@ -22,7 +30,9 @@ namespace System
 			virtual ~IHasXmlNode() { }
 		};
 
-		// Provides an interface to enable a class to return line and position information.
+		/**
+		 * Provides an interface to enable a class to return line and position information.
+		 */
 		interface IXmlLineInfo
 		{
 		public:
@@ -34,7 +44,9 @@ namespace System
 			virtual ~IXmlLineInfo() { }
 		};
 
-		// Provides read-only access to a set of prefix and namespace mappings.
+		/**
+		 * Provides read-only access to a set of prefix and namespace mappings.
+		 */
 		interface IXmlNamespaceResolver
 		{
 		public:

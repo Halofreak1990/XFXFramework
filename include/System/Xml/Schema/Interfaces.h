@@ -34,7 +34,7 @@ namespace System
 				virtual XmlSchemaType* SchemaType() =0;
 				virtual XmlSchemaValidity_t getValidity() =0;
 
-				~IXmlSchemaInfo() { }
+				virtual ~IXmlSchemaInfo() { }
 			};
 		}
 	}

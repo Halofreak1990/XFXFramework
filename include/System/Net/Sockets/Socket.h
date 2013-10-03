@@ -29,8 +29,9 @@ namespace System
 			{
 			private:
 				AddressFamily_t addressFamily;
-				bool isConnected;
 				HANDLE handle;
+				bool isConnected;
+				ProtocolType_t protocolType;
 
 			protected:
 				virtual ~Socket();

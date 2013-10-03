@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	System::Xml Enumerations definition file.								 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_XML_ENUMS_
 #define _SYSTEM_XML_ENUMS_
 
@@ -5,8 +11,6 @@ namespace System
 {
 	namespace Xml
 	{
-		// Specifies the amount of input or output checking that the created System::Xml::XmlReader and
-		// System::Xml::XmlWriter objects perform.
 		struct ConformanceLevel
 		{
 			enum type
@@ -17,17 +21,15 @@ namespace System
 			};
 		};
 
-		// Specifies how the System::Xml::XmlTextReader or System::Xml::XmlValidatingReader handle entities.
 		struct EntityHandling
 		{
 			enum type
 			{
 				ExpandCharEntities = 2,
-			    ExpandEntities = 1
+				ExpandEntities = 1
 			};
 		};
 
-		// Specifies formatting options for the System::Xml::XmlTextWriter.
 		struct Formatting
 		{
 			enum type
@@ -37,7 +39,6 @@ namespace System
 			};
 		};
 
-		// Specifies how to handle line breaks.
 		struct NewLineHandling
 		{
 			enum type
@@ -48,7 +49,6 @@ namespace System
 			};
 		};
 
-		// Specifies the state of the reader.
 		struct ReadState
 		{
 			enum type
@@ -61,7 +61,6 @@ namespace System
 			};
 		};
 
-		// Specifies the type of validation to perform.
 		struct ValidationType
 		{
 			enum type
@@ -71,7 +70,6 @@ namespace System
 			};
 		};
 
-		// Specifies how white space is handled.
 		struct WhitespaceHandling
 		{
 			enum type
@@ -82,7 +80,6 @@ namespace System
 			};
 		};
 
-		// Specifies the state of the System::Xml::XmlWriter.
 		struct WriteState
 		{
 			enum type
@@ -97,7 +94,6 @@ namespace System
 			};
 		};
 
-		// Specifies how to treat the time value when converting between string and System::DateTime.
 		struct XmlDateTimeSerializationMode
 		{
 			enum type
@@ -109,7 +105,6 @@ namespace System
 			};
 		};
 
-		// Defines the namespace scope.
 		struct XmlNamespaceScope
 		{
 			enum type
@@ -120,7 +115,6 @@ namespace System
 			};
 		};
 
-		// Specifies the type of node change.
 		struct XmlNodeChangedAction
 		{
 			enum type
@@ -131,7 +125,6 @@ namespace System
 			};
 		};
 
-		// Describes the document order of a node compared to a second node.
 		struct XmlNodeOrder
 		{
 			enum type
@@ -143,7 +136,6 @@ namespace System
 			};
 		};
 
-		// Specifies the type of node.
 		struct XmlNodeType
 		{
 			enum type
@@ -169,7 +161,6 @@ namespace System
 			};
 		};
 
-		// Specifies the method used to serialize the System::Xml::XmlWriter output.
 		struct XmlOutputMethod
 		{
 			enum type
@@ -179,7 +170,6 @@ namespace System
 			};
 		};
 
-		// Specifies the current xml:space scope.
 		struct XmlSpace
 		{
 			enum type
@@ -190,8 +180,6 @@ namespace System
 			};
 		};
 
-		// Represents the XML type for the string. This allows the string to be read as a particular XML type, for example
-		// a CDATA section type.
 		struct XmlTokenizedType
 		{
 			enum type
@@ -212,21 +200,72 @@ namespace System
 			};
 		};
 
+		/**
+		 * Specifies the amount of input or output checking that the created System::Xml::XmlReader and
+		 * System::Xml::XmlWriter objects perform.
+		 */
 		typedef ConformanceLevel::type				ConformanceLevel_t;
+		/**
+		 * Specifies how the System::Xml::XmlTextReader or System::Xml::XmlValidatingReader handle entities.
+		 */
 		typedef EntityHandling::type				EntityHandling_t;
+		/**
+		 * Specifies formatting options for the System::Xml::XmlTextWriter.
+		 */
 		typedef Formatting::type					Formatting_t;
+		/**
+		 * Specifies how to handle line breaks.
+		 */
 		typedef NewLineHandling::type				NewLineHandling_t;
-		typedef ReadState::type						ReadState_t;
+		/**
+		 * Specifies the state of the reader.
+		 */
+		typedef ReadState::type 					ReadState_t;
+		/**
+		 * Specifies the type of validation to perform.
+		 */
 		typedef ValidationType::type				ValidationType_t;
+		/**
+		 * Specifies how white space is handled.
+		 */
 		typedef WhitespaceHandling::type			WhitespaceHandling_t;
+		/**
+		 * Specifies the state of the System::Xml::XmlWriter.
+		 */
 		typedef WriteState::type					WriteState_t;
+		/**
+		 * Specifies how to treat the time value when converting between string and System::DateTime.
+		 */
 		typedef XmlDateTimeSerializationMode::type	XmlDateTimeSerializationMode_t;
+		/**
+		 * Defines the namespace scope.
+		 */
 		typedef XmlNamespaceScope::type				XmlNamespaceScope_t;
+		/**
+		 * Specifies the type of node change.
+		 */
 		typedef XmlNodeChangedAction::type			XmlNodeChangedAction_t;
+		/**
+		 * Describes the document order of a node compared to a second node.
+		 */
 		typedef XmlNodeOrder::type					XmlNodeOrder_t;
+		/**
+		 * Specifies the type of node.
+		 */
 		typedef XmlNodeType::type					XmlNodeType_t;
+		/**
+		 * Specifies the method used to serialize the System::Xml::XmlWriter output.
+		 */
 		typedef XmlOutputMethod::type				XmlOutputMethod_t;
+		/**
+		 * Specifies the current xml:space scope.
+		 */
 		typedef XmlSpace::type						XmlSpace_t;
+		/**
+		 * Represents the XML type for the string. This allows the string to be read as a particular XML type, for example
+		 * a CDATA section type.
+		 */
+		typedef XmlTokenizedType::type				XmlTokenizedType_t;
 	}
 }
 

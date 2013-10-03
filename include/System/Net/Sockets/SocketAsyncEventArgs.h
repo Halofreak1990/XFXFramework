@@ -1,8 +1,8 @@
 /*****************************************************************************
  *	SocketAsyncEventArgs.h  												 *
  *																			 *
- *	System::Net::Sockets::SocketAsyncEventArgs definition file  			 *
- *	Copyright (c) XFX Team. All rights reserved 							 *
+ *	System::Net::Sockets::SocketAsyncEventArgs definition file. 			 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
  *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
 #define _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_

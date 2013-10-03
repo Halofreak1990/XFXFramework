@@ -26,11 +26,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/ComponentModel/CancelEventArgs.h>
+#include <System/Type.h>
 
 namespace System
 {
 	namespace ComponentModel
 	{
+		const Type CancelEventArgsTypeInfo("CancelEventArgs", "System::ComponentModel::CancelEventArgs", TypeCode::Object);
+
 		CancelEventArgs::CancelEventArgs()
 			: Cancel(false)
 		{
@@ -41,8 +44,9 @@ namespace System
 		{
 		}
 
-		int CancelEventArgs::GetType()
+		const Type& CancelEventArgs::GetType()
 		{
+			return CancelEventArgsTypeInfo;
 		}
 	}
 }

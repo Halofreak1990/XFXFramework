@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	SocketAddress.h 														 *
+ *																			 *
+ *	System::Net::SocketAddress class definition file.						 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKETADDRESS_
 #define _SYSTEM_NET_SOCKETADDRESS_
 
@@ -11,8 +17,10 @@ namespace System
 {
 	namespace Net
 	{
-		// Stores serialized information from System::Net::EndPoint derived classes.
-		class SocketAddress : public virtual Object
+		/**
+		 * Stores serialized information from System::Net::EndPoint derived classes.
+		 */
+		class SocketAddress : public Object
 		{
 		private:
 			AddressFamily_t addressFamily;
@@ -26,7 +34,8 @@ namespace System
 			SocketAddress(AddressFamily_t family);
 			SocketAddress(AddressFamily_t family, int size);
 
-			char* ToString();
+			const Type& GetType();
+			const String ToString();
 		};
 	}
 }

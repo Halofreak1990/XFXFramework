@@ -1,3 +1,9 @@
+/*****************************************************************************
+ *	Enums.h 																 *
+ *																			 *
+ *	System::Net::Sockets enumerations definition file.  					 *
+ *	Copyright (c) XFX Team. All rights reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKETS_ENUMS_
 #define _SYSTEM_NET_SOCKETS_ENUMS_
 
@@ -74,12 +80,30 @@ namespace System
 				};
 			};
 
-			typedef AddressFamily::type			AddressFamily_t;		// Specifies the addressing scheme that an instance of the System::Net::Sockets::Socket class can use.
-			typedef ProtocolType::type			ProtocolType_t;			// Specifies the protocols that the System::Net::Sockets::Socket class supports.
-			typedef SocketAsyncOperation::type	SocketAsyncOperation_t;	// The type of asynchronous socket operation most recently performed with this object.
-			typedef SocketError::type			SocketError_t;			// Defines error codes for the System::Net::Sockets::Socket class.
-			typedef SocketShutdown::type		SocketShutdown_t;		// Defines constants that are used by the System::Net::Sockets::Socket::Shutdown(System::Net::Sockets::SocketShutdown) method.
-			typedef SocketType::type			SocketType_t;			// Specifies the type of socket that an instance of the System::Net::Sockets::Socket class represents.
+			/**
+			 * Specifies the addressing scheme that an instance of the System::Net::Sockets::Socket class can use.
+			 */
+			typedef AddressFamily::type			AddressFamily_t;
+			/**
+			 * Specifies the protocols that the System::Net::Sockets::Socket class supports.
+			 */
+			typedef ProtocolType::type			ProtocolType_t;
+			/**
+			 * The type of asynchronous socket operation most recently performed with this object.
+			 */
+			typedef SocketAsyncOperation::type	SocketAsyncOperation_t;
+			/**
+			 * Defines error codes for the System::Net::Sockets::Socket class.
+			 */
+			typedef SocketError::type			SocketError_t;
+			/**
+			 * Defines constants that are used by the System::Net::Sockets::Socket::Shutdown(System::Net::Sockets::SocketShutdown) method.
+			 */
+			typedef SocketShutdown::type		SocketShutdown_t;
+			/**
+			 * Specifies the type of socket that an instance of the System::Net::Sockets::Socket class represents.
+			 */
+			typedef SocketType::type			SocketType_t;
 		}
 	}
 }
