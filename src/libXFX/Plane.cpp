@@ -157,12 +157,16 @@ namespace XFX
 		float dot = (Normal.X * max.X) + (Normal.Y * max.Y) + (Normal.Z * max.Z);
 
 		if(dot + D > 0.0f)
+		{
 			result = PlaneIntersectionType::Front;
+		}
 
 		dot = (Normal.X * min.X) + (Normal.Y * min.Y) + (Normal.Z * min.Z);
 
 		if(dot + D < 0.0f)
+		{
 			result = PlaneIntersectionType::Back;
+		}
 
 		result = PlaneIntersectionType::Intersecting;
 	}
@@ -179,10 +183,14 @@ namespace XFX
 		float dot = (sphere.Center.X * Normal.X) + (sphere.Center.Y * Normal.Y) + (sphere.Center.Z * Normal.Z) + D;
 
 		if(dot > sphere.Radius)
+		{
 			result = PlaneIntersectionType::Front;
+		}
 
 		if(dot < -sphere.Radius)
+		{
 			result = PlaneIntersectionType::Back;
+		}
 
 		result = PlaneIntersectionType::Intersecting;
 	}

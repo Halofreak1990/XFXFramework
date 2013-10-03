@@ -33,6 +33,7 @@
 #include <System/FrameworkResources.h>
 #include <System/Math.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -42,29 +43,26 @@ namespace XFX
 {	
 	const Vector2 Vector2::One = Vector2(1, 1);
 	const Vector2 Vector2::Zero = Vector2(0, 0);
+	const Type Vector2TypeInfo("Vector2", "XFX::Vector2", TypeCode::Object);
 
 	Vector2::Vector2(const float x, const float y)
+		: X(x), Y(y)
 	{
-		X = x;
-		Y = y;
 	}
 
 	Vector2::Vector2(const float value)
+		: X(value), Y(value)
 	{
-		X = value;
-		Y = value;
 	}
-	
+
 	Vector2::Vector2(const Vector2 &obj)
+		: X(obj.X), Y(obj.Y)
 	{
-		X = obj.X;
-		Y = obj.Y;
 	}
-	
+
 	Vector2::Vector2()
+		: X(0), Y(0)
 	{
-		X = 0;
-		Y = 0;
 	}
 
 	Vector2 Vector2::Add(const Vector2 value1, const Vector2 value2)
@@ -112,40 +110,40 @@ namespace XFX
 		result.X = MathHelper::Clamp(value.X, min.X, max.X);
 		result.Y = MathHelper::Clamp(value.Y, min.Y, max.Y);
 	}
-	
+
 	float Vector2::Distance(const Vector2 value1, const Vector2 value2)
 	{
-		float x = value1.X - value2.X; 
-        float y = value1.Y - value2.Y;
-        return Math::Sqrt((x * x) + (y * y));
+		float x = value1.X - value2.X;
+		float y = value1.Y - value2.Y;
+		return Math::Sqrt((x * x) + (y * y));
 	}
-	
+
 	void Vector2::Distance(const Vector2& value1, const Vector2& value2, out float& result)
 	{
-		float x = value1.X - value2.X; 
-        float y = value1.Y - value2.Y;
-        result = Math::Sqrt((x * x) + (y * y));
+		float x = value1.X - value2.X;
+		float y = value1.Y - value2.Y;
+		result = Math::Sqrt((x * x) + (y * y));
 	}
-	
+
 	float Vector2::DistanceSquared(const Vector2 value1, const Vector2 value2)
 	{
-		float x = value1.X - value2.X; 
-        float y = value1.Y - value2.Y;
-        return (x * x) + (y * y);
+		float x = value1.X - value2.X;
+		float y = value1.Y - value2.Y;
+		return (x * x) + (y * y);
 	}
-	
+
 	void Vector2::DistanceSquared(const Vector2& value1, const Vector2& value2, out float& result)
 	{
-		float x = value1.X - value2.X; 
-        float y = value1.Y - value2.Y;
-        result = (x * x) + (y * y);
+		float x = value1.X - value2.X;
+		float y = value1.Y - value2.Y;
+		result = (x * x) + (y * y);
 	}
-	
+
 	float Vector2::Dot(const Vector2 value1, const Vector2 value2)
 	{
-		return (value1.X * value2.X + value1.Y * value2.Y); 
+		return (value1.X * value2.X + value1.Y * value2.Y);
 	}
-	
+
 	void Vector2::Dot(const Vector2& value1, const Vector2& value2, out float& result)
 	{
 		result = (value1.X * value2.X + value1.Y * value2.Y);
@@ -160,65 +158,65 @@ namespace XFX
 	{
 		return (*this == other);
 	}
-	
+
 	int Vector2::GetHashCode() const
 	{
 		return (int)X ^ (int)Y;
 	}
 
-	int Vector2::GetType()
+	const Type& Vector2::GetType()
 	{
-		// TODO: implement
+		return Vector2TypeInfo;
 	}
-	
+
 	Vector2 Vector2::Hermite(const Vector2 value1, const Vector2 tangent1, const Vector2 value2, const Vector2 tangent2, const float amount)
 	{
 		return Vector2(MathHelper::Hermite(value1.X,tangent1.X,value2.X,tangent2.X,amount), MathHelper::Hermite(value1.Y,tangent1.Y,value2.Y,tangent2.Y,amount));
 	}
-	
+
 	void Vector2::Hermite(const Vector2& value1, const Vector2& tangent1, const Vector2& value2, const Vector2& tangent2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::Hermite(value1.X,tangent1.X,value2.X,tangent2.X,amount);
 		result.Y = MathHelper::Hermite(value1.Y,tangent1.Y,value2.Y,tangent2.Y,amount);
 	}
-	
+
 	float Vector2::Length() const
 	{
 		return Math::Sqrt((X * X) + (Y * Y));
 	}
-	
+
 	float Vector2::LengthSquared() const
 	{
 		return (X * X) + (Y * Y);
 	}
-	
+
 	Vector2 Vector2::Lerp(const Vector2 value1, const Vector2 value2, const float amount)
 	{
 		return Vector2(MathHelper::Lerp(value1.X, value2.X, amount), MathHelper::Lerp(value1.Y, value2.Y, amount));
 	}
-	
+
 	void Vector2::Lerp(const Vector2& value1, const Vector2& value2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::Lerp(value1.X, value2.X, amount);
 		result.Y = MathHelper::Lerp(value1.Y, value2.Y, amount);
 	}
-	
+
 	Vector2 Vector2::Max(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2((value1.X > value2.X) ? value1.X : value2.X,(value1.Y > value2.Y) ? value1.Y : value2.Y);
 	}
-	
+
 	void Vector2::Max(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = (value1.X > value2.X) ? value1.X : value2.X;
 		result.Y = (value1.Y > value2.Y) ? value1.Y : value2.Y;
 	}
-	
+
 	Vector2 Vector2::Min(const Vector2 value1, const Vector2 value2)
 	{
 		return Vector2((value1.X < value2.X) ? value1.X : value2.X, (value1.Y < value2.Y) ? value1.Y : value2.Y);
 	}
-	
+
 	void Vector2::Min(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = (value1.X < value2.X) ? value1.X : value2.X;
@@ -257,34 +255,42 @@ namespace XFX
 		result.X = -value.X;
 		result.Y = -value.Y;
 	}
-	
+
 	void Vector2::Normalize()
 	{
 		float length = Length();
-    	if(length == 0)
-        	return;
-        float num = 1 / length; 
-        X *= num; 
-        Y *= num; 
+
+		if(length == 0)
+		{
+			return;
+		}
+
+		float num = 1 / length;
+		X *= num;
+		Y *= num;
 	}
-	
+
 	Vector2 Vector2::Normalize(const Vector2 value)
 	{
 		Vector2 result;
 		Normalize(value, result);
-        return result;
+		return result;
 	}
-	
+
 	void Vector2::Normalize(const Vector2& value, out Vector2& result)
 	{
-		float length = value.Length(); 
-    	if (length == 0) 
-        	return; 
-        float num = 1 / length;
-        result.X = value.X * num;
-        result.Y = value.Y * num;
+		float length = value.Length();
+
+		if (length == 0)
+		{
+			return;
+		}
+
+		float num = 1 / length;
+		result.X = value.X * num;
+		result.Y = value.Y * num;
 	}
-	
+
 	Vector2 Vector2::Reflect(const Vector2 vector, const Vector2 normal)
 	{
 		Vector2 result;
@@ -298,14 +304,14 @@ namespace XFX
 		result.X = vector.X - normal.X * dp;
 		result.Y = vector.Y - normal.Y * dp;
 	}
-	
+
 	Vector2 Vector2::SmoothStep(const Vector2 value1, const Vector2 value2, const float amount)
 	{
 		Vector2 result;
 		SmoothStep(value1, value2, amount, result);
 		return result;
 	}
-	
+
 	void Vector2::SmoothStep(const Vector2& value1, const Vector2& value2, const float amount, out Vector2& result)
 	{
 		result.X = MathHelper::SmoothStep(value1.X, value2.X, amount);
@@ -318,7 +324,7 @@ namespace XFX
 		Subtract(value1, value2, result);
 		return result;
 	}
-	
+
 	void Vector2::Subtract(const Vector2& value1, const Vector2& value2, out Vector2& result)
 	{
 		result.X = value1.X - value2.X;
@@ -329,90 +335,90 @@ namespace XFX
 	{
 		return String::Format("{X:%f Y:%f}", X, Y);
 	}
-	
+
 	Vector2 Vector2::Transform(const Vector2 position, const Matrix matrix)
 	{
-		Vector2 result; 
+		Vector2 result;
 		Transform(position, matrix, result);
-		return result; 
+		return result;
 	}
-	
+
 	void Vector2::Transform(const Vector2& position, const Matrix& matrix, out Vector2& result)
 	{
-		Vector4 vector; 
-  
-        vector.X = (vector.X * matrix.M11) + (vector.Y * matrix.M21) + matrix.M41; 
-        vector.Y = (vector.X * matrix.M12) + (vector.Y * matrix.M22) + matrix.M42; 
-        vector.Z = (vector.X * matrix.M13) + (vector.Y * matrix.M23) + matrix.M43; 
-        vector.W = 1 / ((vector.X * matrix.M14) + (vector.Y * matrix.M24) + matrix.M44);
-        
-        result.X = vector.X * vector.W;
-        result.Y = vector.Y * vector.W;
+		Vector4 vector;
+
+		vector.X = (vector.X * matrix.M11) + (vector.Y * matrix.M21) + matrix.M41;
+		vector.Y = (vector.X * matrix.M12) + (vector.Y * matrix.M22) + matrix.M42;
+		vector.Z = (vector.X * matrix.M13) + (vector.Y * matrix.M23) + matrix.M43;
+		vector.W = 1 / ((vector.X * matrix.M14) + (vector.Y * matrix.M24) + matrix.M44);
+
+		result.X = vector.X * vector.W;
+		result.Y = vector.Y * vector.W;
 	}
-	
+
 	Vector2 Vector2::Transform(const Vector2 position, const Quaternion rotation)
 	{
 		Vector2 result;
 		Transform(position, rotation, result);
 		return result;
 	}
-	
+
 	void Vector2::Transform(const Vector2& position, const Quaternion& rotation, out Vector2& result)
 	{
 		Quaternion quat = Quaternion(position.X, position.Y, 0, 0), i, t;
 		Quaternion::Inverse(rotation, i);
 		Quaternion::Multiply(rotation, quat, t);
 		Quaternion::Multiply(t, i, quat);
-		
+
 		result.X = quat.X;
 		result.Y = quat.Y;
 	}
-	
+
 	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Matrix& matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, "sourceArray cannot be null.");
 
 		sassert(destinationArray != null, "destinationArray cannot be null.");
-		
+
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			TransformNormal(sourceArray[i], matrix, destinationArray[j]);
 		}
 	}
-	
+
 	void Vector2::Transform(const Vector2 sourceArray[], const int sourceIndex, const Quaternion& rotation, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
 		sassert(destinationArray != null, String::Format("destinationArray; %s", FrameworkResources::ArgumentNull_Generic));
-		
+
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			Transform(sourceArray[i], rotation, destinationArray[j]);
 		}
 	}
-	
+
 	Vector2 Vector2::TransformNormal(const Vector2 normal, const Matrix matrix)
 	{
-		Vector2 result; 
-        result.X = (normal.X * matrix.M11) + (normal.Y * matrix.M21); 
-        result.Y = (normal.X * matrix.M12) + (normal.Y * matrix.M22); 
-  
-        return result;  
+		Vector2 result;
+		result.X = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+		result.Y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+
+		return result;
 	}
-	
+
 	void Vector2::TransformNormal(const Vector2& normal, const Matrix& matrix, out Vector2& result)
 	{
-		result.X = (normal.X * matrix.M11) + (normal.Y * matrix.M21); 
-        result.Y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
+		result.X = (normal.X * matrix.M11) + (normal.Y * matrix.M21);
+		result.Y = (normal.X * matrix.M12) + (normal.Y * matrix.M22);
 	}
-	
+
 	void Vector2::TransformNormal(const Vector2 sourceArray[], const int sourceIndex, const Matrix& matrix, Vector2 destinationArray[], const int destinationIndex, const int length)
 	{
 		sassert(sourceArray != null, String::Format("sourceArray; %s", FrameworkResources::ArgumentNull_Generic));
 
 		sassert(destinationArray != null, String::Format("destinationArray; %s", FrameworkResources::ArgumentNull_Generic));
-		
+
 		for(int i = sourceIndex, j = destinationIndex; i < (sourceIndex + length); i++, j++)
 		{
 			TransformNormal(sourceArray[i], matrix, destinationArray[j]);
@@ -423,17 +429,17 @@ namespace XFX
 	{
 		return Vector2(X + other.X, Y + other.Y);
 	}
-	
+
 	Vector2 Vector2::operator/(const float divider) const
 	{
 		return Vector2(X / divider, Y / divider);
 	}
-	
+
 	Vector2 Vector2::operator/(const Vector2& other) const
 	{
 		return Vector2(X / other.X, Y / other.Y);
 	}
-	
+
 	bool Vector2::operator==(const Vector2& other) const
 	{
 		return ((X == other.X) && (Y == other.Y));
@@ -448,7 +454,7 @@ namespace XFX
 	{
 		return Vector2(X * scaleFactor, Y * scaleFactor);
 	}
-	
+
 	Vector2 Vector2::operator*(const Vector2& other) const
 	{
 		return Vector2(X * other.X, Y * other.Y);
@@ -458,7 +464,7 @@ namespace XFX
 	{
 		return Vector2(X - other.X, Y - other.Y);
 	}
-	
+
 	Vector2 Vector2::operator-() const
 	{
 		return Vector2(-X, -Y);

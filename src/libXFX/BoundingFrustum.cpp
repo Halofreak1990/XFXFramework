@@ -142,147 +142,164 @@ namespace XFX
 	Vector3 BoundingFrustum::ComputeIntersection(Plane plane, Ray ray)
 	{
 		float num = (-plane.D - Vector3::Dot(plane.Normal, ray.Position)) / Vector3::Dot(plane.Normal, ray.Direction);
-        return (ray.Position + (ray.Direction * num));
+		return (ray.Position + (ray.Direction * num));
 	}
 
 	Ray BoundingFrustum::ComputeIntersectionLine(Plane p1, Plane p2)
 	{
 		Ray ray = Ray();
 		ray.Direction = Vector3::Cross(p1.Normal, p2.Normal);
-        float num = ray.Direction.LengthSquared();
+		float num = ray.Direction.LengthSquared();
 		ray.Position = (Vector3::Cross(((p2.Normal * -p1.D) + (p1.Normal * p2.D)), ray.Direction) / num);
-        return ray;
+		return ray;
 	}
 
 	ContainmentType_t BoundingFrustum::Contains(BoundingBox box)
 	{
 		bool flag = false;
-        for(int i = 0; i < 6; i++)
-        {
-            switch (box.Intersects(planes[i]))
-            {
+		for(int i = 0; i < 6; i++)
+		{
+			switch (box.Intersects(planes[i]))
+			{
 			case PlaneIntersectionType::Front:
 				return ContainmentType::Disjoint;
 
 			case PlaneIntersectionType::Intersecting:
-                flag = true;
-                break;
-            }
-        }
-        if (!flag)
-        {
+				flag = true;
+				break;
+			}
+		}
+
+		if (!flag)
+		{
 			return ContainmentType::Contains;
-        }
+		}
+
 		return ContainmentType::Intersects;
 	}
 
 	ContainmentType_t BoundingFrustum::Contains(BoundingFrustum frustrum)
 	{
 		ContainmentType_t disjoint = ContainmentType::Disjoint;
-        if (Intersects(frustrum))
-        {
+
+		if (Intersects(frustrum))
+		{
 			disjoint = ContainmentType::Contains;
 			for (int i = 0; i < 8; i++)
-            {
+			{
 				if (Contains(frustrum.cornerArray[i]) == ContainmentType::Disjoint)
-                {
+				{
 					return ContainmentType::Intersects;
-                }
-            }
-        }
-        return disjoint;
+				}
+			}
+		}
+
+		return disjoint;
 	}
 
 	ContainmentType_t BoundingFrustum::Contains(BoundingSphere sphere)
 	{
 		Vector3 center = sphere.Center;
-        float radius = sphere.Radius;
-        int num2 = 0;
-        for (int i = 0; i < 6; i++)
-        {
-            float num5 = ((planes[i].Normal.X * center.X) + (planes[i].Normal.Y * center.Y)) + (planes[i].Normal.Z * center.Z);
-            float num3 = num5 + planes[i].D;
-            if (num3 > radius)
-            {
+		float radius = sphere.Radius;
+		int num2 = 0;
+
+		for (int i = 0; i < 6; i++)
+		{
+			float num5 = ((planes[i].Normal.X * center.X) + (planes[i].Normal.Y * center.Y)) + (planes[i].Normal.Z * center.Z);
+			float num3 = num5 + planes[i].D;
+			if (num3 > radius)
+			{
 				return ContainmentType::Disjoint;
-            }
-            if (num3 < -radius)
-            {
-                num2++;
-            }
-        }
-        if (num2 != 6)
-        {
+			}
+			if (num3 < -radius)
+			{
+				num2++;
+			}
+		}
+
+		if (num2 != 6)
+		{
 			return ContainmentType::Intersects;
-        }
+		}
+
 		return ContainmentType::Contains;
 	}
 
 	ContainmentType_t BoundingFrustum::Contains(Vector3 point)
 	{
 		for (int i = 0; i < 6; i++)
-        {
-            float num2 = (((planes[i].Normal.X * point.X) + (planes[i].Normal.Y * point.Y)) + (planes[i].Normal.Z * point.Z)) + planes[i].D;
-            if (num2 > 1E-05f)
-            {
+		{
+			float num2 = (((planes[i].Normal.X * point.X) + (planes[i].Normal.Y * point.Y)) + (planes[i].Normal.Z * point.Z)) + planes[i].D;
+
+			if (num2 > 1E-05f)
+			{
 				return ContainmentType::Disjoint;
-            }
-        }
+			}
+		}
+
 		return ContainmentType::Contains;
 	}
 
 	void BoundingFrustum::Contains(BoundingBox box, out ContainmentType_t& result)
 	{
 		bool flag = false;
+
 		for (int i = 0; i < 6; i++)
-        {
-            switch (box.Intersects(planes[i]))
-            {
+		{
+			switch (box.Intersects(planes[i]))
+			{
 			case PlaneIntersectionType::Front:
 				result = ContainmentType::Disjoint;
-                return;
+				return;
 
 			case PlaneIntersectionType::Intersecting:
-                flag = true;
-                break;
-            }
-        }
+				flag = true;
+				break;
+			}
+		}
+
 		result = flag ? ContainmentType::Intersects : ContainmentType::Contains;
 	}
 
 	void BoundingFrustum::Contains(BoundingSphere sphere, out ContainmentType_t& result)
 	{
 		Vector3 center = sphere.Center;
-        float radius = sphere.Radius;
-        int num2 = 0;
+		float radius = sphere.Radius;
+		int num2 = 0;
+
 		for (int i = 0; i < 6; i++)
-        {
-            float num5 = ((planes[i].Normal.X * center.X) + (planes[i].Normal.Y * center.Y)) + (planes[i].Normal.Z * center.Z);
-            float num3 = num5 + planes[i].D;
-            if (num3 > radius)
-            {
+		{
+			float num5 = ((planes[i].Normal.X * center.X) + (planes[i].Normal.Y * center.Y)) + (planes[i].Normal.Z * center.Z);
+			float num3 = num5 + planes[i].D;
+
+			if (num3 > radius)
+			{
 				result = ContainmentType::Disjoint;
-                return;
-            }
-            if (num3 < -radius)
-            {
-                num2++;
-            }
-        }
+				return;
+			}
+
+			if (num3 < -radius)
+			{
+				num2++;
+			}
+		}
+
 		result = (num2 == 6) ? ContainmentType::Contains : ContainmentType::Intersects;
 	}
 
 	void BoundingFrustum::Contains(Vector3 point, out ContainmentType_t& result)
 	{
 		for (int i = 0; i < 6; i++)
-        {
-            float num2 = (((planes[i].Normal.X * point.X) + (planes[i].Normal.Y * point.Y)) + (planes[i].Normal.Z * point.Z)) + planes[i].D;
-            if (num2 > 1E-05f)
-            {
+		{
+			float num2 = (((planes[i].Normal.X * point.X) + (planes[i].Normal.Y * point.Y)) + (planes[i].Normal.Z * point.Z)) + planes[i].D;
+
+			if (num2 > 1E-05f)
+			{
 				result = ContainmentType::Disjoint;
-                return;
-            }
-        }
+				return;
+			}
+		}
+
 		result = ContainmentType::Contains;
 	}
 
@@ -306,7 +323,9 @@ namespace XFX
 		sassert(corners != null, "corners cannot be null.");
 
 		for (int i = 0; i < 8; i++)
+		{
 			corners[i] = cornerArray[i];
+		}
 	}
 
 	int BoundingFrustum::GetHashCode() const
@@ -322,8 +341,8 @@ namespace XFX
 	bool BoundingFrustum::Intersects(BoundingBox box)
 	{
 		bool flag = false;
-        Intersects(box, flag);
-        return flag;
+		Intersects(box, flag);
+		return flag;
 	}
 
 	bool BoundingFrustum::Intersects(BoundingFrustum frustrum)
@@ -343,10 +362,12 @@ namespace XFX
 	PlaneIntersectionType_t BoundingFrustum::Intersects(Plane plane)
 	{
 		int num = 0;
+
 		for (int i = 0; i < 8; i++)
 		{
 			float num3 = 0;
 			Vector3::Dot(cornerArray[i], plane.Normal, num3);
+
 			if ((num3 + plane.D) > 0)
 			{
 				num |= 1;
@@ -355,15 +376,18 @@ namespace XFX
 			{
 				num |= 2;
 			}
+
 			if (num == 3)
 			{
 				return PlaneIntersectionType::Intersecting;
 			}
 		}
+
 		if (num != 1)
 		{
 			return PlaneIntersectionType::Back;
 		}
+
 		return PlaneIntersectionType::Front;
 	}
 
@@ -387,10 +411,12 @@ namespace XFX
 	void BoundingFrustum::Intersects(Plane plane, out PlaneIntersectionType_t& result)
 	{
 		int num = 0;
+
 		for (int i = 0; i < 8; i++)
 		{
 			float num3 = 0;
 			Vector3::Dot(cornerArray[i], plane.Normal, num3);
+
 			if ((num3 + plane.D) > 0)
 			{
 				num |= 1;
@@ -399,18 +425,21 @@ namespace XFX
 			{
 				num |= 2;
 			}
+
 			if (num == 3)
 			{
 				result = PlaneIntersectionType::Intersecting;
 				return;
 			}
 		}
+
 		result = (num == 1) ? PlaneIntersectionType::Front : PlaneIntersectionType::Back;
 	}
 
 	void BoundingFrustum::Intersects(Ray ray, out float& result)
 	{
 		ContainmentType_t type = Contains(ray.Position);
+
 		if (type == ContainmentType::Contains)
 		{
 			result = 0.0f;
@@ -420,6 +449,7 @@ namespace XFX
 			float minValue = Single::MinValue;
 			float maxValue = Single::MaxValue;
 			result = 0;
+
 			for (int i = 0; i < 6; i++)
 			{
 				float num3 = 0;
@@ -428,6 +458,7 @@ namespace XFX
 				Vector3::Dot(ray.Direction, normal, num6);
 				Vector3::Dot(ray.Position, normal, num3);
 				num3 += planes[i].D;
+
 				if (Math::Abs(num6) < 1E-05f)
 				{
 					if (num3 > 0.0f)
@@ -438,12 +469,14 @@ namespace XFX
 				else
 				{
 					float num = -num3 / num6;
+
 					if (num6 < 0.0f)
 					{
 						if (num > maxValue)
 						{
 							return;
 						}
+
 						if (num > minValue)
 						{
 							minValue = num;
@@ -455,6 +488,7 @@ namespace XFX
 						{
 							return;
 						}
+
 						if (num < maxValue)
 						{
 							maxValue = num;
@@ -462,7 +496,9 @@ namespace XFX
 					}
 				}
 			}
+
 			float num7 = (minValue >= 0) ? minValue : maxValue;
+
 			if (num7 >= 0)
 			{
 				result = float(num7);
@@ -497,12 +533,14 @@ namespace XFX
 		planes[1].Normal.Y = -value.M24 + value.M23;
 		planes[1].Normal.Z = -value.M34 + value.M33;
 		planes[1].D = -value.M44 + value.M43;
+
 		for (int i = 0; i < 6; i++)
 		{
 			float num2 = planes[i].Normal.Length();
 			planes[i].Normal = (planes[i].Normal / num2);
 			planes[i].D /= num2;
 		}
+
 		Ray ray = ComputeIntersectionLine(planes[0], planes[2]);
 		cornerArray[0] = ComputeIntersection(planes[4], ray);
 		cornerArray[3] = ComputeIntersection(planes[5], ray);

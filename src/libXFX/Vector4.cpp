@@ -33,6 +33,7 @@
 #include <Vector4.h>
 #include <System/Array.h>
 #include <System/Math.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -46,6 +47,7 @@ namespace XFX
 	const Vector4 Vector4::UnitY = Vector4(0,1,0,0);
 	const Vector4 Vector4::UnitZ = Vector4(0,0,1,0);
 	const Vector4 Vector4::Zero = Vector4(0,0,0,0);
+	const Type Vector4TypeInfo("Vector4", "XFX::Vector4", TypeCode::Object);
 
 	Vector4::Vector4(float value)
 		: X(value), Y(value), Z(value), W(value)
@@ -66,12 +68,12 @@ namespace XFX
 		: X(value.X), Y(value.Y), Z(value.Z), W(w)
 	{
 	}
-	
+
 	Vector4::Vector4(const Vector4 &obj)
 		: X(obj.X), Y(obj.Y), Z(obj.Z), W(obj.W)
 	{
 	}
-	
+
 	Vector4::Vector4()
 		: X(0), Y(0), Z(0), W(0)
 	{
@@ -91,22 +93,22 @@ namespace XFX
 		result.Y = vector1.Y + vector2.Y;
 		result.Z = vector1.Z + vector2.Z;
 	}
-	
+
 	Vector4 Vector4::Baricentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2)
 	{
 		Vector4 result;
 		Baricentric(value1, value2, value3, amount1, amount2, result);
 		return result;
 	}
-	
+
 	void Vector4::Baricentric(Vector4 value1, Vector4 value2, Vector4 value3, float amount1, float amount2, out Vector4& result)
 	{
-		result.X = MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2); 
-        result.Y = MathHelper::Baricentric(value1.Y, value2.Y, value3.Y, amount1, amount2);
-        result.Z = MathHelper::Baricentric(value1.Z, value2.Z, value3.Z, amount1, amount2);
-        result.W = MathHelper::Baricentric(value1.W, value2.W, value3.W, amount1, amount2); 
+		result.X = MathHelper::Baricentric(value1.X, value2.X, value3.X, amount1, amount2);
+		result.Y = MathHelper::Baricentric(value1.Y, value2.Y, value3.Y, amount1, amount2);
+		result.Z = MathHelper::Baricentric(value1.Z, value2.Z, value3.Z, amount1, amount2);
+		result.W = MathHelper::Baricentric(value1.W, value2.W, value3.W, amount1, amount2);
 	}
-	
+
 	Vector4 Vector4::CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount)
 	{
 		Vector4 result;
@@ -116,7 +118,7 @@ namespace XFX
 		result.W = MathHelper::CatmullRom(value1.W, value2.W, value3.W, value4.W, amount);
 		return result;
 	}
-	
+
 	void Vector4::CatmullRom(Vector4 value1, Vector4 value2, Vector4 value3, Vector4 value4, float amount, out Vector4& result)
 	{
 		result.X = MathHelper::CatmullRom(value1.X, value2.X, value3.X, value4.X, amount);
@@ -124,49 +126,49 @@ namespace XFX
 		result.Z = MathHelper::CatmullRom(value1.Z, value2.Z, value3.Z, value4.Z, amount);
 		result.W = MathHelper::CatmullRom(value1.W, value2.W, value3.W, value4.W, amount);
 	}
-	
+
 	Vector4 Vector4::Clamp(Vector4 value1, Vector4 min, Vector4 max)
 	{
 		Vector4 result;
 		Clamp(value1, min, max, result); 
 		return result;
 	}
-	
+
 	void Vector4::Clamp(Vector4 value1, Vector4 min, Vector4 max, out Vector4& result)
 	{
-		result = Vector4( 
-            MathHelper::Clamp(value1.X, min.X, max.X), 
-            MathHelper::Clamp(value1.Y, min.Y, max.Y), 
-            MathHelper::Clamp(value1.Z, min.Z, max.Z), 
-            MathHelper::Clamp(value1.W, min.W, max.W)); 
-    }
+		result = Vector4(
+			MathHelper::Clamp(value1.X, min.X, max.X),
+			MathHelper::Clamp(value1.Y, min.Y, max.Y),
+			MathHelper::Clamp(value1.Z, min.Z, max.Z),
+			MathHelper::Clamp(value1.W, min.W, max.W));
+	}
 	
-	float Vector4::Distance(Vector4 value1, Vector4 value2) 
-    { 
-        return Math::Sqrt(DistanceSquared(value1, value2)); 
-    }
-    
-    void Vector4::Distance(Vector4 value1, Vector4 value2, out float& result) 
-    { 
-        result = Math::Sqrt(DistanceSquared(value1, value2)); 
-    }  
-	
-	float Vector4::DistanceSquared(Vector4 value1, Vector4 value2) 
-    { 
-        float result = (value1.W - value2.W) * (value1.W - value2.W) + 
-            (value1.X - value2.X) * (value1.X - value2.X) + 
-            (value1.Y - value2.Y) * (value1.Y - value2.Y) + 
-            (value1.Z - value2.Z) * (value1.Z - value2.Z);
-        return result; 
-    } 
-	
-	void Vector4::DistanceSquared(Vector4 value1, Vector4 value2, out float& result) 
-    { 
-        result = (value1.W - value2.W) * (value1.W - value2.W) + 
-            (value1.X - value2.X) * (value1.X - value2.X) + 
-            (value1.Y - value2.Y) * (value1.Y - value2.Y) + 
-            (value1.Z - value2.Z) * (value1.Z - value2.Z); 
-    } 
+	float Vector4::Distance(Vector4 value1, Vector4 value2)
+	{
+		return Math::Sqrt(DistanceSquared(value1, value2));
+	}
+
+	void Vector4::Distance(Vector4 value1, Vector4 value2, out float& result)
+	{
+		result = Math::Sqrt(DistanceSquared(value1, value2));
+	}
+
+	float Vector4::DistanceSquared(Vector4 value1, Vector4 value2)
+	{
+		float result = (value1.W - value2.W) * (value1.W - value2.W) + 
+			(value1.X - value2.X) * (value1.X - value2.X) + 
+			(value1.Y - value2.Y) * (value1.Y - value2.Y) + 
+			(value1.Z - value2.Z) * (value1.Z - value2.Z);
+		return result;
+	}
+
+	void Vector4::DistanceSquared(Vector4 value1, Vector4 value2, out float& result)
+	{
+		result = (value1.W - value2.W) * (value1.W - value2.W) + 
+			(value1.X - value2.X) * (value1.X - value2.X) + 
+			(value1.Y - value2.Y) * (value1.Y - value2.Y) + 
+			(value1.Z - value2.Z) * (value1.Z - value2.Z);
+	}
 
 	Vector4 Vector4::Divide(Vector4 value, float scale)
 	{
@@ -209,153 +211,157 @@ namespace XFX
 		return ((int)X ^ (int)Y ^ (int)Z ^ (int)W);
 	}
 
-	int Vector4::GetType()
+	const Type& Vector4::GetType()
 	{
-		// TODO: implement
+		return Vector4TypeInfo;
 	}
-	
-	Vector4 Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount) 
-    { 
-        Vector4 result; 
-        Hermite(value1, tangent1, value2, tangent2, amount, result); 
-        return result; 
-    }
-    
-    void Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4& result) 
-    { 
-        result.W = MathHelper::Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount); 
-        result.X = MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount); 
-        result.Y = MathHelper::Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount); 
-        result.Z = MathHelper::Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount); 
-    } 
-    
-    float Vector4::Length() 
-    { 
-        return Math::Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W)); 
-    } 
-  
-    float Vector4::LengthSquared() 
-    { 
-    	return (X * X) + (Y * Y) + (Z * Z) + (W * W); 
-    } 
-    
-    Vector4 Vector4::Lerp(Vector4 value1, Vector4 value2, float amount)
-    {
-	    Vector4 result;
-	    Lerp(value1, value2, amount, result);
-	    return result;
-    }
-    
-    void Vector4::Lerp(Vector4 value1, Vector4 value2, float amount, out Vector4& result) 
-    { 
+
+	Vector4 Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount)
+	{
+		Vector4 result;
+		Hermite(value1, tangent1, value2, tangent2, amount, result);
+		return result;
+	}
+
+	void Vector4::Hermite(Vector4 value1, Vector4 tangent1, Vector4 value2, Vector4 tangent2, float amount, out Vector4& result)
+	{
+		result.W = MathHelper::Hermite(value1.W, tangent1.W, value2.W, tangent2.W, amount);
+		result.X = MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount);
+		result.Y = MathHelper::Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount);
+		result.Z = MathHelper::Hermite(value1.Z, tangent1.Z, value2.Z, tangent2.Z, amount);
+	}
+
+	float Vector4::Length()
+	{
+		return Math::Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W));
+	}
+
+	float Vector4::LengthSquared()
+	{
+		return (X * X) + (Y * Y) + (Z * Z) + (W * W);
+	}
+
+	Vector4 Vector4::Lerp(Vector4 value1, Vector4 value2, float amount)
+	{
+		Vector4 result;
+		Lerp(value1, value2, amount, result);
+		return result;
+	}
+
+	void Vector4::Lerp(Vector4 value1, Vector4 value2, float amount, out Vector4& result)
+	{
 		result.X = MathHelper::Lerp(value1.X, value2.X, amount);
 		result.Y = MathHelper::Lerp(value1.Y, value2.Y, amount);
 		result.Z = MathHelper::Lerp(value1.Z, value2.Z, amount);
-		result.W = MathHelper::Lerp(value1.W, value2.W, amount); 
-    }
-    
-    Vector4 Vector4::Max(Vector4 value1, Vector4 value2)
-    {
-	    Vector4 result;
-	    Max(value1, value2, result);
-	    return result;
-    }
-    
-    void Vector4::Max(Vector4 value1, Vector4 value2, out Vector4& result) 
-    { 
+		result.W = MathHelper::Lerp(value1.W, value2.W, amount);
+	}
+
+	Vector4 Vector4::Max(Vector4 value1, Vector4 value2)
+	{
+		Vector4 result;
+		Max(value1, value2, result);
+		return result;
+	}
+
+	void Vector4::Max(Vector4 value1, Vector4 value2, out Vector4& result)
+	{
 		result.X = MathHelper::Max(value1.X, value2.X);
 		result.Y = MathHelper::Max(value1.Y, value2.Y);
 		result.Z = MathHelper::Max(value1.Z, value2.Z);
-		result.W = MathHelper::Max(value1.W, value2.W); 
-    }
-    
-    Vector4 Vector4::Min(Vector4 value1, Vector4 value2)
-    {
-	    Vector4 result;
-	    Min(value1, value2, result);
-	    return result;
-    }
-    
-    void Vector4::Min(Vector4 value1, Vector4 value2, out Vector4& result) 
-    { 
-        result = Vector4( 
-            MathHelper::Min(value1.X, value2.X), 
-            MathHelper::Min(value1.Y, value2.Y), 
-            MathHelper::Min(value1.Z, value2.Z), 
-            MathHelper::Min(value1.W, value2.W)); 
-    }
-    
-    Vector4 Vector4::Multiply(Vector4 value1, float scaleFactor)
-    {
-	    Vector4 result;
-	    Multiply(value1, scaleFactor, result);
-	    return result;
-    }
-    
-    void Vector4::Multiply(Vector4 value1, float scaleFactor, out Vector4& result)
-    {
+		result.W = MathHelper::Max(value1.W, value2.W);
+	}
+
+	Vector4 Vector4::Min(Vector4 value1, Vector4 value2)
+	{
+		Vector4 result;
+		Min(value1, value2, result);
+		return result;
+	}
+
+	void Vector4::Min(Vector4 value1, Vector4 value2, out Vector4& result)
+	{
+		result = Vector4( 
+			MathHelper::Min(value1.X, value2.X),
+			MathHelper::Min(value1.Y, value2.Y),
+			MathHelper::Min(value1.Z, value2.Z),
+			MathHelper::Min(value1.W, value2.W));
+	}
+
+	Vector4 Vector4::Multiply(Vector4 value1, float scaleFactor)
+	{
+		Vector4 result;
+		Multiply(value1, scaleFactor, result);
+		return result;
+	}
+
+	void Vector4::Multiply(Vector4 value1, float scaleFactor, out Vector4& result)
+	{
 		result.X = value1.X * scaleFactor;
-	    result.Y = value1.Y * scaleFactor;
-	    result.Z = value1.Z * scaleFactor;
-	    result.W = value1.W * scaleFactor;
-    }
-    
-    Vector4 Vector4::Multiply(Vector4 value1, Vector4 value2)
-    {
-	    Vector4 result;
-	    Multiply(value1, value2, result);
-	    return result;
-    }
-    
-    void Vector4::Multiply(Vector4 value1, Vector4 value2, out Vector4& result) 
-    { 
-		result.W = value1.W * value2.W; 
-        result.X = value1.X * value2.X; 
-        result.Y = value1.Y * value2.Y; 
-        result.Z = value1.Z * value2.Z;
-    }
-    
-    Vector4 Vector4::Negate(Vector4 value)
-    {
-	    Vector4 result;
+		result.Y = value1.Y * scaleFactor;
+		result.Z = value1.Z * scaleFactor;
+		result.W = value1.W * scaleFactor;
+	}
+
+	Vector4 Vector4::Multiply(Vector4 value1, Vector4 value2)
+	{
+		Vector4 result;
+		Multiply(value1, value2, result);
+		return result;
+	}
+
+	void Vector4::Multiply(Vector4 value1, Vector4 value2, out Vector4& result)
+	{
+		result.W = value1.W * value2.W;
+		result.X = value1.X * value2.X;
+		result.Y = value1.Y * value2.Y;
+		result.Z = value1.Z * value2.Z;
+	}
+
+	Vector4 Vector4::Negate(Vector4 value)
+	{
+		Vector4 result;
 		Negate(value, result);
 		return result;
-    }
-    
-    void Vector4::Negate(Vector4 value, out Vector4& result)
-    {
-	    result = Vector4(-value.X, -value.Y, -value.Z, -value.W);
-    }
-    
-    void Vector4::Normalize()
-    {
-	    float length = Length(); 
-        if( length == 0 ) 
-            return; 
-        float num = 1 / length; 
-        X *= num; 
-        Y *= num; 
-        Z *= num; 
-        W *= num; 
-    }
-    
-    Vector4 Vector4::Normalize(Vector4 value)
-    {
-	    Normalize(value, value);
-	    return value;
-    }
-    
-    void Vector4::Normalize(Vector4 value, out Vector4& result)
-    {
-	    float factor; 
-        float length = value.Length();
-        factor = 1.0f / length;
-  
-        result.W = value.W * factor; 
-        result.X = value.X * factor; 
-        result.Y = value.Y * factor; 
-        result.Z = value.Z * factor; 
-    }
+	}
+
+	void Vector4::Negate(Vector4 value, out Vector4& result)
+	{
+		result = Vector4(-value.X, -value.Y, -value.Z, -value.W);
+	}
+
+	void Vector4::Normalize()
+	{
+		float length = Length();
+
+		if(length == 0)
+		{
+			return;
+		}
+
+		float num = 1 / length;
+		X *= num;
+		Y *= num;
+		Z *= num;
+		W *= num;
+	}
+
+	Vector4 Vector4::Normalize(Vector4 value)
+	{
+		Normalize(value, value);
+		return value;
+	}
+
+	void Vector4::Normalize(Vector4 value, out Vector4& result)
+	{
+		float factor;
+		float length = value.Length();
+		factor = 1.0f / length;
+
+		result.W = value.W * factor;
+		result.X = value.X * factor;
+		result.Y = value.Y * factor;
+		result.Z = value.Z * factor;
+	}
 
 	Vector4 Vector4::SmoothStep(Vector4 value1, Vector4 value2, float amount)
 	{
@@ -363,7 +369,7 @@ namespace XFX
 			MathHelper::SmoothStep(value1.X, value2.X, amount),
 			MathHelper::SmoothStep(value1.Y, value2.Y, amount),
 			MathHelper::SmoothStep(value1.Z, value2.Z, amount),
-			MathHelper::SmoothStep(value1.W, value2.W, amount)); 
+			MathHelper::SmoothStep(value1.W, value2.W, amount));
 	}
 
 	void Vector4::SmoothStep(Vector4 value1, Vector4 value2, float amount, out Vector4& result)
@@ -372,7 +378,7 @@ namespace XFX
 			MathHelper::SmoothStep(value1.X, value2.X, amount),
 			MathHelper::SmoothStep(value1.Y, value2.Y, amount),
 			MathHelper::SmoothStep(value1.Z, value2.Z, amount),
-			MathHelper::SmoothStep(value1.W, value2.W, amount)); 
+			MathHelper::SmoothStep(value1.W, value2.W, amount));
 	}
 
 	Vector4 Vector4::Subtract(Vector4 vector1, Vector4 vector2)
@@ -464,7 +470,7 @@ namespace XFX
 		result.X = ((vector.X * ((1.0f - yy) - zz)) + (vector.Y * (xy - wz))) + (vector.Z * (xz + wy));
 		result.Y = ((vector.X * (xy + wz)) + (vector.Y * ((1.0f - xx) - zz))) + (vector.Z * (yz - wx));
 		result.Z = ((vector.X * (xz - wy)) + (vector.Y * (yz + wx))) + (vector.Z * ((1.0f - xx) - yy));
-		result.W = 1.0f;  
+		result.W = 1.0f;
 	}
 
 	Vector4 Vector4::Transform(Vector2 vector, Quaternion rotation)
@@ -549,7 +555,7 @@ namespace XFX
 		W -= other.W;
 		return *this;
 	}
-	
+
 	Vector4 Vector4::operator -()
 	{
 		return Vector4(-X, -Y, -Z, -W);

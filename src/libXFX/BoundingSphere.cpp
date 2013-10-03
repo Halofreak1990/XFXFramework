@@ -27,9 +27,12 @@
 
 #include <BoundingSphere.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace XFX
 {
+	const Type BoundingSphereTypeInfo("BoundingSphere", "XFX::BoundingSphere", TypeCode::Object);
+
 	BoundingSphere::BoundingSphere(const Vector3 center, const float radius)
 		: Center(center), Radius(radius)
 	{
@@ -53,6 +56,11 @@ namespace XFX
 	bool BoundingSphere::Equals(const BoundingSphere other) const
 	{
 		return (*this == other);
+	}
+
+	const Type& BoundingSphere::GetType()
+	{
+		return BoundingSphereTypeInfo;
 	}
 
 	int BoundingSphere::GetHashCode() const

@@ -27,6 +27,7 @@
 
 #include <System/Math.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <MathHelper.h>
 #include <Matrix.h>
 #include <Plane.h>
@@ -40,6 +41,7 @@ using namespace System;
 namespace XFX
 {
 	const Matrix Matrix::Identity = Matrix(1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f, 0, 0, 0, 0, 1.0f);
+	const Type MatrixTypeInfo("Matrix", "XFX::Matrix", TypeCode::Object);
 	
 	Matrix::Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
 		: M11(m11), M12(m12), M13(m13), M14(m14),
@@ -178,47 +180,49 @@ namespace XFX
 	
 	Matrix Matrix::CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 cameraUpVector, Vector3* cameraForwardVector)
 	{
-		Matrix result; 
+		Matrix result;
 		CreateBillboard(objectPosition, cameraPosition, cameraUpVector, cameraForwardVector, result);
-		return result; 
+		return result;
 	}
 	
 	void Matrix::CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 cameraUpVector, Vector3* cameraForwardVector, out Matrix& result)
 	{
 		Vector3 vector;
-        Vector3 vector2;
-        Vector3 vector3;
-        vector.X = objectPosition.X - cameraPosition.X;
-        vector.Y = objectPosition.Y - cameraPosition.Y;
-        vector.Z = objectPosition.Z - cameraPosition.Z;
-        float num = vector.LengthSquared();
-        if (num < 0.0001f)
-        {
+		Vector3 vector2;
+		Vector3 vector3;
+		vector.X = objectPosition.X - cameraPosition.X;
+		vector.Y = objectPosition.Y - cameraPosition.Y;
+		vector.Z = objectPosition.Z - cameraPosition.Z;
+		float num = vector.LengthSquared();
+
+		if (num < 0.0001f)
+		{
 			vector = (cameraForwardVector != null) ? -Vector3(cameraForwardVector->X, cameraForwardVector->Y, cameraForwardVector->Z) : Vector3::Forward;
-        }
-        else
-        {
+		}
+		else
+		{
 			Vector3::Multiply(vector, (float) (1.0f / ((float) Math::Sqrt((double) num))), vector);
-        }
+		}
+
 		Vector3::Cross(cameraUpVector, vector, vector3);
 		vector3.Normalize();
 		Vector3::Cross(vector, vector3, vector2);
-        result.M11 = vector3.X;
-        result.M12 = vector3.Y;
-        result.M13 = vector3.Z;
-        result.M14 = 0.0f;
-        result.M21 = vector2.X;
-        result.M22 = vector2.Y;
-        result.M23 = vector2.Z;
-        result.M24 = 0.0f;
-        result.M31 = vector.X;
-        result.M32 = vector.Y;
-        result.M33 = vector.Z;
-        result.M34 = 0.0f;
-        result.M41 = objectPosition.X;
-        result.M42 = objectPosition.Y;
-        result.M43 = objectPosition.Z;
-        result.M44 = 1.0f;
+		result.M11 = vector3.X;
+		result.M12 = vector3.Y;
+		result.M13 = vector3.Z;
+		result.M14 = 0.0f;
+		result.M21 = vector2.X;
+		result.M22 = vector2.Y;
+		result.M23 = vector2.Z;
+		result.M24 = 0.0f;
+		result.M31 = vector.X;
+		result.M32 = vector.Y;
+		result.M33 = vector.Z;
+		result.M34 = 0.0f;
+		result.M41 = objectPosition.X;
+		result.M42 = objectPosition.Y;
+		result.M43 = objectPosition.Z;
+		result.M44 = 1.0f;
 	} 
 
 	Matrix Matrix::CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3* cameraForwardVector, Vector3* objectForwardVector)
@@ -231,110 +235,118 @@ namespace XFX
 	void Matrix::CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition, Vector3 rotateAxis, Vector3* cameraForwardVector, Vector3* objectForwardVector, out Matrix& result)
 	{
 		float num = 0.0f;
-        Vector3 vector;
-        Vector3 vector2;
-        Vector3 vector3;
-        vector2.X = objectPosition.X - cameraPosition.X;
-        vector2.Y = objectPosition.Y - cameraPosition.Y;
-        vector2.Z = objectPosition.Z - cameraPosition.Z;
-        float num2 = vector2.LengthSquared();
-        if (num2 < 0.0001f)
-        {
+		Vector3 vector;
+		Vector3 vector2;
+		Vector3 vector3;
+		vector2.X = objectPosition.X - cameraPosition.X;
+		vector2.Y = objectPosition.Y - cameraPosition.Y;
+		vector2.Z = objectPosition.Z - cameraPosition.Z;
+		float num2 = vector2.LengthSquared();
+
+		if (num2 < 0.0001f)
+		{
 			vector2 = (cameraForwardVector != null) ? -Vector3(cameraForwardVector->X, cameraForwardVector->Y, cameraForwardVector->Z) : Vector3::Forward;
-        }
-        else
-        {
+		}
+		else
+		{
 			Vector3::Multiply(vector2, (float) (1.0f / ((float) Math::Sqrt((double) num2))), vector2);
-        }
-        Vector3 vector4 = rotateAxis;
+		}
+
+		Vector3 vector4 = rotateAxis;
 		Vector3::Dot(rotateAxis, vector2, num);
+
 		if (Math::Abs(num) > 0.9982547f)
-        {
-            if (objectForwardVector != null)
-            {
-                vector = Vector3(objectForwardVector->X, objectForwardVector->Y, objectForwardVector->Z);
+		{
+			if (objectForwardVector != null)
+			{
+				vector = Vector3(objectForwardVector->X, objectForwardVector->Y, objectForwardVector->Z);
 				Vector3::Dot(rotateAxis, vector, num);
+
 				if (Math::Abs(num) > 0.9982547f)
-                {
+				{
 					num = ((rotateAxis.X * Vector3::Forward.X) + (rotateAxis.Y * Vector3::Forward.Y)) + (rotateAxis.Z * Vector3::Forward.Z);
 					vector = (Math::Abs(num) > 0.9982547f) ? Vector3::Right : Vector3::Forward;
-                }
-            }
-            else
-            {
+				}
+			}
+			else
+			{
 				num = ((rotateAxis.X * Vector3::Forward.X) + (rotateAxis.Y * Vector3::Forward.Y)) + (rotateAxis.Z * Vector3::Forward.Z);
 				vector = (Math::Abs(num) > 0.9982547f) ? Vector3::Right : Vector3::Forward;
-            }
+			}
+
 			Vector3::Cross(rotateAxis, vector, vector3);
-            vector3.Normalize();
+			vector3.Normalize();
 			Vector3::Cross(vector3, rotateAxis, vector);
-            vector.Normalize();
-        }
-        else
-        {
+			vector.Normalize();
+		}
+		else
+		{
 			Vector3::Cross(rotateAxis, vector2, vector3);
 			vector3.Normalize();
 			Vector3::Cross(vector3, vector4, vector);
-            vector.Normalize();
-        }
-        result.M11 = vector3.X;
-        result.M12 = vector3.Y;
-        result.M13 = vector3.Z;
-        result.M14 = 0.0f;
-        result.M21 = vector4.X;
-        result.M22 = vector4.Y;
-        result.M23 = vector4.Z;
-        result.M24 = 0.0f;
-        result.M31 = vector.X;
-        result.M32 = vector.Y;
-        result.M33 = vector.Z;
-        result.M34 = 0.0f;
-        result.M41 = objectPosition.X;
-        result.M42 = objectPosition.Y;
-        result.M43 = objectPosition.Z;
-        result.M44 = 1.0f;
+			vector.Normalize();
+		}
+
+		result.M11 = vector3.X;
+		result.M12 = vector3.Y;
+		result.M13 = vector3.Z;
+		result.M14 = 0.0f;
+		result.M21 = vector4.X;
+		result.M22 = vector4.Y;
+		result.M23 = vector4.Z;
+		result.M24 = 0.0f;
+		result.M31 = vector.X;
+		result.M32 = vector.Y;
+		result.M33 = vector.Z;
+		result.M34 = 0.0f;
+		result.M41 = objectPosition.X;
+		result.M42 = objectPosition.Y;
+		result.M43 = objectPosition.Z;
+		result.M44 = 1.0f;
 	}
 
 	Matrix Matrix::CreateFromAxisAngle(Vector3 axis,float angle)
 	{
 		Matrix result;
 		CreateFromAxisAngle(axis, angle, result);
- 		return result;
+		return result;
 	}
 	
 	void Matrix::CreateFromAxisAngle(Vector3 axis, float angle, out Matrix& result) 
-	{ 
- 		if(axis.LengthSquared() != 1.0f) 
-			axis.Normalize(); 
+	{
+		if(axis.LengthSquared() != 1.0f)
+		{
+			axis.Normalize();
+		}
 
- 		float x = axis.X; 
- 		float y = axis.Y; 
- 		float z = axis.Z; 
- 		float cos = Math::Cos(angle); 
- 		float sin = Math::Sin(angle); 
- 		float xx = x * x; 
- 		float yy = y * y; 
- 		float zz = z * z; 
- 		float xy = x * y; 
- 		float xz = x * z; 
- 		float yz = y * z; 
+		float x = axis.X;
+		float y = axis.Y;
+		float z = axis.Z;
+		float cos = Math::Cos(angle);
+		float sin = Math::Sin(angle);
+		float xx = x * x;
+		float yy = y * y;
+		float zz = z * z;
+		float xy = x * y;
+		float xz = x * z;
+		float yz = y * z;
 
- 		result.M11 = xx + (cos * (1.0f - xx)); 
- 		result.M12 = (xy - (cos * xy)) + (sin * z); 
- 		result.M13 = (xz - (cos * xz)) - (sin * y); 
- 		result.M14 = 0.0f; 
- 		result.M21 = (xy - (cos * xy)) - (sin * z); 
- 		result.M22 = yy + (cos * (1.0f - yy)); 
- 		result.M23 = (yz - (cos * yz)) + (sin * x); 
- 		result.M24 = 0.0f; 
- 		result.M31 = (xz - (cos * xz)) + (sin * y); 
- 		result.M32 = (yz - (cos * yz)) - (sin * x); 
- 		result.M33 = zz + (cos * (1.0f - zz)); 
- 		result.M34 = 0.0f; 
- 		result.M41 = 0.0f; 
- 		result.M42 = 0.0f; 
- 		result.M43 = 0.0f; 
- 		result.M44 = 1.0f; 
+		result.M11 = xx + (cos * (1.0f - xx));
+		result.M12 = (xy - (cos * xy)) + (sin * z);
+		result.M13 = (xz - (cos * xz)) - (sin * y);
+		result.M14 = 0.0f;
+		result.M21 = (xy - (cos * xy)) - (sin * z);
+		result.M22 = yy + (cos * (1.0f - yy));
+		result.M23 = (yz - (cos * yz)) + (sin * x);
+		result.M24 = 0.0f;
+		result.M31 = (xz - (cos * xz)) + (sin * y);
+		result.M32 = (yz - (cos * yz)) - (sin * x);
+		result.M33 = zz + (cos * (1.0f - zz));
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
 	}
 
 	Matrix Matrix::CreateFromQuaternion(Quaternion rotation)
@@ -344,8 +356,8 @@ namespace XFX
 		return result;
 	}
 	
-	void Matrix::CreateFromQuaternion(Quaternion rotation, out Matrix& result) 
-	{ 
+	void Matrix::CreateFromQuaternion(Quaternion rotation, out Matrix& result)
+	{
 		float xx = rotation.X * rotation.X; 
 		float yy = rotation.Y * rotation.Y; 
 		float zz = rotation.Z * rotation.Z; 
@@ -356,36 +368,36 @@ namespace XFX
 		float yz = rotation.Y * rotation.Z; 
 		float xw = rotation.X * rotation.W; 
 		
-		result.M11 = 1.0f - (2.0f * (yy + zz)); 
+		result.M11 = 1.0f - (2.0f * (yy + zz));
 		result.M12 = 2.0f * (xy + zw);
-		result.M13 = 2.0f * (zx - yw); 
-		result.M14 = 0.0f; 
+		result.M13 = 2.0f * (zx - yw);
+		result.M14 = 0.0f;
 		result.M21 = 2.0f * (xy - zw);
-		result.M22 = 1.0f - (2.0f * (zz + xx)); 
-		result.M23 = 2.0f * (yz + xw); 
-		result.M24 = 0.0f; 
-		result.M31 = 2.0f * (zx + yw); 
-		result.M32 = 2.0f * (yz - xw); 
-		result.M33 = 1.0f - (2.0f * (yy + xx)); 
-		result.M34 = 0.0f; 
-		result.M41 = 0.0f; 
-		result.M42 = 0.0f; 
-		result.M43 = 0.0f; 
-		result.M44 = 1.0f; 
+		result.M22 = 1.0f - (2.0f * (zz + xx));
+		result.M23 = 2.0f * (yz + xw);
+		result.M24 = 0.0f;
+		result.M31 = 2.0f * (zx + yw);
+		result.M32 = 2.0f * (yz - xw);
+		result.M33 = 1.0f - (2.0f * (yy + xx));
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
 	}
 
 	Matrix Matrix::CreateFromYawPitchRoll(float yaw, float pitch, float roll) 
-	{ 
-        Matrix result; 
-        CreateFromYawPitchRoll(yaw, pitch, roll, result);
-        return result; 
+	{
+		Matrix result;
+		CreateFromYawPitchRoll(yaw, pitch, roll, result);
+		return result;
 	}
 
 	void Matrix::CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix& result) 
-	{ 
-        Quaternion quaternion; 
-        Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll, quaternion); 
-        CreateFromQuaternion(quaternion, result); 
+	{
+		Quaternion quaternion;
+		Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll, quaternion);
+		CreateFromQuaternion(quaternion, result);
 	}
 	
 	Matrix Matrix::CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector)
@@ -514,63 +526,63 @@ namespace XFX
 	}
 	
 	void Matrix::CreateReflection(Plane value, out Matrix& result) 
-    { 
-		value.Normalize(); 
-    	float x = value.Normal.X; 
-    	float y = value.Normal.Y; 
-    	float z = value.Normal.Z; 
-    	float x2 = -2.0f * x; 
-    	float y2 = -2.0f * y; 
-    	float z2 = -2.0f * z; 
-    	result.M11 = (x2 * x) + 1.0f; 
-    	result.M12 = y2 * x; 
-    	result.M13 = z2 * x; 
-    	result.M14 = 0.0f; 
-    	result.M21 = x2 * y; 
-    	result.M22 = (y2 * y) + 1.0f; 
-    	result.M23 = z2 * y; 
-    	result.M24 = 0.0f; 
-    	result.M31 = x2 * z; 
-    	result.M32 = y2 * z; 
-    	result.M33 = (z2 * z) + 1.0f; 
-    	result.M34 = 0.0f; 
-    	result.M41 = x2 * value.D; 
-    	result.M42 = y2 * value.D; 
-    	result.M43 = z2 * value.D; 
-    	result.M44 = 1.0f; 
-    } 
-  
-    Matrix Matrix::CreateReflection(Plane value) 
-    { 
-	    Matrix result; 
-    	value.Normalize(); 
-    	float x = value.Normal.X; 
-    	float y = value.Normal.Y; 
-    	float z = value.Normal.Z; 
-    	float x2 = -2.0f * x; 
-    	float y2 = -2.0f * y; 
-    	float z2 = -2.0f * z; 
-    	result.M11 = (x2 * x) + 1.0f; 
-    	result.M12 = y2 * x; 
-    	result.M13 = z2 * x; 
-    	result.M14 = 0.0f; 
-    	result.M21 = x2 * y; 
-    	result.M22 = (y2 * y) + 1.0f; 
-    	result.M23 = z2 * y; 
-    	result.M24 = 0.0f; 
-    	result.M31 = x2 * z; 
-    	result.M32 = y2 * z; 
-    	result.M33 = (z2 * z) + 1.0f; 
-    	result.M34 = 0.0f; 
-    	result.M41 = x2 * value.D; 
-    	result.M42 = y2 * value.D; 
-    	result.M43 = z2 * value.D; 
-    	result.M44 = 1.0f; 
-    	return result; 
-    } 
-	
-	void Matrix::CreateRotationX(float radians, out Matrix& result) 
-    { 
+	{
+		value.Normalize();
+		float x = value.Normal.X;
+		float y = value.Normal.Y;
+		float z = value.Normal.Z;
+		float x2 = -2.0f * x;
+		float y2 = -2.0f * y;
+		float z2 = -2.0f * z;
+		result.M11 = (x2 * x) + 1.0f;
+		result.M12 = y2 * x;
+		result.M13 = z2 * x;
+		result.M14 = 0.0f;
+		result.M21 = x2 * y;
+		result.M22 = (y2 * y) + 1.0f;
+		result.M23 = z2 * y;
+		result.M24 = 0.0f;
+		result.M31 = x2 * z;
+		result.M32 = y2 * z;
+		result.M33 = (z2 * z) + 1.0f;
+		result.M34 = 0.0f;
+		result.M41 = x2 * value.D;
+		result.M42 = y2 * value.D;
+		result.M43 = z2 * value.D;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateReflection(Plane value)
+	{
+		Matrix result;
+		value.Normalize();
+		float x = value.Normal.X;
+		float y = value.Normal.Y;
+		float z = value.Normal.Z;
+		float x2 = -2.0f * x;
+		float y2 = -2.0f * y;
+		float z2 = -2.0f * z;
+		result.M11 = (x2 * x) + 1.0f;
+		result.M12 = y2 * x;
+		result.M13 = z2 * x;
+		result.M14 = 0.0f;
+		result.M21 = x2 * y;
+		result.M22 = (y2 * y) + 1.0f;
+		result.M23 = z2 * y;
+		result.M24 = 0.0f;
+		result.M31 = x2 * z;
+		result.M32 = y2 * z;
+		result.M33 = (z2 * z) + 1.0f;
+		result.M34 = 0.0f;
+		result.M41 = x2 * value.D;
+		result.M42 = y2 * value.D;
+		result.M43 = z2 * value.D;
+		result.M44 = 1.0f;
+		return result;
+	}
+
+	void Matrix::CreateRotationX(float radians, out Matrix& result)
+	{
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
 		result.M11 = 1.0f;
@@ -590,16 +602,16 @@ namespace XFX
 		result.M43 = 0.0f;
 		result.M44 = 1.0f;
 	}
-	
+
 	Matrix Matrix::CreateRotationX(float radians) 
-    { 
-    	Matrix result;
+	{
+		Matrix result;
 		CreateRotationX(radians, result);
-    	return result; 
-    }
-    
-    void Matrix::CreateRotationY(float radians, out Matrix& result) 
-    { 
+		return result;
+	}
+
+	void Matrix::CreateRotationY(float radians, out Matrix& result)
+	{
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
 		result.M11 = num2;
@@ -618,17 +630,17 @@ namespace XFX
 		result.M42 = 0.0f;
 		result.M43 = 0.0f;
 		result.M44 = 1.0f;
-    }
-    
-    Matrix Matrix::CreateRotationY(float radians) 
-    { 
-    	Matrix result;
+	}
+
+	Matrix Matrix::CreateRotationY(float radians)
+	{
+		Matrix result;
 		CreateRotationY(radians, result);
-    	return result; 
-    }
-    
-    void Matrix::CreateRotationZ(float radians, out Matrix& result) 
-    { 
+		return result;
+	}
+
+	void Matrix::CreateRotationZ(float radians, out Matrix& result)
+	{
 		float num2 = (float) Math::Cos((double) radians);
 		float num = (float) Math::Sin((double) radians);
 		result.M11 = num2;
@@ -647,199 +659,199 @@ namespace XFX
 		result.M42 = 0.0f;
 		result.M43 = 0.0f;
 		result.M44 = 1.0f;
-    }
-    
-	Matrix Matrix::CreateRotationZ(float radians) 
-    { 
-    	Matrix result; 
-		CreateRotationZ(radians, result);
-		return result; 
-    }
-    
-    void Matrix::CreateScale(float scale, out Matrix& result)
-    {
-	    float num = scale;
-        result.M11 = num;
-        result.M12 = 0.0f;
-        result.M13 = 0.0f;
-        result.M14 = 0.0f;
-        result.M21 = 0.0f;
-        result.M22 = num;
-        result.M23 = 0.0f;
-        result.M24 = 0.0f;
-        result.M31 = 0.0f;
-        result.M32 = 0.0f;
-        result.M33 = num;
-        result.M34 = 0.0f;
-        result.M41 = 0.0f;
-        result.M42 = 0.0f;
-        result.M43 = 0.0f;
-        result.M44 = 1.0f;
-    }
-    
-    Matrix Matrix::CreateScale(float scale) 
-    { 
-    	Matrix result;
-		CreateScale(scale, result);
-		return result;
-    } 
-    
-    void Matrix::CreateScale(float xScale, float yScale, float zScale, out Matrix& result) 
-    { 
-    	float num3 = xScale;
-        float num2 = yScale;
-        float num = zScale;
-        result.M11 = num3;
-        result.M12 = 0.0f;
-        result.M13 = 0.0f;
-        result.M14 = 0.0f;
-        result.M21 = 0.0f;
-        result.M22 = num2;
-        result.M23 = 0.0f;
-        result.M24 = 0.0f;
-        result.M31 = 0.0f;
-        result.M32 = 0.0f;
-        result.M33 = num;
-        result.M34 = 0.0f;
-        result.M41 = 0.0f;
-        result.M42 = 0.0f;
-        result.M43 = 0.0f;
-        result.M44 = 1.0f;
-    }
-    
-    Matrix Matrix::CreateScale(float xScale, float yScale, float zScale) 
-    { 
-    	Matrix result;
-		CreateScale(xScale, yScale, zScale, result);
-    	return result; 
-    }
-    
-    void Matrix::CreateScale(Vector3 scales, out Matrix& result) 
-    { 
-    	float x = scales.X;
-        float y = scales.Y;
-        float z = scales.Z;
-        result.M11 = x;
-        result.M12 = 0.0f;
-        result.M13 = 0.0f;
-        result.M14 = 0.0f;
-        result.M21 = 0.0f;
-        result.M22 = y;
-        result.M23 = 0.0f;
-        result.M24 = 0.0f;
-        result.M31 = 0.0f;
-        result.M32 = 0.0f;
-        result.M33 = z;
-        result.M34 = 0.0f;
-        result.M41 = 0.0f;
-        result.M42 = 0.0f;
-        result.M43 = 0.0f;
-        result.M44 = 1.0f;
-    }
-    
-    Matrix Matrix::CreateScale(Vector3 scales) 
-    { 
-    	Matrix result; 
-		CreateScale(scales, result);
-    	return result; 
-    }  
-    
-    void Matrix::CreateShadow(Vector3 lightDirection, Plane plane, out Matrix& result)
-    {
-	    plane.Normalize(); 
-    	float dot = ((plane.Normal.X * lightDirection.X) + (plane.Normal.Y * lightDirection.Y)) + (plane.Normal.Z * lightDirection.Z); 
-    	float x = -plane.Normal.X; 
-    	float y = -plane.Normal.Y; 
-    	float z = -plane.Normal.Z; 
-    	float d = -plane.D; 
-    	result.M11 = (x * lightDirection.X) + dot; 
-    	result.M21 = y * lightDirection.X; 
-    	result.M31 = z * lightDirection.X; 
-    	result.M41 = d * lightDirection.X; 
-    	result.M12 = x * lightDirection.Y; 
-     	result.M22 = (y * lightDirection.Y) + dot; 
-     	result.M32 = z * lightDirection.Y; 
-    	result.M42 = d * lightDirection.Y; 
-     	result.M13 = x * lightDirection.Z; 
-    	result.M23 = y * lightDirection.Z; 
-    	result.M33 = (z * lightDirection.Z) + dot; 
-    	result.M43 = d * lightDirection.Z; 
-    	result.M14 = 0.0f; 
-    	result.M24 = 0.0f; 
-    	result.M34 = 0.0f; 
-    	result.M44 = dot; 
-    }
-    
-    Matrix Matrix::CreateShadow(Vector3 lightDirection, Plane plane)
-    {
-	    Matrix result;
-	    CreateShadow(lightDirection, plane, result);
-	    return result;
-    }
-    
-    void Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix& result) 
-    { 
-    	result.M11 = 1.0f;
-        result.M12 = 0.0f;
-        result.M13 = 0.0f;
-        result.M14 = 0.0f;
-        result.M21 = 0.0f;
-        result.M22 = 1.0f;
-        result.M23 = 0.0f;
-        result.M24 = 0.0f;
-        result.M31 = 0.0f;
-        result.M32 = 0.0f;
-        result.M33 = 1.0f;
-        result.M34 = 0.0f;
-        result.M41 = xPosition;
-        result.M42 = yPosition;
-        result.M43 = zPosition;
-        result.M44 = 1.0f;
-    } 
-    
-    Matrix Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition)
-    {
-	    Matrix result;
-	    CreateTranslation(xPosition, yPosition, zPosition, result);
-    	return result;
-    }
-    
-    void Matrix::CreateTranslation(Vector3 position, out Matrix& result) 
-    { 
-    	result.M11 = 1.0f;
-        result.M12 = 0.0f;
-        result.M13 = 0.0f;
-        result.M14 = 0.0f;
-        result.M21 = 0.0f;
-        result.M22 = 1.0f;
-        result.M23 = 0.0f;
-        result.M24 = 0.0f;
-        result.M31 = 0.0f;
-        result.M32 = 0.0f;
-        result.M33 = 1.0f;
-        result.M34 = 0.0f;
-        result.M41 = position.X;
-        result.M42 = position.Y;
-        result.M43 = position.Z;
-        result.M44 = 1.0f;
-    }
-    
-    Matrix Matrix::CreateTranslation(Vector3 position)
-    {
-	    Matrix result;
-	    CreateTranslation(position, result);
-	    return result;
-    }
-
-	Matrix Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up) 
-	{ 
- 		Matrix ret; 
- 		CreateWorld(position, forward, up, out ret); 
- 		return ret; 
 	}
 
-	void Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up, out Matrix& result) 
-	{ 
+	Matrix Matrix::CreateRotationZ(float radians)
+	{
+		Matrix result;
+		CreateRotationZ(radians, result);
+		return result;
+	}
+
+	void Matrix::CreateScale(float scale, out Matrix& result)
+	{
+		float num = scale;
+		result.M11 = num;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = num;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = num;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateScale(float scale)
+	{
+		Matrix result;
+		CreateScale(scale, result);
+		return result;
+	}
+
+	void Matrix::CreateScale(float xScale, float yScale, float zScale, out Matrix& result)
+	{
+		float num3 = xScale;
+		float num2 = yScale;
+		float num = zScale;
+		result.M11 = num3;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = num2;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = num;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateScale(float xScale, float yScale, float zScale)
+	{
+		Matrix result;
+		CreateScale(xScale, yScale, zScale, result);
+		return result;
+	}
+
+	void Matrix::CreateScale(Vector3 scales, out Matrix& result)
+	{
+		float x = scales.X;
+		float y = scales.Y;
+		float z = scales.Z;
+		result.M11 = x;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = y;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = z;
+		result.M34 = 0.0f;
+		result.M41 = 0.0f;
+		result.M42 = 0.0f;
+		result.M43 = 0.0f;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateScale(Vector3 scales) 
+	{
+		Matrix result;
+		CreateScale(scales, result);
+		return result;
+	}
+
+	void Matrix::CreateShadow(Vector3 lightDirection, Plane plane, out Matrix& result)
+	{
+		plane.Normalize();
+		float dot = ((plane.Normal.X * lightDirection.X) + (plane.Normal.Y * lightDirection.Y)) + (plane.Normal.Z * lightDirection.Z);
+		float x = -plane.Normal.X;
+		float y = -plane.Normal.Y;
+		float z = -plane.Normal.Z;
+		float d = -plane.D;
+		result.M11 = (x * lightDirection.X) + dot;
+		result.M21 = y * lightDirection.X;
+		result.M31 = z * lightDirection.X;
+		result.M41 = d * lightDirection.X;
+		result.M12 = x * lightDirection.Y;
+		result.M22 = (y * lightDirection.Y) + dot;
+		result.M32 = z * lightDirection.Y;
+		result.M42 = d * lightDirection.Y;
+		result.M13 = x * lightDirection.Z;
+		result.M23 = y * lightDirection.Z;
+		result.M33 = (z * lightDirection.Z) + dot;
+		result.M43 = d * lightDirection.Z;
+		result.M14 = 0.0f;
+		result.M24 = 0.0f;
+		result.M34 = 0.0f;
+		result.M44 = dot;
+	}
+
+	Matrix Matrix::CreateShadow(Vector3 lightDirection, Plane plane)
+	{
+		Matrix result;
+		CreateShadow(lightDirection, plane, result);
+		return result;
+	}
+
+	void Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix& result)
+	{
+		result.M11 = 1.0f;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = 1.0f;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = 1.0f;
+		result.M34 = 0.0f;
+		result.M41 = xPosition;
+		result.M42 = yPosition;
+		result.M43 = zPosition;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateTranslation(float xPosition, float yPosition, float zPosition)
+	{
+		Matrix result;
+		CreateTranslation(xPosition, yPosition, zPosition, result);
+		return result;
+	}
+
+	void Matrix::CreateTranslation(Vector3 position, out Matrix& result)
+	{
+		result.M11 = 1.0f;
+		result.M12 = 0.0f;
+		result.M13 = 0.0f;
+		result.M14 = 0.0f;
+		result.M21 = 0.0f;
+		result.M22 = 1.0f;
+		result.M23 = 0.0f;
+		result.M24 = 0.0f;
+		result.M31 = 0.0f;
+		result.M32 = 0.0f;
+		result.M33 = 1.0f;
+		result.M34 = 0.0f;
+		result.M41 = position.X;
+		result.M42 = position.Y;
+		result.M43 = position.Z;
+		result.M44 = 1.0f;
+	}
+
+	Matrix Matrix::CreateTranslation(Vector3 position)
+	{
+		Matrix result;
+		CreateTranslation(position, result);
+		return result;
+	}
+
+	Matrix Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up)
+	{
+		Matrix ret;
+		CreateWorld(position, forward, up, out ret);
+		return ret;
+	}
+
+	void Matrix::CreateWorld(Vector3 position, Vector3 forward, Vector3 up, out Matrix& result)
+	{
 		Vector3 vector = Vector3::Normalize(position - forward);
 		Vector3 vector2 = Vector3::Normalize(Vector3::Cross(up, vector));
 		Vector3 vector3 = Vector3::Cross(vector, vector2);
@@ -867,26 +879,44 @@ namespace XFX
 		translation.Y = M42;
 		translation.Z = M43;
 		float xs, ys, zs;
+
 		if (Math::Sign(M11 * M12 * M13 * M14) < 0)
+		{
 			xs = -1.0f;
+		}
 		else
+		{
 			xs = 1.0f;
+		}
+
 		if (Math::Sign(M21 * M22 * M23 * M24) < 0)
+		{
 			ys = -1.0f;
+		}
 		else
+		{
 			ys = 1.0f;
+		}
+
 		if (Math::Sign(M31 * M32 * M33 * M34) < 0)
+		{
 			zs = -1.0f;
+		}
 		else
+		{
 			zs = 1.0f;
+		}
+
 		scale.X = xs * (float)Math::Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
 		scale.Y = ys * (float)Math::Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
 		scale.Z = zs * (float)Math::Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
+
 		if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
 		{
 			rotation = Quaternion::Identity;
 			return false;
 		}
+
 		Matrix m1 = Matrix(M11/scale.X, M12/scale.X, M13/scale.X, 0, 
 			M21/scale.Y, M22/scale.Y, M23/scale.Y, 0,
 			M31/scale.Z, M32/scale.Z, M33/scale.Z, 0,
@@ -895,36 +925,36 @@ namespace XFX
 		return true;
 	}
 
-	float Matrix::Determinant() 
-    { 
-    	float temp1 = (M33 * M44) - (M34 * M43); 
-   		float temp2 = (M32 * M44) - (M34 * M42); 
-    	float temp3 = (M32 * M43) - (M33 * M42); 
-    	float temp4 = (M31 * M44) - (M34 * M41); 
-    	float temp5 = (M31 * M43) - (M33 * M41); 
-    	float temp6 = (M31 * M42) - (M32 * M41); 
- 
-    	return ((((M11 * (((M22 * temp1) - (M23 * temp2)) + (M24 * temp3))) - (M12 * (((M21 * temp1) -  
-        	(M23 * temp4)) + (M24 * temp5)))) + (M13 * (((M21 * temp2) - (M22 * temp4)) + (M24 * temp6)))) -  
-        	(M14 * (((M21 * temp3) - (M22 * temp5)) + (M23 * temp6)))); 
-    } 
+	float Matrix::Determinant()
+	{
+		float temp1 = (M33 * M44) - (M34 * M43);
+		float temp2 = (M32 * M44) - (M34 * M42);
+		float temp3 = (M32 * M43) - (M33 * M42);
+		float temp4 = (M31 * M44) - (M34 * M41);
+		float temp5 = (M31 * M43) - (M33 * M41);
+		float temp6 = (M31 * M42) - (M32 * M41);
+
+		return ((((M11 * (((M22 * temp1) - (M23 * temp2)) + (M24 * temp3))) - (M12 * (((M21 * temp1) - 
+			(M23 * temp4)) + (M24 * temp5)))) + (M13 * (((M21 * temp2) - (M22 * temp4)) + (M24 * temp6)))) - 
+			(M14 * (((M21 * temp3) - (M22 * temp5)) + (M23 * temp6))));
+	}
 
 	Matrix Matrix::Divide(Matrix matrix1, Matrix matrix2)
-    {
-	    Matrix result;
-	    Divide(matrix1, matrix2, result);
-	    return result;
-    }
+	{
+		Matrix result;
+		Divide(matrix1, matrix2, result);
+		return result;
+	}
 
-    void Matrix::Divide(Matrix matrix1, Matrix matrix2, out Matrix& result) 
-    { 
-    	Matrix inverse = Matrix::Invert(matrix2); 
-        Matrix::Multiply(matrix1, inverse, result); 
-    }
-    
-    void Matrix::Divide(Matrix matrix1, float divider, out Matrix& result)
-    {
-	    float num = 1 / divider;
+	void Matrix::Divide(Matrix matrix1, Matrix matrix2, out Matrix& result)
+	{
+		Matrix inverse = Matrix::Invert(matrix2);
+		Matrix::Multiply(matrix1, inverse, result);
+	}
+
+	void Matrix::Divide(Matrix matrix1, float divider, out Matrix& result)
+	{
+		float num = 1 / divider;
 		result.M11 = matrix1.M11 * num;
 		result.M12 = matrix1.M12 * num;
 		result.M13 = matrix1.M13 * num;
@@ -941,24 +971,24 @@ namespace XFX
 		result.M42 = matrix1.M42 * num;
 		result.M43 = matrix1.M43 * num;
 		result.M44 = matrix1.M44 * num;
-    }
-    
-    Matrix Matrix::Divide(Matrix matrix1, float divider)
-    {
-	    Matrix result;
-	    Divide(matrix1, divider, result);
-	    return result;
-    }
-    
-	bool Matrix::Equals(Object const * const obj) const
-	{
-		return is(this, obj) ? *this == *(Matrix*)obj : false;
 	}
 
-    bool Matrix::Equals(const Matrix other) const
-    { 
-    	return (*this == other);
-    } 
+	Matrix Matrix::Divide(Matrix matrix1, float divider)
+	{
+		Matrix result;
+		Divide(matrix1, divider, result);
+		return result;
+	}
+
+	bool Matrix::Equals(Object const * const obj) const
+	{
+		return is(this, obj) ? *this == *(Matrix *)obj : false;
+	}
+
+	bool Matrix::Equals(const Matrix other) const
+	{
+		return (*this == other);
+	}
 
 	int Matrix::GetHashCode() const
 	{
@@ -966,14 +996,14 @@ namespace XFX
 			(int)M31 ^ (int)M32 ^ (int)M33 ^ (int)M34 ^ (int)M41 ^ (int)M42 ^ (int)M43 ^ (int)M44);
 	}
 
-	int Matrix::GetType()
+	const Type& Matrix::GetType()
 	{
-		// TODO: implement
+		return MatrixTypeInfo;
 	}
-    
-    void Matrix::Invert(Matrix matrix, out Matrix& result) 
-    {       
-    	float num5 = matrix.M11;
+
+	void Matrix::Invert(Matrix matrix, out Matrix& result)
+	{
+		float num5 = matrix.M11;
 		float num4 = matrix.M12;
 		float num3 = matrix.M13;
 		float num2 = matrix.M14;
@@ -1028,7 +1058,7 @@ namespace XFX
 		result.M24 = (((num5 * num29) - (num3 * num26)) + (num2 * num25)) * num;
 		result.M34 = -(((num5 * num28) - (num4 * num26)) + (num2 * num24)) * num;
 		result.M44 = (((num5 * num27) - (num4 * num25)) + (num3 * num24)) * num;
-	} 
+	}
 	
 	Matrix Matrix::Invert(Matrix matrix)
 	{
@@ -1064,15 +1094,15 @@ namespace XFX
 	}
 
 	Matrix Matrix::Multiply(Matrix matrix1, Matrix matrix2)
-    {
-	    Matrix result;
-	    Multiply(matrix1, matrix2, result);
-	    return result;
-    }
+	{
+		Matrix result;
+		Multiply(matrix1, matrix2, result);
+		return result;
+	}
 	
-	void Matrix::Multiply(Matrix matrix1, Matrix matrix2, out Matrix& result) 
-    { 
-    	float num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
+	void Matrix::Multiply(Matrix matrix1, Matrix matrix2, out Matrix& result)
+	{
+		float num16 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
 		float num15 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
 		float num14 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
 		float num13 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
@@ -1104,18 +1134,18 @@ namespace XFX
 		result.M42 = num3;
 		result.M43 = num2;
 		result.M44 = num;
-    }
+	}
 
 	Matrix Matrix::Multiply(Matrix matrix1, float scaleFactor)
-    {
-	    Matrix result;
+	{
+		Matrix result;
 		Multiply(matrix1, scaleFactor, result);
 		return result;
-    }
-    
-    void Matrix::Multiply(Matrix matrix1, float scaleFactor, out Matrix& result) 
-    { 
-    	float num = scaleFactor;
+	}
+
+	void Matrix::Multiply(Matrix matrix1, float scaleFactor, out Matrix& result)
+	{
+		float num = scaleFactor;
 		result.M11 = matrix1.M11 * num;
 		result.M12 = matrix1.M12 * num;
 		result.M13 = matrix1.M13 * num;
@@ -1132,7 +1162,7 @@ namespace XFX
 		result.M42 = matrix1.M42 * num;
 		result.M43 = matrix1.M43 * num;
 		result.M44 = matrix1.M44 * num;
-    }
+	}
 
 	Matrix Matrix::Negate(Matrix matrix)
 	{
@@ -1202,7 +1232,7 @@ namespace XFX
 	{
 		Matrix ret;
 		Transpose(matrix, ret);
-		return ret;  
+		return ret;
 	}
 
 	void Matrix::Transpose(Matrix matrix, out Matrix& result)
@@ -1224,11 +1254,11 @@ namespace XFX
 		result.M43 = matrix.M34;
 		result.M44 = matrix.M44;  
 	}
-    
-    Matrix Matrix::operator+(const Matrix& other)
-    {
+
+	Matrix Matrix::operator+(const Matrix& other)
+	{
 		return Add(*this, other);
-    }
+	}
 
 	Matrix Matrix::operator /(const Matrix& other)
 	{

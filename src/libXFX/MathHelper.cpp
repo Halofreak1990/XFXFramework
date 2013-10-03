@@ -47,9 +47,9 @@ namespace XFX
 		float squared = amount * amount; 
 		float cubed = amount * squared; 
 
-		return 0.5f * ((((2.0f * value2) + ((-value1 + value3) * amount)) +  
-                         (((((2.0f * value1) - (5.0f * value2)) + (4.0f * value3)) - value4) * squared)) +  
-                         ((((-value1 + (3.0f * value2)) - (3.0f * value3)) + value4) * cubed)); 
+		return 0.5f * ((((2.0f * value2) + ((-value1 + value3) * amount)) + 
+			(((((2.0f * value1) - (5.0f * value2)) + (4.0f * value3)) - value4) * squared)) + 
+			((((-value1 + (3.0f * value2)) - (3.0f * value3)) + value4) * cubed));
 	}
 
 	float MathHelper::Clamp(const float value, const float min, const float max)
