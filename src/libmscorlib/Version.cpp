@@ -26,12 +26,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/String.h>
+#include <System/Type.h>
 #include <System/Version.h>
 
 #include <sassert.h>
 
 namespace System
 {
+	const Type VersionTypeInfo("Version", "System::Version", TypeCode::Object);
+
 	Version::Version(int major, int minor)
 		: Build(0), Major(major), Minor(minor), Revision(0)
 	{
@@ -60,9 +63,15 @@ namespace System
 	int Version::CompareTo(const Version value) const
 	{
 		if (*this < value)
+		{
 			return -1;
+		}
+
 		if (*this > value)
+		{
 			return 1;
+		}
+
 		return 0;
 	}
 
@@ -82,22 +91,22 @@ namespace System
 		return (Build ^ Major ^ Minor ^ Revision);
 	}
 
-	int Version::GetType()
+	const Type& Version::GetType()
 	{
-		// TODO: implement
+		return VersionTypeInfo;
 	}
 
-	const String& Version::ToString() const
+	const String Version::ToString() const
 	{
 		return String::Format("%i.%i.%i.%i", Major, Minor, Build, Revision);
 	}
 
-	const String& Version::ToString(int fieldCount) const
+	const String Version::ToString(int fieldCount) const
 	{
 		switch(fieldCount)
 		{
 		case 0:
-			return "";
+			return String::Empty;
 			break;
 		case 1:
 			return String::Format("%i", Major);

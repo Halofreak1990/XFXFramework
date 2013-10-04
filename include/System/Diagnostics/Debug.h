@@ -7,12 +7,6 @@
 #ifndef _SYSTEM_DIAGNOSTICS_DEBUG_
 #define _SYSTEM_DIAGNOSTICS_DEBUG_
 
-#if _MSC_VER
-#define FORMAT
-#else
-#define FORMAT __attribute__(format(printf, 1, 2));
-#endif
-
 namespace System
 {
 	class String;
@@ -54,7 +48,7 @@ namespace System
 			 * @param args
 			 * An object array containing zero or more objects to format.
 			 */
-			static void WriteLine(const String& format, ...) FORMAT;
+			static void WriteLine(const String& format, ...);
 		};
 	}
 }

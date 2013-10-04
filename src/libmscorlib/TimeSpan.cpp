@@ -27,6 +27,7 @@
 
 #include <System/String.h>
 #include <System/TimeSpan.h>
+#include <System/Type.h>
 
 #include <sassert.h>
 
@@ -40,6 +41,8 @@ namespace System
 	const long long TimeSpan::TicksPerMinute = 600000000L;
 	const long long TimeSpan::TicksPerHour = 36000000000LL;
 	const long long TimeSpan::TicksPerDay = 864000000000LL;
+
+	const Type TimeSpanTypeInfo("TimeSpan", "System::TimeSpan", TypeCode::Object);
 
 	TimeSpan::TimeSpan()
 	{
@@ -141,9 +144,15 @@ namespace System
 	int TimeSpan::Compare(const TimeSpan t1, const TimeSpan t2)
 	{
 		if (t1._ticks < t2._ticks)
+		{
 			return -1;
+		}
+
 		if (t1._ticks > t2._ticks)
+		{
 			return 1;
+		}
+
 		return 0;
 	}
 
@@ -202,9 +211,9 @@ namespace System
 		return (((int)_ticks) ^ ((int)(_ticks >> 0x20)));
 	}
 
-	int TimeSpan::GetType()
+	const Type& TimeSpan::GetType()
 	{
-		//! TODO: implement
+		return TimeSpanTypeInfo;
 	}
 
 	TimeSpan TimeSpan::Negate()
@@ -223,7 +232,7 @@ namespace System
 		return TimeSpan(ticks);
 	}
 
-	const String& TimeSpan::ToString() const
+	const String TimeSpan::ToString() const
 	{
 		return String::Format("Ticks: %ll", _ticks);
 	}

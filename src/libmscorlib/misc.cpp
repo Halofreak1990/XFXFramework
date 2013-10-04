@@ -8,6 +8,7 @@
 
 #include <System/misc.h>
 #include <xboxkrnl/xboxkrnl.h>
+#include <ctype.h>
 
 /******************************************************************************/
 
@@ -134,4 +135,20 @@ void *memset(void *s, char c, size_t count)
 			:"a" (c),"1" (s),"0" (count)
 			:"memory");
 	return s;
+}
+
+int strcasecmp(const char * s1, const char * s2)
+{
+	const unsigned char *us1 = (const unsigned char *)s1, 
+						*us2 = (const unsigned char *)s2;
+
+	while (tolower(*us1) == tolower(*us2++))
+	{
+		if (*us1++ == '\0')
+		{
+			return (0);
+		}
+	}
+
+	return (tolower(*us1) - tolower(*--us2));
 }

@@ -27,6 +27,7 @@
 
 #include <System/UInt64.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
@@ -34,6 +35,7 @@ namespace System
 {
 	const ulong UInt64::MaxValue = 0xFFFFFFFFFFFFFFFFULL;
 	const ulong UInt64::MinValue = 0;
+	const Type UInt64TypeInfo("UInt64", "System::UInt64", TypeCode::UInt64);
 
 	UInt64::UInt64(const UInt64 &obj)
 		: value(obj.value)
@@ -48,9 +50,15 @@ namespace System
 	int UInt64::CompareTo(const UInt64 other) const
 	{
 		if (value > other.value)
+		{
 			return 1;
+		}
+
 		if (value < other.value)
+		{
 			return -1;
+		}
+
 		return 0;
 	}
 
@@ -69,9 +77,9 @@ namespace System
 		return (int)value;
 	}
 
-	int UInt64::GetType()
+	const Type& UInt64::GetType()
 	{
-		return 12;
+		return UInt64TypeInfo;
 	}
 
 	const String UInt64::ToString() const
@@ -90,12 +98,16 @@ namespace System
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
+		{
 			return false;
+		}
 
 		ulong retval = strtoull(str, &end, 10);
 
 		if (end)
+		{
 			return false;
+		}
 
 		*result = retval;
 		return true;

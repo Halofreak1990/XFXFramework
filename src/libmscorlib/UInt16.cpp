@@ -27,6 +27,7 @@
 
 #include <System/UInt16.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
@@ -34,6 +35,7 @@ namespace System
 {
 	const ushort UInt16::MaxValue = 0xFFFF;
 	const ushort UInt16::MinValue = 0;
+	const Type UInt16TypeInfo("UInt16", "System::UInt16", TypeCode::UInt16);
 
 	UInt16::UInt16()
 		: value(0)
@@ -53,9 +55,15 @@ namespace System
 	int UInt16::CompareTo(const UInt16 other) const
 	{
 		if (value < other.value)
+		{
 			return -1;
+		}
+
 		if (value > other.value)
+		{
 			return 1;
+		}
+
 		return 0;
 	}
 
@@ -74,17 +82,17 @@ namespace System
 		return value;
 	}
 
-	int UInt16::GetType()
+	const Type& UInt16::GetType()
 	{
-		return 8;
+		return UInt16TypeInfo;
 	}
 
-	const String& UInt16::ToString() const
+	const String UInt16::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const String& UInt16::ToString(const ushort value)
+	const String UInt16::ToString(const ushort value)
 	{
 		return String::Format("%i", value);
 	}
@@ -95,12 +103,16 @@ namespace System
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
+		{
 			return false;
+		}
 
 		ushort retval = (ushort)strtoul(str, &end, 10);
 
 		if (end)
+		{
 			return false;
+		}
 
 		*result = retval;
 		return true;

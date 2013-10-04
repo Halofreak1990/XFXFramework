@@ -54,6 +54,9 @@
     <ClCompile Include="Debug.cpp">
       <Filter>Source Files\Diagnostics</Filter>
     </ClCompile>
+    <ClCompile Include="Stopwatch.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\System\ComponentModel\CancelEventArgs.h">

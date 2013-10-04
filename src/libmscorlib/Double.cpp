@@ -35,6 +35,8 @@
 
 #include <sassert.h>
 
+extern "C" int strcasecmp(const char * s1, const char * s2);
+
 namespace System
 {
 	static unsigned long long rawNaND = 0x7ff8000000000000ULL;
@@ -63,9 +65,15 @@ namespace System
 	int Double::CompareTo(const Double other) const
 	{
 		if (value > other.value)
+		{
 			return 1;
+		}
+
 		if (value < other.value)
+		{
 			return -1;
+		}
+
 		return 0;
 	}
 
@@ -92,22 +100,32 @@ namespace System
 
 		*result = 0;
 		char sign = 0;
-		char *sp = const_cast<char*>((const char *)str.ToString());
+		char* sp = const_cast<char *>((const char *)str.ToString());
 
 		if (*sp == '+' || *sp == '-')
+		{
 			sign = *sp++;
+		}
 
 		if (strcasecmp(sp, "inf") == 0)
 		{
 			if (!sign || sign == '+')
+			{
 				*result = PositiveInfinity;
+			}
 			else
+			{
 				*result = NegativeInfinity;
+			}
 		}
 		else if (strcasecmp(sp, "nan") == 0)
+		{
 			*result = NaN;
+		}
 		else /* valid number */
+		{
 			*result = atof(sp);
+		}
 
 		return true;
 	}

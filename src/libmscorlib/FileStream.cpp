@@ -110,17 +110,17 @@ namespace System
 		}
 
 		FileStream::FileStream()
-			: handle(NULL), _file(NULL)
+			: _file(NULL), handle(NULL)
 		{
 		}
 
 		FileStream::FileStream(FILE * const file)
-			: handle(NULL), _file(file)
+			: _file(file), handle(NULL)
 		{
 		}
 
 		FileStream::FileStream(const String& path, const FileMode_t mode)
-			: handle(NULL), _file(NULL)
+			: _file(NULL), handle(NULL)
 		{
 			sassert(!String::IsNullOrEmpty(path), FrameworkResources::ArgumentNull_Path);
 

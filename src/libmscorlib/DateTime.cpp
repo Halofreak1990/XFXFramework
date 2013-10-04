@@ -92,15 +92,15 @@ namespace System
 	DateTime DateTime::Add(double value, int scale)
 	{
 		long long num = (long long)((value * scale) + ((value >= 0.0) ? 0.5 : -0.5));
-        if ((num <= -315537897600000LL) || (num >= 0x11efae44cb400LL))
+		if ((num <= -315537897600000LL) || (num >= 0x11efae44cb400LL))
 		{
 #if DEBUG
-            //throw ArgumentOutOfRangeException("value", "ArgumentOutOfRange_AddValue");
+			//throw ArgumentOutOfRangeException("value", "ArgumentOutOfRange_AddValue");
 #endif
 			return *this;
 		}
 
-        return AddTicks(num * 0x2710L);
+		return AddTicks(num * 0x2710L);
 	}
 
 	DateTime::DateTime(int year, int month, int day)

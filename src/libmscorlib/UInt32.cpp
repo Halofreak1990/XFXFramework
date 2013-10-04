@@ -27,6 +27,7 @@
 
 #include <System/UInt32.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <stdlib.h>
 
@@ -34,6 +35,7 @@ namespace System
 {
 	const uint UInt32::MaxValue = 0xFFFFFFFF;
 	const uint UInt32::MinValue = 0;
+	const Type UInt32TypeInfo("UInt32", "System::UInt32", TypeCode::UInt32);
 
 	UInt32::UInt32(const UInt32 &obj)
 		: value(obj.value)
@@ -69,17 +71,17 @@ namespace System
 		return (int)value;
 	}
 
-	int UInt32::GetType()
+	const Type& UInt32::GetType()
 	{
-		return 10;
+		return UInt32TypeInfo;
 	}
 
-	const String& UInt32::ToString() const
+	const String UInt32::ToString() const
 	{
 		return String::Format("%i", value);
 	}
 
-	const String& UInt32::ToString(const uint value)
+	const String UInt32::ToString(const uint value)
 	{
 		return String::Format("%i", value);
 	}
@@ -90,12 +92,16 @@ namespace System
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
+		{
 			return false;
+		}
 
 		uint retval = strtoul(str, &end, 10);
 
 		if (*end)
+		{
 			return false;
+		}
 
 		*result = retval;
 		return true;

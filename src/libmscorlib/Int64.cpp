@@ -98,12 +98,16 @@ namespace System
 		char* end = NULL;
 
 		if (String::IsNullOrEmpty(str))
+		{
 			return false;
+		}
 
 		long long retval = strtoll(str, &end, 10);
 
 		if (end)
+		{
 			return false;
+		}
 
 		*result = retval;
 		return true;

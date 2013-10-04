@@ -1,8 +1,8 @@
 /*****************************************************************************
- *	DirectoryInfo.h															 *
+ *	DirectoryInfo.h 														 *
  *																			 *
- *	XFX System::IO::DirectoryInfo class definition file 					 *
- *	Copyright (c) XFX Team. All Rights Reserved 							 *
+ *	XFX System::IO::DirectoryInfo class definition file.					 *
+ *	Copyright (c) XFX Team. All Rights Reserved.							 *
  *****************************************************************************/
 #ifndef _SYSTEM_IO_DIRECTORYINFO_
 #define _SYSTEM_IO_DIRECTORYINFO_
@@ -30,20 +30,28 @@ namespace System
 		public:
 			bool Exists() const;
 			String getName() const;
-			DirectoryInfo Parent();
-			DirectoryInfo Root();
+			DirectoryInfo* getParent() const;
+			DirectoryInfo* getRoot() const;
 
 			DirectoryInfo();
 			DirectoryInfo(const String& path); // Initializes a new instance of the System::IO::DirectoryInfo class on the specified path.
 
-			// Creates a directory.
+			/**
+			 * Creates a directory.
+			 */
 			void Create();
-			// Creates a subdirectory or subdirectories on the specified path.
-			// The specified path can be relative to this instance of the System::IO::DirectoryInfo class.
+			/**
+			 * Creates a subdirectory or subdirectories on the specified path.
+			 * The specified path can be relative to this instance of the System::IO::DirectoryInfo class.
+			 */
 			DirectoryInfo CreateSubDirectory(const String& path);
-			// Deletes this System::IO::DirectoryInfo if it is empty.
+			/**
+			 * Deletes this System::IO::DirectoryInfo if it is empty.
+			 */
 			void Delete();
-			// Deletes this instance of a System::IO::DirectoryInfo, specifying whether to delete subdirectories and files.
+			/**
+			 * Deletes this instance of a System::IO::DirectoryInfo, specifying whether to delete subdirectories and files.
+			 */
 			void Delete(const bool recursive);
 			DirectoryInfo* GetDirectories(); // 
 			DirectoryInfo* GetDirectories(const String& searchPattern);

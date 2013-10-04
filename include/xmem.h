@@ -13,7 +13,7 @@
  * Differences from C++ auto_ptr: exception-less and supports array notation.
  */
 template <typename T>
-class auto_ptr
+struct auto_ptr
 {
 private:
 	T* ptr;

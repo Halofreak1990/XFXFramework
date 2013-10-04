@@ -232,7 +232,7 @@ namespace System
 				// Removes the element at the specified index of the List<>.
 				void RemoveAt(const int index)
 				{
-					memcpy(&_items[index], &_items[index + 1], (size - index) * sizeof(T)):
+					memcpy(&_items[index], &_items[index + 1], (_size - index) * sizeof(T));
 
 					_size--;
 					_version++;

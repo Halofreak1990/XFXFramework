@@ -41,6 +41,21 @@ namespace System
 {
 	namespace IO
 	{
+		DirectoryInfo* DirectoryInfo::getParent() const
+		{
+			return new DirectoryInfo(parent);
+		}
+
+		DirectoryInfo* DirectoryInfo::getRoot() const
+		{
+			// TODO; implement
+			return NULL;
+		}
+
+		DirectoryInfo::DirectoryInfo()
+		{
+		}
+
 		DirectoryInfo::DirectoryInfo(const String& path)
 		{
 			sassert(path != null, FrameworkResources::ArgumentNull_Path);
@@ -57,11 +72,12 @@ namespace System
 
 		void DirectoryInfo::Create()
 		{
+			// TODO: implement
 		}
 
 		DirectoryInfo DirectoryInfo::CreateSubDirectory(const String& path)
 		{
-			
+			// TODO: implement
 		}
 
 		void DirectoryInfo::Delete()
@@ -92,14 +108,12 @@ namespace System
 
 		bool DirectoryInfo::operator !=(const DirectoryInfo& right) const
 		{
-			return ((strncmp(current, right.current, strlen(current)) != 0) ||
-				(strncmp(parent, right.parent, strlen(parent)) != 0));
+			return (current != right.current) || (parent != right.parent);
 		}
 
 		bool DirectoryInfo::operator ==(const DirectoryInfo& right) const
 		{
-			return ((strncmp(current, right.current, strlen(current)) == 0) &&
-				(strncmp(parent, right.parent, strlen(parent)) == 0));
+			return (current == right.current) && (parent == right.parent);
 		}
 	}
 }

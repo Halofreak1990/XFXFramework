@@ -28,6 +28,10 @@
 #include <System/Diagnostics/Debug.h>
 #include <System/String.h>
 
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #if ENABLE_XBOX
 #include <xboxkrnl/xboxkrnl.h>
 #else
@@ -76,7 +80,20 @@ namespace System
 				return;
 			}
 
-			// TODO: implement
+			va_list args;
+			va_start(args, format);
+
+			int count = vsnprintf(NULL, 0, format, args);
+
+			char* res = (char*)malloc(count + 1);
+
+			vsnprintf(res, count + 1, format, args);
+
+			va_end(args);
+
+			DbgPrint(res);
+
+			free(res);
 #endif
 		}
 	}

@@ -19,9 +19,13 @@ namespace System
 	void Console::Write(const bool value)
 	{
 		if (value)
+		{
 			debugPrint("true");
+		}
 		else
+		{
 			debugPrint("false");
+		}
 	}
 
 	void Console::Write(const char value)
@@ -41,7 +45,9 @@ namespace System
 		//sassert(index + count < Array::Length(value), "index + count are out of range of the array.");
 
 		for (int i = index; i < (index + count); i++)
+		{
 			debugPrint("%c", value[i]);
+		}
 	}
 
 	void Console::Write(const double value)

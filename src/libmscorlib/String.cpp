@@ -27,6 +27,7 @@
 
 #include <System/FrameworkResources.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -38,6 +39,8 @@
 namespace System
 {
 	const String String::Empty = "";
+
+	const Type StringTypeInfo("String", "System::String", TypeCode::String);
 
 	String::String()
 		: Length(0)
@@ -92,7 +95,9 @@ namespace System
 	String::~String()
 	{
 		if (internalString)
+		{
 			free(internalString);
+		}
 	}
 
 	String String::Clone() const
@@ -107,7 +112,7 @@ namespace System
 
 	int String::CompareTo(const String other) const
 	{
-		return (Compare(*this, other));
+		return strcmp(this->internalString, other.internalString);
 	}
 
 	String String::Concat(const String values[], const int stringCount)
@@ -165,6 +170,8 @@ namespace System
 
 		vsnprintf(res, count + 1, format, args);
 
+		va_end(args);
+
 		return res;
 	}
 
@@ -180,9 +187,9 @@ namespace System
 		return h;
 	}
 
-	int String::GetType()
+	const Type& String::GetType()
 	{
-		return 18;
+		return StringTypeInfo;
 	}
 
 	int String::IndexOf(char value) const
@@ -190,8 +197,11 @@ namespace System
 		for(int i = 0; i <= Length; i++)
 		{
 			if (internalString[i] == value)
+			{
 				return i;
+			}
 		}
+
 		return -1;
 	}
 	
@@ -210,8 +220,11 @@ namespace System
 		for(int i = startIndex; i < startIndex + count; i++)
 		{
 			if(internalString[i] == value)
+			{
 				return i;
+			}
 		}
+
 		return -1;
 	}
 
@@ -233,7 +246,9 @@ namespace System
 		{
 			indexOf = IndexOf(anyOf[i], startIndex, count);
 			if (indexOf != -1)
+			{
 				return indexOf;
+			}
 		}
 
 		return indexOf;
@@ -279,7 +294,9 @@ namespace System
 	String String::PadRight(int totalWidth, char paddingChar)
 	{
 		if(totalWidth <= Length)
-			return String(*this);
+		{
+			return *this;
+		}
 
 		char* newString = (char*)malloc(totalWidth + 1);
 		
@@ -369,7 +386,9 @@ namespace System
 		String newString = String(*this);
 
 		for (int i = 0; i < Length; i++)
+		{
 			newString.internalString[i] = tolower(internalString[i]);
+		}
 
 		return newString;
 	}
@@ -379,13 +398,15 @@ namespace System
 		size_t strLen = strlen(str);
 		char* tmp = (char*)malloc(strLen + 1);
 		for (size_t i = 0; i < strLen; i++)
+		{
 			tmp[i] = tolower(str[i]);
+		}
 
 		tmp[strLen] = '\0';
 		return tmp;
 	}
 	
-	const String& String::ToString() const
+	const String String::ToString() const
 	{
 		return *this;
 	}
@@ -395,7 +416,9 @@ namespace System
 		String newString = String(*this);
 
 		for (int i = 0; i < Length; i++)
+		{
 			newString.internalString[i] = toupper(internalString[i]);
+		}
 
 		return newString;
 	}
@@ -404,8 +427,11 @@ namespace System
 	{
 		size_t strLen = strlen(str);
 		char* tmp = (char*)malloc(strLen + 1);
+
 		for (size_t i = 0; i < strLen; i++)
+		{
 			tmp[i] = toupper(str[i]);
+		}
 
 		tmp[strLen] = '\0';
 		return tmp;
@@ -422,6 +448,7 @@ namespace System
 		{
 			return !Equals(right);
 		}
+
 		return true;
 	}
 
@@ -431,6 +458,7 @@ namespace System
 		{
 			return (strncmp(internalString, right, Length) != 0);
 		}
+
 		return false;
 	}
 
@@ -449,6 +477,7 @@ namespace System
 		{
 			return (strncmp(internalString, right, Length) == 0);
 		}
+
 		return false;
 	}
 
@@ -456,15 +485,11 @@ namespace System
 	{
 		// check for self-assignment
 		if (*this == right)
+		{
 			return *this;
+		}
 
-		*(const_cast<int*>(&Length)) = right.Length;
-		free(internalString);
-		internalString = (char*)malloc(Length + 1);
-		strncpy(internalString, right.internalString, Length);
-		internalString[Length] = '\0';
-
-		return *this;
+		return String(right);
 	}
 
 	String String::operator +(const char *right) const

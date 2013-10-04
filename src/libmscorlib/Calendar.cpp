@@ -27,11 +27,14 @@
 
 #include <System/DateTime.h>
 #include <System/Globalization/Calendar.h>
+#include <System/Type.h>
 
 namespace System
 {
 	namespace Globalization
 	{
+		const Type CalendarTypeInfo("Calendar", "System::Globalization::Calendar", TypeCode::Object);
+
 		DateTime Calendar::AddDays(DateTime time, int days)
 		{
 			DateTime result(time);
@@ -67,9 +70,9 @@ namespace System
 			return result;
 		}
 
-		int Calendar::GetType()
+		const Type& Calendar::GetType()
 		{
-			//! TODO: implement
+			return CalendarTypeInfo;
 		}
 	}
 }
