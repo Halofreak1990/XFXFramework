@@ -26,6 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <System/Windows/Controls/Border.h>
+#include <System/Type.h>
 
 namespace System
 {
@@ -33,6 +34,8 @@ namespace System
 	{
 		namespace Controls
 		{
+			const Type BorderTypeInfo("Border", "System::Windows::Controls::Border", TypeCode::Object);
+
 			Border::Border()
 				: BorderThickness(0), CornerRadius(0), Padding(0)
 			{
@@ -45,8 +48,9 @@ namespace System
 				delete Child;
 			}
 
-			int Border::GetType()
+			const Type& Border::GetType()
 			{
+				return BorderTypeInfo;
 			}
 		}
 	}

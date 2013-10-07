@@ -36,33 +36,35 @@ namespace System
 	{
 		namespace Controls
 		{
-			const DependencyProperty<int> Canvas::LeftProperty = DependencyProperty<int>::Register("Left", Canvas::GetType());
-			const DependencyProperty<int> Canvas::TopProperty = DependencyProperty<int>::Register("Top", Canvas::GetType());
-			const DependencyProperty<int> Canvas::ZIndexProperty = DependencyProperty<int>::Register("ZIndex", Canvas::GetType());
+			const DependencyProperty<Int32> Canvas::LeftProperty = DependencyProperty<Int32>::Register("Left", Canvas::GetType());
+			const DependencyProperty<Int32> Canvas::TopProperty = DependencyProperty<Int32>::Register("Top", Canvas::GetType());
+			const DependencyProperty<Int32> Canvas::ZIndexProperty = DependencyProperty<Int32>::Register("ZIndex", Canvas::GetType());
 
 			const Type CanvasTypeInfo("Canvas", "System::Windows::Controls::Canvas", TypeCode::Object);
 
 			Canvas::Canvas()
 			{
+				// TODO: implement
 			}
 
 			Size Canvas::ArrangeOverride(const Size arrangeSize)
 			{
+				// TODO: implement
 			}
 
-			int Canvas::GetLeft(const UIElement& element)
+			int Canvas::GetLeft(UIElement * const element)
 			{
-				return element.GetValue(Canvas::LeftProperty);
+				return element->GetValue(Canvas::LeftProperty);
 			}
 
-			int Canvas::GetTop(const UIElement& element)
+			int Canvas::GetTop(UIElement * const element)
 			{
-				return element.GetValue(Canvas::TopProperty);
+				return element->GetValue(Canvas::TopProperty);
 			}
 
-			int Canvas::GetZIndex(const UIElement& element)
+			int Canvas::GetZIndex(UIElement * const element)
 			{
-				return element.GetValue(Canvas::ZIndexProperty);
+				return element->GetValue(Canvas::ZIndexProperty);
 			}
 
 			const Type& Canvas::GetType()
@@ -72,29 +74,32 @@ namespace System
 
 			Size Canvas::MeasureOverride(const Size constraint)
 			{
+				// TODO: implement
 			}
 
-			void Canvas::SetLeft(const UIElement& element, const int left)
+			void Canvas::SetLeft(UIElement * const element, const int left)
 			{
-				element.SetValue(Canvas::LeftProperty, left);
+				element->SetValue(Canvas::LeftProperty, left);
 			}
 
-			void Canvas::SetTop(const UIElement& element, const int top)
+			void Canvas::SetTop(UIElement * const element, const int top)
 			{
-				element.SetValue(Canvas::TopProperty, top);
+				element->SetValue(Canvas::TopProperty, top);
 			}
 
-			void Canvas::SetZIndex(const UIElement& element, const int zIndex)
+			void Canvas::SetZIndex(UIElement * const element, const int zIndex)
 			{
-				element.SetValue(Canvas::ZIndexProperty, new Int32(zIndex));
+				element->SetValue(Canvas::ZIndexProperty, zIndex);
 			}
 
 			bool Canvas::operator ==(const Canvas& right) const
 			{
+				return Object::ReferenceEquals(*this, right);
 			}
 
 			bool Canvas::operator !=(const Canvas& right) const
 			{
+				return !Object::ReferenceEquals(*this, right);
 			}
 		}
 	}

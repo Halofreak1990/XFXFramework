@@ -57,8 +57,8 @@ namespace System
 			bool operator!=(const UIElement& right) const;
 
 			RoutedEventHandler	GotFocus;
-			KeyEventHandler		KeyDown;
-			KeyEventHandler		KeyUp;
+			KeyEventHandler 	KeyDown;
+			KeyEventHandler 	KeyUp;
 			RoutedEventHandler	LostFocus;
 			MouseEventHandler	MouseEnter;
 			MouseEventHandler	MouseLeave;

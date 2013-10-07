@@ -28,6 +28,7 @@
 #include <System/Math.h>
 #include <System/Windows/Size.h>
 #include <System/Windows/Controls/StackPanel.h>
+#include <System/Type.h>
 
 namespace System
 {
@@ -35,6 +36,8 @@ namespace System
 	{
 		namespace Controls
 		{
+			const Type StackPanelTypeInfo("StackPanel", "System::Windows::Controls::StackPanel", TypeCode::Object);
+
 			StackPanel::StackPanel()
 				: Orientation(Orientation::Vertical)
 			{
@@ -62,6 +65,11 @@ namespace System
 					}
 				}
 				return Size(vertSize, horSize);
+			}
+
+			const Type& StackPanel::GetType()
+			{
+				return StackPanelTypeInfo;
 			}
 
 			Size StackPanel::MeasureOverride(const Size constraint)

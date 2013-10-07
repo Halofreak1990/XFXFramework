@@ -27,11 +27,14 @@
 
 #include <System/Windows/CornerRadius.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace System
 {
 	namespace Windows
 	{
+		const Type CornerRadiusTypeInfo("CornerRadius", "System::Windows::CornerRadius", TypeCode::Object);
+
 		CornerRadius::CornerRadius()
 			: BottomLeft(0), BottomRight(0), TopLeft(0), TopRight(0)
 		{
@@ -57,7 +60,7 @@ namespace System
 
 		bool CornerRadius::Equals(Object const * const obj) const
 		{
-			return is(obj, this) ? *this == *(CornerRadius*)obj : false;
+			return is(obj, this) ? *this == *(CornerRadius *)obj : false;
 		}
 
 		bool CornerRadius::Equals(const CornerRadius other) const
@@ -70,9 +73,9 @@ namespace System
 			return (((TopLeft ^ TopRight) ^ BottomLeft) ^ BottomRight);
 		}
 
-		int CornerRadius::GetType()
+		const Type& CornerRadius::GetType()
 		{
-			// TODO: implement
+			return CornerRadiusTypeInfo;
 		}
 
 		const String CornerRadius::ToString() const

@@ -50,7 +50,7 @@ namespace System
 			/**
 			 * Registers a dependency property with the specified property name, owner type, and property metadata for the property.
 			 *
-			 @param propertyName
+			 * @param propertyName
 			 * The name of the dependency property to register.
 			 *
 			 * @param type
@@ -59,7 +59,7 @@ namespace System
 			 * @param
 			 * A PropertyMetadata instance. This can contain a System::Windows::PropertyChangedCallback implementation reference.
 			 *
-			 @return
+			 * @return
 			 * A dependency property identifier that should be used to set the value of a public static readonly field in your class. The identifier is then used both by your own code and any third-party user code to reference the dependency property later, for operations such as setting its value programmatically, or attaching a System::Windows::Data::Binding in code.
 			 */
 			static DependencyProperty<T> Register(const String& propertyName, const Type& type, PropertyMetadata<T> const * propertyMetadata);

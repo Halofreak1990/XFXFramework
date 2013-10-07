@@ -45,14 +45,17 @@ namespace System
 
 			Size Grid::ArrangeOverride(const Size arrangeSize)
 			{
+				// TODO: implement
 			}
 
 			Size Grid::MeasureOverride(const Size constraint)
 			{
+				// TODO: implement
 			}
 
 			Grid::Grid()
 			{
+				// TODO: implement
 			}
 
 			Grid::~Grid()
@@ -87,7 +90,9 @@ namespace System
 			void Grid::SetColumn(FrameworkElement * const element, const int column)
 			{
 				if (!element)
+				{
 					return;
+				}
 
 				element->SetValue(Grid::ColumnProperty, column);
 			}
@@ -95,7 +100,9 @@ namespace System
 			void Grid::SetColumnSpan(FrameworkElement * const element, const int columnSpan)
 			{
 				if (!element)
+				{
 					return;
+				}
 
 				element->SetValue(Grid::ColumnSpanProperty, columnSpan);
 			}
@@ -103,7 +110,9 @@ namespace System
 			void Grid::SetRow(FrameworkElement * const element, const int row)
 			{
 				if (!element)
+				{
 					return;
+				}
 
 				element->SetValue(Grid::RowProperty, row);
 			}
@@ -111,7 +120,9 @@ namespace System
 			void Grid::SetRowSpan(FrameworkElement * const element, const int rowSpan)
 			{
 				if (!element)
+				{
 					return;
+				}
 
 				element->SetValue(Grid::RowSpanProperty, rowSpan);
 			}

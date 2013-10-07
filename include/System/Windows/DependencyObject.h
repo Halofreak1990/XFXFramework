@@ -47,14 +47,29 @@ namespace System
 			template <typename T>
 			T GetValue(DependencyProperty<T> p) const
 			{
+				return *dependencyProperties[p.Name];
+			}
+
+			template <typename T>
+			T *GetValue(DependencyProperty<T *> p) const
+			{
 				return dependencyProperties[p.Name];
 			}
 
 			template <typename T>
-			void SetValue(DependencyProperty<T> p, T value)
+			void SetValue(DependencyProperty<T> p, const T value)
 			{
 				if (!dependencyProperties.ContainsKey(p.Name))
 					dependencyProperties.Add(p.Name, value);
+				else
+					dependencyProperties[p.Name] = value;
+			}
+
+			template <typename T>
+			void SetValue(DependencyProperty<T *> p, T * const value)
+			{
+				if (!dependencyProperties.ContainsKey(p.Name))
+					dependencyProperties.Add(p.Name, value)
 				else
 					dependencyProperties[p.Name] = value;
 			}

@@ -105,9 +105,15 @@ namespace System
 		const String GridLength::ToString() const
 		{
 			if (gridUnitType == GridUnitType::Auto)
+			{
 				return "Auto";
+			}
+
 			if (gridUnitType == GridUnitType::Star)
+			{
 				return "*";
+			}
+
 			return String::Format("%i", value);
 		}
 
@@ -117,6 +123,7 @@ namespace System
 			{
 				return (value == right.value);
 			}
+
 			return false;
 		}
 

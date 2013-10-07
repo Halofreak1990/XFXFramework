@@ -42,10 +42,12 @@ namespace System
 
 				ToggleButton::ToggleButton()
 				{
+					// TODO: implement
 				}
 
 				ToggleButton::~ToggleButton()
 				{
+					// TODO: implement
 				}
 
 				const Type& ToggleButton::GetType()
@@ -70,11 +72,11 @@ namespace System
 					Nullable<bool> isChecked = this->IsChecked;
 					if (isChecked == true)
 					{
-						this->IsChecked = this->IsThreeState ? Nullable<bool>::Null : ((Nullable<bool>) false);
+						this->IsChecked = this->IsThreeState ? Nullable<bool>::Null : false;
 					}
 					else
 					{
-						this->IsChecked = Nullable<bool>(isChecked.HasValue());
+						this->IsChecked = isChecked.HasValue();
 					}
 				}
 

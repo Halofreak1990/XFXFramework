@@ -40,6 +40,7 @@ namespace System
 
 				Thumb::Thumb()
 				{
+					// TODO: implement
 				}
 
 				void Thumb::CancelDrag()
@@ -55,22 +56,27 @@ namespace System
 
 				void Thumb::OnGotFocus(RoutedEventArgs * const e)
 				{
+					GotFocus(this, e);
 				}
 
 				void Thumb::OnLostFocus(RoutedEventArgs * const e)
 				{
+					LostFocus(this, e);
 				}
 
 				void Thumb::OnMouseEnter(MouseEventArgs * const e)
 				{
+					MouseEnter(this, e);
 				}
 
 				void Thumb::OnMouseLeave(MouseEventArgs * const e)
 				{
+					MouseLeave(this, e);
 				}
 
 				void Thumb::OnMouseMove(MouseEventArgs * const e)
 				{
+					MouseMove(this, e);
 				}
 
 				bool Thumb::operator ==(const Thumb& right) const

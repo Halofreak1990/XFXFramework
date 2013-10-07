@@ -21,6 +21,8 @@ namespace System
 				Orientation_t Orientation;
 
 				StackPanel();
+
+				static const Type& GetType();
 			};
 		}
 	}

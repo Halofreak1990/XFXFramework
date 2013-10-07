@@ -85,11 +85,15 @@ namespace System
 
 		FrameworkElement::~FrameworkElement()
 		{
-			delete Parent;
+			if (Parent != NULL)
+			{
+				delete Parent;
+			}
 		}
 
 		Size FrameworkElement::ArrangeOverride(const Size finalSize)
 		{
+			// TODO: implement
 		}
 
 		const Type& FrameworkElement::GetType()
@@ -99,6 +103,7 @@ namespace System
 
 		Size FrameworkElement::MeasureOverride(const Size finalSize)
 		{
+			// TODO: implement
 		}
 	}
 }

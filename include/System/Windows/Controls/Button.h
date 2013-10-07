@@ -4,8 +4,8 @@
  *	System::Windows::Controls::Button definition file						 *
  *	Copyright (c) XFX Team. All rights reserved 							 *
  *****************************************************************************/
-#ifndef _SYSTEM_WINDOWS_CONTROLS_CONTROL_
-#define _SYSTEM_WINDOWS_CONTROLS_CONTROL_
+#ifndef _SYSTEM_WINDOWS_CONTROLS_BUTTON_
+#define _SYSTEM_WINDOWS_CONTROLS_BUTTON_
 
 #include <System/Windows/Controls/Primitives/ButtonBase.h>
 
@@ -38,4 +38,4 @@ namespace System
 	}
 }
 
-#endif //_SYSTEM_WINDOWS_CONTROLS_CONTROL_
+#endif //_SYSTEM_WINDOWS_CONTROLS_BUTTON_

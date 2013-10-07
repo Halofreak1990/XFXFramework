@@ -19,19 +19,19 @@ namespace System
 				Size MeasureOverride(const Size constraint);
 
 			public:
-				static const DependencyProperty<int> LeftProperty;
-				static const DependencyProperty<int> TopProperty;
-				static const DependencyProperty<int> ZIndexProperty;
+				static const DependencyProperty<Int32> LeftProperty;
+				static const DependencyProperty<Int32> TopProperty;
+				static const DependencyProperty<Int32> ZIndexProperty;
 
 				Canvas();
 
-				static int GetLeft(const UIElement& element);
-				static int GetTop(const UIElement& element);
-				static int GetZIndex(const UIElement& element);
+				static int GetLeft(UIElement * const element);
+				static int GetTop(UIElement * const element);
+				static int GetZIndex(UIElement * const element);
 				static const Type& GetType();
-				static void SetLeft(const UIElement& element, const int left);
-				static void SetTop(const UIElement& element, const int top);
-				static void SetZIndex(const UIElement& element, const int zIndex);
+				static void SetLeft(UIElement * const element, const int left);
+				static void SetTop(UIElement * const element, const int top);
+				static void SetZIndex(UIElement * const element, const int zIndex);
 
 				bool operator==(const Canvas& right) const;
 				bool operator!=(const Canvas& right) const;
