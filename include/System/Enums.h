@@ -1,10 +1,12 @@
-/****************************************************************
- *	Enums.h														*
- *		Defines enumerations used in the System namespace		*
- *																*
- *		Enumerations are defined inside structs to prevent		*
- *		namespace pollution, and easier distinction.			*
- ****************************************************************/
+/*****************************************************************************
+ *	Enums.h 																 *
+ *		Defines enumerations used in the System namespace					 *
+ *																			 *
+ *		Enumerations are defined inside structs to prevent					 *
+ *		namespace pollution, and easier distinction.						 *
+ *																			 *
+ *		Copyright (c) XFX Team. All rights reserved.						 *
+ *****************************************************************************/
 #ifndef _SYSTEM_ENUMS_
 #define _SYSTEM_ENUMS_
 
@@ -34,6 +36,22 @@ namespace System
 			Thursday = 4,
 			Tuesday = 2,
 			Wednesday = 3
+		};
+	};
+
+	// Specifies how mathematical rounding methods should process a number that is midway between two numbers.
+	struct MidpointRounding
+	{
+		enum type
+		{
+			/**
+			 * When a number is halfway between two others, it is rounded toward the nearest even number.
+			 */
+			ToEven,
+			/**
+			 * When a number is halfway between two others, it is rounded toward the nearest number that is away from zero.
+			 */
+			AwayFromZero
 		};
 	};
 
@@ -160,6 +178,7 @@ namespace System
 
 	typedef DateTimeKind::type				DateTimeKind_t;
 	typedef DayOfWeek::type					DayOfWeek_t;
+	typedef MidpointRounding::type			MidpointRounding_t;
 	typedef PlatformID::type				PlatformID_t;
 	typedef StringComparison::type			StringComparison_t;
 	typedef StringSplitOptions::type		StringSplitOptions_t;

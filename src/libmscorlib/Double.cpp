@@ -39,9 +39,9 @@ extern "C" int strcasecmp(const char * s1, const char * s2);
 
 namespace System
 {
-	static unsigned long long rawNaND = 0x7ff8000000000000ULL;
-	static unsigned long long rawPosInfD = 0x7ff0000000000000ULL;
-	static unsigned long long rawNegInfD = 0xfff0000000000000ULL;
+	static ulong rawNaND = 0x7ff8000000000000ULL;
+	static ulong rawPosInfD = 0x7ff0000000000000ULL;
+	static ulong rawNegInfD = 0xfff0000000000000ULL;
 
 	const double Double::Epsilon =  4.94066e-324;
 	const double Double::MaxValue = 1.79769e+308;
@@ -90,6 +90,21 @@ namespace System
 	const Type& Double::GetType()
 	{
 		return DoubleTypeInfo;
+	}
+
+	bool Double::IsNaN(const Double& d)
+	{
+		return (d != d);
+	}
+
+	bool Double::IsNegativeInfinity(const Double& d)
+	{
+		return (d < 0.0 && (double)d == NegativeInfinity);
+	}
+
+	bool Double::IsPositiveInfinity(const Double& d)
+	{
+		return (d > 0.0 && (double)d == PositiveInfinity);
 	}
 
 	bool Double::TryParse(const String& str, out double* result)

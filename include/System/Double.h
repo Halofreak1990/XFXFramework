@@ -36,6 +36,9 @@ namespace System
 		int CompareTo(const Double other) const;
 		bool Equals(const Double other) const;
 		int GetHashCode() const;
+		static bool IsNaN(const Double& d);
+		static bool IsNegativeInfinity(const Double& d);
+		static bool IsPositiveInfinity(const Double& d);
 		static const Type& GetType();
 		const String ToString() const;
 		static const String ToString(const double value);
