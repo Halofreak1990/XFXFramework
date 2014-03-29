@@ -27,7 +27,7 @@ namespace System
 			// Represents a strongly typed list of objects that can be accessed by index. Provides methods to search, sort, and manipulate lists.
 			// NOTE: types used with the List<T> class must provide at least an == operator.
 			template <typename T>
-			class List : public IList<T>, public Object
+			class List : public IList<T>, public IEnumerable<T>, public Object
 			{
 			private:
 				static const int defaultCapacity = 4;
@@ -59,6 +59,35 @@ namespace System
 					*x = *y;
 					*y = temp;
 				}
+
+				class Enumerator : public IEnumerator<T>
+				{
+				private:
+					int index = -1;
+					const int version;
+					List<T> const * const parent;
+
+				public:
+					T Current() const { return (*parent)[index]; }
+
+					Enumerator(List<T> const * const parent)
+						: parent(parent), version(parent->_version)
+					{
+					}
+
+					bool MoveNext()
+					{
+						sassert(version == parent->_version, "");
+
+						return index++ < parent->_size;
+					}
+					void Reset()
+					{
+						sassert(version == parent->_version, "");
+
+						index = -1;
+					}
+				};
 
 			public:	
 				// Gets the number of elements actually contained in the List<>.
@@ -147,6 +176,18 @@ namespace System
 					_version++;
 				}
 
+				void AddRange(IEnumerable<T> const * const collection)
+				{
+					sassert(collection != NULL, "");
+
+					IEnumerator<T>* enumerator = collection->GetEnumerator();
+
+					while (enumerator->MoveNext())
+					{
+						Add(enumerator->Current();
+					}
+				}
+
 				/**
 				 * Removes all elements from the list
 				 */
@@ -180,6 +221,11 @@ namespace System
 					sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
 					memcpy(&array[arrayIndex], _items, _size * sizeof(T));
+				}
+
+				Enumerator* GetEnumerator()
+				{
+					return new Enumerator(this);
 				}
 
 				static const Type& GetType()

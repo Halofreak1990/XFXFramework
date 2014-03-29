@@ -22,10 +22,25 @@ namespace XFX
 		class Video : public Object
 		{
 		public:
+			/**
+			 * Gets the duration of the Video.
+			 */
 			TimeSpan getDuration() const;
+			/**
+			 * Gets the frame rate of this video.
+			 */
 			float getFramesPerSecond() const;
+			/**
+			 * Gets the height of this video, in pixels.
+			 */
 			int getHeight() const;
+			/**
+			 * Gets the VideoSoundtrackType for this video.
+			 */
 			VideoSoundtrackType_t getVideoSoundtrackType() const;
+			/**
+			 * Gets the width of this video, in pixels.
+			 */
 			int getWidth() const;
 
 			static const Type& GetType();

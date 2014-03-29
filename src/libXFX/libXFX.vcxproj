@@ -79,6 +79,9 @@
     <ClCompile Include="BoundingBox.cpp" />
     <ClCompile Include="BoundingFrustum.cpp" />
     <ClCompile Include="BoundingSphere.cpp" />
+    <ClCompile Include="Curve.cpp" />
+    <ClCompile Include="CurveKey.cpp" />
+    <ClCompile Include="CurveKeyCollection.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DynamicSoundEffectInstance.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -143,6 +146,9 @@
     <ClInclude Include="..\..\include\BoundingBox.h" />
     <ClInclude Include="..\..\include\BoundingFrustum.h" />
     <ClInclude Include="..\..\include\BoundingSphere.h" />
+    <ClInclude Include="..\..\include\Curve.h" />
+    <ClInclude Include="..\..\include\CurveKey.h" />
+    <ClInclude Include="..\..\include\CurveKeyCollection.h" />
     <ClInclude Include="..\..\include\Enums.h" />
     <ClInclude Include="..\..\include\Graphics\AlphaTestEffect.h" />
     <ClInclude Include="..\..\include\Graphics\BlendState.h" />

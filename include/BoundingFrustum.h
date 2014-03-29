@@ -41,7 +41,6 @@ namespace XFX
 
 		static Vector3 ComputeIntersection(Plane plane, Ray ray);
 		static Ray ComputeIntersectionLine(Plane p1, Plane p2);
-		void SetMatrix(Matrix value);
 		void SupportMapping(Vector3 v, out Vector3& result);
 
 	public:

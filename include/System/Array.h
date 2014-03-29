@@ -43,26 +43,23 @@ namespace System
 		Array(const Array<T> &obj)
 			: _array(new T[obj.Length]), _version(obj._version), Length(obj.Length)
 		{
-			for (int i = 0; i < Length; i++)
-			{
-				_array[i] = obj._array[i];
-			}
+			memcpy(_array, obj._array, sizeof(T) * Length);
 		}
 
 		~Array() { delete[] _array; }
 
 		template <typename U>
-		static void Clear(U array[], int startIndex, int count)
+		inline static void Clear(U array[], int startIndex, int count)
 		{
 			memset(&array[startIndex], 0, sizeof(U) * count);
 		}
 
-		void Clear()
+		inline void Clear()
 		{
 			Clear(_array, 0, Length);
 		}
 
-		bool Contains(const T item) const
+		inline bool Contains(const T item) const
 		{
 			return (IndexOf(item) != -1);
 		}
@@ -77,7 +74,7 @@ namespace System
 			}
 		}
 
-		IEnumerator<T>* GetEnumerator() const
+		inline IEnumerator<T>* GetEnumerator() const
 		{
 			return new ArrayEnumerator(this);
 		}
@@ -87,12 +84,15 @@ namespace System
 			for (int i = 0; i < Length; i++)
 			{
 				if (i == item)
+				{
 					return i;
+				}
 			}
+
 			return -1;
 		}
 
-		void Reverse()
+		inline void Reverse()
 		{
 			Reverse(0, Length);
 		}
@@ -103,6 +103,7 @@ namespace System
 
 			int num = startIndex;
 			int num2 = (startIndex + count) - 1;
+
 			while (num < num2)
 			{
 				swap(_array[num], _array[num2]);
@@ -113,7 +114,7 @@ namespace System
 			_version++;
 		}
 
-		T& operator[](const int index)
+		inline T& operator[](const int index)
 		{
 			return _array[index];
 		}
@@ -141,7 +142,7 @@ namespace System
 			{
 				sassert(_version == _array->_version, "");
 
-				return (_position < _array->Length);
+				return _position++ < _array->Length;
 			}
 
 			void Reset()
@@ -184,12 +185,12 @@ namespace System
 
 		~Array() { delete _array; }
 
-		void Clear()
+		inline void Clear()
 		{
 			memset(_array, 0, sizeof(T *) * Length);
 		}
 
-		bool Contains(const T* item) const
+		inline bool Contains(const T* item) const
 		{
 			return (IndexOf(item) != -1);
 		}
@@ -204,7 +205,7 @@ namespace System
 			}
 		}
 
-		IEnumerator<T *>* GetEnumerator() const
+		inline IEnumerator<T *>* GetEnumerator() const
 		{
 			return new ArrayEnumerator(this);
 		}
@@ -214,12 +215,15 @@ namespace System
 			for(int i = 0; i < Length; i++)
 			{
 				if (_array[i] == item)
+				{
 					return i;
+				}
 			}
+
 			return -1;
 		}
 
-		void Reverse()
+		inline void Reverse()
 		{
 			Reverse(0, Length);
 		}
@@ -240,7 +244,7 @@ namespace System
 			_version++;
 		}
 
-		T& operator[](const int index)
+		inline T* operator[](const int index)
 		{
 			return _array[index];
 		}
@@ -268,7 +272,7 @@ namespace System
 			{
 				sassert(_version == _array->_version, "");
 
-				return _position < _array->Length;
+				return _position++ < _array->Length;
 			}
 
 			void Reset()

@@ -35,6 +35,7 @@ public:
 			ptr = rhs.ptr;
 			rhs.ptr = NULL;
 		}
+
 		return *this;
 	}
 };
@@ -110,6 +111,7 @@ public:
 		{
 			rhs.ptr->GetRef();
 		}
+
 		UnBind();
 		ptr = rhs.ptr;
 		return *this;

@@ -77,7 +77,8 @@ namespace XFX
 		cornerArray[5] = Vector3();
 		cornerArray[6] = Vector3();
 		cornerArray[7] = Vector3();
-		SetMatrix(value);
+
+		setMatrix(value);
 	}
 
 	BoundingFrustum::BoundingFrustum(const BoundingFrustum &obj)
@@ -96,7 +97,8 @@ namespace XFX
 		cornerArray[5] = obj.cornerArray[5];
 		cornerArray[6] = obj.cornerArray[6];
 		cornerArray[7] = obj.cornerArray[7];
-		SetMatrix(obj.matrix);
+
+		setMatrix(obj.matrix);
 	}
 
 	Plane BoundingFrustum::Bottom()
@@ -121,7 +123,51 @@ namespace XFX
 
 	void BoundingFrustum::setMatrix(Matrix value)
 	{
-		SetMatrix(value);
+		matrix = value;
+		planes[2].Normal.X = -value.M14 - value.M11;
+		planes[2].Normal.Y = -value.M24 - value.M21;
+		planes[2].Normal.Z = -value.M34 - value.M31;
+		planes[2].D = -value.M44 - value.M41;
+		planes[3].Normal.X = -value.M14 + value.M11;
+		planes[3].Normal.Y = -value.M24 + value.M21;
+		planes[3].Normal.Z = -value.M34 + value.M31;
+		planes[3].D = -value.M44 + value.M41;
+		planes[4].Normal.X = -value.M14 + value.M12;
+		planes[4].Normal.Y = -value.M24 + value.M22;
+		planes[4].Normal.Z = -value.M34 + value.M32;
+		planes[4].D = -value.M44 + value.M42;
+		planes[5].Normal.X = -value.M14 - value.M12;
+		planes[5].Normal.Y = -value.M24 - value.M22;
+		planes[5].Normal.Z = -value.M34 - value.M32;
+		planes[5].D = -value.M44 - value.M42;
+		planes[0].Normal.X = -value.M13;
+		planes[0].Normal.Y = -value.M23;
+		planes[0].Normal.Z = -value.M33;
+		planes[0].D = -value.M43;
+		planes[1].Normal.X = -value.M14 + value.M13;
+		planes[1].Normal.Y = -value.M24 + value.M23;
+		planes[1].Normal.Z = -value.M34 + value.M33;
+		planes[1].D = -value.M44 + value.M43;
+
+		for (int i = 0; i < 6; i++)
+		{
+			float num2 = planes[i].Normal.Length();
+			planes[i].Normal = (planes[i].Normal / num2);
+			planes[i].D /= num2;
+		}
+
+		Ray ray = ComputeIntersectionLine(planes[0], planes[2]);
+		cornerArray[0] = ComputeIntersection(planes[4], ray);
+		cornerArray[3] = ComputeIntersection(planes[5], ray);
+		ray = ComputeIntersectionLine(planes[3], planes[0]);
+		cornerArray[1] = ComputeIntersection(planes[4], ray);
+		cornerArray[2] = ComputeIntersection(planes[5], ray);
+		ray = ComputeIntersectionLine(planes[2], planes[1]);
+		cornerArray[4] = ComputeIntersection(planes[4], ray);
+		cornerArray[7] = ComputeIntersection(planes[5], ray);
+		ray = ComputeIntersectionLine(planes[1], planes[3]);
+		cornerArray[5] = ComputeIntersection(planes[4], ray);
+		cornerArray[6] = ComputeIntersection(planes[5], ray);
 	}
 
 	Plane BoundingFrustum::Near()
@@ -185,6 +231,7 @@ namespace XFX
 		if (Intersects(frustrum))
 		{
 			disjoint = ContainmentType::Contains;
+
 			for (int i = 0; i < 8; i++)
 			{
 				if (Contains(frustrum.cornerArray[i]) == ContainmentType::Disjoint)
@@ -207,10 +254,12 @@ namespace XFX
 		{
 			float num5 = ((planes[i].Normal.X * center.X) + (planes[i].Normal.Y * center.Y)) + (planes[i].Normal.Z * center.Z);
 			float num3 = num5 + planes[i].D;
+
 			if (num3 > radius)
 			{
 				return ContainmentType::Disjoint;
 			}
+
 			if (num3 < -radius)
 			{
 				num2++;
@@ -504,55 +553,6 @@ namespace XFX
 				result = float(num7);
 			}
 		}
-	}
-
-	void BoundingFrustum::SetMatrix(Matrix value)
-	{
-		matrix = value;
-		planes[2].Normal.X = -value.M14 - value.M11;
-		planes[2].Normal.Y = -value.M24 - value.M21;
-		planes[2].Normal.Z = -value.M34 - value.M31;
-		planes[2].D = -value.M44 - value.M41;
-		planes[3].Normal.X = -value.M14 + value.M11;
-		planes[3].Normal.Y = -value.M24 + value.M21;
-		planes[3].Normal.Z = -value.M34 + value.M31;
-		planes[3].D = -value.M44 + value.M41;
-		planes[4].Normal.X = -value.M14 + value.M12;
-		planes[4].Normal.Y = -value.M24 + value.M22;
-		planes[4].Normal.Z = -value.M34 + value.M32;
-		planes[4].D = -value.M44 + value.M42;
-		planes[5].Normal.X = -value.M14 - value.M12;
-		planes[5].Normal.Y = -value.M24 - value.M22;
-		planes[5].Normal.Z = -value.M34 - value.M32;
-		planes[5].D = -value.M44 - value.M42;
-		planes[0].Normal.X = -value.M13;
-		planes[0].Normal.Y = -value.M23;
-		planes[0].Normal.Z = -value.M33;
-		planes[0].D = -value.M43;
-		planes[1].Normal.X = -value.M14 + value.M13;
-		planes[1].Normal.Y = -value.M24 + value.M23;
-		planes[1].Normal.Z = -value.M34 + value.M33;
-		planes[1].D = -value.M44 + value.M43;
-
-		for (int i = 0; i < 6; i++)
-		{
-			float num2 = planes[i].Normal.Length();
-			planes[i].Normal = (planes[i].Normal / num2);
-			planes[i].D /= num2;
-		}
-
-		Ray ray = ComputeIntersectionLine(planes[0], planes[2]);
-		cornerArray[0] = ComputeIntersection(planes[4], ray);
-		cornerArray[3] = ComputeIntersection(planes[5], ray);
-		ray = ComputeIntersectionLine(planes[3], planes[0]);
-		cornerArray[1] = ComputeIntersection(planes[4], ray);
-		cornerArray[2] = ComputeIntersection(planes[5], ray);
-		ray = ComputeIntersectionLine(planes[2], planes[1]);
-		cornerArray[4] = ComputeIntersection(planes[4], ray);
-		cornerArray[7] = ComputeIntersection(planes[5], ray);
-		ray = ComputeIntersectionLine(planes[1], planes[3]);
-		cornerArray[5] = ComputeIntersection(planes[4], ray);
-		cornerArray[6] = ComputeIntersection(planes[5], ray);
 	}
 
 	bool BoundingFrustum::operator !=(const BoundingFrustum& right) const
