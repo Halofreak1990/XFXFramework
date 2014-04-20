@@ -44,10 +44,14 @@ extern "C"
 
 #include <sassert.h>
 
+#include <System/Type.h>
+
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type SpriteBatchTypeInfo("SpriteBatch", "XFX::Graphics::SpriteBatch", TypeCode::Object);
+
 		SpriteBatch::SpriteBatch(GraphicsDevice * const graphicsDevice)
 			: device(graphicsDevice)
 		{
@@ -228,18 +232,18 @@ namespace XFX
 			inBeginEndPair = false;
 		}
 
-		int SpriteBatch::GetType()
+		const Type& SpriteBatch::GetType()
 		{
-			// TODO: implement
+			return SpriteBatchTypeInfo;
 		}
-        
+
 		void SpriteBatch::restoreRenderState()
 		{
-	        
+			
 		}
-        
-        void SpriteBatch::applyGraphicsDeviceSettings() 
-        {
+	
+		void SpriteBatch::applyGraphicsDeviceSettings() 
+		{
 			DWORD* p;
 
 			p = pb_begin();

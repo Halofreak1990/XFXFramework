@@ -29,11 +29,14 @@
 #include <Vector3.h>
 #include <Graphics/VertexPositionNormalTexture.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type VertexPositionNormalTextureTypeInfo("VertexPositionNormalTexture", "XFX::Graphics::VertexPositionNormalTexture", TypeCode::Object);
+
 		const VertexElement VertexPositionNormalTexture::vertexArray[] =
 		{
 			VertexElement(0, VertexElementFormat::Vector3, VertexElementUsage::Position, 0),
@@ -65,9 +68,9 @@ namespace XFX
 			return Normal.GetHashCode() ^ Position.GetHashCode() ^ TextureCoordinate.GetHashCode();
 		}
 
-		int VertexPositionNormalTexture::GetType()
+		const Type& VertexPositionNormalTexture::GetType()
 		{
-			// TODO: implement
+			return VertexPositionNormalTextureTypeInfo;
 		}
 
 		const String VertexPositionNormalTexture::ToString() const

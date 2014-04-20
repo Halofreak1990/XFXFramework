@@ -29,6 +29,7 @@
 #include <System/IO/StreamAsyncResult.h>
 #include <System/FrameworkResources.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 #include <xboxkrnl/xboxkrnl.h>
 
@@ -39,6 +40,7 @@ namespace System
 	namespace IO
 	{
 		const Stream* Stream::Null = new Stream();
+		const Type StreamTypeInfo("Stream", "System::IO::Stream", TypeCode::Object);
 
 		Stream::Stream()
 		{
@@ -76,9 +78,9 @@ namespace System
 			// TODO: implement
 		}
 
-		int Stream::GetType()
+		const Type& Stream::GetType()
 		{
-			// TODO: implement
+			return StreamTypeInfo;
 		}
 
 		int Stream::ReadByte()

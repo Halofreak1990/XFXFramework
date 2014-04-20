@@ -99,7 +99,7 @@ namespace XFX
 		}
 
 		template <class T>
-		T ContentManager::Load(const String& assetName)
+		T* ContentManager::Load(const String& assetName)
 		{
 			T dummyVal;
 			Object* obj2;
@@ -134,7 +134,6 @@ namespace XFX
 			return local;
 			*/
 
-			Object* obj2;
 			sassert(!String::IsNullOrEmpty(assetName), String::Format("assetName; %s", FrameworkResources::ArgumentNull_Generic));
 			/*if (this->loadedAssets.TryGetValue(assetName, obj2))
 			{
@@ -182,7 +181,7 @@ namespace XFX
 		}
 
 		template <class T>
-		T ContentManager::ReadAsset(const String& assetName)
+		T* ContentManager::ReadAsset(const String& assetName)
 		{
 			sassert(!disposed, "");
 

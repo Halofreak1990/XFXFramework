@@ -34,6 +34,8 @@ extern "C"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#undef __STRICT_ANSI__
 #include <string.h>
 
 #include <Storage/StorageContainer.h>
@@ -46,7 +48,7 @@ namespace XFX
 		typedef struct
 		{
 			char cDriveLetter;
-			char* szDevice;
+			char const * const szDevice;
 			int iPartition;
 		}
 		stDriveMapping;
@@ -77,11 +79,13 @@ namespace XFX
 			}
 
 			part_num = atoi(szPartition + 19);
+
 			if (part_num >= EXTEND_PARTITION_BEGIN)
 			{
 				*cDriveLetter = extendPartitionMapping[part_num - EXTEND_PARTITION_BEGIN];
 				return;
 			}
+
 			for (unsigned int i = 0; i < NUM_OF_DRIVES; i++)
 			{
 				if (strnicmp(driveMapping[i].szDevice, szPartition, strlen(driveMapping[i].szDevice)) == 0)
@@ -90,6 +94,7 @@ namespace XFX
 					return;
 				}
 			}
+
 			*cDriveLetter = 0;
 		}
 
@@ -144,7 +149,7 @@ namespace XFX
 			// copy the XeImageFileName to tmp, and strip the \default.xbe
 			//char *tmp = strncpy(tmp, XeImageFileName->Buffer, XeImageFileName->Length - 12);
 	
-			auto_ptr<char> szTemp(new char[256]);
+			char* szTemp = new char[256];
 			char cDriveLetter = 0;
 			char* szDest;
 
@@ -157,19 +162,23 @@ namespace XFX
 
 			sprintf(szDest, "%c:\\%s", cDriveLetter, szTemp);
 
+			delete szTemp;
+
 			return szDest;
 		}
 
 		const String StorageContainer::TitleName() const
 		{
 			FILE* file = fopen(XeImageFileName->Buffer, "rb");
-			auto_ptr<char> titleName(new char[0x50]);
+			char* titleName = new char[0x50];
 			uint32_t CertAddr = 0;
 			fseek(file, 0x118, SEEK_SET);
 			fread(&CertAddr, 4, 1, file);
 
 			fseek(file, CertAddr - 0x10000, SEEK_SET);
 			fread(titleName, 0x50, 1, file);
+
+			// TODO: free C-string somehow
 
 			fclose(file);
 

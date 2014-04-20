@@ -83,6 +83,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="GraphicsDeviceManager.cpp" />
     <ClCompile Include="GamerServicesComponent.cpp" />
+    <ClCompile Include="Interfaces.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Game.h" />

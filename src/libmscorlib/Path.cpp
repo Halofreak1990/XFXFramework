@@ -30,6 +30,7 @@
 #include <System/String.h>
 
 #include <stdlib.h>
+#undef __STRICT_ANSI__
 #include <string.h>
 #include <hal/fileio.h>
 #include <xboxkrnl/xboxkrnl.h>
@@ -98,17 +99,26 @@ namespace System
 		String Path::Combine(const String& path1, const String& path2)
 		{
 			if (path1.Length == 0)
+			{
 				return path2;
+			}
 
 			if (path2.Length == 0)
+			{
 				return path1;
+			}
 
 			if (IsPathRooted(path2))
+			{
 				return path2;
+			}
 
 			char p1end = path1[path1.Length - 1];
+
 			if (p1end != DirectorySeparatorChar && p1end != AltDirectorySeparatorChar && p1end != VolumeSeparatorChar)
+			{
 				return path1 + &DirectorySeparatorChar + path2;
+			}
 
 			return (path1 + path2);
 		}
@@ -125,17 +135,22 @@ namespace System
 			}
 
 			part_num = atoi(szPartition + 19);
+
 			if (part_num >= 6)
 			{
 				*cDriveLetter = extendPartitionMapping[part_num-6];
 				return;
 			}
+
 			for (unsigned int i=0; i < NUM_OF_DRIVES; i++)
+			{
 				if (strnicmp(driveMapping[i].szDevice, szPartition, strlen(driveMapping[i].szDevice)) == 0)
 				{
 					*cDriveLetter = driveMapping[i].cDriveLetter;
 					return;
 				}
+			}
+
 			*cDriveLetter = 0;
 		}
 

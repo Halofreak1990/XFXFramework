@@ -54,7 +54,7 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);$(SolutionDir)include</IncludePath>
+    <IncludePath>C:\cygwin\usr\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\include\SDL;$(SolutionDir)include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <BuildLog>
@@ -85,6 +85,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DynamicSoundEffectInstance.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="IGraphicsDeviceService.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Model.cpp" />

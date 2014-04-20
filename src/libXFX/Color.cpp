@@ -27,6 +27,7 @@
 
 #include <System/Math.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <Graphics/Color.h>
 #include <Vector3.h>
 #include <Vector4.h>
@@ -37,6 +38,8 @@ namespace XFX
 {
 	namespace Graphics
 	{
+		const Type ColorTypeInfo("Color", "XFX::Graphics::Color", TypeCode::Object);
+
 		uint Color::RGBAtoARGB(uint value)
 		{
 			uint x = ((value >> 0) ^ (value >> 25)) & ((1U << 8) - 1); // XOR temporary
@@ -258,9 +261,9 @@ namespace XFX
 			return (int)_packedValue;
 		}
 
-		int Color::GetType()
+		const Type& Color::GetType()
 		{
-			// TODO: implement
+			return ColorTypeInfo;
 		}
 		
 		uint Color::PackedValue() const
@@ -269,21 +272,21 @@ namespace XFX
 		}
 		
 		uint Color::InitializeFromVector4(const Vector4 value) 
-        { 
-            byte r = (byte)(Math::Round(value.X * 255)); 
-            byte g = (byte)(Math::Round(value.Y * 255)); 
-            byte b = (byte)(Math::Round(value.Z * 255)); 
-            byte a = (byte)(Math::Round(value.W * 255)); 
-            return ((uint)a << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
-        } 
-  
-        uint Color::InitializeFromVector3(const Vector3 value) 
-        { 
-            byte r = (byte)(Math::Round(value.X * 255)); 
-            byte g = (byte)(Math::Round(value.Y * 255)); 
-            byte b = (byte)(Math::Round(value.Z * 255)); 
-            return ((uint)255 << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
-        }
+		{
+			byte r = (byte)(Math::Round(value.X * 255)); 
+			byte g = (byte)(Math::Round(value.Y * 255)); 
+			byte b = (byte)(Math::Round(value.Z * 255)); 
+			byte a = (byte)(Math::Round(value.W * 255)); 
+			return ((uint)a << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
+		}
+
+		uint Color::InitializeFromVector3(const Vector3 value) 
+		{
+			byte r = (byte)(Math::Round(value.X * 255)); 
+			byte g = (byte)(Math::Round(value.Y * 255)); 
+			byte b = (byte)(Math::Round(value.Z * 255)); 
+			return ((uint)255 << 24) + ((uint)r << 16) + ((uint)g << 8) + b; 
+		}
 
 		const String Color::ToString() const
 		{
@@ -291,14 +294,14 @@ namespace XFX
 		}
 		
 		Vector4 Color::ToVector4() const
-        { 
-            return Vector4((float)R() / 255, (float)G() / 255, (float)B() / 255, (float)A() / 255); 
-        } 
-  
-        Vector3 Color::ToVector3() const
-        { 
-            return Vector3((float)R() / 255, (float)G() / 255, (float)B() / 255); 
-        } 
+		{
+			return Vector4((float)R() / 255, (float)G() / 255, (float)B() / 255, (float)A() / 255); 
+		}
+
+		Vector3 Color::ToVector3() const
+		{
+			return Vector3((float)R() / 255, (float)G() / 255, (float)B() / 255); 
+		}
 		
 		bool Color::operator!=(const Color& other) const
 		{
@@ -306,9 +309,9 @@ namespace XFX
 		}
 		
 		bool Color::operator==(const Color& other) const
-        { 
-            return (_packedValue == other._packedValue);
-        }
+		{
+			return (_packedValue == other._packedValue);
+		}
 
 		Color Color::operator*(const float scale) const
 		{

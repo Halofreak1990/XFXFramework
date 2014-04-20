@@ -30,6 +30,7 @@
 #include <System/Type.h>
 #include <ctype.h>
 #include <stdarg.h>
+#undef __STRICT_ANSI__
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -489,7 +490,9 @@ namespace System
 			return *this;
 		}
 
-		return String(right);
+		String result(right.internalString);
+
+		return result;
 	}
 
 	String String::operator +(const char *right) const

@@ -2,13 +2,13 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-PREFIX = /openxdk
+PREFIX = /usr/local/openxdk
 
-CC = xbox-gcc
-CCAS = xbox-gcc
-CPP  = xbox-g++
-AR = xbox-ar rcu
-RANLIB = xbox-ranlib
+CC = gcc
+CCAS = gcc
+CPP  = g++
+AR = ar rcu
+RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG
@@ -28,9 +28,9 @@ LD_LIBS  = $(LD_DIRS) -lmscorlib -lm -lopenxdk -lhal -lc -lusb -lc -lxboxkrnl -l
 
 OBJS = BoundingBox.o BoundingFrustum.o BoundingSphere.o MathHelper.o Matrix.o Plane.o Point.o Quaternion.o Ray.o Rectangle.o Vector2.o Vector3.o Vector4.o
 AUDIO_OBJS = SoundEffect.o SoundEffectInstance.o
-CONTENT_OBJS = ContentManager.o ContentReader.o
+#CONTENT_OBJS = ContentManager.o ContentReader.o
 GAMERSERVICES_OBJS = Guide.o StorageDeviceAsyncResult.o
-GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
+GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o IGraphicsDeviceService.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
 INPUT_OBJS = GamePad.o Keyboard.o Mouse.o
 MEDIA_OBJS = VideoPlayer.o
 NET_OBJS = PacketReader.o PacketWriter.o

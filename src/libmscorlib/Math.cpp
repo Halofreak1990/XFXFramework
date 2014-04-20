@@ -27,10 +27,8 @@
 
 #include <System/Math.h>
 
-extern "C"
-{
+#undef __STRICT_ANSI__
 #include <math.h>
-}
 
 namespace System
 {

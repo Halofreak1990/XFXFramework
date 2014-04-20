@@ -211,16 +211,22 @@ namespace XFX
 		graphicsManager = (IGraphicsDeviceManager*)((GraphicsDeviceManager*)services.GetService(IGraphicsDeviceManager::GetType()));
 
 		if (graphicsManager != null)
+		{
 			graphicsManager->CreateDevice();
+		}
 #if DEBUG
 		else
+		{
 			debugPrint("graphicsManager is NULL.\n");
+		}
 #endif
 
 		Initialize();
 
 		while(1)
+		{
 			Tick();
+		}
 
 		EndRun();
 		inRun = false;

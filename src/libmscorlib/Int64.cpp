@@ -29,6 +29,7 @@
 #include <System/String.h>
 #include <System/Type.h>
 
+#undef __STRICT_ANSI__
 #include <stdlib.h>
 
 namespace System

@@ -32,7 +32,7 @@
 
 namespace System
 {
-	const Type ObjectTypeInfo("Object", "System::Object");
+	const Type ObjectTypeInfo("Object", "System::Object", TypeCode::Object);
 
 	bool Object::Equals(Object const * const obj) const
 	{
@@ -49,7 +49,7 @@ namespace System
 		return (int)this;
 	}
 
-	Type Object::GetType()
+	const Type& Object::GetType()
 	{
 		return ObjectTypeInfo;
 	}
@@ -59,7 +59,7 @@ namespace System
 		return (&objA == &objB);
 	}
 
-	const String& Object::ToString() const
+	const String Object::ToString() const
 	{
 		return "Object";
 	}

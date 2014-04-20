@@ -8,6 +8,7 @@
 #define _XFX_GRAPHICS_SPRITEBATCH_
 
 #include "BlendState.h"
+#include "DepthStencilState.h"
 #include "Effect.h"
 #include "Enums.h"
 #include <Matrix.h>

@@ -27,9 +27,12 @@
 
 #include <System/OperatingSystem.h>
 #include <System/String.h>
+#include <System/Type.h>
 
 namespace System
 {
+	const Type OperatingSystemTypeInfo("OperatingSystem", "System::OperatingSystem", TypeCode::Object);
+
 	OperatingSystem::OperatingSystem(const PlatformID_t platform, const System::Version version)
 		: Platform(platform), Version(version)
 	{
@@ -55,13 +58,14 @@ namespace System
 		return (int)Platform + Version.GetHashCode();
 	}
 
-	int OperatingSystem::GetType()
+	const Type& OperatingSystem::GetType()
 	{
+		return OperatingSystemTypeInfo;
 	}
 
-	const String& OperatingSystem::ToString() const
+	const String OperatingSystem::ToString() const
 	{
-		return "";
+		// TODO: implement
 	}
 
 	bool OperatingSystem::operator !=(const OperatingSystem& right) const

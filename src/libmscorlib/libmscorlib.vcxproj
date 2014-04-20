@@ -54,6 +54,9 @@
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\cygwin\usr\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\include\SDL;$(SolutionDir)include</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <BuildLog>
       <Path>BuildLog.htm</Path>

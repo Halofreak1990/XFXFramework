@@ -2,7 +2,7 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-PREFIX = /openxdk
+PREFIX = /usr/local/openxdk
 
 CC = gcc
 CCAS = gcc
@@ -12,7 +12,7 @@ RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG
-CC_FLAGS = -c -g -O2 -std=C99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -march=i686 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
+CC_FLAGS = -c -g -O2 -std=gnu99 -ffreestanding -nostdlib -fno-builtin -fno-exceptions -march=i686 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 CCAS_FLAGS = --32 -march=pentiumiii, mmx, sse -mtune=pentiumiii -msse-check=error
 CPP_FLAGS = -c -O2 -std=c++03 -Wall -nostdlib -fno-builtin -fno-exceptions -fno-rtti -march=i686 -mmmx -msse -mfpmath=sse $(SDLFLAGS)
 INCLUDE  = -I$(PREFIX)/i386-pc-xbox/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL -I../../include

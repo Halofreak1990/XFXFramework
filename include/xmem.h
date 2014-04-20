@@ -7,6 +7,8 @@
 #ifndef _XMEM_
 #define _XMEM_
 
+#include <sassert.h>
+
 /**
  *
  *
@@ -55,10 +57,10 @@ private:
 	{
 	private:
 		CountedPtr(U* pT) : Count(0), my_pT(pT) { ASSERT(pT != 0); }
-		~CountedPtr() { ASSERT(Count == 0); delete my_pT; }
+		~CountedPtr() { sassert(Count == 0, "ERROR: called ~CountedPtr() while still holding at least one reference."); delete my_pT; }
 
 		unsigned GetRef()  { return ++Count; }
-		unsigned FreeRef() { ASSERT(Count != 0); return --Count; }
+		unsigned FreeRef() { sassert(Count != 0, "ERROR: called FreeRef() while not holding any reference."); return --Count; }
 
 		U* const my_pT;
 		unsigned Count;
@@ -87,12 +89,13 @@ public:
 
 	void Null() { UnBind(); }
 
-	UnBind()
+	void UnBind()
 	{
 		if (!IsNull() && ptr->FreeRef() == 0)
 		{
 			delete ptr;
 		}
+
 		ptr = 0;
 	}
 

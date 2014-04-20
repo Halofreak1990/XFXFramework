@@ -7,7 +7,10 @@
 #ifndef _XFX_GRAPHICS_IGRAPHICSDEVICESERVICE_
 #define _XFX_GRAPHICS_IGRAPHICSDEVICESERVICE_
 
+#include <System/Event.h>
 #include <System/Types.h>
+
+using namespace System;
 
 namespace XFX
 {
@@ -28,8 +31,7 @@ namespace XFX
 
 			virtual GraphicsDevice* getGraphicsDevice() const =0;
 
-			//! TODO: return typecode
-			int GetType() const { }
+			static const Type& GetType();
 		};
 	}
 }

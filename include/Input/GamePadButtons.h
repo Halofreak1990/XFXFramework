@@ -9,6 +9,7 @@
 
 #include "Enums.h"
 #include <System/Object.h>
+#include <System/Types.h>
 
 using namespace System;
 
@@ -32,7 +33,7 @@ namespace XFX
 			const ButtonState_t X;
 			const ButtonState_t Y;
 			
-			GamePadButtons(const uint /* Buttons */ buttons);
+			GamePadButtons(const uint /* Buttons_t */ buttons);
 			GamePadButtons();
 			GamePadButtons(const GamePadButtons &obj);
 

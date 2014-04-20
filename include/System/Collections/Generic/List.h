@@ -63,15 +63,15 @@ namespace System
 				class Enumerator : public IEnumerator<T>
 				{
 				private:
-					int index = -1;
+					int index;
+					List<T> * const parent;
 					const int version;
-					List<T> const * const parent;
 
 				public:
-					T Current() const { return (*parent)[index]; }
+					T& Current() const { return (*parent)[index]; }
 
-					Enumerator(List<T> const * const parent)
-						: parent(parent), version(parent->_version)
+					Enumerator(List<T> * const parent)
+						: index(-1), parent(parent), version(parent->_version)
 					{
 					}
 
@@ -184,7 +184,7 @@ namespace System
 
 					while (enumerator->MoveNext())
 					{
-						Add(enumerator->Current();
+						Add(enumerator->Current());
 					}
 				}
 

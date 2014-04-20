@@ -46,6 +46,8 @@ namespace XFX
 		virtual void CreateDevice()=0;
 		virtual void EndDraw()=0;
 
+		static const Type& GetType();
+
 		virtual ~IGraphicsDeviceManager() {}
 	};
 

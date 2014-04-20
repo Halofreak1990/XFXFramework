@@ -30,7 +30,9 @@
 #include <System/FrameworkResources.h>
 #include <System/Single.h>
 #include <System/String.h>
+#include <System/Type.h>
 #include <stdlib.h>
+#undef __STRICT_ANSI__
 #include <string.h>
 
 namespace System
@@ -45,6 +47,8 @@ namespace System
 	const float Single::NaN = *(float*)&rawNaNF;
 	const float Single::PositiveInfinity = *(float*)&rawPosInfF;
 	const float Single::NegativeInfinity = *(float*)&rawNegInfF;
+
+	const Type SingleTypeInfo("Single", "System::Single", TypeCode::Single);
 
 	Single::Single()
 		: value(0.0f)
@@ -64,9 +68,15 @@ namespace System
 	int Single::CompareTo(const Single other) const
 	{
 		if (value > other.value)
+		{
 			return 1;
+		}
+
 		if (value < other.value)
+		{
 			return -1;
+		}
+
 		return 0;
 	}
 
@@ -85,9 +95,9 @@ namespace System
 		return (int)value;
 	}
 
-	int Single::GetType()
+	const Type& Single::GetType()
 	{
-		return 13;
+		return SingleTypeInfo;
 	}
 
 	bool Single::TryParse(const String& str, out float* result)
@@ -119,12 +129,12 @@ namespace System
 		return true;
 	}
 
-	const String& Single::ToString() const
+	const String Single::ToString() const
 	{
 		return String::Format("%f", value);
 	}
 
-	const String& Single::ToString(const float value)
+	const String Single::ToString(const float value)
 	{
 		return String::Format("%f", value);
 	}

@@ -26,41 +26,29 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/DisplayModeCollection.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type DisplayModeCollectionTypeInfo("DisplayModeCollection", "XFX::Graphics::DisplayModeCollection", TypeCode::Object);
+
 		DisplayModeCollection::DisplayModeCollection()
 		{
 		}
 
-		bool DisplayModeCollection::operator!=(const DisplayModeCollection& other) const
+		IEnumerator<DisplayMode>* DisplayModeCollection::GetEnumerator()
 		{
-			int num;
-			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))
-			{
-				num = 1;
-			}
-			else
-			{
-				num = 0;
-			}
-			return (bool)((byte)(((byte) num) == 0));
 		}
 
-		bool DisplayModeCollection::operator==(const DisplayModeCollection& other) const
+		const Type& DisplayModeCollection::GetType()
 		{
-			int num;
-			if ((adapterOrdinal == other.adapterOrdinal) && (currentFormat == other.currentFormat))
-			{
-				num = 1;
-			}
-			else
-			{
-				num = 0;
-			}
-			return (bool)((byte) num);
+			return DisplayModeCollectionTypeInfo;
+		}
+
+		DisplayMode& DisplayModeCollection::operator[](const SurfaceFormat_t format) const
+		{
 		}
 	}
 }

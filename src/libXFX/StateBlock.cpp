@@ -26,11 +26,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/StateBlock.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type StateBlockTypeInfo("StateBlock", "XFX::Graphics::StateBlock", TypeCode::Object);
+
 		StateBlock::StateBlock(GraphicsDevice* graphicsDevice)
 			: device(graphicsDevice)
 		{
@@ -68,8 +71,9 @@ namespace XFX
 		{
 		}
 
-		int StateBlock::GetType()
+		const Type& StateBlock::GetType()
 		{
+			return StateBlockTypeInfo;
 		}
 
 		const String StateBlock::ToString() const

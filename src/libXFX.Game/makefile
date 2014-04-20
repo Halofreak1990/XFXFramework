@@ -2,7 +2,7 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-PREFIX = /openxdk
+PREFIX = /usr/local/openxdk
 
 CC = gcc
 CCAS = gcc

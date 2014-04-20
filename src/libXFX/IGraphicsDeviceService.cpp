@@ -25,47 +25,21 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <Graphics/TextureCollection.h>
-#include <Graphics/Texture.h>
+#include <Graphics/IGraphicsDeviceService.h>
 
 #include <System/Type.h>
+
+using namespace System;
 
 namespace XFX
 {
 	namespace Graphics
 	{
-		const Type TextureCollectionTypeInfo("TextureCollection", "XFX::Graphics::TextureCollection", TypeCode::Object);
+		const Type IGraphicsDeviceServiceTypeInfo("IGraphicsDeviceService", "XFX::Graphics::IGraphicsDeviceService", TypeCode::Object);
 
-		void TextureCollection::Dispose()
+		const Type& IGraphicsDeviceService::GetType()
 		{
-			Dispose(true);
-		}
-
-		void TextureCollection::Dispose(bool disposing)
-		{
-			textures.Clear();
-		}
-
-		TextureCollection::TextureCollection()
-		{
-			// Nothing
-		}
-
-		TextureCollection::~TextureCollection()
-		{
-			Dispose(false);
-		}
-
-		const Type& TextureCollection::GetType()
-		{
-			return TextureCollectionTypeInfo;
-		}
-		//
-		// Operators
-		//
-		Texture* TextureCollection::operator [](const int index)
-		{
-			return textures[index];
+			return IGraphicsDeviceServiceTypeInfo;
 		}
 	}
 }

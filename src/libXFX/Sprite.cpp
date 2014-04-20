@@ -26,11 +26,14 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 #include <Graphics/Sprite.h>
+#include <System/Type.h>
 
 namespace XFX
 {
 	namespace Graphics
 	{
+		const Type SpriteTypeInfo("Sprite", "XFX::Graphics::Sprite", TypeCode::Object);
+
 		Sprite::Sprite()
 		{
 		}
@@ -99,8 +102,9 @@ namespace XFX
 			return layerDepth;
 		}
 
-		int Sprite::GetType()
+		const Type& Sprite::GetType()
 		{
+			return SpriteTypeInfo;
 		}
 
 		bool Sprite::operator !=(const Sprite& right) const

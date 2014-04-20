@@ -152,3 +152,18 @@ int strcasecmp(const char * s1, const char * s2)
 
 	return (tolower(*us1) - tolower(*--us2));
 }
+
+int strncasecmp(const char * s1, const char * s2, size_t n)
+{
+	while (n --> 0) // n goes to zero ;)
+	{
+		const unsigned char us1 = (const unsigned char)toupper(*s1);
+		const unsigned char us2 = (const unsigned char)toupper(*s2);
+
+		if (us1 < us2) return -1;
+		if (us1 > us2) return 1;
+		++s1; ++s2;
+	}
+
+	return 0;
+}

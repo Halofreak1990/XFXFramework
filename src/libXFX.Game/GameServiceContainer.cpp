@@ -33,21 +33,24 @@ namespace XFX
 	{
 	}
 
-	void GameServiceContainer::AddService(const String& serviceType, Object* provider)
+	void GameServiceContainer::AddService(const Type& serviceType, Object* provider)
 	{
 		_services.Add(serviceType, provider);
 	}
 
-	Object* GameServiceContainer::GetService(const String& serviceType)
+	Object* GameServiceContainer::GetService(const Type& serviceType)
 	{
 		Object* service = null;
+
 		if (_services.TryGetValue(serviceType, service))
+		{
 			return service;
+		}
 
 		return null;
 	}
 
-	void GameServiceContainer::RemoveService(const String& type)
+	void GameServiceContainer::RemoveService(const Type& type)
 	{
 		_services.Remove(type);
 	}

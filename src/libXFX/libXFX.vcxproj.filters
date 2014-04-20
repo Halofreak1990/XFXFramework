@@ -257,6 +257,9 @@
     <ClCompile Include="CurveKeyCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IGraphicsDeviceService.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\BoundingBox.h">
