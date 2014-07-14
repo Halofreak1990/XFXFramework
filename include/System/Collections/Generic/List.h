@@ -81,6 +81,7 @@ namespace System
 
 						return index++ < parent->_size;
 					}
+
 					void Reset()
 					{
 						sassert(version == parent->_version, "");
@@ -91,32 +92,30 @@ namespace System
 
 			public:	
 				// Gets the number of elements actually contained in the List<>.
-				int Count() const
-				{
-					return _size;
-				}
+				inline int Count() const { return _size; }
 
 				// Gets the total number of elements the internal data structure can hold without resizing.
-				int getCapacity() const
-				{
-					return _actualSize;
-				}
+				inline int getCapacity() const { return _actualSize; }
 
 				// Sets the total number of elements the internal data structure can hold without resizing.
 				void setCapacity(const int value)
 				{
 					if (value < _size)
+					{
 						return;
+					}
 
 					if (value != _actualSize)
 					{
 						if (value > 0)
 						{
 							T* destinationArray = new T[value];
+
 							if (_size > 0)
 							{
 								memcpy(destinationArray, _items, _size * sizeof(T));
 							}
+
 							delete[] _items;
 							_items = destinationArray;
 						}
@@ -126,14 +125,12 @@ namespace System
 							_items = new T[0];
 							
 						}
+
 						_actualSize = value;
 					}
 				}
 
-				bool IsReadOnly() const
-				{
-					return false;
-				}
+				inline bool IsReadOnly() const { return false; }
 
 				// Initializes a new instance of the List<> class that is empty and has the default initial capacity.
 				List()
@@ -172,7 +169,8 @@ namespace System
 					{
 						EnsureCapacity(_size + 1);
 					}
-					_items[_size++] = T(item);
+
+					_items[_size++] = item;
 					_version++;
 				}
 
@@ -199,6 +197,7 @@ namespace System
 						_items = new T[_actualSize];
 						_size = 0;
 					}
+
 					_version++;
 				}
 
@@ -212,6 +211,7 @@ namespace System
 							return true;
 						}
 					}
+
 					return false;
 				}
 
@@ -231,6 +231,7 @@ namespace System
 				static const Type& GetType()
 				{
 					static Type ListTypeInfo("List", "System::Collections::Generic::List", TypeCode::Object, true);
+
 					return ListTypeInfo;
 				}
 
@@ -240,11 +241,14 @@ namespace System
 					for (int i = 0; i < _size; i++)
 					{
 						if (_items[i] == item)
+						{
 							return i;
+						}
 					}
+
 					return -1;
 				}
-				
+
 				// Inserts an element into the List<> at the specified index.
 				void Insert(const int index, const T& item)
 				{
@@ -254,10 +258,12 @@ namespace System
 					{
 						EnsureCapacity(_size + 1);
 					}
+
 					if (index < _size)
 					{
 						memcpy(&_items[index + 1], &_items[index], (_size - index) * sizeof(T));
 					}
+
 					_items[index] = T(item);
 					_size++;
 					_version++;
@@ -267,11 +273,13 @@ namespace System
  				bool Remove(const T& item)
 				{
 					int index = IndexOf(item);
+
 					if (index >= 0)
 					{
 						RemoveAt(index);
 						return true;
 					}
+
 					return false;
 				}
 
@@ -307,10 +315,7 @@ namespace System
 					}
 				}
 
-				void Reverse()
-				{
-					Reverse(0, _size);
-				}
+				inline void Reverse() { Reverse(0, _size); }
 
 				void Reverse(const int index, const int count)
 				{
@@ -333,7 +338,7 @@ namespace System
 					_version++;
 				}
 
-				void Sort(int index, int count, IComparer<T>* comparer)
+				void Sort(int index, int count, IComparer<T> * const comparer)
 				{
 					sassert(comparer != null, String::Format("comparer; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -346,6 +351,7 @@ namespace System
 					T key = _items[index];
 					int i = index + 1;
 					int j = count;
+
 					while (i <= j)
 					{
 						while ((i <= count) && (comparer->Compare(_items[i], key) <= 0))
@@ -355,6 +361,7 @@ namespace System
 						if (i < j)
 							swap(&_items[i], &_items[j]);
 					}
+
 					// swap two elements
 					swap(&_items[index], &_items[j]);
 					// recursively sort the lesser list
@@ -362,7 +369,7 @@ namespace System
 					Sort(j+1, count, comparer);
 				}
 
-				void Sort(IComparer<T>* comparer)
+				void Sort(IComparer<T> * const comparer)
 				{
 					sassert(comparer != null, String::Format("comparer; %s", FrameworkResources::ArgumentNull_Generic));
 
@@ -386,6 +393,7 @@ namespace System
 				void TrimExcess()
 				{
 					int num = (int)(_actualSize * 0.9);
+
 					if(_size < num)
 					{
 						setCapacity(_size);
@@ -394,6 +402,17 @@ namespace System
 
 				T& operator[](const int index)
 				{
+					sassert(index > 0, FrameworkResources::ArgumentOutOfRange_NeedNonNegNum);
+					sassert(index < Count(), "");
+
+					return _items[index];
+				}
+
+				const T& operator[](const int index) const
+				{
+					sassert(index > 0, FrameworkResources::ArgumentOutOfRange_NeedNonNegNum);
+					sassert(index < Count(), "");
+
 					return _items[index];
 				}
 

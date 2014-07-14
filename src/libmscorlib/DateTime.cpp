@@ -40,7 +40,7 @@
 namespace System
 {
 	// Encodes the DateTime in 64 bits, top two bits contain the DateTimeKind,
-	// the rest contains the 62 bit value for the ticks.   This reduces the
+	// the rest contains the 62 bit value for the ticks. This reduces the
 	// memory usage from 16 to 8 bytes.
 	//
 	const long long DateTime::TicksMask = 0x3fffffffffffffffLL;
@@ -77,7 +77,10 @@ namespace System
 		days = (IsLeapYear(year) ? daysmonthleap  : daysmonth);
 			
 		while (m < month)
+		{
 			temp += days[m++];
+		}
+
 		return ((day-1) + temp + (365* (year-1)) + ((year-1)/4) - ((year-1)/100) + ((year-1)/400));
 	}
 
@@ -92,6 +95,7 @@ namespace System
 	DateTime DateTime::Add(double value, int scale)
 	{
 		long long num = (long long)((value * scale) + ((value >= 0.0) ? 0.5 : -0.5));
+
 		if ((num <= -315537897600000LL) || (num >= 0x11efae44cb400LL))
 		{
 #if DEBUG
@@ -134,14 +138,20 @@ namespace System
 	DateTime::DateTime(long long ticks)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
+		{
 			InvalidTickValue(ticks);
+		}
+
 		encoded = ticks;
 	}
 
 	DateTime::DateTime(long long ticks, DateTimeKind_t kind)
 	{
 		if (ticks < 0 || ticks > MAX_VALUE_TICKS)
+		{
 			InvalidTickValue(ticks);
+		}
+
 		sassert(!(kind < 0 || kind > DateTimeKind::Local), "kind is an invalid DateTimeKind value.");
 
 		encoded = ((long long)kind << KindShift) | ticks;
@@ -190,9 +200,13 @@ namespace System
 			month = month -12;
 			year++;
 		}
+
 		maxday = DaysInMonth(year, month);
+
 		if (day > maxday)
+		{
 			day = maxday;
+		}
 
 		DateTime temp = DateTime(year, month, day);
 		temp.encoded |= encoded & KindMask;
@@ -277,7 +291,9 @@ namespace System
 		sassert(!((d <= OAMinValue) || (d >= OAMaxValue)), "");
 
 		DateTime dt = DateTime(ticks18991230);
-		if (d < 0.0) {
+
+		if (d < 0.0)
+		{
 			double days = Math::Ceiling(d);
 			// integer part is the number of days (negative)
 			dt = dt.AddMilliseconds(days * 86400000);
@@ -285,7 +301,8 @@ namespace System
 			double hours = (days - d);
 			dt = dt.AddMilliseconds(hours * 86400000);
 		}
-		else {
+		else
+		{
 			dt = dt.AddMilliseconds(d * 86400000);
 		}
 
@@ -305,7 +322,10 @@ namespace System
 	bool DateTime::IsDaylighSavingTime()
 	{
 		if ((int)((ulong)encoded >> KindShift) == (int)DateTimeKind::Utc)
+		{
 			return false;
+		}
+
 		return TimeZone::CurrentTimeZone().IsDaylightSavingTime(*this);
 	}
 
@@ -352,15 +372,22 @@ namespace System
 	double DateTime::ToOADate()
 	{
 		long long t = Ticks();
+
 		// uninitialized DateTime case
 		if (t == 0)
+		{
 			return 0;
+		}
+
 		// we can't reach minimum value
 		if (t < 31242239136000000LL)
+		{
 			return OAMinValue + 0.001;
+		}
 
 		TimeSpan ts = TimeSpan(Ticks() - ticks18991230);
 		double result = ts.TotalDays();
+
 		// t < 0 (where 599264352000000000 == 0.0d for OA)
 		if (t < 599264352000000000LL)
 		{
@@ -372,8 +399,11 @@ namespace System
 		{
 			// we can't reach maximum value
 			if (result >= OAMaxValue)
+			{
 				result = OAMaxValue - 0.00000001;
+			}
 		}
+
 		return result;
 	}
 
@@ -392,6 +422,7 @@ namespace System
 	DateTime DateTime::operator +(TimeSpan other)
 	{
 		long long res = ((encoded & TicksMask) + other.Ticks());
+
 		if (res < 0 || res > MAX_VALUE_TICKS)
 		{
 #if DEBUG
@@ -399,7 +430,7 @@ namespace System
 #endif
 			return DateTime(0);
 		}
-				
+
 		return DateTime(res, Kind());
 	}
 
@@ -441,6 +472,7 @@ namespace System
 	DateTime DateTime::operator -(TimeSpan t)
 	{
 		long long res = ((encoded & TicksMask) - t.Ticks());
+
 		if (res < 0 || res > MAX_VALUE_TICKS)
 		{
 #if DEBUG

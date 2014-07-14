@@ -27,9 +27,12 @@ namespace System
 			EndPoint();
 
 		public:
-			AddressFamily_t getAddressFamily();
+			AddressFamily_t getAddressFamily() const;
 
-			virtual EndPoint* Create(SocketAddress socketAddress);
+			virtual ~EndPoint();
+
+			virtual EndPoint* Create(SocketAddress * const socketAddress);
+			static const Type& GetType();
 			virtual SocketAddress* Serialize();
 		};
 	}

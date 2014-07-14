@@ -30,6 +30,11 @@
 #include <System/Threading.h>
 #include <System/Type.h>
 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+
 using namespace System::Threading;
 
 namespace System
@@ -40,14 +45,29 @@ namespace System
 		{
 			const Type SocketTypeInfo("Socket","System::Net::Sockets", TypeCode::Object);
 
-			AddressFamily_t Socket::getAddressFamily()
+			AddressFamily_t Socket::getAddressFamily() const
 			{
 				return addressFamily;
 			}
 
-			HANDLE Socket::getHandle()
+			int Socket::Available() const
+			{
+				// TODO: implement
+			}
+
+			bool Socket::Connected() const
+			{
+				// TODO: implement
+			}
+
+			HANDLE Socket::getHandle() const
 			{
 				return handle;
+			}
+
+			ProtocolType_t Socket::getProtocolType() const
+			{
+				// TODO: implement
 			}
 
 			Socket::Socket(AddressFamily_t addressFamily, SocketType_t socketType, ProtocolType_t protocolType)
@@ -56,22 +76,22 @@ namespace System
 				// TODO: implement remainder
 			}
 
-			bool Socket::ConnectAsync(SocketType_t socketType, ProtocolType_t protocolType, SocketAsyncEventArgs e)
-			{
-				// TODO: implement
-			}
-
-			bool Socket::ConnectAsync(SocketAsyncEventArgs e)
-			{
-				// TODO: implement
-			}
-
 			void Socket::Close()
 			{
 				// TODO: implement
 			}
 
 			void Socket::Close(int timeOut)
+			{
+				// TODO: implement
+			}
+
+			bool Socket::ConnectAsync(SocketType_t socketType, ProtocolType_t protocolType, SocketAsyncEventArgs e)
+			{
+				// TODO: implement
+			}
+
+			bool Socket::ConnectAsync(SocketAsyncEventArgs e)
 			{
 				// TODO: implement
 			}
@@ -94,6 +114,31 @@ namespace System
 			const Type& Socket::GetType()
 			{
 				return SocketTypeInfo;
+			}
+
+			bool Socket::ReceiveAsync(SocketAsyncEventArgs e)
+			{
+				// TODO: implement
+			}
+
+			bool Socket::ReceiveFromAsync(SocketAsyncEventArgs e)
+			{
+				// TODO: implement
+			}
+
+			bool Socket::SendAsync(SocketAsyncEventArgs e)
+			{
+				// TODO: implement
+			}
+
+			bool Socket::SendToAsync(SocketAsyncEventArgs e)
+			{
+				// TODO: implement
+			}
+
+			void Socket::Shutdown(SocketShutdown_t how)
+			{
+				// TODO: implement
 			}
 		}
 	}

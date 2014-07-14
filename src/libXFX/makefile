@@ -30,7 +30,7 @@ OBJS = BoundingBox.o BoundingFrustum.o BoundingSphere.o MathHelper.o Matrix.o Pl
 AUDIO_OBJS = SoundEffect.o SoundEffectInstance.o
 #CONTENT_OBJS = ContentManager.o ContentReader.o
 GAMERSERVICES_OBJS = Guide.o StorageDeviceAsyncResult.o
-GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o IGraphicsDeviceService.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
+GRAPHICS_OBJS = BasicEffect.o BlendState.o Color.o Curve.o CurveKey.o CurveKeyCollection.o DisplayMode.o DisplayModeCollection.o Effect.o GraphicsAdapter.o GraphicsDevice.o GraphicsResource.o IGraphicsDeviceService.o pbKit.o PresentationParameters.o Sprite.o SpriteBatch.o SpriteFont.o StateBlock.o Texture.o Texture2D.o TextureCollection.o VertexElement.o VertexPositionColor.o VertexPositionNormalTexture.o VertexPositionTexture.o Viewport.o
 INPUT_OBJS = GamePad.o Keyboard.o Mouse.o
 MEDIA_OBJS = VideoPlayer.o
 NET_OBJS = PacketReader.o PacketWriter.o
@@ -55,6 +55,5 @@ libXFX.a: $(OBJS1)
 .s.o:
 	$(CCAS) -c $< $(CCAS_FLAGS)
 
-clean: 
+clean:
 	rm -f *.o *.exe *.dll *.xbe *.cxbe *.lib *.a
-	

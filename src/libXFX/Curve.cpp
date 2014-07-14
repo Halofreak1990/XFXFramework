@@ -169,7 +169,7 @@ namespace XFX
 				// start-> end / end -> start
 				cycle = GetNumberOfCycle(position);
 
-				if (0 == cycle % 2f)//if pair
+				if (0 == cycle % 2)//if pair
 				{
 					virtualPos = position - (cycle * (last.getPosition() - first.getPosition()));
 				}

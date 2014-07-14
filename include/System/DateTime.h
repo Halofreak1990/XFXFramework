@@ -53,7 +53,7 @@ namespace System
 		TimeSpan TimeOfDay() const;
 		static DateTime Today();
 		static DateTime UtcNow();
-		int Year()const;
+		int Year() const;
 		static const DateTime MaxValue;
 		static const DateTime MinValue;
 

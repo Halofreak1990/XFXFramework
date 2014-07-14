@@ -39,13 +39,13 @@ namespace System
 				void Dispose(bool disposing);
 
 			public:
-				AddressFamily_t getAddressFamily();
-				int Available();
-				bool Connected();
-				HANDLE getHandle();
-				ProtocolType_t getProtocolType();
+				AddressFamily_t getAddressFamily() const;
+				int Available() const;
+				bool Connected() const;
+				HANDLE getHandle() const;
+				ProtocolType_t getProtocolType() const;
 				int ReceiveBufferSize;
-				EndPoint* getRemoteEndPoint();
+				EndPoint* getRemoteEndPoint() const;
 				int SendBufferSize;
 				short Ttl;
 

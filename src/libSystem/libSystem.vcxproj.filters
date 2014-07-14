@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Net\Sockets">
       <UniqueIdentifier>{0b37cc7b-fbd5-4d60-8e8d-99f0bde53754}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Net\NetworkInformation">
+      <UniqueIdentifier>{4dd42056-0af1-42e9-a43e-ad43f0b180b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Net\NetworkInformation">
+      <UniqueIdentifier>{6467ba65-207e-4e88-aa08-ce970dd66c90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SocketAddress.cpp">
@@ -56,6 +62,24 @@
     </ClCompile>
     <ClCompile Include="Stopwatch.cpp">
       <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="IPAddress.cpp">
+      <Filter>Source Files\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="IPEndPoint.cpp">
+      <Filter>Source Files\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkInterface.cpp">
+      <Filter>Source Files\Net\NetworkInformation</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkChange.cpp">
+      <Filter>Source Files\Net\NetworkInformation</Filter>
+    </ClCompile>
+    <ClCompile Include="DnsEndPoint.cpp">
+      <Filter>Source Files\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="EndPoint.cpp">
+      <Filter>Source Files\Net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +103,24 @@
     </ClInclude>
     <ClInclude Include="..\..\include\System\Net\Sockets\SocketAsyncEventArgs.h">
       <Filter>Header Files\Net\Sockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\IPAddress.h">
+      <Filter>Header Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\IPEndPoint.h">
+      <Filter>Header Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\NetworkInformation\NetworkInterface.h">
+      <Filter>Header Files\Net\NetworkInformation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\NetworkInformation\NetworkChange.h">
+      <Filter>Header Files\Net\NetworkInformation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\Enums.h">
+      <Filter>Header Files\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\System\Net\DnsEndPoint.h">
+      <Filter>Header Files\Net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

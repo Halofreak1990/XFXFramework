@@ -1,4 +1,9 @@
-
+/*****************************************************************************
+ *	CultureInfo.h															 *
+ *																			 *
+ *	XFX System::Globalization::CultureInfo class definition file.			 *
+ *	Copyright (c) XFX Team. All Rights Reserved.							 *
+ *****************************************************************************/
 #ifndef _SYSTEM_GLOBALIZATION_CULTUREINFO_
 #define _SYSTEM_GLOBALIZATION_CULTUREINFO_
 
@@ -16,7 +21,7 @@ namespace System
 		class CultureInfo : public IFormatProvider, public Object
 		{
 		public:
-			static const CultureInfo InvariantCulture;
+			static CultureInfo * const InvariantCulture;
 
 			CultureInfo(int culture);
 			CultureInfo(int culture, bool useUserOverride);

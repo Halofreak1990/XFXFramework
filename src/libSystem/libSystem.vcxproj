@@ -73,6 +73,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="DnsEndPoint.cpp" />
+    <ClCompile Include="EndPoint.cpp" />
+    <ClCompile Include="IPAddress.cpp" />
+    <ClCompile Include="IPEndPoint.cpp" />
+    <ClCompile Include="NetworkChange.cpp" />
+    <ClCompile Include="NetworkInterface.cpp" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketAsyncEventArgs.cpp" />
@@ -82,7 +88,13 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\System\ComponentModel\CancelEventArgs.h" />
     <ClInclude Include="..\..\include\System\Diagnostics\Debug.h" />
+    <ClInclude Include="..\..\include\System\Net\DnsEndPoint.h" />
     <ClInclude Include="..\..\include\System\Net\EndPoint.h" />
+    <ClInclude Include="..\..\include\System\Net\Enums.h" />
+    <ClInclude Include="..\..\include\System\Net\IPAddress.h" />
+    <ClInclude Include="..\..\include\System\Net\IPEndPoint.h" />
+    <ClInclude Include="..\..\include\System\Net\NetworkInformation\NetworkChange.h" />
+    <ClInclude Include="..\..\include\System\Net\NetworkInformation\NetworkInterface.h" />
     <ClInclude Include="..\..\include\System\Net\SocketAddress.h" />
     <ClInclude Include="..\..\include\System\Net\Sockets\Enums.h" />
     <ClInclude Include="..\..\include\System\Net\Sockets\Socket.h" />

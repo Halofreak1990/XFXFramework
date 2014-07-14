@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	SocketAsyncEventArgs.h  												 *
  *																			 *
- *	System::Net::Sockets::SocketAsyncEventArgs definition file. 			 *
+ *	System::Net::Sockets::SocketAsyncEventArgs class definition file.		 *
  *	Copyright (c) XFX Team. All rights reserved.							 *
  *****************************************************************************/
 #ifndef _SYSTEM_NET_SOCKETS_SOCKETASYNCEVENTARGS_
@@ -20,18 +20,21 @@ namespace System
 	{
 		namespace Sockets
 		{
-			class SocketAsyncEventArgs : public EventArgs
+			class SocketAsyncEventArgs : public EventArgs, public IDisposable
 			{
+			private:
+				friend class Socket;
+
 			protected:
 				virtual void Oncompleted(SocketAsyncEventArgs* e);
 				virtual ~SocketAsyncEventArgs();
 
 			public:
-				byte* getBuffer();
+				byte * getBuffer() const;
 				int getBytesTransferred() const;
 				//Exception* getConnectByNameError() const;
-				Socket getConnectSocket() const;
-				int Count();
+				Socket * getConnectSocket() const;
+				int Count() const;
 				SocketAsyncOperation_t getLastOperation() const;
 				int getOffset() const;
 				EndPoint* RemoteEndPoint;

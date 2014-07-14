@@ -25,70 +25,27 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Net/Sockets/SocketAsyncEventArgs.h>
-#include <System/Type.h>
+#include <System/Net/NetworkInformation/NetworkInterface.h>
 
 namespace System
 {
 	namespace Net
 	{
-		namespace Sockets
+		namespace NetworkInformation
 		{
-			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "SYstem::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
-
-			byte * SocketAsyncEventArgs::getBuffer() const
+			NetworkInterface::NetworkInterface()
 			{
 				// TODO: implement
 			}
 
-			int SocketAsyncEventArgs::getBytesTransferred() const
+			NetworkInterface::~NetworkInterface()
 			{
 				// TODO: implement
 			}
 
-			Socket * SocketAsyncEventArgs::getConnectSocket() const
+			bool NetworkInterface::GetIsNetworkAvailable()
 			{
 				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::Count() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncOperation_t SocketAsyncEventArgs::getLastOperation() const
-			{
-				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::getOffset() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			void SocketAsyncEventArgs::Dispose()
-			{
-				// TODO: implement
-			}
-
-			const Type& SocketAsyncEventArgs::GetType()
-			{
-				return SocketAsyncEventArgsTypeInfo;
-			}
-			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
-			{
-				Completed(this, e);
 			}
 		}
 	}

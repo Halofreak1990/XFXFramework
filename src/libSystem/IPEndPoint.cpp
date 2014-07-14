@@ -25,71 +25,45 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Net/Sockets/SocketAsyncEventArgs.h>
-#include <System/Type.h>
+#include <System/Net/IPEndPoint.h>
+
+#include <sassert.h>
 
 namespace System
 {
 	namespace Net
 	{
-		namespace Sockets
+		IPAddress IPEndPoint::getAddress() const
 		{
-			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "SYstem::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
+			return address;
+		}
 
-			byte * SocketAsyncEventArgs::getBuffer() const
-			{
-				// TODO: implement
-			}
+		AddressFamily_t IPEndPoint::getAddressFamily() const
+		{
+			// TODO: verify
+			return address.getAddressFamily();
+		}
 
-			int SocketAsyncEventArgs::getBytesTransferred() const
-			{
-				// TODO: implement
-			}
+		int IPEndPoint::getPort() const
+		{
+			return port;
+		}
 
-			Socket * SocketAsyncEventArgs::getConnectSocket() const
-			{
-				// TODO: implement
-			}
+		void IPEndPoint::setPort(const int value)
+		{
+			// TODO: error messages
+			sassert(value >= MinPort, "");
+			sassert(value <= MaxPort, "");
 
-			int SocketAsyncEventArgs::Count() const
-			{
-				// TODO: implement
-			}
+			port = value;
+		}
 
-			SocketAsyncOperation_t SocketAsyncEventArgs::getLastOperation() const
-			{
-				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::getOffset() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			void SocketAsyncEventArgs::Dispose()
-			{
-				// TODO: implement
-			}
-
-			const Type& SocketAsyncEventArgs::GetType()
-			{
-				return SocketAsyncEventArgsTypeInfo;
-			}
-			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
-			{
-				Completed(this, e);
-			}
+		IPEndPoint::IPEndPoint(const long long address, const int port)
+			: address(address), port(port)
+		{
+			// TODO: error messages
+			sassert(port >= MinPort, "");
+			sassert(port <= MaxPort, "");
 		}
 	}
 }

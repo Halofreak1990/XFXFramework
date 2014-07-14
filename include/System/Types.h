@@ -33,8 +33,7 @@ namespace System
 //
 #define interface class
 
-// Documentation
-//
+// Hints that the following parameter is an output
 #define out
 
 #if _MSC_VER

@@ -7,9 +7,9 @@
 #ifndef _SYSTEM_NET_SOCKETADDRESS_
 #define _SYSTEM_NET_SOCKETADDRESS_
 
-#include "../Object.h"
-#include "../Types.h"
-#include "Sockets/Enums.h"
+#include <System/Object.h>
+#include <System/Types.h>
+#include <System/Net/Sockets/Enums.h>
 
 using namespace System::Net::Sockets;
 
@@ -34,7 +34,9 @@ namespace System
 			SocketAddress(AddressFamily_t family);
 			SocketAddress(AddressFamily_t family, int size);
 
-			const Type& GetType();
+			bool Equals(Object const * const obj) const;
+			int GetHashCode() const;
+			static const Type& GetType();
 			const String ToString();
 		};
 	}

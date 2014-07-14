@@ -25,71 +25,39 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Net/Sockets/SocketAsyncEventArgs.h>
-#include <System/Type.h>
+#include <System/Net/IPAddress.h>
 
 namespace System
 {
 	namespace Net
 	{
-		namespace Sockets
+		const IPAddress IPAddress::Loopback(0x7F000001);
+
+		int IPAddress::HostToNetworkOrder(int host)
 		{
-			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "SYstem::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
+#if ENABLE_XBOX
+			return (((host & 0xFF) << 24) | ((host >> 8) & 0xFF) << 16 | ((host >> 16) & 0xFF) << 8 | (host >> 24) & 0xFF);
+#else
+#endif
+		}
 
-			byte * SocketAsyncEventArgs::getBuffer() const
-			{
-				// TODO: implement
-			}
+		long long IPAddress::HostToNetworkOrder(long long host)
+		{
+#if ENABLE_XBOX
+			return (((host & 0xFF) << 56) | ((host >> 8) & 0xFF) << 48 |
+					((host >> 16) & 0xFF) << 40 | ((host >> 24) & 0xFF) << 32 |
+					((host >> 32) & 0xFF) << 24 | ((host >> 40) & 0xFF) << 16 |
+					((host >> 48) & 0xFF) << 8 | (host >> 56) & 0xFF);
+#else
+#endif
+		}
 
-			int SocketAsyncEventArgs::getBytesTransferred() const
-			{
-				// TODO: implement
-			}
-
-			Socket * SocketAsyncEventArgs::getConnectSocket() const
-			{
-				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::Count() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncOperation_t SocketAsyncEventArgs::getLastOperation() const
-			{
-				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::getOffset() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			void SocketAsyncEventArgs::Dispose()
-			{
-				// TODO: implement
-			}
-
-			const Type& SocketAsyncEventArgs::GetType()
-			{
-				return SocketAsyncEventArgsTypeInfo;
-			}
-			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
-			{
-				Completed(this, e);
-			}
+		short IPAddress::HostToNetworkOrder(short host)
+		{
+#if ENABLE_XBOX
+			return (((host & 0xFF) << 8) | ((host >> 8) & 0xFF));
+#else
+#endif
 		}
 	}
 }

@@ -39,7 +39,11 @@ namespace System
 	public:
 		const int Length;
 
-		Array(const int size) : _array(new T[size]), _version(0), Length(size) { }
+		Array(const int size) : _array(new T[size]), _version(0), Length(size)
+		{
+			memset(_array, 0, sizeof(T) * size);
+		}
+
 		Array(const Array<T> &obj)
 			: _array(new T[obj.Length]), _version(obj._version), Length(obj.Length)
 		{
@@ -173,7 +177,11 @@ namespace System
 	public:
 		const int Length;
 
-		Array(const int size) : _array(new T*[size]), _version(0), Length(size) { }
+		Array(const int size) : _array(new T*[size]), _version(0), Length(size)
+		{
+			memset(_array, 0, sizeof(T *) * size);
+		}
+
 		Array(const Array<T *> &obj)
 			: _array(new T*[obj.Length]), _version(obj._version), Length(obj.Length)
 		{
@@ -261,7 +269,7 @@ namespace System
 			ArrayEnumerator(Array<T> * const parent) : _array(parent), _position(0), _version(parent->_version) { }
 			~ArrayEnumerator() { }
 
-			T& Current() const
+			T* Current() const
 			{
 				sassert(_version == _array->_version, "");
 

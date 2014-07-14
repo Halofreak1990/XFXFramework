@@ -25,71 +25,44 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-#include <System/Net/Sockets/SocketAsyncEventArgs.h>
-#include <System/Type.h>
+#include <System/Net/EndPoint.h>
+#include <System/Net/SocketAddress.h>
 
 namespace System
 {
 	namespace Net
 	{
-		namespace Sockets
+		const Type EndPointTypeInfo("EndPoint", "System::Net::EndPoint", TypeCode::Object);
+
+		EndPoint::EndPoint()
 		{
-			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "SYstem::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
+		}
 
-			byte * SocketAsyncEventArgs::getBuffer() const
-			{
-				// TODO: implement
-			}
+		EndPoint::~EndPoint()
+		{
+		}
 
-			int SocketAsyncEventArgs::getBytesTransferred() const
-			{
-				// TODO: implement
-			}
+		AddressFamily_t EndPoint::getAddressFamily() const
+		{
+			// TODO: implement
+			return AddressFamily::Unspecified;
+		}
 
-			Socket * SocketAsyncEventArgs::getConnectSocket() const
-			{
-				// TODO: implement
-			}
+		EndPoint* EndPoint::Create(SocketAddress * const socketAddress)
+		{
+			// TODO: implement
+			return NULL;
+		}
 
-			int SocketAsyncEventArgs::Count() const
-			{
-				// TODO: implement
-			}
+		const Type& EndPoint::GetType()
+		{
+			return EndPointTypeInfo;
+		}
 
-			SocketAsyncOperation_t SocketAsyncEventArgs::getLastOperation() const
-			{
-				// TODO: implement
-			}
-
-			int SocketAsyncEventArgs::getOffset() const
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
-			{
-				// TODO: implement
-			}
-
-			void SocketAsyncEventArgs::Dispose()
-			{
-				// TODO: implement
-			}
-
-			const Type& SocketAsyncEventArgs::GetType()
-			{
-				return SocketAsyncEventArgsTypeInfo;
-			}
-			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
-			{
-				Completed(this, e);
-			}
+		SocketAddress* EndPoint::Serialize()
+		{
+			// TODO: implement
+			return NULL;
 		}
 	}
 }

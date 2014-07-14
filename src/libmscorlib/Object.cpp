@@ -54,20 +54,12 @@ namespace System
 		return ObjectTypeInfo;
 	}
 
-	bool Object::ReferenceEquals(const Object& objA, const Object& objB)
-	{
-		return (&objA == &objB);
-	}
-
-	const String Object::ToString() const
-	{
-		return "Object";
-	}
-
 	bool is(Object const * const obj1, Object const * const obj2)
 	{
 		if ((obj1 == NULL) && (obj2 == NULL))
+		{
 			return true;
+		}
 
 		if ((obj1 != NULL) && (obj2 != NULL))
 		{
@@ -77,12 +69,13 @@ namespace System
 		return false;
 	}
 
-	template <typename T, typename U>
-	U * as(T * const source)
+	bool Object::ReferenceEquals(const Object& objA, const Object& objB)
 	{
-		int typeCode = T::GetType(); // make sure source is an Object
-		int destTypeCode = U::GetType(); // same here, but now for U
+		return (&objA == &objB);
+	}
 
-		return (typeCode == destTypeCode) ? (U *)source : NULL;
+	const String Object::ToString() const
+	{
+		return "Object";
 	}
 }
