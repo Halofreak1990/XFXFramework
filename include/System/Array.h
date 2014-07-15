@@ -20,10 +20,10 @@ using namespace System::Collections::Generic;
 namespace System
 {
 	/**
-	 * 
+	 * Represents a single-dimension array.
 	 */
 	template <typename T>
-	class Array : public ICollection<T>, public IEnumerable<T>
+	class Array : public IEnumerable<T>
 	{
 	private:
 		T* _array;
@@ -39,7 +39,8 @@ namespace System
 	public:
 		const int Length;
 
-		Array(const int size) : _array(new T[size]), _version(0), Length(size)
+		Array(const int size)
+			: _array(new T[size]), _version(0), Length(size)
 		{
 			memset(_array, 0, sizeof(T) * size);
 		}
@@ -72,13 +73,10 @@ namespace System
 		{
 			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
-			for(int i = 0, j = index; i < Length; i++)
-			{
-				array[j] = _array[i];
-			}
+			memcpy(&array[index], &_array[0], sizeof(T) * Length);
 		}
 
-		inline IEnumerator<T>* GetEnumerator() const
+		inline IEnumerator<T>* GetEnumerator()
 		{
 			return new ArrayEnumerator(this);
 		}
@@ -118,8 +116,17 @@ namespace System
 			_version++;
 		}
 
+		inline const T& operator[](const int index) const
+		{
+			sassert(index > 0 && index < Length, "");
+
+			return _array[index];
+		}
+
 		inline T& operator[](const int index)
 		{
+			sassert(index > 0 && index < Length, "");
+
 			return _array[index];
 		}
 
@@ -177,7 +184,8 @@ namespace System
 	public:
 		const int Length;
 
-		Array(const int size) : _array(new T*[size]), _version(0), Length(size)
+		Array(const int size)
+			: _array(new T*[size]), _version(0), Length(size)
 		{
 			memset(_array, 0, sizeof(T *) * size);
 		}
@@ -185,10 +193,7 @@ namespace System
 		Array(const Array<T *> &obj)
 			: _array(new T*[obj.Length]), _version(obj._version), Length(obj.Length)
 		{
-			for (int i = 0; i < Length; i++)
-			{
-				_array[i] = obj._array[i];
-			}
+			memcpy(_array, obj._array, sizeof(T *) * Length);
 		}
 
 		~Array() { delete _array; }
@@ -207,10 +212,7 @@ namespace System
 		{
 			sassert(array != null, String::Format("array; %s", FrameworkResources::ArgumentNull_Generic));
 
-			for(int i = 0, j = index; i < Length; i++)
-			{
-				array[j] = _array[i];
-			}
+			memcpy(array[index], _array[0], sizeof(T *) * Length);
 		}
 
 		inline IEnumerator<T *>* GetEnumerator() const
@@ -242,6 +244,7 @@ namespace System
 
 			int num = startIndex;
 			int num2 = (startIndex + count) - 1;
+
 			while (num < num2)
 			{
 				swap(_array[num], _array[num2]);
@@ -252,8 +255,17 @@ namespace System
 			_version++;
 		}
 
-		inline T* operator[](const int index)
+		inline const T*& operator[](const int index) const
 		{
+			sassert(index > 0 && index < Length, "");
+
+			return _array[index];
+		}
+
+		inline T*& operator[](const int index)
+		{
+			sassert(index > 0 && index < Length, "");
+
 			return _array[index];
 		}
 

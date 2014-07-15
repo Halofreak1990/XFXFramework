@@ -25,9 +25,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/Int32.h>
 #include <System/Net/SocketAddress.h>
 #include <System/String.h>
 #include <System/Type.h>
+
+#include <sassert.h>
 
 namespace System
 {
@@ -37,24 +40,60 @@ namespace System
 
 		AddressFamily_t SocketAddress::getFamily()
 		{
-			return addressFamily;
+			return (AddressFamily_t)(data[0] + (data[1] << 8));
 		}
 
 		int SocketAddress::getSize()
 		{
-			return bufferSize;
+			return data.Length;
 		}
 
 		SocketAddress::SocketAddress(AddressFamily_t family)
-			: addressFamily(family)
+			: data(32)
 		{
-			// TODO: implement remainder
+			data[0] = (byte)family;
+			data[1] = (byte)((int)family >> 8);
 		}
 
 		SocketAddress::SocketAddress(AddressFamily_t family, int size)
-			: addressFamily(family), bufferSize(size)
+			: data(size)
 		{
-			// TODO: implement remainder
+			sassert(size >= 2, "size is too small");
+
+			data[0] = (byte)family;
+			data[1] = (byte)((int)family >> 8);
+		}
+
+		bool SocketAddress::Equals(Object const * const obj) const
+		{
+			SocketAddress* sa = as<SocketAddress *>(obj);
+
+			if (sa != NULL && sa->data.Length == data.Length)
+			{
+				for (int i = 0; i < data.Length; i++)
+				{
+					if (data[i] != sa->data[i])
+					{
+						return false;
+					}
+				}
+
+				return true;
+			}
+
+			return false;
+		}
+
+		int SocketAddress::GetHashCode() const
+		{
+			int code = 0;
+
+			for (int i = 0; i < data.Length; i++)
+			{
+				code += data[i] + i;
+			}
+
+			return code;
 		}
 
 		const Type& SocketAddress::GetType()
@@ -64,12 +103,51 @@ namespace System
 
 		const String SocketAddress::ToString()
 		{
-			// TODO: implement
+			String af;
+
+			switch ((AddressFamily_t)data[0])
+			{
+			case AddressFamily::InterNetwork:
+				af = "InterNetwork";
+				break;
+			case AddressFamily::InterNetworkV6:
+				af = "InterNetworkV6";
+				break;
+			case AddressFamily::Unknown:
+				af = "Unknown";
+				break;
+			case AddressFamily::Unspecified:
+				af = "Unspecified";
+				break;
+			}
+
+			int size = data.Length;
+			String ret = af + ":" + Int32::ToString(size) + ":{";
+
+			for (int i = 2; i < size; i++)
+			{
+				int val = (int)data[i];
+				ret = ret + val;
+
+				if (i < size - 1)
+				{
+					ret = ret + ",";
+				}
+			}
+
+			ret = ret + "}";
+
+			return(ret);
 		}
 
-		byte SocketAddress::operator[](int offset)
+		const byte& SocketAddress::operator[](const int index) const
 		{
-			// TODO: implement
+			return data[index];
+		}
+
+		byte& SocketAddress::operator[](const int index)
+		{
+			return data[index];
 		}
 	}
 }

@@ -36,7 +36,7 @@ namespace System
 			IPEndPoint(const long long address, const int port);
 			IPEndPoint(IPAddress * const address, const int port);
 
-			EndPoint * Create(SocketAddress socketAddress);
+			EndPoint * Create(SocketAddress * const socketAddress);
 			bool Equals(Object const * const obj) const;
 			int GetHashCode() const;
 			SocketAddress * Serialize();

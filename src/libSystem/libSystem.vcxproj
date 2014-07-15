@@ -73,12 +73,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="detect_ping.c" />
     <ClCompile Include="DnsEndPoint.cpp" />
     <ClCompile Include="EndPoint.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="NetworkChange.cpp" />
     <ClCompile Include="NetworkInterface.cpp" />
+    <ClCompile Include="pktdrv.c" />
     <ClCompile Include="SocketAddress.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="SocketAsyncEventArgs.cpp" />
@@ -99,6 +101,7 @@
     <ClInclude Include="..\..\include\System\Net\Sockets\Enums.h" />
     <ClInclude Include="..\..\include\System\Net\Sockets\Socket.h" />
     <ClInclude Include="..\..\include\System\Net\Sockets\SocketAsyncEventArgs.h" />
+    <ClInclude Include="pktdrv.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="makefile" />

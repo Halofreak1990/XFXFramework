@@ -7,6 +7,7 @@
 #ifndef _SYSTEM_NET_SOCKETADDRESS_
 #define _SYSTEM_NET_SOCKETADDRESS_
 
+#include <System/Array.h>
 #include <System/Object.h>
 #include <System/Types.h>
 #include <System/Net/Sockets/Enums.h>
@@ -23,13 +24,11 @@ namespace System
 		class SocketAddress : public Object
 		{
 		private:
-			AddressFamily_t addressFamily;
-			int bufferSize;
+			Array<byte> data;
 
 		public:
 			AddressFamily_t getFamily();
 			int getSize();
-			byte operator[](int offset);
 
 			SocketAddress(AddressFamily_t family);
 			SocketAddress(AddressFamily_t family, int size);
@@ -38,6 +37,9 @@ namespace System
 			int GetHashCode() const;
 			static const Type& GetType();
 			const String ToString();
+
+			const byte& operator[](const int index) const;
+			      byte& operator[](const int index);
 		};
 	}
 }
