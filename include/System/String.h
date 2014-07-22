@@ -91,7 +91,7 @@ namespace System
 		String operator+=(const String& right);
 		String operator+=(const char* right);
 		String operator+(const String& right) const;
-		const char operator [](const int index) const;
+		const char& operator[](const int index) const;
 	};
 
 	inline const String operator +(const char * left, const String& right)

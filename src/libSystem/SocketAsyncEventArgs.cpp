@@ -25,8 +25,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
+#include <System/Threading/Interlocked.h>
 #include <System/Net/Sockets/SocketAsyncEventArgs.h>
 #include <System/Type.h>
+
+#include <sassert.h>
+
+using namespace System::Threading;
 
 namespace System
 {
@@ -34,7 +39,7 @@ namespace System
 	{
 		namespace Sockets
 		{
-			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "SYstem::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
+			const Type SocketAsyncEventArgsTypeInfo("SocketAsyncEventArgs", "System::Net::Sockets::SocketAsyncEventArgs", TypeCode::Object);
 
 			byte * SocketAsyncEventArgs::getBuffer() const
 			{
@@ -48,36 +53,50 @@ namespace System
 
 			Socket * SocketAsyncEventArgs::getConnectSocket() const
 			{
-				// TODO: implement
+				switch (this->SocketError)
+				{
+				case SocketError::AccessDenied:
+					return null;
+				default:
+					return curSocket;
+				}
 			}
 
 			int SocketAsyncEventArgs::Count() const
 			{
-				// TODO: implement
+				return count;
 			}
 
 			SocketAsyncOperation_t SocketAsyncEventArgs::getLastOperation() const
 			{
-				// TODO: implement
+				return lastOperation;
 			}
 
 			int SocketAsyncEventArgs::getOffset() const
 			{
-				// TODO: implement
+				return offset;
 			}
 
 			SocketAsyncEventArgs::SocketAsyncEventArgs()
 			{
+				lastOperation = SocketAsyncOperation::None;
+				this->SocketError = SocketError::Success;
+
 				// TODO: implement
 			}
 
-			SocketAsyncEventArgs::SocketAsyncEventArgs()
+			SocketAsyncEventArgs::~SocketAsyncEventArgs()
 			{
-				// TODO: implement
+				if (!isDisposed)
+				{
+					// TODO: implement
+				}
 			}
 
 			void SocketAsyncEventArgs::Dispose()
 			{
+				isDisposed = true;
+
 				// TODO: implement
 			}
 
@@ -86,9 +105,54 @@ namespace System
 				return SocketAsyncEventArgsTypeInfo;
 			}
 			
-			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs* e)
+			void SocketAsyncEventArgs::Oncompleted(SocketAsyncEventArgs * e)
 			{
+				if (e == null)
+				{
+					return;
+				}
+
 				Completed(this, e);
+			}
+
+			void SocketAsyncEventArgs::SetBuffer(const int offset, const int count)
+			{
+				SetBufferInternal(getBuffer(), offset, count);
+			}
+
+			void SocketAsyncEventArgs::SetBuffer(byte buffer[], const int offset, const int count)
+			{
+				SetBufferInternal(buffer, offset, count);
+			}
+
+			void SocketAsyncEventArgs::SetBufferInternal(byte buffer[], int offset, int count)
+			{
+				if (buffer != null)
+				{
+					sassert(getBufferList() != null, "Buffer and BufferList properties cannot both be non-null.");
+
+					int buflen = buffer.Length;
+
+					sassert(offset >= 0 && offset < buflen, "");
+					//throw new ArgumentOutOfRangeException("offset");
+
+					sassert(count >= 0 && count <= buflen - offset, "");
+					//throw new ArgumentOutOfRangeException("count");
+
+					this->count = count;
+					this->offset = offset;
+				}
+
+				Buffer = buffer;
+			}
+
+			void SocketAsyncEventArgs::SetLastOperation(SocketAsyncOperation_t op)
+			{
+				sassert(!isDisposed, "");
+
+				sassert(Interlocked::Exchange(&inProgress, 1) == 0, "");
+
+				lastOperation = op;
 			}
 		}
 	}

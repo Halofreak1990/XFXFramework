@@ -23,7 +23,16 @@ namespace System
 			class SocketAsyncEventArgs : public EventArgs, public IDisposable
 			{
 			private:
+				int count;
+				Socket* curSocket;
+				int inProgress;
+				bool isDisposed;
+				SocketAsyncOperation_t lastOperation;
+				int offset;
 				friend class Socket;
+
+				void SetBufferInternal(byte buffer[], int offset, int count);
+				void SetLastOperation(SocketAsyncOperation_t op);
 
 			protected:
 				virtual void Oncompleted(SocketAsyncEventArgs* e);
@@ -44,6 +53,7 @@ namespace System
 				EventHandler Completed;
 
 				SocketAsyncEventArgs();
+				~SocketAsyncEventArgs();
 
 				void Dispose();
 				static const Type& GetType();

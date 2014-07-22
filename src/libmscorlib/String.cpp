@@ -532,7 +532,7 @@ namespace System
 		return result;
 	}
 	
-	const char String::operator [](const int index) const
+	const char& String::operator [](const int index) const
 	{
 		sassert(index > 0 && index < Length, "index out of range.");
 

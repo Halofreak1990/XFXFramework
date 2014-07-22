@@ -29,13 +29,13 @@ namespace System
 			{
 			private:
 				AddressFamily_t addressFamily;
+				/* true if we called Close_internal */
+				bool closed;
 				HANDLE handle;
 				bool isConnected;
 				ProtocolType_t protocolType;
 
 			protected:
-				virtual ~Socket();
-
 				void Dispose(bool disposing);
 
 			public:
@@ -43,6 +43,7 @@ namespace System
 				int Available() const;
 				bool Connected() const;
 				HANDLE getHandle() const;
+				static bool OSSupportsIPv4();
 				ProtocolType_t getProtocolType() const;
 				int ReceiveBufferSize;
 				EndPoint* getRemoteEndPoint() const;
@@ -50,20 +51,21 @@ namespace System
 				short Ttl;
 
 				Socket(AddressFamily_t addressFamily, SocketType_t socketType, ProtocolType_t protocolType);
+				virtual ~Socket();
 
-				static void CancelConnectAsync(SocketAsyncEventArgs e);
+				static void CancelConnectAsync(SocketAsyncEventArgs * const e);
 				void Close();
 				void Close(int timeOut);
 				static bool ConnectAsync(SocketType_t socketType, ProtocolType_t protocolType, SocketAsyncEventArgs e);
-				bool ConnectAsync(SocketAsyncEventArgs e);
+				bool ConnectAsync(SocketAsyncEventArgs * const e);
 				void Dispose();
 				void EndConnect(IAsyncResult * asyncResult);
 				void EndDisconnect(IAsyncResult * asyncResult);
 				static const Type& GetType();
-				bool ReceiveAsync(SocketAsyncEventArgs e);
-				bool ReceiveFromAsync(SocketAsyncEventArgs e);
-				bool SendAsync(SocketAsyncEventArgs e);
-				bool SendToAsync(SocketAsyncEventArgs e);
+				bool ReceiveAsync(SocketAsyncEventArgs * const e);
+				bool ReceiveFromAsync(SocketAsyncEventArgs * const e);
+				bool SendAsync(SocketAsyncEventArgs * const e);
+				bool SendToAsync(SocketAsyncEventArgs * const e);
 				void Shutdown(SocketShutdown_t how);
 			};
 		}

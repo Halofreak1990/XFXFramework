@@ -17,7 +17,7 @@ namespace System
 			//		The value to be added to the integer at location1.
 			//	Returns
 			//		The new value stored at location1.
-			static inline int Add(volatile long* const location1, const long value)
+			static inline int Add(volatile int* const location1, const int value)
 			{
 				long retval = value;
 				__asm__("lock; xaddl %[retval], %[location1]" : [retval] "+r" (retval) : [location1] "m" (*location1) : "memory");
@@ -49,9 +49,9 @@ namespace System
 			//		The value that is compared to the value at location1. 
 			//	Returns
 			//		The original value in location1.
-			static inline Int64 CompareExchange(volatile Int64* const Int64 location1, const Int64 value, const Int64 comparand)
+			static inline long long CompareExchange(volatile long long* const location1, const long long value, const long long comparand)
 			{
-				Int64 retval = comparand;
+				long long retval = comparand;
 
 				__asm__
 				(
@@ -87,21 +87,21 @@ namespace System
 			//		The variable whose value is to be decremented.
 			//	Returns
 			//		The decremented value.
-			static inline long Decrement(volatile long * const location)
+			static inline long Decrement(volatile int * const location)
 			{
 				return Add(location, -1) - 1;
 			}
 
 			// Sets a 32-bit signed integer to a specified value and returns the original value, as an atomic operation.
 			//	location1
-			//		The variable to set to the specified value. 
+			//		The variable to set to the specified value.
 			//	value
-			//		The value to which the location1 parameter is set. 
+			//		The value to which the location1 parameter is set.
 			//	Returns
 			//		The original value of location1.
-			static inline long Exchange(volatile long* const location1, const long value)
+			static inline int Exchange(volatile int * const location1, const int value)
 			{
-				long retval = value;
+				int retval = value;
 				__asm__("xchgl %[retval], %[location1]" : [retval] "+r" (retval) : [location1] "m" (*location1) : "memory");
 				return retval;
 			}
@@ -125,7 +125,7 @@ namespace System
 			//		The variable whose value is to be incremented.
 			//	Returns
 			//		The incremented value.
-			static inline long Increment(volatile long * const location)
+			static inline int Increment(volatile int * const location)
 			{
 				return Add(location, 1) + 1;
 			}

@@ -57,7 +57,7 @@ namespace System
 
 			bool Socket::Connected() const
 			{
-				// TODO: implement
+				return isConnected;
 			}
 
 			HANDLE Socket::getHandle() const
@@ -67,11 +67,16 @@ namespace System
 
 			ProtocolType_t Socket::getProtocolType() const
 			{
-				// TODO: implement
+				return protocolType;
+			}
+
+			EndPoint* Socket::getRemoteEndPoint() const
+			{
+
 			}
 
 			Socket::Socket(AddressFamily_t addressFamily, SocketType_t socketType, ProtocolType_t protocolType)
-				: addressFamily(addressFamily)
+				: addressFamily(addressFamily), protocolType(protocolType)
 			{
 				// TODO: implement remainder
 			}
@@ -91,9 +96,17 @@ namespace System
 				// TODO: implement
 			}
 
-			bool Socket::ConnectAsync(SocketAsyncEventArgs e)
+			bool Socket::ConnectAsync(SocketAsyncEventArgs * const e)
 			{
-				// TODO: implement
+				// NO check is made whether e != null in MS.NET (NRE is thrown in such case)
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException(GetType().ToString());
+				}
+
+				sassert(e->RemoteEndPoint != null, String::Format("remoteEP: %s", FrameworkResources::ArgumentNull_Generic));
+
+				return ConnectAsyncReal(e);
 			}
 
 			void Socket::Dispose()
@@ -103,12 +116,55 @@ namespace System
 
 			void Socket::EndConnect(IAsyncResult* asyncResult)
 			{
-				// TODO: implement
+				sassert(!disposed || !closed, "");
+
+				sassert(asyncResult != null, String::Format("asyncResult: %s", FrameworkResources::ArgumentNull_Generic));
+
+				SocketAsyncResult * req = as<SocketAsyncResult *>(asyncResult);
+
+				sassert(req != null, "Invalid IAsyncResult");
+
+				if (Interlocked::CompareExchange(&req.EndCalled, 1, 0) == 1)
+				{
+					throw InvalidAsyncOp("EndConnect");
+				}
+
+				if (!asyncResult->IsCompleted())
+				{
+					asyncResult->AsyncWaitHandle.WaitOne();
+				}
+
+				req.CheckIfThrowDelayedException();
 			}
 
 			void Socket::EndDisconnect(IAsyncResult* asyncResult)
 			{
-				// TODO: implement
+				if (disposed && closed)
+				{
+				throw new ObjectDisposedException(GetType ().ToString ());
+				}
+
+				if (asyncResult == null)
+				{
+					throw new ArgumentNullException("asyncResult");
+				}
+
+				SocketAsyncResult * req = as<SocketAsyncResult *>(asyncResult);
+
+				if (req == null)
+					throw new ArgumentException ("Invalid IAsyncResult", "asyncResult");
+
+				if (Interlocked::CompareExchange(&req.EndCalled, 1, 0) == 1)
+				{
+					throw InvalidAsyncOp("EndDisconnect");
+				}
+
+				if (!asyncResult->IsCompleted())
+				{
+					asyncResult->AsyncWaitHandle.WaitOne();
+				}
+
+				req->CheckIfThrowDelayedException();
 			}
 
 			const Type& Socket::GetType()
@@ -116,29 +172,208 @@ namespace System
 				return SocketTypeInfo;
 			}
 
-			bool Socket::ReceiveAsync(SocketAsyncEventArgs e)
+			bool Socket::ReceiveAsync(SocketAsyncEventArgs * const e)
 			{
-				// TODO: implement
+				// NO check is made whether e != null in MS.NET (NRE is thrown in such case)
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException(GetType ().ToString ());
+				}
+
+				// LAME SPEC: the ArgumentException is never thrown, instead an NRE is
+				// thrown when e.Buffer and e.BufferList are null (works fine when one is
+				// set to a valid object)
+				if (e->getBuffer() == null && e->BufferList == null)
+				{
+					throw new NullReferenceException ("Either e.Buffer or e.BufferList must be valid buffers.");
+				}
+
+				e->curSocket = this;
+				SocketOperation op = (e->getBuffer() != null) ? SocketOperation::Receive : SocketOperation::ReceiveGeneric;
+				e->Worker.Init (this, e, op);
+				SocketAsyncResult res = e->Worker.result;
+
+				if (e->getBuffer() != null)
+				{
+					res.Buffer = e->getBuffer();
+					res.Offset = e->getOffset();
+					res.Size = e->Count();
+				}
+				else
+				{
+					res.Buffers = e->BufferList;
+				}
+
+				res.SockFlags = e->SocketFlags;
+				int count;
+
+				lock (readQ)
+				{
+					readQ.Enqueue(e->Worker);
+					count = readQ.Count;
+				}
+
+				if (count == 1)
+				{
+					// Receive takes care of ReceiveGeneric
+					socket_pool_queue(Worker.Dispatcher, res);
+				}
+
+				return true;
 			}
 
-			bool Socket::ReceiveFromAsync(SocketAsyncEventArgs e)
+			bool Socket::ReceiveFromAsync(SocketAsyncEventArgs * const e)
 			{
-				// TODO: implement
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException(GetType ().ToString ());
+				}
+				
+				// We do not support recv into multiple buffers yet
+				if (e->getBufferList() != null)
+				{
+					throw new NotSupportedException("Mono doesn't support using BufferList at this point.");
+				}
+
+				if (e->RemoteEndPoint == null)
+				{
+					throw new ArgumentNullException("remoteEP", "Value cannot be null.");
+				}
+				
+				e->curSocket = this;
+				e->Worker.Init(this, e, SocketOperation::ReceiveFrom);
+				SocketAsyncResult res = e->Worker.result;
+				res.Buffer = e->getBuffer();
+				res.Offset = e->getOffset();
+				res.Size = e->Count();
+				res.EndPoint = e->RemoteEndPoint;
+				res.SockFlags = e->SocketFlags;
+				int count;
+
+				lock (readQ)
+				{
+					readQ.Enqueue(e.Worker);
+					count = readQ.Count;
+				}
+
+				if (count == 1)
+				{
+					socket_pool_queue (Worker.Dispatcher, res);
+				}
+
+				return true;
 			}
 
-			bool Socket::SendAsync(SocketAsyncEventArgs e)
+			bool Socket::SendAsync(SocketAsyncEventArgs * const e)
 			{
-				// TODO: implement
+				// NO check is made whether e != null in MS.NET (NRE is thrown in such case)
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException (GetType ().ToString ());
+				}
+
+				if (e->getBuffer() == null && e->BufferList == null)
+				{
+					throw new NullReferenceException("Either e.Buffer or e.BufferList must be valid buffers.");
+				}
+
+				e->curSocket = this;
+				SocketOperation op = (e->getBuffer() != null) ? SocketOperation::Send : SocketOperation::SendGeneric;
+				e->Worker.Init(this, e, op);
+				SocketAsyncResult res = e->Worker.result;
+
+				if (e->getBuffer() != null)
+				{
+					res.Buffer = e->getBuffer();
+					res.Offset = e->getOffset();
+					res.Size = e->Count();
+				}
+				else
+				{
+					res.Buffers = e->BufferList;
+				}
+
+				res.SockFlags = e->SocketFlags;
+				int count;
+
+				lock (writeQ)
+				{
+					writeQ.Enqueue(e.Worker);
+					count = writeQ.Count;
+				}
+
+				if (count == 1)
+				{
+					// Send takes care of SendGeneric
+					socket_pool_queue(Worker.Dispatcher, res);
+				}
+
+				return true;
 			}
 
-			bool Socket::SendToAsync(SocketAsyncEventArgs e)
+			bool Socket::SendToAsync(SocketAsyncEventArgs * const e)
 			{
-				// TODO: implement
+				// NO check is made whether e != null in MS.NET (NRE is thrown in such case)
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException (GetType().ToString());
+				}
+
+				if (e->BufferList != null)
+				{
+					throw new NotSupportedException ("Mono doesn't support using BufferList at this point.");
+				}
+
+				if (e->RemoteEndPoint == null)
+				{
+					throw new ArgumentNullException("remoteEP", "Value cannot be null.");
+				}
+
+				e->curSocket = this;
+				e->Worker.Init(this, e, SocketOperation::SendTo);
+				SocketAsyncResult res = e->Worker.result;
+				res.Buffer = e->getBuffer();
+				res.Offset = e->getOffset();
+				res.Size = e->Count;
+				res.SockFlags = e->SocketFlags;
+				res.EndPoint = e->RemoteEndPoint;
+				int count;
+
+				lock (writeQ)
+				{
+					writeQ.Enqueue(e->Worker);
+					count = writeQ.Count;
+				}
+
+				if (count == 1)
+				{
+					socket_pool_queue(Worker.Dispatcher, res);
+				}
+
+				return true;
 			}
 
 			void Socket::Shutdown(SocketShutdown_t how)
 			{
+				if (disposed && closed)
+				{
+					throw new ObjectDisposedException(GetType ().ToString ());
+				}
+
+				if (!isConnected)
+				{
+					throw new SocketException(10057); // Not connected
+				}
+
+				int error;
+
 				// TODO: implement
+				Shutdown_internal(socket, how, out error);
+
+				if (error != 0)
+				{
+					throw new SocketException(error);
+				}
 			}
 		}
 	}
