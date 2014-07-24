@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Windows", "src\li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xnbbuild", "src\xnbbuild\xnbbuild.vcxproj", "{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsocket", "libsocket\libsocket.vcxproj", "{FC85E968-A227-460F-858B-06A3581A65E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +57,10 @@ Global
 		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Debug|Win32.Build.0 = Debug|Win32
 		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Release|Win32.ActiveCfg = Release|Win32
 		{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}.Release|Win32.Build.0 = Release|Win32
+		{FC85E968-A227-460F-858B-06A3581A65E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC85E968-A227-460F-858B-06A3581A65E0}.Debug|Win32.Build.0 = Debug|Win32
+		{FC85E968-A227-460F-858B-06A3581A65E0}.Release|Win32.ActiveCfg = Release|Win32
+		{FC85E968-A227-460F-858B-06A3581A65E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
