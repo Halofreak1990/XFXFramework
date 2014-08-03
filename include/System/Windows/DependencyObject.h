@@ -69,7 +69,7 @@ namespace System
 			void SetValue(DependencyProperty<T *> p, T * const value)
 			{
 				if (!dependencyProperties.ContainsKey(p.Name))
-					dependencyProperties.Add(p.Name, value)
+					dependencyProperties.Add(p.Name, value);
 				else
 					dependencyProperties[p.Name] = value;
 			}

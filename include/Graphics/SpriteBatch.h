@@ -11,6 +11,7 @@
 #include "DepthStencilState.h"
 #include "Effect.h"
 #include "Enums.h"
+#include "GraphicsResource.h"
 #include <Matrix.h>
 #include "RasterizerState.h"
 #include "SamplerState.h"
@@ -38,11 +39,9 @@ namespace XFX
 		/**
 		 * Enables a group of sprites to be drawn using the same settings.
 		 */
-		class SpriteBatch : public IDisposable, public Object
+		class SpriteBatch : public GraphicsResource, public Object
 		{
 		private:
-			GraphicsDevice* device;
-			bool isDisposed;
 			bool inBeginEndPair;
 			//SaveStateMode_t saveStateMode;
 			StateBlock* saveState;
@@ -58,23 +57,17 @@ namespace XFX
 			void restoreRenderState();
 			
 		protected:
-			virtual void Dispose(bool disposing);
+			void Dispose(bool disposing);
 			
 		public:
-			GraphicsDevice* getGraphicsDevice() const;
-			bool IsDisposed() const;
-
-			EventHandler Disposing;
-
 			SpriteBatch(GraphicsDevice * const graphicsDevice);
 			virtual ~SpriteBatch();
 			
 			void Begin();
 			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState);
 			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState);
-			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect* effect);
-			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect* effect, Matrix transformMatrix);
-			void Dispose();
+			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect * const effect);
+			void Begin(SpriteSortMode_t sortMode, const BlendState& blendState, const SamplerState& samplerState, const DepthStencilState& depthStencilState, const RasterizerState& rasterizerState, Effect * const effect, const Matrix transformMatrix);
 			void Draw(Texture2D * const texture, const Rectangle destinationRectangle, Color color);
 			void Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Nullable<Rectangle> sourceRectangle, Color color);
 			void Draw(Texture2D * const texture, const Vector2 position, const Color color);

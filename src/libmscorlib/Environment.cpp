@@ -71,6 +71,7 @@ namespace System
 #if ENABLE_XBOX
 	const char* Environment::NewLine = "\r\n";
 #else
+	const char* Environment::NewLine = "\n";
 #endif
 
 	OperatingSystem Environment::OSVersion()

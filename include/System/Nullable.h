@@ -21,6 +21,11 @@ namespace System
 		{
 		}
 
+		Nullable(T const * const newData)
+			: data(const_cast<T*>(newData))
+		{
+		}
+
 		Nullable(const Nullable<T> &obj)
 			: data(obj.data)
 		{

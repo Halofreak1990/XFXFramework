@@ -62,7 +62,9 @@ namespace XFX
 		void GraphicsResource::Dispose(bool disposing)
 		{
 			if(isDisposed)
+			{
 				return;
+			}
 
 			isDisposed = true;
 

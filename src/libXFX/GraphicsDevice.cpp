@@ -215,10 +215,12 @@ namespace XFX
 			{
 				// clear the depth buffer
 			}
+
 			if ((options & ClearOptions::Stencil) != 0)
 			{
 				// clear the stencil buffer
 			}
+
 			if ((options & ClearOptions::Target) != 0)
 			{
 				// clear the current render target

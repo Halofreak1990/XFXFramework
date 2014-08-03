@@ -2,13 +2,13 @@
 # update this variable to wherever you installed the OpenXDK libraries
 #
 #########################################################################
-PREFIX = /openxdk
+PREFIX = /usr/local/openxdk
 
-CC = xbox-gcc
-CCAS = xbox-gcc
-CPP  = xbox-g++
-AR = xbox-ar rcu
-RANLIB = xbox-ranlib
+CC = gcc
+CCAS = gcc
+CPP  = g++
+AR = ar rcu
+RANLIB = ranlib
 CXBE = $(PREFIX)/bin/cxbe
 
 SDLFLAGS = -DENABLE_XBOX -DDEBUG

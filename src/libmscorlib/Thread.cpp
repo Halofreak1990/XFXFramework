@@ -31,21 +31,21 @@ namespace System
 {
 	namespace Threading
 	{
-		ULONG Thread::Id = 0;
-		
+		ULONG Thread::GlobalId = 0;
+
 		void Thread::Thread_init()
 		{
-			PsCreateSystemThreadEx(&system_thread_handle,	//Thread Handle
-													   0,	//KernelStackSize
-									   		  stack_size,	//Stack Size
-									   				   0,	//TlsDataSize
-									   		  		 &Id,	//Thread ID
-									   		 		NULL,	//StartContext1
-									   		 		NULL,	//StartContext2
-									   		 		TRUE,	//CreateSuspended
-									   			   FALSE,	//DebugStack
-						   (PKSTART_ROUTINE)&callback);		//StartRoutine
-						   
+			PsCreateSystemThreadEx(&system_thread_handle,	// Thread Handle
+													   0,	// KernelStackSize
+											  stack_size,	// Stack Size
+													   0,	// TlsDataSize
+													 &Id,	// Thread ID
+													NULL,	// StartContext1
+													NULL,	// StartContext2
+													TRUE,	// CreateSuspended
+												   FALSE,	// DebugStack
+							(PKSTART_ROUTINE)&callback);	// StartRoutine
+
 			ObReferenceObjectByHandle(system_thread_handle, (POBJECT_TYPE)PsThreadObjectType, &system_thread_handle);
 
 			//#define LOW_PRIORITY                      0
@@ -54,10 +54,10 @@ namespace System
 			//#define MAXIMUM_PRIORITY                  32
 
 			KeSetBasePriorityThread((PKTHREAD)system_thread_handle, (PVOID)0); //Default the thread to low priority
-			
+
 			state = ThreadState::Unstarted;
-			
-			Id++; //increment Id so every thread Id is unique
+
+			Id = GlobalId++; //increment Id so every thread Id is unique
 		}
 		
 		void Thread::Abort()
@@ -76,8 +76,10 @@ namespace System
 		Thread::Thread(PKSTART_ROUTINE callBack, int stackSize)
 		{
 			if(stackSize < 131072)
+			{
 				stack_size = 65536; //Default stack size is 65536, which should be enough, unless there is need for a > 128k stack.
-				
+			}
+
 			stack_size = stackSize;
 			callback = callBack;
 			Thread_init();
@@ -91,17 +93,21 @@ namespace System
 		
 		void Thread::SetPriority(int priority)
 		{
-			if((priority != 0) && (priority != 16) && (priority != 31) && (priority != 32))
+			if ((priority != 0) && (priority != 16) && (priority != 31) && (priority != 32))
+			{
 				return; //no valid values
-				
+			}
+
 			ObReferenceObjectByHandle(system_thread_handle, (POBJECT_TYPE)PsThreadObjectType, &system_thread_handle);
 			KeSetBasePriorityThread((PKTHREAD)system_thread_handle, (PVOID)priority);
 		}
 		
 		void Thread::Sleep(int millisecondsTimeout)
 		{
-			if(millisecondsTimeout <= 0)
+			if (millisecondsTimeout <= 0)
+			{
 				return; //no reason to sleep. We could also throw an ArgumentOutOfRangeException, but what's the point in that?
+			}
 
 			LARGE_INTEGER pli;
 
@@ -113,7 +119,9 @@ namespace System
 		void Thread::Sleep(TimeSpan timeout)
 		{
 			if(timeout == TimeSpan::Zero)
+			{
 				return; //! no reason to sleep
+			}
 
 			LARGE_INTEGER pli;
 

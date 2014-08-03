@@ -53,8 +53,8 @@ namespace XFX
 		const Type SpriteBatchTypeInfo("SpriteBatch", "XFX::Graphics::SpriteBatch", TypeCode::Object);
 
 		SpriteBatch::SpriteBatch(GraphicsDevice * const graphicsDevice)
-			: device(graphicsDevice)
 		{
+			this->graphicsDevice = graphicsDevice;
 		}
 
 		SpriteBatch::~SpriteBatch()
@@ -62,16 +62,6 @@ namespace XFX
 			Dispose(false);
 		}
 
-		GraphicsDevice* SpriteBatch::getGraphicsDevice() const
-		{
-			return device;
-		}
-		
-		bool SpriteBatch::IsDisposed() const
-		{
-			return isDisposed;
-		}
-	
 		void SpriteBatch::Begin() 
 		{ 
 			Begin(SpriteSortMode::Deferred, BlendState::AlphaBlend); 
@@ -97,43 +87,41 @@ namespace XFX
 			sassert(!inBeginEndPair, "Begin cannot be called again until End has been successfully called.");
 
 			spriteSortMode = sortMode;
+
 			if (sortMode == SpriteSortMode::Immediate)
 			{
 				applyGraphicsDeviceSettings();
 			}
+
 			inBeginEndPair = true;
 		}
-         
+
 		void SpriteBatch::Dispose(bool disposing)
 		{
-			if (disposing && !isDisposed)
+			if (disposing && !IsDisposed())
 			{
-				Disposing(this, EventArgs::Empty);
+				// TODO: dispose of resources
 			}
-			isDisposed = true;
+
+			GraphicsResource::Dispose(disposing);
 		}
-         
-		void SpriteBatch::Dispose()
-		{
-			Dispose(true);
-		}
-         
+
 		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Color color)
 		{
-			Draw(texture, destinationRectangle, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
+			Draw(texture, destinationRectangle, NULL, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
 		}
 
 		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Color color)
 		{
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width, texture->Height);
-			Draw(texture, destination, Rectangle::Empty, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
+			Draw(texture, destination, NULL, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
 		}
-         
+
 		void SpriteBatch::Draw(Texture2D * const texture, const Rectangle destinationRectangle, const Nullable<Rectangle> sourceRectangle, const Color color)
 		{
 			Draw(texture, destinationRectangle, sourceRectangle, color, 0.0f, Vector2::Zero, SpriteEffects::None, 0.0f);
 		}
-        
+
 		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color)
 		{
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, texture->Width, texture->Height);
@@ -154,13 +142,16 @@ namespace XFX
 			SpriteList.Add(sprite);
 
 			if (spriteSortMode == SpriteSortMode::Immediate)
+			{
 				Flush(); 
+			}
 		}
 
 		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const Vector2 scale, const SpriteEffects_t effects, const float layerDepth)
 		{ 
 			int width;
 			int height;
+
 			if (sourceRectangle.HasValue())
 			{
 				width = (int)(sourceRectangle.getValue().Width * scale.X);
@@ -171,14 +162,16 @@ namespace XFX
 				width = (int)(texture->Width * scale.X);
 				height = (int)(texture->Height * scale.Y);
 			}
+
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth); 
 		}
-        
+
 		void SpriteBatch::Draw(Texture2D * const texture, const Vector2 position, const Nullable<Rectangle> sourceRectangle, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
 		{
 			int width;
 			int height;
+
 			if (sourceRectangle.HasValue())
 			{
 				width = (int)(sourceRectangle.getValue().Width * scale);
@@ -189,12 +182,13 @@ namespace XFX
 				width = (int)(texture->Width * scale);
 				height = (int)(texture->Height * scale);
 			}
+
 			Rectangle destination = Rectangle((int)position.X, (int)position.Y, width, height);
 			Draw(texture, destination, sourceRectangle, color, rotation, origin, effects, layerDepth);
 		}
-        
+
 		void SpriteBatch::DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color)
-		{            
+		{
 			spriteFont->Draw(text, this, position, color, 0.0f, Vector2::Zero, Vector2::One, SpriteEffects::None, 0.0f); 
 		}
 
@@ -202,7 +196,7 @@ namespace XFX
 		{
 			spriteFont->Draw(text, this, position, color, rotation, origin, scale, effects, layerDepth);
 		}
-        
+
 		void SpriteBatch::DrawString(SpriteFont * const spriteFont, String& text, const Vector2 position, const Color color, const float rotation, const Vector2 origin, const float scale, const SpriteEffects_t effects, const float layerDepth)
 		{
 			Vector2 vector = Vector2::Zero;
@@ -210,9 +204,9 @@ namespace XFX
 			vector.Y = scale; 
 			spriteFont->Draw(text, this, position, color, rotation, origin, vector, effects, layerDepth); 
 		}
-        
+
 		void SpriteBatch::End() 
-		{ 
+		{
 			sassert(inBeginEndPair, "Begin must be called successfully before End can be called.");
 			
 			if (spriteSortMode != SpriteSortMode::Immediate)
@@ -226,7 +220,7 @@ namespace XFX
 			glPopMatrix();
 			glMatrixMode(GL_MODELVIEW);
 			glPopMatrix();*/
-			
+
 			restoreRenderState(); 
 
 			inBeginEndPair = false;

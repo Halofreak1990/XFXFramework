@@ -3,7 +3,7 @@
 #
 #########################################################################
 PREFIX = /usr/local/openxdk
-XFX_PREFIX = /cygdrive/j/XFX
+XFX_PREFIX = /usr/local/XFX
 
 CC = gcc
 CCAS = gcc

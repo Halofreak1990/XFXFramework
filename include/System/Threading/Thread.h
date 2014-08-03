@@ -25,7 +25,8 @@ namespace System
 			HANDLE system_thread_handle;
 			PKSTART_ROUTINE callback;
 			int stack_size;
-			static ULONG Id;
+			static ULONG GlobalId;
+			ULONG Id;
 			PULONG suspendCount;
 			
 			ThreadState_t state;
@@ -34,25 +35,25 @@ namespace System
 			void Thread_init();
 			
 		public:
-			//Creates a new instance of the Thread class with the specified callback function, but doesn't start yet.
+			// Initializes a new instance of the Thread class with the specified callback function, but doesn't start yet.
 			Thread(PKSTART_ROUTINE callBack);
-			//Creates a new instance of the Thread class with the specified callback function and stack size, but doesn't start yet.
+			// Initializes a new instance of the Thread class with the specified callback function and stack size, but doesn't start yet.
 			Thread(PKSTART_ROUTINE callBack, int stackSize);
 			~Thread();
 			
 			void Abort();
 			void Interrupt();
-			//Returns a value indicating whether the thread is running
+			// Returns a value indicating whether the thread is running
 			bool IsAlive();
-			//Resumes a previously suspended thread.
+			// Resumes a previously suspended thread.
 			void Resume();
-			//Set the thread priority, valid values are 0 (Low), 16 (Low_RealTime), 31 (High), 32 (Maximum)
+			// Set the thread priority, valid values are 0 (Low), 16 (Low_RealTime), 31 (High), 32 (Maximum)
 			void SetPriority(int priority);
 			static void Sleep(int millisecondsTimeout);
 			static void Sleep(TimeSpan timeout);
-			//Start executing the thread.
+			// Start executing the thread.
 			void Start();
-			//Suspend the thread execution, call Thread::Resume() to resume the thread.
+			// Suspend the thread execution, call Thread::Resume() to resume the thread.
 			void Suspend();
 		};
 	}
