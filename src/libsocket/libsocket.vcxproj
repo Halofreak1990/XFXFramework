@@ -37,7 +37,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakeOutput>libsocket.a</NMakeOutput>
-    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakePreprocessorDefinitions>ENABLE_XBOX</NMakePreprocessorDefinitions>
+    <NMakeIncludeSearchPath>C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include\SDL;..\..\include;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+    <NMakeBuildCommandLine>make all 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>make rebuild 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>make clean 2&gt;&amp;1 | sed -e %27s/\(\w\+\):\([0-9]\+\):/\1(\2):/%27</NMakeCleanCommandLine>
+    <IncludePath>C:\cygwin\usr\include;C:\cygwin\usr\local\openxdk\i386-pc-xbox\include;C:\cygwin\usr\local\openxdk\include;C:\cygwin\usr\local\openxdk\include\SDL;$(SolutionDir)include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeOutput>libsocket.a</NMakeOutput>
@@ -47,7 +52,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\addr2ascii.c" />
+    <ClCompile Include="src\arp.c" />
     <ClCompile Include="src\ascii2addr.c" />
+    <ClCompile Include="src\detect_ping.c" />
     <ClCompile Include="src\inet_addr.c" />
     <ClCompile Include="src\inet_lnaof.c" />
     <ClCompile Include="src\inet_makeaddr.c" />
@@ -55,10 +62,18 @@
     <ClCompile Include="src\inet_net_pton.c" />
     <ClCompile Include="src\inet_ntoa.c" />
     <ClCompile Include="src\nsap_addr.c" />
+    <ClCompile Include="src\pktdrv.c" />
     <ClCompile Include="src\recv.c" />
     <ClCompile Include="src\send.c" />
     <ClCompile Include="src\sockatmark.c" />
     <ClCompile Include="src\sourcefilter.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\cbuf.h" />
+    <ClInclude Include="src\ethernet.h" />
+    <ClInclude Include="src\if.h" />
+    <ClInclude Include="src\net.h" />
+    <ClInclude Include="src\pktdrv.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

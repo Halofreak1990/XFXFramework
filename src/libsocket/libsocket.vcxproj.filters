@@ -54,5 +54,31 @@
     <ClCompile Include="src\inet_net_pton.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\detect_ping.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pktdrv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\arp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\pktdrv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\if.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ethernet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cbuf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -21,7 +21,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libSystem.Windows", "src\li
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xnbbuild", "src\xnbbuild\xnbbuild.vcxproj", "{E5F1599D-C9FE-4EFB-97B6-13B46D4A1E35}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsocket", "libsocket\libsocket.vcxproj", "{FC85E968-A227-460F-858B-06A3581A65E0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsocket", "src\libsocket\libsocket.vcxproj", "{FC85E968-A227-460F-858B-06A3581A65E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

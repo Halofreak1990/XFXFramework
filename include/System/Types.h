@@ -40,6 +40,9 @@ namespace System
 #define __attribute__(x)
 #endif
 
+// Structure packing
+#define PACKED __attribute__((packed))
+
 // Aligning Data types
 //
 #define ALIGNED4 __attribute__((aligned (4)))
@@ -53,5 +56,7 @@ namespace System
 #define FORMAT(x...) __attribute__((format(x)))
 #define NONNULL(x...) __attribute__((nonnull(x)))
 #endif
+
+#define DEPRECATED __attribute__((deprecated))
 
 #endif //_SYSTEM_TYPES_
