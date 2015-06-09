@@ -22,12 +22,6 @@ namespace System
 	private:
 		List<Base*> mPtrs;
 
-		// Can't allow copying unless we modify the class to make a deep
-		// copy of each of the pointers it holds. Base class would need 
-		// a virtual Clone() method to allow polymorphic copying.
-		Event(const Event&);
-		Event& operator=(const Event&);
-
 	public:
 		template <typename Class>
 		class T : public Base
@@ -67,6 +61,11 @@ namespace System
 	public:
 		Event() {}
 
+		Event(const Event& obj)
+			: mPtrs(obj.mPtrs)
+		{
+		}
+
 		Event& operator+=(Base* aPtr)
 		{
 			mPtrs.Add(aPtr);
@@ -84,8 +83,22 @@ namespace System
 			for (int i = 0; i < mPtrs.Count(); i++)
 			{
 				if (mPtrs[i] != null)
+				{
 					(*(mPtrs[i]))(arg1, arg2);
+				}
 			}
+		}
+
+		Event& operator =(const Event& right)
+		{
+			if (right == *this)
+			{
+				return *this;
+			}
+
+			mPtrs = right.mPtrs;
+
+			return *this;
 		}
 	};
 
