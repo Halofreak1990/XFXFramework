@@ -336,6 +336,11 @@ namespace System
 		return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
 	}
 
+	DateTime DateTime::Now()
+	{
+		// TODO: take UtcNow and convert to local time
+	}
+
 	TimeSpan DateTime::Subtract(const DateTime value)
 	{
 		return TimeSpan(Ticks()) - TimeSpan(value.Ticks());
@@ -351,6 +356,18 @@ namespace System
 		DateTime ret = DateTime(newticks);
 		ret.encoded |= (encoded & KindMask);
 		return ret;
+	}
+
+	DateTime DateTime::Today()
+	{
+		LARGE_INTEGER systemTime;
+		TIME_FIELDS time;
+
+		KeQuerySystemTime(&systemTime);
+
+		RtlTimeToTimeFields(&systemTime, &time);
+
+		return DateTime(time.Year, time.Month, time.Day, 0, 0, 0, DateTimeKind::Local);
 	}
 
 	long long DateTime::ToFileTime()
@@ -416,7 +433,7 @@ namespace System
 
 		RtlTimeToTimeFields(&systemTime, &time);
 
-		return DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
+		return DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, DateTimeKind::Utc);
 	}
 
 	DateTime DateTime::operator +(TimeSpan other)
